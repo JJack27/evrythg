@@ -1,0 +1,850 @@
+http://www.atmos.washington.edu/~dennis/MatrixCalculus.pdf
+Matrix Diﬀerentiation
+( and some other stuﬀ )
+Randal J. Barnes
+Department of Civil Engineering, University of Minnesota
+Minneapolis, Minnesota, USA
+
+1
+
+Introduction
+
+Throughout this presentation I have chosen to use a symbolic matrix notation. This choice
+was not made lightly. I am a strong advocate of index notation, when appropriate. For
+example, index notation greatly simpliﬁes the presentation and manipulation of diﬀerential
+geometry. As a rule-of-thumb, if your work is going to primarily involve diﬀerentiation
+with respect to the spatial coordinates, then index notation is almost surely the appropriate
+choice.
+In the present case, however, I will be manipulating large systems of equations in which
+the matrix calculus is relatively simply while the matrix algebra and matrix arithmetic is
+messy and more involved. Thus, I have chosen to use symbolic notation.
+
+2
+
+Notation and Nomenclature
+
+Deﬁnition 1 Let aij ∈ R, i = 1, 2, . . . , m, j = 1, 2, . . . , n. Then the ordered rectangular
+array
+
+
+a11 a12 · · · a1n
+
+
+ a21 a22 · · · a2n 
+A= .
+(1)
+.
+. 
+ .
+.
+. 
+.
+.
+. 
+
+am1 am2 · · · amn
+is said to be a real matrix of dimension m × n.
+When writing a matrix I will occasionally write down its typical element as well as its
+dimension. Thus,
+A = [aij ] ,
+i = 1, 2, . . . , m; j = 1, 2, . . . , n,
+(2)
+denotes a matrix with m rows and n columns, whose typical element is aij . Note, the ﬁrst
+subscript locates the row in which the typical element lies while the second subscript locates
+the column. For example, ajk denotes the element lying in the jth row and kth column of
+the matrix A.
+Deﬁnition 2 A vector is a matrix with only one column. Thus, all vectors are inherently
+column vectors.
+Convention 1
+Multi-column matrices are denoted by boldface uppercase letters: for example, A, B, X.
+Vectors (single-column matrices) are denoted by boldfaced lowercase letters: for example,
+a, b, x. I will attempt to use letters from the beginning of the alphabet to designate known
+matrices, and letters from the end of the alphabet for unknown or variable matrices.
+1
+
+CE 8361
+
+Spring 2006
+
+Convention 2
+When it is useful to explicitly attach the matrix dimensions to the symbolic notation, I will
+use an underscript. For example, A , indicates a known, multi-column matrix with m rows
+m×n
+
+and n columns.
+A superscript T denotes the matrix transpose operation; for example, AT denotes the
+transpose of A. Similarly, if A has an inverse it will be denoted by A−1 . The determinant
+of A will be denoted by either |A| or det(A). Similarly, the rank of a matrix A is denoted by
+rank(A). An identity matrix will be denoted by I, and 0 will denote a null matrix.
+
+3
+
+Matrix Multiplication
+
+Deﬁnition 3 Let A be m × n, and B be n × p, and let the product AB be
+C = AB
+
+(3)
+
+then C is a m × p matrix, with element (i, j) given by
+n
+
+cij =
+
+(4)
+
+aik bkj
+k=1
+
+for all i = 1, 2, . . . , m,
+
+j = 1, 2, . . . , p.
+
+Proposition 1 Let A be m × n, and x be n × 1, then the typical element of the product
+z = Ax
+
+(5)
+
+is given by
+n
+
+(6)
+
+aik xk
+
+zi =
+k=1
+
+for all i = 1, 2, . . . , m. Similarly, let y be m × 1, then the typical element of the product
+zT = yT A
+
+(7)
+
+is given by
+n
+
+zi =
+
+aki yk
+
+(8)
+
+k=1
+
+for all i = 1, 2, . . . , n. Finally, the scalar resulting from the product
+α = yT Ax
+
+(9)
+
+is given by
+m
+
+n
+
+α=
+
+ajk yj xk
+
+(10)
+
+j=1 k=1
+
+Proof: These are merely direct applications of Deﬁnition 3. q.e.d.
+
+2
+
+CE 8361
+
+Spring 2006
+
+Proposition 2 Let A be m × n, and B be n × p, and let the product AB be
+C = AB
+
+(11)
+
+CT = BT AT
+
+(12)
+
+then
+Proof: The typical element of C is given by
+n
+
+aik bkj
+
+cij =
+
+(13)
+
+k=1
+
+By deﬁnition, the typical element of CT , say dij , is given by
+n
+
+ajk bki
+
+dij = cji =
+
+(14)
+
+k=1
+
+Hence,
+CT = BT AT
+
+(15)
+
+q.e.d.
+Proposition 3 Let A and B be n × n and invertible matrices. Let the product AB be given
+by
+C = AB
+(16)
+then
+C−1 = B−1 A−1
+
+(17)
+
+CB−1 A−1 = ABB−1 A−1 = I
+
+(18)
+
+Proof:
+q.e.d.
+
+4
+
+Partioned Matrices
+
+Frequently, I will ﬁnd it convenient to deal with partitioned matrices 1 . Such a representation,
+and the manipulation of this representation, are two of the relative advantages of the symbolic
+matrix notation.
+Deﬁnition 4 Let A be m × n and write
+A=
+
+B C
+D E
+
+(19)
+
+where B is m1 ×n1 , E is m2 ×n2 , C is m1 ×n2 , D is m2 ×n1 , m1 +m2 = m, and n1 +n2 = n.
+The above is said to be a partition of the matrix A.
+1
+
+Much of the material in this section is extracted directly from Dhrymes (1978, Section 2.7).
+
+3
+
+CE 8361
+
+Spring 2006
+
+Proposition 4 Let A be a square, nonsingular matrix of order m. Partition A as
+A11 A12
+
+A=
+
+(20)
+
+A21 A22
+
+so that A11 is a nonsingular matrix of order m1 , A22 is a nonsingular matrix of order m2 ,
+and m1 + m2 = m. Then
+A
+
+−1
+
+=
+
+A11 − A12 A−1 A21
+22
+
+−1
+
+−A−1 A12 A22 − A21 A−1 A12
+11
+11
+
+−A−1 A21 A11 − A12 A−1 A21
+22
+22
+
+−1
+
+A22 − A21 A−1 A12
+11
+
+−1
+
+−1
+
+(21)
+
+Proof: Direct multiplication of the proposed A−1 and A yields
+A−1 A = I
+
+(22)
+
+q.e.d.
+
+5
+
+Matrix Diﬀerentiation
+
+In the following discussion I will diﬀerentiate matrix quantities with respect to the elements
+of the referenced matrices. Although no new concept is required to carry out such operations,
+the element-by-element calculations involve cumbersome manipulations and, thus, it is useful
+to derive the necessary results and have them readily available 2 .
+Convention 3
+Let
+y = ψ(x),
+where y is an m-element vector, and x is an n-element
+ ∂y
+∂y1
+1
+···
+∂x1
+∂x
+ ∂y2 ∂y2
+2
+∂y  ∂x1 ∂x2 · · ·
+= .
+.
+.
+∂x  .
+.
+ .
+∂ym
+∂x1
+
+∂ym
+∂x2
+
+···
+
+(23)
+vector. The symbol
+
+∂y
+1
+
+∂xn
+∂y2
+∂xn
+
+.
+.
+.
+
+∂ym
+∂xn
+
+
+
+
+
+
+
+(24)
+
+will denote the m × n matrix of ﬁrst-order partial derivatives of the transformation from x
+to y. Such a matrix is called the Jacobian matrix of the transformation ψ().
+Notice that if x is actually a scalar in Convention 3 then the resulting Jacobian matrix
+is a m × 1 matrix; that is, a single column (a vector). On the other hand, if y is actually a
+scalar in Convention 3 then the resulting Jacobian matrix is a 1 × n matrix; that is, a single
+row (the transpose of a vector).
+Proposition 5 Let
+y = Ax
+
+(25)
+
+2
+
+Much of the material in this section is extracted directly from Dhrymes (1978, Section 4.3). The
+interested reader is directed to this worthy reference to ﬁnd additional results.
+
+4
+
+CE 8361
+
+Spring 2006
+
+where y is m × 1, x is n × 1, A is m × n, and A does not depend on x, then
+∂y
+=A
+∂x
+
+(26)
+
+Proof: Since the ith element of y is given by
+n
+
+aik xk
+
+yi =
+
+(27)
+
+k=1
+
+it follows that
+∂yi
+= aij
+∂xj
+for all i = 1, 2, . . . , m,
+
+(28)
+
+j = 1, 2, . . . , n. Hence
+∂y
+=A
+∂x
+
+(29)
+
+y = Ax
+
+(30)
+
+q.e.d.
+Proposition 6 Let
+where y is m × 1, x is n × 1, A is m × n, and A does not depend on x, as in Proposition 5.
+Suppose that x is a function of the vector z, while A is independent of z. Then
+∂x
+∂y
+=A
+∂z
+∂z
+
+(31)
+
+Proof: Since the ith element of y is given by
+n
+
+yi =
+
+aik xk
+
+(32)
+
+k=1
+
+for all i = 1, 2, . . . , m, it follows that
+∂yi
+=
+∂zj
+
+n
+
+aik
+k=1
+
+∂xk
+∂zj
+
+(33)
+
+but the right hand side of the above is simply element (i, j) of A ∂x . Hence
+∂z
+∂y
+∂y ∂x
+∂x
+=
+=A
+∂z
+∂x ∂z
+∂z
+
+(34)
+
+q.e.d.
+Proposition 7 Let the scalar α be deﬁned by
+α = yT Ax
+
+(35)
+
+where y is m × 1, x is n × 1, A is m × n, and A is independent of x and y, then
+∂α
+= yT A
+∂x
+
+(36)
+5
+
+CE 8361
+
+Spring 2006
+
+and
+
+∂α
+= xT AT
+∂y
+
+(37)
+
+wT = yT A
+
+(38)
+
+α = wT x
+
+(39)
+
+∂α
+= wT = yT A
+∂x
+
+(40)
+
+Proof: Deﬁne
+and note that
+Hence, by Proposition 5 we have that
+
+which is the ﬁrst result. Since α is a scalar, we can write
+α = αT = xT AT y
+
+(41)
+
+and applying Proposition 5 as before we obtain
+∂α
+= xT AT
+∂y
+
+(42)
+
+q.e.d.
+Proposition 8 For the special case in which the scalar α is given by the quadratic form
+α = xT Ax
+
+(43)
+
+where x is n × 1, A is n × n, and A does not depend on x, then
+∂α
+= xT A + AT
+∂x
+
+(44)
+
+Proof: By deﬁnition
+n
+
+n
+
+aij xi xj
+
+α=
+
+(45)
+
+j=1 i=1
+
+Diﬀerentiating with respect to the kth element of x we have
+∂α
+=
+∂xk
+
+n
+
+n
+
+akj xj +
+j=1
+
+aik xi
+
+(46)
+
+i=1
+
+for all k = 1, 2, . . . , n, and consequently,
+∂α
+= xT AT + xT A = xT AT + A
+∂x
+
+(47)
+
+q.e.d.
+
+6
+
+CE 8361
+
+Spring 2006
+
+Proposition 9 For the special case where A is a symmetric matrix and
+α = xT Ax
+
+(48)
+
+where x is n × 1, A is n × n, and A does not depend on x, then
+∂α
+= 2xT A
+∂x
+
+(49)
+
+Proof: This is an obvious application of Proposition 8. q.e.d.
+Proposition 10 Let the scalar α be deﬁned by
+α = yT x
+
+(50)
+
+where y is n × 1, x is n × 1, and both y and x are functions of the vector z. Then
+∂α
+∂y
+∂x
+= xT
++ yT
+∂z
+∂z
+∂z
+Proof: We have
+
+(51)
+
+n
+
+α=
+
+xj yj
+
+(52)
+
+j=1
+
+Diﬀerentiating with respect to the kth element of z we have
+∂α
+=
+∂zk
+
+n
+
+xj
+j=1
+
+∂yj
+∂xj
++ yj
+∂zk
+∂zk
+
+(53)
+
+for all k = 1, 2, . . . , n, and consequently,
+∂α
+∂α ∂y ∂α ∂x
+∂y
+∂x
+=
++
+= xT
++ yT
+∂z
+∂y ∂z ∂x ∂z
+∂z
+∂z
+
+(54)
+
+q.e.d.
+Proposition 11 Let the scalar α be deﬁned by
+α = xT x
+
+(55)
+
+where x is n × 1, and x is a function of the vector z. Then
+∂α
+∂x
+= 2xT
+∂z
+∂z
+
+(56)
+
+Proof: This is an obvious application of Proposition 10. q.e.d.
+Proposition 12 Let the scalar α be deﬁned by
+α = yT Ax
+
+(57)
+
+where y is m × 1, x is n × 1, A is m × n, and both y and x are functions of the vector z,
+while A does not depend on z. Then
+∂y
+∂x
+∂α
+= xT AT
++ yT A
+∂z
+∂z
+∂z
+
+(58)
+7
+
+CE 8361
+
+Spring 2006
+
+Proof: Deﬁne
+wT = yT A
+
+(59)
+
+α = wT x
+
+(60)
+
+∂α
+∂w
+∂x
+= xT
++ wT
+∂z
+∂z
+∂z
+
+(61)
+
+and note that
+Applying Propositon 10 we have
+
+Substituting back in for w we arrive at
+∂α ∂y ∂α ∂x
+∂x
+∂α
+∂y
+=
++
+= x T AT
++ yT A
+∂z
+∂y ∂z ∂x ∂z
+∂z
+∂z
+
+(62)
+
+q.e.d.
+Proposition 13 Let the scalar α be deﬁned by the quadratic form
+α = xT Ax
+
+(63)
+
+where x is n × 1, A is n × n, and x is a function of the vector z, while A does not depend
+on z. Then
+∂α
+∂x
+= xT A + AT
+(64)
+∂z
+∂z
+Proof: This is an obvious application of Proposition 12. q.e.d.
+Proposition 14 For the special case where A is a symmetric matrix and
+α = xT Ax
+
+(65)
+
+where x is n × 1, A is n × n, and x is a function of the vector z, while A does not depend
+on z. Then
+∂x
+∂α
+= 2xT A
+(66)
+∂z
+∂z
+Proof: This is an obvious application of Proposition 13. q.e.d.
+Deﬁnition 5 Let A be a m×n matrix whose elements are functions of the scalar parameter
+α. Then the derivative of the matrix A with respect to the scalar parameter α is the m × n
+matrix of element-by-element derivatives:
+ ∂a
+
+∂a12
+11
+· · · ∂a1n
+∂α
+∂α
+∂α
+ ∂a21 ∂a22
+
+· · · ∂a2n 
+∂A  ∂α
+∂α
+∂α 
+ .
+(67)
+=
+.
+. 
+.
+. 
+∂α  .
+.
+.
+ .
+∂am1
+∂α
+
+∂am2
+∂α
+
+···
+
+∂amn
+∂α
+
+Proposition 15 Let A be a nonsingular, m × m matrix whose elements are functions of
+the scalar parameter α. Then
+∂A −1
+∂A−1
+= −A−1
+A
+(68)
+∂α
+∂α
+8
+
+CE 8361
+
+Spring 2006
+
+Proof: Start with the deﬁnition of the inverse
+A−1 A = I
+
+(69)
+
+and diﬀerentiate, yielding
+∂A ∂A−1
++
+A=0
+∂α
+∂α
+
+(70)
+
+∂A−1
+∂A −1
+= −A−1
+A
+∂α
+∂α
+
+(71)
+
+A−1
+rearranging the terms yields
+
+q.e.d.
+
+6
+
+References
+• Dhrymes, Phoebus J., 1978, Mathematics for Econometrics, Springer-Verlag, New
+York, 136 pp.
+• Golub, Gene H., and Charles F. Van Loan, 1983, Matrix Computations, Johns
+Hopkins University Press, Baltimore, Maryland, 476 pp.
+• Graybill, Franklin A., 1983, Matrices with Applications in Statistics, 2nd Edition,
+Wadsworth International Group, Belmont, California, 461 pp.
+
+9
+
+
