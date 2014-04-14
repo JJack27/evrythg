@@ -1,0 +1,1133 @@
+https://www.moodle.tum.de/pluginfile.php/358831/mod_resource/content/1/l2_slide_regression.pdf
+Machine Learning in Robotics
+Lecture 2: Regression
+Prof. Dongheui Lee
+Institute of Automatic Control Engineering
+¨
+Technische Universitat Munchen
+¨
+dhlee@tum.de
+
+http://www.lsr.ei.tum.de/
+
+Regression problems
+
+•
+
+The goal is to make quantitative (real valued) predictions
+on the basis of a vector of features or attributes
+
+•
+
+Examples: house prices, stock values, survival time, fuel
+efﬁciency of cars, etc.
+
+•
+
+Questions: What can we assume about the problem? how
+do we formalize the regression problem? how do we
+evaluate predictions?
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+2
+
+Linear Regression
+•
+
+Linear regression assumes that expected value of the
+output given an input is linear.
+y(i) = wx(i) +
+input x
+1
+2
+3
+4
+1.5
+
+(1)
+
+output y
+1
+2
+2.2
+3.1
+1.9
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+3
+
+Linear Least Squares Regression : Single
+Parameter
+•
+
+Which value of w makes the
+output values most likely?
+
+•
+
+One that minimizes sum of
+squares of residuals.
+E=
+
+1
+n
+
+n
+
+(y(i) − wx(i) )2
+
+i=1
+
+w=
+•
+
+We can use it for prediction.
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+4
+
+Linear Least Squares Regression : Single
+Parameter
+•
+
+Which value of w makes the
+output values most likely?
+
+•
+
+One that minimizes sum of
+squares of residuals.
+E=
+w=
+
+•
+
+1
+n
+
+n
+
+(y(i) − wx(i) )2
+
+i=1
+n
+(i) (i)
+i=1 x y
+n
+(i) 2
+i=1 x
+
+We can use it for prediction.
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+5
+
+Linear Least Squares Regression
+We need to deﬁne a class of functions (types of predictions we
+will try to make) such as linear predictions:
+f (x) = w0 − w1 x
+
+(2)
+
+where w0 and w1 are the parameters we need to set.
+We need an estimation criterion so as to be able to select
+appropriate values for our parameters (w 0 and w1 ) based on the
+training set {(x(i) , y(i) ), . . . , (x(n) , y(n) )}
+For example, we can use the empirical loss:
+E=
+
+Introduction
+
+1
+n
+
+n
+
+(y(i) − wx(i) )2
+
+(3)
+
+i=1
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+6
+
+Estimating the parameters
+•
+
+We minimize the empirical squared loss
+1
+E=
+n
+1
+=
+n
+
+•
+
+n
+i=1
+n
+
+(y(i) − f (x(i) ))2
+(4)
+(y(i) − w0 − w1 x(i) )2
+
+i=1
+
+By setting the derivatives with respect to w0 and w1 to zero
+we get necessary conditions for the optimal parameter
+values
+∂
+E=0
+∂w0
+(5)
+∂
+E=0
+∂w1
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+7
+
+Estimating the parameters
+•
+
+•
+
+By setting the derivatives with respect to w0 and w1 to zero
+∂
+E=0
+∂w0
+(6)
+∂
+E=0
+∂w1
+we get necessary conditions for the optimal parameter
+values
+w0 =
+
+n
+
+x(i) y(i) − x(i) y(i)
+n x(i)2 − ( x(i) )2
+y(i) x(i) − x(i) x(i) y(i)
+n x(i)2 − ( x(i) )2
+
+(7)
+
+2
+
+w1 =
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+.
+
+Application
+
+8
+
+Linear regression problem with multiple
+variables
+We can express the solution a bit more generally by resorting to
+a matrix notation
+⎡ (1) ⎤ ⎡
+(1)
+1 x1
+x
+⎢
+⎢x(2) ⎥ ⎢1 x(2)
+⎥
+⎢
+1
+X=⎢ . ⎥=⎢
+. ⎦ ⎢
+⎣ .
+⎣
+x(n)
+
+(n)
+
+1 x1
+
+(1)
+
+x2
+(2)
+x2
+.
+.
+.
+(n)
+
+x2
+
+⎤
+(1)
+· · · xm
+(2) ⎥
+· · · xm ⎥
+⎥
+⎥
+⎦
+(n)
+· · · xm
+
+⎤
+y(1)
+⎢y(2) ⎥
+⎢ ⎥
+y=⎢ . ⎥
+⎣ . ⎦
+.
+⎡
+
+y(n)
+
+⎡
+
+⎤
+w0
+⎢ w1 ⎥
+⎢ ⎥
+w=⎢ . ⎥
+⎣ . ⎦
+.
+wm
+
+so that f (x) = Xw.
+The result becomes
+w = (XT X)−1 XT y
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+9
+
+Solving Linear regression in matrix notation
+Our empirical loss becomes E = 1 y − Xw 2 .
+n
+By setting the derivatives of E with respect to w to zero, we get
+the same optimality conditions as before, now expressed in a
+matrix form
+1 ∂
+∂
+E=
+(y − Xw)T (y − Xw)
+∂w
+n ∂w
+1 ∂
+(wT XT Xw − 2yT Xw + yT y)
+=
+n ∂w
+1 ∂wT XT Xw
+− 2yT X)
+= (
+n
+∂w
+1
+= (2wT XT X − 2yT X) = 0
+n
+which yields
+w = (XT X)−1 XT y
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+10
+
+Gradient Descent
+•
+•
+
+Another way to minimize E(w)
+Start with an initial value of w, keep changing w to reduce
+E(w)
+∂
+E(w)
+wj := wj − α
+∂wj
+wj := wj − 2α(f (x) − y)xj
+
+•
+
+Batch Gradient Descent
+- All training data is taken into account
+
+α
+wj := wj −
+n
+•
+
+n
+
+(i)
+
+(f (x(i) ) − y(i) )xj
+
+i=1
+
+Incremental ( Stochastic) Gradient Descent
+wj :=
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+11
+
+Gradient Descent
+•
+•
+
+Another way to minimize E(w)
+Start with an initial value of w, keep changing w to reduce
+E(w)
+∂
+E(w)
+wj := wj − α
+∂wj
+wj := wj − 2α(f (x) − y)xj
+
+•
+
+Batch Gradient Descent
+- All training data is taken into account
+
+α
+wj := wj −
+n
+•
+
+n
+
+(i)
+
+(f (x(i) ) − y(i) )xj
+
+i=1
+
+Incremental ( Stochastic) Gradient Descent
+(i)
+wj := wj − α(f (x(i) ) − y(i) )xj , for i = 1 to n
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+12
+
+Probabilistic approach
+•
+
+Assume
+
+y(i) = x(i) w +
+(i)
+
+∼ N (0, σ2 )
+
+p(y(i) |x(i) ; w) = √
+•
+
+Likelihood
+
+n
+
+L(w) =
+
+√
+i=1
+
+•
+
+(y(i) − x(i) w)2
+1
+exp (−
+)
+2σ2
+2πσ
+
+p(y(i) |x(i) ; w)
+
+i=1
+n
+
+=
+
+(i)
+
+(y(i) − x(i) w)2
+1
+exp (−
+)
+2σ2
+2πσ
+
+Choose parameters to maximize the likelihood
+= same as minimizing LMS
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+13
+
+Beyond linear regression
+•
+
+The linear regression functions
+f (x) = w0 + w1 x1 + · · · + wm xm
+are convenient because they are linear in the parameters,
+not necessarily in the input x
+
+•
+
+We can easily generalize these classes of functions to be
+non-linear functions of the inputs x but still linear in the
+parameters w. For example: mth order polynomial
+prediction
+f (x) = w0 + w1 x + w1 x2 + · · · + wm xm
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+14
+
+Quadratic Regression
+f (x) = w0 + w1 x1 + w2 x2 + w3 x2 + w4 x1 x2 + w5 x2
+1
+2
+X1 X2 Y
+
+X= 3
+
+2
+
+y= 7
+
+3
+
+2
+
+7
+
+1
+
+1
+
+3
+
+1
+
+1
+
+3
+
+:
+
+:
+
+:
+
+:
+
+:
+1
+
+:
+3
+
+2
+
+9
+
+6
+
+4
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+y=
+7
+
+Z=
+
+:
+
+:
+
+z=(1 , x1, x2 , x1
+Introduction
+
+2,
+
+x1x2, x22,)
+
+Least Mean Square
+
+3
+:
+
+β=(Z TZ)-1(Z Ty)
+f(x) = β0+ β1 x1+ β2 x2+
+β 3 x1 2 + β 4 x1 x2 + β 5 x2 2
+
+Polynomial Curve Fitting
+
+Application
+
+15
+
+Polynomial Curve Fitting
+f (x) = w0 + w1 x + w1 x2 + · · · + wm xm
+
+1
+y
+0
+
+−1
+
+0
+
+x
+
+1
+
+Minimize the empirical error
+1
+E=
+n
+Introduction
+
+n
+
+(y(i) − f (x(i) ))2
+
+i=1
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+16
+
+Polynomial Curve Fitting
+with different orders
+m =0
+
+1
+
+m =1
+
+1
+
+y
+
+y
+0
+
+0
+
+−1
+
+−1
+
+0
+
+x
+
+1
+
+0
+
+m =3
+
+1
+y
+
+x
+
+1
+
+m =9
+
+1
+y
+
+0
+
+0
+
+−1
+
+−1
+
+0
+
+Introduction
+
+1
+x
+Least Mean Square
+
+0
+Polynomial Curve Fitting
+
+Application
+
+x
+
+1
+
+17
+
+Polynomial Curve Fitting
+Root-mean-square error
+
+1
+
+E RM
+
+S
+
+Training
+Test
+
+0.5
+
+0
+
+0
+
+3
+
+m
+
+Introduction
+
+6
+
+9
+
+&
+w0
+w1
+w2
+w3
+w4
+w5
+w6
+w7
+w8
+w9
+
+Least Mean Square
+
+Polynomial coefﬁcients
+m=0
+0.19
+
+m=1
+0.82
+-1.27
+
+Polynomial Curve Fitting
+
+m=3
+0.31
+7.99
+-25.43
+17.37
+
+m=9
+0.35
+232.37
+-5321.83
+48568.31
+-231639.30
+640042.26
+-1061800.52
+1042400.18
+-557682.99
+125201.43
+
+Application
+
+18
+
+Polynomial Curve Fitting
+9th order polynomials by increasing the training data, n = 15
+and n = 100
+N = 15
+
+1
+
+N = 100
+
+1
+
+y
+
+y
+0
+
+0
+
+−1
+
+−1
+
+0
+
+x
+
+Introduction
+
+1
+
+Least Mean Square
+
+0
+
+Polynomial Curve Fitting
+
+x
+
+1
+
+Application
+
+19
+
+Regularization
+Penalize large coefﬁcient values
+1
+˜
+E(w) =
+2
+
+n
+
+(f (x(i) , w) − y(i) )2 −
+
+i=1
+
+ln λ = − 18
+
+1
+
+2
+
+ln λ = 0
+
+1
+
+y
+
+λ
+w
+2
+
+y
+0
+
+0
+
+−1
+
+−1
+
+0
+
+x
+
+Introduction
+
+1
+
+Least Mean Square
+
+0
+
+Polynomial Curve Fitting
+
+x
+
+1
+
+Application
+
+20
+
+Regularization
+Root-mean-square error
+
+1
+
+ERMS
+
+Training
+Test
+
+0.5
+
+0
+
+−35
+
+−30
+
+Introduction
+
+ln λ −25
+
+−20
+
+&
+w0
+w1
+w2
+w3
+w4
+w5
+w6
+w7
+w8
+w9
+
+Least Mean Square
+
+Polynomial coefﬁcients
+ln λ = −∞
+0.35
+232.37
+-5321.83
+48568.31
+-231639.30
+640042.26
+-1061800.52
+1042400.18
+-557682.99
+125201.43
+
+Polynomial Curve Fitting
+
+ln λ = −18
+0.35
+4.74
+-0.77
+-31.97
+-3.89
+55.28
+41.32
+-45.95
+-91.53
+72.68
+
+ln λ = 0
+0.13
+-0.05
+-0.06
+-0.05
+-0.03
+-0.02
+-0.01
+-0.00
+0.00
+0.01
+
+Application
+
+21
+
+Robotics Applications: Odometry calibration
+Estimate the pose (x, y, θ) of a mobile robot given the angular
+velocity of each wheel (ωL , ωR )
+
+x = vcos(θ)
+˙
+y = vsin(θ)
+˙
+˙
+θ=ω
+ω
+v
+= W(rR , rL , b) R
+ωL
+ω
+Odometry calibration consists in estimating W
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+22
+
+Robotics Applications: Odometry calibration
+xt+1 = xt + vcos(θ)ΔT
+yt+1 = yt + vsin(θ)ΔT
+θt+1 = θt + ωΔT
+w12
+v
+w
+= 11
+w21 w22
+ω
+
+=⇒
+
+ωR
+ωL
+
+xN − x0
+w
+= X(ωR , ωL ) 11
+yN − y0
+w12
+θN − θ0 = Z(ωR , ωL )
+
+w21
+w22
+
+Executing M trajectories the parameters (w 11 , w12 , w21 , w22 ) can
+be identiﬁed using Linear Regression
+Antonelli G., Chiaverini S., and Fusco G. A Calibration Method for Odometry of
+Mobile Robots Based on the Least-Squares Technique: Theory and Experimental
+Validation. Transactions on Robotics. 2005.
+
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+23
+
+Robotics Applications: Obstacle avoidance
+Assign an attractive potential (uatt ) to the goal position and
+repulsive potentials (urep ) to the obstacles
+u = uatt + urep → fj =
+
+Introduction
+
+Least Mean Square
+
+∂
+∂
+uatt +
+urep
+∂pj
+∂pj
+
+Polynomial Curve Fitting
+
+Application
+
+24
+
+Robotics Applications: Obstacle avoidance
+A collision-free trajectory is generated using Gradient Descent
+p(i+1) = p(i) − α
+
+f (i)
+f
+
+Khatib O. Real-time obstacle avoidance for manipulators and mobile robots.
+International Journal of Robotics Research. 1986.
+Introduction
+
+Least Mean Square
+
+Polynomial Curve Fitting
+
+Application
+
+25
+
+
