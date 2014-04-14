@@ -517,6 +517,7 @@ Proposition 8 For the special case in which the scalar α is given by the quadra
 α = xT Ax
 
 (43)
+' p. 6 '
 
 where x is n × 1, A is n × n, and A does not depend on x, then
 ∂α

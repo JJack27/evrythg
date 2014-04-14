@@ -376,7 +376,8 @@ n
 = (2wT XT X − 2yT X) = 0
 n
 which yields
-w = (XT X)−1 XT y
+' p. 10 '
+w = (XT X)−1 XT y 
 Introduction
 
 Least Mean Square
