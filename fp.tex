@@ -1,26 +1,72 @@
 \input{pre.tex}
-\begin{pycode}
-print(r'\begin{center}')
-print(r'\textit{A message from Python!}')
-print(r'\end{center}')
-\end{pycode}
+\tableofcontents
 \section{Task description}
 Model the dynamic behavior of a rigid body in an environment partly filled with water.
 
 \section{Model description}
-Represent the body as $B = \left(m, \mathcal{G}, z\right)$ with mass $m$, geometry $\mathcal{G}$ and position $z$. 
-Gravity and the presence of water induce a total force $F(z)$.  
+Represent the body as $B = \left(M, \mathcal{G}, z\right)$.  Here $z$ is the world space location of the body's centroid given as
+$$z = \frac{1}{M} \int\limits_{\mathcal{G}} \rho(\zeta) \zeta \operatorname{d} \zeta, $$
+(cf.  \href{http://en.wikipedia.org/w/index.php?title=Center\_of\_mass&action=edit&section=4}{url}),
+$\mathcal{G}$ describes its' geometry and $M$ is its' total mass. 
+Gravity and the presence of water induce a total force $F(z)$, leading to the differential equation
+\begin{equation}
+\ddot{z} = \frac{F(z)}{M} + R(\dot{z}),  
+\label{eq:eom}
+\end{equation}
+where the second term $R(z)$ accounts for friction.
+We assume that the body is able to float in equilibrium postion i.e.
+$$\exists z^* \; F(z^*) = 0$$
+
+\section{Particle Representation}
+Arbitrary geometries $\mathcal{G}$ may be represented as a collection $\mathcal{T}$ of triangles $T_j,$
+$$T = \left\{z_A, z_B, z_C\right\}$$
+defined by the vertex coordinates $z_A, z_B, z_C$
+(cf.  \href{Burkardt-ComputationalGeometryLab-01-Triangles.pdf}{p. 2})
+To solve the equation of motion \ref{eq:eom} we assume that the dynamics of $B$ can be described by studying collections $\mathcal{P}$, $|\mathcal{P}| = N$ of particles $p_i \in \mathcal{G}$, $p_i = \left(\rho_i, V_i, z_i\right)$ with uniform mass densities $\rho_i$, Volumes $V_i$ and positions $z_i \in \mathcal{Z}$ subject to the constraint:
+$$\frac{\partial z_i - z_j}{\partial t} = 0 \; \forall p_i, p_j \in \mathcal{P}$$
+and affected by forces $F_i(z_i)$
+Then
+$$F(z) = \sum\limits_i^N F_i(z_i)$$
+The volumes of the individual particles are determined to fullfil
+$$\sum\limits_i^N \rho_i V_i = M$$
+In an randomize approach the $z_i$ are determined through sampling over $A_\mathcal{G}$.  For physical consistency we require
+$$\lim\limits_{N \to \infty} \sum\limits_i^N \rho_i V_i z_i = z$$
+For finite sample sizes $N < \infty$ we can validate the sampling method by defining an indicator function 
+\begin{equation}
+\mathsf{I}: \left\{(T, z_i)\right\} \to \left\{0, 1\right\}
+\label{eq:in}
+\end{equation}
+and checking that
+$$\frac{\sum\limits_i J(T, p_i)}{A_T} \approx \frac{N}{A_{\mathcal{B}}}$$
+for any $T$ with area $A_T$.  
+Having defined the $p_i$ we assume that earth acceleration is given as
+$$a_g = - \num{9.81}  \si{\metre\per\square\second}$$ 
+and define an indicator function 
+$$\mathsf{J}: \mathcal{Z} \to \left\{ 0, 1\right\}$$
+to decide if a particle is under water surface.  
+Using Archimedes' law
+(cf.  \href{LautrupPhysicsOfContinuousMatter}{p. 68})
+we have 
+$$f_i(z_i) = a_g(- J(z_i) V_i \rho_w + V_i \rho_i)$$
+where $\rho_w = \num{1000} \si{\kilo\gram\per\cubic\metre}$ is the mass density of water.
 
 \section{Implementation}
-Assume that the dynamics of $B$  can be described by studying a collection $\mathcal{C}$, $|\mathcal{C}| = N$ of particles $p_i \in \mathcal{C}$, $p_i = \left(\rho_i, V_i, z_i\right)$ with uniform mass densities $\rho_i$, Volumes $V_i$ and positions $z_i \in \mathcal{Z}$ subject to the constraints:
-$$\sum\limits_i^N \rho_i V_i = m$$
-$$\frac{\partial z_i - z_j}{\partial t} = 0 \; \forall p_i, p_j \in \mathcal{C}$$
-$$\sum\limits_i^N F_i(z_i) = F(z)$$
-We assume that earth acceleration is given as
-$$a_g = - \num{9.81}  \si{\metre\per\square\second}$$ 
-and define an indicator function
-$$\operatorname{I}: \mathcal{Z} \to \left\{ 0, 1\right\}$$
-Using Archimedes' law we have 
-$$f_i(z_i) = a_g(- I(z_i) V_i \rho_w + V_i \rho_i)$$
-where $\rho_w = \num{1000} \si{\kilo\gram\per\cubic\metre}$ is the mass density of water.
+To continue it is is useful to introduce barycentric coordinates:
+$$\zeta_A = \frac{d(z_i, \{z_B, z_C\})} {z_A, \{z_B, z_C\}}, \; 
+\zeta_B = \frac{d(z_i, \{z_C, z_A\})} {z_B, \{z_C, z_A\}}, \;
+\zeta_C = \frac{d(z_i, \{z_A, z_B\})} {z_C, \{z_A, z_B\}}$$
+(cf.  \href{Burkardt-ComputationalGeometryLab-02-BarycentricCoordinatesinTriangles.pdf}{p. 6})
+where $d(z_i, L)$ is defined as the signed distance from $z_i$ to a Line $L = \{z_P, z_Q\}$ connecting Points $P, Q$.
+(cf.  \href{Burkardt-ComputationalGeometryLab-02-BarycentricCoordinatesinTriangles.pdf}{p. 2})
+Then a possible implementation for the indicator function $\mathsf{I}$ (c.f. \ref{eq:in}) is
+$$\mathsf{I}: \left\{(T, z_i)\right\} \mapsto (\zeta_A(T, z_i) \geq 0) \land (\zeta_B(T, z_i) \geq 0) \land (\zeta_C(T, z_i) \geq 0)$$
+(cf.  \href{Burkardt-ComputationalGeometryLab-02-BarycentricCoordinatesinTriangles.pdf}{p. 6})
+Following the approach suggested by 
+(cf.  \href{Burkardt-ComputationalGeometryLab-03-MonteCarloOnTriangles.pdf}{p. 4})
+we sample 
+$$r, s \sim \mathcal{U}^{\times 2}(0; 1)$$
+and obtain
+$$\zeta^T = [1 - \sqrt{s}, (1 - r) \sqrt{s}, r \sqrt{s}], $$
+$$z_i = [z_A, z_B, z_c] \zeta$$
 \input{post.tex}
+
