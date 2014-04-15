@@ -3,5 +3,3 @@ cisfrhe_p8:
 fp:
 \section{How to find the $z_i$}
 
-Pythontex:
-	Get rid of the None output.
