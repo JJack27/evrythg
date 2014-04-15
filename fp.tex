@@ -1,13 +1,21 @@
-%%latex
-Task
-Model the dynamic behavior of a rigid body characterized in an environment partly filled with water.
+\input{pre.tex}
+\section{Task description}
+Model the dynamic behavior of a rigid body in an environment partly filled with water.
 
-Model description:
+\section{Model description}
 Represent the body as $B = \left(m, \mathcal{G}, z\right)$ with mass $m$, geometry $\mathcal{G}$ and position $z$. 
-Due to gravity $B$ is subject to a total force $F(z)$.  
+Gravity and the presence of water induce a total force $F(z)$.  
 
-Implementation:
-Assume that the dynamics can be described by studying a collection $\mathcal{C}$, $|\mathcal{C}| = N$ of particles $p_i \in \mathcal{C}$, $p_i = \left(\rho_i, V_i, z_i\right)$ with mass densities $\rho_i$, Volumes $V_i$ and positions $z_i$ subject to the constraints:
+\section{Implementation}
+Assume that the dynamics of $B$  can be described by studying a collection $\mathcal{C}$, $|\mathcal{C}| = N$ of particles $p_i \in \mathcal{C}$, $p_i = \left(\rho_i, V_i, z_i\right)$ with uniform mass densities $\rho_i$, Volumes $V_i$ and positions $z_i \in \mathcal{Z}$ subject to the constraints:
 $$\sum\limits_i^N \rho_i V_i = m$$
 $$\frac{\partial z_i - z_j}{\partial t} = 0 \; \forall p_i, p_j \in \mathcal{C}$$
-$$\sum\limits_i^N F(z_i) = F(z)$$
+$$\sum\limits_i^N F_i(z_i) = F(z)$$
+We assume that earth acceleration is given as
+$$a_g = - \num{9.81}  \si{\metre\per\square\second}$$ 
+and define an indicator function
+$$\operatorname{I}: \mathcal{Z} \to \left\{ 0, 1\right\}$$
+Using Archimedes' law we have 
+$$f_i(z_i) = a_g(- I(z_i) V_i \rho_w + V_i \rho_i)$$
+where $\rho_w = \num{1000} \si{\kilo\gram\per\cubic\metre}$ is the mass density of water.
+\input{post.tex}
