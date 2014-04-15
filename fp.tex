@@ -1,0 +1,13 @@
+%%latex
+Task
+Model the dynamic behavior of a rigid body characterized in an environment partly filled with water.
+
+Model description:
+Represent the body as $B = \left(m, \mathcal{G}, z\right)$ with mass $m$, geometry $\mathcal{G}$ and position $z$. 
+Due to gravity $B$ is subject to a total force $F(z)$.  
+
+Implementation:
+Assume that the dynamics can be described by studying a collection $\mathcal{C}$, $|\mathcal{C}| = N$ of particles $p_i \in \mathcal{C}$, $p_i = \left(\rho_i, V_i, z_i\right)$ with mass densities $\rho_i$, Volumes $V_i$ and positions $z_i$ subject to the constraints:
+$$\sum\limits_i^N \rho_i V_i = m$$
+$$\frac{\partial z_i - z_j}{\partial t} = 0 \; \forall p_i, p_j \in \mathcal{C}$$
+$$\sum\limits_i^N F(z_i) = F(z)$$
