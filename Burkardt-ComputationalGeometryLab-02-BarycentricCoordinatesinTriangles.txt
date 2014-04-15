@@ -1,0 +1,236 @@
+Computational Geometry Lab:
+BARYCENTRIC COORDINATES IN TRIANGLES
+John Burkardt
+Information Technology Department
+Virginia Tech
+http://people.sc.fsu.edu/∼jburkardt/presentations/cg lab barycentric triangles.pdf
+December 23, 2010
+
+1
+
+Introduction to this Lab
+
+In this lab we investigate a natural coordinate system for triangles called the barycentric coordinate system.
+The barycentric coordinate system gives us a kind of standard chart, which applies to all triangles, and allows
+us to determine the positions of points independently of the particular geometry of a given triangle.
+Our path to this coordinate system will identify a special reference triangle for which the standard
+(x, y) coordinate system is essentially identical to the barycentric coordinate system.
+We begin with some simple geometric questions, including determining whether a point lies to the left
+or right of a line. If we can answer that question, we can also determine if a point lies inside or outside
+a triangle. Once we are comfortable determining the (signed) distances of a point from each side of the
+triangle, we will discover that the relative distances can be used to form the barycentric coordinate system.
+This barycentric coordinate system, in turn, will provide the correspondence or mapping that allows us
+to establish a 1-1 and onto relationship between two triangles.
+The barycentric coordinate system is useful when deﬁning the basis functions used in the ﬁnite element
+method, which is the subject of a separate lab.
+
+2
+
+Signed Distance From a Line
+
+In order to understand the geometry of triangles, we are going to need to take a small detour into the simple
+world of points and lines. Our immediate interest is in ﬁnding a formula for the distance between a point
+and a line; when we have worked out this result, we will be able to turn it into a very useful fact about
+triangles.
+As with triangles, we need to agree on a system for representing points and lines. It’s easy to agree that
+a typical point called P can be thought of as a list of its x and y components:
+P = { x, y }
+and it’s reasonable to deﬁne a line L in terms of two distinct points Pa and Pb that lie on that line:
+L = { Pa, Pb } = { {xa, ya}, {xb, yb} }.
+Now if we are given any line L, it is easy to construct a vector D which corresponds to the direction of
+the line, simply by subtracting the starting point from the endpoint:
+xD =xb − xa
+yD =yb − ya
+1
+
+Perhaps more important is the fact that we can also construct a vector N which is perpendicular or normal
+to the line:
+xN =ya − yb
+yN =xb − xa
+We can now easily verify, by arithmetic, that the two direction vectors are orthogonal, by computing the dot
+product of the two vectors:
+D · N = xD xN + yD yN = (xb − xa)(ya − yb) + (yb − ya)(xb − xa) = 0
+If a vector is normal to a line, then so is any (nonzero) multiple of it. To try to standardize things, let us
+compute another vector n, the result of dividing N by its length. We call the result a unit normal vector :
+xn =
+yn =
+
+ya − yb
+(ya − yb)2 + (xb − xa)2
+xb − xa
+(ya − yb)2 + (xb − xa)2
+
+The unit normal vector n to a line L has the very useful property that the signed distance from any point
+P to the line L is a simple vector dot product involving n and the diﬀerence between the point P and any
+point on the line, such as Pa:
+Signed Distance(P, L) = n · (P − P a)
+Note that the signed distance is zero if P is actually on the line, negative if P is “to the right” of the line,
+and positive if P is “to the left” of the line. Here, being to the right of the line is understood by imagining
+that we stand on point Pa and face in the direction of point Pb. We are looking along the line L, in the
+direction speciﬁed by its two deﬁning points. Points to our right have negative distance to the line, and
+points to our left have positive distance.
+We have come up with a formula that gives us both a distance and an orientation. We will ﬁnd that we
+can do a lot with this idea!
+
+3
+
+Program #1: Point/Line Orientation
+
+Write a program which:
+• reads the deﬁnition of a line L;
+• reads the deﬁnition of a point P ;
+• computes D = Signed Distance(P, L);
+• prints P and D.
+To test your program, use the line
+L1 = {{1,3}, {4,9}}
+As test points P, use the sequence of values {3,3}, {3,4}, {3,5}, . . . {3,10}.
+Repeat your tests for the lines L2 and L3:
+L2 = {{4,9}, {1,3}}
+L3 = {{0,1}, {10,21}}
+Lines L1, L2 and L3 all “look” like the same line, but L2 is going in the opposite direction, which aﬀects
+its orientation and hence the value of the signed distance. Do your results agree with this statement?
+2
+
+Figure 1: The Point-Line Orientation Test.
+
+Figure 2: The Point-Triangle Orientation Test for Triangle Tex4.
+
+3
+
+4
+
+Does a Point Lie Inside a Triangle?
+
+Because the formula for the signed distance from a point to a line is positive exactly when a point is “to the
+left” of a line, we can use this formula to ﬁnd out something interesting about triangles.
+Suppose we ask whether a point P is inside or outside a given triangle T={a,b,c}. To answer the
+question, imagine walking along the perimeter of the triangle. Suppose you walk from vertex a to vertex b,
+or as we might say, along side Sab. Suppose that as you do this, you can say the point P is to the left of
+the line {a,b}. Suppose that as we continue our walk, from b to c, and then from c back to a, we also see
+that the point is to the left of the lines {b,c} and {c,a}.
+Remember that we assume the vertices of our triangle are listed in counterclockwise order. Therefore,
+if the point is always to our left as we walk around the triangle, it must actually be inside the triangle.
+On the other hand, if it is to the right at any time, then it must lie outside. We can replace the image of
+walking around the triangle by our formula which measures signed distances. If all the signed distances are
+positive, the point is inside; if any one is negative, it is outside. If all the signed distances are nonnegative,
+but one is zero, the point lies along a side of the triangle. If two distances are zero, the point is actually a
+vertex.
+Thus we have discovered a numeric formula which tells us something interesting about a geometric object.
+
+5
+
+Program #2: Point/Triangle Inclusion
+
+Write a program which
+• reads the deﬁnition of a triangle T={a,b,c};
+• reads a point P;
+• computes the signed distances from P to the lines {a,b}, {b,c} and {c,a};
+• prints P, the signed distances, and the word “inside” or “outside”, depending on whether P is inside
+T or not.
+Use the triangle Tex4 deﬁned by {{4,0},{3,4},{0,1}}. Use the points (1,4), (2,1), (2,3), (3,2), (3,4), (3,5),
+(4,1) and (4,5) to see if your program can detect inside/outside/on. Be prepared to explain your test for
+when the point is inside the triangle.
+What happens when the point is on an edge, or is a vertex?
+What happens if you reverse the order of the vertices of Tex4?
+
+6
+
+The Reference Triangle
+
+We will ﬁnd it convenient to agree on a single standard triangle called the reference triangle. The actual
+deﬁnition of this triangle is simply Tref={ {1,0}, {0,1}, {0,0} }.
+Consider ﬁgure 3, in which we have displayed an image of the reference triangle. This triangle can be
+deﬁned as the intersection of three half planes:
+0 ≤x
+0 ≤y
+x + y ≤1
+Suppose that we deﬁne a new variable z = 1 − x − y. While x and y are Cartesian coordinates, z will just
+be an artiﬁcial coordinate for us. However, if we include z, our triangle deﬁnition has the nicely symmetric
+
+4
+
+Figure 3: The Reference Triangle with Barycentric Gridlines
+form:
+0 ≤x
+0 ≤y
+0 ≤z
+Moreover, this new variable z means that we now have an interesting coordinate system inside the triangle.
+The vertical and horizontal gray lines in the ﬁgure already mark contour levels for x and y coordinates. Now
+the diagonal lines do the same thing for z.
+Notice that x is 0 on the left boundary, attaining its maximum value at the node a, and that in fact x
+marks the distance from the left boundary. Of course y works the same way for the lower boundary and the
+node b. By adding the variable z, we can use the same interpretation for the diagonal boundary and the
+node c.
+We can, if we wish, label points in the triangle with (x, y, z) coordinates. By doing so, we emphasize the
+symmetries in the triangle. Notice that a vertex has two zero coordinates, points along the boundary have
+one zero coordinate, and points in the interior have all coordinates strictly positive. The centroid has the
+1
+coordinates ( 3 , 1 , 1 ).
+3 3
+Moreover, the deﬁnition of the triangle can be rephrased to state that the triangle is exactly the set of
+points for which all three values of the coordinates (x, y, z) are nonnegative.
+This coordinate system is interesting for the reference triangle, but the remarkable thing is that we can
+essentially use this same coordinate system on any triangle, by imagining a linear transformation from the
+reference triangle to that triangle. A linear transformation maps lines to lines, so the grid lines on our
+reference triangle will map to corresponding grid lines in a general triangle. Figure 4 shows a large yellow
+triangle and the reference triangle together, and you can see how the coordinate system is preserved.
+
+7
+
+Barycentric Coordinates
+
+In the reference triangle, it was easy to see what the meanings of the x and y coordinates were, and how
+z could be usefully added. But in a general triangle, is there a way to deﬁne this coordinate system that
+doesn’t rely on us to come up with a mapping from the reference triangle?
+
+5
+
+Figure 4: Barycentric Gridlines on a General Triangle
+The key to making the handy coordinate system in the reference triangle into a universal coordinate
+system is to ﬁnd some general property that remains true for other triangles. The contour lines should be a
+clue. Instead of thinking about x as a Cartesian coordinate, think about it as the distance from the vertex a
+to the opposite side {b,c}. This distance will be 1 at a and decrease linearly until the side is reached. This
+is almost the right idea, but then if we looked at a triangle that was doubled in size, we’d still want the new
+a vertex to have an “x” coordinate of 1.
+What would work well would be to use relative distances instead of absolute ones. So in measuring the
+“x” coordinate of a point, we’d compute the distance to side {b,c} as before, but then we’d divide it by the
+distance of vertex a to side {b,c}. Since a is the point in the triangle that is as far as possible from {b,c},
+points inside the triangle will generally have a relative distance between 0 and 1.
+To get all three coordinates, of course, which correspond to our (x,y,z) coordinate system in the reference
+triangle, we’d measure a point’s relative distance to the sides opposite each vertex in turn.
+Since we’re not in the reference triangle anymore, we can’t really call this set of coordinates (x,y,z).
+Instead, we will use the names (ξa , ξb , ξc ), where the subscript reminds us that the ﬁrst coordinate, is related
+to vertex a. This system of coordinates is known as the barycentric coordinate system.
+We know how to compute the distance between a point and a line, so we can write down formulas for
+the barycentric coordinates of a point with respect to a triangle. These are valid whether the point is inside
+or outside the triangle:
+SignedDistance(P, {b, c})
+SignedDistance(a, {b, c})
+SignedDistance(P, {c, a})
+ξb =
+SignedDistance(b, {c, a})
+SignedDistance(P, {a, b})
+ξc =
+SignedDistance(c, {a, b})
+
+ξa =
+
+6
+
+8
+
+Program #3: Barycentric Coordinates
+
+Write a program which:
+• reads the deﬁnition of a triangle t;
+• reads a point P;
+• computes and prints (ξa , ξb , ξc ).
+Use the triangle Tex4. Test the points (1,4), (2,3), (3,2), (3,4), (3,5) and (4,5). Compare these results
+with your “inside/outside/on” results. How do the barycentric coordinates tell your point is inside, on an
+edge, at a vertex, or outside the triangle.
+For a triangle t, the centroid t.cent is the average of the vertices. The centroid of Tex4 is (7/3,5/3).
+Use this point as input to your program. What are the barycentric coordinates of this point?
+
+7
+
+
