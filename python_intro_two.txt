@@ -228,7 +228,8 @@ array ([[5 , 4] ,
 >>> a
 array ([[1 , 2 , 3] ,
 [4 , 5 , 6]])
->>> np . mean (a , axis =1)
+np.mean(a, axis=1)
+' axis keyword specifies along which axis to iterate, i.e. to get row means we have to iterate along the columns '
 array ([ 2. , 5.])
 >>> np . mean (a , axis =0)
 array ([ 2.5 , 3.5 , 4.5])
@@ -285,19 +286,20 @@ array ([ 0.01588089 , 0.25431845 , 0.55087001 ,
 >>>
 >>>
 >>>
->>>
 
-plt . figure ()
-plt . xlabel ( ’ important index ’)
-plt . ylabel ( ’y - values ’)
-xvalues = np . linspace (0 ,2* np . pi ,100)
-yvalues = np . sin ( xvalues )
-y2values = np . cos ( xvalues )
-plt . plot ( xvalues , yvalues , ’ -r ’ , label = ’ $sin ( x ) $ ’)
-plt . plot ( xvalues , y2values , ’. b ’ , label = ’ $cos ( x ) $ ’)
-plt . legend ()
-plt . show ()
-plt . savefig ( ’ plot . pdf ’)
+import matplotlib.pyplot as plt
+import numpy as np
+plt.figure()
+plt.xlabel('Important index')
+plt.ylabel('y-values')
+xvalues = np.linspace(0, 2*np.pi, 100)
+yvalues = np.sin(xvalues)
+y2values = np.cos(xvalues)
+plt.plot(xvalues, yvalues, '-r', label = r'$\sin(x)\$') # label curves directly while plotting
+plt.plot(xvalues, y2values, '.b', label = r'$\cos(x)\$')
+plt.legend()
+plt.show()
+plt.savefig('plot.pdf')
 
 • Most people really appreciate it if you write your python scripts adhering to a certain coding
 style, called PEP-8 [3]. You can check if your scripts adhere to that coding style by running
