@@ -14088,7 +14088,8 @@ spheres. Considered the father of
 Ê
  
 ' p. 68 '
-Weight and buoyancy
+' Weight and buoyancy '
+
 Let the actual, perhaps compressed, volume of the immersed body be V with surface S. In the ﬁeld of
 gravity an unrestrained body is subject to two forces: its weight
 G =
@@ -14258,7 +14259,7 @@ force. In semblance with Baron von M¨ nchhausen’s adventure, the body in effe
 u
 bootstraps (see problems 5.6 and 5.7).
 
-Constant ﬁeld of gravity
+' Constant ﬁeld of gravity '
 If the gravitational ﬁeld is constant, g(x) = g 0 , the weight of the body is,
 G = Mbody g 0 ,
 

@@ -4,27 +4,51 @@
 Model the dynamic behavior of a rigid body in an environment partly filled with water.
 
 \section{Model description}
-We assume that the rigid body's geometry is defined by an abstract constraint set $\matcal{G}$ and has a known Mass $M$.  
-Here $z$ is the world space location of the body's centroid given as
-$$z = \frac{1}{M} \int\limits_{\mathcal{G}} \rho(\zeta) \zeta \operatorname{d} \zeta, $$
-(cf.  \href{http://en.wikipedia.org/w/index.php?title=Center\_of\_mass&action=edit&section=4}{url}),
-$\mathcal{G}$ describes its' geometry and $M$ is its' total mass. 
-Gravity and the presence of water induce a total force $F(z)$, leading to the differential equation
-\begin{equation}
-\ddot{z} = \frac{F(z)}{M} + R(\dot{z}),  
-\label{eq:eom}
-\end{equation}
-where the second term $R(z)$ accounts for friction.
+The rigid body is specified by its' volume $\mathcal{V}$ and density $\rho$.  
+Infinitesimal volumes $\operatorname{d}V$ are subject to the gravity force 
+$$\operatorname{d} w  = \rho \operatorname{d} V \;;\; g = \num{9.81} \si{\meter\per\second\square}$$
+for constant density $\rho$ the force on the body is given as
+$$W = g \int_{\mathcal{V}} \rho \operatorname{d} V$$
+\begin{figure}[H]
+	\centering
+	\includegraphics{Meriam-EngineeringMechanics-Statics_p236}
+	\caption{
+		Center of mass of a rigid body
+	}
+	\label{fig:f5/4}
+\end{figure}
+and the coordinates of the centroid $G$ are
+\begin{figure}[H]
+	\centering
+	\includegraphics{Meriam-EngineeringMechanics-Statics_p237}
+	\caption{Equation for the coordinates center of mass}
+	\label{fig:e5/4}
+\end{figure}
+If the body displaces a volume $\mathcal{W}$ of water it experiences an additional force
+$$B = -g \int_{\mathcal{W}} \rho_w  \operatorname{d} V \;;\; \rho_w = \num{1000}\si{\kilo\gram\per\meter\cubed}$$
 We assume that the body is able to float in equilibrium postion i.e.
-$$\exists z^* \; F(z^*) = 0$$
-\todo[inline]{How to represent the body:\\  - continue with my own triangle code and the particle approach? \\ - explore the Python bindings for the CGAL algorithm? (cf.  \href{https://code.google.com/p/cgal-bindings/}{url})}
+$$B + W = 0$$
+\todo{How to represent the body}
+\begin{itemize}
+	\item Continue with my own triangle code and the particle approach? \item Explore the Python bindings for the CGAL algorithm? (cf.  \href{https://code.google.com/p/cgal-bindings/}{url})
+	\end{itemize}
 
 \section{Particle Representation}
+To specify positions we use a right handed coordinate system
+\begin{figure}[H]
+	\centering
+	\includegraphics{Meriam-EngineeringMechanics-Statics_p7}
+	\caption{Coordinate system}
+	\label{fig:f1/5}
+\end{figure}
+Using the cartesian unit vectors $i, j, k$ any postion $r$ is determined
+as 
+$$r = x i + y j + z k$$
 Arbitrary geometries $\mathcal{G}$ may be represented as a collection $\mathcal{T}$ of triangles $T_j,$
 $$T = \left\{z_A, z_B, z_C\right\}$$
 defined by the vertex coordinates $z_A, z_B, z_C$
 (cf.  \href{Burkardt-ComputationalGeometryLab-01-Triangles.pdf}{p. 2})
-To solve the equation of motion \ref{eq:eom} we assume that the dynamics of $B$ can be described by studying collections $\mathcal{P}$, $|\mathcal{P}| = N$ of particles $p_i \in \mathcal{G}$, $p_i = \left(\rho_i, V_i, z_i\right)$ with uniform mass densities $\rho_i$, Volumes $V_i$ and positions $z_i \in \mathcal{Z}$ subject to the constraint:
+To solve the equation of motion we assume that the dynamics of $B$ can be described by studying collections $\mathcal{P}$, $|\mathcal{P}| = N$ of particles $p_i \in \mathcal{G}$, $p_i = \left(\rho_i, V_i, z_i\right)$ with uniform mass densities $\rho_i$, Volumes $V_i$ and positions $z_i \in \mathcal{Z}$ subject to the constraint:
 $$\frac{\partial z_i - z_j}{\partial t} = 0 \; \forall p_i, p_j \in \mathcal{P}$$
 and affected by forces $F_i(z_i)$
 Then
@@ -71,4 +95,3 @@ and obtain
 $$\zeta^T = [1 - \sqrt{s}, (1 - r) \sqrt{s}, r \sqrt{s}], $$
 $$z_i = [z_A, z_B, z_c] \zeta$$
 \input{post.tex}
-
