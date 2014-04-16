@@ -4,7 +4,8 @@
 Model the dynamic behavior of a rigid body in an environment partly filled with water.
 
 \section{Model description}
-Represent the body as $B = \left(M, \mathcal{G}, z\right)$.  Here $z$ is the world space location of the body's centroid given as
+We assume that the rigid body's geometry is defined by an abstract constraint set $\matcal{G}$ and has a known Mass $M$.  
+Here $z$ is the world space location of the body's centroid given as
 $$z = \frac{1}{M} \int\limits_{\mathcal{G}} \rho(\zeta) \zeta \operatorname{d} \zeta, $$
 (cf.  \href{http://en.wikipedia.org/w/index.php?title=Center\_of\_mass&action=edit&section=4}{url}),
 $\mathcal{G}$ describes its' geometry and $M$ is its' total mass. 
@@ -16,6 +17,7 @@ Gravity and the presence of water induce a total force $F(z)$, leading to the di
 where the second term $R(z)$ accounts for friction.
 We assume that the body is able to float in equilibrium postion i.e.
 $$\exists z^* \; F(z^*) = 0$$
+\todo[inline]{How to represent the body:\\  - continue with my own triangle code and the particle approach? \\ - explore the Python bindings for the CGAL algorithm? (cf.  \href{https://code.google.com/p/cgal-bindings/}{url})}
 
 \section{Particle Representation}
 Arbitrary geometries $\mathcal{G}$ may be represented as a collection $\mathcal{T}$ of triangles $T_j,$
