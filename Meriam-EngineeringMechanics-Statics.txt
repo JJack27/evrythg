@@ -6239,10 +6239,9 @@ O
 
 Figure 2/14
 Principle of Moments
-This process is summarized in equation form by
-R ϭ ΣF
-MO ϭ ΣM ϭ Σ(Fd)
-
+\input{
+Meriam-EngineeringMechanics-Statics_p59.png
+}
 (2/10)
 
 Rd ϭ MO
