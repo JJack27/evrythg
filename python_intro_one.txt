@@ -1,0 +1,477 @@
+¨ MUNCHEN
+¨
+TECHNISCHE UNIVERSITAT
+Fakult¨
+at f¨
+ur Elektrotechnik und Informationstechnik
+Lehrstuhl f¨
+ur Datenverarbeitung
+Prof. Dr.-Ing. K. Diepold
+
+Introduction to Reinforcement Learning
+Lab Course: Python Intro (1)
+09.04.2014
+
+Introduction
+We will implement all of the programming exercises in this practical in python. Python is a interpreted scripting language, that provides several packages which are easy to use for vector and matrix
+calculation. Also python is free software and researchers in the field of machine learning tend to
+implement their experimental research code more and more in python.
+The numpy and scipy packages provide functionality to quickly prototype algorithms with predefined
+functions as you might be used to from systems like GNU octave or similar.
+You should save all your files on your usb flash drive, as the content of the provided laptops and
+virtual machines will be reset from week to week. You can download the virtual machine image from
+the course website to do preparations and experiments at home.
+
+Tasks
+• Connect to the wireless network lrz and start the Cisco Anyconnect VPN software using your
+LRZ-id.
+• Start the virtual machine software and launch the virtual machine image for the course.
+• The default username is rl and the password is rl.
+• You should find all the necessary software pre-installed. Try to launch the python interpreter
+by opening a terminal window and starting
+1
+2
+3
+4
+
+5
+
+$ python
+Python 2.7.6 ( default , Jan 11 2014 , 14:34:26)
+[ GCC 4.8.2] on linux2
+Type " help " , " copyright " , " credits " or " license " for more
+information .
+>>>
+
+A leading $ will indicate that the command is meant to be executed in the system shell, leading
+>>> will indicate the commands are to be executed in the python interpreter.
+• ipython is part of the scientific python package and provides a much nicer python shell, which
+also supports tab completion. Therefore, exit the python shell by pressing ^D and start the
+ipython shell.
+1
+2
+
+$ ipython
+Python 2.7.6 ( default , Jan 11 2014 , 14:34:26)
+
+1
+
+Type " copyright " , " credits " or " license " for more information .
+
+3
+4
+
+IPython 1.2.0 - rc1 -- An enhanced Interactive Python .
+?
+-> Introduction and overview of IPython ’s features .
+% quickref -> Quick reference .
+help
+-> Python ’s own help system .
+object ?
+-> Details about ’ object ’ , use ’ object ?? ’ for extra
+details .
+
+5
+6
+7
+8
+9
+
+10
+
+In [1]:
+
+11
+
+You notice that the ipython input prompt is different from the default python one. You can
+also start an enhanced version of ipython, which supports inline images by entering ipython
+qtconsole.
+• Reproduce all the following examples
+– Interactive calculation
+1
+2
+3
+4
+
+5
+6
+7
+8
+9
+10
+
+$ python
+Python 2.7.6 ( default , Jan 11 2014 , 14:34:26)
+[ GCC 4.8.2] on linux2
+Type " help " , " copyright " , " credits " or " license " for
+more information .
+>>> 1+1
+2
+>>> 1/3
+0
+>>> 1.0/3.0
+0.3333333333333333
+
+– Variables: dynamic typing, garbage collection
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+>>> a = 5
+>>> b = 6
+>>> print a + b
+11
+>>> text = " simple text "
+>>> text . upper ()
+’ SIMPLE TEXT ’
+>>> text [5]
+’e ’
+>>> help ( str )
+Help on class str in module __builtin__ :
+
+12
+13
+14
+15
+16
+17
+
+class str ( basestring )
+| str ( object ) -> string
+|
+| Return a nice string representation
+[...]
+
+– Sequence types
+1
+2
+3
+
+>>> a = [1 , 2 , 3]
+>>> a . append (4)
+>>> a
+
+2
+
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+
+[1 , 2 , 3 , 4]
+>>> a . insert (1 , 3)
+>>> a
+[1 , 3 , 2 , 3 , 4]
+>>> a . pop ()
+4
+>>> a
+[1 , 3 , 2 , 3]
+>>> b = (1 , 2 , 3)
+>>> b [0]
+1
+>>> b [0] = 2
+TypeError : ’ tuple ’ object does not support item
+assignment
+
+– Dictionaries (associative arrays)
+1
+2
+3
+4
+5
+6
+
+>>> a = { ’ intro ’: ’ Hello ’ , ’ whom ’: ’ World ’}
+>>> a [ ’ intro ’]
+’ Hello ’
+>>> a [ ’ unrelated ’] = 5
+>>> a
+{ ’ unrelated ’: 5 , ’ whom ’: ’ World ’ , ’ intro ’: ’ Hello ’}
+
+– Control Structures, Blocks
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+>>> shouldbe = 4
+>>> if 2 + 2 == shouldbe :
+...
+print ’ Math works here , ’
+...
+print ’ and this is a block . ’
+... else :
+...
+print ’ Something went wrong . ’
+...
+Math works here ,
+and this is a block .
+>>>
+
+– Iterating
+1
+2
+3
+4
+5
+6
+7
+8
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+>>> a =
+>>> for
+...
+...
+Element
+Element
+Element
+>>>
+
+[1 , 2 , 3]
+element in a :
+print ’ Element is ’ + str ( element )
+is 1
+is 2
+is 3
+
+>>> for elem in range (3) :
+...
+print ’ Elem : ’ , elem
+...
+Elem : 0
+Elem : 1
+Elem : 2
+>>> b = range (10)
+>>> b
+
+3
+
+9
+10
+11
+
+[0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9]
+>>> len ( b )
+10
+
+– Functions
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+
+>>> def fakultaet ( n ) :
+...
+if n == 0:
+...
+return 1
+...
+return n * fakultaet (n -1)
+...
+>>> fakultat
+< function fakultaet at 0 x7f53f2ac9cf8 >
+>>> fakultaet (20)
+2432902008176640000
+>>> b = fakultaet
+>>> b (22)
+11 24 00 072 77 77 607 68 00 00 L
+>>>
+
+– Positional vs. named Arguments
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+>>>
+...
+...
+>>>
+2
+>>>
+3
+>>>
+6
+
+def add (a , b =1 , c =1) :
+return a + b * c
+add (1 ,1)
+add (2)
+add (2 , c =4)
+
+– Classes
+1
+2
+
+>>> class Car () :
+wheels = 0
+
+3
+
+def __init___ ( self , wheels =3) :
+self . wheels = wheels
+
+4
+5
+6
+
+def drop_wheels ( self , howmany )
+self . wheels -= howmany
+
+7
+8
+9
+
+def drivable ( self ) :
+return ( self . wheels == 4)
+
+10
+11
+12
+13
+14
+15
+16
+17
+18
+
+>>> newCar = Car ( wheels =4)
+>>> newCar . wheels
+4
+>>> newCar . drop_wheels (2)
+>>> newCar . drivable ()
+False
+
+– Inline documentation
+1
+
+>>> class FancyThing () :
+4
+
+2
+3
+
+""" This fancy class is absolutely fantastic !
+It can solve all problems . """
+
+4
+5
+6
+7
+
+def solve ( self , problem ) :
+""" solves the problem """
+pass
+
+8
+9
+
+[...]
+
+10
+11
+12
+
+>>> help ( FancyThing )
+Help on class FancyThing in module __main__ :
+
+13
+14
+15
+16
+17
+18
+19
+20
+21
+
+class FancyThing
+| This fancy class is absolutely fantastic !
+| It can solve all problems .
+|
+| Methods defined here :
+|
+| solve ( self , problem )
+|
+solves the problem
+
+– run a script from command line
+1
+2
+
+$ cat script . py
+# !/ usr / bin / python
+
+3
+4
+
+print " The answer is " + str (1 + 1) + " . "
+
+5
+6
+7
+8
+
+$ python script . py
+The Answer is 2.
+$
+
+• Implement the a function generating Fibonacci numbers.
+• Implement any problem of [3] or [4].
+• Homework: Have a look at the python tutorials at [1] and [2].
+
+References
+[1] Python tutorial. http://docs.python.org/tutorial/. Relevant sections: 2, 3, 4, 5, 6, 9.
+[2] Another tutorial. http://www.diveintopython.net/. Relevant sections: 2, 3, 5.
+[3] Project Euler. http://projecteuler.net/problems.
+[4] Sphere Online Judge. http://www.spoj.pl/problems/classical/
+
+5
+
+

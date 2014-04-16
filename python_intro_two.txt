@@ -1,0 +1,348 @@
+¨ MUNCHEN
+¨
+TECHNISCHE UNIVERSITAT
+Fakult¨
+at f¨
+ur Elektrotechnik und Informationstechnik
+Lehrstuhl f¨
+ur Datenverarbeitung
+Prof. Dr.-Ing. K. Diepold
+
+Introduction to Reinforcement Learning
+Lab Course: Python Intro (2)
+16.04.2014
+
+Introduction
+In this session, we will explore python modules and the scientific python packages.
+
+Preliminaries
+Have a look at the python tutorials at [1] and [2].
+As a reminder: Command for setting up the keyboard layout
+$ setxkbmap -layout de -variant mac -option altwin:swap lalt lwin -option lv3:lalt switch
+-option apple:badmap
+
+Tasks
+• Structure your classes and definitions.
+Each .py file is a module.
+Module name = filename.
+1
+2
+
+fakultaet . py :
+# !/ usr / bin / python
+
+3
+4
+5
+6
+7
+8
+
+def iterativ ( n ) :
+r = 1
+for i in xrange (1 , n +1) :
+r *= i
+return r
+
+9
+10
+11
+12
+13
+
+def rekursiv ( n ) :
+if n == 0:
+return 1
+return n * rekursiv (n -1)
+
+• Importing modules.
+1
+2
+3
+4
+5
+
+>>> import fakultaet
+>>> fakultaet . iterativ (10)
+3628800
+>>> from fakultaet import iterativ , rekursiv
+>>> rekursiv (10)
+
+1
+
+6
+7
+8
+9
+
+3628800
+>>> from fakultaet import *
+>>> iterativ (10)
+3628800
+
+• Module search paths:
+1. current script path
+2. PYTHONPATH
+3. system package paths
+Packages are modules combined in a directory together with a special script, called init .py,
+which will be run upon importing the package.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+>>> import sys
+>>> sys . path [ ’ ’ ,
+’/ usr / bin ’ ,
+’/ usr / lib / python2 .7 ’ ,
+’/ usr / lib / python2 .7/ plat - linux2 ’ ,
+’/ usr / lib / python2 .7/ lib - tk ’ ,
+’/ usr / lib / python2 .7/ lib - old ’ ,
+...
+]
+>>> sys . path . append ( ’ ../ ’)
+
+• Special names
+1
+2
+
+fakultaet . py :
+# !/ usr / bin / python
+
+3
+4
+
+import sys
+
+5
+6
+7
+8
+9
+
+def rekursiv ( n ) :
+if n == 0:
+return 1
+return n * rekursiv (n -1)
+
+10
+11
+12
+
+1
+2
+
+if __name__ == ’ __main__ ’:
+print rekursiv ( int ( sys . argv [1]) )
+$ python fakultaet . py 10
+3628800
+
+• Basic numpy datatype: ndarray
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+>>> import numpy as np
+>>> a = np . array ([[1 ,2 ,3] ,[4 ,5 ,6]])
+>>> a
+array ([[1 , 2 , 3] ,
+[4 , 5 , 6]])
+>>> a . shape
+(2 , 3)
+>>> a . dtype
+dtype ( ’ int64 ’)
+
+2
+
+• Numpy array creation
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+1
+2
+3
+4
+5
+6
+7
+
+>>> np . zeros ((2 ,3) )
+array ([[ 0. , 0. , 0.] ,
+[ 0. , 0. , 0.]])
+>>> np . ones ((2 ,3) )
+array ([[ 1. , 1. , 1.] ,
+[ 1. , 1. , 1.]])
+>>> np . eye (3)
+array ([[ 1. , 0. , 0.] ,
+[ 0. , 1. , 0.] ,
+[ 0. , 0. , 1.]])
+>>> np . arange (6)
+array ([0 , 1 , 2 , 3 , 4 , 5])
+>>> np . linspace (0 , 3 , 6)
+array ([ 0. , 0.6 , 1.2 , 1.8 ,
+>>> np . arange (6) . reshape (2 ,3)
+array ([[0 , 1 , 2] ,
+[3 , 4 , 5]])
+
+2.4 ,
+
+3. ])
+
+• Array calculus (unlike matlab, the default array calculus is to operate element-wise)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+
+>>> a = np . array ([[1 ,1] ,[0 ,1]])
+>>> b = np . array ([[2 ,0] ,[3 ,4]])
+>>> np . dot (a , b )
+array ([[5 , 4] ,
+[3 , 4]])
+>>> c = np . array ([1 ,2 ,5 ,10 ,3])
+>>> np . argmax ( c )
+3
+>>> np . sum ( a )
+3
+>>> np . mean ( b )
+2.25
+>>> np . std ( b )
+1.479019945774904
+
+• Array axes
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+>>> a = np . array ([[1 ,2 ,3] ,[4 ,5 ,6]])
+>>> a
+array ([[1 , 2 , 3] ,
+[4 , 5 , 6]])
+>>> np . mean (a , axis =1)
+array ([ 2. , 5.])
+>>> np . mean (a , axis =0)
+array ([ 2.5 , 3.5 , 4.5])
+>>> np . sum (a , axis =0)
+array ([5 , 7 , 9])
+
+• Other numpy submodules e.g. random
+1
+2
+
+>>> np . random . random ()
+0.7589937521343442
+
+# [0 , 1)
+
+3
+
+3
+4
+5
+6
+7
+8
+9
+
+>>> np . random . randn (10)
+array ([ 0.01588089 , 0.25431845 , 0.55087001 ,
+-2.03241478 , -1.25535796 , 0.39198643 ,
+-0.28488736 , 0.02355611 , -1.4564885 ,
+-0.75615048])
+>>> np . random . randint (0 , 10) # [0 , 10)
+7
+
+• Plotting.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+
+plt . figure ()
+plt . xlabel ( ’ important index ’)
+plt . ylabel ( ’y - values ’)
+xvalues = np . linspace (0 ,2* np . pi ,100)
+yvalues = np . sin ( xvalues )
+y2values = np . cos ( xvalues )
+plt . plot ( xvalues , yvalues , ’ -r ’ , label = ’ $sin ( x ) $ ’)
+plt . plot ( xvalues , y2values , ’. b ’ , label = ’ $cos ( x ) $ ’)
+plt . legend ()
+plt . show ()
+plt . savefig ( ’ plot . pdf ’)
+
+• Most people really appreciate it if you write your python scripts adhering to a certain coding
+style, called PEP-8 [3]. You can check if your scripts adhere to that coding style by running
+1
+
+$ pep8 script . py
+
+• There also exists a tutorial for numpy found at [4]. Read through it as homework.
+• If you are already familiar with GNU ocatave or similar, the hints and suggestions at [5] might
+help you a lot.
+
+References
+[1] Python tutorial. http://docs.python.org/tutorial/. Relevant sections: 2, 3, 4, 5, 6, 9.
+[2] Another tutorial. http://www.diveintopython.net/. Relevant sections: 2, 3, 5.
+[3] Python coding style PEP-8. http://legacy.python.org/dev/peps/pep-0008/.
+[4] Numpy tutorial. http://www.scipy.org/Tentative_NumPy_Tutorial.
+[5] Numpy for Matlab users. http://www.scipy.org/NumPy_for_Matlab_Users.
+
+4
+
+
