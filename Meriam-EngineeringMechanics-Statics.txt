@@ -6243,6 +6243,7 @@ Principle of Moments
 Meriam-EngineeringMechanics-Statics_p59.png
 }
 (2/10)
+\todo{What is the definiton of couple?}
 
 Rd ϭ MO
 The ﬁrst two of Eqs. 2/10 reduce a given system of forces to a force–
@@ -8124,7 +8125,9 @@ Figure 2/21
 
 r
 
-Moments in Three Dimensions
+' Moments in Three Dimensions '
+p.74
+
 Consider a force F with a given line of action acting on a body, Fig.
 2/21a, and any point O not on this line. Point O and the line of F establish a plane A. The moment MO of F about an axis through O normal to
 the plane has the magnitude MO ϭ Fd, where d is the perpendicular distance from O to the line of F. This moment is also referred to as the moment of F about the point O.
@@ -8143,6 +8146,7 @@ in the direction of rotation from r to F through the angle ␣. Therefore,
 we may write the moment of F about the axis through O as
 MO ϭ r ؋ F
 
+$$M_O = r \times F$$
 (2/14)
 
 The order r ؋ F of the vectors must be maintained because F ؋ r
