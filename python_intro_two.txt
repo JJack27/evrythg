@@ -28,32 +28,7 @@ Module name = filename.
 1
 2
 
-fakultaet . py :
-# !/ usr / bin / python
-
-3
-4
-5
-6
-7
-8
-
-def iterativ ( n ) :
-r = 1
-for i in xrange (1 , n +1) :
-r *= i
-return r
-
-9
-10
-11
-12
-13
-
-def rekursiv ( n ) :
-if n == 0:
-return 1
-return n * rekursiv (n -1)
+\input{fakultaet.py}
 
 • Importing modules.
 1
@@ -97,6 +72,7 @@ which will be run upon importing the package.
 9
 10
 
+# display search path
 >>> import sys
 >>> sys . path [ ’ ’ ,
 ’/ usr / bin ’ ,
@@ -107,7 +83,6 @@ which will be run upon importing the package.
 ...
 ]
 >>> sys . path . append ( ’ ../ ’)
-
 • Special names
 1
 2
@@ -138,8 +113,6 @@ return n * rekursiv (n -1)
 1
 2
 
-if __name__ == ’ __main__ ’:
-print rekursiv ( int ( sys . argv [1]) )
 $ python fakultaet . py 10
 3628800
 
