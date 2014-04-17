@@ -1,0 +1,82 @@
+\input{pre.tex}
+\tableofcontents
+
+\begin{sympycode}
+
+from sympy.physics.units import *
+# Cartesian unit vectors
+i = Symbol(r'\mathbf{i}') # unit vector along x-Axis
+j = Symbol(r'\mathbf{j}') # unit vector along y-Axis
+k = Symbol(r'\mathbf{k}', commutative=False) # unit vector along z-Axis
+V = Symbol(r'\mathcal{V}') # Volume
+Vi = Symbol(r'\operatorname{d}%s' %(V)) # infinitesimal  volume
+D = Symbol(r'\mathcal{D}') # Volume of displaced water
+Di = Symbol(r'\operatorname{d}%s' %(D)) # infinitesimal  volume
+rho = Symbol(r'\rho') # mass density
+rho_W = Symbol(r'\rho_W') # mass density of water
+rhoi = Symbol(r'\operatorname{d}%s' %(rho)) # infinitesimal mass density
+M = Symbol(r'M') # mass
+W = Symbol(r'W') # gravity force
+B = Symbol(r'B') # buoyant force
+X = Symbol(r'X') # unknown force
+F = Symbol(r'F') # total force
+Wi = Symbol(r'\operatorname{d} %s' %(W)) # infinitesimal forces
+Mi = Symbol(r'\operatorname{d} %s' %(m)) # infinitesimal masses
+g = Symbol(r'g') # earth acceleration
+s = Symbol(r's') # state vector
+sdot = Derivative(s, Symbol('t'))
+sddot = Derivative(s, Symbol('t'),2)
+f = Function('\operatorname{f}')(s, sdot) # total force as a function
+h = Function('\operatorname{h}')(F) # change of state 
+ss = Symbol(r's^*') # state vector in equilibrium
+P_xz = Symbol(r'\mathcal{P}_{x,z}') # x-z-Plane
+A_xz = Symbol(r'A_{x,z}') # Area in the x-z-plane 
+A_i = Symbol(r'A_{i}') # Area of a planar shape
+S_i = Symbol(r'\mathcal{S}_{i}') # Planar shape 
+T_i = Symbol(r'\mathcal{T}_{i}') # Planar triangle
+VA = Symbol(r'A') # Vertex 
+VB = Symbol(r'B') # Vertex 
+VC = Symbol(r'C') # Vertex 
+c = Symbol(r'\mathsf{c}', commutative=False) # some constant
+exec(open('C:\Users\Murad\evrythg\pythontex_functions.py').read())
+\end{sympycode}
+\section{Task description}
+Model the dynamics of a rigid body in an environment partly filled with water.
+\section{Model description}
+The rigid body is specified by its' volume $\s{V}$ and density $\s{rho}$, which are assumed not to change over time.  To describe system dynamics we introduce a state vector $\s{s}$.  Positions and directions are described using a right handed coordinate system aligned such that the $z$-Axis is collinear to line of action of gravity.  Unit vectors along the axes are given as
+$$\s{[i, j, k]} = \s{eye(3)}$$
+When infinitesimal volumes $\s{Vi}$ are asssumed to have constant densities $\s{rhoi}$ we have 
+$$\s{Eq(Mi, rhoi * Vi)} \;;\; \s{Wi} =  \s{g * k} \s{Mi} \;;\; \s{Eq(g, 9.81 * meter/second**2)}$$
+$$\s{M} = \int\limits_{\s{V}} \s{Mi} \;;\; \s{W} = \int\limits_{\s{V}} \s{Wi}$$ 
+If the body displaces a volume $\s{D}$ of water it experiences an additional force
+$$\s{B} = \s{g * rho_W *  k}\int\limits_{\s{D}} \s{Di} \;;\; \s{Eq(rho_W, 1000 * kilo * gram/meter**3)}$$
+The body would be floating in equilibrium if
+$$\s{Eq(W, B)}$$ and no other forces were are present.  
+Otherwise it is affected by a total force
+$$\s{Eq(F, X + W + B)}$$
+where $\s{X}$ accounts for any unknown forces.
+In general
+\begin{equation}
+	\begin{split}
+		\s{Eq(F, f)} \\
+		\s{Eq(sddot, h)} \\
+\end{split}
+	\label{eq:eom}
+\end{equation}
+
+\section{Implementation}
+To obtain implementations for $\s{f.func}, \s{h.func}$ we require a suitable representation for $\s{tuple(V, s, rho)}$.
+Initially we impose stricts constraints on $(\s{V}, \s{rho})$ which may be relaxed later on.
+Let 
+\begin{itemize}
+	\item $\s{V}$ be symmetric with respect to $\s{P_xz} = \operatorname{span}(\s{i}, \s{k})$
+	\item $\s{rho}$ be constant over $\s{V}$
+\end{itemize}
+Then 
+$$\s{V} = \s{c} \s{A_xz} \;;\; \s{A_xz} = \int\limits_{\s{P_xz}} \s{Vi}$$
+Furtheron assume that 
+$$\s{A_xz} = \sum\limits_i\s{A_i}$$
+where $\s{A_i}$ is the area of a planar shape $S_i \in \s{P_xz}$ and $\s{c}$ is a constant.  
+One particular class of shapes $\s{S_i}$ is that of triangles $\s{T_i}$ specified by vertices $\s{tuple(VA, VB, VC)}$
+\input{post.tex}
+
