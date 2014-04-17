@@ -1,45 +1,29 @@
 \input{pre.tex}
 \tableofcontents
 
+% set up sympy
 \begin{sympycode}
-
-from sympy.physics.units import *
-# Cartesian unit vectors
-i = Symbol(r'\mathbf{i}') # unit vector along x-Axis
-j = Symbol(r'\mathbf{j}') # unit vector along y-Axis
-k = Symbol(r'\mathbf{k}', commutative=False) # unit vector along z-Axis
-V = Symbol(r'\mathcal{V}') # Volume
-Vi = Symbol(r'\operatorname{d}%s' %(V)) # infinitesimal  volume
-D = Symbol(r'\mathcal{D}') # Volume of displaced water
-Di = Symbol(r'\operatorname{d}%s' %(D)) # infinitesimal  volume
-rho = Symbol(r'\rho') # mass density
-rho_W = Symbol(r'\rho_W') # mass density of water
-rhoi = Symbol(r'\operatorname{d}%s' %(rho)) # infinitesimal mass density
-M = Symbol(r'M') # mass
-W = Symbol(r'W') # gravity force
-B = Symbol(r'B') # buoyant force
-X = Symbol(r'X') # unknown force
-F = Symbol(r'F') # total force
-Wi = Symbol(r'\operatorname{d} %s' %(W)) # infinitesimal forces
-Mi = Symbol(r'\operatorname{d} %s' %(m)) # infinitesimal masses
-g = Symbol(r'g') # earth acceleration
-s = Symbol(r's') # state vector
-sdot = Derivative(s, Symbol('t'))
-sddot = Derivative(s, Symbol('t'),2)
-f = Function('\operatorname{f}')(s, sdot) # total force as a function
-h = Function('\operatorname{h}')(F) # change of state 
-ss = Symbol(r's^*') # state vector in equilibrium
-P_xz = Symbol(r'\mathcal{P}_{x,z}') # x-z-Plane
-A_xz = Symbol(r'A_{x,z}') # Area in the x-z-plane 
-A_i = Symbol(r'A_{i}') # Area of a planar shape
-S_i = Symbol(r'\mathcal{S}_{i}') # Planar shape 
-T_i = Symbol(r'\mathcal{T}_{i}') # Planar triangle
-VA = Symbol(r'A') # Vertex 
-VB = Symbol(r'B') # Vertex 
-VC = Symbol(r'C') # Vertex 
-c = Symbol(r'\mathsf{c}', commutative=False) # some constant
-exec(open('C:\Users\Murad\evrythg\pythontex_functions.py').read())
+sys.path.append(r'C:\Users\Murad\evrythg')
+from clean_sym import *
+from pythontex_functions import *
 \end{sympycode}
+
+% set up pylab
+\begin{pylabcode}
+sys.path.append(r'C:\Users\Murad\evrythg')
+from numpy import array
+from wrpr import _line
+from wrpr import _scatter
+from wrpr import _arrow
+from wrpr import _pp
+from cg import A_T
+from cg import  auw
+import clean_sym as sym
+from sympy.geometry import Point
+from sympy.geometry import Triangle
+\end{pylabcode}
+
+
 \section{Task description}
 Model the dynamics of a rigid body in an environment partly filled with water.
 \section{Model description}
@@ -78,5 +62,44 @@ Furtheron assume that
 $$\s{A_xz} = \sum\limits_i\s{A_i}$$
 where $\s{A_i}$ is the area of a planar shape $S_i \in \s{P_xz}$ and $\s{c}$ is a constant.  
 One particular class of shapes $\s{S_i}$ is that of triangles $\s{T_i}$ specified by vertices $\s{tuple(VA, VB, VC)}$
+
+% \begin{pylabcode}
+% T = array([[4, 0], [3, 4], [0, 1]]) + array([0, -2])
+% C = mean(T, axis=0)
+% figure()
+% _line(T)
+% savefig('triangle.pdf')
+% \end{pylabcode}
+
+\begin{pylabcode}
+o = Point(-1, -1)
+p = Point(1, -1)
+q = Point(0, 1)
+T = Triangle(o, p, q).rotate(pi/5.)
+C_W = array([T.centroid.x, T.centroid.y]).astype(float)
+D = auw(T)
+C_B = array([D.centroid.x, D.centroid.y]).astype(float)
+rho = 0.7
+g = array([0, -1])
+W =  float(T.area) * rho
+B =  - float(D.area) * 1 
+figure()
+_pp(T)
+_pp(D, color='g')
+_arrow(C_W, g*W, label='$%s$' %sym.W)
+_arrow(C_B, g*B, label='$%s$' %sym.B, color='g')
+_scatter(C_W, color='b', label='$%s$' %sym.C_W)
+_scatter(C_B, color='g', label='$%s$' %sym.C_B)
+legend(scatterpoints=1)
+grid()
+savefig('triangle.pdf')
+\end{pylabcode}
+
+\begin{figure}[]
+	\centering
+	\includegraphics{pythontex-files-clean/triangle.pdf}
+	\caption{Free body diagram}
+	\label{fig:fbd}
+\end{figure}
 \input{post.tex}
 
