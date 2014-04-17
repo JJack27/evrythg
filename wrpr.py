@@ -1,23 +1,25 @@
 from matplotlib.pyplot import scatter
 from matplotlib.pyplot import plot
 from matplotlib.pyplot import axis
+from matplotlib.pyplot import arrow
 from numpy import hstack
 from numpy import insert
+from numpy import array
 
-def _scatter(p_i, color='b'):
+def _scatter(p_i, color='b', label=''):
         """
 	'Wrapper arund scatter allowing matrix input'
         'Projects into the Cartesian x-z plane'
         'Points: p_i'
         """
 	if p_i.size <= 3:
-		s = scatter(p_i[0], p_i[-1], c=color)
+		s = scatter(p_i[0], p_i[-1], c=color, label=label)
 	else:
-		s = scatter(p_i[:,0], p_i[:, -1], c=color)
+		s = scatter(p_i[:,0], p_i[:, -1], c=color, label=label)
 	axis('equal')
         return s
 
-def _line(p_i, color='b'):
+def _line(p_i, color='b', label=''):
         """
 	'Wrapper arund plot drawing close lines '
         'Projects into the Cartesian x-z plane'
@@ -25,7 +27,7 @@ def _line(p_i, color='b'):
         """
 	s = plot(hstack((p_i[:,0], p_i[0, 0])),
 		hstack((p_i[:,-1], p_i[0, -1])),
-		c=color)
+		c=color, label='')
 	axis('equal')
         return s
 
@@ -60,3 +62,12 @@ def _3D(p_i):
     'Coordinates of points: '; Symbol('p_i')
     """
     return insert(p_i, 1, zeros(p_i.shape[0]), axis=1)
+
+def _pp(P, color='b', label=''):
+	""" 
+	Plot a sympy.geometry.Polygon object
+	Polygon: P
+	"""
+	return _line(array([[p.x, p.y] for p in P.vertices]), color, label)
+
+
