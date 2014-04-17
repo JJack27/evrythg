@@ -29,7 +29,7 @@ def _line(p_i, color='b'):
 	axis('equal')
         return s
 
-def _arrow(T, V, color='b'):
+def _arrow(T, V, color='b', label=''):
 	"""
 	Draw arrows
 	'Tail: T'
@@ -38,7 +38,9 @@ def _arrow(T, V, color='b'):
 	close()
 	figure()
 	T = array([0, 0])
-	_arrow(T, array([2, 1]))
+	plot(1, 1, label='Point')
+	_arrow(T, array([2, 1]), label='arrow')
+	legend()
 	grid()
 	axis([-3,3,-3,3])
 	"""
@@ -46,6 +48,9 @@ def _arrow(T, V, color='b'):
 			head_width = 0.05, head_length = 0.1,
 			length_includes_head = True,
 			color=color)
+	plot([T[0], T[0] + V[0]], [T[1], T[1] + V[1]],
+			color = color,
+			label = label)
 	axis('equal')
         return a
 
