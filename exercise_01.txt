@@ -1,0 +1,316 @@
+¨
+¨
+TECHNISCHE UNIVERSITAT MUNCHEN
+Fakult¨t f¨r Elektrotechnik und Informationstechnik
+a u
+Lehrstuhl f¨r Datenverarbeitung
+u
+Prof. Dr.-Ing. K. Diepold
+
+Data Analysis for Computer Engineering
+Introduction to Reinforcement Learning
+Learning rates
+due to 29.04.2014
+
+Description
+Equation 2.4 (from the SB textbook, online 2nd edition) is a key update rule we will use throughout
+the course. This exercise will give you a better hands-on feel for how it works. There are 0.6 points
+for plotting each of the ﬁrst four graphs, 0.3 points for plotting each of the second four graphs, and
+0.2 points for answering each speciﬁc subquestion (everything ending with a question mark).
+Do all the plots in this question by hand. You should not even need a calculator, as the numbers are easy to place by eye. You will get a better feel for it if you place the points manually. To
+make it easy for you, It’ll include some graphing area and a start on the ﬁrst plot here, so you should
+just be able to print these pages out and draw on them.
+Task 1 (1.2 pts.) Suppose the target is 1.0 for six steps, then 0 for six steps, and then alternates between 1.0 and 0 for six more steps, as shown by the grey line in the graph below. Suppose
+the initial estimate is 0, and that the step-size (in the equation) is 0.5. Your job is to apply Equation
+2.4 iteratively to determine the estimates for time steps 1-18. Plot them on the graph below, using
+a blue pen, connecting the estimate points by a blue line. The ﬁrst two estimate points are already
+marked and connected in dark blue (or black) below:
+
+What is the estimate after 6 updating steps? (give a symbolic expression, not number)
+What would it be after 10 steps, if the target continued to be 1? (give a symbolic expression,
+not number)
+After 20 steps? (give a symbolic expression, not number)
+1
+
+Task 2 (0.6 pts)
+Repeat the graphing/plotting portion of Part 1, this time with a step size of 1/8.
+
+Target
+1
+
+α = 1/8
+0
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10 11 12 13 14 15 16 17 18
+
+Task 3 (0.8 pts.)
+Repeat with a step size of 1.0.
+
+Target
+1
+
+α=1
+0
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10 11 12 13 14 15 16 17 18
+
+Which step size produces estimates of smaller error when the target is alternating?
+Task 4 (1 pts.)
+Repeat with a step size of 1/(t-1) (i.e., the first step size you will use is 1, the second is 1/2, the third is
+1/3, etc.).
+
+Target
+1
+
+α = 1/(t-1)
+0
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10 11 12 13 14 15 16 17 18
+
+Based on all of these graphs, why is the 1/(t-1) step size appealing?
+
+Why is the 1/(t-1) step size not always the right choice?
+
+1 2
+α = 1/(t-1)
+
+3
+
+4
+
+6
+
+7
+
+1
+
+Target
+
+5
+
+8
+
+2
+
+9
+
+10 11 12 13 14 15 16 17 18
+
+0
+
+1
+
+= 1/(t-1)
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10 11 12 13 14 15 16 17 18
+
+0
+Task 5 (1.4 pts.) You might think that the step size should be between 0 and 1. Make plots for the
+1 2 3
+Target 4 5 6 7 8 9 10 11 2.5.
+first 6 steps with step sizes of -1/2, 1.5, 2.0, and 12 13 14 15 16 17 18
+1
+0
+
+-1
+-2
+
+1
+
+2
+
+0
+-1
+-2
+-3
+-4
+2
+-5
+-6
+1
+
+0
+
+6
+
+5
+
+α = -1/2
+
+1
+0
+
+-3
+-4
+-5
+-6
+1
+
+4
+Target
+
+3
+
+Target
+1
+
+2
+
+1
+
+-1
+-2
+
+2
+
+3
+
+4
+
+6
+
+5
+
+α = -1/2
+
+-3
+-4
+-5
+3
+-6
+
+4
+
+6
+
+5
+
+α = -1/2
+
+Target
+α = 1.5
+1
+
+2
+
+3
+
+4
+
+6
+
+5
+
+2
+
+Target
+1
+0
+
+α=2
+1
+
+2
+
+3
+
+4
+
+6
+
+5
+
+8
+
+4
+
+Target
+
+1
+0
+
+1
+
+2
+
+3
+
+-4
+-8
+
+What is the safe range for the step size?
+
+4
+
+5
+
+6
+
+α = 2.5
+
+
