@@ -110,7 +110,11 @@ Technische Universitat Munchen
 N-Armed Bandits
 Choose repeatedly from a set of N actions, each choice is
 denoted a play
-Each play At ends in a reward Rt , where E{Rt } =: q∗ (At )
+Each play At ends in a reward Rt , where 
+E{Rt } =: q^* (At )
+
+[ $q^*$ True value of an action ]
+
 These action values are not known
 Non-associative and evaluative feedback problem
 Objective: maximize reward in the long term
@@ -198,7 +202,7 @@ Qk +1 (a) = Qk (a) +
 
 A general update rule can be formulated as:
 NewEstimate = OldEstimate + StepSize[Target - OldEstimate]
-
+[ StepSize \alpha ]
 Slide 8/25
 
 Data Analysis for Computer Engineering
@@ -253,6 +257,7 @@ At = At∗ = argmax Qt (a)
 a
 
 - Greedy:
+[ Greedy: \epsilon = 0 ]
 At =
 
 At∗
@@ -438,8 +443,8 @@ Technische Universitat Munchen
 Optimistic Initial Values
 So far, all methods depend on Q0 (a), i.e. they are biased
 Suppose we initialize the values optimistically,
-e.g. Q0 (a) = 5 for all a and α = 0.1
-
+e.g. Q0 (a) = 5 for all a and \alpha = 0.1
+[ step size parameter ]
 Slide 15/25
 
 Data Analysis for Computer Engineering
