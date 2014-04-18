@@ -89,3 +89,6 @@ pythontex*
 
 # CVX
 cvx/*
+
+# Optimization in communications engineering lab
+oicel/
