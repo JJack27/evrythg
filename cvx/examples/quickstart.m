@@ -1,4 +1,4 @@
-% Examples from the CVX Users' guide
+%% Examples from the CVX Users' guide
 
 has_quadprog = exist( 'quadprog' );
 has_quadprog = has_quadprog == 2 | has_quadprog == 3;
@@ -10,7 +10,7 @@ s_pause = cvx_pause(false);
 cvx_clear; echo on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION 2.1: LEAST SQUARES %
+%% SECTION 2.1: LEAST SQUARES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Input data
@@ -24,12 +24,12 @@ x_ls = A \ b;
 % cvx version
 cvx_begin
     variable x(n)
-    minimize( norm(A*x-b) )
+    minimize(norm(A*x-b))
 cvx_end
 
 echo off
 
-% Compare
+% Compare results
 disp( sprintf( '\nResults:\n--------\nnorm(A*x_ls-b): %6.4f\nnorm(A*x-b):    %6.4f\ncvx_optval:     %6.4f\ncvx_status:     %s\n', norm(A*x_ls-b), norm(A*x-b), cvx_optval, cvx_status ) );
 disp( 'Verify that x_ls == x:' );
 disp( [ '   x_ls  = [ ', sprintf( '%7.4f ', x_ls ), ']' ] );
@@ -42,7 +42,7 @@ try input( 'Press Enter/Return for the next example...' ); clc; catch, end
 echo on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION 2.2: BOUND-CONSTRAINED LEAST SQUARES %
+%% SECTION 2.2: BOUND-CONSTRAINED LEAST SQUARES %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % More input data

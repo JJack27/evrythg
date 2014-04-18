@@ -1046,9 +1046,10 @@ i=1
 
 pi ≤ P,
 
-pi ≥ 0, ∀i ∈ {1, . . . , n}.
-
 (1.4)
+
+\todo{How to implement a sum constraint in cvx?}
+\todo{Conversion maximization to minimization problem?}
 
 PROGRAMMING TASK 1.3
 Implement an algorithm that takes the channel coeﬃcients h1 , . . . , hn , the noise variances
