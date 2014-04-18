@@ -1,0 +1,520 @@
+Disciplined convex programming
+and the cvx modeling framework
+Michael C. Grant
+Information Systems Laboratory
+Stanford University
+April 27, 2006
+
+Agenda
+Today’s topics:
+• disciplined convex programming, a methodology for practical convex
+optimization; and
+• the cvx modeling system: a MATLAB-based software package which supports
+this methodology
+
+Disciplined convex programming and the cvx modeling framework
+
+1
+
+Where you are now
+What you have seen thus far:
+• Fundamental deﬁnitions of convex sets and convex/concave functions
+• An extensive convexity calculus: a collection of operations, combinations and
+transformations that are known to preserve convexity
+• An introduction to convex optimization problems, or convex programs
+• Several speciﬁc classes of convex programs: LPs, SDPs, GPs, SOCPs... hopefully
+you can identify a problem from one of these classes when you see one
+You have not yet seen:
+• How convex optimization problems are solved
+(well, that and a few other things)
+Disciplined convex programming and the cvx modeling framework
+
+2
+
+Solvers
+A solver is an engine for solving a particular type of mathematical problem, such as a
+convex program
+Solvers typically handle only a certain class of problems, such as LPs, or SDPs, or GPs
+They also require that problems be expressed in a standard form
+Most problems do not immediately present themselves in standard form, so they must
+be transformed into standard form
+
+Disciplined convex programming and the cvx modeling framework
+
+3
+
+Solver example: MATLAB’s linprog
+A program for solving linear programs:
+x = linprog( c, A, b, A_eq, B_eq, l, u )
+Problems must be expressed in the following standard form:
+minimize cT x
+subject to Ax b
+Aeqx = beq
+x u
+As standard forms go, this one is quite ﬂexible: in fact, the ﬁrst step linprog often
+does is to convert this problem into a more restricted standard form!
+
+Disciplined convex programming and the cvx modeling framework
+
+4
+
+Conversion to standard form: common tricks
+Representing free variables as the diﬀerence of nonnegative variables:
+x free
+
+=⇒
+
+x+ − x−, x+ ≥ 0, x− ≥ 0
+
+Eliminating inequality constraints using slack variables:
+aT x ≤ b
+
+=⇒
+
+aT x + s = b, s ≥ 0
+
+Splitting equality constraints into inequalities:
+aT x = b
+
+=⇒
+
+Disciplined convex programming and the cvx modeling framework
+
+aT x ≤ b, aT x ≥ b
+
+5
+
+Solver example: SeDuMi
+A program for solving LPs, SOCPs, SDPs, and related problems:
+x = sedumi( A, b, c, K )
+Solves problems of the form:
+minimize cT x
+subject to Ax = b
+x ∈ K K1 × K2 × · · · × KL
+where each set Ki ⊆ Rni , i = 1, 2, . . . , L is chosen from a very short list of cones (see
+next slide...)
+The Matlab variable K gives the number, types, and dimensions of the cones Ki
+
+Disciplined convex programming and the cvx modeling framework
+
+6
+
+Cones supported by SeDuMi
+• free variables: Rni
+• a nonnegative orthant: Rni (for linear inequalities)
++
+• a real or complex second-order cone:
+Qn
+Qn
+c
+
+{ (x, y) ∈ Rn × R | x
+
+{ (x, y) ∈ Cn × R | x
+
+2
+
+≤ y}
+
+2
+
+≤ y}
+
+• a real or complex semideﬁnite cone:
+Sn
++
+Hn
++
+
+X ∈ Rn×n | X = X T , X
+
+X ∈ Cn×n | X = X H , X
+
+0
+0
+
+The cones must be arranged in this order: i.e., the free variables ﬁrst, then the
+nonnegative orthants, then the second-order cones, then the semideﬁnite cones
+Disciplined convex programming and the cvx modeling framework
+
+7
+
+Example: Norm approximation
+Consider the problem
+minimize
+
+Ax − b
+
+An optimal value x∗ minimizes the resiuduals
+rk
+
+aT x − bk
+k
+
+k = 1, 2, . . . m
+
+according to the measure deﬁned by the norm
+
+·
+
+Obviously, the value of x∗ depends signiﬁcantly upon the choice of that norm...
+...and so does the process of conversion to standard form
+
+Disciplined convex programming and the cvx modeling framework
+
+8
+
+Euclidean ( 2) norm
+minimize
+
+Ax − b
+
+2
+
+=
+
+m
+T
+k=1 (ak x
+
+− b k )2
+
+1/2
+
+No need to use linprog or SeDuMi here: this is a least squares problem, with an
+analytic solution
+x∗ = (AT A)−1AT b
+In MATLAB or Octave, a single command computes the solution:
+>> x = A \ b;
+
+Disciplined convex programming and the cvx modeling framework
+
+9
+
+Chebyshev (
+minimize f (Ax − b)
+
+∞)
+
+Ax − b
+
+norm
+
+∞
+
+= max |aT x − b|
+k
+1≤k≤m
+
+This can be expressed as a linear program:
+
+minimize q
+subject to −q1 ≤ Ax − b ≤ +q1
+
+minimize
+=⇒
+subject to
+
+x
+q
+A −1
+−A −1
+
+0 1
+
+x
+b
+≤
+q
+−b
+
+The linprog call:
+xq = linprog( [zeros(n,1);1], ...
+[A,-ones(m,1);-A,-ones(m,1)], [b;-b] );
+x = xq(1:n);
+Disciplined convex programming and the cvx modeling framework
+
+10
+
+Manhattan ( 1) norm
+m
+
+minimize f (Ax − b)
+
+Ax − b
+
+1
+
+=
+k=1
+
+|aT x − b|
+k
+
+LP formulation:
+
+minimize 1T w
+subject to −w ≤ Ax − b ≤ w
+
+T
+
+minimize
+
+0 1
+
+subject to
+
+A −I
+−A −I
+
+=⇒
+
+x
+w
+x
+b
+≤
+w
+−b
+
+The linprog call:
+xw = linprog( [zeros(n,1);ones(m,1)], ...
+[A,-eye(m,1);-A,-eye(m,1)], [b;-b] );
+x = xw(1:n);
+Disciplined convex programming and the cvx modeling framework
+
+11
+
+Largest-L norm
+Let |w|[k] represent the k-th largest element (in magnitude) of w ∈ Rm:
+|w|[1] ≥ |w|[2] ≥ · · · ≥ |w|[m]
+Then deﬁne the largest-L norm as
+w
+
+[L]
+
+|w|[1] + |w|[2] + · · · + |w|[L]
+
+L
+k=1 σk (diag(w))
+
+for any integer 1 ≤ L ≤ m. Special cases include
+w
+
+[1]
+
+≡ w
+
+∞,
+
+w
+
+[m]
+
+w
+
+1
+
+but novel results are produced for all 1 < L < m
+
+Disciplined convex programming and the cvx modeling framework
+
+12
+
+Largest-L norm (continued)
+This norm can be also represented in a linear program:
+minimize 1T v + Lq
+subject to −v − 1q ≤ Ax − b ≤ +v + 1q
+v≥0
+The linprog call:
+xvq = linprog( [zeros(n,1);ones(m,1);L], ...
+[A,-eye(m),ones(m,1);-A,-eye(m),-ones(m,1)], ...
+[], [], [-Inf*ones(n,1);zeros(m,1);-Inf] );
+x = xvq(1:n);
+This is not much more complex than the
+know this trick (and few do)
+Disciplined convex programming and the cvx modeling framework
+
+1
+
+and
+
+∞
+
+cases—but of course, you have to
+
+13
+
+Constrained Euclidean ( 2) norm
+Add some constraints:
+
+minimize
+Ax − b 2
+subject to Cx = d
+≤x≤u
+
+This is not a least-squares problem—but it is an SOCP, and SeDuMi can handle it,
+once it is converted to standard form:
+minimize z
+subject to Ax − b = y
+Cx = d
+x−s =
+x + su = u
+s , su ≥ 0
+y 2≤z
+
+T
+
+0
+0 0 0 1 x
+¯
+
+ 
+A
+−I
+b
+C
+
+ 
+
+ x = d
+subject to 
+¯  
+I −I
+I
+I
+u
+x ∈ Rn × Rn × Rn × Qm
+¯
++
++
+minimize
+
+=⇒
+
+
+
+sl, su ∈ Rn are slack variables, which are used quite often to convert inequalities to
++
+equations
+Disciplined convex programming and the cvx modeling framework
+
+14
+
+Constrained Euclidean ( 2) norm
+The SeDuMi call:
+AA = [ A,
+zeros(m,n), zeros(m,n),
+C,
+zeros(p,n), zeros(p,n),
+eye(n), -eye(n),
+zeros(n,n),
+eye(n), zeros(n,n), eye(n),
+bb = [ b ; d ; l ; u ];
+cc = [ zeros( 3 * n + m, 1 ) ; 1 ];
+K.f = n; K.l = 2 * n; K.q = m + 1;
+xsyz = sedumi( AA, bb, cc, K );
+x = xsyz( 1 : n );
+
+-eye(m),
+zeros(p,n),
+zeros(n,n),
+zeros(n,n),
+
+0
+0
+0
+0
+
+;
+;
+;
+];
+
+Hopefully it is getting clear: this can be cumbersome
+
+Disciplined convex programming and the cvx modeling framework
+
+15
+
+Modeling frameworks
+A modeling framework simpliﬁes the use of a numerical technology by shielding the
+user from the underlying mathematical details. Frameworks for LP, QP, NLP, and SDP
+are directly responsible for increased popularity of these problem classes
+Most common modeling frameworks provide a language that allows problems to be
+speciﬁed in a natural syntax, and automatically call an underlying numerical solver
+Examples:
+• AMPL, GAMS, AIMMS, LINDO, etc.: LP, QP, NLP
+• SDPSOL, LMITOOL, LMILAB: SDP
+• YALMIP: LP, SOCP, SDP
+cvx is designed to support convex optimization; or more speciﬁcally, disciplined convex
+programming
+Disciplined convex programming and the cvx modeling framework
+
+16
+
+Disciplined convex programming
+People don’t simply write down optimization problems and hope that they are convex;
+instead, they draw from a “mental library” of functions and sets with known convexity
+properties, and combine them in ways that convex analysis guarantees will produce
+convex results...
+...i.e., using the calculus rules discussed in previous lectures
+Disciplined convex programming formalizes this methodology
+Two key elements:
+• An expandable atom library : a collection of functions and sets, or atoms, with
+known properties of convexity, monotonicity, and range.
+• A ruleset which governs how those atoms can be used and combined to form a valid
+problem
+Compliant problems are called disciplined convex programs, or DCPs
+Disciplined convex programming and the cvx modeling framework
+
+17
+
+The DCP ruleset
+A subset of the calculus rules you have already learned:
+• objective functions: convex for minimization, concave for maximization
+• constraints:
+– equality and inequality constraints
+– each must be separately convex
+• expressions:
+– addition, subtraction, scalar multiplication
+– composition with aﬃne functions
+– nonlinear compositions (with appropriate monotonicity conditions). including
+elementwise maximums, etc.
+Not included (for now): perspective transformations, conjugates, pointwise supremum,
+quasiconvexity
+Disciplined convex programming and the cvx modeling framework
+
+18
+
+Is the ruleset too limited?
+These rules constitute a set of suﬃcient conditions for convexity. For example,
+sqrt( sum( square( x ) ) )
+is convex, but does not obey the ruleset, because it is the composition of a concave
+nondecreasing function and a convex function
+In this case, the workaround is simple: use norm( x ) instead
+In some cases, it may be necessary to add new functions (more later)
+A practical hurdle? Perhaps, but it does mirror the mental process
+
+Disciplined convex programming and the cvx modeling framework
+
+19
+
+Disciplined convex programming: beneﬁts
+• Veriﬁcation of convexity is replaced with enforcement of the ruleset, which can be
+performed reliably and quickly
+• Conversion to solvable form is fully automated
+• Because the atom library is extensible, generality is not compromised
+• New atoms can be created by experts and shared with novices
+
+Disciplined convex programming and the cvx modeling framework
+
+20
+
+Demonstration
+
+Disciplined convex programming and the cvx modeling framework
+
+21
+
+'cf. http://www.ece.ust.hk/~palomar/ELEC5470_lectures/06/slides1_cvx.pdf' 
