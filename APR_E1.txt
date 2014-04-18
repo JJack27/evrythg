@@ -1,0 +1,136 @@
+¨
+¨
+TECHNISCHE UNIVERSITAT MUNCHEN
+
+¨
+LEHRSTUHL FUR INFORMATIONSTECHNISCHE REGELUNG
+ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
+
+Adaptive and Predictive Control (APC)
+´
+Dr. Stefan Sosnowski / Denis Cehaji´
+c
+
+SS2014
+14.04.2014.
+
+EXERCISE 1
+Problem 1: Parameter Identiﬁcation
+Consider the stationary process described by y(k) = c1 + c2 u(k) + e(k) where c1 ∈ R and c2 ∈ R
+are unknown parameters, u(k) ∈ R and y(k) ∈ R are the input and output states respectively, and
+e(k) ∈ R is an external disturbance. The ﬁgure below illustrates the relation between u(k) and y(k)
+for k = 1, . . . , 5 and the table provides their numerical values. The unknown parameters c1 and c2
+have to be found.
+10
+8
+
+y(k)
+
+6
+4
+2
+0
+0
+
+1
+
+2
+
+4
+
+3
+
+5
+
+6
+
+7
+
+u(k)
+
+u(k)
+y(k)
+
+1 2 3 4 5
+1 3 3 6 7
+
+a) The least-squares estimation (LS) technique uses a loss function V (θ, k) which is minimal for a
+vector of unknown parameters θ in sense of least squares. Derive Y , Φ, and θ necessary for
+constructing V (θ, k).
+b) Derive a general solution to minimize V (θ, k). Using the obtained expression, solve for θ using the
+numerical values given in the table above.
+c) A new set of data u(6) = 6 and y(6) = 7 is added. Using the recursive least-square estimation
+ˆ
+(RLS) formulas, calculate the new estimate of the parameter vector θ(k).
+d) Consider the following discrete-time dynamic system y(k) = a1 u(k − 1) + a2 u(k − 2) with unknown
+parameters a1 and a2 . Represent this system in the same form as the stationary process given above
+in order to solve the identiﬁcation problem.
+
+Problem 2: Discrete-Time Control Systems
+Given a continuous-time linear control system, described by the ordinary diﬀerential equation (ODE)
+yc = ayc + buc
+˙
+
+(1)
+
+where yc , uc ∈ R are the system output and the control input respectively, and a, b ∈ R are constants,
+its discrete-time representation, with a sampling interval T , becomes
+y(k + 1) = cy(k) + du(k)
+
+(2)
+
+with constants c, d ∈ R. Here, y(k) is used to denote the value of y(t) at the k-th instant.
+a) Determine the constants c, d so that the continuous-time system (1) is accurately represented by
+the discrete model (2), or, so that yc (kT ) = y(k). How are the eigenvalues of the discretized model
+related to the eigenvalues of the continuous model, and what can be concluded about stability?
+b) For the dynamic system (2) with feedback u(k) = −Kp y(k), can the unknown parameters c, d be
+found uniquely? Assume that y(k) ∀ k, and Kp are known.
+Problem 3: Regressor Models
+Write the following systems in the form of a regressor model y(t) = ϕ(t)T u(t).
+a) Continuous-time transfer function G(s)
+Y (s)
+c
+= 2
+U (s)
+s + as + b
+
+(3)
+
+where y(t), u(t) ∈ R are the system output and the control input respectively, and a, b, c ∈ R
+are unknown constants. Assume that the derivatives of the system output up to the order 2 are
+available. What can be done, if only y(t) and u(t) are available, but not their derivatives?
+b) Non-linear system
+x(k + 1) = −ax(k)2 + 2bsin(u(k))
+
+(4)
+
+with unknown parameters a, b ∈ R.
+c) State space model
+d x1
+dt x2
+
+0 1
+a b
+
+x1
+0
++
+u
+x2
+c
+
+(5)
+
+y =
+with unknown parameters a, b, c ∈ R.
+
+=
+
+1 0
+
+x1
+x2
+
+(6)
+
+

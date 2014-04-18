@@ -1,0 +1,547 @@
+Adaptive and Predictive Control
+L1: Introduction
+
+Dr.-Ing. Stefan Sosnowski
+Institute for Information-Oriented Control
+Technische Universit¨t M¨nchen
+a
+u
+APR Lecture, summer semester 2014
+
+www.itr.ei.tum.de
+
+Organizational Info
+Hours:
+
+2 SWS lecture, 1 SWS exercises,
+1 SWS tutorials
+
+Exercises:
+
+Denis Cehajic, M.H. Mamduhi
+
+Time :
+
+Monday 13:15 to 14:45, room N0507
+Thursday 13:15 to 14:45, room N0507
+
+Consultation hours:
+
+Please make an appointment via eMail:
+sosnowski@tum.de, denis.cehajic@tum.de,
+mh.mamduhi@tum.de
+
+Introduction
+
+2
+
+Location
+
+Address:
+Barerstr. 21, 4. OG
+80333 M¨nchen
+u
+
+Building: 0305 S5 (old LRZ)
+Area: South-East-Area
+
+Introduction
+
+3
+
+Organizational Info
+Exams:
+
+Midterm:
+- Participation is optional
+- One grade step bonus for ﬁnal exam grade
+- written exam
+Final exam:
+- 90 min written exam
+
+Materials:
+
+Moodle / Elearning
+http://www.moodle.tum.de/
+- Lecture slides
+- Exercises
+- Solutions to exercises
+- Complementary material
+- Notiﬁcations
+
+Introduction
+
+4
+
+Recommended Literature
+Adaptive Control: Second Edition, K. J. Astrom and D. B.
+Wittenmark, [Astrom and Wittenmark 2008]
+Model Predictive Control, E. F. Camacho and C. B. Alba,
+[Camacho and Alba 2007]
+
+Further Reading:
+Adaptive Control Design and Analysis, G. Tao, [Tao 2003]
+Constrained Control and Estimation, G. C. Goodwin, J. A. De
+Don´, and M. M. Seron, [Goodwin, Don´, and Seron 2005]
+a
+a
+Adaptive Control Tutorial, P. Ioannou and B. Fidan, [Ioannou and
+Fidan 2006]
+
+Introduction
+
+5
+
+Motivation
+
+to adapt (latin: ”adaptare”): Make (something) suitable for a new
+use or purpose; modify1
+In control ⇒ modify the controller according to changes in the
+plant
+
+1
+
+deﬁnition: Oxford dictionary
+Introduction
+
+6
+
+Changes in System-behavior: Example 1
+
+Figure: X15 experimental aircraft
+
+Introduction
+
+7
+
+Flight Control
+
+Table: Parameter changes
+Mach
+Altitude [ft]
+a11
+a12
+a13
+a21
+a22
+a23
+b1
+λ1
+λ2
+
+0.5
+5000
+
+1.5
+35000
+
+-0.9896
+17.41
+96.15
+0.2648
+-0.8512
+-11.39
+-97.78
+-3.07
+1.23
+
+-0.51262
+26.96
+178.9
+-0.6896
+-1.225
+-30.38
+-175.6
+− 0.87 ± 4.3i
+− 0.87 ± 4.3i
+
+Pitch angle Θ
+˙
+Pitch rate q = Θ
+Normal acceleration Nz
+Elevon angle δe
+Input to elevon servo u
+
+
+ 
+a11 a12 a13
+b1
+x = a21 a22 a23  x +  0  u
+˙
+0
+0 −a
+a
+
+where xT = (Nz
+
+˙
+Θ δe )
+
+Introduction
+
+8
+
+Flight Control
+
+Table: Parameter changes
+Mach
+Altitude [ft]
+a11
+a12
+a13
+a21
+a22
+a23
+b1
+λ1
+λ2
+
+0.5
+5000
+
+1.5
+35000
+
+-0.9896
+17.41
+96.15
+0.2648
+-0.8512
+-11.39
+-97.78
+-3.07
+1.23
+
+-0.51262
+26.96
+178.9
+-0.6896
+-1.225
+-30.38
+-175.6
+− 0.87 ± 4.3i
+− 0.87 ± 4.3i
+
+unstable
+
+poorly
+damped
+
+Pitch angle Θ
+˙
+Pitch rate q = Θ
+Normal acceleration Nz
+Elevon angle δe
+Input to elevon servo u
+
+
+ 
+a11 a12 a13
+b1
+x = a21 a22 a23  x +  0  u
+˙
+0
+0 −a
+a
+
+where xT = (Nz
+
+˙
+Θ δe )
+
+Introduction
+
+8
+
+Changes in System-behavior: Example 2
+Hard disk drives (HDD)
+Data is written in concentric
+tracks
+Track-following: disturbance
+rejection problem
+Disturbance consists of
+RRO (repeatable runout) –
+imperfections on the tracks,
+etc.
+NRRO (non-repeatable
+runout) – vibrations,
+ball-bearing imperfections,
+etc.
+Introduction
+
+9
+
+Changes in System-behavior: Example 3
+Eﬀects of waves on ship steering by an autopilot
+
+wind speed: 2-4
+m/s
+
+wind speed: 18-20
+m/s
+
+waves have a dominating eﬀect on the ship heading and speed
+autopilot has to cope with large changes of wave frequencies
+(factor 3)
+Introduction
+
+10
+
+Changes in System-behavior: Example 3
+Adaptive autopilot
+
+PID autopilot
+
+Introduction
+
+11
+
+Changes in System-behavior: Example 4
+Underwater Robotics
+6D motion
+Dynamics dependent on center of mass and motion direction
+Equations of motion: highly coupled and non-linear in every
+degree of freedom
+Online estimation through recursive least-squares optimization
+with forgetting factor
+
+Introduction
+
+12
+
+Changes in System-behavior: Example 5
+Cooperative manipulation with robots
+Uncertainty in kinematic parameters
+Least-squares estimation of rigid transformations
+Minimization of actuator torques
+
+Introduction
+
+13
+
+Changes in System-behavior: Example 5
+Cooperative manipulation with robots
+Joint manipulation with haptic coupling
+Partial knowledge of grasp geometries
+Control design for closed kinematic chains
+Limited availability of information on each robot
+
+Introduction
+
+14
+
+Other changes in System-behavior
+
+Friction
+Temperature
+Load
+etc. . .
+
+Introduction
+
+15
+
+Parameter Variation: Example 1
+Inﬂuence of parameter variations on the system behavior
+G(s) =
+open loop
+
+1
+,
+(s + 1)(s + a)
+
+a ∈ [−0.01, 0.01]
+
+closed loop
+
+Introduction
+
+16
+
+Parameter Variation: Example 1
+Inﬂuence of parameter variations on the system behavior
+G(s) =
+open loop
+
+1
+,
+(s + 1)(s + a)
+
+a ∈ [−0.01, 0.01]
+
+closed loop
+
+Introduction
+
+16
+
+Parameter Variation: Example 2
+Inﬂuence of parameter variations on the system behavior
+G(s) =
+open loop
+
+400(1 − T s)
+,
+(s + 1)(s + 20)(1 + T s)
+
+T ∈ [0, 0.03]
+
+closed loop
+
+Introduction
+
+17
+
+Parameter Variation: Example 2
+Inﬂuence of parameter variations on the system behavior
+G(s) =
+open loop
+
+400(1 − T s)
+,
+(s + 1)(s + 20)(1 + T s)
+
+T ∈ [0, 0.03]
+
+closed loop
+
+Introduction
+
+17
+
+History of Adaptive Control
+
+Figure: Development of adaptive control methods [IoannouSlides]
+Introduction
+
+18
+
+Adaptive Control Loop
+
+Figure: Basic concept of an adaptive control loop
+
+Introduction
+
+19
+
+Self-tuning Regulator
+
+Figure: Self-tuning regulator loop
+
+Introduction
+
+20
+
+Model-Reference Adaptive Systems
+
+Figure: MRAS block diagram
+
+Introduction
+
+21
+
+Gain Scheduling
+
+Figure: Gain scheduling control loop
+
+Introduction
+
+22
+
+Predictive Control
+
+Model based computation of future system behavior based on
+future reference values
+For each timestep: Calculate optimal control input (cost
+function)
+Use of a moving prediction horizon
+Use of constraints on inputs and state variables
+Introduction
+
+23
+
+MPC Analogy
+
+Figure: Analogy of the model predictive control idea
+
+Introduction
+
+24
+
+MPC structure
+
+Figure: Basic structure of an MPC loop
+Introduction
+
+25
+
+Adaptation and Prediction
+Adaptation:
+
+Prediction:
+
+adjust parameters of the
+current controller to current
+(and past) process states
+
+adapt model to current (and
+past) process states to predict
+future behavior and compute
+optimal control strategy
+
+⇒ Adaptive control
+
+⇒ Predictive control
+
+Introduction
+
+26
+
+Content
+1. Introduction to Adaptive and Predictive Control
+2. Parameter Estimation
+3. Self tuning regulators, pole placement
+4. Model Reference Adaptive systems
+5. Autotuning, Gain Scheduling
+6. Practical Issues and Implementation, Applications
+
+Introduction
+
+27
+
+Content
+
+7. Stochastic Adaptive Controllers, Predictive Self-tuning
+controllers
+8. Fixed horizon optimal control, Receding horizon optimal control
+(RHC)
+9. Constrained Linear Quadratic Optimal Control
+10. Model predictive control, Generalized predictive control
+
+Introduction
+
+28
+
+References
+
+Karl J Astrom and Dr. Bjorn Wittenmark.
+Adaptive Control: Second Edition (Dover Books on Electrical Engineering). Second Edi.
+Dover Publications, 2008. isbn: 9780486462783.
+Eduardo F Camacho and Carlos Bordons Alba.
+Model Predictive Control (Advanced Textbooks in Control and Signal Processing). 2nd. Springer, 2007.
+isbn: 9781852336943.
+Graham C. Goodwin, Jos´ A. De Don´, and Mar´ M. Seron.
+e
+a
+ıa
+Constrained Control and Estimation: an optimisation approach. Communications and Control Engineering.
+London: Springer-Verlag, 2005. isbn: 1-85233-548-3. doi: 10.1007/b138145.
+Petros Ioannou and Bar´p Fidan. Adaptive Control Tutorial (Advances in Design and Control).
+y
+SIAM, Society for Industrial and Applied Mathematics, 2006. isbn: 9780898716153.
+Gang Tao. Adaptive Control Design and Analysis (Adaptive and Learning Systems for Signal Processing,
+Communications and Control Series). 1st. Wiley-IEEE Press, 2003, p. 640. isbn: 9780471274520.
+
+29
+
+
