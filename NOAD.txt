@@ -263,7 +263,8 @@ Example 2.2.
 • Rn with x, y = x y
 • Cn with x, y = yH x
 • Rm×n with A, B = tr(AB )
-
+\todo{Show that $<A, B>_P = \operatorname{tr}(A P B)$ is an inner product for postitive definite $P$}
+\todo{should it possibly be \operatorname{tr}(A P B^T)$}
 Example 2.3. If we consider the mapping
 
 Rm×n → Rmn ,
@@ -301,7 +302,7 @@ x∈H
 Lx F
 , L ∈ L(H, F ).
 x H
-
+[ If $A$ is a real $m \times n$ Matrix $A x \;;\; x \in \mathbb{R}^n$ describes a linear map \mathbb{R}^n \to \mathbb{R}^m} ]
 (13)
 
 Deﬁnition 2.4 (Diﬀerentiability). Let X ⊂ H be an open subset and x0 ∈ X . A
@@ -335,9 +336,8 @@ tes
 f (x) = f (x0 ) + Ax0 (x − x0 ) + rx0 (x) · x − x0 .
 • There exists an Ax0 ∈ L(H, F ) such that
 
-f (x) = f (x0 ) + Ax0 (x − x0 ) + o( x − x0 ).
-
-(16)
+f (x) = f (x0 ) + Ax0 (x − x0 ) + o( x − x0 ).  (16)
+\todo{Does  $+ o|| x - x+0 || mean that we add a term that is much smaller then || x - x_0 ||$?}
 
 2. If f is diﬀerentiable in x0 , then f is continuous in x0 .
 3. If f is diﬀerentiable in x0 , then Ax0 is unique.
@@ -348,7 +348,7 @@ an arbitrary point y with y = 1 construct a sequence of points xn = x0 +y/n with
 N \ {0}. Together with the equation obtained above this yields limn→∞ (Ax0 − B)y = 0
 for all y as above. Therefore, we have Ax0 = B, i.e. the operator is unique.
 
-re
+\todo{How do we obtain the relation $\frac{x_n - x_0}{|| x_n - x_0 ||} = y$}
 
 Deﬁnition 2.5. We say that f is diﬀerentiable in X if f is diﬀerentiable for all x0 ∈ X .
 The mapping
