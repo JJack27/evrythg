@@ -1,0 +1,326 @@
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Data Analysis for Computer Engineering
+Introduction to Reinforcement Learning
+
+Hao Shen
+Institute for Data Processing
+¨
+¨
+Technische Universitat Munchen
+
+08.04.2014
+
+Slide 1/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Cars in 2050?
+
+Faster forward: Imagining the future car of 2050, http://www.digitaltrends.com
+
+Slide 2/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Is self-driving the answer?
+
+http://www.marketinginautomotive.com/category/autonomous-driving/
+
+Slide 3/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Completely autonomous driving
+“The next step is for the car to not just drive
+autonomously, but to think autonomously.”
+“The car will understand the driver’s cognitive and
+emotional load at all times and control what type of
+information and how much of it can be consumed by
+the driver at a given time.”
+
+Future cars might/should perform intelligent behavior.
+
+Slide 4/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Sci-ﬁ?
+
+Slide 5/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Boston Dynamics
+
+http://www.bostondynamics.com/robot_bigdog.html
+
+Slide 6/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+Slide 7/14
+
+Data Analysis for Computer Engineering
+
+¨
+¨
+Technische Universitat Munchen
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Industrie 4.0
+
+A project in the high-tech strategy of the German
+government, which promotes the computerization of
+traditional industries such as manufacturing.
+The required automation technology is improved by the
+introduction of methods of self-optimization,
+self-conﬁguration, self-diagnosis, cognition and intelligent
+support of workers in their increasingly complex work.
+From smart factories to smart products, machine
+intelligence is the key.
+
+Slide 8/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+What is intelligence?
+Gottfredson, Linda S. (1997)
+A very general mental capability that, among other things,
+involves the ability to reason, plan, solve problems, think
+abstractly, comprehend complex ideas, learn quickly and learn
+from experience. It is not merely book learning, a narrow
+academic skill, or test-taking smarts. Rather, it reﬂects a
+broader and deeper capability for comprehending our
+surroundings–“catching on”, “making sense” of things, or
+“ﬁguring out” what to do.
+
+Slide 9/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Machine learning
+Machine learning is a characteristic and prerequisite for
+machine intelligence
+Types of learning (agent)
+1. Supervised learning: learning from teachers, i.e. “catching
+on” of things
+2. Unsupervised learning/data modelling: learning in data for
+structure/ patterns, i.e. “making sense” of things
+3. Reinforcement learning: learning from its interaction with
+the environment, i.e. “ﬁguring out” what to do
+
+Slide 10/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Structure of the course
+
+1. ECTS: 6
+2. Frontal teaching (week 1-9)
+Lecture: H.S. & J.G.
+Tutorial: H.S. & J.G.
+Lab course: M.K.
+
+3. Group project (week 10-13): D.M. & M.K.
+4. Oral exam (week 14)
+
+Slide 11/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Assessment
+
+1. Four written assignments: ∼biweekly, ∼ 1hr
+2. Group programming project in Python
+3. Final grade: assignments 20%
+group project 20%
+oral examination (30 mins) 60%
+
+Slide 12/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+¨
+¨
+Technische Universitat Munchen
+
+Literature
+
+R. S. Sutton and A. G. Barto.
+Reinforcement Learning: An Introduction.
+The MIT Press, 1998.
+D. P. Bertsekas and J. Tsitsiklis.
+Neuro-dynamic programming.
+Athena Scientiﬁc, 1996.
+´
+S. Szepesvari.
+Algorithms for Reinforcement Learning.
+Morgan & Claypool, 2010.
+
+Slide 13/14
+
+Data Analysis for Computer Engineering
+
+Hao Shen
+
+08.04.2014
+
+¨
+Lehrstuhl fur
+Datenverarbeitung
+
+Slide 14/14
+
+Data Analysis for Computer Engineering
+
+¨
+¨
+Technische Universitat Munchen
+
+Hao Shen
+
+08.04.2014
+
+

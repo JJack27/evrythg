@@ -1,0 +1,93 @@
+What is Machine Learning ?
+(by examples)
+
+Classification
+from data to discrete classes
+
+data
+
+Spam filtering
+
+prediction
+
+Spam
+vs.
+Not Spam
+
+Object detection
+
+Example training images
+for each orientation
+
+10
+
+©2009 Carlos Guestrin
+
+Weather prediction
+
+Regression
+predicting a numeric value
+
+Stock market
+
+Weather prediction revisted
+
+Temperature
+72° F
+
+Ranking
+comparing items
+
+Web search
+
+Given image, find similar images
+
+http://www.tiltomo.com/
+
+Collaborative Filtering
+
+Recommendation systems
+
+Recommendation systems
+Machine learning competition with a $1 million prize
+
+Clustering
+discovering structure in data
+
+Clustering Data: Group similar things
+
+Clustering images
+
+Set of Images
+
+[Goldberger et al.]
+
+Clustering web search results
+
+Embedding
+visualizing data
+
+Embedding images
+•  Images have
+thousands or
+millions of pixels.
+•  Can we give each
+image a coordinate,
+such that similar
+images are near
+each other?
+
+26
+
+©2009 Carlos Guestrin
+[Saul & Roweis ‘03]
+
+Embedding words
+
+[Joseph Turian]
+
+Embedding words (zoom in)
+
+[Joseph Turian]
+
+
