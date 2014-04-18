@@ -513,18 +513,13 @@ and applying Proposition 5 as before we obtain
 (42)
 
 q.e.d.
-Proposition 8 For the special case in which the scalar α is given by the quadratic form
-α = xT Ax
-
-(43)
-' p. 6 '
+Proposition 8
+For the special case in which the scalar α is given by the quadratic form
+\alpha = x^T A x
 
 where x is n × 1, A is n × n, and A does not depend on x, then
-∂α
-= xT A + AT
-∂x
 
-(44)
+\frac{\partial \alpha}{\partial x} = x^T (A + A^T) (44)
 
 Proof: By deﬁnition
 n
@@ -572,17 +567,16 @@ q.e.d.
 
 Spring 2006
 
-Proposition 9 For the special case where A is a symmetric matrix and
-α = xT Ax
+Proposition 9
+
+For the special case where A is a symmetric matrix and
+\alpha = x^T A x
 
 (48)
 
 where x is n × 1, A is n × n, and A does not depend on x, then
-∂α
-= 2xT A
-∂x
 
-(49)
+\frac{\partial \alpha}{\partial x} = 2 x^T A (49)
 
 Proof: This is an obvious application of Proposition 8. q.e.d.
 Proposition 10 Let the scalar α be deﬁned by
