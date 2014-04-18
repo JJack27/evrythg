@@ -1,0 +1,2775 @@
+We give no guarantee for the correctness of these notes.
+
+No
+tes
+
+Lecture Notes
+Nonconvex Optimization for Analyzing
+Big Data
+Copyright by
+Matthias Seibert, Martin Kleinsteuber
+Technische Universit¨t M¨nchen
+a
+u
+
+Le
+
+ctu
+
+re
+
+April 8, 2014
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+1 Introduction
+In order to illustrate the necessity of understanding nonconvex optimization algorithms,
+we will start of by giving some examples of problems that are solved via a nonconvex
+optimization.
+
+min X − L
+L
+
+No
+tes
+
+Example 1.1 (Principal component analysis (PCA)). In this model the data matrix X
+is given by X = L + N. L is low rank, N is Gaussian noise.
+Associated Optimization Problem: Given X, ﬁnd L, N via
+rk(L) ≤ k.
+
+subject to
+
+F
+
+(1)
+
+Solution: Find the singular value decomposition
+
+X = UΣV ,
+
+(2)
+
+with Σ = diag(σ1 , ..., σn ), σ1 > . . . > σn . Then L is given by
+L = UΣk V ,
+
+(3)
+
+with Σk := diag(σ1 , . . . , σk , 0, . . . , 0). Therefore, we have an explicit solution to the
+problem in terms of a SVD.
+
+min S
+Here, the
+S, i.e. S
+
+0
+
++ rk(L)
+
+subject to
+
+L+S−X <ε
+
+(4)
+
+ctu
+
+L,S
+
+re
+
+Example 1.2 (Robust PCA). Data model: X = L + S + N, where L is a low rank
+matrix, S is sparse, i.e. only a few of the entries of S are unequal to zero, and N is
+Gaussian noise.
+Associated Optimization Problem:
+
+0 -pseudo-norm
+
+0
+
+is used. It is deﬁned as the number of non-zero elements in
+:= #{sij | sij = 0, i, j = 1, . . . , n}.
+
+Le
+
+Example 1.3 (Sparse Coding). Data model: xi = [d1 , . . . , dN ] · αi + ε with αi 0 ≤ k,
+ε is Gaussian noise. D := [d1 , . . . , dN ] is called a dictionary and the signal can be
+described by a linear combination of a few columns of this dictionary. The columns are
+called atoms.
+Associated Optimization Problem: Given xi ﬁnd its ”sparse code” αi via solving
+min
+
+αi ∈RN
+
+xi − Dαi
+
+2
+
+subject to
+
+αi
+
+0
+
+≤ k.
+
+(5)
+
+≤ε
+
+(6)
+
+Alternatively, an equivalent optimization problem is given by
+min
+
+αi ∈RN
+
+αi
+
+0
+
+subject to
+
+2
+
+xi − Dα
+
+2
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Observation: Given one data model, there is no ultimate corresponding optimization
+problem. Rather, there are a multitude of optimization problems to choose from and it
+is the ﬁrst task to pick the right one for the application at hand.
+Note 1.4. There are many possibilities to choose a dictionary mentioned in the example
+of sparse coding. One example for natural images are wavelets. However, they are not
+able to sparsely represent images of certain modalities, as for example CT images.
+
+M
+
+xi − Dαi
+
+min
+D,α
+
+i=1
+
+2
+
+No
+tes
+
+Example 1.5 (Learning the dictionary D). Task: Given a class of signals x1 , . . . , xM ,
+ﬁnd a dictionary D that is able to represent all images belonging to this class. The
+corresponding optimization problem is given by
+subject to
+
+αi
+
+0
+
+≤ k.
+
+(7)
+
+The problem with this optimization problem is that it is not unique. For one, if the sparse
+representation α is multiplied by a factor c ∈ R \ {0}, then multiplying the dictionary D
+by the inverse 1/c will be an equivalent solution. Another result of this problem is that
+the columns of D may tend to zero while the entries of α tend to inﬁnity. This is called
+the scaling ambiguity. Therefore, in order to regularize the problem, we demand that
+the columns of D all have unit norm, i.e. di = 1 for all i = 1, . . . , N . This means that
+the dictionary D belongs to the so called product of spheres, i.e. D ∈ Sn−1 × . . . × Sn−1
+with Sn−1 := {x ∈ Rn | x 2 = 1}.
+
+Le
+
+ctu
+
+re
+
+Example 1.6 (Foley Sammon Discriminant Analysis). Given the between class variance
+¯ x
+¯
+x
+SB (for completeness’ sake, it is deﬁned as SB := c ni (¯ i − x)(¯ i − x) ) and the
+i=1
+nj
+c
+¯
+¯
+within class variance SW (= i=1 j=1 (xij − xi )(xij − xi ) ), where c is the number of
+¯
+classes, ni is the number of samples in class i, xij is the j th sample of class i, xi is the
+¯
+center of class i, and x is the center of all data samples.
+The goal of the Foley Sammon Discriminant Analysis is to ﬁnd a subspace S such that
+the between class variance is minimized with respect to the within class variance. In
+order to formulate this as an optimization problem, we ﬁrst need to deﬁne the projection
+onto a subset S. Let U = [u1 , . . . , uk ] be an orthonormal basis of S, then the coordinates
+of the projected vector are given by s = U x.
+Therefore, the we can formulate the optimization problem as
+min
+
+U U=Ik
+
+tr(U SW U)
+.
+tr(U SB U)
+
+(8)
+
+2 Derivatives in ﬁnite dimensional Hilbert spaces
+Deﬁnition 2.1 (Hilbert space). A ﬁnite dimensional vector space H over K (e.g. R or
+C) endowed with an inner product
+·, · : H × H → K
+
+3
+
+(9)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+that fulﬁlls
+•
+
+x, y = y, x
+
+(conjugate symmetry)
+
+•
+
+αx, y = α x, y , α ∈ F
+x + y, z = x, z + y, z
+
+(linearity in the ﬁrst argument)
+
+x, x > 0 for all x = 0
+
+(positive deﬁniteness)
+
+•
+
+No
+tes
+
+for all x, y, z ∈ H is called a ﬁnite dimensional Hilbert space.
+Example 2.2.
+• Rn with x, y = x y
+• Cn with x, y = yH x
+• Rm×n with A, B = tr(AB )
+
+Example 2.3. If we consider the mapping
+
+Rm×n → Rmn ,
+
+A → vec(A),
+
+(10)
+
+re
+
+we see that while the inner product on Rm×n is deﬁned as tr(AB ) for A, B ∈ Rm×n ,
+the equivalent inner product on Rmn is given by x y with x = vec(A), y = vec(B). A
+mapping of this form is an isometric isomorphism.
+Linear maps between ﬁnite dimensional Hilbert spaces Let H and F be ﬁnite
+dimensional Hilbert spaces and let
+
+ctu
+
+L(H, F ) := {L : H → F is linear}
+
+(11)
+
+denote the set of all linear maps from H to F . Then L(H, F ) is also a ﬁnite dimensional
+vector space with dimension
+dim L(H, F ) = dim H · dim F.
+
+(12)
+
+Le
+
+This vector space has the induced norm
+L := sup
+x∈H
+
+Lx F
+, L ∈ L(H, F ).
+x H
+
+(13)
+
+Deﬁnition 2.4 (Diﬀerentiability). Let X ⊂ H be an open subset and x0 ∈ X . A
+function f : X → F is called diﬀerentiable in x0 if an Ax0 ∈ L(H, F ) exists with
+lim
+
+x→x0
+
+f (x) − f (x0 ) − Ax0 (x − x0 )
+=0
+x − x0
+
+4
+
+(14)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+The following points hold:
+1. The following statements are equivalent:
+• The function f is diﬀerentiable in x0 .
+• There exists an Ax0 ∈ L(H, F ) and rx0 : X → F where rx0 is continuous in
+x0 and rx0 (x0 ) = 0 such that
+(15)
+
+No
+tes
+
+f (x) = f (x0 ) + Ax0 (x − x0 ) + rx0 (x) · x − x0 .
+• There exists an Ax0 ∈ L(H, F ) such that
+
+f (x) = f (x0 ) + Ax0 (x − x0 ) + o( x − x0 ).
+
+(16)
+
+2. If f is diﬀerentiable in x0 , then f is continuous in x0 .
+3. If f is diﬀerentiable in x0 , then Ax0 is unique.
+
+Proof-Sketch (of 3.) Assume that there exists another linear operator B that can be used
+in (16). Subtract this newly obtained equation from (16) and divide by x − x0 . Given
+an arbitrary point y with y = 1 construct a sequence of points xn = x0 +y/n with n ∈
+N \ {0}. Together with the equation obtained above this yields limn→∞ (Ax0 − B)y = 0
+for all y as above. Therefore, we have Ax0 = B, i.e. the operator is unique.
+
+re
+
+Deﬁnition 2.5. We say that f is diﬀerentiable in X if f is diﬀerentiable for all x0 ∈ X .
+The mapping
+(17)
+
+ctu
+
+Df : X → L(H, F )
+x0 → Df (x0 ) := Ax0
+
+is called the diﬀerential map of f . Df (x0 ) is called the derivative of f in x0 .
+The function f is smooth if Df is continuous, i.e. smooth is another word for continuously
+diﬀerentiable. We abbreviate this by writing f ∈ C 1 (X ).
+
+Le
+
+Recall: H, F are Hilbert spaces and X ⊂ H is an open subset with x0 ∈ X . Further,
+let f be a mapping from H to F . Then the derivative of f in x0 is denoted by Df (x0 ).
+It is a linear mapping Df (x0 ) : H → F . The diﬀerential map is deﬁned by
+Df : X → L(H, F )
+x0 → Df (x0 ).
+
+5
+
+(18)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+2.1 Directional Derivatives
+As before, we have two Hilbert spaces H, F with an open subset X ⊂ H and a mapping
+f : X → F . Furthermore, we have a direction v ∈ H. We then deﬁne the function
+ϕv : (−ε, ε) → F
+
+(19)
+
+t → f (x0 + tv),
+
+No
+tes
+
+where ε > 0 such that x0 + tv ⊂ X for all t ∈ (−ε, ε). Since f is diﬀerentiable, it is
+readily shown thatϕv is diﬀerentiable as well.
+Deﬁnition 2.6 (Directional derivative). The directional derivative of f in x0 in direction
+v is denoted by Dv f (x0 ) and is deﬁned as
+Dv f (x0 ) :=
+
+d
+dt
+
+ϕv (t) =
+t0
+
+d
+dt
+
+f (x0 + tv) − f (x0 )
+.
+t→0
+t
+
+f (x0 + tv) = lim
+t0
+
+(20)
+
+Example 2.7. Given the Hilbert spaces H, F = R2 and the function f : H → F deﬁned
+as
+x2 + 4y
+.
+(21)
+f (x, y) =
+y2 + x
+Then the directional derivatives in 0 in the directions v1 =
+0
+4
+and Dv2 f (0) =
+.
+1
+1
+
+and v2 =
+
+1
+1
+
+are
+
+re
+
+Dv1 f (0) =
+
+1
+0
+
+Theorem 2.8. If f is diﬀerentiable in x0 , then Dv f (x0 ) exists for all direction v ∈
+H \ {0} and
+Dv f (x0 ) = Df (x0 ) · v.
+(22)
+
+ctu
+
+This means the directional derivative in direction v is the same as applying the diﬀerentiable map to v.
+Proof. Due to the diﬀerentiability of f we have
+f (x0 + tv) = f (x0 ) + Df (x0 ) · (tv) + o( tv )
+= f (x0 ) + tDf (x0 ) · v + o( tv )
+
+(23)
+
+Le
+
+Dividing by t yields
+
+f (x0 + tv) − f (x0 )
+o( tv )
+= Df (x0 ) · v +
+t
+t
+Therefore, computing the limes yields
+
+since limt→0
+
+o( tv )
+t
+
+lim
+
+t→0
+
+f (x0 + tv) − f (x0 )
+= Df (x0 ) · v
+t
+
+= 0. This is equal to the directional derivative Dv f (x0 ).
+
+6
+
+(24)
+
+(25)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Example 2.9 (Continuation of the last Example).
+Df (0)
+
+1
+0
+=
+0
+1
+
+Df (0)
+
+1
+4
+=
+1
+1
+
+No
+tes
+
+Given a linear map an unkown linear map. If the results of this linear map applied to
+the base elements on the Hilbert space it is deﬁned on, then you can reconstruct the
+linear mapping. Therefore, we get
+Df (0) =
+
+0 4
+.
+1 0
+
+(26)
+
+Note that mappings exist where the directional derivatives for all directions exist, while
+the function is not diﬀerentiable.
+Deﬁnition 2.10 (Partial derivatives). Let the Hilbert space be given by H = Rn . The
+directional derivatives with respect to the standard basis vectors ei = [0, . . . , 1, . . . , 0]
+are called partial derivatives. They are denoted by
+∂
+f (x) := Dei f (x).
+∂xi
+
+(27)
+
+re
+
+2.2 Riesz representation theorem
+Deﬁnition 2.11. The dual space of H is the set of all (continuous) linear maps from
+H to K denoted by L(H, K).
+
+ctu
+
+Let αy : H → K, x → x, y , then αy ∈ L(H, K).
+
+Theorem 2.12 (Riesz). Let H be a ﬁnite dimensional Hilbert space then to each linear
+mapping f ∈ L(H, K) there exists a unique vector y ∈ H such that f = αy , i.e. f (x) =
+x, y for all x ∈ H.
+Sketch of proof. Consider the map T : H → L(H, K), y → ·, y . Then we have to show
+that T is linear, T is injective, and dim H = dim L(H, K).
+
+Le
+
+2.3 The Gradient
+
+Deﬁnition 2.13. Let H be a ﬁnite dimensional Hilbert space and let f : H → R be
+diﬀerentiable in x0 ∈ H. According to the Riesz representation theorem there exists a
+unique g(x0 ) ∈ H such that
+Df (x0 ) · v = v, g(x0 )
+
+for all v ∈ H. g(x0 ) is called the gradient of f in x0 and is denoted by
+
+7
+
+(28)
+f (x0 ) := g(x0 ).
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Note 2.14. The gradient depends on the choice of the inner product ·, · .
+Example 2.15. H = Rn , a, b = a b, then
+
+
+
+.
+.
+.
+.
+∂
+∂xn f (x0 )
+
+No
+tes
+
+
+f (x0 ) = 
+
+
+∂
+∂x1 f (x0 )
+
+Dependence of the Gradient on Diﬀerent Scalar Products in Rn Let A ∈ Rn×n be
+a positive deﬁnite matrix, then x, y A := x Ay = x, Ay is a scalar product in Rn
+(all scalar products in Rn can be written in this way). For a smooth function f , the
+directional derivative is independent of the scalar product on H, but according to Riesz
+we have
+Df (x0 ) · v = v, g(x0 )
+
+= v, gA (x0 )
+
+A
+
+= v, AgA (x0 ) .
+
+(29)
+
+This equation holds true for all v ∈ Rn . Therefore, we have
+g(x0 ) = AgA (x0 )
+
+⇔
+
+A−1 g(x0 ) = gA (x0 ).
+
+(30)
+
+re
+
+Thus, every scalar product results in a diﬀerent gradient.
+
+Steepest Descent Given a function f : H → R. In order to determine the direction of
+steepest descent in x0 ∈ H we ﬁnd the minimum of all directional derivatives, i.e.
+min
+
+d
+dt
+
+f (x0 + tv) = min Df (x0 ) · v = min
+
+ctu
+
+v=0
+
+t=0
+
+v=0
+
+v=0
+
+f (x0 ), v .
+
+(31)
+
+Le
+
+Here, the ﬁrst equation holds for all diﬀerentiable functions, while the second equation
+holds according to Riesz’ representation theorem. To guarantee uniqueness, we restrict
+the norm of v to 1. Thus, the minimization problem is now given by min v =1 f (x0 ), v .
+By the Cauchy-Schwarz-Inequality we get the solution
+f (x0 )
+.
+f (x0 )
+
+v=−
+
+(32)
+
+Therefore, the direction of steepest descent is given by the negative gradient.
+
+Example 2.16. Let A, Y be (real) matrices. We are looking for a real upper triangular
+matrix X that solves the equation AX = Y . This problem is approximated by the
+function
+f (X) = AX − Y 2 .
+(33)
+2
+
+8
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+The Hilbert space of real upper triangular matrices is deﬁned as
+H = {X ∈ Rn×n : xij = 0 for i > j}
+
+(34)
+
+with the inner product X1 , X2 = tr(X1 X2 ). In order to determine the gradient we
+ﬁrst compute the directional derivative
+f (X + tV )
+t=0
+
+No
+tes
+
+d
+dt
+d
+=
+dt
+
+DV f (X) =
+
+tr (A(X + tV ) − Y ) (A(X + tV ) − Y )
+t=0
+
+(35)
+
+= tr V 2(A AX − A Y )
+= V, 2(A AX − A Y ) .
+
+re
+
+Here, the trace properties tr(A) = tr(A ) and tr(AB) = tr(BA) were used in order
+to obtain a representation of the directional derivative from which we can derive the
+gradient according to Deﬁnition 2.13. Since 2(A AX − A Y ) is not an element of the
+Hilbert space on which the function is deﬁned (i.e. it is not an upper triangular matrix),
+we have to project it onto H. This is necessary for the gradient to be uniquely deﬁned.
+In the case at hand, the projection of an arbitrary matrix on the set of upper triangular
+matrices is achieved by simply setting all entries below the diagonal to zero. We denote
+this operation with the operator upp which is deﬁned as
+upp : Rn×n → Rn×n ,
+aij ,
+0,
+
+for i ≤ j,
+otherwise
+
+for i, j = 1, . . . , n.
+
+ctu
+
+aij →
+
+(36)
+
+This projection is well deﬁned due to the fact that the entries of 2(A AX − A Y ) that
+are below the diagonal do not inﬂuence the scalar product with the upper triangular
+matrix V (i.e. V, Z = V, upp(Z) for an arbitrary matrix Z). In conclusion, the
+gradient of f is given by
+f (X) = 2 upp(A AX − A Y ).
+
+(37)
+
+Le
+
+Note 2.17. Generally, for a Hilbert space H with the open subspace U ⊂ H the scalar
+product of the elements v ∈ U and x ∈ H is deﬁned as
+v, x = v, ΠU (x) ,
+
+(38)
+
+where ΠU is the orthogonal projection onto U . Another example is the projection of an
+arbitrary matrix onto the the Hilbert space of symmetric matrices given by sym(B) :=
+1
+2 (B + B ).
+
+9
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+2.4 The Chain and the Product Rule
+Recall : The chain rule for functions f, g : R → R is given by g(f (x)) = g (f (x))f (x),
+while the product rule is given by (g · f ) (x) = g (x) · f (x) + g(x) · f (x).
+Let H, E be Hilbert spaces, and let X ⊂ H be an open subset. Furthermore, we have
+the smooth function f, g : X → E. Then f + αg : X → E with α ∈ R is also smooth
+with the diﬀerential map D(f + αg) = Df + αDg.
+
+No
+tes
+
+Proof. Due to the diﬀerentiability of f and g we have
+
+f (x) = f (x0 ) + Df (x0 )(x − x0 ) + r(x) x − x0 ,
+
+(39)
+
+g(x) = g(x0 ) + Dg(x0 )(x − x0 ) + q(x) x − x0 .
+
+Here, r(·) and q(·) are continuous functions with r(x0 ) = q(x0 ) = 0. The addition of
+these two equations yields
+(f +αg)(x) = (f +αg)(x0 )+(Df (x0 ) + αDg(x0 )) (x−x0 )+(r(x) + q(x)) x−x0 . (40)
+Since s(x) := r(x) + αq(x) is continuous with s(x0 ) = 0, the desired result follows.
+
+re
+
+The Chain Rule Given the Hilbert spaces H, E, F and the two open subsets X ⊂ H,
+Y ⊂ E. Furthermore, we have the smooth functions f : X → E with f (X ) ⊂ Y and
+g : Y → F . Therefore, the composition g ◦ f : X → F is also smooth (Note: (g ◦ f )(x) =
+g(f (x))) and its diﬀerential map is given by
+D(g ◦ f )(x) = Dg(f (x)) ◦ Df (x).
+
+(41)
+
+ctu
+
+Proof. We have Dg(f (x0 )) ◦ Df (x0 ) ∈ L(X , F ) (which is the composition of the two
+linear maps Dg(f (x)) ∈ L(X , Y) and Df (x) ∈ L(Y, F )). Since both function f and g
+are smooth, by the deﬁnition of diﬀerentability we have
+f (x) = f (x0 ) + Df (x0 )(x − x0 ) + r(x0 ) x − x0 ,
+g(y) = g(y0 ) + Dg(y0 )(y − y0 ) + q(x0 ) y − y0 ,
+
+x∈X
+y ∈ Y,
+
+(42)
+
+Le
+
+with the continuous functions r : X → E and q : Y → F which have the property r(x0 ) =
+0 and q(y0 ) = 0. Furthermore, we deﬁne p : X → F by p(x0 ) = 0 and
+p(x) := Dg(f (x0 ))r(x) + q(f (x)) Df (x0 )
+
+x − x0
++ r(x) ,
+x − x0
+
+x = x0 .
+
+(43)
+
+With this deﬁnition p is continuous in x0 and by setting y = f (x) (42) yield
+(g ◦ f )(x) = (g ◦ f )(x) + (Dg(f (x0 )) ◦ Df (x0 ))(x − x0 ) + p(x) x − x0 .
+
+This concludes the proof.
+
+10
+
+(44)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Example 2.18. If the involved Hilbert spaces are Euclidean spaces, i.e. H = Rn , E =
+Rm , F = Rl , the chain rule results in
+J(g ◦ f )|x0 = Jg|f (x0 ) · Jf |x0 ,
+
+(45)
+
+where Jf denotes the Jacobi matrix of f .
+
+No
+tes
+
+The Product Rule The product rule is a direct result of the chain rule. Given the
+Hilbert space H and the open subset X ⊂ H and two smooth function f, g : X → R.
+Then, (f · g) : X → R is also smooth with the derivative D(f · g) = g · Df + f · Dg.
+Proof. We ﬁrst deﬁne the two smooth functions
+F : X → R2 ,
+2
+
+m : R → R,
+
+x → (f (x), g(x)),
+
+(a, b) → a · b.
+
+(46)
+
+Obviously, the equation f · g = m ◦ F holds. The derivatives of m and F are given by
+Dm(a, b) = [b a],
+DF (x) =
+
+Df (x)
+,
+Dg(x)
+
+re
+
+respectively. Applying the chain rule to m ◦ F yields
+D(f · g)(x) = D(m ◦ F )(x) = Dm(F (x)) · Df (x)
+= [g(x) f (x)] ·
+
+ctu
+
+This concludes the proof.
+
+Df (x)
+= g(x) · Df (x) + f (x) · Dg(x).
+Dg(x)
+
+(47)
+
+Example 2.19 (Directional Derivative of the Matrix Exponential). Consider the mapping
+
+Le
+
+inv : Rn×n → Rn×n ,
+X → X−1 .
+
+(48)
+
+In order to ﬁnd the directional derivative D(inv(X)) · V, we use the fact that
+inv(X) · X = In .
+
+(49)
+
+Taking the derivative on both sides of this equation yields
+0 = D(inv(X) · X) · V
+= (D inv(X) · V) · X + inv(X) · V.
+
+11
+
+(50)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Solving this equation provides the wanted directional derivative
+(D inv(X) · V) = −X−1 VX−1 .
+
+(51)
+
+Alternative: (Using the Neumann series representation) For a matrix T ∈ Rn×n with
+the property that all its eigenvalues have an absolute value smaller than one, the equation
+∞
+
+Tk = (In − T)−1
+
+tes
+
+(52)
+
+k=0
+
+holds. This is the so-called the Neumann series which is a generalization of the geometric
+1
+series ( ∞ q k = 1−q for |q| < 1). Next, note that (X + tV)−1 can be rewritten as
+k=0
+−1
+
+No
+
+(X + tV)−1 = X (In + tX−1 · V)
+= In − (−tX−1 · V)
+
+−1
+
+X−1 .
+
+(53)
+
+Therefore, for all t such that the absolute values of the eigenvalues of −tX−1 V are
+smaller than one we can write (X + tV)−1 as the a Neumann series of the form
+∞
+
+(X + tV)−1 =
+
+(−tX−1 V)k X−1 .
+
+(54)
+
+k=0
+
+re
+
+Deriving this series for t and setting t to zero yields
+D inv(X) · V =
+
+d
+dt
+
+(X + tV)−1
+
+t=0
+
+∞
+
+Le
+ctu
+
+(55)
+
+ktk−1 (−X−1 V)k X−1
+
+=
+
+k=1
+
+= −X
+
+t=0
+−1
+
+VX
+
+−1
+
+.
+
+It should come as no surprise that this is the same result as the one obtained above.
+
+2.5 The Mean Value Theorem
+
+The mean value theorem for real valued function says that given a continuously diﬀerentiable function f : R → R and a section [a, b], a, b ∈ R, there exists a ξ ∈ [a, b] such that
+f (ξ) = f (b)−f (a) , i.e. there exists a point in the interval [a, b] where the slope of the funcb−a
+tion is the same as the average slope in the interval. This can be expressed equivalently
+by |b−a|·f (ξ) = |f (b)−f (a)|. In order to transfer this theorem to general Hilbert spaces,
+we use a weaker version of this theorem, namely |f (b) − f (a)| ≤ supξ∈[a,b] f (ξ)|b − a|.
+
+12
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Theorem 2.20. Let f : H ⊃ X → E be a smooth function. Then for all X, Y ∈ X such
+that (X + t(Y − X)) ⊂ X for all t ∈ [0, 1] the inequality
+f (X) − f (Y)
+
+E
+
+≤ sup
+
+Df (X + t(Y − X))
+
+H→E
+
+· X−Y
+
+H
+
+(56)
+
+0≤t≤1
+E
+
+is the norm in E, ·
+
+H
+
+is the norm in H, and ·
+
+H→E
+
+is the induced
+
+No
+tes
+
+holds. Here, ·
+norm.
+
+Note 2.21. Simply put, this means that given a smooth function and to points X, Y,
+the distance between the corresponding function values can not get arbitarily large.
+
+3 Local Extrema
+
+Let f : X → R be a smooth function. The point x0 ∈ X is a local extreme point if there
+exists an open neighborhood U(x0 ) ⊂ X such that
+• f (x) ≤ f (x0 ) for all x ∈ U(x0 ) (local maximum),
+• f (x) ≥ f (x0 ) for all x ∈ U(x0 ) (local minimum).
+
+In this case Df (x0 ) · v = 0 for all v ∈ H, or equivalently Df (x0 ) ≡ 0.
+
+re
+
+Deﬁnition 3.1 (Critical Point). A point x0 that satisﬁes Df (x0 ) ≡ 0 is called a critical
+point. The corresponding value f (x0 ) is called critical value.
+
+ctu
+
+It is important to note that a point where the derivative vanishes is not necessarily
+a local extremum but as for real valued functions can also be a saddle point. In this
+lecture we will focus on function minimization. However, it should be noted that every
+maximization problem can be equivalently stated as a minimization problem.
+Example 3.2. Let the set of all real n×n matrices be denoted by
+Sym(n) := {X ∈ Rn×n | X = X}.
+
+(57)
+
+Le
+
+The goal is to determine the critical points of the smooth function
+f : Sym(n) → R,
+X → tr X
+
+I 0
+X .
+0 −I
+
+(58)
+
+In order to formally determine the critical points of this function, we ﬁrst calculate
+the directional derivative
+
+13
+
+M. Seibert, M. Kleinsteuber
+
+Df (X) · V =
+
+Nonconvex Optimization
+
+d
+dt
+
+I 0
+(X + tV)
+0 −I
+
+tr (X + tV)
+t=0
+
+= 2 tr V
+
+I 0
+X .
+0 −I
+
+(59)
+
+tes
+
+For X to be a critical point Df (X) · V has to be equal to zero for all V ∈ Sym(n).
+This is obviously fulﬁlled for V = 0. In order to ﬁnd other critical points, recall that
+tr(A B) is a scalar product on Rn×n and that the orthogonal decomposition of Rn×n
+with respect to this scalar product is given by Sym(n) ⊕ Skew(n). Here,
+Skew(n) := {X ∈ Rn×n | X = −X}
+
+(60)
+
+X ∈ Rn×n :
+
+= X ∈ Rn×n
+
+=−
+
+I 0
+X
+0 −I
+
+−I 0
+I 0
+X
+=
+0 I
+0 −I
+
+re
+
+= X ∈ Rn×n : X
+
+I 0
+X
+0 −I
+
+No
+
+denotes the skew-symmetric n×n matrices. As a result, Df (X) · V is equal to zero if and
+I 0
+only if the matrix
+X is skew-symmetric. This means that all critical points
+0 −I
+are given by the set
+
+X11 X12
+:
+X12 X22
+
+0 X12
+X12
+0
+
+Le
+ctu
+
+= X ∈ Rn×n : X =
+
+−I 0
+I 0
+=
+0 I
+0 −I
+
+(61)
+X11 X12
+X12 X22
+
+.
+
+4 Second derivatives of real valued functions
+Let f : H ⊃ X → R be a smooth function. Then we already know that the derivative
+Df : H ⊃ X → L(H, R) is a linear mapping from H to R. The vector space F :=
+L(H, R) is also a Hilbert space and g := Df ∈ C(X , F) is a diﬀerentiable function with
+Dg : L(H, F). By reversing the substitution we obtain D(Df ) : H ⊃ X → L(H, L(H, R)).
+This means that D(Df )(x) ∈ L(H, L(H, R)) (x ∈ X ). Therefore, this operator can be
+applied to an element v ∈ H, i.e. D(Df )(x) · v ∈ L(H, R) (this operation is linear in v).
+Finally, this operator can be applied to another element w ∈ H: (D(Df )(x) · v) · w ∈ R
+(this operation is linear in w). In the sake of simplicity we introduce the notation
+D2 f (x)[v, w] := (D(Df )(x) · v) · w.
+
+14
+
+(62)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Theorem 4.1. The second derivative D2 f (x) is linear in both components and the
+equation
+D2 f (x)[v, w] = D2 f (x)[w, v]
+(63)
+holds, i.e. D2 f (x) is a symmetric bilinear form on H.
+
+tes
+
+Example 4.2. H = Rn and let ei , ej be the i-th and j-th standard basis vector. Recall
+∂
+that Df (x) · ei = ∂xi f (x)Then
+∂
+f (x) ej
+∂xi
+
+D2 f (x)[ei , ej ] = (D(Df )(x)ei )ej = D
+=
+
+∂ ∂
+∂2
+f (x) =
+f (x).
+∂xj ∂xi
+∂xi ∂xj
+
+(64)
+
+No
+
+d
+Recall the directional derivative is deﬁned as Df (x) · v = dt t=0 f (x + tv). In order to
+determine D2 f (x)[v, w] we ﬁrst consider the special case where the second derivative is
+applied to the same vector twice, i.e.
+
+D2 f (x)[v, v] = D(Df (x) · v) · v =
+d
+=
+dt
+
+t=0
+
+d
+dt
+
+(Df (x + tv)) · v
+
+t=0
+2
+
+d
+d
+f (x + tv) = 2
+dt
+dt
+
+(65)
+
+f (x + tv).
+
+t=0
+
+D2 f (x)[v, w] =
+
+1
+2
+
+re
+
+Now, consider D2 f (x)[v + w, v + w]. By using the linearity in both arguments we obtain
+D2 f (x)[v + w, v + w] − D2 f (x)[v, v] − D2 f (x)[w, w] ,
+
+(66)
+
+which in conjunction with (65) provides the result.
+
+Le
+ctu
+
+Theorem 4.3 (Taylor Theorem). Let f : H ⊃ X → R be a smooth function and let
+v ∈ H fulﬁll the condition that the line x + tv ∈ H for all t ∈ [0, 1], then the function
+can be expressed as
+1
+f (x + v) = f (x) + Df (x) · v + 2 D2 f (x) · [v, v] + o( v 2 ).
+
+4.1 Suﬃcient conditions for local maxima and minima
+Deﬁnition 4.4. A point x0 is called
+
+1. positive deﬁnite if D2 f (x0 )[v, v] > 0 for all v ∈ H,
+
+2. negative deﬁnite if D2 f (x0 )[v, v] < 0 for all v ∈ H,
+
+3. indeﬁnite if there exist v1 , v2 ∈ H such that
+D2 f (x0 )[v1 , v1 ] > 0 and D2 f (x0 )[v2 , v2 ] < 0.
+
+15
+
+(67)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Theorem 4.5. Let x0 ∈ X be a critical points. Then,
+1. if D2 f (x0 ) is positive deﬁnite, x0 is a local minimum,
+2. if D2 f (x0 ) is negative deﬁnite, x0 is a local maximum,
+3. if D2 f (x0 ) is indeﬁnite, x0 is not an extreme point.
+
+No
+tes
+
+Example 4.6. f (x) = x4 , D2 f (0) = 0
+Proof of (3). If D2 f (x0 ) is indeﬁnite, then there exist v1 , v2 sucht that α := D2 f (x0 )[v1 , v1 ] >
+0 and β := D2 f (x0 )[v2 , v2 ] < 0. Consider the Taylor expansion
+1
+f (x0 + tv1 ) = f (x0 ) + Df (x0 ) · (tv1 ) + 2 D2 f (x0 )[tv1 , tv1 ] + o(t2 v1 )
+
+= f (x0 ) +
+> f (x0 ) +
+2
+
+t2 2
+2 D f (x0 )[v1 , v1 ]
+2
+t2
+4 α + o(t v1 )
+2
+
+(note that t2 α + o(t2 ) ⇒ α + o(t2 ) →(t→0)
+2
+t
+with a similar argument we get
+
+α
+2,
+
+α is positive and therefore
+t2
+4β
+
+re
+
+f (x0 + tv2 ) < f (x0 ) +
+
++ o(t2 v1 )
+
++ o(t2 v2 ).
+
+(68)
+
+α
+4
+
+<
+
+α
+2 ),
+
+and
+
+(69)
+
+5 Line search methods in Hilbert spaces
+
+Le
+
+ctu
+
+In general, optimization methods often work in the same way. At each iterate a direction
+is determined in which to go in the next step. Then a line search method has to be applied
+in order to determine at which point of this direction the next iterate lies.
+The goal of this section is to ﬁnd an optimization procedure to minimize f : H → R.
+The basic idea is to initialize the optimization algorithm with x0 ∈ H and iteratively
+deﬁne xk+1 := xk + tk pk where tk ∈ R+ is a step size and pk ∈ H is a descent direction. A descent direction is an element of the Hilbert space that fulﬁlls the condition
+pk , f (xk ) = Df (xk )pk < 0. A geometrical interpretation of this property is that a
+descent direction points in the opposite direction of the gradient respective to the inner
+product. (Recall that the gradient is the direction of steepest ascent.) An important
+example for a choice of a descent direction is pk := − f (xk ) leading to the so-called
+gradient (or steepest) descent methods.
+For now, we will focus on the process of choosing a step size rather than the choice
+of descent direction. The optimal step size would be the solution to the minimization
+problem
+min f (xk + tpk ).
+(70)
+t∈R
+
+16
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+No
+
+tes
+
+However, if the cost function f is too complex it becomes computationally infeasible
+to determine the solution to this problem. Therefore, line search methods are always a
+trade-oﬀ between accuracy, i.e. a substantial decrease of the cost function, and speed,
+i.e. the computational burden.
+A trivial line search approach is to evaluate f (xk + tpk ) for t and choose an acceptable
+value. Given a direction pk one possible requirement to the step size would be the
+decrease of the function value, i.e. f (xk + tk pk ) < f (xk ). However, this condition alone
+is not enough, as it is possible that the step size decreases over time so fast that the
+optimization method does not converge to a minimum of the initial problem. The issue
+is that the angle between the gradient f (xk ) + t f (xk ), pk and the linear function
+f (xk + tpk ) becomes too large.
+We can reduce the angle slightly by introducing the factor c ∈ (0, 1) to obtain f (xk ) +
+ct f (xk ), pk . Then all t that suﬃce the inequality f (xk +tpk ) < f (xk )+ct f (xk ), pk
+are acceptable. This is the so-called Armijo condition which can be used to design the
+backtracking algorithm 1 that determines an acceptable step length.
+
+re
+
+Algorithm 1: Backtracking Algorithm
+input : t > 0 large enough, c ∈ (0, 1), and α ∈ (0, 1)
+while f (xk + tpk ) > f (xk ) + ct f (xk ), pk do
+Set t ← αt
+end
+output: tk := t
+
+Le
+ctu
+
+A problem with the Armijo condition is that it allows arbitrarilly small step sizes.
+For t small enough the Armijo condition is always fulﬁlled as long as pk is a descent
+direction. To avoid this problem, we introduce another condition on the curvature that
+avoids this problem, namely Df (xk + tk pk ) ≥ c2 Df (xk )pk (Note that Df (xk )pk < 0 and
+Df (xk + tk pk ) < 0). In order to avoid contradictions between the two conditions we
+require 0 < c < c2 < 1. In combination with the Armijo condition we get
+f (xk + tpk ) < f (xk ) + ct
+
+f (xk ), pk
+
+Df (xk + tk pk ) ≥ c2 Df (xk )pk
+
+(71)
+
+with 0 < c < c2 < 1. This are the so-called Wolfe conditions. Furthermore, the strong
+Wolfe conditions are given by
+f (xk + tpk ) < f (xk ) + ct
+
+f (xk ), pk
+
+|Df (xk + tk pk )| ≤ c2 |Df (xk )pk |
+
+(the absolute value of the slope is not too large positive)
+
+17
+
+(72)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Theorem 5.1. Given the smooth cost function f : H → R, the current iterate xk ∈ H
+and a descent direction pk ∈ H. We deﬁne
+f (xk ), pk
+.
+f (xk ) pk
+
+cos Θk = −
+
+(73)
+
+cos2 Θk
+k≥0
+
+No
+tes
+
+Consider a line-search algorithm where tk satisﬁes the Wolfe conditions. Assume further
+that f is bounded from below on an open supset X ⊂ H (i.e. f (x) > C for all x ∈ X )
+and that the sublevel set L := {x : f (x) ≤ f (x0 )} is contained in X . Then
+f (xk )
+
+2
+
+<∞
+
+(74)
+
+re
+
+Note 5.2. The theorem states that the inﬁnite sum over all k of cos2 Θk f (xk ) 2 is
+bounded. Therefore, either cos2 Θk or
+f (xk ) 2 have to converge to zero. If we have
+limk→∞ cos2 Θk = 0, the search direction is orthogonal to the gradient, a situation that
+should be avoided as it does not provide a suﬃcient decrease in the cost function (for
+the choice pk = − f (xk ) we have cos Θk = 1 for all k). If we demand | cos2 Θk | > δ > 0
+for all k, i.e. | cos2 Θk | is bounded from below, the theorem implies that the norm of the
+gradient converges to zero, i.e. limk→∞ f (xk ) = 0.
+Unfortunatelly, this result does not guarantee convergence of the algorithm, as it does
+not enforce the convergence of xk to a single point, i.e. limk→∞ xk = x , since there
+could be a whole set of points that fulﬁll f (x) = 0. Nonetheless, if the local minimum
+x in the sublevel set L is unique and | cos Θk | > δ > 0, then the algorithm converges
+pointwise to that minimum, i.e. limk→∞ xk = x .
+
+6 Conjugate Gradient Methods
+
+ctu
+
+The initial idea for the conjugate gradient (CG) method was to ﬁnd a solution to linear
+equations of the form Hx = d with the invertible matrix H ∈ Rn×n by minimizing the
+error term
+Hx − b 2
+(75)
+2
+
+Le
+
+with a descent method. This approach can be generalized to all smooth function based
+on the fact that functions can be quadratically approximated. In general, this approximation is accurate at a local minimum.
+
+6.1 Linear CG Method
+The problem in Equation (75) (with d = −b) can be expressed by the function
+f : Rn → R,
+x→
+
+1
+2
+
+x, Hx + d, x
+
+where H is a symmetric, positive deﬁnite matrix.
+
+18
+
+(76)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Deﬁnition 6.1. The vectors u1 , . . . , un ∈ Rn are called H-conjugate if ui , Huj = 0 for
+all i = j. In other words, u1 , . . . , un are orthogonal with respect to the inner product
+·, · H and form a basis of Rn .
+Let h0 , . . . , hn−1 be an H-conjugate bases and let x0 be given. Then any vector x ∈ Rn
+can be uniquely represented as
+n−1
+
+x = x0 +
+
+(77)
+
+No
+tes
+
+λ j hj
+j=0
+
+with appropriate scalars λj ∈ R, j = 0, . . . , n − 1. With this representation we can
+rewrite the function f as
+1
+2
+
+f (x) = f (x0 ) +
+
+hj , Hhj λ2 + Hx0 + d, hj λj .
+j
+
+j
+
+(78)
+
+As a consequence, if the H-conjugate basis h0 , . . . , hn−1 were given, the original problem
+would decompose into n independent one-dimensional problems. Namely, in ﬁnding the
+optimal λj . Since each problem is quadratic, the optimal values for λj can easily be
+determined. They are given by
+Hx0 + d, hj
+ˆ
+λj = −
+.
+hj , Hhj
+
+(79)
+
+re
+
+The optimal solution to the initial problem is therefore given by
+n−1
+
+ˆ
+λj hj .
+
+ˆ
+x = x0 +
+
+(80)
+
+j=0
+
+ctu
+
+ˆ
+ˆ
+It is also possible to obtain to solution x via the iteration xi+1 = xi + λi hi .
+ˆ
+Proposition 6.2. The recursion xi+1 = xi + λi hi is equivalent to the recursion
+xi+1 = xi + λi hi ,
+
+λi = arg min f (xi + λi hi ).
+
+(81)
+
+λ≥0
+
+Le
+
+Proof. Due to the deﬁnition of the recursion we have
+i−1
+
+xi = x 0 +
+
+λj hj .
+
+(82)
+
+j=0
+
+For i = 0, . . . , n, we will denote the gradient as gi := f (xi ) = Hxi + d. Since λj is
+computed as the exact solution for the minimization along the direction hj , we have
+gi+1 , hi =
+
+d
+dt
+
+f (xi + λi hi + thi ) = 0
+t=0
+
+19
+
+(83)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Since we can rewrite the gradient as
+i
+
+gi+1 = Hxi+1 + d = g0 +
+
+λj Hhj ,
+
+(84)
+
+j=0
+
+and the vectors hj are H-conjugate, Equation (83) yields
+0 = g0 , hi + λi Hhi , hi
+g 0 , hi
+⇒ λi = −
+.
+Hhi , hi
+
+No
+tes
+
+(85)
+
+Consequently, both recursion generate the same sequence of iterates.
+
+Up until now, we assumed that the H-conjugate basis was given. However, in general,
+this is not the case. Therefore, the CG algorithm has to construct this basis “on the
+run”. This is done as follows
+Algorithm 2: Linear Conjugate Gradient
+input : H ∈ Rn×n symmetric, positive deﬁnite; d ∈ Rn ; initial point x0 ∈ Rn
+1 Set h0 = −g0 = −(Hx0 + d), i = 0;
+2 Compute the step size
+λi = arg min f (xi + λi hi ) = −
+
+3
+
+re
+
+λ≥0
+
+Set
+
+g0 , hi
+;
+Hhi , hi
+
+(86)
+
+xi+1 = xi + λi hi ,
+
+ctu
+
+gi+1 = Hxi+1 + d,
+
+(87)
+
+hi+1 = −gi+1 + γi hi ,
+
+with the CG update parameter
+
+Le
+
+γi =
+
+4
+
+Hhi , gi+1
+;
+hi , Hhi
+
+(88)
+
+Set i ← i + 1 and go to 2.
+
+Theorem 6.3. The optimization problem
+min Hx − b
+
+x∈Rn
+
+is solved in at most n steps.
+
+20
+
+2
+
+(89)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Alternative formulas for the CG update parameter. Recall that the gradient at the
+(i+1)-st iterate is deﬁned as gi+1 = gi + λi Hhi . Therefore, the equation
+γi =
+
+Hhi , gi+1
+gi+1 − gi , gi+1
+gi+1 − gi , gi+1
+=
+=−
+hi , Hhi
+gi+1 − gi , hi
+gi , hi
+
+(90)
+
+No
+tes
+
+holds, since gi+1 , hi = 0. This is the so called Hestenes-Stiefel (HS) update. Furthermore, we can use the deﬁnition of hi = −gi + γi−1 hi−1 and the fact that gi , hi−1 = 0
+to obtain
+gi+1 − gi , gi+1
+γi =
+(91)
+gi 2
+which is the so called Polak-Ribi`re (PR) update.
+e
+
+Lemma 6.4. In the case of a quadratic cost function the gradients at two subsequent
+iterates are orthogonal to each other, i.e.
+gi+1 , gi = 0.
+
+(92)
+
+Proof. As we already discussed, the equation
+
+0 = gi+1 , hi = gi , hi + λi Hhi , hi
+holds. Hence, we have
+
+Furthermore, the equations
+
+gi , hi
+.
+Hhi , hi
+
+(94)
+
+re
+
+λi = −
+
+gi , hi = gi , −gi + γi−1 hi−1 = − gi , gi
+
+ctu
+
+(93)
+
+hi , Hhi = −gi + γi−1 hi−1 , Hhi = − gi , Hhi
+
+(95)
+(96)
+
+hold. As a consequence, we obtain
+
+gi+1 , gi = gi + λi Hhi , gi = gi , gi −
+
+gi , gi
+gi , Hhi = 0
+gi , Hhi
+
+(97)
+
+Le
+
+by inserting (94)-(96) which concludes the proof.
+Due to Lemma 6.4, the CG update parameter can be expressed as
+γi =
+
+gi+1 2
+.
+gi 2
+
+(98)
+
+This is the Fletcher-Reeves (FR) update. In the case of quadratic cost functions, all
+three mentioned formulations are equivalent.
+
+21
+
+Nonconvex Optimization
+
+No
+tes
+
+M. Seibert, M. Kleinsteuber
+
+Algorithm 3: Nonlinear Conjugate Gradient
+input : Smooth cost function f : X → R; initial point x0 ∈ X
+1 Set h0 = −g0 = − f (x0 ), i = 0;
+2 Compute the step size αi according to a line search procedure;
+3 Set
+xi+1 = xi + αi hi ,
+gi+1 =
+
+f (xi ),
+
+(99)
+
+hi+1 = −gi+1 + γi hi ,
+where γi is one of the following update parameters
+
+gi+1 , gi+1
+,
+gi , gi
+gi+1 − gi , gi+1
+,
+gi , gi
+gi+1 − gi , gi+1
+;
+gi+1 − gi , hi
+
+re
+F
+γi R =
+
+ctu
+
+P
+γi R =
+
+HS
+γi
+=
+
+Set i ← i + 1 and go to 2.
+
+Le
+
+4
+
+22
+
+(100)
+(101)
+(102)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+6.2 Nonlinear Conjugate Gradient Method
+At the beginning of this section, we mentioned that the CG method, although originally
+developed for quadratic cost functions, can be easily extended to general cost functions.
+The respective algorithm is given in the following.
+
+No
+tes
+
+Note 6.5. While in the quadratic case the diﬀerent update formulas are equivalent, this
+is no longer the case for nonlinear functions. Here, the preferred formula is a matter of
+heuristics. A popular choice is
+P
+γi = max 0, γi R .
+
+(103)
+
+This update formula incorporates an automatic reset with a steepest descent direction.
+This is a tribute to the fact that, in contrast to the linear case, the iteration does not
+stop after n steps.
+
+7 Optimization on the sphere
+The n-sphere is deﬁned as
+
+S n := {x ∈ Rn+1 : x = 1}.
+
+(104)
+
+re
+
+In this section we will consider the problem of minimizing a function that is restricted
+to the sphere, i.e.
+minimize f : S n → R
+(105)
+with the smooth function f .
+
+ctu
+
+7.1 Line search on the sphere
+
+In Hilbert spaces, descent methods work in the following way. A search direction dk
+is determined according to a certain method, e.g. the negative gradient in case of the
+steepest descent method. Then the function is evaluated along this direction and a the
+step size tk that fulﬁlles certain conditions is determined via a line search procedure.
+This provides the next iterate
+xk+1 = xk + tk dk .
+(106)
+
+Le
+
+However, the concept of straight lines does not directly transfer to the sphere, as the
+connecting line between two points does not lie in S n . On manifolds the concept of
+straight lines is expressed via geodesics. In the case of the sphere they are called great
+circles.
+Deﬁnition 7.1. For h = 0, x h = 0 the curve γ(x, h, ·) : R → S n
+γ(x, h, t) = x cos(t h 2 ) + h
+
+23
+
+sin(t h 2 )
+h 2
+
+(107)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+is a great circle on the sphere with γ(x, h, 0) = x. It fulﬁlls the conditions γ 2 = 1 and
+γ(0) = h. In general, geodesics are the connections between points with the shortest
+˙
+length.
+Note 7.2. The property γ(0) = h justiﬁes the wording: The great circle γ(x, h, t) origi˙
+nates from x in direction h.
+
+No
+tes
+
+7.2 Search directions on the sphere
+In the deﬁnition of great circles we used the vector h with x h = 0 to determine in which
+direction the geodesic moves starting from x. A vector h that fulﬁlls this condition as
+above is tangent to the sphere. In the following, we give a more general deﬁnition.
+Deﬁnition 7.3. The tangent space is deﬁned as
+
+Tx S n := {γ(0) : γ is a curve on S n through x}.
+˙
+
+(108)
+
+(compare to velocities). The tangent space exhibits a vector space structure.
+Lemma 7.4. The tangent space to the n-sphere at point x is given by
+Tx S n = {h ∈ Rn+1 : h x = 0}.
+
+0=
+
+d
+dt
+
+re
+
+Proof. ⊂: Remember that for any curve γ on S n we have γ(t)
+both sides yields
+γ(t)
+
+2
+2
+
+= 2γ(t) γ(t)
+˙
+
+t=0
+
+t=0
+
+(109)
+
+2
+2
+
+= 1 for all t. Deriving
+
+= 2x γ(0).
+˙
+
+(110)
+
+ctu
+
+Therefore, γ(0) is orthogonal to x for all curves γ with γ(0) = x.
+˙
+⊃: Consider the great circle γ(x, h, t) as deﬁned above. Then on the one hand we
+have
+{γ(0) : γ is a great circle} = {h ∈ Rn+1 : x h = 0},
+˙
+(111)
+while on the other hand, we have
+
+Le
+
+{γ(0) : γ is an arbitrary curve} ⊃ {γ(0) : γ is a great circle}.
+˙
+˙
+
+This concludes the proof.
+
+24
+
+(112)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+7.3 The Riemannian Gradient on the Sphere
+Given the smooth function f : S n → R. Let γ(t) be a curve in S n through x ∈ S n with
+γ(0) = x. We already know that the derivative of γ evaluated at zero is an element of
+the tangent space in x, i.e. γ(0) ∈ Tx S n . Examining the derivative of the function
+˙
+f ◦ γ(t) : (−ε, ε) → R
+d
+dt
+we observe that
+curve γ(t).
+
+d
+dt t=0 f (γ(t))
+
+No
+tes
+
+which is given as
+
+(113)
+
+f (γ(t)) = Df (γ(0)) · γ(0),
+˙
+t=0
+
+(114)
+
+is only dependent on γ(0) and γ(0)) and not on the whole
+˙
+
+Deﬁnition 7.5. Let γ be a curve in S n through x ∈ S n with γ(0) = x and h := γ(0) ∈
+˙
+d
+Tx S n . Then Df (x) · h = dt t=0 f (γ(t)) is the directional derivative of f in direction h.
+The mapping
+
+Df (x) : Tx S n → R
+
+(115)
+
+ctu
+
+re
+
+is a linear map. To see this we examine the extension of f to Rn . Given the function
+˜
+˜
+˜
+f : Rn → R with f |S n = f . Then by deﬁnition of the derivative Df (x) is linear in Rn
+n ⊂ Rn . In the case that it is not possible to extend
+and thus so is its restriction to Tx S
+f to the surrounding space, it requires more work to show this property and we will not
+cover these cases here.
+Similar to Hilbert spaces, we require a scalar product in order to deﬁne the gradient.
+It is important to note that while the manifold itself does not exhibit a vector space
+structure, the tangent space does. Therefore, we deﬁne the inner product on the tangent
+space, i.e.
+·, · x := Tx S n × Tx S n → R.
+(116)
+
+Le
+
+Commonly, a restriction of the standard inner product to the tangent space is chosen,
+i.e. h1 , h2 x = h1 h2 for all x ∈ S n , h1 , h2 ∈ Tx S n .
+Since Df (x) is a linear map, we can employ the Riesz representation theorem. Thus,
+there exists a unique g ∈ Tx S n such that
+g, h
+
+x
+
+= Df (x) · h.
+
+(117)
+
+This element g is called the Riemannian gradient of f at x.
+Theorem 7.6. The Riemannian gradient of f : S n → R in x ∈ S n is equivalent to the
+˜
+˜
+projection of the Euclidean gradient of the extension f : Rn → R, f |S n = f onto Tx S n .
+n → T S n , z → (I − xx )z.
+The projection onto the tangent space at x is given by Πx : R
+x
+
+25
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+7.4 Outline for optimization methods on the sphere
+
+No
+tes
+
+Optimization methods on the sphere work similar to optimization methods in Hilbert
+space. The algorithm is initialized with a starting point x0 ∈ Tx0 S n and the iteration
+counter is set to k = 0. Then, an appropriate search direction pk ∈ Txk S n is chosen
+according to some rule, e.g. the negative gradient in the case of steepest descent. Next,
+a step size tk is selected and according to this the iterate is updated along a geodesic
+via xk+1 = γ(xk , pk , tk ). This process is repeated until convergence.
+The step length is determined analogously to the way it is done in Hilbert spaces.
+Here, α fulﬁlls the Armijo condition if it satisﬁes
+f (γ(xk , pk , α)) ≤ f (xk ) + c1 α
+
+d
+dt
+
+f (γ(xk , pk , t)).
+
+(118)
+
+t=0
+
+d
+It should be noted that due to the chain rule, we have dt t=0 f (γ(xk , pk , t)) = Df (x) · pk .
+A simply technique is using a backtracking strategy to obtain a step length that fulﬁlls
+the Armijo condition.
+
+7.5 Parallel Transport
+
+ctu
+
+re
+
+The previous section gives a general outline of optimization methods on the sphere. If
+we go more into detail and recall the conjugate gradient method, we see that to ﬁnd the
+next search direction this method requires the computation of the diﬀerence between two
+gradients and the inner products of vectors deﬁned for diﬀerent iterates. While in Hilbert
+spaces this does not pose any problems, it is not possible perform these operations on
+manifolds, as for example the inner product of two elements in diﬀerent tangent spaces is
+not deﬁned. Therefore, we require a method to identify elements in Tx S n with elements
+in Ty S n (x, y ∈ S n ).
+The naive idea is to choose a great circle that connects the points x and y and then
+“move” the tangent space without “rotation” along this path, i.e. maintaining the angle
+of the tangent space vectors to the speed vector of the great circle.
+Deﬁnition 7.7. Given the point x ∈ S n , the tangent vectors h, η ∈ Tx S n and the great
+circle γ(x, h, t). The parallel transport of η from Tx S n to Tγ(x,h,t) S n along γ is given by
+
+Le
+
+τ (η; γ(x, h, t)) = η −
+
+η h
+(x h
+h 2
+2
+
+2 sin(t
+
+h 2 ) + h(1 − cos(t h 2 ))) .
+
+(119)
+
+8 Analysis Operator Learning
+The operator can be learned by minimizing a cost function
+Ω = arg min g(Ωs) + constraints
+Ω
+
+26
+
+(120)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+One of these constraints needs to prevent learning identical or trivially linear dependent operator atoms ω i , i.e.
+∀i = j
+
+ω i = ±ω j
+
+(121)
+
+Since we also require all of the operator atoms to have unit Euclidean length |ω i | = 1,
+for the scalar product of two operator atoms follows
+(122)
+
+No
+tes
+
+ω i ω j = ±1
+
+if the two atoms are trivially linear dependent.
+In order to force all operator items not to encode the same information, we therefore
+use a logarithmic barrier function that penalizes the scalar product of any two diﬀerent
+atoms to approach ±1.
+k
+
+− log(1 − (ω i ω j )2 )
+
+f (Ω) =
+i,j=1
+i=j
+
+(123)
+
+Here, ω i denotes the transposed of the i-th row of the operator, i.e. ω i := Ωi,: and
+Ω ∈ Rk×n .
+
+ctu
+
+re
+
+Since we want to solve this optimization problem using a gradient method (more
+speciﬁcally the geometric conjugate gradient method on the sphere as introduced in the
+previous lecture), we ﬁrst need to ﬁnd the Euclidean gradient of this function term.
+To employ the gradient computation methods introduced in this lecture, we need to
+reformulate the constraint function above to be a true function of Ω rather than its
+individual atoms ω i . This can be achieved by using the unit vectors ei ∈ Rk which have
+all zero elements and a one at index i, i.e.
+k
+
+f (Ω) = −
+
+log(1 − (ei ΩΩ ej )2 )
+
+(124)
+
+i,j=1
+
+Le
+
+Note that we sum over all indices i and j and thus also include the elements on the
+diagonal of ΩΩ which account for the scalar products ω i ω i which are always equal
+to one. To exclude those obviously unwanted elements, we end up with the constraint
+function
+k
+
+log(1 − (ei (Ik − ΩΩ ) ej )2 )
+
+f (Ω) = −
+i,j=1
+
+27
+
+(125)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+where Ik is the k-dimensional identity matrix.
+
+Since
+d
+dt
+k
+
+=
+i,j=1
+
+k
+
+log(1 − (ei (Ik − (Ω + tH)(Ω + tH) ) ej )2 )
+
+−
+t=0
+
+d
+dt
+
+No
+tes
+
+One way of getting the gradient is to compute the directional derivative for the entire
+d
+function at once using dt t=0 f (Ω + tH). Alternatively, we can ﬁrst decompose our
+constraint function into a number of concatenated sub-functions by substitution. We
+can then compute the directional derivatives for each of them individually and reassemble
+our sub-results in the end to get to the gradient. This method can be useful for tackling
+complicated terms.
+
+i,j=1
+
+− log(1 − (ei (Ik − (Ω + tH)(Ω + tH) ) ej )2 ),
+t=0
+
+we are going to omit the sum over all indices i, j within the next steps and insert it again
+when we reassemble the gradient in the end.
+We start by decomposing our constraint function
+c
+
+b
+
+a
+
+Rk×n → R → R − R
+−
+−
+→
+
+(126)
+
+re
+
+f (Ω) = a(b(c(Ω)))
+
+ctu
+
+c(Ω) = ei (Ik − ΩΩ ) ej
+b(β) = β 2 ,
+
+β = ei (Ik − ΩΩ ) ej
+α = β2
+
+a(α) = − log(1 − α),
+
+Le
+
+Now we compute the directional derivatives individually for each sub-function denoting
+
+28
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+the direction with latin capital letters
+D a(α)A =
+=
+
+b(β), B ∈ R
+
+D b(β)B =
+
+d
+dt t=0
+
+− log(1 − (α + tA))
+
+1
+A
+1−α
+d
+dt t=0 (β
+
++ tB)2
+
+No
+tes
+
+a(α), A ∈ R
+
+= 2βB
+
+c(Ω), C ∈ Rk×n
+
+D c(Ω)C =
+=
+
+d
+dt t=0 ei
+
+(Ik − (Ω + tC)(Ω + tC) ) ej
+
+d
+dt t=0 tr (ei
+
+(Ik − (Ω + tC)(Ω + tC) ) ej )
+
+= − tr (C (ej ei + ei ej ) Ω)
+
+re
+
+Applying the chain rule on our sub-functions and re-inserting the sum operator, we
+put together the directional derivative for our constraint function in the direction of C
+as
+Df (Ω) C = k
+i,j=1 D a(b(c(Ω))) D b(c(Ω)) D c(Ω) C
+=
+
+k
+i,j=1 D a(α) D b(β) D c(Ω) C
+
+=
+
+k
+i,j=1 −
+
+ctu
+
+1
+2β tr (C (ej ei + ei ej ) Ω)
+1−α
+
+2β
+k
+i,j=1 tr (C (ej ei + ei ej ) Ω)
+1−α
+Since both α and β are independent of the direction C, we get the gradient as
+=−
+
+Le
+
+f (Ω) = −
+
+=−
+
+2β
+1−α
+
+k
+i,j=1 (ej ei
+
++ ei ej ) Ω
+
+2ei (Ik − ΩΩ )ej
+1 − (ei (Ik − ΩΩ )ej )2
+
+k
+i,j=1 (ej ei
+
++ ei ej ) Ω
+
+8.1 Gradient Checking
+When debugging the implementation of a gradient method, it is important to be sure
+that the computed gradient is correct. Therefore, it is useful to numerically check if the
+
+29
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+gradient of the constraint or objective function was computed correctly. This can be
+done using the deﬁnition of the directional derivative
+d
+dt
+
+fH (X) = lim
+
+t→0
+
+t=0
+
+f (X + tH) − f (X)
+t
+
+(127)
+
+So in order to check the correctness of the gradient for a function f (X), one can check
+if
+f (X + t ei Hej ) − f (X − t ei Hej )
+(128)
+2t
+The parameter t ∈ R should be chosen very small but several orders of magnitude larger
+than the machine precision for the chosen data type/platform. For instance something
+between 10−4 and 10−10 may be appropriate. The direction matrix H should be set to
+a matrix with a one for all elements. If this gradient check passes for all coordinates i, j
+and for diﬀerent X, the gradient is most likely correct.
+
+No
+tes
+
+fH (X)(ij) ≈
+
+9 An outlook to optimization on manifolds
+
+In this chapter we will brieﬂy consider optimization on manifolds. The problem is given
+as
+Minimize the function F : M → R
+(129)
+
+re
+
+where the set M is a manifold.
+
+ctu
+
+Deﬁnition 9.1 (Manifold). A topological space X is called locally Euclidean if there
+is a non-negative number n such that every point in X has a neighborhood which is
+homeomorphic to Rn . A manifold is a locally Euclidean second countable Hausdorﬀ
+space.
+This requires the deﬁnitions of topological space, homeomorphic mapping, second
+countable, and Hausdorﬀ space. (Which will not be given in this lecture.)
+
+Le
+
+Theorem 9.2 (Regular value theorem, part I). Let H, F be Hilbert spaces and let X ⊂ H
+be an open subset. Furthermore, let f : X → F be a smooth mapping. Then any point
+c ∈ F for which Df (x) has full rank for all x ∈ f −1 (c) is called a regular value. The
+set f −1 (c) ⊂ X is a (dim(H) − dim(F ))-dimensional manifold. To be precise, it is a
+sub-manifold of H.
+Example 9.3. Given the smooth function
+f : Rn×n → Sym(n)
+A → A A.
+
+30
+
+(130)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+The group of orthogonal matrices is deﬁned as O(n) := {X X = In } = f −1 (In ). In
+order to show that O(n) is a manifold, it remains to show that In is a regular value of
+f . The directional derivative is given as
+Df (X) · V = X V + V X.
+
+(131)
+
+No
+tes
+
+If X ∈ O(n), this linear map is surjective (i.e. has full rank). In order to see this, let S be
+arbitrary in Sym(n). Then Df (X) maps the matrix V = 1 X S to S. Therefore, Df (X)
+2
+is a surjective linear map. In conclusion, O(n) is a manifold of dimension n2 − n(n+1) =
+2
+n(n−1)
+.
+2
+A diﬀerentiable manifold M is locally homeomorphic to Rn , i.e. there exists a neighborhood U for all points x ∈ M and a map called chart ϕ : U → Rn such that ϕ(U) ⊂ Rn ,
+ϕ(x) = 0. Let α : (−ε, ε) → M , α(0) = x be a curve on M such that the composition
+ϕ ◦ α : (−ε, ε) → Rn is smooth. We call (ϕ ◦ α) (0) the speed vector of α in x with respect
+to (U, ϕ). If (V, ψ) is another chart around x, then by the chain rule we have
+(ψ ◦ α) (0) = (ψ ◦ ϕ−1 ◦ ϕ ◦ α) (0) = D(ψ ◦ ϕ−1 )
+
+ϕ(α(0))
+
+· (ϕ ◦ α) (0)
+
+(132)
+
+In the following, we give a deﬁnition for tangent vectors. It should be noted that this
+is just one of several possible ways to deﬁne a tangent vector.
+
+re
+
+Deﬁnition 9.4. Two curves α, β through x are equivalent if they have the same speed
+vector with respect to one chart (and thus to all charts). This equivalence relation is
+denoted by
+α ∼x β ⇔ (ϕ ◦ α) (0) = (ϕ ◦ β) (0).
+(133)
+
+ctu
+
+Deﬁnition 9.5. A tangent vector of M at x is deﬁned as an equivalence class of curves,
+i.e.
+ξ := [α]x = {β : β ∼x α}.
+(134)
+The tangent space at x is the set of all tangent vectors and is denoted by Tx M .
+
+Le
+
+The tangent space Tx M exhibits a vector space structure. To see this, consider the
+map
+ϕ
+τx : Tx M → Rn ,
+ϕ
+τx ([α]x ) := (ϕ ◦ α) (0).
+
+(135)
+
+This is a bijective mapping.
+• Injectivity: trivial;
+• Surjectivity: Let v ∈ Rn be arbitrary. Deﬁne the curve α(t) := ϕ−1 (ϕ(x) + tv).
+The derivative of the composition of the chart with this curve yields (ϕ◦α) (0) = v.
+
+31
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+We obtain the vector space structure via
+ϕ
+ϕ
+ϕ
+ξ + η := (τx )−1 (τx (ξ) + τx (η)),
+
+(136)
+
+ϕ
+ϕ
+λ · ξ := (τx )−1 (λτx (ξ)),
+
+with ξ, η ∈ Tx M and λ ∈ R. It remains to show that this is independent of the chosen
+chart.
+
+No
+tes
+
+Theorem 9.6 (Regular value theorem, part II). The tangent space at x ∈ f −1 (c) is
+given by
+Tx M := ker(Df (x)).
+(137)
+Example 9.7. Coming back to our example of orthogonal matrices. First, note that
+the dimension of the tangent space is the same as the dimension of the manifold (as
+Df (X) has full rank and n2 = n(n − 1)/2 + n(n + 1)/2), i.e. dim ker(Df (X)) = n(n−1) .
+2
+To determine the tangent space we have to ﬁnd the kernel of Df (X), i.e. V with
+X V + V X = 0.
+
+(138)
+
+This equation holds for V = XH, H = −H, so {XH : H = −H} ⊂ ker(Df (X)).
+Since we have dim{XH : H = −H} = n(n−1) = dim(ker Df (X)), the equality holds.
+2
+
+9.1 Derivatives on manifolds
+
+re
+
+Given the smooth function F : M → R. The tangential map in x ∈ M is deﬁned as
+Tx F : Tx M → TF (x) R = R
+
+(139)
+
+[α]x → Tx F ([α]x ) := [F ◦ α]F (x) .
+
+ctu
+
+Once again, α is a curve through x ∈ M and a tangent vector is deﬁned as the equivalence
+class [α]x . In our case, we have
+DF (x) : Tx M → R,
+DF (x) · ξ =
+
+d
+dt
+
+(140)
+
+(F ◦ α)(t),
+t=0
+
+Le
+
+where [α]x = ξ. This means that derivatives operate on the tangent space and not on the
+manifold. This is intuitively clear as the derivative is a linear mapping which requires
+an underlying vector space structure that is not provided by the manifold.
+
+Deﬁnition 9.8. Analogously, to the deﬁnition on Hilbert spaces, any point x ∈ M such
+that DF (x) ≡ 0 is called a critical point.
+A manifold with an inner product ·, ·
+is called a Riemannian manifold.
+
+x
+
+at Tx M such that ·, ·
+
+32
+
+x
+
+varies smoothly in x
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+Deﬁnition 9.9. The Riemannian gradient is the unique vector G(x) ∈ Tx M such that
+DF (x) · η = G(x), η
+
+x
+
+(141)
+
+for all η ∈ Tx M .
+
+The optimization problem
+max
+
+X∈Rn×k
+X X=Ik
+
+No
+tes
+
+10 A Geometric Revisit to the Trace Quotient Problem
+tr(X AX)
+,
+tr(X BX)
+
+(142)
+
+with X ∈ Rn×k , n > k is the so-called trace quotient problem. One of its applications
+is in the Foley-Sammon Discriminant Analysis which was mentioned in the introduction
+of the lecture. We want to take a closer look at this problem. While the set St(k, n) :=
+{X ∈ Rn×k : X X = Ik } itself is a manifold (the so-called Stiefel manifold), we will
+investigate the optimization problem equivalently on another manifold. The Grassmann
+manifold (or Grassmannian). It is deﬁned as the set of orthogonal rank k projectors, i.e.
+Gr(k, n) := {P ∈ Rn×n : P2 = P, P = P, rk(P) = k}.
+
+(143)
+
+ctu
+
+re
+
+It can be shown that any P ∈ Gr(k, n) can be written as P = UU with U ∈ St(k, n)
+and since the trace function is invariant to the rotation in its argument, we can rewrite
+Equation (142) as
+tr(PA)
+max
+.
+(144)
+P∈Gr(k,n) tr(PB)
+
+10.1 Geometry of the Grassmannian Manifold
+In equivalence to the deﬁnition above, we can say that the Grassmannian is the set of
+all k-dimensional subspaces in Rn . The tangent space in a point P is given as
+TP Gr(k, n) := {[P, Ω] : Ω ∈ Skew(n)}
+
+(145)
+
+Le
+
+with the matrix commutator [A, B] := AB − BA. The canonical inner product for two
+tangent vectors ξ1 , ξ2 ∈ TP Gr(k, n) is given by
+ξ1 , ξ2 = tr(ξ1 ξ2 ).
+
+(146)
+
+The projection onto the tangent space is given by the mapping
+ΠP (Z) = [P, [P, Z]].
+
+33
+
+(147)
+
+M. Seibert, M. Kleinsteuber
+
+Nonconvex Optimization
+
+The geodesic originating from a point P ∈ Gr(k, n) in direction ξ ∈ TP Gr(k, n) is
+deﬁned as the mapping
+γP,ξ : R → Gr(k, n)
+
+(148)
+
+Le
+
+ctu
+
+re
+
+No
+tes
+
+t → et[ξ,P] Pe−t[ξ,P] .
+
+34
+
+
