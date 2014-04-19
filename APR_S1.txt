@@ -190,17 +190,8 @@ and d cannot be found uniquely.
 
 Problem 3: Regressor Models
 a) Continuous-time transfer function
- 
-c
-1
-a
-u −y −¨
-˙
-y
-y(t) =
-b
-1
-
+[ Multiplication with s corresponds to the derivative ]
+[ http://en.wikipedia.org/wiki/Laplace_transform#Proof_of_the_Laplace_transform_of_a_function.27s_derivative ]
 (5)
 
 b) Non-linear system
@@ -220,16 +211,6 @@ y = ay + by + cu
 (7)
 
 and the regressor model is therefore given by
- 
-1
-1
-y −y u  b 
-¨
-˙
-y=
-a
-c
-
-(8)
+[ \dot{x}_1 = x_2 ]
 
 
