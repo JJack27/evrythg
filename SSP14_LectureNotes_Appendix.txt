@@ -1,0 +1,1663 @@
+Appendix
+
+214
+
+A. Probability Theory
+A.1
+
+Probability Space
+
+A Probability Space,
+(Ω, F, P),
+represents a mathematical model consisting of an
+ Observation Space Ω:
+the nonempty set of potential outputs/observations of an experiment,
+ Sigma Algebra F:
+a set of subsets of potential outputs/observations of an experiment,
+ Probability Measure P:
+a function which maps each element of A ∈ F to the interval [0, 1].
+
+215
+
+(A.1)
+
+Deﬁnition. A Sigma Algebra F is a set of subsets (events) of Ω with
+Ω ∈ F,
+A∈F ⇒
+A1 , . . . , A k ∈ F
+
+⇒
+
+Ac ∈ F,
+
+(A.2)
+(A.3)
+
+k
+
+i=1
+
+Ai ∈ F.
+
+(A.4)
+
+Deﬁnition. A Probability Measure P maps A ∈ F to P (A), the Probability of the Event A,
+with
+
+Nonnegativity :
+Normation :
+Additivity :
+
+P (A) ≥ 0,
+P (Ω) = 1,
+P
+
+∞
+i=1
+
+Ai
+
+(A.5)
+(A.6)
+=
+
+∞
+
+P (Ai ) ,
+
+i=1
+
+216
+
+wenn Ai ∩ Aj = ∅, ∀i = j.
+
+(A.7)
+
+Consequently, the following general properties of probability measures are obtained:
+
+P (Ac ) = 1 − P (A) ,
+P (∅) = 0,
+P (A \ B) = P (A ∩ B c ) = P (A) − P (A ∩ B) ,
+P (A ∪ B) = P (A) + P (B) − P (A ∩ B) ,
+A ⊂ B ⇒ P (A) ≤ P (B) ,
+k
+
+P
+
+k
+
+Ai
+i=1
+
+(A.8)
+(A.9)
+(A.10)
+(A.11)
+(A.12)
+
+≤
+
+P (Ai ) .
+i=1
+
+217
+
+(A.13)
+
+A.2
+
+Conditional Probability and Stochastical Independence
+
+Conditional Probability
+The probability of an event changes when we are informed about the realization of another event within
+the same probability space.
+
+Deﬁnition. Given P (A) > 0 for A ∈ F, the Conditional Probability of B conditioned by A is
+deﬁned as
+
+P (B | A) = PA (B) =
+
+218
+
+P (A ∩ B)
+.
+P (A)
+
+(A.14)
+
+Bayes Theorem
+Given a partition of Ω in disjoint sets Bi , i ∈ I, such that
+Bi = Ω,
+
+(A.15)
+
+i∈I
+
+Bi ∩ Bj = ∅, ∀i = j,
+
+(A.16)
+
+then for any A ∈ F with P (A) > 0:
+Theorem of total probability :
+
+P (A | Bi ) P (Bi ) ,
+
+(A.17)
+
+P (A | Bj ) P (Bj )
+.
+i∈I P (A | Bi ) P (Bi )
+
+(A.18)
+
+P (A) =
+i∈I
+
+Bayes Theorem :
+
+P (Bj | A) =
+
+Special Case. Given A, B ⊂ Ω and Ω = B ∪ B c , the Bayes Theorem is given by
+P (B | A) =
+
+P (A | B) P (B)
+P (A | B) P (B)
+=
+.
+P (A)
+P (A | B) P (B) + P (A | B c ) (1 − P (B))
+
+219
+
+(A.19)
+
+Illustration
+B1
+
+B5
+
+B3
+
+A
+
+Ω
+
+B4
+
+B2
+
+Fig. A.1: Partition of Ω in B1 , . . . , B5
+
+4
+
+P (A) =
+i=1
+
+P (B2 | A) =
+
+P (A | Bi ) P (Bi ) + 0 · P (B5 ) ,
+
+P (A | B2 ) P (B2 )
+.
+P (A | Bi ) P (Bi )
+
+4
+i=1
+
+220
+
+(A.20)
+(A.21)
+
+Stochastic Independence
+A und B are stochastically independent if the probability measure for B is not changed by any knowledge
+about the realization of A, and vice verca, i. e. given P (A) > 0,
+P (B | A) = P (B) .
+
+(A.22)
+
+Otherwise, with
+P (B | A) =
+
+P (A ∩ B)
+P (A)
+
+(A.23)
+
+we obtain the following
+
+Deﬁnition. Given (Ω, F, P) is a probability space, then A, B ∈ F are Stochastically Independent
+with respect to P, if
+
+P (A ∩ B) = P (A) P (B) .
+
+221
+
+(A.24)
+
+A.3
+
+Random Variables
+
+Deﬁnition. Given a probability space (Ω, F, P) and a measure space (Ω , F ), we call the mapping X :
+Ω → Ω a Random Variable, if and only if for each A ∈ F there exists an element A ∈ F, such that
+A = {ω ∈ Ω | X (ω) ∈ A } ∈ F or — in shorter notation — A = {X ∈ A } ∈ F.
+
+X
+ω
+
+X (ω)
+A ∈B
+
+A∈F
+
+x
+
+R
+
+Ω
+Fig. A.2: Real-valued random variable: x : Ω → R
+
+222
+
+Distribution of Real-Valued Random Variables
+Deﬁnition. Given a real-valued random variable X on (Ω, F, P), the function FX : R → [0, 1], with
+FX (x) = P ({X ≤ x}) ,
+deﬁnes the Cumulative Distribution Function (CDF) of X .
+Properties of a CDF FX : R → [0, 1]:
+
+ FX (x) is monotonically increasing.
+ limh→0 FX (x + h) = FX (x),
+
+ limx→−∞ FX (x) = 0,
+
+∀x ∈ R.
+
+limx→∞ FX (x) = 1.
+
+223
+
+(A.25)
+
+Deﬁnition. We call a random variable X Continuous if its CDF FX can be determined by means of
+x
+
+FX (x) =
+
+−∞
+
+fX (ξ) dξ,
+
+(A.26)
+
+with fX : R → [0, ∞[, which is the Probability Density Function (PDF) of X .
+If FX is continous and can be diﬀerentiated almost everywhere, then the random variable X is continuous
+and
+
+fX (x) =
+
+dFX (x)
+.
+dx
+
+224
+
+(A.27)
+
+Examples
+0.6
+a = 0, b = 5
+a = −5, b=5
+a = −3, b = −1
+
+0.5
+
+fX (x; a, b)
+
+0.4
+0.3
+0.2
+0.1
+0
+−10
+
+−8
+
+−6
+
+−4
+
+−2
+
+0
+x
+
+Fig. A.3: Uniform PDF: fX (x) =
+
+225
+
+2
+
+4
+
+6
+
+1 ,a≤x≤b
+b−a
+
+8
+
+10
+
+Examples (Cont’d)
+0.5
+µ = 0, σ = 1
+µ = 0, σ = 5
+µ = −5, σ = 2
+
+fX (x; µ, σ)
+
+0.4
+0.3
+0.2
+0.1
+0
+−10
+
+−8
+
+−6
+
+−4
+
+−2
+
+0
+x
+
+Fig. A.4: Gaussian PDF: fX (x) =
+
+226
+
+2
+
+√ 1
+2πσ 2
+
+4
+e−
+
+(x−µ)2
+2σ 2
+
+6
+
+,
+
+8
+
+x∈R
+
+10
+
+Examples (Cont’d)
+2
+λ = 0.5
+λ=1
+λ=2
+
+fX (x; λ)
+
+1.5
+
+1
+
+0.5
+
+0
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+x
+
+6
+
+7
+
+Fig. A.5: Exponential PDF: fX (x) = λ e−λx ,
+
+227
+
+8
+x≥0
+
+9
+
+10
+
+Multidimensional Distributions
+Deﬁnition. Given a n-dimensional real-valued random variable (random vector) X = [X1 , . . . , Xn ]T on
+the probability (Ω, F, P), then the Joint CDF FX1 ,...,Xn : Rn → [0, 1] is denoted as
+FX (x) = P ({X ≤ x}) = P ({X1 ≤ x1 , . . . , Xn ≤ xn }) .
+
+(A.28)
+
+Properties of a continuous n-dimensional real-valued random variable:
+x1
+
+FX1 ,...,Xn (x1 , . . . , xn ) =
+
+fX1 ,...,Xn (x1 , . . . , xn ) =
+
+xn
+
+...
+−∞
+
+−∞
+
+fX1 ,...,Xn (ξ1 , . . . , ξn ) dξn . . . dξ1
+
+∂ n FX (x1 , . . . , xn )
+.
+∂x1 . . . ∂xn
+
+228
+
+(A.29)
+
+(A.30)
+
+Marginal Distribution
+Deﬁnition. Given a random variable [X , Y ], the Marginal Distribution of X can be obtained by
+
+FX (x) = lim FX ,Y (x, y) = FX ,Y (x, ∞).
+
+(A.31)
+
+y→∞
+
+FX ,Y (x, y)
+
+FX ,Y (x, ∞) = FX (x)
+
+Y
+y→∞
+
+y
+
+Y
+
+(x, y)
+
+X
+
+{X ≤ x}
+
+x
+{X ≤ x, Y ≤ y}
+
+229
+
+X
+x
+
+Conditional Distribution
+Deﬁnition. Given two jointly distributed random variables X and Y , then the Conditional CDF of X
+conditioned on {Y = y} is equal to FX |Y : R → [0, 1], with
+FX |Y (x|y) = P ({X ≤ x} | {Y = y}) ,
+
+if Y only takes discrete values.
+
+(A.32)
+
+If Y is a continuous random variable, the probability of {Y = y} is zero, and thus the Conditional
+CDF must be deﬁned alternatively as
+x
+
+FX |Y (x|y) =
+
+−∞
+
+assuming the existence of the PDFs and fY (y) > 0.
+
+230
+
+fX ,Y (ξ, y)
+dξ,
+fY (y)
+
+(A.33)
+
+Important Relations
+∞
+−∞
+
+fX ,Y (ξ, y) dξ =
+
+Marginalization
+
+∞
+−∞
+
+fX |Y (ξ, y) dξ =
+
+∞
+−∞
+
+fY |X (y|ξ)fX (ξ) dξ = fY (y),
+
+(A.34)
+
+Theorem of total probability
+
+∞
+−∞
+
+fX ,Y (ξ, y)
+1
+dξ =
+fY (y)
+fY (y)
+Normalization
+
+231
+
+∞
+−∞
+
+fX ,Y (ξ, y) dξ = 1.
+
+(A.35)
+
+A.4
+
+Mean and Covariance
+
+Mean Value of Random Variables
+Deﬁnition. The Mean Value (expectation value) of a continuous real-valued random variable X
+is
+
+µX = E [ X ] =
+
+R
+
+xfX (x) dx.
+
+(A.36)
+
+Properties of the mean value:
+
+E [αX + β Y ] = α E [X ] + β E [Y ] ,
+X ≤ Y ⇒ E [X ] ≤ E [Y ] ,
+for all α, β ∈ R.
+
+232
+
+(A.37)
+(A.38)
+
+Deﬁnition. The Variance of random variable X is
+2
+σX = Var [X ] = E (X − E [X ])2 = E X 2 − E [X ]2 ,
+
+(A.39)
+
+Deﬁnition. The Covariance and Correlation of two random variables X and Y is
+cX ,Y = Cov [X , Y ] = E [(X − E [X ]) (Y − E [Y ])] = E [XY ] − E [X ] E [Y ] ,
+rX ,Y = E [XY ] .
+
+(A.40)
+(A.41)
+
+Properties of the covariance, if X , Y , U and V are random variables and α, β, γ, δ ∈ R:
+Cov [αX + β, γ Y + δ] = αγ Cov [X , Y ] ,
+Cov [X + U , Y + V ] = Cov [X , Y ] + Cov [X , V ] + Cov [U , Y ] + Cov [U , V ] .
+Special Case. Var [αX + β] = α2 Var [X ].
+
+233
+
+(A.42)
+(A.43)
+
+Correlation of Random Variables
+Deﬁnition. Random variables X and Y are Uncorrelated if
+
+c X ,Y = 0
+
+⇔
+
+E [XY ] = E [X ] E [Y ] ,
+
+(A.44)
+
+otherwise we call X and Y Correlated.
+Deﬁnition. By normalization we obtain the Correlation Coefficient ρX ,Y ∈ [−1, 1]
+ρX ,Y =
+
+cX , Y
+.
+σX σY
+
+(A.45)
+
+Stochastic interrelations of random variables:
+Independent : FXY = FX FY
+Uncorrelated : µXY = µX µY
+Orthogonal : µXY = 0.
+
+234
+
+(A.46)
+(A.47)
+(A.48)
+
+Example
+The joint CDF of n real-valued Gaussian random variables
+
+X = [X1, . . . , Xn]T is given by
+
+1
+1
+fX1 ,...,Xn (x1 , . . . , xn ) = √ n √
+exp − (x − µ)T C −1 (x − µ) .
+2
+2π det C
+The respective Mean Vector and Covariance Matrix is given by
+
+ 
+
+
+
+µ1
+E [X1 ]
+X1
+ .   . 
+ . 
+µ =  .  =  .  = E  .  = E [X ]
+.
+.
+.
+µn
+E [Xn ]
+Xn
+and
+
+C = E (X − µ)(X − µ)T
+
+
+
+
+
+X1 − µ1
+
+
+
+.
+T
+.
+= E 
+ [X1 − µ1 , . . . , Xn − µn ] = C ,
+.
+Xn − µn
+
+respectively. A common shorthand notation is
+
+X ∼ N (µ, C).
+235
+
+(A.49)
+
+(A.50)
+
+Covariance matrices of uncorrelated random variables X1 , . . . , Xn are diagonal
+2
+2
+C = diag σ1 , . . . , σn ,
+
+(A.51)
+
+2
+with variances σi = Var [Xi ], i ∈ {1, . . . , n} as main diagonal elements.
+Given n uncorrelated Gaussian random variables the joint PDF is
+
+1
+√
+n
+2π
+i=1
+
+fX1 ,...,Xn (x1 , . . . , xn ) =
+n
+
+=
+i=1
+
+1
+2
+2πσi
+
+1
+exp −
+2
+2
+σi
+(x −µ )2
+− i 2i
+2σ
+i
+
+e
+
+n
+
+i=1
+n
+
+=
+
+−2
+(xi − µi )σi (xi − µi )
+
+fXi (xi ).
+i=1
+
+Important special case: Uncorrelated Gaussian random variables are always stochastic independent!
+Correlation between the random variables X1 , . . . , Xn leads to a non-diagonal covariance matrix C. Since
+C is in general Positive Semidefinite (PSD), X ∼ N (µ, C) can be transformed to Y ∼ N (0, I), by
+the linear transformation
+
+Y = C − (X − µ) .
+1
+2
+
+236
+
+(A.52)
+
+3
+2
+0.2
+
+x2
+
+1
+0.1
+
+0
+−1
+
+0
+4
+
+2
+x2
+
+0
+−2
+
+−4−4
+
+−2
+
+2
+
+0
+
+−2
+
+4
+
+−3
+−3
+
+x1
+
+(a) Joint PDF fX1 ,X2 (x1 , x2 )
+
+−2
+
+−1
+
+0
+x1
+
+1
+
+2
+
+(b) Contour lines of fX1 ,X2 (x1 , x2 )
+
+Fig. A.6: Joint PDF of the Uncorrelated bivariate standard normal distribution.
+
+237
+
+3
+
+3
+2
+0.2
+
+x1
+
+1
+0.1
+
+0
+−1
+
+0
+4
+
+2
+x2
+
+0
+−2
+
+−4−4
+
+−2
+
+2
+
+0
+
+−2
+
+4
+
+−3
+−3
+
+x1
+
+(a) Joint PDF fX1 ,X2 (x1 , x2 )
+
+−2
+
+−1
+
+0
+x1
+
+1
+
+2
+
+(b) Contour lines of fX1 ,X2 (x1 , x2 )
+
+Fig. A.7: Joint PDF of the Correlated bivariate standard normal distribution.
+
+238
+
+3
+
+B. Linear Algebra
+B.1
+
+Vector Spaces
+
+Deﬁnition. A set S is a Vector Space, if for all x, y ∈ S
+x + y ∈ S,
+αx ∈ S,
+
+α ∈ R, C.
+
+(B.1)
+(B.2)
+
+In the following we consider the Real Vector Space of dimension N , i.e. S ≡ RN with α ∈ R.
+
+239
+
+Deﬁnition. Column Vectors and Row Vectors are deﬁned by
+
+
+
+
+x=
+
+
+x1
+x2
+.
+.
+.
+xN
+
+
+
+
+
+T
+ = [x1 , x2 , · · · , xN ] ,
+
+
+with x ∈ RN
+
+und xT ∈ R1×N .
+
+(B.3)
+
+Deﬁnition. Vectors xk , k = 1, . . . , K are Linear Independent, if
+
+K
+
+αk xk = 0
+k=1
+
+⇔
+
+α1 = · · · = αK = 0.
+
+(B.4)
+
+Deﬁnition. The maximal number of linear independent vectors determines the Dimension of the vector
+space.
+
+240
+
+Deﬁnition. K ≤ N linear independent basis vectors constitute (Span) a Vector Subspace U ⊂ S
+K
+
+U ≡ span [x1 , x2 , . . . , xK ] ≡
+
+x∈S
+
+x=
+k=1
+
+αk xk , αk ∈ R, ∀k
+
+x1
+y1
+x2
+U⊂R
+
+3
+
+y2
+
+Fig. B.1: Subspace U spanned by diﬀerent pairs of basis vectors
+241
+
+.
+
+(B.5)
+
+Deﬁnition. A vector space S is a Normed Vector Space, if any x ∈ S can be mapped to a scalar
+(Norm) x ∈ R0,+ , with the following properties:
+αx = |α| x ,
+
+∀α ∈ R,
+
+x = 0 ⇔ x = 0.
+
+and
+
+(B.6)
+
+Normed vector spaces are also Metric Vector Spaces, with the Metric
+d(x, y) = x − y .
+
+(B.7)
+
+A valid p-norm of S is
+1
+p
+
+N
+
+x
+
+p
+
+=
+k=1
+
+|xk |p
+
+1
+2
+
+N
+
+,
+
+e.g.:
+
+x
+
+2
+
+=
+k=1
+
+242
+
+|xk |2
+
+= xT x
+
+1
+2
+
+.
+
+(B.8)
+
+Deﬁnition. A vector space S is a Inner Product Space, if any pair of vectors x, y ∈ S can be
+mapped to a scalar (Inner Product) x, y ∈ R,1 with the following properties:
+x + z, y = x, y + z, y , ∀z ∈ S
+αx, y = α x, y , ∀α ∈ R
+x, x ≥ 0, with x, x = 0 ⇔ x = 0.
+
+(B.9)
+(B.10)
+(B.11)
+
+Inner product spaces are also normed vector spaces, with the norm
+x =
+
+x, x .
+
+(B.12)
+
+A valid inner product of the real vector space S is
+N
+T
+
+x, y = y x =
+
+xk y k .
+
+(B.13)
+
+k=1
+
+1 This only holds for real vector spaces. For complex vector spaces, the inner product is a complex number x, y ∈ C, which requires the
+additional constraint x, y = y, x ∗ .
+
+243
+
+Deﬁnition. Vectors x, y ∈ S are Orthogonal to each other, if
+x, y = 0.
+
+(B.14)
+
+Deﬁnition. A set of Orthonormal vectors uk , which are mutually orthogonal with uk = 1 for all
+k = 1, . . . , K and which span a vector subspace U, is referred to as the Orthonormal System (ONS)
+of U.
+Properties of the ONS: ∀x ∈ U
+K
+
+Fourier Series :
+
+x=
+
+K
+
+x, uk uk =
+k=1
+
+Pythagoras :
+
+x
+
+=
+
+uk =
+
+k=1
+2
+
+K
+2
+2
+
+K
+
+uT x
+k
+
+k=1
+
+2
+
+244
+
+K
+
+k=1
+
+(B.15)
+
+K
+
+x, uk 2 .
+
+2
+
+=
+
+xk uk
+
+xk u k .
+k=1
+
+|xk | =
+
+k=1
+
+(B.16)
+
+Example
+A set of non-orthogonal vectors can be orthogonalized by the Gram-Schmidt Orthogonalization.
+Given x1 , x2 , x3 , the ONS is computed by
+x1
+⇒
+x1 2
+u2
+⇒
+u2 =
+u2 2
+u3
+u3 =
+.
+u3 2
+
+u1 =
+
+u2 = x2 − u1 uT x2 ,
+1
+
+(B.17)
+
+u3 = x3 − u1 uT x3 − u2 uT x3 ,
+1
+2
+
+(B.18)
+(B.19)
+
+The respective QR-Decomposition Q · R of the
+
+x1 2 uT x2
+1
+u2 2
+[x1 , x2 , x3 ] = [u1 , u2 , u3 ]  0
+0
+0
+X
+
+
+= [u1 , u2 , u3 ] 
+Q
+
+uT x1
+1
+0
+0
+
+uT x2
+1
+uT x2
+2
+0
+
+matrix X = [x1 , x2 , x3 ] is obtained as:
+
+uT x3
+1
+x1 2 = uT x1
+1
+uT x3  ,
+with
+2
+uk 2 = uT xk
+k
+u3 2
+
+uT x3
+1
+uT x3
+2
+uT x3
+3
+
+R
+
+245
+
+
+
+.
+
+(B.20)
+(B.21)
+(B.22)
+
+B.2
+
+Matrix Operator
+
+Deﬁnition. A Matrix describes the Linear Mapping of vectors, A : S → S , x → Ax, with the
+following properties:
+
+A(x + y) = Ax + Ay, ∀x, y ∈ S
+A(αx) = αAx, ∀α ∈ R.
+
+(B.23)
+(B.24)
+
+Transposition: The Transpose of a matrix AT is composed by changing columns and rows of A, i.e.
+
+
+aT
+1
+ . 
+A = [a1 , a2 , . . . , aN ] ∈ RM ×N ⇔ AT =  .  ∈ RN ×M ,
+(B.25)
+.
+T
+aN
+where S ≡ RN and S ≡ RM .
+
+246
+
+Deﬁnition. The Norm Of A Matrix is inherited by the norm of the respective vectors, e.g. the
+maximum norm • ∞ of A can be obtained by
+
+A
+
+∞
+
+= max
+x∈S
+
+Ax
+= max
+i=1,...,N
+x
+
+(B.26)
+
+λi ,
+
+with λi denoting the eigenvalues of the matrix AT A.
+A further commonly used norm for matrices is the Frobenius Norm • F :
+M
+
+A
+
+F
+
+N
+
+=
+m=1 n=1
+
+N
+
+|2
+
+|am,n =
+
+aT an
+n
+n=1
+
+=
+
+
+
+
+
+tr 
+
+
+with am,n = [A]m,n .
+
+247
+
+aT
+1
+aT
+2
+.
+.
+.
+aT
+N
+
+
+
+
+
+
+
+
+
+ [a1 , a2 , . . . , aN ] =
+
+
+
+tr AT A ,
+
+(B.27)
+
+Deﬁnition. A matrix A ∈ RM ×N : S → S is always associated with Four Fundamental Subspaces,
+which are
+
+Image Space : span [A] = span [a1 , a2 , . . . , aN ] ⊂ S ,
+Null Space : null [A] = {x ∈ S |Ax = 0} ⊂ S,
+2nd Image Space :
+2nd Null Space :
+
+span AT
+
+null AT
+
+⊂ S,
+
+⊂S.
+
+(B.28)
+(B.29)
+(B.30)
+(B.31)
+
+Properties of the fundamental subspaces:
+null [A] ⊕ span AT ≡ S
+
+span [A] ⊕ null AT ≡ S .
+
+(B.32)
+(B.33)
+
+A powerful tool for constructing ONSs for the fundamental subspaces of a matrix is the Singular Value
+Decomposition.
+
+248
+
+B.3
+
+Singular Value Decomposition
+
+Any matrix A ∈ RM ×N can be decomposed into2
+R
+
+σi ui v T ,
+i
+
+A=
+
+with
+
+(B.34)
+
+i=1
+
+σ1 ≥ σ2 ≥ · · · ≥ σR ≥ 0, span [A] = span [u1 , . . . , uR ] , null [A]⊥ = span [v 1 , . . . , v R ] ,
+
+(B.35)
+
+where R ≤ min{M, N } denotes the rank of the matrix A, and the vectors ui and v i constitute an ONS
+of span [A] and null [A]⊥ , respectively. The respective matrix notation for the diﬀerent dimensions is
+
+AM <N = U [Σ, 0]
+
+VT
+V ⊥,T
+
+AM =N = U ΣV T
+
+AM >N = U , U ⊥
+
+Σ
+0
+
+V T.
+
+(B.36)
+
+with U = [u1 , . . . , uR ], Σ = diag [σ1 , . . . , σR ], V = [v 1 , . . . , v R ], and the orthogonal complement vectors
+U ⊥ = [uR+1 , . . . , uM ] (V ⊥ = [v R+1 , . . . , uN ]) which appear only if M > N (M < N ).
+2 The
+
+SVD consists also of any A ∈ CM ×N .
+
+249
+
+B.4
+
+Projection Matrices
+
+Deﬁnition. The Orthogonal Projection of any x ∈ S onto a subspace U spanned by the ONS
+{u1 , u2 , . . . , uK } by the Projection Matrix P U .
+K
+
+uk uT x = U U T x = P U x,
+k
+
+x=
+ˆ
+
+with U = [u1 , u2 , . . . , uK ] .
+
+k=1
+
+x
+PU : S → U
+
+U⊥
+U
+
+P Ux
+
+Fig. B.2: Orthogonal Projection of x ∈ S onto U ⊂ S
+250
+
+(B.37)
+
+Special projections:
+ The orthogonal projection of any x ∈ S onto a subspace U spanned by a Non-Orthonormal basis
+{y 1 , y 2 , . . . , y K } can be obtained by
+
+x = Y Y TY
+ˆ
+= P U x,
+
+−1
+
+Y Tx
+
+(B.38)
+(B.39)
+
+with Y = [y 1 , y 2 , . . . , y K ], the matrix of linear independent vectors y i ∈ U.
+ The orthogonal projection matrix of any x ∈ S onto the Orthogonal Complement Space of U
+is easily obtained by
+
+P U⊥ = I − P U .
+
+(B.40)
+
+Properties of projection matrices:
+PT = PU
+U
+
+(B.41)
+
+P2
+U
+
+(B.42)
+(B.43)
+
+= PU
+P U x = x,
+P U x = 0,
+
+if x ∈ U
+
+if x ∈ U⊥ .
+
+(B.44)
+
+The non-zero Eigenvalues of projection matrices are obviously always constrained to 1 and the respective
+Eigenvectors are elements of U.
+251
+
+B.5
+
+Special Matrices
+
+We consider a special class of matrices which can be decomposed in a Weighted Series of Mutually
+Orthogonal Projection Matrices, i.e.
+K
+
+A=
+
+(B.45)
+
+λk P k ,
+k=1
+
+with span [P k ] ⊥ span [P ], for all k = .
+This special matrices are commonly referred to as
+Normal Matrices :
+
+AAH = AH A,
+
+Symmetric (Hermitian) Matrices :
+Positive Semidefinite Matrices :
+
+if λk ∈ C, ∀k,
+AH = A,
+
+(B.46)
+
+if λk ∈ R, ∀k,
+
+xH Ax ≥ 0, ∀x ∈ CN ,
+
+if λk ∈ R+,0 , ∀k.
+
+(B.47)
+(B.48)
+
+Properties of special matrices:
+Given the projection matrices P k = uk uH are constituted by mutually orthonormal basis vectors uk ,
+k
+k = 1, . . . , K, then the vectors uk are the Eigenvectors of matrix A, with the respective Eigenvalues
+λk .
+252
+
+B.6
+
+SVD & EVD
+
+Given the Singular Value Decomposition (SVD) of an arbitrary matrix A ∈ CM ×N , i.e. A =
+R
+H
+k=1 σk uk v k ,
+R
+
+R
+H
+
+2
+σ k uk uH
+k
+
+AA =
+
+and
+
+H
+
+2
+σk v k v H .
+k
+
+A A=
+
+(B.49)
+
+k=1
+
+k=1
+
+Obviously, the Outer Product matrices uk uH and v k v H are mutually orthogonal projection matrices,
+k
+k
+P Uk = uk uH
+k
+
+and P Vk = v k v H ,
+k
+
+(B.50)
+
+projecting onto Uk ≡ span [uk ] ⊂ CM and Vk ≡ span [v k ] ⊂ CN , respectively, i.e.
+R
+H
+
+R
+2
+σk P Uk
+
+AA =
+
+H
+
+2
+σk P Vk .
+
+and A A =
+
+k=1
+
+k=1
+
+Thus the left- and righthand side singular vectors
+ uk and v k of A are Eigenvectors of the Gramian Matrices AAH and AH A,
+2
+ with corresponding Eigenvalues λk = σk ,
+
+which are the squared Singular Values of the matrix A.
+
+253
+
+(B.51)
+
+References
+ A. Papoulis and S. U. Pillai. Probability, Random Variables and Stochastic Processes, 4th edition, Mc
+Graw Hill, 2002.
+ H. Stark and J. W. Woods. Probability, Random Processes, and Estimation Theory for Engineers, 2nd
+edition, Prentice Hall, 1994.
+ W. Utschick. Stochastische Signale, Aktuelles Manuskript zur gleichnamigen Vorlesung an der Technischen Universit¨t M¨nchen, 2012.
+a
+u
+ G. Strang. Linear Algebra and Its Applications, Harcourt Brace Jovanovich, Publishers, 1988.
+ L. N. Trefethen and D. Bau III. Numerical Linear Algebra, Society for Industrial and Applied Mathematic,
+1997.
+ W. Utschick. Mathematische Methoden der Signalverarbeitung, Aktuelles Manuskript zur gleichnamigen
+Vorlesung an der Technischen Universit¨t M¨nchen, 2012.
+a
+u
+
+254
+
+
