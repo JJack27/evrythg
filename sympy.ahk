@@ -9,7 +9,7 @@ sleep, 10
 IfWinExist, IPython
 {
     WinActivate ;
-Send, paste
+Send, ^v
 sleep, 10
 Send, {ENTER}
 sleep, 10
@@ -32,7 +32,7 @@ sleep, 10
 IfWinExist, IPython
 {
     WinActivate ;
-Send, paste 
+Send, ^v
 sleep, 10
 Send, {ENTER}
 sleep, 10
