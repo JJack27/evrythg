@@ -83,26 +83,13 @@ i=1
 For simplicity reasons we restrict the further analysis to the case of a single observation N = 1 and Addi2
 tive White Gaussian Noise η(t) ∼ N (0, ση I), i.e.
 
-L(x; θ) =
 
-1 For
-
-1
-(x − ξas)H (x − ξas)
-exp −
-2
-2
-(πση )M
-ση
-
-simplicity of notation we use xi instead of x(ti ).
-
-45
-
-.
+[ Die Determinante einer Diagonalmatrix ist das Produkt der Eintraege auf der Hauptdiagonalen ]
 
 (5.5)
 
+simplicity of notation we use xi instead of x(ti ).
+45
 After some simple reformulation steps the ML optimization problem is equal to
 
 min (x − ξas)H (x − ξas)
@@ -115,7 +102,9 @@ Since the cost function can be expanded in
 
 (5.7)
 
-and aH a = M , it can be further reduced to
+and 
+$\alpha^H \alpha = M$ [independent of \theta ]
+, it can be further reduced to
 
 max Re xH a(θ) .
 θ
@@ -176,17 +165,8 @@ x∗
 (5.11)
 (5.12)
 
-ξ 2 s2 aH a
-M ξ 2 s2
-b(θ) =
-=
-.
-2
-2
-ση
-ση
-2
-Note, that E [t(x)] = ση c(θ).
+Note, that E[t(x)] = \sigma_{\eta} c(θ).
+\todo{Why's that?}
 
 47
 

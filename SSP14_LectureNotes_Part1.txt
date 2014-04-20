@@ -2,11 +2,36 @@ Lecture Notes
 
 Statistical Signal Processing
 Univ.-Prof. Dr.-Ing. Wolfgang Utschick
-Technische Universit¨t M¨nchen
-a
-u
-
+Technische Universitaet Muenchen
 Summer 2014
+
+\begin{sympyblock}
+from sympy import *
+from sympy import abc
+init_printing(forecolor='White')
+
+E = Function('E') # expectation
+Var = Function('Var') # variance
+
+x = abc.x # realization of the random variable X
+theta = abc.theta # the parameter to be estimated
+f_X = Function(r'f_X')(x, theta) # probality density function
+L = Function('L')(x, theta) # likelihood function
+g = Function('g')(x, theta) # score function
+T = Function('T')(x) # estimator
+a = Function('a')(theta)
+b = Function('b')(theta)
+t = Function('t')(x)
+h = Function('h')(x)
+I_F = Function('I_F')(theta) # fisher information
+
+e_4_4 = Eq(g, Derivative(L, theta))
+e_4_6 = Rel(Var(T), 1/I_F, '>=')
+e_4_15 = Eq(f_X, h * exp(a *t)/exp(b))
+e_4_16 = Eq(I_F, Derivative(a, theta) * Derivative(E(t), theta))
+\end{sympyblock}
+
+
 
 © 2014 Univ.-Prof. Dr.-Ing. Wolfgang Utschick
 
@@ -1118,8 +1143,7 @@ Var [T (X1 , . . . , XN )] ≤ Var [S (X1 , . . . , XN )] ,
 
 for any alternative unbiased estimator S .
 
-Best unbiased estimators are also referred to as Uniformly Minimum Variance Unbiased (UMVU)
-Estimators.
+' Best unbiased estimators are also referred to as Uniformly Minimum Variance Unbiased (UMVU) Estimators. '
 The estimator T2 =
 
 N +1
@@ -1133,18 +1157,10 @@ of the introductory example is a UMVU Estimator.
 4. Fisher’s Information Inequality
 An universal lower bound for the variance of an estimator can be introduced, if the following conditions are
 fulﬁlled:
-L(x; θ) > 0, ∀x, θ,
-L(x; θ) diﬀerentiable with respect to θ,
-∂
-∂
-L(x; θ) dx =
-L(x; θ) dx.
-∂θ X
-X ∂θ
+L(x; θ) > 0, ∀x, θ, (4.1)
+L(x; \theta) differentiable with respect to \theta,
 
-(4.1)
-(4.2)
-(4.3)
+\input{ SSP14_LectureNotes_Part1_31_2.txt } (4.3)
 
 Deﬁnition. Consequently, we deﬁne the Score Function as
 
@@ -1158,7 +1174,9 @@ log L(x; θ) = ∂θ
 ∂θ
 L(x; θ)
 
-with E [g(X ; θ)] = 0.
+with 
+\input{ SSP14_LectureNotes_Part1_31.txt }
+
 31
 
 (4.4)
@@ -1186,7 +1204,7 @@ IF (θ)
 
 and
 
-Var [T (X )] ≥
+\s{e_4_6}
 if T is unbiased.
 
 32
@@ -1251,54 +1269,7 @@ fX (x; θ) ∂θ
 =
 
 Appling the Cauchy-Schwarz Inequality, | a, b |2 ≤ a, a · b, b , yields:
-∂ E [T(X )]
-∂θ
-
-2
-
-≤
-
-(T(x) − E [T(X )]) fX (x; θ)dx ·
-2
-
-X
-
-= Var [T(X )] ·
-
-X
-
-∂
-fX (x; θ)
-∂θ
-
-2
-
-X
-
-(g(x, θ)) fX (x; θ)dx.
-
-⇒ Var [T(X )] ≥
-
-∂ E [T(X )]
-∂θ
-33
-
-2
-
-1
-.
-Var [g(X , θ)]
-
-2
-
-(4.7)
-
-fX (x; θ)
-dx
-(fX (x; θ))2
-(4.8)
-
-(4.9)
+\input{ SSP14_LectureNotes_Part1_31.txt }
 
 4.2
 
@@ -1324,7 +1295,6 @@ log L(X ; θ) ,
 
 which can be interpreted as the negative Mean Curvature of the Log-Likelihood Function.
 The last step from (4.10) to (4.11) is not obvious.
-
 34
 
 Proof
@@ -1488,32 +1458,14 @@ Exponential Models
 
 Deﬁnition. A Exponential Model is a statistical model {X, F, Pθ ; θ ∈ Θ} with random variable X
 and
-
-fX (x; θ) =
-
-with b(θ) = log
-
-X
-
-h(x) exp(a(θ)t(x))
-.
-exp(b(θ))
-
-(4.15)
+ 
+\s{e_4_15}
 
 h(x) exp(a(θ)t(x))dx for normalization.
 
 Then the respective Fisher Information can be directly obtained by
 
-IF (θ) =
-
-∂a(θ) ∂ E [t (X )]
-.
-∂θ
-∂θ
-
-38
-
+\s{e_4_16}
 (4.16)
 
 For the special case that fX (x; θ) can be arranged such that E [t(X )] = θ, the unbiased estimator
