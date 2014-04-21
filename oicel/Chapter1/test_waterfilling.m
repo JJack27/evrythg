@@ -14,12 +14,15 @@ try
             [R,p,mu] = waterfilling(testSetsWF(t).h,testSetsWF(t).s,testSetsWF(t).P(i));
             if max(abs(testSetsWF(t).R(i)-R))>zeta
                 display(['FAIL, wrong rate, test No. ' num2str(t) ', with N idx ' num2str(i)])
+                fprintf('Should be: %f, is %f\n', testSetsWF(t).R(i), R);
                 keyboard
                 ok=false;
             end
             if max(abs(testSetsWF(t).p(:,i)-p))>zeta
                 display(['FAIL, wrong powers, test No. ' num2str(t) ', with N idx ' num2str(i)])
                 keyboard
+                fprintf('Should be \t Is\n')
+                [testSetsWF(t).p(:,i), p]
                 ok=false;
             end
             if max(abs(testSetsWF(t).mu(i)-mu))>zeta
@@ -35,5 +38,5 @@ catch e
     ok = false;
 end
 if ok
-    disp('OK')
+    disp('--- All tests passed ---')
 end
