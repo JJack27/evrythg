@@ -12,9 +12,47 @@ Cambridge, Massachusetts
 London, England
 In memory of A. Harry Klopf
 
-q
+\begin{sympyblock}
 
-q
+from sympy import *
+from sympy import abc
+from tex_magic import TeX1
+def _sum(expr, v=abc.i, l='0', u=' '):
+	"""
+	Index variable: v
+	Lower limit: l
+	Upper limit: u
+	"""
+	return Symbol(r'\sum^{%s}_{%s=%s} %s' %(str(u), str(v), str(l), str(expr)))
+def _s(expr):
+	"""
+	Show Latex in QT Console
+	Expression: expr
+	"""
+	expr = str(expr)
+    	if not expr.startswith('$'): expr = '$%s$' %(expr)
+	expr = expr.replace(r'\limits', '')
+	expr = expr.replace('==', '=')
+	expr = expr.replace('**', '^')
+	expr = expr.replace('*', '')
+	return TeX1(str(expr))
+def _idx(expr, i='i'):
+	"""
+	Add an index to expression
+	Expression: expr
+	Index: i
+	_idx(r)
+	"""	
+	return Symbol(str(expr) + '_{%s}' %(i))
+r = Symbol('r') # reward at timestep i
+r_kp1 = Symbol('r_{k+1}') # reward at timestep k 
+Q_0 = Symbol('Q_0') # initial estimate
+Q_k = Symbol('Q_k') # average of the r_k
+Q_kp1 = Symbol('Q_{k+1}') # updated estimate 
+alpha = Symbol(r'\alpha') # step size parameter
+e_2_6 = Eq(Q_kp1, (Q_k + alpha(r_kp1 - Q_k)))
+e_2_7 = Eq(Q_k, (Q_k + alpha(r_kp1 - Q_k)))
+\end{sympyblock}
 
 Contents
 r Preface
