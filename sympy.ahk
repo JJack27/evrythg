@@ -11,7 +11,7 @@ IfWinExist, IPython
     WinActivate ;
 Send, ^v
 sleep, 10
-Send, {ENTER}
+Send, +{ENTER}
 sleep, 10
 Send, {ALTDOWN}{TAB}{ALTUP} 
 }
@@ -34,7 +34,7 @@ IfWinExist, IPython
     WinActivate ;
 Send, ^v
 sleep, 10
-Send, {ENTER}
+Send, +{ENTER}
 sleep, 10
 Send, {ALTDOWN}{TAB}{ALTUP} 
 }
