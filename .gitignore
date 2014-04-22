@@ -92,3 +92,7 @@ cvx/*
 
 # Optimization in communications engineering lab
 oicel/
+
+# pictures
+*.png
+*.jpg
