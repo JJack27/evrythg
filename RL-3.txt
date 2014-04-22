@@ -17,33 +17,6 @@ In memory of A. Harry Klopf
 from sympy import *
 from sympy import abc
 from tex_magic import TeX1
-def _sum(expr, v=abc.i, l='0', u=' '):
-	"""
-	Index variable: v
-	Lower limit: l
-	Upper limit: u
-	"""
-	return Symbol(r'\sum^{%s}_{%s=%s} %s' %(str(u), str(v), str(l), str(expr)))
-def _s(expr):
-	"""
-	Show Latex in QT Console
-	Expression: expr
-	"""
-	expr = str(expr)
-    	if not expr.startswith('$'): expr = '$%s$' %(expr)
-	expr = expr.replace(r'\limits', '')
-	expr = expr.replace('==', '=')
-	expr = expr.replace('**', '^')
-	expr = expr.replace('*', '')
-	return TeX1(str(expr))
-def _idx(expr, i='i'):
-	"""
-	Add an index to expression
-	Expression: expr
-	Index: i
-	_idx(r)
-	"""	
-	return Symbol(str(expr) + '_{%s}' %(i))
 r = Symbol('r') # reward at timestep i
 r_kp1 = Symbol('r_{k+1}') # reward at timestep k 
 Q_0 = Symbol('Q_0') # initial estimate

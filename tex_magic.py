@@ -110,7 +110,7 @@ class TeX1():
   @init_render ... Render the PNG image when creating an instance.
                    If 'False' one has to call the render method explicitly.
   """
-  def __init__(self, texstr, color = 'white', dpi = 120, fontsize = 12,
+  def __init__(self, texstr, color = 'black', dpi = 120, fontsize = 12,
     encode=False, init_render = True):
     self.texstr = texstr
     self.color = color
