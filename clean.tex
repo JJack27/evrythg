@@ -4,41 +4,68 @@
 % set up sympy
 \begin{sympycode}
 sys.path.append(r'C:\Users\Murad\evrythg')
+from sympy.physics.units import *
+# clean_sym.py
 from clean_sym import *
-from pythontex_functions import *
+# _sympy.py 
+from _sympy import _idx
+# clean_numeric_values.py
+import clean_numeric_values as n
 \end{sympycode}
 
 % set up pylab
 \begin{pylabcode}
 sys.path.append(r'C:\Users\Murad\evrythg')
 from numpy import array
+from sympy.geometry import Point
+from sympy.geometry import Triangle
+# wrpr.py
 from wrpr import _line
 from wrpr import _scatter
 from wrpr import _arrow
 from wrpr import _pp
-from cg import A_T
 from cg import  auw
+# clean_sym.py
 import clean_sym as sym
-from sympy.geometry import Point
-from sympy.geometry import Triangle
+# clean_numeric_values.py
+import clean_numeric_values as n
+from sap import *
 \end{pylabcode}
 
 
 \section{Task description}
 Model the dynamics of a rigid body in an environment partly filled with water.
 \section{Model description}
-The rigid body is specified by its' volume $\s{V}$ and density $\s{rho}$, which are assumed not to change over time.  To describe system dynamics we introduce a state vector $\s{s}$.  Positions and directions are described using a right handed coordinate system aligned such that the $z$-Axis is collinear to line of action of gravity.  Unit vectors along the axes are given as
-$$\s{[i, j, k]} = \s{eye(3)}$$
-When infinitesimal volumes $\s{Vi}$ are asssumed to have constant densities $\s{rhoi}$ we have 
-$$\s{Eq(Mi, rhoi * Vi)} \;;\; \s{Wi} =  \s{g * k} \s{Mi} \;;\; \s{Eq(g, 9.81 * meter/second**2)}$$
-$$\s{M} = \int\limits_{\s{V}} \s{Mi} \;;\; \s{W} = \int\limits_{\s{V}} \s{Wi}$$ 
+Assume that a rigid body is specified by its' geometry $\s{G}$ and density $\s{rho}$, both assumed not to change over time.    In the following positions and directions are described using a right handed coordinate system aligned such, that the $\s{z}$-Axis is collinear to line of action of gravity.  Unit vectors along the axes are given as
+\begin{equation*}
+\s{[i, j, k]} = \s{eye(3)}
+\end{equation*}
+and general positions are given by coordinates vectors $\s{r}$.  
+
+When infinitesimal volumes $\s{Vi}$ in the body are asssumed to have constant densities $\s{rhoi}$ infinesimal masses $\s{Mi}$ are subject to weight forces $\s{Wi}$ as
+\begin{equation*}
+\s{Eq(Mi, rhoi * Vi)} \;;\; \s{Wi} =  \s{g * k} \s{Mi} \;;\; \s{Eq(g, 9.81 * meter/second**2)}
+\end{equation*}
+\begin{equation}
+\s{M} = \int\limits_{\s{G}} \s{Mi} \;;\; \s{W} = \int\limits_{\s{G}} \s{Wi}
+\label{eq:maw}
+\end{equation}
 If the body displaces a volume $\s{D}$ of water it experiences an additional force
 $$\s{B} = \s{g * rho_W *  k}\int\limits_{\s{D}} \s{Di} \;;\; \s{Eq(rho_W, 1000 * kilo * gram/meter**3)}$$
+The points of application $\s{(C_B, C_W)}$ for the respective forces $\s{(B, W)}$ are
+\begin{equation}
+	\s{C_W} = \int\limits_{\s{G}} \s{Mi * ri / M} \;;\; \s{C_B} = \int\limits_{\s{B}} \s{ri} 
+\label{eq:poa}
+\end{equation}
 The body would be floating in equilibrium if
-$$\s{Eq(W, B)}$$ and no other forces were are present.  
-Otherwise it is affected by a total force
-$$\s{Eq(F, X + W + B)}$$
+$$\s{Eq(W, B)} \;;\; \s{Eq(C_W, C_B)}$$
+and no other forces were are present.  
+However in general we need to assume that it is affected by a total force
+\begin{equation*}
+\s{Eq(F, X + W + B)}
+\end{equation*}
 where $\s{X}$ accounts for any unknown forces.
+To describe system dynamics we introduce a state vector $\s{s}$.
 In general
 \begin{equation}
 	\begin{split}
@@ -49,28 +76,9 @@ In general
 \end{equation}
 
 \section{Implementation}
-To obtain implementations for $\s{f.func}, \s{h.func}$ we require a suitable representation for $\s{tuple(V, s, rho)}$.
-Initially we impose stricts constraints on $(\s{V}, \s{rho})$ which may be relaxed later on.
-Let 
-\begin{itemize}
-	\item $\s{V}$ be symmetric with respect to $\s{P_xz} = \operatorname{span}(\s{i}, \s{k})$
-	\item $\s{rho}$ be constant over $\s{V}$
-\end{itemize}
-Then 
-$$\s{V} = \s{c} \s{A_xz} \;;\; \s{A_xz} = \int\limits_{\s{P_xz}} \s{Vi}$$
-Furtheron assume that 
-$$\s{A_xz} = \sum\limits_i\s{A_i}$$
-where $\s{A_i}$ is the area of a planar shape $S_i \in \s{P_xz}$ and $\s{c}$ is a constant.  
-One particular class of shapes $\s{S_i}$ is that of triangles $\s{T_i}$ specified by vertices $\s{tuple(VA, VB, VC)}$
-
-% \begin{pylabcode}
-% T = array([[4, 0], [3, 4], [0, 1]]) + array([0, -2])
-% C = mean(T, axis=0)
-% figure()
-% _line(T)
-% savefig('triangle.pdf')
-% \end{pylabcode}
-
+To solve equations (\ref{eq:maw}, \ref{eq:poa}) we require indicator functions $\mathds{1}_{(.)}(.)$, to decide if any coordinate $\s{r}$ is occupied by a infinitesimal volume $\s{Vi}$ at time $\s{t}$ and if so which density $\s{rhoi}$ is to be assigned to $\s{Vi}$.
+As such functions are hard to define for the general case we start with simplified setups.  
+If the rigid body is described by a planar triangle and $\s{X}$ is neglected we obtain the forces illustrated in Figure \ref{fg:fbda}
 \begin{pylabcode}
 o = Point(-1, -1)
 p = Point(1, -1)
@@ -79,9 +87,8 @@ T = Triangle(o, p, q).rotate(pi/5.)
 C_W = array([T.centroid.x, T.centroid.y]).astype(float)
 D = auw(T)
 C_B = array([D.centroid.x, D.centroid.y]).astype(float)
-rho = 0.7
 g = array([0, -1])
-W =  float(T.area) * rho
+W =  float(T.area) * n.rho 
 B =  - float(D.area) * 1 
 figure()
 _pp(T)
@@ -94,12 +101,55 @@ legend(scatterpoints=1)
 grid()
 savefig('triangle.pdf')
 \end{pylabcode}
-
-\begin{figure}[]
-	\centering
-	\includegraphics{pythontex-files-clean/triangle.pdf}
-	\caption{Free body diagram}
-	\label{fig:fbd}
+\begin{pylabcode}
+close('all')
+T = R_2D(pi/5, array([[-1, -1], [1, -1], [0, 1]]))
+p_i = uspit(n.N, T)
+v_i =  A_T(T) / n.N * ones((p_i.shape[0], 1))
+w_i, v_w = dw(p_i, v_i)  
+_line(T)
+C_B = mean(w_i, axis=0)
+C_W = mean(p_i, axis= 0)
+g = array([0, -1])
+B = sum(v_w) * -1. * g
+W = sum(v_i) * n.rho * g
+_arrow(C_W, W, label=r'$\tilde{%s}$' %sym.W)
+_arrow(C_B, B, label=r'$\tilde{%s}$' %sym.B, color='g')
+_scatter(C_W, color='b', label=r'$\tilde{%s}$' %sym.C_W)
+_scatter(C_B, color='g', label=r'$\tilde{%s}$' %sym.C_B)
+_scatter(w_i.take(arange(0, w_i.shape[0], n.K), axis=0), color = 'g')
+legend(scatterpoints=1)
+grid()
+savefig('triangle_tilde.pdf')
+\end{pylabcode}
+As an anlytical approach seems feasible for simple shapes only, we propose a more general framework.
+Assume that the body can be represented as a collection $\{\s{_idx(p)}\}$ of particles
+\begin{equation*}
+	\s{p} = \s{(V_p, rho_p, r_p)}	
+\end{equation*}
+such that
+\begin{equation*}
+	\begin{split}
+\sum\limits_i^N \s{_idx(V_p)} = \s{V} \\ 
+\sum\limits_i^N \s{_idx(V_p) * _idx(rho_p)} = \s{M}
+\end{split}
+\end{equation*}
+Then the $\s{(Vi, rhoi)}$ may be replaced by $\s{(V_p, rho_p)}$ and equations (\ref{eq:maw}, \ref{eq:poa}) become summations.
+The result is shown in Figure \ref{fg:fbdb}.  
+\begin{figure}
+\centering
+\begin{subfigure}[t]{0.4\textwidth}
+\includegraphics[width=\textwidth]{triangle.pdf}
+\caption{Analytic approach}
+\label{fg:fbda}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.4\textwidth}
+\includegraphics[width=\textwidth]{triangle_tilde.pdf}
+\caption{Sampling approach with $N = \s{n.N}$ particles (every $\s{10}$-th displaced water particle drawn)}
+\label{fg:fbdb}
+\end{subfigure}
+\caption{Free body diagrams illustrating buoyancy and gravity for a planar triangle of uniform normalized density $\s{Eq(rho/rho_W, n.rho)}$, assuming that the global water level is at $\s{Eq(z)}$ and not affected by the body.}
+\label{fg:fbd}
 \end{figure}
 \input{post.tex}
-
