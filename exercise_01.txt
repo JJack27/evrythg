@@ -12,7 +12,7 @@ Introduction to Reinforcement Learning
 Learning rates
 due to 29.04.2014
 
-Description
+
 Equation 2.4 (from the SB textbook, online 2nd edition) is a key update rule we will use throughout
 the course. This exercise will give you a better hands-on feel for how it works. There are 0.6 points
 for plotting each of the ﬁrst four graphs, 0.3 points for plotting each of the second four graphs, and
@@ -20,19 +20,18 @@ for plotting each of the ﬁrst four graphs, 0.3 points for plotting each of the
 Do all the plots in this question by hand. You should not even need a calculator, as the numbers are easy to place by eye. You will get a better feel for it if you place the points manually. To
 make it easy for you, It’ll include some graphing area and a start on the ﬁrst plot here, so you should
 just be able to print these pages out and draw on them.
-Task 1 (1.2 pts.) Suppose the target is 1.0 for six steps, then 0 for six steps, and then alternates between 1.0 and 0 for six more steps, as shown by the grey line in the graph below. Suppose
-the initial estimate is 0, and that the step-size (in the equation) is 0.5. Your job is to apply Equation
-2.4 iteratively to determine the estimates for time steps 1-18. Plot them on the graph below, using
+
+140423111519
+Task 1 (1.2 pts.) Suppose the target is 1.0 for six steps, then 0 for six steps, and then alternates between 1.0 and 0 for six more steps, as shown by the grey line in the graph below. Suppose the initial estimate is 0, and that the step-size (in the equation) is 0.5. Your job is to apply Equation 2.4 iteratively to determine the estimates for time steps 1-18. Plot them on the graph below, using
 a blue pen, connecting the estimate points by a blue line. The ﬁrst two estimate points are already
 marked and connected in dark blue (or black) below:
 
+140423105502
 What is the estimate after 6 updating steps? (give a symbolic expression, not number)
 What would it be after 10 steps, if the target continued to be 1? (give a symbolic expression,
-not number)
 After 20 steps? (give a symbolic expression, not number)
-1
 
-Task 2 (0.6 pts)
+ask 2 (0.6 pts)
 Repeat the graphing/plotting portion of Part 1, this time with a step size of 1/8.
 
 Target
