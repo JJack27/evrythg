@@ -1,0 +1,1 @@
+The way how actions are generated based on the models is called control policy. Thus, a policy is understood as a decision for controlling the system, while a model reﬂects the behavior of the system. Depending on the model, appropriate policies should be taken to control the system. 

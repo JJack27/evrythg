@@ -1,4 +1,27 @@
-\input{pre.tex}
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}  % required for {\operatorname}
+\usepackage{amsfonts} % required for {\mathbb}
+\usepackage{hyperref} % allows \href{url}{Label}, not yet made available on arch
+\usepackage[ngerman]{babel}
+\usepackage{siunitx}
+\usepackage[]{biblatex}
+\usepackage[babel]{csquotes}
+\usepackage{pythontex}
+\newcommand{\s}{\sympy}
+\usepackage{todonotes}  
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{dsfont}
+\bibliography{CognitiveScience2011ModelLearning.bib}
+\begin{document}
+\begin{sympycode}
+sys.path.append(r'C:\Users\Murad\evrythg')
+\end{sympycode}
+\begin{pylabcode}
+sys.path.append(r'C:\Users\Murad\evrythg')
+\end{pylabcode}
 \tableofcontents
 
 % set up sympy
@@ -156,4 +179,23 @@ The result is shown in Figure \ref{fg:fbdb}.
 \caption{Free body diagrams illustrating buoyancy and gravity for a planar triangle of uniform normalized density $\s{Eq(rho/rho_W, n.rho)}$, assuming that the global water level is at $\s{Eq(z)}$ and not affected by the body.}
 \label{fg:fbd}
 \end{figure}
+\section{Control}
+\todo[inline]{Da waer zunaechst mal ein Regelungsziel zu definieren.}
+\blockquote{
+1. Wir fixieren das Boot, so dass Bewegungen nur in einer oder zwei Dimensionen m"oglich sind. \\
+\todo[inline]{Hier waer Drehung um die Laengsachse/Querachse am interessantesten oder?}
+\todo[inline]{Dann stellt sich die Frage ob man die Translation entlang der $\s{z}$-Achse nicht zunaechst auch vernachlaessigen kann, da wir sie durch unsere Kontrollmasse ohnehin in weitaus geringerem Umfang beeinflussen koennen als die Rotationen.}
+2. Wir messen die f"ur diese Freiheitsgrade relevanten IMU-Werte aus. \\
+\todo[inline]{Benutzen wir dazu die Kontrollmasse? Kalibrierung?}
+3. Wir machen eine (bspw. SVM-)Regression mit den IMU-Werten und erhalten mit der Regressionsgeraden eine Pr"adiktion (oder ein Modell), wie sich das Boot bewegen wird. \\
+\todo[inline]{Wie wuerde die Input-Output Relation formal aussehen?}
+4. Mithilfe dieser Pr"adiktion, die wir zu jedem Zeitpunkt t erhalten, regeln wir die Position der Masse. \\
+\todo[inline]{Entspricht einem inverse model in \cite{Nguyen_CP_2011}, oder?  Sind wir sicher dass das Problem dann nicht ill-posed ist?}
+5. Wir spielen die Simulation mit deiner gew"ahlten Funktion X durch. \\
+6. Aus der Simulation erhalten wir eine Pr"adiktion (oder ein Modell) f"ur jeden Zeitpunkt t. \\ 
+7. Mithilfe dieser Pr"adiktion, die wir zu jedem Zeitpunkt t erhalten, regeln wir die Position der Masse. \\ 
+8. Wir vergleichen die beiden Vorangehensweisen.
+}
+\todo[inline]{Continue reading \cite{Nguyen_CP_2011}}
+\printbibliography
 \input{post.tex}

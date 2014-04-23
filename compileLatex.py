@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 from os import system
 from time import strftime
-fn = 'solution_01.tex'
+fn = 'clean'
 cmds = ['pdflatex -interaction=nonstopmode %s > %s',
+'biber %s > %s',
 "C:\Anaconda\python.exe  C:\Users\Murad\pythontex\pythontex\pythontex.py %s > %s",
 'pdflatex -interaction=nonstopmode %s > %s']
 for c in cmds: 
