@@ -1,0 +1,51 @@
+Statistical Signal Processing
+
+SS 2014
+
+1
+
+1. Multivariate Gaussian Distribution
+
+Problem 1.1
+
+Afﬁne Transformation of Gaussian Random Variables
+
+Two random variables y1 and y2 are generated from independent normal distributed random variables
+x1 ∼ N (0, 1) and x2 ∼ N (0, 1) by
+y1 = x1 − 2x2
+y2 = x1 + x2 .
+a)
+
+Determine the probability density function (PDF) of the random variable y = [y1 , y2 ]T .
+
+b)
+
+The random variable z is generated from x by z = BDx, where
+B=
+
+1 −2
+1 1
+
+,
+
+D=
+
+cos α sin α
+− sin α cos α
+
+,
+
+and α ∈ [0, 2π[ is a ﬁxed and given angle. Determine the PDF of the random variable z and compare
+it to the PDF of y .
+In the following, let x1 ∼ N (3, 1) and x2 ∼ N (1, 2).
+c)
+
+Draw contour lines of the PDFs of x and y = Bx.
+
+d) Determine the conditional PDF of y1 given y2 = a.
+
+c Associate Institute for Signal Processing
+Technische Universit¨ t M¨ nchen
+a u
+
+
