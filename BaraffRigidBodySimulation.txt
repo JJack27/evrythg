@@ -1,0 +1,5115 @@
+Physically Based Modeling
+Rigid Body Simulation
+David Baraff
+Pixar Animation Studios
+
+Please note: This document is ©2001 by David Baraff. This chapter may be freely
+duplicated and distributed so long as no consideration is received in return, and
+this copyright notice remains intact.
+
+Rigid Body Simulation
+David Baraff
+Pixar Animation Studios
+
+Introduction
+This portion of the course notes deals with the problem of rigid body dynamics. To help get you
+started simulating rigid body motion, we’ve provided code fragments that implement most of the
+concepts discussed in these notes. This segment of the course notes is divided into two parts. The ﬁrst
+part covers the motion of rigid bodies that are completely unconstrained in their allowable motion;
+that is, simulations that aren’t concerned about collisions between rigid bodies. Given any external
+forces acting on a rigid body, we’ll show how to simulate the motion of the body in response to these
+forces. The mathematical derivations in these notes are meant to be fairly informal and intuitive.
+The second part of the notes tackles the problem of constrained motion that arises when we
+regard bodies as solid, and need to disallow inter-penetration. We enforce these non-penetration
+constraints by computing appropriate contact forces between contacting bodies. Given values for
+these contact forces, simulation proceeds exactly as in the unconstrained case: we simply apply all
+the forces to the bodies and let the simulation unfold as though the motions of bodies are completely
+unconstrained. If we have computed the contact forces correctly, the resulting motion of the bodies
+will be free from inter-penetration. The computation of these contact forces is the most demanding
+component of the entire simulation process.1
+
+1
+
+Collision detection (i.e. determining the points of contact between bodies) runs a close second though!
+
+G1
+
+Part I. Unconstrained Rigid Body Dynamics
+
+1 Simulation Basics
+This portion of the course notes is geared towards a full implementation of rigid body motion. In this
+section, we’ll show the basic structure for simulating the motion of a rigid body. In section 2, we’ll
+deﬁne the terms, concepts, and equations we need to implement a rigid body simulator. Following
+this, we’ll give some code to actually implement the equations we need. Derivations for some of the
+concepts and equations we will be using will be left to appendix A.
+The only thing you need to be familiar with at this point are the basic concepts (but not the numerical details) of solving ordinary differential equations. If you’re not familiar with this topic, you’re
+in luck: just turn back to the beginning of these course notes, and read the section on “Differential
+Equation Basics.” You also might want to read the next section on “Particle Dynamics” as well,
+although we’re about to repeat some of that material here anyway.
+Simulating the motion of a rigid body is almost the same as simulating the motion of a particle,
+so let’s start with particle simulation. The way we simulate a particle is as follows. We let a function
+x(t) denote the particle’s location in world space (the space all particles or bodies occupy during
+d
+simulation) at time t. The function v(t) = x(t) = dt x(t) gives the velocity of the particle at time t.
+˙
+The state of a particle at time t is the particle’s position and velocity. We generalize this concept by
+deﬁning a state vector X(t) for a system: for a single particle,
+X(t) =
+
+x(t)
+v(t)
+
+.
+
+(1–1)
+
+When we’re talking about an actual implementation, we have to “ﬂatten” out X(t) into an array.
+For a single particle, X(t) can be described as an array of six numbers: typically, we’d let the ﬁrst
+three elements of the array represent x(t), and the last three elements represent v(t). Later, when we
+talk about state vectors X(t) that contain matrices as well as vectors, the same sort of operation is
+done to ﬂatten X(t) into an array. Of course, we’ll also have to reverse this process and turn an array
+of numbers back into a state vector X(t). This all comes down to pretty simple bookkeeping though,
+so henceforth, we’ll assume that we know how to convert any sort of state vector X(t) to an array
+(of the appropriate length) and vice versa. (For a simple example involving particles, look through
+the “Particle System Dynamics” section of these notes.)
+For a system with n particles, we enlarge X(t) to be
+
+
+x1 (t)
+ v1 (t) 
+
+
+ . 
+(1–2)
+X(t) =  . 
+ . 
+ xn (t) 
+vn (t)
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G2
+
+P HYSICALLY B ASED M ODELING
+
+where xi (t) and vi (t) are the position and velocity of the ith particle. Working with n particles is no
+harder than working with one particle, so we’ll let X(t) be the state vector for a single particle for
+now (and when we get to it later, a single rigid body).
+To actually simulate the motion of our particle, we need to know one more thing—the force
+acting on the particle at time t. We’ll deﬁne F(t) as the force acting on our particle at time t. The
+function F(t) is the sum of all the forces acting on the particle: gravity, wind, spring forces, etc. If
+the particle has mass m, then the change of X over time is given by
+d
+d
+X(t) =
+dt
+dt
+
+x(t)
+v(t)
+
+=
+
+v(t)
+F(t)/m
+
+.
+
+(1–3)
+
+Given any value of X(t), equation (1–3) describes how X(t) is instantaneously changing at time t.
+A simulation starts with some initial conditions for X(0), (i.e. values for x(0) and v(0)) and then
+uses a numerical equation solver to track the change or “ﬂow” of X over time, for as long as we’re
+interested in. If all we want to know is the particle’s location one second from now, we ask the solver
+to compute X(1), assuming that time units are in seconds. If we’re going to animate the motion of
+1
+2
+the particle, we’d want to compute X( 30 ), X( 30 ) and so on.
+The numerical method used by the solver is relatively unimportant with respect to our actual
+implementation. Let’s look at how we’d actually interact with a numerical solver, in a C++-like
+language. Assume we have access to a numerical solver, which we’ll generically write as a function
+named ode. Typically, ode has the following speciﬁcation:
+typedef void (*DerivFunc)(double t, double x[], double xdot[]);
+void
+
+ode(double x0[], double xEnd[], int len, double t0,
+double t1, DerivFunc dxdt);
+
+We pass an initial state vector to ode as an array x0. The solver ode knows nothing about the
+inherent structure of x0. Since solvers can handle problems of arbitrary dimension, we also have to
+pass the length len of x0. (For a system of n particles, we’d obviously have len = 6n.) We also
+pass the solver the starting and ending times of the simulation, t0 and t1. The solver’s goal is to
+compute the state vector at time t1 and return it in the array xEnd.
+We also pass a function Dxdt() to ode. Given an array y that encodes a state vector X(t) and
+d
+a time t, Dxdt() must compute and return dt X(t) in the array xdot. (The reason we must pass
+t to Dxdt() is that we may have time-varying forces acting in our system. In that case, Dxdt()
+would have to know “what time it is” to determine the value of those forces.) In tracing the ﬂow of
+X(t) from t0 to t1, the solver ode is allowed to call Dxdt() as often as it likes. Given that we
+have such a routine ode, the only work we need to do is to code up the routine Dxdt() which we’ll
+give as a parameter to ode.
+Simulating rigid bodies follows exactly the same mold as simulating particles. The only differd
+ence is that the state vector X(t) for a rigid body holds more information, and the derivative dt X(t) is
+a little more complicated. However, we’ll use exactly the same paradigm of tracking the movement
+of a rigid body using a solver ode, which we’ll supply with a function Dxdt().
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G3
+
+P HYSICALLY B ASED M ODELING
+
+2 Rigid Body Concepts
+The goal of this section is to develop an analogue to equation (1–3), for rigid bodies. The ﬁnal
+differential equation we develop is given in section 2.11. In order to do this though, we need to deﬁne
+a lot of concepts ﬁrst and relations ﬁrst. Some of the longer derivations are found in appendix A. In
+the next section, we’ll show how to write the function Dxdt() needed by the numerical solver ode
+d
+to compute the derivative dt X(t) developed in this section.
+
+2.1 Position and Orientation
+The location of a particle in space at time t can be described as a vector x(t), which describes the
+translation of the particle from the origin. Rigid bodies are more complicated, in that in addition to
+translating them, we can also rotate them. To locate a rigid body in world space, we’ll use a vector
+x(t), which describes the translation of the body. We must also describe the rotation of the body,
+which we’ll do (for now) in terms of a 3 × 3 rotation matrix R(t). We will call x(t) and R(t) the
+spatial variables of a rigid body.
+A rigid body, unlike a particle, occupies a volume of space and has a particular shape. Because a
+rigid body can undergo only rotation and translation, we deﬁne the shape of a rigid body in terms of
+a ﬁxed and unchanging space called body space. Given a geometric description of the body in body
+space, we use x(t) and R(t) to transform the body-space description into world space (ﬁgure 1). In
+order to simplify some equations we’ll be using, we’ll require that our description of the rigid body
+in body space be such that the center of mass of the body lies at the origin, (0, 0, 0). We’ll deﬁne the
+center of mass more precisely later, but for now, the center of mass can be thought of as a point in the
+rigid body that lies at the geometric center of the body. In describing the body’s shape, we require
+that this geometric center lie at (0, 0, 0) in body space. If we agree that R(t) speciﬁes a rotation of
+the body about the center of mass, then a ﬁxed vector r in body space will be rotated to the worldspace vector R(t)r at time t. Likewise, if p0 is an arbitrary point on the rigid body, in body space,
+then the world-space location p(t) of p0 is the result of ﬁrst rotating p0 about the origin and then
+translating it:
+p(t) = R(t) p0 + x(t).
+
+(2–1)
+
+Since the center of mass of the body lies at the origin, the world-space location of the center of
+mass is always given directly by x(t). This lets us attach a very physical meaning to x(t) by saying
+that x(t) is the location of the center of mass in world space at time t. We can also attach a physical
+meaning to R(t). Consider the x axis in body space i.e. the vector (1, 0, 0). At time t, this vector
+has direction
+ 
+1
+ 0 
+R(t)
+0
+in world space. If we write out the components of
+
+r xx
+R(t) =  r xy
+r xz
+
+S IGGRAPH 2001 C OURSE N OTES
+
+R(t) as
+
+r yx rzx
+r yy rzy  ,
+r yz rzz
+
+G4
+
+(2–2)
+
+P HYSICALLY B ASED M ODELING
+
+world space
+
+body space
+
+y'
+
+y
+
+x(t)
+
+z
+
+z'
+
+p(t)
+
+y
+
+p0
+0
+
+x'
+
+z
+
+x
+
+x
+
+Figure 1: The center of mass is transformed to the point x(t) in world space, at time t. The ﬁxed x, y,
+and z axes of the body in body space transform to the vectors x = R(t)x, y = R(t)y and z = R(t)z.
+The ﬁxed point p0 in body space is transformed to the point p(t) = R(t) p0 + x(t).
+then
+
+
+
+
+ 
+1
+r xx
+R(t)  0  =  r xy 
+r xz
+0
+
+(2–3)
+
+which is the ﬁrst column of R(t). The physical meaning of R(t) is that R(t)’s ﬁrst column gives the
+direction that the rigid body’s x axis points in, when transformed to world space at time t. Similarly,
+the second and third columns of R(t),
+
+
+
+
+r yx
+rzx
+ r yy 
+ rzy 
+and
+r yz
+rzz
+are the directions of the y and z axes of the rigid body in world space at time t (ﬁgure 2).
+
+2.2 Linear Velocity
+For simplicity, we’ll call x(t) and R(t) the position and orientation of the body at time t. The next
+thing we need to do is deﬁne how the position and orientation change over time. This means we
+˙
+need expressions for x(t) and R(t). Since x(t) is the position of the center of mass in world space,
+˙
+x(t) is the velocity of the center of mass in world space. We’ll deﬁne the linear velocity v(t) as this
+˙
+velocity:
+v(t) = x(t).
+˙
+
+(2–4)
+
+If we imagine that the orientation of the body is ﬁxed, then the only movement the body can undergo
+is a pure translation. The quantity v(t) gives the velocity of this translation.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G5
+
+P HYSICALLY B ASED M ODELING
+
+world space
+
+y'
+
+R(t) = [ x' y' z' ]
+z'
+
+y
+x'
+
+z
+x
+
+Figure 2: Physical interpretation of the orientation matrix R(t). At time t, the columns of R(t) are
+the world-space directions that the body-space x, y, and z axes transform to.
+
+2.3 Angular Velocity
+In addition to translating, a rigid body can also spin. Imagine however that we freeze the position of
+the center of mass in space. Any movement of the points of the body must therefore be due to the
+body spinning about some axis that passes through the center of mass. (Otherwise the center of mass
+would itself be moving). We can describe that spin as a vector ω(t). The direction of ω(t) gives the
+direction of the axis about which the body is spinning (ﬁgure 3). The magnitude of ω(t), |ω(t)|, tells
+how fast the body is spinning. |ω(t)| has the dimensions of revolutions/time; thus, |ω(t)| relates the
+angle through which the body will rotate over a given period of time, if the angular velocity remains
+constant. The quantity ω(t) is called the angular velocity.
+d
+For linear velocity, x(t) and v(t) are related by v(t) = dt x(t). How are R(t) and ω(t) related?
+˙
+(Clearly, R(t) cannot be ω(t), since R(t) is a matrix, and ω(t) is a vector.) To answer this question,
+let’s remind ourselves of the physical meaning of R(t). We know that the columns of R(t) tell us
+˙
+the directions of the transformed x, y and z body axes at time t. That means that the columns of R(t)
+must describe the velocity with which the x, y, and z axes are being transformed. To discover the
+relationship between ω(t) and R(t), let’s examine how the change of an arbitrary vector in a rigid
+body is related to the angular velocity ω(t).
+Figure 4 shows a rigid body with angular velocity ω(t). Consider a vector r(t) at time t speciﬁed
+in world space. Suppose that we consider this vector ﬁxed to the body; that is, r(t) moves along with
+the rigid body through world space. Since r(t) is a direction, it is independent of any translational
+effects; in particular, r (t) is independent of v(t). To study r (t), we decompose r(t) into vectors a
+˙
+˙
+and b, where a is parallel to ω(t) and b is perpendicular to ω(t). Suppose the rigid body were to
+maintain a constant angular velocity, so that the tip of r(t) traces out a circle centered on the ω(t) axis
+(ﬁgure 4). The radius of this circle is |b|. Since the tip of the vector r(t) is instantaneously moving
+along this circle, the instantaneous change of r(t) is perpendicular to both b and ω(t). Since the tip
+of r(t) is moving in a circle of radius b, the instantaneous velocity of r(t) has magnitude |b||ω(t)|.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G6
+
+P HYSICALLY B ASED M ODELING
+
+ω (t)
+
+v(t)
+x(t)
+y
+z
+x
+
+Figure 3: Linear velocity v(t) and angular velocity ω(t) of a rigid body.
+Since b and ω(t) are perpendicular, their cross product has magnitude
+|ω(t) × b| = |ω(t)| |b|.
+
+(2–5)
+
+Putting this together, we can write r (t) = ω(t) × (b). However, since r(t) = a + b and a is parallel
+˙
+to ω(t), we have ω(t) × a = 0 and thus
+r (t) = ω(t) × b = ω(t) × b + ω(t) × a = ω(t) × (b + a).
+˙
+
+(2–6)
+
+Thus, we can simply express the rate of change of a vector as
+˙
+r (t) = ω(t) × r(t).
+
+(2–7)
+
+Let’s put all this together now. At time t, we know that the direction of the x axis of the rigid
+body in world space is the ﬁrst column of R(t), which is
+
+
+r xx
+ r xy  .
+r xz
+At time t, the derivative of the ﬁrst column of R(t) is just the rate of change of this vector: using the
+cross product rule we just discovered, this change is
+
+
+r xx
+ω(t) ×  r xy  .
+r xz
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G7
+
+P HYSICALLY B ASED M ODELING
+
+ω (t)
+
+ω (t) × b
+b
+a
+r(t) = a + b
+
+Figure 4: The rate of change of a rotating vector. As the tip of r(t) spins about the ω(t) axis, it traces
+out a circle of diameter |b|. The speed of the tip of r(t) is |ω(t)||b|.
+The same obviously holds for the other two columns of R(t). This means that we can write
+
+
+
+
+
+
+
+r yx
+rzx
+r xx
+˙
+R =  ω(t) ×  r xy  ω(t) ×  r yy  ω(t) ×  rzy   .
+r xz
+r yz
+rzz
+
+(2–8)
+
+This is too cumbersome an expression to tote around though. To simplify things, we’ll use the
+following trick. If a and b are 3-vectors, then a × b is the vector
+
+
+a y bz − b y az
+ −a x bz + b x az  .
+ax b y − bx a y
+Given the vector a, let us deﬁne a∗ to be the matrix
+
+
+0
+−az a y
+ az
+0 −a x  .
+−a y a x
+0
+Then2
+
+
+ 
+
+
+0
+−az a y
+a y bz − b y az
+bx
+a∗ b =  a z
+0 −a x   b y  =  −a x bz + b x az  = a × b.
+−a y a x
+0
+bz
+ax b y − bx a y
+
+(2–9)
+
+2
+This looks a little too “magical” at ﬁrst. Did someone discover this identity accidentally? Is it a relation that just
+happens to work? This construct can be derived by considering what’s known as inﬁnitesimal rotations. The interested
+reader might wish to read chapter 4.8 of Goldstein[10] for a more complete derivation of the a∗ matrix.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G8
+
+P HYSICALLY B ASED M ODELING
+
+˙
+Using the “∗” notation, we can rewrite R(t) more simply as
+
+
+
+
+
+
+
+r xx
+r yx
+rzx
+˙
+R(t) =  ω(t)∗  r xy  ω(t)∗  r yy  ω(t)∗  rzy   .
+r xz
+r yz
+rzz
+By the rules of matrix multiplication, we can factor this into
+
+ 
+
+r xx
+r yx
+˙
+R(t) = ω(t)∗   r xy   r yy 
+r xz
+r yz
+
+
+rzx
+ rzy  
+rzz
+
+(2–10)
+
+
+
+(2–11)
+
+which is a matrix-matrix multiplication. But since the matrix on the right is R(t) itself, we get simply
+that
+˙
+R(t) = ω(t)∗ R(t).
+
+(2–12)
+
+˙
+This, at last, gives us the relation we wanted between R(t) and ω(t). Note the correspondence
+∗ R(t) for the rotation matrix.
+˙
+between r (t) = ω(t) × r(t) for a vector, and R(t) = ω(t)
+˙
+
+2.4 Mass of a Body
+In order to work out some derivations, we’ll need to (conceptually) perform some integrations over
+the volume of our rigid body. To make these derivations simpler, we’re going to temporarily imagine
+that a rigid body is made up of a large number of small particles. The particles are indexed from
+1 to N. The mass of the ith particle is mi , and each particle has a (constant) location r0i in body
+space. The location of the ith particle in world space at time t, denoted ri (t), is therefore given by
+the formula
+ri (t) = R(t)r0i + x(t).
+
+(2–13)
+
+The total mass of the body, M, is the sum
+N
+
+mi .
+
+M=
+
+(2–14)
+
+i=1
+
+(Henceforth, summations are assumed to be summed from 1 to N with index variable i.)
+
+2.5 Velocity of a Particle
+The velocity r i (t) of the ith particle is obtained by differentiating equation (2–13): using the relation
+˙
+˙ = ω∗ R(t), we obtain
+R(t)
+r i (t) = ω∗ R(t)r0i + v(t).
+˙
+
+(2–15)
+
+We can rewrite this as
+r i (t) = ω(t)∗ R(t)r0i + v(t)
+˙
+= ω(t)∗ (R(t)r0 i + x(t) − x(t)) + v(t)
+
+(2–16)
+
+∗
+
+= ω(t) (ri (t) − x(t)) + v(t)
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G9
+
+P HYSICALLY B ASED M ODELING
+
+ω (t)
+
+x(t)
+ri(t)
+
+v(t)
+
+y
+
+ω (t) × ( ri(t) – x(t))
+z
+v(t) + ω (t) × ( ri(t) – x(t))
+
+x
+
+v(t)
+
+Figure 5: The velocity of the ith point of a rigid body in world space. The velocity of ri (t) can be
+decomposed into a linear term v(t) and an angular term ω(t) × (ri (t) − x(t)).
+using the deﬁnition of ri (t) from equation (2–13). Recall from the deﬁnition of the “∗” operator that
+ω(t)∗ a = ω(t) × a for any vector a. Using this, we can simply write
+r i (t) = ω(t) × (ri (t) − x(t)) + v(t).
+˙
+
+(2–17)
+
+Note that this separates the velocity of a point on a rigid body into two components (ﬁgure 5): a
+linear component v(t), and an angular component ω × (ri (t) − x(t)).
+
+2.6 Center of Mass
+Our deﬁnition of the center of mass is going to enable us to likewise separate the dynamics of bodies
+into linear and angular components. The center of mass of a body in world space is deﬁned to be
+mi ri (t)
+M
+
+(2–18)
+
+where M is the mass of the body (i.e. the sum of the individual masses mi ). When we say that we
+are using a center of mass coordinate system, we mean that in body space,
+ 
+0
+mir0i
+=0= 0 .
+(2–19)
+M
+0
+Note that this implies that mir0i = 0 as well.
+We have spoken of x(t) as being the location of the center of mass at time t. Is this true? Yes:
+since the ith particle has position ri (t) = R(t)r0i + x(t) at time t, the center of mass at time t is
+miri (t)
+=
+M
+
+mi (R(t)r0i + x(t))
+R(t)
+=
+M
+
+S IGGRAPH 2001 C OURSE N OTES
+
+mir0i +
+M
+
+G10
+
+mi x(t)
+
+= x(t)
+
+mi
+= x(t).
+M
+
+P HYSICALLY B ASED M ODELING
+
+τi(t) = ( ri(t) – x(t)) × Fi(t)
+
+ri(t)
+
+x(t)
+y
+
+Fi(t)
+z
+x
+Figure 6: The torque τi (t) due to a force Fi (t) acting at ri (t) on a rigid body.
+
+Additionally, the relation
+mi (ri (t) − x(t)) =
+
+mi (R(t)r0 i + x(t) − x(t)) = R(t)
+
+m i r0 i = 0
+
+(2–20)
+
+is also very useful.
+
+2.7 Force and Torque
+When we imagine a force acting on a rigid body due to some external inﬂuence (e.g. gravity, wind,
+contact forces), we imagine that the force acts on a particular particle of the body. (Remember that
+our particle model is conceptual only. We can have a force act at any geometrical location on or inside
+the body, because we can always imagine that there happens to be a particle at that exact location.)
+The location of the particle the force acts on deﬁnes the location at which the force acts. We will let
+Fi (t) denote the total force from external forces acting on the ith particle at time t. Also, we deﬁne
+the external torque τi (t) acting on the ith particle as
+τi (t) = (ri (t) − x(t)) × Fi (t).
+
+(2–21)
+
+Torque differs from force in that the torque on a particle depends on the location ri (t) of the
+particle, relative to the center of mass x(t). We can intuitively think of the direction of τi (t) as
+being the axis the body would spin about due to Fi (t), if the center of mass were held ﬁrmly in place
+(ﬁgure 6).
+The total external force F(t) acting on the body is the sum of the Fi (t):
+F(t) =
+
+Fi (t)
+
+(2–22)
+
+while the total external torque is deﬁned similarly as
+τ(t) =
+
+S IGGRAPH 2001 C OURSE N OTES
+
+τi (t) =
+
+(ri (t) − x(t)) × Fi (t).
+
+G11
+
+(2–23)
+
+P HYSICALLY B ASED M ODELING
+
+Note that F(t) conveys no information about where the various forces acted on the body; however,
+τ(t) does tell us something about the distribution of the forces Fi (t) over the body.
+
+2.8 Linear Momentum
+The linear momentum p of a particle with mass m and velocity v is deﬁned as
+p = mv.
+
+(2–24)
+
+The total linear momentum P(t) of a rigid body is the sum of the products of the mass and velocity
+of each particle:
+P(t) =
+
+mir i (t).
+˙
+
+(2–25)
+
+˙
+From equation (2–17), the velocity r i (t) of the ith particle is r i (t) = v(t) + ω(t) × (ri (t) − x(t)).
+˙
+Thus, the total linear momentum of the body is
+P(t) =
+
+˙
+mir i (t)
+
+=
+=
+
+mi v(t) + mi ω(t) × (ri (t) − x(t))
+mi v(t) + ω(t) ×
+
+(2–26)
+
+mi (ri (t) − x(t)) .
+
+Because we are using a center of mass coordinate system, we can apply equation (2–20) and obtain
+P(t) =
+
+mi v(t) = Mv(t).
+
+mi v(t) =
+
+(2–27)
+
+This gives us the nice result that the total linear momentum of our rigid body is the same as if the
+body was simply a particle with mass M and velocity v(t). Because of this, we have a simple transformation between P(t) and v(t): P(t) = Mv(t) and v(t) = P(t)/M. Since M is a constant,
+v(t) =
+˙
+
+˙
+P(t)
+.
+M
+
+(2–28)
+
+The concept of linear momentum lets us express the effect of the total force F(t) on a rigid body
+quite simply. Appendix A derives the relation
+˙
+P(t) = F(t)
+
+(2–29)
+
+which says that the change in linear momentum is equivalent to the total force acting on a body. Note
+that P(t) tells us nothing about the rotational velocity of a body, which is good, because F(t) also
+conveys nothing about the change of rotational velocity of a body!
+Since the relationship between P(t) and v(t) is simple, we will be using P(t) as a state variable
+for our rigid body, instead of v(t). We could of course let v(t) be a state variable, and use the
+relation
+v(t) =
+˙
+
+F(t)
+.
+M
+
+(2–30)
+
+However, using P(t) instead of v(t) as a state variable will be more consistent with the way we will
+be dealing with angular velocity and acceleration.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G12
+
+P HYSICALLY B ASED M ODELING
+
+2.9 Angular Momentum
+While the concept of linear momentum is pretty intuitive (P(t) = Mv(t)), the concept of angular momentum (for a rigid body) is not. The only reason that one even bothers with the angular momentum
+of a rigid body is that it lets you write simpler equations than you would get if you stuck with angular
+velocity. With that in mind, it’s probably best not to worry about attaching an intuitive physical
+explanation to angular momentum—all in all, it’s a most unintuitive concept. Angular momentum
+ends up simplifying equations because it is conserved in nature, while angular velocity is not: if you
+have a body ﬂoating through space with no torque acting on it, the body’s angular momentum is
+constant. This is not true for a body’s angular velocity though: even if the angular momentum of a
+body is constant, the body’s angular velocity may not be! Consequently, a body’s angular velocity
+can vary even when no force acts on the body. Because of this, it ends up being simpler to choose
+angular momentum as a state variable over angular velocity.
+For linear momentum, we have the relation P(t) = Mv(t). Similarly, we deﬁne the total angular
+momentum L(t) of a rigid body by the equation L(t) = I(t)ω(t), where I(t) is a 3 × 3 matrix (technically a rank-two tensor) called the inertia tensor, which we will describe momentarily. The inertia
+tensor I(t) describes how the mass in a body is distributed relative to the body’s center of mass. The
+tensor I(t) depends on the orientation of a body, but does not depend on the body’s translation. Note
+that for both the angular and the linear case, momentum is a linear function of velocity—it’s just that
+in the angular case the scaling factor is a matrix, while it’s simply a scalar in the linear case. Note
+also that L(t) is independent of any translational effects, while P(t) is independent of any rotational
+effects.
+The relationship between L(t) and the total torque τ(t) is very simple: appendix A derives
+˙
+L(t) = τ(t),
+
+(2–31)
+
+˙
+analogous to the relation P(t) = F(t).
+
+2.10 The Inertia Tensor
+The inertia tensor I(t) is the scaling factor between angular momentum L(t) and angular velocity ω(t). At a given time t, let ri be the displacement of the ith particle from x(t) by deﬁning
+ri = ri (t) − x(t). The tensor I(t) is expressed in terms of ri as the symmetric matrix
+
+
+
+
+
+−mi ri x ri y
+
+−miri x ri z
+
+−miri y ri x
+
+mi (ri 2 + ri 2 )
+x
+z
+
+−mi ri y ri z
+
+−miri z ri x
+
+I(t) =
+
+mi (ri 2 + ri 2 )
+y
+z
+
+−miriz ri y
+
+
+
+mi (ri 2 + ri 2 )
+x
+y
+
+
+
+
+
+(2–32)
+
+For an actual implementation, we replace the ﬁnite sums with integrals over a body’s volume in
+world space. The mass terms mi are replaced by a density function. At ﬁrst glance, it seems that
+we would need to evaluate these integrals to ﬁnd I(t) whenever the orientation R(t) changes. This
+would be prohibitively expensive to do during a simulation unless the body’s shape was so simple
+(for example, a sphere or cube) that that the integrals could be evaluated symbolically.
+Fortunately, by using body-space coordinates we can cheaply compute the inertia tensor for any
+orientation R(t) in terms of a precomputed integral in body-space coordinates. (This integral is typically computed before the simulation begins and should be regarded as one of the input parameters
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G13
+
+P HYSICALLY B ASED M ODELING
+
+describing a physical property of the body.) Using the fact that ri T ri = ri 2 + ri 2 + ri 2 , we can rewrite
+x
+y
+z
+I(t) as the difference
+ 
+
+
+mi ri 2 mi ri x ri y miri x riz
+1 0 0
+x
+ 
+
+T 
+m i ri 2
+miri y riz 
+(2–33)
+I(t) =
+m i ri ri  0 1 0  −  m i ri y ri x
+y
+ 
+
+
+0 0 1
+m i ri z ri x m i ri z ri y
+m i ri 2
+z
+Taking the outer product multiplication of ri with itself, that is
+
+
+
+
+
+
+ri x
+T
+ri ri =  ri y 
+ri z
+
+ri x
+
+ri y
+
+ri z
+
+ri 2
+x
+
+
+=  ri y ri x
+
+riz ri x
+
+ri x ri y ri x ri z
+ri 2
+y
+riz ri y
+
+
+
+
+ri x ri z 
+
+2
+ri z
+
+(2–34)
+
+and letting 1 denote the 3 × 3 identity matrix, we can express I(t) simply as
+I(t) =
+
+T
+
+T
+
+mi ((ri ri )1 − ri ri )
+
+(2–35)
+
+How does this help?
+Since ri (t) = R(t)r0i + x(t) where r0i is a constant, ri = R(t)r0i . Then, since R(t)R(t) T = 1,
+T
+
+T
+
+mi ((ri ri )1 − ri ri )
+
+I(t) =
+=
+
+mi ((R(t)r0 i ) T (R(t)r0 i )1 − (R(t)r0 i )(R(t)r0 i ) T )
+
+=
+
+mi (r0 iT R(t) T R(t)r0i 1 − R(t)r0i r0 iT R(t) T )
+
+=
+
+mi ((r0 iT r0i )1 − R(t)r0i r0 iT R(t) T ).
+
+(2–36)
+
+Since r0 iT r0 i is a scalar, we can rearrange things by writing
+I(t) =
+=
+
+mi ((r0 iT r0i )1 − R(t)r0i r0 iT R(t) T )
+mi (R(t)(r0 iT r0i )R(t) T 1 − R(t)r0i r0 iT R(t) T )
+
+= R(t)
+
+(2–37)
+
+mi ((r0 iT r0 i )1 − r0 i r0 iT ) R(t) T .
+
+If we deﬁne Ibody as the matrix
+Ibody =
+
+mi ((r0 iT r0i )1 − r0ir0 iT )
+
+(2–38)
+
+then from the previous equation we have
+I(t) = R(t)Ibody R(t) T .
+
+(2–39)
+
+Since Ibody is speciﬁed in body-space, it is constant over the simulation. Thus, by precomputing Ibody
+for a body before the simulation begins, we can easily compute I(t) from Ibody and the orientation
+matrix R(t). Section 5.1 derives the body-space inertia tensor for a rectangular object in terms of an
+integral over the body’s volume in body space.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G14
+
+P HYSICALLY B ASED M ODELING
+
+Also, the inverse of I(t) is given by the formula
+I −1 (t) = R(t)Ibody R(t) T
+
+−1
+
+−1 −1
+Ibody R(t)−1
+−1
+R(t)Ibody R(t) T
+
+(2–40)
+
+= R(t) T
+=
+
+since, for rotation matrices, R(t) T = R(t)−1 and R(t) T
+during the simulation.
+
+T
+
+−1
+= R(t). Clearly, Ibody is also a constant
+
+2.11 Rigid Body Equations of Motion
+Finally, we have covered all the concepts we need to deﬁne the state vector X(t)! For a rigid body,
+we will deﬁne X(t) as
+
+
+x(t)
+ R(t) 
+
+X(t) = 
+(2–41)
+ P(t)  .
+L(t)
+Thus, the state of a rigid body is its position and orientation (describing spatial information), and its
+linear and angular momentum (describing velocity information). The mass M of the body and bodyspace inertia tensor Ibody are constants, which we assume we know when the simulation begins. At
+any given time, the auxiliary quantities I(t), ω(t) and v(t) are computed by
+v(t) =
+The derivative
+
+P(t)
+,
+M
+
+d
+dt X(t)
+
+I(t) = R(t)Ibody R(t) T
+
+and
+
+ω(t) = I(t)−1 L(t).
+
+(2–42)
+
+is
+
+
+ 
+x(t)
+v(t)
+ R(t)   ω(t)∗ R(t)
+d
+d
+ =
+X(t) = 
+F(t)
+dt
+dt  P(t)  
+τ(t)
+L(t)
+
+
+
+.
+
+
+(2–43)
+
+d
+The next section gives an implementation for the function Dxdt() that computes dt X(t).
+One ﬁnal note: rather than represent the orientation of the body as a matrix R(t) in X(t), it is
+better to use quaternions. Section 4 discusses using quaternions in place of rotation matrices. Brieﬂy,
+a quaternion is a type of four element vector that can be used to represent a rotation. If we replace
+R(t) in X(t) with a quaternion q(t), we can treat R(t) as an auxiliary variable that is computed
+directly from q(t), just as ω(t) is computed from L(t). Section 4 derives a formula analogous to
+˙
+˙
+R(t) = ω(t)∗ R(t), that expresses q(t) in terms of q(t) and ω(t).
+
+3 Computing
+
+d
+dt X(t)
+
+Lets consider an implementation of the function Dxdt() for rigid bodies. The code is written
+in C++, and we’ll assume that we have datatypes (classes) called matrix and triple which
+implement, respectively, 3 × 3 matrices and points in 3-space. Using these datatypes, we’ll represent
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G15
+
+P HYSICALLY B ASED M ODELING
+
+a rigid body by the structure
+struct RigidBody {
+/* Constant quantities */
+double mass;
+/* mass M */
+matrix Ibody,
+/* Ibody */
+−1
+Ibodyinv;
+/* Ibody (inverse of Ibody ) */
+/* State variables */
+triple x;
+matrix R;
+triple P,
+L;
+
+/*
+/*
+/*
+/*
+
+x(t)
+R(t)
+P(t)
+L(t)
+
+*/
+*/
+*/
+*/
+
+/* Derived quantities (auxiliary variables) */
+matrix Iinv;
+/* I −1 (t) */
+triple v,
+/* v(t) */
+omega;
+/* ω(t) */
+/* Computed quantities */
+triple force,
+/* F(t) */
+torque;
+/* τ(t) */
+};
+and assume a global array of bodies
+RigidBody Bodies[NBODIES];
+The constant quantities mass, Ibody and Ibodyinv are assumed to have been calculated for
+each member of the array Bodies, before simulation begins. Also, the initial conditions for each
+rigid body are speciﬁed by assigning values to the state variables x, R, P and L of each member of
+Bodies. The implementation in this section represents orientation with a rotation matrix; section 4
+describes the changes necessary to represent orientation by a quaternion.
+We communicate with the differential equation solver ode by passing arrays of real numbers.
+Several bookkeeping routines are required:
+/* Copy the state information into an array */
+void StateToArray(RigidBody *rb, double *y)
+{
+*y++ = rb->x[0];
+/* x component of position */
+*y++ = rb->x[1];
+/* etc. */
+*y++ = rb->x[2];
+for(int i = 0; i < 3; i++) /* copy rotation matrix */
+for(int j = 0; j < 3; j++)
+*y++ = rb->R[i,j];
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G16
+
+P HYSICALLY B ASED M ODELING
+
+*y++ = rb->P[0];
+*y++ = rb->P[1];
+*y++ = rb->P[2];
+*y++ = rb->L[0];
+*y++ = rb->L[1];
+*y++ = rb->L[2];
+}
+and
+/* Copy information from an array into the state variables */
+void ArrayToState(RigidBody *rb, double *y)
+{
+rb->x[0] = *y++;
+rb->x[1] = *y++;
+rb->x[2] = *y++;
+for(int i = 0; i < 3; i++)
+for(int j = 0; j < 3; j++)
+rb->R[i,j] = *y++;
+rb->P[0] = *y++;
+rb->P[1] = *y++;
+rb->P[2] = *y++;
+rb->L[0] = *y++;
+rb->L[1] = *y++;
+rb->L[2] = *y++;
+/* Compute auxiliary variables... */
+/* v(t) = P(t) */
+M
+rb->v = rb->P / mass;
+−1
+/* I −1 (t) = R(t)Ibody R(t) T */
+rb->Iinv = R * Ibodyinv * Transpose(R);
+
+/* ω(t) = I −1 (t)L(t) */
+rb->omega = rb->Iinv * rb->L;
+}
+Note that ArrayToState is responsible for computing values for the auxiliary variables Iinv,
+v and omega. We’ll assume that the appropriate arithmetic operations have been deﬁned between
+real numbers, triple’s and matrix’s, and that Transpose returns the transpose of a matrix.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G17
+
+P HYSICALLY B ASED M ODELING
+
+Examining these routines, we see that each rigid body’s state is represented by 3 + 9 + 3 + 3 = 18
+numbers. Transfers between all the members of Bodies and an array y of size 18 · NBODIES are
+implemented as
+#define STATE_SIZE
+
+18
+
+void ArrayToBodies(double x[])
+{
+for(int i = 0; i < NBODIES; i++)
+ArrayToState(&Bodies[i], &x[i * STATE_SIZE]);
+}
+and
+void BodiesToArray(double x[])
+{
+for(int i = 0; i < NBODIES; i++)
+StateToArray(&Bodies[i], &x[i * STATE_SIZE]);
+}
+Now we can implement Dxdt(). Let’s assume that the routine
+void
+
+ComputeForceAndTorque(double t, RigidBody *rb);
+
+computes the force F(t) and torque τ(t) acting on the rigid body *rb at time t, and stores F(t)
+and τ(t) in rb->force and rb->torque respectively. ComputeForceAndTorquetakes into
+account all forces and torques: gravity, wind, interaction with other bodies etc. Using this routine,
+we’ll deﬁne Dxdt() as
+void Dxdt(double t, double x[], double xdot[])
+{
+/* put data in x[] into Bodies[] */
+ArrayToBodies(x);
+for(int i = 0; i < NBODIES; i++)
+{
+ComputeForceAndTorque(t, &Bodies[i]);
+DdtStateToArray(&Bodies[i],
+&xdot[i * STATE_SIZE]);
+}
+}
+The numerical solver ode calls calls Dxdt() and is responsible for allocating enough space for the
+arrays y, and xdot (STATE_SIZE · NBODIES worth for each). The function which does the real
+d
+work of computing dt X(t) and storing it in the array xdot is ddtStateToArray:
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G18
+
+P HYSICALLY B ASED M ODELING
+
+void DdtStateToArray(RigidBody *rb, double *xdot)
+{
+d
+/* copy dt x(t) = v(t) into xdot */
+*xdot++ = rb->v[0];
+*xdot++ = rb->v[1];
+*xdot++ = rb->v[2];
+˙
+/* Compute R(t) = ω(t)∗ R(t) */
+matrix Rdot = Star(rb->omega) * rb->R;
+˙
+/* copy R(t) into array */
+for(int i = 0; i < 3; i++)
+for(int j = 0; j < 3; j++)
+*xdot++ = Rdot[i,j];
+*xdot++ = rb->force[0];
+*xdot++ = rb->force[1];
+*xdot++ = rb->force[2];
+
+/*
+
+d
+dt P(t)
+
+= F(t) */
+
+*xdot++ = rb->torque[0];
+*xdot++ = rb->torque[1];
+*xdot++ = rb->torque[2];
+
+/*
+
+d
+dt L(t)
+
+= τ(t) */
+
+}
+˙
+The routine Star, used to calculate R(t) is deﬁned as
+matrix
+
+Star(triple a);
+
+and returns the matrix
+
+
+
+0 −a[2]
+a[1]
+ a[2]
+0 −a[0]  .
+−a[1]
+a[0]
+0
+Given all of the above, actually performing a simulation is simple. Assume that the state variables of all NBODIES rigid bodies are initialized by a routine InitStates. We’ll have our simu1
+lation run for 10 seconds, calling a routine DisplayBodies every 24 th of a second to display the
+bodies:
+void RunSimulation()
+{
+double x0[STATE_SIZE * NBODIES],
+xFinal[STATE_SIZE * NBODIES];
+InitStates();
+BodiesToArray(xFinal);
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G19
+
+P HYSICALLY B ASED M ODELING
+
+for(double t = 0; t < 10.0; t += 1./24.)
+{
+/* copy xFinal back to x0 */
+for(int i = 0; i < STATE_SIZE * NBODIES; i++)
+{
+x0[i] = xFinal[i];
+ode(x0, xFinal, STATE_SIZE * NBODIES,
+t, t+1./24., Dxdt);
+/* copy
+
+d
+1
+dt X(t + 24 )
+
+into state variables */
+
+ArrayToBodies(xFinal);
+DisplayBodies();
+}
+}
+
+4 Quaternions vs. Rotation Matrices
+There is a better way to represent the orientation of a rigid body than using a 3 × 3 rotation matrix.
+For a number of reasons, unit quaternions, a type of four element vector normalized to unit length,
+are a better choice than rotation matrices[16].
+For rigid body simulation, the most important reason to avoid using rotation matrices is because
+of numerical drift. Suppose that we keep track of the orientation of a rigid body according to the
+formula
+˙
+R(t) = ω(t)∗ R(t).
+As we update R(t) using this formula (that is, as we integrate this equation), we will inevitably
+encounter drift. Numerical error will build up in the coefﬁcients of R(t) so that R(t) will no longer
+be precisely a rotation matrix. Graphically, the effect would be that applying R(t) to a body would
+cause a skewing effect.
+This problem can be alleviated by representing rotations with unit quaternions. Since quaternions have only four parameters, there is only one extra variable being used to describe the three
+freedoms of the rotation. In contrast, a rotation matrix uses nine parameters to describe three degrees
+of freedom; therefore, the degree of redundancy is noticeably lower for quaternions than rotation
+matrices. As a result, quaternions experience far less drift than rotation matrices. If it does become
+necessary to account for drift in a quaternion, it is because the quaternion has lost its unit magnitude. 3
+This is easily correctable by renormalizing the quaternion to unit length. Because of these two
+properties, it is desirable to represent the orientation of a body directly as a unit quaternion q(t).
+We will still express angular velocity as a vector ω(t). The orientation matrix R(t), which is needed
+to compute I −1 (t), will be computed as an auxiliary variable from q(t).
+3
+Any quaternion of unit length corresponds to a rotation, so quaternions deviate from representing rotations only if
+they lose their unit length. These notes will deal with that problem in a very simplistic way.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G20
+
+P HYSICALLY B ASED M ODELING
+
+We will write a quaternion s + v x i + v y j + vz k as the pair
+[s, v].
+Using this notation, quaternion multiplication is
+[s1 , v1 ][s2 , v2 ] = [s1 s2 − v1 · v2 , s1 v2 + s2 v1 + v1 × v2 ].
+
+(4–1)
+
+A rotation of θ radians about a unit axis u is represented by the unit quaternion
+[cos(θ/2), sin(θ/2)u].
+In using quaternions to represent rotations, if q1 and q2 indicate rotations, then q2 q1 represents the
+composite rotation of q1 followed by q2 .4 In a moment, we’ll show how to change the routines of
+section 3 to handle the quaternion representation for orientation. Before we can make these changes
+though, we’ll need a formula for q(t). Appendix B derives the formula
+˙
+q(t) = 1 ω(t)q(t).
+˙
+2
+
+(4–2)
+
+where the multiplication ω(t)q(t) is a shorthand for multiplication between the quaternions [0, ω(t)]
+and q(t). Note the similarity between equation (4–2) and
+˙
+R(t) = ω(t)∗ R(t).
+To actually use a quaternion representation, we’ll need to redeﬁne the type RigidBody:
+struct RigidBody {
+/* Constant quantities */
+double mass;
+/* mass M */
+matrix Ibody,
+/* Ibody */
+−1
+Ibodyinv;
+/* Ibody (inverse of Ibody ) */
+/* State variables */
+triple x;
+quaternion q;
+triple P,
+L;
+
+/*
+/*
+/*
+/*
+
+x(t)
+q(t)
+P(t)
+L(t)
+
+*/
+*/
+*/
+*/
+
+/* Derived quantities (auxiliary variables) */
+matrix Iinv,
+/* I −1 (t) */
+R;
+/* R(t) */
+triple v,
+/* v(t) */
+omega;
+/* ω(t) */
+/* Computed quantities */
+This is according to the convention that the rotation of a point p by a quaternion q is qpq−1 . Be warned! This is
+opposite the convention for rotation in the original paper Shoemake[16], but it is in correspondence with some more recent
+versions of Shoemake’s article. Writing a composite rotation as q2 q1 parallels our matrix notation for composition of
+rotations.
+4
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G21
+
+P HYSICALLY B ASED M ODELING
+
+triple
+
+force,
+torque;
+
+/* F(t) */
+/* τ(t) */
+
+};
+Next, in the routine StateToArray, we’ll replace the double loop
+
+for(int i = 0; i < 3; i++)
+for(int j = 0; j < 3; j++)
+*y++ = rb->R[i,j];
+
+/* copy rotation matrix */
+
+with
+/*
+* Assume that a quaternion is represented in
+* terms of elements ‘r’ for the real part,
+* and ‘i’, ‘j’, and ‘k’ for the vector part.
+*/
+*y++
+*y++
+*y++
+*y++
+
+=
+=
+=
+=
+
+rb->q.r;
+rb->q.i;
+rb->q.j;
+rb->q.k;
+
+A similar change is made in ArrayToState. Also, since ArrayToState is responsible for computing the auxiliary variable I −1 (t), which depends on R(t), ArrayToState must also compute
+R(t) as an auxiliary variable: in the section
+/* Compute auxiliary variables... */
+/* v(t) = P(t) */
+M
+rb->v = rb->P / mass;
+−1
+/* I −1 (t) = R(t)Ibody R(t) T */
+rb->Iinv = R * Ibodyinv * Transpose(R);
+
+/* ω(t) = I −1 (t)L(t) */
+rb->omega = rb->Iinv * rb->L;
+we add the line
+rb->R = QuaterionToMatrix(normalize(rb->q));
+prior to computing rb->Iinv. The routine normalize returns q divided by its length; this
+unit length quaternion returned by normalize is then passed to QuaterionToMatrix which
+returns a 3 × 3 rotation matrix. Given a quaternion q = [s, v], QuaterionToMatrix returns the
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G22
+
+P HYSICALLY B ASED M ODELING
+
+matrix
+
+1 − 2v2 − 2v2 2v x v y − 2svz 2v x vz + 2sv y
+y
+z
+ 2v x v y + 2svz 1 − 2v2 − 2v2 2v y vz − 2sv x  .
+x
+z
+2v x vz − 2sv y 2v y vz + 2sv x 1 − 2v2 − 2v2
+x
+y
+
+
+In case you need to convert from a rotation matrix to a quaternion,
+quaternion matrixToQuaternion(const matrix &m)
+{
+quaternion
+q;
+double
+tr, s;
+tr = m[0,0] + m[1,1] + m[2,2];
+if(tr >= 0)
+{
+s = sqrt(tr + 1);
+q.r = 0.5 * s;
+s = 0.5 / s;
+q.i = (m[2,1] - m[1,2]) * s;
+q.j = (m[0,2] - m[2,0]) * s;
+q.k = (m[1,0] - m[0,1]) * s;
+}
+else
+{
+int i = 0;
+if(m[1,1] > m[0,0])
+i = 1;
+if(m[2,2] > m[i,i))
+i = 2;
+switch (i)
+{
+case 0:
+s = sqrt((m[0,0] - (m[1,1] + m[2,2])) + 1);
+q.i = 0.5 * s;
+s = 0.5 / s;
+q.j = (m[0,1] + m[1,0]) * s;
+q.k = (m[2,0] + m[0,2]) * s;
+q.r = (m[2,1] - m[1,2]) * s;
+break;
+case 1:
+s = sqrt((m[1,1] - (m[2,2] + m[0,0])) + 1);
+q.j = 0.5 * s;
+s = 0.5 / s;
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G23
+
+P HYSICALLY B ASED M ODELING
+
+q.k = (m[1,2] + m[2,1]) * s;
+q.i = (m[0,1] + m[1,0]) * s;
+q.r = (m[0,2] - m[2,0]) * s;
+break;
+case 2:
+s = sqrt((m[2,2] - (m[0,0] + m[1,1])) + 1);
+q.k = 0.5 * s;
+s = 0.5 / s;
+q.i = (m[2,0] + m[0,2]) * s;
+q.j = (m[1,2] + m[2,1]) * s;
+q.r = (m[1,0] - m[0,1]) * s;
+}
+}
+return q;
+}
+The matrix m is structured so that m[0,0], m[0,1] and m[0,2] form the ﬁrst row (not column)
+of m.
+The routines ArrayToBodies and BodiesToArray don’t need any changes at all, but note
+that the constant STATE_SIZE changes from 18 to 13, since a quaternion requires ﬁve less elements
+than a rotation matrix. The only other change we need is in ddtStateToArray. Instead of
+matrix
+
+Rdot = Star(rb->omega) * rb->R;
+
+˙
+/* copy R(t) into array */
+for(int i = 0; i < 3; i++)
+for(int j = 0; j < 3; j++)
+*xdot++ = Rdot[i,j];
+we’ll use
+quaternion
+qdot = .5 * (rb->omega * rb->q);
+*xdot++ = qdot.r;
+*xdot++ = qdot.i;
+*xdot++ = qdot.j;
+*xdot++ = qdot.k;
+We’re assuming here that the multiplication between the triple rb->omega and the quaternion
+.
+rb->q is deﬁned to return the quaternion product
+[0, rb->omega]q.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G24
+
+P HYSICALLY B ASED M ODELING
+
+ x0 , y0 , z0 
+ 2 2 2
+
+ − x0 , − y0 , − z0 
+ 2
+2 2 
+
+Figure 7: A rectangular block of constant unit density, with center of mass at (0,0,0).
+
+5 Examples
+5.1 Inertia Tensor of a Block
+Let us calculate the inertia tensor Ibody of the rectangular block in ﬁgure 7. The block has dimensions
+x0 × y0 × z0 . As required, the center of mass of the block is at the origin. Thus, the extent of the
+block is from − x0 to x0 along the x axis, and similarly for the y and z axes. To calculate the inertia
+2
+2
+tensor, we must treat the sums in equation (2–32) as integrals over the volume of the block. Let us
+assume that the block has constant unit density. This means that the density function ρ(x, y, z) is
+always one. Since the block has volume x0 y0 z0 , the mass M of the block is M = x0 y0 z0 . Then, in
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G25
+
+P HYSICALLY B ASED M ODELING
+
+body space,
+Ixx =
+=
+=
+=
+=
+
+x0
+2
+
+y0
+2
+
+z0
+2
+
+−x0
+2
+x0
+2
+
+−y0
+2
+y0
+2
+
+−z0
+2
+
+−x0
+2
+x0
+2
+
+−y0
+2
+y0
+2
+
+−x0
+2
+x0
+2
+
+−y0
+2
+
+z3
+y2 z +
+3
+y2 z0 +
+
+−x0
+2
+
+−z0
+2
+
+−y0
+2
+
+−z0
+2
+
+y2 + z2 dx dy dz
+
+z0
+2
+
+z=
+
+z0
+2
+
+dx dy
+
+y=
+y=
+
+−y0
+2
+
+(5–1)
+
+y0
+2
+
+dx
+
+y3 z0 z3 y0
+0
++ 0 dx
+12
+12
+
+−x0
+2
+
+y3 z0 z3 y0
+= 0 + 0
+12
+12
+Similarly, I yy =
+are
+Ixy =
+
+z=
+
+y0
+2
+
+2
+
+z3
+0
+dx dy
+12
+
+z3
+y3
+0
+z0 + 0 y0
+3
+12
+
+−x0
+2
+x0
+2
+
+x0
+2
+
+ρ(x, y, z)(y + z ) dx dy dz =
+2
+
+M 2
+12 (x0
+
+x=
+
+x0
+2
+
+x=
+
+−x0
+2
+
+y3 z0 x0 z3 y0 x0
+x0 y0 z0 2
+M
+0
++ 0
+=
+(y0 + z2 ) = (y2 + z2 ).
+0
+0
+12
+12
+12
+12 0
+
++ z2 ) and Izz =
+0
+
+x0
+2
+
+y0
+2
+
+z0
+2
+
+−x0
+2
+
+−y0
+2
+
+−z0
+2
+
+M 2
+12 (x0
+
++ y2 ). Now, the off-diagonal terms, such as Ixy ,
+0
+
+ρ(x, y, z)(xy) dx dy dz =
+
+x0
+2
+
+y0
+2
+
+z0
+2
+
+−x0
+2
+
+−y0
+2
+
+−z0
+2
+
+xy dx dy dz = 0
+
+(5–2)
+
+(and similarly for the others) because the integrals are all symmetric. Thus, the inertia tensor of the
+block is
+
+ 2
+0
+0
+y + z2
+0
+M 0
+.
+(5–3)
+0
+0
+x2 + z2
+Ibody =
+0
+0
+12
+2 + y2
+0
+0
+x0
+0
+
+5.2 A Uniform Force Field
+Suppose a uniform force acts on each particle of a body. For example, we typically describe a
+gravitational ﬁeld as exerting a force mi g on each particle of a rigid body, where g is a vector pointing
+downwards. The net force Fg acting due to gravity on the body then is
+Fg =
+
+mi g = Mg
+
+(5–4)
+
+which yields an acceleration of Mg = g of the center of mass, as expected. What is the torque due
+g
+to the gravitational ﬁeld? The net torque is the sum
+(ri (t) − x(t)) × mi g =
+
+mi (ri (t) − x(t)) × g = 0
+
+(5–5)
+
+by equation (2–20). We see from this that a uniform gravitational ﬁeld can have no effect on the
+angular momentum of a body. Furthermore, the gravitational ﬁeld can be treated as a single force
+Mg acting on the body at its center of mass.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G26
+
+P HYSICALLY B ASED M ODELING
+
+y
+z
+
+x(t)
+x
+(−3,0,−2)
+
+F
+
+(3,0,−2)
+
+F
+
+Figure 8: A block acted on by two equal forces F at two different points.
+
+5.3 Rotation Free Movement of a Body
+Now, let us consider some forces acting on the block of ﬁgure 8. Suppose that an external force
+F = (0, 0, f ) acts on the body at points x(t) + (−3, 0, −2) and x(t) + (3, 0, −2). We would expect
+that this would cause the body to accelerate linearly, without accelerating angularly. The net force
+acting on the body is (0, 0, 2 f ), so the acceleration of the center of mass is
+2f
+M
+along the z axis. The torque due to the force acting at x(t) + (−3, 0, −2) is
+
+
+
+
+−3
+−3
+((x(t) +  0  ) − x(t)) × F =  0  × F
+−2
+−2
+while the torque due to the force acting at x(t) + (3, 0, −2) is
+
+
+
+
+3
+3
+((x(t) +  0  ) − x(t)) × F =  0  × F.
+−2
+−2
+The total torque τ is therefore
+
+
+
+
+
+ 
+
+
+
+−3
+3
+−3
+3
+0
+τ =  0  × F +  0  × F = ( 0  +  0  ) × F =  0  × F.
+−2
+−2
+−2
+−2
+−2
+But this gives
+
+
+
+ 
+
+0
+0
+τ =  0  ×  0  = 0.
+−2
+f
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G27
+
+P HYSICALLY B ASED M ODELING
+
+y
+z
+
+x(t)
+x
+(−3,0,−2)
+F
+
+(3,0,−2)
+
+F
+
+Figure 9: A block acted on by two opposite forces F1 and F2 = −F1 , at two different points.
+As expected then, the forces acting on the block impart no angular acceleration to the block.
+
+5.4 Translation Free Movement of a Body
+Suppose now that an external force F1 = (0, 0, f ) acts on the body at point x(t) + (−3, 0, −2) and an
+external force F2 = (0, 0, − f ) acts on the body at point x(t) + (3, 0, 2) (ﬁgure 9). Since F1 = −F2 ,
+the net force acting on the block is F1 + F2 = 0, so there is no acceleration of the center of mass. On
+the other hand, the net torque is
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G28
+
+P HYSICALLY B ASED M ODELING
+
+F
+
+F
+(ten seconds later)
+v
+
+Energy:
+
+Energy:
+0
+
+1
+Mv T v
+2
+
+Figure 10: A rectangular block acted on by a force through its center of mass.
+
+
+
+
+−3
+((x(t) +  0  ) − x(t)) × F1 +
+−2
+ 
+
+ 
+3
+−3
+((x(t) +  0  ) − x(t)) × F2 =  0  × 
+2
+−2
+
+ 
+0
+= 3f  +
+0
+
+ 
+ 
+
+0
+3
+0
+0  + 0  × 0 
+f
+−2
+−f
+ 
+
+0
+0
+3f  = 6f .
+0
+0
+
+(5–6)
+
+Thus, the net torque is (0, 6 f, 0), which is parallel to the y axis. The ﬁnal result is that the forces
+acting on the block cause it to angularly accelerate about the y axis.
+
+5.5 Force vs. Torque Puzzle
+In considering the effect of a force acting at a point on a body, it sometimes seems that the force is
+being considered twice. That is, if a force F acts on a body at a point r + x(t) in space, then we ﬁrst
+consider F as accelerating the center of mass, and then consider F as imparting a spin to the body.
+This gives rise to what at ﬁrst seems a paradox: Consider the long horizontal block of ﬁgure 10
+which is initially at rest. Suppose that a force F acts on the block at the center of mass for some
+period of time, say, ten seconds. Since the force acts at the center of mass, no torque is exerted on
+the body. After ten seconds, the body will have acquired some linear velocity v. The body will not
+have acquired any angular velocity; thus the kinetic energy of the block will be 1 M|v|2 .
+2
+Now suppose that the same force F is applied off-center to the body as shown in ﬁgure 11. Since
+the force acting on the body is the same, the acceleration of the center of mass is the same. Thus,
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G29
+
+P HYSICALLY B ASED M ODELING
+
+ω
+(ten seconds later)
+v
+F
+F
+Energy:
+
+Energy:
+0
+
+1
+1
+Mv T v + ω T Iω
+2
+2
+
+Figure 11: A block acted on by a force, off-center of the center of mass.
+after ten seconds, the body will again have linear velocity v. However, after ten seconds, the body
+will have picked up some angular velocity ω, since the force F, acting off center, now exerts a torque
+on the body. Since the kinetic energy is (see appendix C)
+2
+1
+2 M|v|
+
++ 1 ω T Iω
+2
+
+the kinetic energy of the block is higher than when the force acted through the center of mass. But
+if identical forces pushed the block in both cases, how can the energy of the block be different?
+Hint: Energy, or work, is the integral of force over distance.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G30
+
+P HYSICALLY B ASED M ODELING
+
+ω
+(ten seconds later)
+v
+F
+F
+Energy:
+
+Energy:
+0
+
+1
+1
+Mv T v + ω T Iω
+2
+2
+
+Figure 12: The path the force acts over is longer than in ﬁgure 10. As a result, the force does more
+work, imparting a larger kinetic energy to the block.
+Figure 12 shows why the force acting off center results in a higher kinetic energy. The kinetic
+energy of the block is equivalent to the work done by the force. The work done by the force is the
+integral of the force over the path traveled in applying that force. In ﬁgure 11, where the force acts off
+the center of mass, consider the path traced out by the point where the force is applied. This path is
+clearly longer than the path taken by the center of mass in ﬁgure 10. Thus, when the force is applied
+off center, more work is done because the point p at which the force is applied traces out a longer
+path then when the force is applied at the center of mass.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G31
+
+P HYSICALLY B ASED M ODELING
+
+Part II. Nonpenetration Constraints
+
+6 Problems of Nonpenetration Constraints
+Now that we know how to write and implement the equations of motion for a rigid body, let’s consider
+the problem of preventing bodies from inter-penetrating as they move about an environment. For
+simplicity, suppose we simulate dropping a point mass (i.e. a single particle) onto a ﬁxed ﬂoor. There
+are several issues involved here.
+Because we are dealing with rigid bodies, that are totally non-ﬂexible, we don’t want to allow any
+inter-penetration at all when the particle strikes the ﬂoor. (If we considered our ﬂoor to be ﬂexible,
+we might allow the particle to inter-penetrate some small distance, and view that as the ﬂoor actually
+deforming near where the particle impacted. But we don’t consider the ﬂoor to be ﬂexible, so we
+don’t want any inter-penetration at all.) This means that at the instant that the particle actually comes
+into contact with the ﬂoor, what we would like is to abruptly change the velocity of the particle. This
+is quite different from the approach taken for ﬂexible bodies. For a ﬂexible body, say a rubber ball,
+we might consider the collision as occurring gradually. That is, over some fairly small, but non-zero
+span of time, a force would act between the ball and the ﬂoor and change the ball’s velocity. During
+this time span, the ball would deform, due to the force. The more rigid we made the ball, the less the
+ball would deform, and the faster this collision would occur. In the limiting case, the ball is inﬁnitely
+rigid, and can’t deform at all. Unless the ball’s downward velocity is halted instantaneously, the
+ball will inter-penetrate the ﬂoor somewhat. In rigid body dynamics then, we consider collisions as
+occurring instantaneously.
+This means we have two types of contact we need to deal with. When two bodies are in contact
+at some point p, and they have a velocity towards each other (as in the particle striking the ﬂoor), we
+call this colliding contact. Colliding contact requires an instantaneous change in velocity. Whenever
+a collision occurs, the state of a body, which describes both position, and velocity, undergoes a
+discontinuity in the velocity. The numerical routines that solve ODE’s do so under the assumption
+that the state X(t) always varies smoothly. Clearly, requiring X(t) to change discontinuously when
+a collision occurs violates that assumption.
+We get around this problem as follows. If a collision occurs at time tc , we tell the ODE solver to
+stop. We then take the state at this time, X(tc ), and compute how the velocities of bodies involved
+in the collision must change. We’ll call the state reﬂecting these new velocities X(tc )+ . Note that
+X(tc ) and X(tc )+ agree for all spatial variables (position and orientation), but will be different for
+the velocity variables of bodies involved in the collision at time tc . We then restart the numerical
+solver, with the new state X(tc ), and instruct it to simulate forward from time tc .
+Whenever bodies are resting on one another at some point p (e.g. imagine the particle in contact
+with the ﬂoor with zero velocity), we say that the bodies are in resting contact. In this case, we
+compute a force that prevents the particle from accelerating downwards; essentially, this force is the
+weight of the particle due to gravity (or whatever other external forces push on the particle). We call
+the force between the particle and the ﬂoor a contact force. Resting contact clearly doesn’t require
+us to stop and restart the ODE solve at every instant; from the ODE solver’s point of view, contact
+forces are just a part of the force returned by ComputeForceAndTorque.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G32
+
+P HYSICALLY B ASED M ODELING
+
+t0
+
+tc
+
+t0 + ∆t
+(inter-penetration detected)
+
+Figure 13: At time t0 + t, the particle is found to lie below the ﬂoor. Thus, the actual time of
+collision tc lies between the time of the last known legal position, t0 , and t0 + t.
+So far then, we have two problems we’ll need to deal with: computing velocity changes for
+colliding contact, and computing the contact forces that prevent inter-penetration. But before we can
+tackle these problems we have to deal with the geometric issue of actually detecting contact between
+bodies. Let’s go back to dropping the particle to the ﬂoor. As we run our simulation, we compute
+the position of the particle as it drops towards the ﬂoor at speciﬁc time values (ﬁgure 13). Suppose
+we consider the particle at times t0 , t0 + t, t0 + 2 t etc.5 and suppose the time of collision, tc , at
+which the particle actually strikes the ﬂoor, lies between t0 and t0 + t. Then at time t0 , we ﬁnd that
+the particle lies above the ﬂoor, but at the next time step, t0 + t, we ﬁnd the particle is beneath the
+ﬂoor, which means that inter-penetration has occurred.
+If we’re going to stop and restart the simulator at time tc , we’ll need to compute tc . All we know
+so far is that tc lies between t0 and t0 + t. In general, solving for tc exactly is difﬁcult, so we
+solve for tc numerically, to within a certain tolerance. A simple way of determining tc is to use a
+numerical method called bisection[14]. If at time t0 + t we detect inter-penetration, we inform the
+ODE solver that we wish to restart back at time t0 , and simulate forward to time t0 + t/2. If the
+simulator reaches t0 + t/2 without encountering inter-penetration, we know the collision time tc
+lies between t0 + t/2 and t0 + t. Otherwise, tc is less than t0 + t/2, and we try to simulate from
+t0 to t0 + t/4. Eventually, the time of collision tc is computed to within some suitable numerical
+tolerance. The accuracy with which tc is found depends on the collision detection routines. The
+collision detection routines have some parameter . We decide that our computation of tc is “good
+enough” when the particle inter-penetrates the ﬂoor by no more than , and is less than above the
+ﬂoor. At this point we declare that the particle is in contact with the ﬂoor (ﬁgure 14).
+The method of bisection is a little slow, but its easy to implement and quite robust. A faster
+method involves actually predicting the time tc of the collision, based on examining X(t0 ) and
+X(t0 + t). Baraff[1, 2] describes how to make such predictions. How to actually implement all of
+5
+
+The ODE solver doesn’t have to proceed with equal size time steps though.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G33
+
+P HYSICALLY B ASED M ODELING
+
+t0
+tc found (within tolerance)
+
+ε
+ε
+t0 + ∆t
+(inter-penetration detected)
+
+Figure 14: When the particle is found to be within some tolerance of contacting the ﬂoor, then tc
+is considered to have been computed to within sufﬁcient accuracy.
+this depends on how you interact with your ODE routines. One might use exception handling code
+to signal the ODE of various events (collisions, inter-penetration), or pass some sort of messages to
+the ODE solver. We’ll just assume that you have some way of getting your ODE solver to progress
+just up to the point tc .
+Once you actually reach the time of a collision, or whenever you’re in a state X(t) where no
+inter-penetration has occurred, a geometric determination has to be made to ﬁnd all the points of
+contact. (Just because you may be looking for the time of collision between two bodies A and B
+doesn’t mean you get to neglect resting contact forces between other bodies C and D. Whenever
+you’re trying to move the simulation forward, you’ll need to compute the point of contact between
+bodies and the contact forces at those points.) There is a vast amount of literature dealing with the
+collision detection problem. For instance, some recent SIGGRAPH papers dealing with the subject
+are Von Herzen, Barr and Zatz[17] and Moore and Wilhelms[12]; in robotics, a number of papers of
+interest are Canny[4], Gilbert and Hong[6], Meyer[11] and Cundall[5]. Preparata and Shamos[13]
+describes many approaches in computational geometry to the problem. In the next section, we’ll
+brieﬂy describe a collision detection “philosophy” that leads to very efﬁcient algorithms, for the sorts
+of simulation these course notes are concerned with. Actual code for the algorithms is fairly easy to
+write, but a little too lengthy to ﬁt in these notes. Following this, we’ll move on to consider colliding
+and resting contact.
+
+7 Collision Detection
+The collision detection algorithm begins with a preprocessing step, in which a bounding box for each
+rigid body is computed (a box with sides parallel to the coordinate axes). Given n such bounding
+boxes, we will want to quickly determine all pairs of bounding boxes that overlap. Any pair of rigid
+bodies whose bounding boxes do not overlap need not be considered any further. Pairs of rigid
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G34
+
+P HYSICALLY B ASED M ODELING
+
+bodies whose bounding boxes do overlap require further consideration. We’ll ﬁrst describe how
+to efﬁciently check for inter-penetration or contact points between rigid bodies deﬁned as convex
+polyhedra. Then we’ll show how to perform the bounding box check efﬁciently.
+As described in section 1, the simulation process consists of the repeated computation of the
+d
+derivative of the state vector, dt X(t), at various times t. The numerical ODE solver is responsible
+for choosing the values of t at which the state derivative is to be computed. For any reasonably
+complicated simulation, the values of t chosen are such that the state X does not change greatly between successive values of t. As a result, there is almost always great geometric coherence between
+successive time steps. At a time step t0 + t, the idea is to take advantage of the collision detection
+results computed at the previous time step t0 .
+
+7.1 Convex Polyhedra
+Our primary mechanism for exploiting coherence will be through the use of witnesses. In our context,
+given two convex polyhedra A and B, a witness is some piece of information that can be used to
+quickly answer the “yes/no” question “are A and B disjoint”? We will utilize coherence by caching
+witnesses from one time step to the next; hopefully a witness from the previous time step will be a
+witness during the current time step.
+Since we are considering convex polyhedra, two polyhedra do not inter-penetrate if and only if a
+separating plane between them exists. A separating plane between two polyhedra is a plane such that
+each polyhedron lies on a different side of the plane. A given plane can be veriﬁed to be a separating
+plane by testing to make sure that all of the vertices of A and B lie on opposite sides of the plane.
+Thus, a separating plane is a witness to the fact that two convex polyhedra do not inter-penetrate. If
+a separating plane does not exist, then the polyhedra must be inter-penetrating.
+The cost of initially ﬁnding a witness (for the very ﬁrst time step of the simulation, or the ﬁrst
+time two bodies become close enough to require more than a bounding box test) is unavoidable.
+A simple way to ﬁnd a separating plane initially is as follows. If a pair of convex polyhedra are
+disjoint or contacting (but not inter-penetrating), then a separating plane exists with the following
+property: either the plane contains a face of one of the polyhedra, or the plane contains an edge from
+one of the polyhedra and is parallel to an edge of the other polyhedra. (That is, the separating plane’s
+normal is the cross product of the two edge directions, and the plane itself contains one of the edges.)
+We will call the face or edges in question the deﬁning face or edges. Initially, we simply check all
+possible combinations of faces and edges to see if one such combination forms a separating plane
+(ﬁgure 15). Although this is inefﬁcient, it’s done so infrequently that the inefﬁciency is unimportant.
+For subsequent time steps, all we need to do is form a separating plane from the deﬁning face or edges
+found during the previous time step, and then verify the plane to see that it is still valid (ﬁgure 16).
+On those (rare) occasions when the cached face or two edges fails to form a valid separating plane
+(ﬁgure 17), faces or edges adjacent to the previously cached face or edges can be examined to see if
+they form a separating plane; however, this happens infrequently enough that it may be simpler to
+start from scratch and compute a new separating plane without using any prior knowledge.
+Once the separating place has been found, the contact region between the two polyhedra is
+determined, assuming the polyhedra are not disjoint. Contact points between the two polyhedra can
+only occur on the separating plane. Given the separating plane, the contact points can be quickly and
+efﬁciently determined by comparing only those faces, edges, and vertices of the polyhedra that are
+coincident with the separating plane.
+However, if no separating plane can be found, then the two polyhedra must be inter-penetrating.
+When two polyhedra inter-penetrate, it is almost always the case that either a vertex of one poly-
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G35
+
+P HYSICALLY B ASED M ODELING
+
+separating
+plane
+Figure 15: Exhaustive search for a separating plane. Only one face of the two polygons forms a
+separating plane.
+
+(a)
+
+(b)
+
+defining
+face
+
+Figure 16: (a) At this time step, the separating plane is deﬁned by a face of one of the polygons. (b) At
+the next time step, the polygons have moved, but the same face still deﬁnes a separating plane.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G36
+
+P HYSICALLY B ASED M ODELING
+
+(a)
+
+(b)
+
+Figure 17: The face that has been deﬁning a separating plane no longer does so, and a new separating
+plane must be found.
+hedron is inside the other, or an edge of one polyhedron has intersected a face of the other.6 In
+this case, the inter-penetrating vertex, or intersecting edge and face are cached as a witness to the
+inter-penetration. Since this indicates a collision at some earlier time, the simulator will back up and
+d
+attempt to compute dt X(t) at some earlier time. Until the collision time is determined, the ﬁrst action
+taken by the collision/contact determination step will be to check the cached vertex or edge and face
+to see if they indicate inter-penetration. Thus, until the collision time is found, states in which the
+inter-penetration still exists are identiﬁed as such with a minimum of computational overhead.
+
+7.2 Bounding Boxes
+To reduce the number of pairwise collision/contact determinations necessary, a bounding box hierarchy is imposed on the bodies in the simulation environment. If two bounding boxes are found not to
+overlap, no further comparisons involving the contents of the boxes are needed. Given a collection
+of n rectangular bounding boxes, aligned with the coordinate axes, we would like to efﬁciently
+determine all pairs of boxes that overlap. A naive pairwise comparison of all pairs requires O(n2 )
+work and is too inefﬁcient, unless the number of bodies is small. Computational geometry algorithms
+exist that can solve this problem in time O(nlogn + k) where k is the number of pairwise overlaps; a
+general result is that the problem can be solved in time O(nlogd−2 n + k) for d-dimensional bounding
+boxes[13]. Using coherence, we can achieve substantially better performance.
+6
+An exception is the following. Stack two cubes of equal size atop one another so that their contacting faces exactly
+coincide. Lower the top one. This produces an inter-penetration such that no vertex is inside either cube, and no edge
+penetrates through any face.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G37
+
+P HYSICALLY B ASED M ODELING
+
+(a)
+
+(b)
+
+I6
+
+I5
+
+I3
+
+I4
+I2
+
+I1
+
+b3 b6 b1
+
+e6
+
+e1 b5 b2 e3
+
+b4 e5
+
+e4
+
+e2
+
+Figure 18: The sweep/sort algorithm. (a) When b1 is encountered, the active list contains intervals
+3 and 6; interval 1 is reported to overlap with these two intervals. Interval 1 is added to the active
+list and the algorithm continues. (b) When e3 is encountered, the active list contains intervals 2, 3
+and 5. Interval 3 is removed from the active list.
+7.2.1
+
+The one-dimensional case
+
+Consider the problem of detecting overlap between one-dimensional bounding boxes, aligned with
+the coordinate system. Such a bounding box can be described simply as an interval [b, e] where b
+and e are real numbers. Let us consider a list of n such intervals, with the ith interval being [bi , ei ].
+The problem is then deﬁned to be the determination of all pairs i and j such that the intervals [bi , ei ]
+and [b j , e j ] intersect.
+The problem can be solved initially by a sort and sweep algorithm. A sorted list of all the bi
+and ei values is created, from lowest to highest. The list is then swept, and a list of active intervals,
+initially empty, is maintained. Whenever some value bi is encountered, all intervals on the active list
+are output as overlapping with interval i, and interval i is then added to the list (ﬁgure 18a). Whenever
+some value ei is encountered , interval i is removed from the active list (ﬁgure 18b). The cost of this
+process is O(n log n) to create the sorted list, O(n) to sweep through the list, and O(k) to output each
+overlap. This gives a total cost of O(n log n + k), and is an optimal algorithm for initially solving
+the problem.
+Subsequent comparisons can be improved as follows. First, there is no need to use an O(n log n)
+algorithm to form the sorted list of bi and ei values. It is considerably more efﬁcient to start with
+the order found for bi and ei values from the previous time step; if coherence is high, this ordering
+will be nearly correct for the current time step. A sorting method called an insertion sort[15] is used
+to permute the “nearly sorted” list into a sorted list. The insertion sort algorithm works by moving
+items towards the beginning of the list, until a smaller item is encountered. Thus, the second item
+is interchanged with the ﬁrst if necessary, then the third item is moved towards the beginning of the
+list until its proper place is found, and so on; each movement of an item indicates a change in the
+ordering of two values. After the last item on the list has been processed, the list is in order. Such
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G38
+
+P HYSICALLY B ASED M ODELING
+
+I6
+
+I5
+
+I3
+
+I4
+I1
+
+b3 b6 b1
+
+I2
+
+e6
+
+e1 b5 b2 e3
+
+e5
+
+b4
+
+e4
+
+e2
+
+Figure 19: A coherence-based method of detecting overlaps. The order produced in ﬁgure 18 is
+nearly correct for this arrangement of intervals. Only b4 and e5 need to be exchanged. When the
+exchange occurs, the change in overlap status between interval 4 and 5 is detected.
+a sort takes time O(n + c) where c is the number of exchanges necessary. For example, the only
+difference between ﬁgures 19 and 18 is that interval 4 has moved to the right. Starting from the
+ordered list of bi and ei values of ﬁgure 18, only a single exchange is necessary to sort the list for
+ﬁgure 19. The insertion sort is not recommendeded as a sorting procedure in general, since it may
+require O(n2 ) exchanges; however, it is a good algorithm for sorting a nearly sorted list, which is
+what occurs in our highly coherent environment. To complete the algorithm, note that if two intervals
+i and j overlap at the previous time step, but not at the current time step, one or more exchanges
+involving either a bi or ei value and a b j or e j value must occur. The converse is true as well when
+intervals i and j change from not overlapping at the previous time step to overlapping at the current
+time step.
+Thus, if we maintain a table of overlapping intervals at each time step, the table can be updated
+at each time step with a total cost of O(n + c). Assuming coherence, the number of exchanges c
+necessary will be close to the actual number k of changes in overlap status, and the extra O(c − k)
+work will be negligible. Thus, for the one-dimensional bounding box problem, the coherence view
+yields an efﬁcient algorithm of extreme (if not maximal) simplicity that approaches optimality as
+coherence increases.
+7.2.2
+
+The three-dimensional case
+
+Efﬁcient computational geometry algorithms for solving the bounding box intersection problem in
+IR3 are much more complicated than the sort and sweep method for the one-dimensional case. However, these algorithms all have in common a step that is essentially a sort along a coordinate axis, as in
+the one-dimensional case. Each bounding box is described as three independent intervals [bi(x) , ei(x)],
+[bi(y) , ei(y) ], and [bi(z) , ei(z)] which represent the intervals spanned on the three coordinate axes by
+the ith bounding box. Thus, our ﬁrst thought towards improving the efﬁciency of a computational
+geometry algorithm for coherent situations would be to sort a list containing the bi(x) and ei(x) values,
+and similarly for the y and z axes. Again, such a step will involve O(n + c) work, where c is now the
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G39
+
+P HYSICALLY B ASED M ODELING
+
+total number of exchanges involved in sorting all three lists. However, if we observe that checking
+two bounding boxes for overlap is a constant time operation, it follows that if we simply check
+bounding boxes i and j for overlap whenever an exchange is made between values indexed by i and
+j (on any coordinate axis), we will detect all changes in overlap status in O(n + c) time.
+Again, we can maintain a table of overlapping bounding boxes, and update it at each time step
+in O(n + c) time. The extra work involved is again O(c − k). For the three-dimensional case, extra
+work can occur if the extents of two bounding boxes change on one coordinate axis without an actual
+change of their overlap status. In practice, the extra work done has been found to be completely
+negligible, and the algorithm runs essentially in time O(n + k).
+
+8 Colliding Contact
+For the remainder of these notes, we’re going to be concerned with examining the bodies in our
+simulator at a particular instant of time t0 . At this time t0 , we assume that no bodies are interpenetrating, and that the simulator has already determined which bodies contact, and at which points.
+To simplify matters, we’ll imagine that all bodies are polyhedra, and that every contact point between
+bodies has been detected. We’ll consider contacts between polyhedra as either vertex/face contacts
+or edge/edge contacts. A vertex/face contact occurs when a vertex on one polyhedra is in contact
+with a face on another polyhedra. An edge/edge contact occurs when a pair of edges contact; it is
+assumed in this case that the two edges are not collinear. (Vertex/vertex and vertex/edge contacts
+are degenerate, and are not considered in these notes.) As examples, a cube resting on a plane would
+be described as four vertex/face contacts, one contact at each corner of the cube. A cube resting on
+a table, but with its bottom face hanging over the edge of the table would still be described as four
+contacts; two vertex/face contacts for the vertices on the table, and two edge/edge contacts, one on
+each edge of the cube that crosses over an edge of the table.
+Each contact is represented by a structure
+struct Contact {
+RigidBody
+triple
+
+bool
+
+*a,
+*b;
+p,
+n,
+ea,
+eb;
+vf;
+
+/*
+/*
+/*
+/*
+/*
+/*
+/*
+
+body containing vertex */
+body containing face */
+world-space vertex location */
+outwards pointing normal of face */
+edge direction for A */
+edge direction for B */
+true if vertex/face contact */
+
+};
+int
+Ncontacts;
+Contact *Contacts;
+If the contact is a vertex/face contact, then the variable a points to the rigid body that the contact
+vertex is attached to, while b points to the body the face is attached to. We’ll call these two bodies
+A and B respectively. For vertex/face contacts, the variable n is set to the outwards pointing unit
+normal of the contact face of body B, and the variables ea and eb are unused.
+For edge/edge contacts, ea is a triple of unit length, that points in the direction of the contacting
+edge of body A (pointed to by a). Similarly, eb is a unit vector giving the direction that the contact
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G40
+
+P HYSICALLY B ASED M ODELING
+
+A
+pa ( t)
+
+A
+pa ( t0 )
+pb ( t0 )
+
+pb ( t)
+
+B
+
+B
+
+Figure 20: (a) The points pa (t) and pb (t) for a vertex/face contact. (b) At time t0 , the bodies come
+into contact at pa (t0 ) = pb (t0 ).
+edge on body B points. For edge/edge contacts, n denotes a unit vector in the ea × eb direction.
+We’ll adopt the convention that the two contacting bodies are labeled A and B such that the normal
+direction ea × eb points outwards from B, towards A, as it does for vertex/face contacts.
+For both types of contact, the position of the contact in world space (which is either the contact
+vertex, or the point where the two edges intersect) is given by p. The collision detection routines
+are responsible for discovering all the contact points, setting Ncontacts to the number of contact
+points, and allocating space for and initializing an array of Contact structures.
+The ﬁrst thing we’ll need to do is examine the data in each Contact structure to see if colliding
+contact is taking place. For a given contact point, the two bodies A and B contact at the point p. Let
+pa (t) denote the particular the point on body A that satisﬁes pa (t0 ) = p. (For vertex/face contacts,
+this point will be the vertex itself. For edge/edge contacts, it is some particular point on the contact
+edge of A.) Similarly, let pb (t) denote the particular point on body B that coincides with pa (t0 ) = p
+at time t0 (ﬁgure 20). Although pa (t) and pb (t) are coincident at time t0 , the velocity of the two points
+at time t0 may be quite different. We will examine this velocity to see if the bodies are colliding or
+not.
+From section 2.5, we can calculate the velocity of the vertex point, pa (t0 ) by the formula
+˙
+pa (t0 ) = va (t0 ) + ωa (t0 ) × ( pa (t0 ) − xa (t0 ))
+˙
+
+(8–1)
+
+where va (t) and ωa (t) are the velocities for body A. Similarly, the velocity of the contact point on
+the face of B is
+pb (t0 ) = vb (t0 ) + ωb (t0 ) × ( pb (t0 ) − xb (t0 )).
+˙
+
+(8–2)
+
+Let’s examine the quantity
+ˆ
+˙
+˙
+vrel = n(t0 ) · ( pa (t0 ) − pb (t0 )),
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G41
+
+(8–3)
+
+P HYSICALLY B ASED M ODELING
+
+˙
+˙ a ( t0 ) − pb ( t 0 )
+p
+A
+ˆ
+n
+
+B
+
+Figure 21: The vector pa (t0 ) − pb (t0 ) points in the same direction as n(t0 ); the bodies are separating.
+˙
+˙
+ˆ
+which is a scalar. In this equation, n(t0 ) is the unit surface normal, described by the variable n, for
+ˆ
+˙
+˙
+each contact point. The quantity vrel gives the component of the relative velocity pa (t0 ) − pb (t0 )
+˙
+˙
+in the n(t0 ) direction. Clearly, if vrel is positive, then the relative velocity pa (t0 ) − pb (t0 ) at the
+ˆ
+contact point is in the positive n(t0 ) direction. This means that the bodies are moving apart, and that
+ˆ
+this contact point will disappear immediately after time t0 (ﬁgure 21). We don’t need to worry about
+this case. If vrel is zero, then the bodies are neither approaching nor receding at p (ﬁgure 22). This
+is exactly what we mean by resting contact, and we’ll deal with it in the next section.
+In this section, we’re interested in the last possibility, which is vrel < 0. This means that the
+relative velocity at p is opposite n(t0 ), and we have colliding contact. If the velocities of the bodies
+ˆ
+don’t immediately undergo a change, inter-penetration will result (ﬁgure 23).
+How do we compute the change in velocity? Any force we might imagine acting at p, no matter
+how strong, would require at least a small amount of time to completely halt the relative motion
+between the bodies. (No matter how strong your car brakes are, you still need to apply them before
+you hit the brick wall. If you wait until you’ve contacted the wall, it’s too late...) Since we want
+bodies to change their velocity instantly though, we postulate a new quantity J called an impulse.
+An impulse is a vector quantity, just like a force, but it has the units of momentum. Applying an
+impulse produces an instantaneous change in the velocity of a body. To determine the effects of a
+given impulse J, we imagine a large force F that acts for a small time interval t. If we let F go to
+inﬁnity and t go to zero in such a way that
+F t= J
+
+(8–4)
+
+then we can derive the effect of J on a body’s velocity by considering how the velocity would change
+if we let the force F act on it for t time.
+For example, if we apply an impulse J to a rigid body with mass M, then the change in linear
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G42
+
+P HYSICALLY B ASED M ODELING
+
+˙
+˙ a ( t 0 ) − pb ( t0 )
+p
+
+A
+ˆ
+n
+
+B
+contact force
+
+Figure 22: The vector pa (t0 ) − pb (t0 ) is perpendicular to n(t0 ); the bodies are in resting contact. A
+˙
+˙
+ˆ
+contact force may be necessary to prevent bodies from accelerating towards each other.
+
+A
+ˆ
+n
+
+˙
+˙ a ( t 0 ) − pb ( t0 )
+p
+
+B
+
+Figure 23: Colliding contact. The relative velocity pa (t0 ) − pb (t0 ) is directed inwards, opposite
+˙
+˙
+n(t0 ). Unless the relative velocity is abruptly changed, inter-penetration will occur immediately after
+ˆ
+time t0 .
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G43
+
+P HYSICALLY B ASED M ODELING
+
+velocity
+
+v is simply
+v=
+
+J
+.
+M
+
+(8–5)
+
+Equivalently, the change in linear momentum P is simply P = J. If the impulse acts at the point
+p, then just as a force produces a torque, J produces an impulsive torque of
+τimpulse = ( p − x(t)) × J.
+
+(8–6)
+
+As one would imagine, the impulsive torque τimpulse also gives rise to a change in angular momentum
+L of L = τimpulse. The change in angular velocity is simply I −1 (t0 )τimpulse, assuming the impulse
+was applied at time t0 .
+When two bodies collide, we will apply an impulse between them to change their velocity. For
+frictionless bodies, the direction of the impulse will be in the normal direction, n(t0 ). Thus, we can
+ˆ
+write the impulse J as
+J = jn(t0 )
+ˆ
+
+(8–7)
+
+where j is an (as yet) undetermined scalar that gives the magnitude of the impulse. We’ll adopt the
+convention that the impulse J acts positively on body A, that is, A is subject to an impulse of + jn(t0 ),
+ˆ
+while body B is subject to an equal but opposite impulse − jn(t0 ) (ﬁgure 24). We compute j by using
+ˆ
+an empirical law for collisions. Let’s let p− (t0 ) denote the velocity of the contact vertex of A prior
+˙a
++ (t ) denote the velocity after we apply the impulse J. Let
+to the impulse being applied, and let pa 0
+˙
+˙b
+p− (t0 ) and p+ (t0 ) be deﬁned similarly. Using this notation, the initial relative velocity in the normal
+˙b
+direction is
+ˆ
+˙a
+˙b
+v− = n(t0 ) · ( p− (t0 ) − p− (t0 ));
+rel
+
+(8–8)
+
+after the application of the impulse,
+v+ = n(t0 ) · ( p+ (t0 ) − p+ (t0 )).
+ˆ
+˙a
+˙b
+rel
+
+(8–9)
+
+The empirical law for frictionless collisions says simply that
+v+ = − v− .
+rel
+rel
+
+(8–10)
+
+The quantity is called the coefﬁcient of restitution and must satisfy 0 ≤ ≤ 1. If = 1, then
+v+ = −v− , and the collision is perfectly “bouncy”; in particular, no kinetic energy is lost. At the
+rel
+rel
+other end of the spectrum, = 0 results in v+ = 0, and a maximum of kinetic energy is lost. After
+rel
+this sort of collision, the two bodies will be in resting contact at the contact point p (ﬁgure 25).
+Calculating the magnitude j of the impulse J = jn(t0 ) is fairly simple, although the equations are
+ˆ
+a bit tedious to work through. Let’s deﬁne the displacements ra and rb as p − xa (t0 ), and p − xb (t0 ).
+If we let v− (t0 ) and ω− (t0 ) be the pre-impulse velocities of body A, and v+ (t0 ) and ω+ (t0 ) be the
+a
+a
+a
+a
+post-impulse velocities, we can write
+p+ (t0 ) = v+ (t0 ) + ω+ (t0 ) × ra
+˙a
+a
+a
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G44
+
+(8–11)
+
+P HYSICALLY B ASED M ODELING
+
+jˆ ( t0 )
+n
+
+A
+n( t0 )
+ˆ
+p
+
+n
+− jˆ ( t0 )
+
+B
+
+Figure 24: The impulse between two bodies at a contact point. An impulse of jn(t0 ) acts on A, while
+ˆ
+an impulse of − jn(t0 ) acts on B.
+ˆ
+
+(a)
+
+˙
+˙ a+( t0 ) − pb+ ( t0 )
+p
+
+(b)
+ˆ
+n
+
+ˆ
+n
+p
+
+(c)
+
+p
+
+˙ a ( t0 ) − pb ( t0 )
+˙−
+p−
+
+(d)
+
+˙
+˙ a+( t0 ) − pb+ ( t0 )
+p
+
+ˆ
+n
+
+˙
+˙ a+( t 0 ) − pb+ ( t0 )
+p
+
+ˆ
+n
+
+p
+
+p
+
+Figure 25: (a) The relative velocity before application of the impulse. (b) The component of the
+relative velocity in the n(t0 ) direction is reversed for an = 1 collision. The relative velocity
+ˆ
+perpendicular to n(t0 ) remains the same. (c) A collision with 0 < < 1. The bodies bounce away
+ˆ
+in the n(t0 ) direction with less speed than they approached. (d) A collision with = 0. The bodies
+ˆ
+do not bounce away from each other, but the relative velocity perpendicular to n(t0 ) is unaffected by
+ˆ
+the collision.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G45
+
+P HYSICALLY B ASED M ODELING
+
+along with
+jn(t0 )
+ˆ
+Ma
+
+v+ (t0 ) = v− (t0 ) +
+a
+a
+
+−1
+ω+ (t0 ) = ω− (t0 ) + Ia (t0 ) ra × jn(t0 )
+ˆ
+a
+a
+
+and
+
+(8–12)
+
+where Ma is the mass of body A, and Ia (t0 ) is its inertia tensor. Combining the two previous equations yields
+p+ (t0 ) = v− (t0 ) +
+˙a
+a
+
+jn(t0 )
+ˆ
+Ma
+
+−1
++ ω− (t0 ) + Ia (t0 ) ra × jn(t0 )
+ˆ
+a
+
+jn(t0 )
+ˆ
+Ma
+
+= v− (t0 ) + ω− (t0 ) × ra +
+a
+a
+= p− + j
+˙a
+
+× ra
+
+−1
++ Ia (t0 ) ra × jn(t0 )
+ˆ
+
+n(t0 )
+ˆ
+−1
++ Ia (t0 ) ra × n(t0 )
+ˆ
+Ma
+
+× ra
+
+(8–13)
+
+× ra .
+
+It is important to note the form of p+ (t0 ): it is a simple linear function of j. For body B, an opposite
+˙a
+impulse − jn(t0 ) acts, yielding
+ˆ
+p+ (t0 ) = p− − j
+˙b
+˙b
+
+n(t0 )
+ˆ
+−1
++ Ib (t0 ) rb × n(t0 )
+ˆ
+Mb
+
+× rb .
+
+(8–14)
+
+This yields
+p+ (t0 ) − p+ = p+ (t0 ) − p+ + j
+˙a
+˙b
+˙a
+˙b
+−1
+Ia (t0 )
+
+ra × n(t0 )
+ˆ
+
+n(t0 ) n(t0 )
+ˆ
+ˆ
++
++
+Ma
+Mb
+× ra +
+
+−1
+Ib (t0 )
+
+(8–15)
+× rb .
+
+rb × n(t0 )
+ˆ
+
+ˆ
+ˆ
+ˆ
+ˆ
+To calculate v+ , we dot this expression with n(t0 ). Since n(t0 ) is of unit length, n(t0 ) · n(t0 ) = 1,
+rel
+and we obtain
+ˆ
+˙a
+˙b
+v+ = n(t0 ) · ( p+ (t0 ) − p+ )
+rel
+˙a
+˙b
+= n(t0 ) · ( p− (t0 ) − p− ) + j
+ˆ
+−1
+n(t0 ) · Ia (t0 ) ra × n(t0 )
+ˆ
+ˆ
+
+= v− + j
+rel
+
+1
+1
++
++
+Ma Mb
+−1
+× ra + n(t0 ) · Ib (t0 ) rb × n(t0 )
+ˆ
+ˆ
+
+× rb
+
+−1
+× ra + n(t0 ) · Ib (t0 ) rb × n(t0 )
+ˆ
+ˆ
+
+× rb .
+
+(8–16)
+
+1
+1
++
++
+Ma Mb
+
+−1
+n(t0 ) · Ia (t0 ) ra × n(t0 )
+ˆ
+ˆ
+
+By expressing v+ in terms of j and v− , we can compute j according to equation (8–10). If we
+rel
+rel
+substitute equation (8–16) into equation (8–10), we get
+v− + j
+rel
+
+1
+1
+−1
++
++ n(t0 ) · Ia (t0 ) ra × n(t0 )
+ˆ
+ˆ
+Ma Mb
+n(t0 ) ·
+ˆ
+
+S IGGRAPH 2001 C OURSE N OTES
+
+−1
+Ib (t0 )
+
+G46
+
+rb × n(t0 )
+ˆ
+
+× ra +
+(8–17)
+× rb
+
+=−
+
+v− .
+rel
+
+P HYSICALLY B ASED M ODELING
+
+Finally, solving for j,
+j=
+
+1
+Ma
+
++
+
+1
+Mb
+
++ n(t0 ) ·
+ˆ
+
+−(1 + )v−
+rel
+−1
+−1
+Ia (t0 ) ra × n(t0 ) × ra + n(t0 ) · Ib (t0 ) rb × n(t0 )
+ˆ
+ˆ
+ˆ
+
+× rb
+
+. (8–18)
+
+Let’s consider some actual code (written for clarity, not speed). First, we determine if two bodies
+are in colliding contact.
+/*
+* Operators: if ‘x’ and ‘y’ are triples,
+* assume that ‘x ˆ y’ is their cross product,
+* and ‘x * y’ is their dot product.
+*/
+/* Return the velocity of a point on a rigid body */
+triple pt_velocity(Body *body, triple p)
+{
+return body->v + (body->omega ˆ (p - body->x));
+}
+/*
+* Return true if bodies are in colliding contact. The
+* parameter ‘THRESHOLD’ is a small numerical tolerance
+* used for deciding if bodies are colliding.
+*/
+bool colliding(Contact *c)
+{
+˙a
+triple padot = pt_velocity(c->a, p),
+/* p− (t0 ) */
+pbdot = pt_velocity(c->b, p);
+/* p− (t0 ) */
+˙b
+double vrel = c->n * (padot - pbdot); /* v− */
+rel
+if(vrel > THRESHOLD)
+return false;
+if(vrel > -THRESHOLD)
+return false;
+else
+return true;
+
+/* moving away */
+/* resting contact */
+/* vrel < -THRESHOLD */
+
+}
+Next, we’ll loop through all the contact points until all the collisions are resolved, and actually
+compute and apply an impulse.
+void collision(Contact *c, double epsilon)
+{
+triple padot = pt_velocity(c->a, c->p), /* p− (t0 ) */
+˙a
+pbdot = pt_velocity(c->b, c->p), /* p− (t0 ) */
+˙b
+n = c->n,
+/* n(t0 ) */
+ˆ
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G47
+
+P HYSICALLY B ASED M ODELING
+
+double
+
+ra = p - c->a->x,
+/* ra */
+rb = p - c->b->x;
+/* rb */
+vrel = n * (padot - pbdot),
+/* v− */
+rel
+numerator = -(1 + epsilon) * vrel;
+
+/* We’ll calculate the denominator in four parts */
+double term1 = 1 / c->a->mass,
+term2 = 1 / c->b->mass,
+term3 = n * ((c->a->Iinv * (ra ˆ n)) ˆ ra),
+term4 = n * ((c->b->Iinv * (rb ˆ n)) ˆ rb);
+/* Compute the impulse magnitude */
+double
+triple
+
+j = numerator / (term1 + term2 + term3 + term4);
+force = j * n;
+
+/* Apply the impulse to the bodies */
+c->a->P += force;
+c->b->P -= force;
+c->a->L += ra ˆ force;
+c->b->L -= rb ˆ force;
+/* recompute auxiliary variables */
+c->a->v = c->a->P / c->a->mass;
+c->b->v = c->b->P / c->b->mass;
+c->a->omega = c->a->Iinv * c->a->L;
+c->b->omega = c->b->Iinv * c->b->L;
+}
+void FindAllCollisions(Contact contacts[], int ncontacts)
+{
+bool
+had_collision;
+double epsilon = .5;
+do {
+had_collision = false;
+for(int i = 0; i < ncontacts; i++)
+if(colliding(&contacts[i]))
+{
+collision(&contacts[i], epsilon);
+had_collision = true;
+/* Tell the solver we had a collision */
+ode_discontinuous();
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G48
+
+P HYSICALLY B ASED M ODELING
+
+}
+} while(had_collision == true);
+}
+Note several things. First, = .5 was chosen arbitrarily. In a real implementation, we’d allow the
+user to use different values of depending on which two bodies were colliding. Also, every time we
+ﬁnd a collision, we have to rescan the list of contacts, since bodies that were at rest may no longer be
+so, and new collisions may develop. If there are initially several collisions to be resolved (such as a
+cube dropped ﬂat onto a plane, with all four vertices colliding at once), the order of the contact list
+may have an effect on the simulation. There is a way to compute impulses at more than one contact
+point at a time, but it more complicated, and is based on the concepts used for resting contact in the
+next section. For further information, see Baraff[1].
+Incidentally, if you want to have certain bodies that are “ﬁxed”, and cannot be moved (such as
+1
+ﬂoors, or walls), you can use the following trick: for such bodies, let mass be zero; also let the
+inverse inertia tensor also be the 3 × 3 zero matrix. You can either special-case the code to check if
+a body is supposed to be ﬁxed, or you can recode the deﬁnition of RigidBody to have the variable
+invmass instead of mass. For ordinary bodies, invmass is the inverse of the mass, while for
+ﬁxed bodies, invmass is zero. The same goes for the inertia tensor. (Note that nowhere in any of
+the dynamics computations (including the next section) is the mass or inertia tensor ever used; only
+their inverses are used, so you won’t have to worry about dividing by zero.) The same trick can be
+used in the next section on resting contact to simulate bodies that can support any amount of weight
+without moving.
+
+9 Resting Contact
+The case of resting contact, when bodies are neither colliding nor separating at a contact point, is the
+last (and hardest) dynamics problem we’ll tackle in these notes. To implement what’s in this section,
+you’ll have to obtain a fairly sophisticated piece of numerical software, which we’ll describe below.
+At this point, let’s assume we have a conﬁguration with n contact points. At each contact point,
+bodies are in resting contact, that is, the relative velocity vrel , from section 8, is zero (to within the
+numerical tolerance THRESHOLD). We can say that this is so, because colliding contact is eliminated
+by the routine FindAllCollisions(), and any contact points with vrel larger than THRESHOLD
+can be safely ignored, since the bodies are separating there.
+As was the case for colliding contact, at each contact point, we have a contact force that acts
+normal to the contact surface. For the case of colliding contact, we had an impulse jn(t0 ) where j
+ˆ
+ˆ
+was an unknown scalar. For resting contact, at each contact point there is some force f i ni (t0 ), where
+ˆ
+f i is an unknown scalar, and ni (t0 ) is the normal at the ith contact point (ﬁgure 26). Our goal is to
+determine what each f i is. In computing the f i ’s, they must all be determined at the same time, since
+the force at the ith contact point may inﬂuence one or both of the bodies of the j contact point. In
+section 8, we wrote how the velocity of the contact points pa (t0 ) and pb (t0 ) changed with respect to
+j. We’ll do the same thing here, but now we’ll have to describe how the acceleration of pa (t0 ) and
+pb (t0 ) depends on each f i .
+For colliding contact, we had an empirical law which related the impulse strength j to the relative
+velocity and a coefﬁcient of restitution. For resting contact, we compute the f i ’s subject to not one,
+but three conditions. First, the contact forces must prevent inter-penetration; that is, the contact
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G49
+
+P HYSICALLY B ASED M ODELING
+
+A
+n3 ( t0 )
+ˆ
+
+p4
+
+B
+n1 (t 0 )
+ˆ
+
+p3
+
+n2 ( t 0 )
+ˆ
+
+ˆ
+n4 ( t 0 )
+
+ˆ
+n5 ( t 0 )
+
+C
+
+D
+p5
+
+p2
+
+p1
+
+Figure 26: Resting contact. This conﬁguration has ﬁve contact points; a contact force acts between
+pairs of bodies at each contact point.
+forces must be strong enough to prevent two bodies in contact from being pushed “towards” one
+another. Second, we want our contact forces to be repulsive; contact forces can push bodies apart, but
+can never act like “glue” and hold bodies together. Last, we require that the force at a contact point
+become zero if the bodies begin to separate. For example, if a block is resting on a table, some force
+may act at each of the contact points to prevent the block from accelerating downwards in response
+to the pull of gravity. However, if a very strong wind were to blow the brick upwards, the contact
+forces on the brick would have to become zero at the instant that the wind accelerated the brick off
+the table.
+Let’s deal with the ﬁrst condition: preventing inter-penetration. For each contact point i, we
+construct an expression di (t) which describes the separation distance between the two bodies near the
+contact point at time t. Positive distance indicates the bodies have broken contact, and have separated
+at the ith contact point, while negative distance indicates inter-penetration. Since the bodies are in
+contact at the present time t0 , we will have di (t0 ) = 0 (within numerical tolerances) for each contact
+point. Our goal is to make sure that the contact forces maintain di (t) ≥ 0 for each contact point at
+future times t > t0 .
+For vertex/face contacts, we can immediately construct a very simple function for di (t). If pa (t)
+and pb (t) are the contact points of the ith contact, between bodies A and B, than the distance between
+the vertex and the face at future times t ≥ t0 is given by
+ˆ
+di (t) = ni (t) · ( pa (t) − pb (t)).
+
+(9–1)
+
+At time t, the function d(t) measures the separation between A and B near pa (t). If di (t) is zero,
+then the bodies are in contact at the ith contact point. If di (t) > 0, then the bodies have lost contact
+at the ith contact point. However, if di (t) < 0, then the bodies have inter-penetrated, which is what
+we need to avoid (ﬁgure 27). The same function can also be used for edge/edge contacts; since ni (t)
+ˆ
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G50
+
+P HYSICALLY B ASED M ODELING
+
+(a)
+
+(b)
+
+(c)
+
+A
+A
+
+pa ( t)
+ˆ
+n( t)
+
+A
+pa ( t)
+
+ˆ
+n( t)
+pb ( t)
+
+ˆ
+n( t)
+
+pb ( t)
+
+pb ( t)
+pa ( t)
+
+B
+
+B
+
+B
+
+Figure 27: (a) The displacement pa (t) − pb (t), indicated by an arrow, points in the same direction
+as n(t). Thus, the distance function d(t) would be positive. (b) The distance function d(t) is zero.
+ˆ
+ˆ
+(c) The displacement pa (t) − pb (t) points in the opposite direction as n(t). The distance function
+d(t) is negative, indicating inter-penetration.
+points outwards from B towards A (by convention), ni (t) · ( pa (t) − pb (t)) will be positive if the
+ˆ
+two contacting edges move so as to separate the bodies.
+Since di (t0 ) = 0, we have to keep di (t0 ) from decreasing at time t0 ; that is, we have to have
+˙
+˙i (t0 ) ≥ 0. What is di (t0 )? Differentiating,
+d
+˙
+˙
+di (t) = ni (t) · ( pa (t) − pb (t)) + ni (t) · ( pa (t) − pb (t)).
+ˆ
+ˆ
+˙
+˙
+
+(9–2)
+
+˙
+Since di (t) describes the separation distance, di (t) will describe the separation velocity at time t.
+˙
+ˆ
+˙
+˙
+However, at time t0 , pa (t0 ) = pb (t0 ), which means that di (t0 ) = ni (t0 ) · ( pa (t0 ) − pb (t0 )). This
+˙
+should look familiar: its vrel from the previous section! The function di (t0 ) is a measure of how
+˙
+the bodies are separating, and for resting contact, we know that d(t0 ) is zero, because the bodies are
+neither moving towards nor away from each other at a contact point.
+˙
+¨
+At this point then, we have di (t0 ) = di (t0 ) = 0. Now we’ll look at di (t0 ). If we differentiate
+equation (9–2), we get
+˙
+¨
+¨
+di (t) = ni (t) · ( pa (t) − pb (t)) + ni (t) · ( pa (t) − pb (t)) +
+ˆ
+˙
+˙
+ˆ
+˙
+ni (t) · ( pa (t) − pb (t)) + ni (t) · ( pa (t) − pb (t))
+ˆ
+˙
+˙
+ˆ
+¨
+¨
+
+(9–3)
+
+˙
+¨
+ˆ
+˙
+˙
+ˆ
+¨
+¨
+= ni (t) · ( pa (t) − pb (t)) + 2ni (t) · ( pa (t) − pb (t)) + ni (t) · ( pa (t) − pb (t)).
+ˆ
+¨
+Since pa (t0 ) = pb (t0 ), we can write di (t0 ) as
+˙
+¨
+d(t0 ) = ni (t0 ) · ( pa (t0 ) − pb (t0 )) + 2ni (t0 ) · ( pa (t0 ) − pb (t0 )).
+ˆ
+¨
+¨
+ˆ
+˙
+˙
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G51
+
+(9–4)
+
+P HYSICALLY B ASED M ODELING
+
+¨
+The quantity di (t0 ) measures how the two bodies are accelerating towards each other at the contact
+¨i (t0 ) > 0, the the bodies have an acceleration away from each other, and contact will
+point p. If d
+¨
+¨
+break immediately after t0 . If di (t0 ) = 0, then contact remains. The case di (t0 ) < 0 must be avoided,
+for this indicates the bodies are accelerating towards each other. Note that if ni (t0 ) is a constant (if
+ˆ
+˙ i (t0 ) is zero, leading to further simpliﬁcations.
+body B is ﬁxed), then n
+ˆ
+Thus, we satisfy our ﬁrst condition for contact forces by writing the constraint
+¨
+di (t0 ) ≥ 0
+
+(9–5)
+
+¨
+for each contact point. Since the acceleration di (t0 ) depends on the contact forces, this is really a
+constraint on the contact forces.
+Let’s turn our attention to the second and third constraints. Since contact forces must always
+be repulsive, each contact force must act outward. This means that each f i must be positive, since
+ˆ
+ˆ
+a force of f i ni (t0 ) acts on body A, and ni (t0 ) is the outwards pointing normal of B. Thus, we
+need
+fi ≥ 0
+
+(9–6)
+
+¨
+for each contact point. The third constraint is expressed simply in terms of f i and di (t0 ). Since the
+ˆ
+contact force f i ni (t0 ) must become zero if contact is breaking at the ith contact, this says that f i must
+be zero if contact is breaking. We can express this constraint by writing
+¨
+f i di (t0 ) = 0;
+
+(9–7)
+
+¨
+if contact is breaking, di (t0 ) > 0 and equation (9–7) is satisﬁed by requiring f i = 0. If contact is not
+¨
+breaking, then di (t0 ) = 0, and equation (9–7) is satisﬁed regardless of f i .
+In order to actually ﬁnd f i ’s which satisfy equations (9–5), (9–6), and (9–7), we need to express
+¨
+¨
+each di (t0 ) as a function of the unknown f i ’s. It will turn out that we will be able to write each di (t0 )
+in the form
+¨
+di (t0 ) = ai1 f1 + ai2 f2 + · · · + ain f n + bi .
+In matrix parlance, this means we will be able to write
+
+
+ 
+
+¨
+f1
+d1 (t0 )
+ .  
+
+
+.
+.
+
+ = A .  + 
+.
+.
+¨
+fn
+dn (t0 )
+
+
+bi
+. 
+. 
+.
+bn
+
+(9–8)
+
+(9–9)
+
+where A is the n × n matrix of the aij coefﬁcients of equation (9–8). Although the code needed to
+calculate the aij ’s and the bi ’s is not too complicated, working out the derivations on which the code
+is based is somewhat tedious. The derivations are worked out in appendix D, along with code to
+compute the matrix of aij ’s and bi ’s.
+Appendix D gives an implementation of the routines
+void
+
+compute_a_matrix(Contact contacts[], int ncontacts,
+bigmatrix &a);
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G52
+
+P HYSICALLY B ASED M ODELING
+
+void
+
+compute_b_vector(Contact contacts[], int ncontacts,
+vector &b);
+
+where the types bigmatrix and vector represent matrices and vectors of arbitrary size. The ﬁrst
+routine computes the aij ’s, while the second routine computes the bi ’s.
+Once we’ve computed all this, we can think about solving equations (9–5), (9–6), and (9–7).
+This system of equations forms what is called a quadratic program (QP); that is, f i ’s that satisfy these
+three equations are found by an algorithm called quadratic programming. Not all quadratic programs
+can be solved efﬁciently, but because our contact forces are all normal to the contact surfaces (that is,
+they do not involve friction), it turns out that our QP can always be solved efﬁciently. One interesting
+¨
+¨
+thing to note is that QP codes can easily handle the case di (t0 ) = 0 instead of di (t0 ) ≥ 0. We use
+¨i (t0 ) = 0 (and also drop the constraint f i ≥ 0) if we wish to constrain two bodies to never separate
+d
+at a contact point. This enables us to implement hinges, and pin-joints, as well as non-penetration
+constraints during simulation.
+Quadratic programming codes aren’t terribly common though; certainly, they are not nearly as
+common as linear equation codes, and are much harder to implement. The quadratic programming
+routines used by the author were obtained from the Department of Operations Research at Stanford
+University. See Gill et al.[7, 8, 9] for further details. More recently, we have been using code
+described by Baraff[3] to solve the quadratic programs. If you are determined to really implement
+this, we suggest a thorough study of this paper (excepting for the section on contact with friction).
+At any rate, let’s assume that you’ve got a working QP solver at your disposal. We’ll assume
+that you pass the matrix A, and the vector of bi ’s to the QP solver, and you get back the vector of
+f i ’s. Let’s pretend the interface is
+void qp_solve(bigmatrix &a, vector &b, vector &f);
+Let’s see how to compute all the resting contact forces. The following routine is presumably called
+from ComputeForceAndTorque(), after FindAllCollisions() has been called.
+void ComputeContactForces(Contact contacts[], int ncontacts, double t)
+{
+/* We assume that every element of contacts[]
+* represents a contact in resting contact.
+*
+* Also, we’ll assume that for each element of Bodies[],
+* the ‘force’ and ‘torque’ fields have been set to the
+* net external force and torque acting on the body, due
+* to gravity, wind, etc., perhaps by a call to
+*
+*
+ComputeExternalForceAndTorqueForAllBodies(t);
+*/
+/*
+* Allocate n × n matrix ‘amat’ and n-vectors ‘fvec’, and ‘bvec’.
+*/
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G53
+
+P HYSICALLY B ASED M ODELING
+
+bigmatrix amat = new bigmatrix(ncontacts, ncontacts);
+vector
+bvec = new vector(ncontacts),
+fvec = new vector(ncontacts);
+/* Compute aij and bi coefficients */
+compute_a_matrix(contacts, ncontacts, amat);
+compute_b_vector(contacts, ncontacts, bvec);
+/* Solve for f j ’s */
+qp_solve(amat, bmat, fvec);
+/* Now add the resting contact forces we just computed into
+the ‘force’ and ‘torque’ field of each rigid body. */
+for(int i = 0;
+{
+double
+triple
+RigidBody
+
+i < ncontacts; i++)
+f = fvec[i];
+n = contacts[i]->n;
+*A = contacts[i]->a,
+*B = contacts[i]->b;
+
+/*
+/*
+/*
+/*
+
+f i */
+ni (t0 ) */
+ˆ
+body A */
+body B */
+
+/* apply the force ‘f n’ positively to A... */
+A->force += f * n;
+A->torque += (contacts[i].p - A->x) * (f*n);
+/* and negatively to B */
+B->force -= f * n;
+B->torque -= (contacts[i].p - B->x) * (f*n);
+}
+}
+That’s pretty much it! Now that the resting forces have been computed and combined with the
+external forces, we return control to the ODE solver, and each body goes merrily along its way, in a
+physically correct manner, without inter-penetration.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G54
+
+P HYSICALLY B ASED M ODELING
+
+Appendix A Motion Equation Derivations
+In this appendix, we’ll ﬁll in some of the missing details from section 2, with regards to the equa˙
+˙
+tions P(t) = F(t), L(t) = τ(t), and L(t) = I(t)ω(t). The derivation method used here is somewhat nonstandard, and was proposed by Andy Witkin. The derivation in this appendix is (we
+feel) much shorter and considerably more elegant than the one found in traditional sources such as
+Goldstein[10].
+We’ve described the external force acting on a rigid body in terms of forces Fi (t), where Fi (t)
+is the external force acting on the ith particle. However, for a rigid body to maintain its shape,
+there must be some “internal” constraint forces that act between particles in the same body. We will
+make the assumption that these constraint forces act passively on the system and do not perform any
+net work. Let Fci (t) denote the net internal constraint force acting on the ith particle. The work
+performed by Fci on the ith particle from time t0 to t1 is
+t1
+t0
+
+Fci (t) · r i (t) dt
+˙
+
+where r i (t) is the velocity of the ith particle. The net work over all the particles is the sum
+˙
+t1
+i
+
+t0
+
+Fci (t) · r i (t) dt =
+˙
+
+t1
+t0
+
+Fci (t) · r i (t) dt,
+˙
+
+i
+
+which must be zero for any interval t0 to t1 . This means that the integrand
+
+i
+
+Fci (t) · r i (t)
+˙
+
+(A–1)
+
+is itself always zero for any time t. (Henceforth we’ll just write these expressions as Fci · r i = 0.)
+˙
+We can use this fact to eliminate any mention of the constraint forces Fci from our derivations.
+First, some quick notes about the “∗” operator deﬁned in section 2.3: since a∗ b = a × b, and
+a × b = −b × a, we get
+−a∗ b = b × a = b∗ a.
+
+(A–2)
+
+(a∗ ) T = −a∗ .
+
+(A–3)
+
+Since a∗ is an antisymmetric matrix,
+
+Finally, since the “∗” operator is a linear operator,
+d
+˙
+(a)∗ = (a∗ ) = (a∗ )
+˙
+dt
+
+(A–4)
+
+and for a set of vectors ai
+a∗ =
+i
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G55
+
+ai
+
+∗
+
+.
+
+(A–5)
+
+P HYSICALLY B ASED M ODELING
+
+Recall that we can write the velocity r i as r i = v + ω × (ri − x) where ri is the particle’s location,
+˙
+˙
+x is the position of the center of mass, and v and ω are linear and angular velocity. Letting ri = ri − x
+and using the “∗” notation,
+∗
+
+r i = v + ω∗ri = v − ri ω.
+˙
+
+(A–6)
+
+Fci · r i , which is always zero, yields
+˙
+
+Substituting this into
+
+Fci · (v − ri ω) = 0.
+∗
+
+(A–7)
+
+Note that this equation must hold for arbitrary values of v and ω. Since v and ω are completely
+independent, if we choose ω to be zero, then
+Fci · v = 0 for any choice of v, from which we
+conclude that in fact
+Fci = 0 is always true. This means that the constraint forces produce no
+net force. Similarly, choosing v to be zero we see that −Fci · (ri ∗ ω) = 0 for any ω. Rewriting
+Fci · (ri ∗ ω) as Fci T (ri ∗ ω) we get that
+∗
+
+−Fci T ri ω =
+for any ω, so
+
+−Fci T ri
+
+∗
+
+ω=0
+
+(A–8)
+
+−Fci T ri ∗ = 0T . Transposing, we have
+∗
+
+(ri )∗ Fci =
+
+−(ri ) T Fci =
+
+ri × Fci = 0
+
+(A–9)
+
+which means that the internal forces produce no net torque.
+We can use the above to derive the rigid body equations of motion. The net force on each particle
+¨
+is the sum of the internal constraint force Fci and the external force Fi . The acceleration ri of the ith
+particle is
+ri =
+¨
+
+d
+d
+∗
+∗
+∗
+˙ ˙
+˙
+r i = (v − ri ω) = v − r i ω − ri ω.
+˙
+dt
+dt
+
+(A–10)
+
+Since each individual particle must obey Newton’s law f = ma, or equivalently ma − f = 0, we
+have
+∗
+
+∗
+
+¨
+˙ ˙
+˙
+mi ri − Fi − Fci = mi (v − r i ω − ri ω) − Fi − Fci = 0
+for each particle.
+˙
+To derive P = F =
+
+(A–11)
+
+Fi , we sum equation (A–11) over all the particles. We obtain
+∗
+
+∗
+
+mi (v − r i ω − ri ω) − Fi − Fci = 0.
+˙ ˙
+˙
+
+(A–12)
+
+Breaking the large sum into smaller ones,
+∗
+
+∗
+
+˙ ˙
+˙
+mi (v − r i ω − ri ω) − Fi − Fci =
+mi v −
+˙
+mi v −
+˙
+˙
+mi v −
+
+d
+dt
+
+mir i
+˙
+
+∗
+
+∗
+∗
+
+m i ri
+
+S IGGRAPH 2001 C OURSE N OTES
+
+∗
+
+mir i ω −
+˙
+
+m i ri ω −
+˙
+
+ω−
+
+m i ri
+
+ω−
+
+m i ri
+
+G56
+
+∗
+∗
+
+Fi −
+
+Fci =
+
+ω−
+˙
+
+Fi −
+
+Fci =
+
+ω−
+˙
+
+Fi −
+
+Fci = 0.
+
+(A–13)
+
+P HYSICALLY B ASED M ODELING
+
+Since we are in a center-of-mass coordinate system, equation (2–20) from section 2.6 tells us that
+d
+miri = 0, which also means that dt mi ri = 0. Removing terms with miri , and the term Fci
+from the above equation yields
+mi v −
+˙
+
+Fi = 0
+
+(A–14)
+
+˙
+or simply M v = P =
+˙
+Fi as advertised.
+˙ = τ = ri × Fi , we again start with equation (A–11). Multiplying both sides by
+To obtain L
+ri ∗ yields
+∗
+
+∗
+
+∗
+
+∗
+
+∗
+
+∗
+
+ri mi (v − r i ω − ri ω) − ri Fi − ri Fci = ri 0 = 0.
+˙ ˙
+˙
+
+(A–15)
+
+Summing over all the particles, we obtain
+∗
+
+˙
+ri m i v −
+Since
+
+∗
+
+∗
+
+∗
+
+ri m i ri ω −
+˙
+
+∗
+
+∗
+
+ri Fi −
+
+ri Fci = 0.
+
+(A–16)
+
+ri ∗ Fi = 0.
+
+(A–17)
+
+ri ∗ Fci = 0, we can rearrange this to obtain
+m i ri
+
+Using
+
+∗
+
+ri m i r i ω −
+˙
+
+∗
+
+m i ri ∗ r i ∗ ω −
+˙
+
+v−
+˙
+
+m i ri ∗ ri ∗ ω −
+˙
+
+mi ri = 0, we are left with
+−
+
+or, recognizing that
+
+∗ ∗
+
+˙
+m i ri r i
+ri ∗ Fi =
+−
+
+∗ ∗
+
+ω−
+
+m i ri ri
+
+∗
+
+ω−
+˙
+
+ri Fi − = 0
+
+(A–18)
+
+ri × Fi = τ,
+∗ ∗
+
+˙
+m i ri r i
+
+∗ ∗
+
+ω−
+
+ω = τ.
+˙
+
+m i ri ri
+
+(A–19)
+
+We’re almost done now: if we refer back to the matrix deﬁned by the “∗” notation, one can easily
+verify the relation that the matrix −a∗ a∗ is equivalent to the matrix (a T a)1 − aa T where 1 is the
+3 × 3 identity matrix. (This relation is equivalent to the vector rule a × (b × c) = ba T c − ca T b.)
+Thus
+∗ ∗
+
+T
+
+−mi ri ri =
+
+T
+
+mi ((ri ri )1 − ri ri ) = I(t).
+
+(A–20)
+
+Substituting into equation (A–19), this yields
+∗ ∗
+
+˙
+−miri r i
+
+ω + I(t)ω = τ.
+˙
+
+(A–21)
+
+The above expression is almost acceptable, as it gives an expression for ω in terms of τ, ex˙
+cept that it requires us to evaluate the matrix
+miri ∗r ∗ , which is as expensive as computing the
+˙i
+inertia tensor from scratch. We’ll use one last trick here to clean things up. Since ri = ω × ri and
+˙
+∗
+ri ω = −ω × ri , we can write
+∗ ∗
+
+˙
+m i r i ri ω =
+
+mi (ω × ri )∗ (−ω × ri ) =
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G57
+
+−mi (ω × ri ) × (ω × ri ) = 0.
+
+(A–22)
+
+P HYSICALLY B ASED M ODELING
+
+Thus, we can add −
+
+mir i ∗ri ∗ ω = 0 to equation (A–21) to obtain
+˙
+∗ ∗
+
+∗ ∗
+
+˙
+˙
+−miri r i − mi r i ri
+
+ω + I(t)ω = τ.
+˙
+
+(A–23)
+
+Finally, since
+d
+˙
+I (t) =
+dt
+
+∗ ∗
+
+−miri ri =
+
+∗ ∗
+
+∗ ∗
+
+−miri r i − mir i ri
+˙
+˙
+
+(A–24)
+
+we have
+d
+˙
+I (t)ω + I(t)ω = (I(t)ω) = τ.
+˙
+dt
+
+(A–25)
+
+Since L(t) = I(t)ω(t), this leaves us with the ﬁnal result that
+˙
+L (t) = τ.
+
+(A–26)
+
+Appendix B Quaternion Derivations
+A formula for q(t) is derived as follows. Recall that the angular velocity ω(t) indicates that the body
+˙
+is instantaneously rotating about the ω(t) axis with magnitude |ω(t)|. Suppose that a body were to
+rotate with a constant angular velocity ω(t). Then the rotation of the body after a period of time t
+is represented by the quaternion
+[cos
+
+|ω(t)| t ω(t)
+|ω(t)| t
+, sin
+].
+2
+2
+|ω(t)|
+
+Let us compute q(t) at some particular instant of time t0 . At times t0 + t (for small t), the
+˙
+orientation of the body is (to within ﬁrst order) the result of ﬁrst rotating by q(t0 ) and then further
+rotating with velocity ω(t0 ) for t time. Combining the two rotations, we get
+q(t0 +
+
+t) = [cos
+
+|ω(t0 )| t ω(t0 )
+|ω(t0 )| t
+, sin
+] q(t0 ).
+2
+2
+|ω(t0 )|
+
+(B–1)
+
+Making the substitution t = t0 + t, we can express this as
+q(t) = [cos
+
+|ω(t0 )|(t − t0 )
+|ω(t0 )|(t − t0 ) ω(t0 )
+, sin
+]q(t0 ).
+2
+2
+|ω(t0 )|
+
+(B–2)
+
+Let us differentiate q(t) at time t0 . First, since q(t0 ) is a constant, let us differentiate
+[cos
+
+|ω(t0 )|(t − t0 ) ω(t0 )
+|ω(t0 )|(t − t0 )
+, sin
+].
+2
+2
+|ω(t0 )|
+
+At time t = t0 ,
+|ω(t0 )|(t − t0 )
+|ω(t0 )|
+|ω(t0 )|(t − t0 )
+d
+cos
+=−
+sin
+dt
+2
+2
+2
+|ω(t0 )|
+sin 0 = 0.
+=−
+2
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G58
+
+(B–3)
+
+P HYSICALLY B ASED M ODELING
+
+Similarly,
+d
+|ω(t0 )|(t − t0 ) |ω(t0 )|
+|ω(t0 )|(t − t0 )
+sin
+=
+cos
+dt
+2
+2
+2
+|ω(t0 )|
+|ω(t0 )|
+=
+cos 0 =
+.
+2
+2
+
+(B–4)
+
+Thus, at time t = t0 ,
+|ω(t0 )|(t − t0 )
+|ω(t0 )|(t − t0 ) ω(t0 )
+, sin
+] q(t0 )
+2
+2
+|ω(t0 )|
+|ω(t0 )|(t − t0 )
+|ω(t0 )|(t − t0 ) ω(t0 )
+[cos
+, sin
+] q(t0 )
+2
+2
+|ω(t0 )|
+|ω(t0 )| ω(t0 )
+] q(t0 )
+= [0,
+2 |ω(t0 )|
+
+d
+dt
+d
+=
+dt
+
+q(t) =
+˙
+
+[cos
+
+(B–5)
+
+= [0, 1 ω(t0 )] q(t0 ) = 1 [0, ω(t0 )] q(t0 ).
+2
+2
+The product [0, ω(t0 )] q(t0 ) is abbreviated to the form ω(t0 )q(t0 ); thus, the general expression for
+q(t) is
+˙
+q(t) = 1 ω(t)q(t).
+˙
+2
+
+(B–6)
+
+Appendix C Some Miscellaneous Formulas
+C.1 Kinetic Energy
+The kinetic energy T of a rigid body is deﬁned as
+1
+˙T ˙
+2 mi r i r i .
+
+T=
+
+(C–1)
+
+Letting ri = ri − x, we have r i = v(t) + ri ∗ ω. Thus
+˙
+T=
+
+1
+˙T ˙
+2 mir i r i
+∗
+∗
+T
+1
+2 m i (v + ri ω) (v + ri ω)
+
+=
+=
+
+1
+2
+
+mi v v +
+T
+
+mi v + v T
+
+= 1 vT
+2
+Using
+
+∗
+
+v m i ri ω +
+T
+
+m i ri
+
+∗
+
+∗
+
+(C–2)
+
+∗
+
+mi (ri ω) (ri ω)
+
+1
+2
+
+ω + 1 ωT
+2
+
+T
+
+∗ T
+
+mi (ri ) ri
+
+∗
+
+ω.
+
+mi ri = 0 and (ri ∗ ) = −ri ∗ , we have
+T
+
+T = 1 v T Mv + 1 ω T
+2
+2
+
+∗ ∗
+
+−miri ri
+
+ω = 1 (v T Mv + ω T Iω)
+2
+
+(C–3)
+
+since I =
+−miri ∗ ri ∗ from appendix A. Thus, the kinetic energy can be decomposed into two
+terms: a linear term 1 v T Mv, and an angular term 1 ω T Iω.
+2
+2
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G59
+
+P HYSICALLY B ASED M ODELING
+
+C.2 Angular Acceleration
+It is often necessary to compute ω(t). Since L(t) = I(t)ω(t), we know ω(t) = I −1 (t)L(t). Thus,
+˙
+˙
+˙
+ω(t) = I −1 (t)L(t) + I −1 (t) L(t).
+˙
+
+(C–4)
+
+˙
+˙
+Since we know that L(t) = τ(t), let us consider I −1 (t). From equation (2–40),
+−1
+I −1 (t) = R(t)Ibody R(t) T ,
+
+so
+−1
+−1 ˙
+˙
+˙
+I −1 (t) = R(t)Ibody R(t) T + R(t)Ibody R(t) T .
+
+(C–5)
+
+˙
+R(t) T = (ω(t)∗ R(t)) T = R(t) T (ω(t)∗ ) T .
+
+(C–6)
+
+˙
+Since R(t) = ω(t)∗ R(t),
+
+Since ω(t)∗ is antisymmetric, (i.e. (ω(t)∗ ) T = −ω(t)∗),
+˙
+R(t) T = −R(t) T ω(t)∗ .
+
+(C–7)
+
+This yields
+−1
+−1
+˙
+˙
+I −1 (t) = R(t)Ibody R(t) T + R(t)Ibody (−R(t) T ω(t)∗ )
+−1
+= ω(t)∗ R(t)Ibody R(t) T − I −1 (t)ω(t)∗
+
+(C–8)
+
+= ω(t)∗ I −1 (t) − I −1 (t)ω(t)∗ .
+Then
+˙
+˙
+ω(t) = I −1 (t)L(t) + I −1 (t) L(t)
+˙
+˙
+= ω(t)∗ I −1 (t) − I −1 (t)ω(t)∗ L(t) + I −1 (t) L(t)
+
+(C–9)
+
+˙
+= ω(t)∗ I −1 (t)L(t) − I −1 (t)ω(t)∗ L(t) + I −1 (t) L(t).
+But since I −1 (t)L(t) = ω(t), the ﬁrst term, ω(t)∗ I −1 (t)L(t) is equivalent to ω(t)∗ ω(t), or ω(t) × ω(t),
+which is zero. This leaves the ﬁnal result of
+˙
+ω(t) = −I −1 (t)ω(t)∗ L(t) + I −1 (t) L(t)
+˙
+˙
+= −I −1 (t)ω(t) × L(t) + I −1 (t) L(t)
+=I
+
+−1
+
+(t)(L(t) × ω(t)) + I
+
+−1
+
+˙
+(t) L(t)
+
+(C–10)
+
+˙
+= I −1 (t)(L(t) × ω(t) + L (t)).
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G60
+
+P HYSICALLY B ASED M ODELING
+
+˙
+We can see from this that even if no forces act, so that L (t) is zero, ω(t) can still be non-zero. (In fact,
+˙
+this will happen whenever the angular momentum and angular velocities point in different directions,
+which in turn occurs when the body has a rotational velocity axis that is not an axis of symmetry for
+the body.)
+
+C.3 Acceleration of a Point
+Given a point of a rigid body with world space coordinate p(t), it is often necessary to compute p(t).
+¨
+Let the body space coordinate that transforms at time t to p(t) be p0 ; then
+p(t) = R(t) p0 + x(t)
+If we let r(t) = p(t) − x(t), then
+˙
+p(t) = R(t) p0 + x(t) = ω(t)∗ R(t) p0 + v(t)
+˙
+˙
+= ω(t) × (R(t) p0 + x(t) − x(t)) + v(t)
+
+(C–11)
+
+= ω(t) × ( p(t) − x(t)) + v(t)
+= ω(t) × r(t) + v(t).
+Then
+p(t) = ω(t) × r(t) + ω(t) × r (t) + v(t)
+¨
+˙
+˙
+˙
+
+(C–12)
+
+= ω(t) × r(t) + ω(t) × (ω(t) × r(t)) + v(t).
+˙
+˙
+We can interpret this as follows. The ﬁrst term, ω(t) × r(t) is the tangential acceleration of the point;
+˙
+that is, ω(t) × r(t) is the acceleration perpendicular to the displacement r(t) as a result of the body
+˙
+being angularly accelerated. The second term, ω(t) × (ω(t) × r(t)) is the centripetal acceleration of
+the point; this centripetal acceleration arises because the body is rigid, and points on the body must
+˙
+rotate in a circular orbit about the center of mass. The last term, v(t) is the linear acceleration of the
+point due to the linear acceleration of the center of mass of the body.
+
+Appendix D Resting Contact Derivations
+If you’re determined to implement resting contact in your simulator, you’ll need the derivations and
+the code in this appendix. This is probably not a fun appendix to work through; then again, this
+wasn’t a fun appendix to write! The derivations in here are somewhat terse, but the code at the end
+of the appendix will hopefully make things clearer.
+
+D.1 Derivations
+¨
+We need to express di (t0 ) in terms of all the unknown f i ’s. It will turn out that we’ll be able to write
+¨i (t0 ) in the form
+each d
+¨
+di (t0 ) = ai1 f1 + ai2 f2 + · · · + ain f n + bi .
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G61
+
+(D–1)
+
+P HYSICALLY B ASED M ODELING
+
+¨
+Given i and j, we need to know how di (t0 ) depends on f j , that is, we need to know aij . Also, we
+need to compute the constant term bi .
+Let’s start by determining aij and ignoring the constant part bi . We’ll assume the ith contact
+¨
+involves two bodies A and B. From equation (9–4), we can write di (t0 ) as
+˙
+¨
+d(t0 ) = ni (t0 ) · ( pa (t0 ) − pb (t0 )) + 2ni (t0 ) · ( pa (t0 ) − pb (t0 ))
+ˆ
+¨
+¨
+ˆ
+˙
+˙
+
+(D–2)
+
+where pa (t0 ) = pi = pb (t0 ) is the contact point for the ith contact at time t0 . The right-most
+˙
+˙
+˙
+term 2ni (t0 ) · ( pa (t0 ) − pb (t0 )) is a velocity dependent term (i.e. you can immediately calculate
+ˆ
+it without knowing the forces involved), and is part of bi , so we’ll ignore this for now.
+¨
+So we only need to know how pa (t0 ) and pb (t0 ) depend on f j , the magnitude of the jth contact
+¨
+force. Consider the jth contact. If body A is not one of the bodies involved in the jth contact, then
+pa (t0 ) is independent of f j , because the jth contact force does not act on body A. Similarly, if B is
+¨
+also not one of the two bodies involved in the jth contact, then pb (t0 ) is also independent of f j . (For
+¨
+example, in ﬁgure 26, the acceleration of the contact points at the ﬁrst contact is completely unaf¨
+fected by the contact force acting at the ﬁfth contact. Thus, d1 (t0 ) would be completely independent
+¨5 (t0 ) is completely independent of f1 .)
+of f5 . Conversely, d
+Suppose though that in the jth contact, body A is involved. For deﬁniteness, suppose that in the
+ˆ
+¨
+jth contact, a force of jn j (t0 ) acts on body A, as opposed to − jn j (t0 ). Let’s derive how pa (t0 ) is
+ˆ
+affected by the force jn j (t0 ) acting on A.
+ˆ
+From equation (C–12), we can write
+˙
+˙
+pa (t) = va (t) + ωa (t) × ra (t) + ωa (t) × (ωa (t) × ra (t))
+¨
+
+(D–3)
+
+where ra (t) = pa (t) − xa (t), and xa (t), va (t), and ωa (t) are all the variables associated with body
+A. We know that va (t) is the linear acceleration of body A, and is equal to the total force acting on
+˙
+A divided by the mass. Thus, a force of jn j (t0 ) contributes
+ˆ
+ˆ
+n j (t0 )
+ˆ
+f j n j (t0 )
+= fj
+ma
+ma
+
+(D–4)
+
+¨
+˙
+to va (t) and thus pa (t). Similarly, consider ωa (t), from equation (C–10):
+˙
+−1
+−1
+ωa (t) = Ia (t)τa (t) + Ia (t)(La (t) × ωa (t))
+˙
+
+where τa (t) is the total torque acting on body A. If the jth contact occurs at the point p j , then the
+force jn j (t0 ) exerts a torque of
+ˆ
+ˆ
+( p j − xa (t0 )) × f j n j (t0 ).
+Thus, the angular contribution to pa (t0 ) is
+¨
+−1
+f j Ia (t0 ) ( p j − xa (t0 )) × n j (t0 )
+ˆ
+
+× ra .
+
+(D–5)
+
+The total dependence of pa (t0 ) on f j is therefore
+¨
+fj
+
+n j (t0 )
+ˆ
+−1
++ Ia (t0 ) ( p j − xa (t0 )) × n j (t0 )
+ˆ
+ma
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G62
+
+× ra .
+
+P HYSICALLY B ASED M ODELING
+
+Now, if a force of − f j n(t0 ) had acted on A instead, we’d get the same dependence, but with a minus
+ˆ
+¨
+sign in front of f j . Clearly, pb (t0 ) depends on f j in the same sort of manner. Once we compute
+¨
+how pa (t0 ) and pb (t0 ) depend on f j , we combine the results together and take the dot product with
+¨
+¨
+ni (t0 ), to see how di (t0 ) depends on f j . This gives us aij . Confused? See the code below.
+ˆ
+¨
+We still need to compute bi . We know that di (t0 ) contains the constant term
+˙
+˙
+˙
+2ni (t0 ) · ( pa (t0 ) − pb (t0 )).
+ˆ
+¨
+But we also have to take into account the contributions to pa (t0 ) and pb (t0 ) due to known ex¨
+ternal forces such as gravity, as well as the force-independent terms ωa (t0 ) × (ωa (t0 ) × ra ) and
+−1
+(Ia (t0 )(Ła (t0 ) × ωa (t0 ))) × ra . If we let the net external force acting on A be Fa (t0 ), and the net
+external torque be τa (t0 ), then from equations (D–4) and (D–5), we get that Fa (t0 ) contributes
+Fa (t0 )
+ma
+and that τa (t0 ) contributes
+−1
+Ia (t0 )τa (t0 ) × ra .
+
+Thus, the part of pa (t0 ) that is independent from all the f j ’s is
+¨
+Fa (t0 )
+−1
+−1
++ Ia (t0 )τa (t0 ) × ra + ωa (t0 ) × (ωa (t0 ) × ra ) + Ia (t0 )(Ła (t0 ) × ωa (t0 )) × ra
+ma
+
+and similarly for pb (t0 ). To compute bi , we combine the constant parts of pa (t0 ), pb (t0 ), dot with
+¨
+¨
+¨
+˙
+ˆ
+˙
+˙
+ni (t0 ), and add the term 2ni (t0 ) · ( pa (t0 ) − pb (t0 )).
+ˆ
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G63
+
+P HYSICALLY B ASED M ODELING
+
+D.2 Code
+Here’s the code to implement the above derivations. Let’s start by computing the constant bi terms.
+/* return the derivative of the normal vector */
+triple computeNdot(Contact *c)
+{
+if(c->vf)
+/* vertex/face contact */
+{
+/* The vector ‘n’ is attached to B, so... */
+return c->b->omega ˆ c->n;
+}
+else
+{
+/* This is a little trickier. The unit normal ‘n’ is
+eb
+n = ea × eb .
+ˆ
+ea ×
+Differentiating n with respect to time is left
+ˆ
+as an exercise... but here’s some code */
+triple
+
+double
+
+eadot = c->a->omega ˆ ea,
+ebdot = c->b->omega ˆ eb;
+n1 = ea * eb,
+z = eadot * eb + ea * ebdot;
+l = length(n1);
+
+n1 = n1 / length;
+
+/* ea */
+˙
+/* eb */
+˙
+
+/* normalize */
+
+return (z - ((z * n) * n)) / l;
+}
+}
+void compute_b_vector(Contact contacts[], int ncontacts, vector &b)
+{
+for(int i = 0; i < ncontacts; i++)
+{
+Contact *c = &contacts[i];
+Body
+*A = c->a,
+*B = c->b;
+ˆ
+triple n = c->n,
+/* ni (t0 ) */
+ra = c->p - A->x,
+/* p − xa (t0 ) */
+rb = c->p - B->x;
+/* p − xb (t0 ) */
+
+/* Get the external forces and torques */
+triple f_ext_a = A->force,
+f_ext_b = B->force,
+t_ext_a = A->torque,
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G64
+
+P HYSICALLY B ASED M ODELING
+
+t_ext_b = B->torque;
+triple
+
+a_ext_part, a_vel_part,
+b_ext_part, b_vel_part;
+
+/* Operators: ‘ˆ’ is for cross product, ‘*’, is for
+dot products (between two triples), or matrix-vector
+multiplication (between a matrix and a triple). */
+/* Compute the part of pa (t0 ) due to the external
+¨
+force and torque, and similarly for pb (t0 ). */
+¨
+a_ext_part = f_ext_a / A->mass + ((A->Iinv * t_ext_a) ˆ ra),
+b_ext_part = f_ext_b / B->mass + ((B->Iinv * t_ext_b) ˆ rb);
+/* Compute the part of pa (t0 ) due to velocity,
+¨
+and similarly for pb (t0 ). */
+¨
+a_vel_part = (A->omega ˆ (A->omega ˆ ra)) +
+((A->Iinv * (A->L ˆ A->omega)) ˆ ra);
+b_vel_part = (B->omega ˆ (B->omega ˆ rb)) +
+((B->Iinv * (B->L ˆ B->omega)) ˆ rb);
+
+ˆ
+/* Combine the above results, and dot with ni (t0 ) */
+double k1 = n * ((a_ext_part + a_vel_part) (b_ext_part + b_vel_part));
+triple ndot = computeNdot(c);
+/* See section 8 for ‘pt_velocity’ definition */
+double k2 = 2 * ndot * (pt_velocity(A, c->p) pt_velocity(B, c->p));
+b[i] = k1 + k2;
+}
+}
+Computing the aij terms is a little more tricky, because we have to keep track of how the jth
+contact force affects the ith contact point. The following routine is not the most efﬁcient way to do
+things, because with a good data structure, you can tell in advance which of the aij ’s are going to
+be zero. Still unless you’re working with really huge numbers of contacts, not too much extra work
+will be done.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G65
+
+P HYSICALLY B ASED M ODELING
+
+void compute_a_matrix(Contact contacts[], int ncontacts, bigmatrix &a)
+{
+for(int i = 0; i < ncontacts; i++)
+for(int j = 0; j < ncontacts; j++)
+a[i,j] = compute_aij(contacts[i], contacts[j]);
+}
+double compute_aij(Contact ci, Contact cj)
+{
+/* If the bodies involved in the ith and jth contact are
+distinct, then aij is zero. */
+if((ci.a != cj.a) && (ci.b != cj.b) &&
+(ci.a != cj.b) && (ci.b != cj.a))
+return 0.0;
+Body
+
+*A
+*B
+triple ni
+nj
+pi
+pj
+ra
+rb
+
+=
+=
+=
+=
+=
+=
+=
+=
+
+ci.a,
+ci.b;
+ci.n,
+cj.n,
+ci.p,
+cj.p,
+pi - A->x,
+pi - B->x;
+
+/*
+/*
+/*
+/*
+
+ni (t0 ) */
+ˆ
+n j (t0 ) */
+ˆ
+ith contact point location */
+jth contact point location */
+
+/* What force and torque does contact j exert on body A? */
+triple force_on_a = 0,
+torque_on_a = 0;
+if(cj.a == ci.a)
+{
+/* force direction of jth contact force on A */
+force_on_a = nj;
+/* torque direction */
+torque_on_a = (pj - A->x) ˆ nj;
+}
+else if(cj.b == ci.a)
+{
+force_on_a = - nj;
+torque_on_a = (pj - A->x) ˆ nj;
+}
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G66
+
+P HYSICALLY B ASED M ODELING
+
+/* What force and torque does contact j exert on body B? */
+triple force_on_b = 0,
+torque_on_b = 0;
+if(cj.a == ci.b)
+{
+/* force direction of jth contact force on B */
+force_on_b = nj;
+/* torque direction */
+torque_on_b = (pj - B->x) ˆ nj;
+}
+else if(cj.b == ci.b)
+{
+force_on_b = - nj;
+torque_on_b = (pj - B->x) ˆ nj;
+}
+/* Now compute how the jth contact force affects the linear
+and angular acceleration of the contact point on body A */
+triple a_linear = force_on_a / A->mass,
+a_angular = (A->Iinv * torque_on_a) ˆ ra;
+/* Same for B */
+triple b_linear = force_on_b / B->mass,
+b_angular = (B->Iinv * torque_on_b) ˆ rb;
+return ni * ((a_linear + a_angular) - (b_linear + b_angular));
+}
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G67
+
+P HYSICALLY B ASED M ODELING
+
+References
+[1] D. Baraff. Analytical methods for dynamic simulation of non-penetrating rigid bodies. In
+Computer Graphics (Proc. SIGGRAPH), volume 23, pages 223–232. ACM, July 1989.
+[2] D. Baraff. Curved surfaces and coherence for non-penetrating rigid body simulation. In
+Computer Graphics (Proc. SIGGRAPH), volume 24, pages 19–28. ACM, August 1990.
+[3] D. Baraff. Fast contact force computation for nonpenetrating rigid bodies. Computer Graphics
+(Proc. SIGGRAPH), 28:23–34, 1994.
+[4] J. Canny. Collision detection for moving polyhedra. IEEE Transactions on Pattern Analysis
+and Machine Intelligence, 8(2), 1986.
+[5] P.A. Cundall. Formulation of a three-dimensional distinct element model—Part I. A scheme
+to represent contacts in a system composed of many polyhedral blocks. International Journal
+of Rock Mechanics, Mineral Science and Geomechanics, 25, 1988.
+[6] E.G. Gilbert and S.M. Hong. A new algorithm for detecting the collision of moving objects.
+In International Conference on Robotics and Automation, pages 8–13. IEEE, 1989.
+[7] P. Gill, S. Hammarling, W. Murray, M. Saunders, and M. Wright. User’s guide for LSSOL: A
+Fortran package for constrained linear least-squares and convex quadratic programming. Technical Report Sol 86-1, Systems Optimization Laboratory, Department of Operations Research,
+Stanford University, 1986.
+[8] P. Gill, W. Murray, M. Saunders, and M. Wright. User’s guide for QPSOL: A Fortran package
+for quadratic programming. Technical Report Sol 84-6, Systems Optimization Laboratory,
+Department of Operations Research, Stanford University, 1984.
+[9] P. Gill, W. Murray, M. Saunders, and M. Wright. User’s guide for NPSOL: A Fortran package
+for nonlinear programming. Technical Report Sol 86-2, Systems Optimization Laboratory,
+Department of Operations Research, Stanford University, 1986.
+[10] H. Goldstein. Classical Mechanics. Addison-Wesley, Reading, 1983.
+[11] W. Meyer. Distance between boxes: Applications to collision detection and clipping. In
+International Conference on Robotics and Automation, pages 597–602. IEEE, 1986.
+[12] P.M. Moore and J. Wilhelms. Collision detection and reponse for computer animation. In
+Computer Graphics (Proc. SIGGRAPH), volume 22, pages 289–298. ACM, August 1988.
+[13] F.P. Preparata and M.I. Shamos. Computational Geometry. Springer-Verlag, New York, 1985.
+[14] W.H. Press, B.P. Flannery, S.A. Teukolsky, and W.T. Vetterling. Numerical Recipes. Cambridge
+University Press, 1986.
+[15] R. Sedgewick. Algorithms. Addison-Wesley, 1983.
+[16] K. Shoemake. Animating rotation with quaternion curves. In Computer Graphics (Proc.
+SIGGRAPH), volume 19, pages 245–254. ACM, July 1985.
+[17] B. Von Herzen, A. Barr, and H. Zatz. Geometric collisions for time-dependent parametric
+surfaces. In Computer Graphics (Proc. SIGGRAPH), volume 24, pages 39–48. ACM, August
+1990.
+
+S IGGRAPH 2001 C OURSE N OTES
+
+G68
+
+P HYSICALLY B ASED M ODELING
+
+
