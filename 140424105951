@@ -1,0 +1,3 @@
+Task 4 (1 pts.)
+Repeat with a step size of 1/(t-1) (i.e., the first step size you will use is 1, the second is 1/2, the third is
+1/3, etc.).

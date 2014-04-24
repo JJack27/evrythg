@@ -1,43 +1,179 @@
 \input{pre.tex}
+
 \begin{sympycode}
 # RL_3.py
 from RL_3 import *
 \end{sympycode}
 
-% 140423111519
-\begin{pylabcode}
+\begin{pycode}	
+
+# _pythontex.py
+from _pythontex import input
+# RL_3.py
+import RL_3 as syms 
 from numpy import arange
 from numpy import ones
 from numpy import zeros
 from numpy import vstack
 from numpy import array
+from numpy.linalg import norm
+from numpy import tile
 from matplotlib.pyplot import plot
 from matplotlib.pyplot import axis
 from matplotlib.pyplot import grid
+from matplotlib.pyplot import xlabel
+from matplotlib.pyplot import title
+from matplotlib.pyplot import legend
+from matplotlib.pyplot import savefig
+from matplotlib.pyplot import close
 
-k = arange(18) + 1
-r = vstack((ones((6,1)), zeros((6,1)), tile(array([[1], [0]]), (3, 1))))
-alpha = 0.5
-
-def estimate(alpha):
-	Q_k = array([[1, 0]])
+r = vstack((ones((6,1)), zeros((6,1)), tile(array([[1], [0]]), (3, 1)))).flatten()
+s = 12 # start of alternating target
+def estimate():
+	q_k = [0] 
 	for i in range(r.shape[0]):
-		q_ =  Q_k[-1, 1] 
-		q_ += alpha * (r[i] - q_)	
-		Q_k = vstack((Q_k, array([[i+2, q_]])))
-	return Q_k
+		q_   =  q_k[-1] 
+		q_  += alpha[i] * (r[i] - q_)	
+		q_k.append(q_)
+	return array(q_k)
+# assume that time indices start at 1
+def plot_r(r):
+	k = arange(r.shape[0])+1
+	plot(k, r, '-o', color = '0.75', # grey
+	label = 'Target')
+	xlabel('$k$')
+a=0.5
+def plot_q_k(k=arange(r.shape[0]+1)+1, alpha=a):
+	plot(k, q_k, 'bo', 
+	label = 'Estimate')
+	title(r'$\alpha$ = %s' %(alpha))
 
-plot(k, r, 'b-o')
-grid()
-axis(ymin = -0.1, ymax= 1.1)
-Q_k = estimate(alpha)
-plot(Q_k[:,0], Q_k[:,1], 'go')
-\end{pylabcode}
+def setup_figure(r):
+	close('all')
+	plot_r(r)
+	grid()
+	axis(ymin = -0.1, ymax= 1.1)
 
-% 140423105502
+\end{pycode}
+\pyc{input(140423111519)}
+\begin{pycode}
+
+setup_figure(r)
+alpha = a * ones(r.shape)
+q_k = estimate()
+ef = lambda : norm(r[s:] - q_k[s:-1])**2
+e = {a: ef()}
+plot_q_k()
+legend()
+savefig('task_1.pdf')
+
+\end{pycode}
+
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{task_1.pdf}
+\end{figure}
+\pyc{input(140423105502)}
 $$\s{Eq(r_k, 1)} \; \forall k$$
 $$\s{Eq(alpha, 0.5)}$$ 
 Using the geometric series
 $$\s{Eq(Q_k, 1 - 0.5**k)}$$
+
+\begin{pycode}
+
+print(r"\begin{tabular}{c|c}")
+print(r"$N$ & $Q_k$ \\ \hline")
+for k_ in [6, 10, 20]:
+	print (r'%s & %s \\' %(k_, (lambda k : -0.5**k + 1)(k_)))
+print(r"\end{tabular}")
+
+\end{pycode}
+
+\pyc{input(140424090205)}
+\begin{pycode}
+setup_figure(r)
+a = 1.0/8 
+alpha = a * ones(r.shape)
+q_k = estimate()
+e[a] = ef()
+plot_q_k()
+legend()
+savefig('task_2.pdf')
+
+\end{pycode}
+
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{task_2.pdf}
+\end{figure}
+\pyc{input(140424090951)}
+\begin{pycode}
+
+setup_figure(r)
+a = 1.0
+alpha = a * ones(r.shape)
+q_k = estimate()
+e[a] = ef()
+plot_q_k()
+legend()
+savefig('task_3.pdf')
+
+\end{pycode}
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{task_3.pdf}
+\end{figure}
+Measure the error using the squared distance.
+$$\epsilon = \sum\limits_{\s{k}=\pp{s}}^{\pp{r.shape[0]}}\s{(r_k - Q_k)**2}$$
+\begin{pycode}
+print(r"\begin{tabular}{c|c}")
+print(r"$\alpha$ & $\epsilon$ \\ \hline")
+for k in e.keys():
+	print(r"%s & %s\\" %(k, e[k]))
+print(r"\end{tabular}")
+\end{pycode}
+
+\pyc{input(140424105951)}
+\begin{pycode}
+
+setup_figure(r)
+a = "1/k"
+alpha = array([1./(k_+1) for k_ in range(r.shape[0])])
+q_k = estimate()
+plot_q_k()
+legend()
+savefig('task_4.pdf')
+
+\end{pycode}
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{task_4.pdf}
+\end{figure}
+\pyc{input(140424133343)}
+Initially it is very sensitive to the observed reward.
+Contrary to a large fixed step size it does not oscillate when the target is changing.
+\pyc{input(140424133907)}
+The adaption rate is continously decreasing over time.
+\pyc{input(140424135248)}
+\begin{pycode}
+
+A = [-0.5, 1.5, 2.0, 2.5]
+fn = 'task_5_%s.pdf' 
+r = r[:6]
+for a_ in A:
+	setup_figure(r)
+	alpha = a_ * ones(r.shape[0])
+	q_k = estimate()
+	axis(ymin = min(q_k), ymax= max(q_k))
+	plot_q_k(alpha=a_)
+	legend()
+	savefig((fn %a_).replace(".", "_", 1))
+
+\end{pycode}
+
+\begin{pycode}
+
+for a_ in A:
+	print(r'\begin{figure}[ht]')
+	print(r'\includegraphics[width=\textwidth]{%s}' %((fn %a_).replace(".", "_", 1)))
+	print(r'\end{figure}')
+
+\end{pycode}
 \input{post.tex}
 
