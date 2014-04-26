@@ -1,0 +1,188 @@
+Künstliche Intelligenz in der Robotik 
+
+Künstliche Intelligenz in der Robotik 
+LSR 
+
+Allgemeine Informationen 
+Teaching staff 
+Lecturer: 
+
+Dirk Wollherr ( &#100;&#x77;&#32;&#x61;&#116;&#32;&#116;&#x75;&#x6d;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65; ) 
+
+Teaching assistants 
+
+Christian Landsiedel ( &#x63;&#104;&#114;&#x69;&#x73;&#116;&#x69;&#x61;&#110;&#46;&#108;&#x61;&#110;&#100;&#x73;&#x69;&#x65;&#100;&#x65;&#108;&#32;&#x61;&#116;&#32;&#116;&#x75;&#x6d;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65; ) 
+Roderick de Nijs ( &#114;&#x73;&#100;&#x65;&#110;&#x69;&#106;&#x73;&#32;&#x61;&#116;&#32;&#116;&#x75;&#x6d;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65; ) 
+
+Hinweise zur Vorlesung 
+Vorlesungszeiten 
+
+Dienstags, 15.00 - 16.30 Uhr, N0507 
+Mittwochs, 13.15 - 14.45 Uhr, N0507 
+
+Umfang/Credits 
+
+5 ECTS 
+2 SWS Vorlesung, 2 SWS Übung 
+
+Benotung 
+Die Note setzt sich aus 3 Prüfungsleistungen zusammen: 
+Mündliche Prüfung 
+
+Gewichtung 1/3 
+am Ende des Semsters 
+
+Seminarvorträge 
+
+Gewichtung 1/3 
+Vorträge zu ausgewählten Themen 
+Vortragsdauer ca. 10 Minuten 
+Diskussion im Anschluss an den Vortrag 
+
+Praktische Übungen 
+
+Gewichtung 1/3 
+Implementieren von Methoden aus der Vorlesung 
+
+On-line Interaktive Programierumgebung 
+
+Direkt im Browser! 
+Programmiersprache: Python 
+
+Einfach zu lernen 
+Sehr gut für Scientic Computing/Data analysis 
+Python wird überall in Akademia verwendet 
+
+Einführungsstunde kommt bald 
+
+Literatur 
+
+Stuart Russell, Peter Norvig, &quot;Künstliche Intelligenz - Ein moderner Ansatz&quot; , 3. Auflage, Person Studium, 2012. 
+Christopher M. Bishop, &quot;Pattern Recognition and Machine Learning&quot; , Springer, 2006. 
+
+Künstliche Intelligenz - Beispiele 
+Was ist Künstliche Intelligenz 
+Wie muss sich ein Agent verhalten, um als intelligent betrachtet werden zu können? 
+
+Menschlich denken 
+Rationell/vernünftig denken 
+
+Menschlich handeln 
+Rationell/vernünftig handeln 
+
+Perspektiven 
+Künstliche Intelligenz in der populären Kultur 
+
+Beispiele
+
+Robocop 
+2001: A Space Odyssey 
+Terminator 
+The Matrix 
+I Robot 
+Star Trek 
+
+Extrem intelligente (und oft böse) Agenten 
+Häufig auch Gefühle 
+Frage: was macht den Menschen aus? 
+
+&quot;Real life&quot; - Künstliche Intelligenz 
+
+Keine generelle Intelligenz (zu kompliziert) 
+Spezialisierte Intelligenz
+
+Schach/Poker 
+Medizinische Diagnose 
+Autonome Roboter 
+
+Nicht unbedingt biologisch inspiriert 
+
+Teilgebiete der KI 
+
+Künstliche Intelligenz ist sehr breit und divers 
+Oft nicht explizit als KI bezeichnet 
+Einige Beispiele:
+
+Knowledge representation 
+Deduction, reasoning 
+Planning 
+Perception 
+Manipulation 
+Social intelligence 
+
+Anwendungen von KI 
+
+Maschinelle Übersetzung 
+Routenplanung 
+Intelligente Roboter 
+Selbständig fahrende Autos 
+Verifikation und Überwachung 
+Virtuelle Charaktere 
+Gesichtserkennung 
+Erkennung von Handschriften 
+
+Beispiele - Verschiedene Seiten künstlicher Intelligenz 
+Kasparov vs Deep Blue 
+
+Kasparov 
+
+Natural Language Processing (NLP) 
+
+Robots 
+
+Social Robots 
+
+Autonomous Cars 
+
+Stanford Helicopter 
+
+Komponenten 
+Die wichtigsten Werkzeuge 
+
+Logik 
+Graphentheorie und Suche in Graphen 
+Optimierung 
+Statistisches Lernen 
+Regelungstheorie 
+
+Geplante Themen in der Vorlesung 
+Klassische Methoden der KI 
+
+Propositional Logic 
+First-Order Logic 
+Planning 
+
+Probabilistische Methoden 
+
+Bayes Networks 
+Markov Decision Processes 
+Markov Networks 
+Markov Logic Networks 
+
+Komplexität und Komplexitätsklassen 
+
+Was kann man eigentlich in der Praxis berechnen? 
+Wie verhält sich die Laufzeit eines Algorithmus im schlechtesten Fall zur Kardinalität der Eingangsgröße \(n\) ? 
+Die wesentlichen Komplexitätsklassen für Entscheidungsprobleme: 
+
+NP — lösbar in polynomialer Zeit von einer nichtdeterministischen Turingmaschine 
+
+P — lösbar in polynomialer Zeit von einer deterministischen Turingmaschine 
+NP-vollständig — Probleme gleicher Komplexität, auf die alle NP-Probleme in polynomialer Zeit abgebildet werden können 
+
+NP-schwer — Probleme, die mindestens NP-vollständig sind 
+
+unklar: \(P = NP\) ? 
+
+NP-vollständige Probleme 
+
+in der Praxis nicht immer schwer zu lösen 
+können in polynomialer Zeit verifiziert (auf die Korrektheit einer Lösung überprüft) werden 
+können in polynomialer Zeit ineinander umgewandelt werden 
+
+Beispiele für NP-vollständige Entscheidungsprobleme 
+
+traveling salesman problem : Gibt es einen Pfad einer gegebenen Länge, der alle Knoten eines Netzwerks enthält? 
+
+subset sum problem : Gibt es eine Untermenge von z.B. \(\{1, 3, -5, 6, -4\}\) , so dass die Summe der Elemente der Untermenge \(0\) ist? 
+Erfüllbarkeit in Aussagenlogik
