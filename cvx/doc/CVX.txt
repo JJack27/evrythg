@@ -4973,10 +4973,9 @@ square x2 for x ∈ R. Convex.
 square_abs |x|2 for x ∈ R or x ∈ C.
 square_pos max{x, 0}2 for x ∈ R. Convex and increasing.
 sum_largest(x,k) sum of the largest k values, for real vector x. Convex and nondecreasing.
-† sum_log(x)
 
-i log(xi )
-
+140426091510
+sum_log(x)
 when x is positive; −∞ otherwise. Concave and nondecreasing.
 
 sum_smallest(x,k) sum of the smallest k values, i.e., equivalent to -sum_largest(-x,k). Concave and nondecreasing.
