@@ -462,7 +462,9 @@ Parameter Estimation
 
 24
 
-Experimental Conditions
+Experimental Conditions
+cf. 140426210207
+
 Example: y(t) + ay(t − 1) = bu(t − 1) + e(t) + ce(t − 1)
 ˆ
 with a = −0.8, b = 0.5, c = 0, P (0) = 100I, θ and e(t) is zero mean white noise (σ = 0.5)
@@ -485,9 +487,8 @@ b
 Parameter Estimation
 
 25
-
-Persistant Excitation
-
+Persistant Excitation
+cf. 140426204256
 u is persistently exciting (PE) of order n if for all t there exist
 m, 1 > 0, 2 > 0 such that:
 t+m
@@ -519,14 +520,12 @@ periodic signal of period n: PE of order n
 random signal u(t) = H(z)e(t) with pulse transfer function
 H(z) and white noise e(t): PE of any order
 Applications:
-FIR model of order n can be identiﬁed with input signal which
-is PE of order n. Notice that there are n parameters to be
-identiﬁed.
-Transfer function model can be identiﬁed if input signal is PE
-of order deg(A) + deg(B) + 1
+
+cf. 140426205130
+FIR model of order n can be identiﬁed with input signal which is PE of order n. Notice that there are n parameters to be identiﬁed. 
+Transfer function model can be identiﬁed if input signal is PE of order deg(A) + deg(B) + 1
 Parameter Estimation
 
-27
 
 Identiﬁcation in Closed Loops
 Adaptive Control: system identiﬁcation online in closed loops
@@ -752,7 +751,8 @@ Parameter Estimation
 
 31
 
-Identiﬁcation in Closed Loops
+140426210207
+Identiﬁcation in Closed Loops
 Example: y(t) + ay(t − 1) = bu(t − 1) + e(t) + ce(t − 1)
 ˆ
 with a = −0.8, b = 0.5, c = 0, P (0) = 100I, θ and e(t) is zero mean white noise (σ = 0.5)
