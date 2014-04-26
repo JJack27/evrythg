@@ -1128,13 +1128,11 @@ k
 
 Academic year 2010-2011
 
-17 / 32
 
-Lecture: Discrete-time linear systems
-
+_17_ 140426200329
 Stability of discrete-time linear systems
+[ the modulus means the absolute value / magnitude of a complex number ]
 
-Stability of discrete-time linear systems
 Since the natural response of x(k + 1) = Ax(k) + Bu(k) is x(k) = Ak x0 , the stability
 properties depend only on A. We can therefore talk about system stability of a
 discrete-time linear system (A, B, C, D)

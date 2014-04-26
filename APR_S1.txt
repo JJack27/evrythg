@@ -52,37 +52,12 @@ V (θ, k) = (Y T Y − Y T Φθ − θT ΦT Y + θT ΦT Φθ)
 1 T
 = (Y Y − 2Y T Φθ + θT ΦT Φθ)
 2
-A minimum is reached when gradθ V (θ, k) is zero. Taking the derivative of V along θ and setting
-the RHS to zero, we get
-∂V
-= −Y T Φ + θT ΦT Φ = 0
-(2)
-∂θ
-Solving (2) for θ we get
-θ = P (k)ΦT Y
-where P (k) = (ΦT Φ)−1 . The assumption is that (ΦT Φ)−1 exists (excitation condition).
+A minimum is reached when gradθ V (θ, k) is zero. Taking the derivative of V along θ
+cf. 140426153116 140426152848
+[ \psi^T \psi is symmetric ]
+and setting the RHS to zero
 
-(3)
-
-With the numerical values given in the problem description we can compute the following matrices:
-
-from numpy import array
-from numpy import dot
-from numpy import ones
-from numpy import arange
-from numpy.linalg import inv
-Phi = array([ones(5), arange(5) + 1]).T
-Y = array([1, 3, 3, 6, 7]).T
-P_ = inv(dot(Phi.T, Phi))
-tH_ = dot(dot(P_, Phi.T), Y)
-
-
-1 3
-5
-3 11
-
-=
-
+cf. 140426154601
 and ﬁnally, replacing the values in (3) we obtain
 θ = (ΦT Φ)−1 ΦT Y =
 
@@ -108,25 +83,9 @@ y(k) = 7
 T
 
 The recursion formula for updating the parameter vector is given by
-ˆ
-ˆ
-ˆ
-θ(k) = θ(k − 1) + K(k) y(k) − ϕT (k)θ(k − 1)
-where K(k) is given by
-K(k) = P (k − 1)ϕ(k) I + ϕT (k)P (k − 1)ϕ(k)
-
-
-−1
-
-with P (k − 1) = (ΦT (k − 1)Φ(k − 1))−1 .
-
-Numerical evaluation yields
-phi = array([[1], [6]])
-y = array([7])
-K = dot(dot(P_,  phi), inv(1 + dot(dot(phi.T, P_) , phi)))
+cf. 140426154206
 
 and the updated parameter vector
-tH = tH_ + dot(K, y - dot(phi.T , tH_))
 
 d) The discrete-time dynamic system is given by y(k) = a1 u(k − 1) + a2 u(k − 2). Assuming that
 u(k) = 0 ∀ k, and dividing by u(k − 1), the system becomes
@@ -173,14 +132,18 @@ Note, that the control input u(t) is constant in the interval [kT; (k + 1)T]. Th
 be evaluated and we get
 y((k + 1)T ) = eaT y(kT ) + (eaT − 1) b u(kT )
 
-\todo{Shouldn't it be $1 - \exp(aT)$?}
 
 Setting c := eaT and d := a (eaT − 1)b answers the question.
 
-As the system is scalar, the eigenvalues of the open-loop system are given by the constant a. In
-the continuous-time case if a < 0, the system is stable. If a < 0, then c = eaT < 1 which
+As the system is scalar, the eigenvalues of the open-loop system are given by the constant a.
+
+In the continuous-time case if a < 0, the system is stable. 
+cf. 140426200329
+
+If a < 0, then c = eaT < 1 which
 means stability in the discrete-time case. If a > 0, then c > 1. The stability properties of the
 continuous-time system carry over to the discrete-time system.
+
 b) Applying the feedback u(k) = −K_p y(k) to the dynamic system y(k + 1) = cy(k) + du(k), the
 closed-loop system
 y(k + 1) = ay(k)
@@ -188,11 +151,11 @@ a = (c − d K_p )
 is formed. From the previous results, only the constant a can be found, whereas the constants c
 and d cannot be found uniquely.
 
-Problem 3: Regressor Models
+Problem 3: Regressor Models
+
 a) Continuous-time transfer function
-[ Multiplication with s corresponds to the derivative ]
+[ Multiplication with s corresponds to taking derivative ]
 [ http://en.wikipedia.org/wiki/Laplace_transform#Proof_of_the_Laplace_transform_of_a_function.27s_derivative ]
-(5)
 
 b) Non-linear system
 x(k) = −x(k − 1)2 2sin(u(k − 1))
@@ -213,4 +176,3 @@ y = ay + by + cu
 and the regressor model is therefore given by
 [ \dot{x}_1 = x_2 ]
 
-
