@@ -11,19 +11,6 @@ Univ.-Prof. Dr.-Ing. Wolfgang Utschick
 
 Contents
 1 Introduction
-\begin{sympyblock}
-h = Symbol('h') # channel coefficient
-x = Symbol('x') # channel input
-y = Symbol('y') # channel output
-eta = Symbol(r'\eta') # channel noise
-sigma = Symbol(r'\sigma') # noise variance
-gamma = Symbol(r'\gamma') # channel quality
-p = Symbol('p') # available power
-mu = Symbol(r'\mu')
-e_1_1 = Eq(_idx(y), _idx(h) * _idx(x) + _idx(eta)) 
-Eq(_idx(gamma), abs(_idx(h))**2 / _idx(sigma)**2)
-\end{sympyblock}
-
 2 Gradient-Based Algorithms
 2.1 Introduction . . . . . . . . . . . . . . . . .
 2.2 MIMO Multiple Access Channel . . . . . .
@@ -55,34 +42,6 @@ Eq(_idx(gamma), abs(_idx(h))**2 / _idx(sigma)**2)
 3.3.3 Linear Multicommodity Flow Problems . . . . . .
 3.4 Examples for Flow Problems in Communication Networks
 3.4.1 Maximum Data Throughput . . . . . . . . . . . .
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-Contents
-
-4.4
-4.5
-4.6
-
-4.7
-
 Cutting Plane Method . . . . . . . . .
 Multi-Commodity Flow Problem . . .
 Primal Recovery . . . . . . . . . . . .
@@ -90,87 +49,6 @@ Primal Recovery . . . . . . . . . . . .
 4.6.2 Cutting Plane Primal Recovery
 4.6.3 Subgradient Primal Recovery
 Modularity of the Dual Decomposition
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
 5 Conic Optimization and SDPT3
 5.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . .
 5.2 Conic Optimization . . . . . . . . . . . . . . . . . . . .
@@ -181,61 +59,6 @@ Modularity of the Dual Decomposition
 5.4.1 Power Optimization . . . . . . . . . . . . . . . .
 5.4.2 Problem Reformulation . . . . . . . . . . . . . .
 5.5 WSR Maximization in MIMO MAC . . . . . . . . . . .
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
 6 Nonconvex Optimization
 6.1 Monotonic Optimization: Branch, Reduce, and Bound . . . .
 6.1.1 Branching . . . . . . . . . . . . . . . . . . . . . . . .
@@ -248,273 +71,7 @@ Modularity of the Dual Decomposition
 6.3.2 Suboptimal Zero-Forcing Solution: Greedy Allocation
 6.4 Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
-2
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-.
-.
-.
-.
-.
-.
-.
-
-49
-51
-54
-55
-57
-60
-61
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-63
-63
-64
-65
-65
-67
-70
-71
-72
-75
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-81
-82
-83
-83
-84
-85
-87
-88
-90
-91
-92
-
-Chapter 1
-
+Chapter 1
 Introduction
 For the programming tasks in this optimization laboratory, we recommend to use Matlab 7.9 or
 a newer Matlab version. The latest Matlab version can be obtained at https://matlab.rbg.tum.de/.
@@ -580,9 +137,12 @@ definition of the constraint set
 
 The newest version of CVX and the CVX users’ guide can be obtained from
 http://cvxr.com/cvx/download/.
+
+140426085205
 TASK 1.1
 Download and read the CVX users’ guide [2].
 
+140426102711
 TASK 1.2
 Install CVX in the folder for your Matlab simulations according to [2, Appendix A]:
 • Retrieve the latest version of CVX from http://cvxr.com/cvx/download/ and
@@ -637,33 +197,12 @@ to determine the maximum rate n ri (pi ) that can be reliably transmitted over t
 i=1
 channels if the sum of the powers pi is limited. In other words, we want to solve the following
 optimization problem, where P > 0 is the available power budget for all channels:
-n
+[ Change of basis in logarithm ]
+[ log(3)/log(2) - log2(3) ]
 
-n
-
-R⋆ = max
-
-p1 ,...,pn
-
-log2 (1 + γi pi )
-
-s. t.
-
-i=1
-
-i=1
-
-pi ≤ P,
-
-(1.4)
-
-\todo{How to implement a sum constraint in cvx?}
-\todo{Conversion maximization to minimization problem?}
-
+140426090339
 PROGRAMMING TASK 1.3
 Implement an algorithm that takes the channel coeﬃcients h1 , . . . , hn , the noise variances
-2
-2
 σ1 , . . . , σn , and the available sum transmit power P as inputs and that uses CVX (with SDPT3
 as solver) to compute the optimal solution to problem (1.4).
 1 Deliverables (Matlab code ﬁle): waterfilling_cvx.m
@@ -672,26 +211,17 @@ function [R,p,mu] = waterfilling_cvx(h,s,P)
 
 2 Input Speciﬁcation:
 • h: vector of channel coeﬃcients h1 , . . . , hn
-2
-2
 • s: vector of noise variances σ1 , . . . , σn
-
 • P: available sum transmit power P
 3 Output Speciﬁcation:
 • R: value of the maximal sum rate R⋆
 • p: vector of optimal transmit powers p⋆ , . . . , p⋆
-n
-1
 • mu: value of the optimal Lagrangian multiplier µ⋆
 4 Veriﬁcation:
-
-5
-
-Chapter 1. Introduction
-
 • Most of the functions that have to be implemented can be tested for correctness with
 the provided test scripts test_Xxxx.m
 For example, use the call test_waterfilling_cvx.
+
 The optimal solution to problem (1.4) can also be obtained from the Karush-Kuhn-Tucker
 (KKT) conditions in analytical form. If µ denotes the Lagrangian multiplier corresponding
 to the inequality constraint n pi ≤ P , the optimal transmit powers are given by
@@ -795,10 +325,10 @@ is, start with the assumtion k ⋆ = 1, calculate the corresponding w⋆ given b
 check the conditions in (1.7). If the conditions do not hold, check the next hypothesis. The
 solution to the considered problem is referred to as waterﬁlling with w⋆ as the water level. It
 is illustrated in Figure 1.1, which explains where the term waterﬁlling originates from.
+
+140426102822
 PROGRAMMING TASK 1.4
 Implement an algorithm that takes the channel coeﬃcients h1 , . . . , hn , the noise variances
-2
-2
 σ1 , . . . , σn , and the available sum transmit power P as inputs and that computes the optimal
 waterﬁlling solution to problem (1.4) using the waterﬁlling algorithm.
 1 Deliverables (Matlab code ﬁle): waterfilling.m
@@ -807,47 +337,16 @@ function [R,p,mu] = waterfilling(h,s,P)
 
 2 Input Speciﬁcation:
 • h: vector of channel coeﬃcients h1 , . . . , hn
-6
-
-Chapter 1. Introduction
-
-c7
-c6
-c5
-w⋆
-
-p⋆
-4
-p⋆
-3
-p⋆
-1
-
-p⋆
-2
-
-c4
-
-c3
-
-c2
-c1
-
-Figure 1.1: Illustration of the waterﬁlling solution for communication over 7 parallel channels.
-2
-2
 • s: vector of noise variances σ1 , . . . , σn
-
 • P: available sum transmit power
 3 Output Speciﬁcation:
 • R: value of the maximal sum rate R⋆
 • p: vector of optimal transmit powers p⋆ , . . . , p⋆
-n
-1
 • mu: value of the optimal Lagrangian multiplier µ⋆
 4 Hint(s):
 • First, reorder γ1 , . . . , γn such that γ1 ≤ . . . ≤ γn and determine k ⋆ ∈ {1, . . . , n}.
-TASK 1.5
+
+\todo{TASK 1.5}
 Measure and compare the execution times of your two functions waterfilling_cvx.m
 and waterfilling.m for diﬀerent input parameters. Which of the two solutions is more
 eﬃcient? Try to explain the results.
@@ -876,10 +375,11 @@ R = log2 det Im + Cη HQH H
 
 if we assume Gaussian inputs x ∼ NC (0, Q) with zero-mean and covariance matrix Q =
 E[xxH ]. In what follows, we assume Q to be ﬁxed and Cη to vary over time.
+
 Even though Cη is assumed to vary, the total noise power shall be limited, which can be expressed as the constraint
-(1.11)
-E[ η 2 ] = tr Cη ≤ N.
-2
+E[ η 2 ] = tr Cη ≤ N.  (1.11)
+[ The trace of a matrix is equal to the sum of the eigenvalues ]
+
 Based on these assumptions, the worst case achievable sum rate is
 −1
 Rworst-case = min log2 det Im + Cη HQH H
@@ -981,13 +481,18 @@ i=1
 (1.17)
 
 to ﬁnd the worst-case achievable rate Rworst-case .
+
+140426102933
 TASK 1.6
 Show that the objective function of problem (1.17) is convex.
 From this observation, it follows that the optimization problem is convex, i.e., we have the
 minimization of a convex objective function over a convex (polyhedral) constraint set.
-TASK 1.7
+
+140426102938
+\todo{TASK 1.7}
 If you try using CVX to solve problem (1.17), it will not work. Think about the reason why
 CVX is not applicable in this case.
+
 The optimal solution to the convex optimization problem in (1.17) can be obtained from its
 KKT conditions. If µ ≥ 0 denotes the Lagrangian multiplier corresponding to the inequality
 constraint m σi ≤ N , and λi ≥ 0 denote the Lagrangian multipliers corresponding to the
@@ -1047,6 +552,8 @@ bound for µ′ is µ′
 lower = 0 and an upper bound is given by µupper =
 i=1
 i=1
+
+140426103012
 PROGRAMMING TASK 1.8
 Implement an algorithm that takes the eigenvalues ψ1 , . . . , ψm of X and the maximal sum
 noise power N as inputs and that computes the optimal solution to problem (1.17) given

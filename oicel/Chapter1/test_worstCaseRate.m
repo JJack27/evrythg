@@ -11,8 +11,8 @@ disp('Testing worstCaseRate')
 try
     for t=1:length(testSetsWCR)
         for i=1:length(testSetsWCR(t).N)
+            fprintf('Running test %d.%d\n', t, i)
             [R,s,mu] = worstCaseRate(testSetsWCR(t).p,testSetsWCR(t).N(i));
-            
             if max(abs(testSetsWCR(t).R(i)-R))>zeta
                 display(['FAIL, wrong rate, test No. ' num2str(t) ', with noise power ' num2str(testSetsWCR(t).N(i))])
                 keyboard
@@ -20,14 +20,18 @@ try
             end
             if max(abs(testSetsWCR(t).s(:,i)-s))>zeta
                 display(['FAIL, wrong worst case powers, test No. ' num2str(t) ', with noise power ' num2str(testSetsWCR(t).N(i))])
+                fprintf('Should be \t Is\n')
+                [testSetsWCR(t).s(:,i), s] %#ok<NOPRT>
                 keyboard
                 ok=false;
             end
             if max(abs(testSetsWCR(t).mu(i)-mu))>zeta
+                fprintf('Should be: %f, is %f\n', ttestSetsWCR(t).mu(i), mu);
                 display(['FAIL, wrong Lagrangian multiplier, test No. ' num2str(t) ', with noise power ' num2str(testSetsWCR(t).N(i))])
                 keyboard
                 ok=false;
             end
+            fprintf('\tPassed\n')
         end
     end
 catch e
@@ -36,6 +40,6 @@ catch e
     ok = false;
 end
 if ok
-    disp('OK')
+    fprintf('--- All tests passed ---\n\n')
 end
 
