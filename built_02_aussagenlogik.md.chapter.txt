@@ -155,7 +155,7 @@ Distributivität von \(\vee\) über \(\wedge\) :
 Normalformen 
 
 CNF/KNF (Conjunctive Normal Form)
-
+[ Konjunktion ist Und ]
 \(P \vee \left(Q \wedge R \wedge \left(T \vee \neg P\right)\right)=\left(P \vee Q\right) \wedge \left(P \vee R\right) \wedge \left(P \vee T \vee \neg P\right)\) 
 
 DNF (Disjunctive Normal Form)
