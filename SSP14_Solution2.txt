@@ -1,0 +1,857 @@
+Statistical Signal Processing
+
+SS 2014
+
+1
+
+2. Maximum Likelihood Estimation
+Solution
+
+Problem 2.1
+a)
+
+Maximum Likelihood Estimation
+
+The statistical model is given as {X, F, Pθ ; θ ∈ Θ} with:
+
+• the sample space/observation space X, here R2 ,
+• a sigma algebra F, here the family of subsets of R2 , i.e., the set that contains all compact
+rectangles with real valued corner points,
+• a probability measure Pθ on (X, F) which depends on the constant but unknown parameter
+θ = h = [h1 , h2 ]T ∈ Θ = R2 .
+The random variable x = [x1 , x2 ]T can be expressed as
+x=
+
++ n ,
+
+hs
+deterministic
+
+random
+
+or alternatively, which will be helpful for sub-problem d), as
+x=
+
+Sh
+
++ n
+
+deterministic
+
+with
+
+S=
+
+random
+
+s 0
+.
+0 s
+
+_1_ 140427170102
+The random variable x follows a Gaussian distribution as x is an affine transformation of n and n is Gaussian.
+It follows that x ∼ N(µx , Cx ) with [ expected value ]
+µx = E [x] = E [Sh + n] = Sh,
+Cx = E (x − µx )(x − µx )T = E nnT = C.
+
+Thus, the likelihood function is given as
+L(x; h) =
+
+1
+1
+exp
+−
+(x − Sh)T C−1 (x − Sh) ,
+(det (2πC))1/2
+2
+
+and the log-likelihood function (x; h) = log(L(x; h)) is given as
+1
+1
+(x; h) = − log(det (2πC)) − (x − Sh)T C−1 (x − Sh).
+2
+2
+The maximizer hˆ ML of the likelihood function, also maximizes the log-likelihood function as log( · )
+is monotonically increasing, therefore it follows that
+hˆ ML = argmax {L(x; h)}
+h∈R2
+c Associate Institute for Signal Processing
+Technische Universit¨at M¨unchen
+
+Statistical Signal Processing
+
+SS 2014
+
+2
+
+= argmax { (x; h)}
+h∈R2
+
+1
+1
+= argmax − log(det (2πC)) − (x − Sh)T C−1 (x − Sh)
+2
+2
+h∈R2
+1
+= argmax − (x − Sh)T C−1 (x − Sh)
+2
+h∈R2
+= argmin (x − Sh)T C−1 (x − Sh) .
+h∈R2
+
+This is an unconstrained convex optimization problem (OP) as a convex function is minimized
+without any constraints. Hence, the condition
+∂
+!
+(x − Sh)T C−1 (x − Sh) = −2ST C−1 (x − Sh) = 0
+∂h
+is necessary and sufficient for global optimality and we determine hˆ ML by
+ST C−1 x = ST C−1 S hˆ ML
+⇒ hˆ ML = (ST C−1 S)−1 ST C−1 x =
+
+1
+x.
+s
+
+Remark 1: The ML estimator hˆ ML does not depend on the noise covariance matrix C as S = sI2 .
+Remark 2: Without taking into account that the OP is convex, the second derivative given as
+∂2
+(x − Sh)T C−1 (x − Sh) = 2ST C−1 S
+∂2 h
+
+0
+
+is necessary in order to assure that the stationary point actually is a minimizer. Note that a function
+is convex if and only if its second derivative is non-negative. As C 0, the observation that
+(x − Sh)T C−1 (x − Sh) ≥ 0
+with equality if and only if x − Sh = 0 can be alternatively used to determine hˆ ML directly.
+b) As n(1) , . . . , n(N) are uncorrelated and Gaussian, the observations x (1) , . . . , x (N) are independent and Gaussian with x (i) ∼ N(S(i) h, C). Thus, the likelihood function is given as
+N
+
+L(x , . . . , x ; h) =
+(1)
+
+(N)
+
+L(x(i) ; h)
+i=1
+
+
+ 1
+1
+−
+=
+exp
+(det (2πC))N/2
+2
+
+N
+
+i=1
+
+
+
+(x(i) − S(i) h)T C−1 (x(i) − S(i) h)
+
+and the log-likelihood function is given as
+N
+1
+(x , . . . , x ; h) = − log(det (2πC)) −
+2
+2
+(1)
+
+N
+
+(x(i) − S(i) h)T C−1 (x(i) − S(i) h).
+
+(N)
+
+i=1
+
+c Associate Institute for Signal Processing
+Technische Universit¨at M¨unchen
+
+Statistical Signal Processing
+
+SS 2014
+
+3
+
+The ML estimator hˆ ML is given as the solution of
+
+
+N
+
+
+
+
+N
+1
+
+(i) T −1 (i)
+(i) 
+(i)
+(2πC))
+(x
+−
+S
+h)
+C
+(x
+−
+S
+h)
+hˆ ML = argmax 
+−
+log(det
+−
+
+
+
+ 2
+
+2 i=1
+h∈R2
+
+ N
+
+
+
+
+
+(i) T −1 (i)
+(i) 
+(i)
+(x
+−
+S
+h)
+C
+(x
+−
+S
+h)
+.
+= argmin 
+
+
+
+
+
+h∈R2
+i=1
+
+This again is an unconstrained convex OP as the objective function is a sum of convex functions
+and therefore convex as well. Thus, the condition
+ N
+
+N
+
+∂ 
+∂
+(i) T −1 (i)
+(i) 
+(i)
+(x(i) − S(i) h)T C−1 (x(i) − S(i) h)
+ (x − S h) C (x − S h) =
+∂h i=1
+∂h
+i=1
+N
+!
+
+−2S(i),T C−1 (x(i) − S(i) h) = 0
+
+=
+i=1
+
+is necessary and sufficient for global optimality and we determine hˆ ML as
+N
+
+N
+(i),T
+
+S
+
+C x =
+
+i=1
+
+⇒ hˆ ML =
+
+−1 (i)
+
+S(i),T C−1 S(i) hˆ ML
+
+i=1
+N
+(i) (i)
+i=1 s x
+.
+N
+(i),2
+i=1 s
+
+Remark: Without taking into account that the OP is convex, the second derivative given as
+ N
+
+N
+
+∂2 
+(i) T −1 (i)
+(i) 
+(i)
+
+(x
+−
+S
+h)
+C
+(x
+−
+S
+h)
+=
+2S(i),T C−1 S(i) 0,
+
+
+
+∂2 h  i=1
+i=1
+as the sum of positive definite matrices is again positive definite, is necessary in order to assure that
+the stationary point actually is a minimizer.
+c) If only one observation is taken into account, the estimator is given as
+(1)
+ˆ (1) ) = x ,
+h(x
+s(1)
+
+which actually is the ML estimator if only one observation is available, cf. sub-problem a). The
+ˆ (1) ) is unbiased as
+estimator h(x
+E
+
+1
+hs(1)
+x (1)
+(1)
+=
+E
+x
+=
+= h.
+s(1)
+s(1)
+s(1)
+
+ˆ (1) ) is not consistent as
+The estimator h(x
+lim
+
+N→∞
+
+x(1)
+1
+n(1)
+(1)
+(1)
+=
+(hs
++
+n
+)
+=
+h
++
+s(1)
+s(1)
+s(1)
+
+c Associate Institute for Signal Processing
+Technische Universit¨at M¨unchen
+
+h.
+
+Statistical Signal Processing
+
+SS 2014
+
+4
+
+d) As n(1) , . . . , n(N) are correlated and jointly Gaussian, the observations x (1) , . . . , x (N) are dependent and jointly Gaussian. Thus, we formulate the joint PDF of all N observations. To this end,
+the noise realizations are stacked into the vector n = [n1(1) , n2(1) , . . . , n1(N) , n2(N) ]T and the covariance
+matrix of n is given by
+
+ c11 c12
+ c
+ 21 c22
+
+c11 c12
+?
+
+
+c
+c
+21
+22
+Cn = 
+
+..
+
+.
+
+?
+c11 c12
+
+c21 c22
+
+
+
+
+
+
+
+ .
+
+
+
+
+
+
+For the observations x (1) , . . . , x (N) we obtain
+x = [x1(1) , x2(1) , . . . , x1(N) , x2(N) ]T
+=S h+n ,
+with S = [S(1) , S(2) , . . . , S(N) ]T ∈ R2N×2 . The covariance of x is Cx = Cn . From this we obtain the
+likelihood function
+L(x ; h) =
+
+1
+1
+exp − (x − S h)T C−1
+x (x − S h) .
+1/2
+(det (2πCx ))
+2
+
+Following the solution of sub-problem a), we obtain the ML estimator as
+−1 T −1
+hˆ ML = (S T C−1
+x S ) S Cx x .
+
+e) As n(1) , . . . , n(N) are uncorrelated and Gaussian, the observations x (1) , . . . , x (N) are independent
+and Gaussian with x (i) ∼ N(S(i) h, C). It is convenient to parametrize the likelihood function by
+means of the inverse of the covariance matrix K = C−1 which is equivalent to a parametrization in
+C. Therefore, the likelihood function is given as
+L(x , . . . , x ; K) =
+(1)
+
+1
+
+(N)
+
+(det 2πK
+
+−1
+
+)N/2
+
+1
+exp −
+2
+
+N
+
+(x(i) − S(i) h)T K(x(i) − S(i) h) .
+i=1
+
+and the log-likelihood function is given as
+N
+
+1
+N
+(x(i) − S(i) h)T K(x(i) − S(i) h)
+(x , . . . , x ; K) = − log det 2πK −1 −
+2
+2 i=1
+ N
+
+
+
+
+N
+K
+1 
+
+(i)
+(i) T 
+(i)
+(i)
+= log det
+− tr 
+K
+(x
+−
+S
+h)(x
+−
+S
+h)
+
+
+
+
+2
+2π
+2 
+(1)
+
+(N)
+
+i=1
+
+=
+
+N
+K
+1
+log det
+− − tr KNC ,
+2
+2π
+2
+c Associate Institute for Signal Processing
+Technische Universit¨at M¨unchen
+
+Statistical Signal Processing
+
+SS 2014
+
+5
+
+with the, by assumption and for N ≥ 2 actually almost surely, positive definite matrix
+C =
+
+1
+N
+
+N
+
+(x(i) − S(i) h)(x(i) − S(i) h)T .
+i=1
+
+Note that the [ trace ] tr {·} operator is linear and that aT Ba = tr aT Ba = tr BaaT . As log det
+log det
+
+1
+2π
+
+K
+2π
+
+=
+
++ log det (K) we have
+(x(1) , . . . , x(N) ; K) = −N log(2π) +
+
+N
+N
+log det (K) − tr KC .
+2
+2
+
+ˆ ML is given as the solution of
+The ML estimator K
+ˆ ML = argmax −N log(2π) + N log det (K) − N tr KC
+K
+2
+2
+K 0
+= argmin − log det (K) + tr KC .
+K 0
+
+The objective function is the sum of − log det(K), which is a convex function in K 0, and tr KC ,
+which is a linear function of K, and therefore convex. The constraint set is the convex cone of
+ˆ ML is convex. In order to solve this OP,
+positive definite matrices. Thus, the OP which determines K
+we search for a stationary point of the objective function
+∂
+− log(det (K)) + tr KC
+∂K
+
+=−
+
+1
+!
+det (K) (K −1 )T + C T = 0
+det (K)
+
+and observe that only one stationary point
+K ∗ = C −1
+exists, which actually is a stationary point of the unconstrained OP where the constraint K 0
+has been dropped. As K ∗ is in the interior of the constraint set K 0 and the constrained OP is
+ˆ ML = K ∗ = C −1 and that the corresponding ML estimator Cˆ ML for
+convex, we can conclude that K
+the covariance matrix C is given as
+1
+Cˆ ML = C =
+N
+
+N
+
+(x(i) − S(i) h)(x(i) − S(i) h)T .
+i=1
+
+f) The mean of each sample x (i) given as E x (i) = S(i) h is assumed to be known. For the true
+covariance matrix C we have
+C = E x (i) x (i),T − E x (i) E x (i)
+
+T
+
+= E x (i) x (i),T − S(i) hhT S(i),T ,
+or equivalently
+E x (i) x (i),T = C + E x (i) E x (i)
+c Associate Institute for Signal Processing
+Technische Universit¨at M¨unchen
+
+T
+
+.
+
+Statistical Signal Processing
+
+SS 2014
+
+6
+
+The ML estimator for the covariance matrix is unbiased as
+cf. 140427170102
+
+Remark: When the mean S(i) h is unknown and needs to be estimated as well, the likelihood
+function is given as L(x(1) , . . . , x(N) ; h, K). For hˆ ML , this leads to exactly the same result as derived
+in sub-problem b). The ML estimator Cˆ ML for C in the case of an unknown mean is given as
+1
+Cˆ ML =
+N
+
+N
+
+(x(i) − S(i) hˆ ML )(x(i) − S(i) hˆ ML )T .
+i=1
+
+In this case, Cˆ ML is a biased estimator and an unbiased estimator for C is given by
+N ˆ
+CML
+N−1
+N
+1
+=
+(x(i) − S(i) hˆ ML )(x(i) − S(i) hˆ ML )T .
+N − 1 i=1
+
+Cˆ =
+
+However, note that the ML estimator Cˆ ML is asymptotically unbiased.
+
+c Associate Institute for Signal Processing
+Technische Universit¨at M¨unchen
+
+Statistical Signal Processing
+
+SS 2014
+
+7
+
+B. Multivariate Derivatives
+In Problem 2.1 we use the following multivariate derivative
+∂(x − Sh)T C−1 (x − Sh)
+= −2ST C−1 (x − Sh).
+∂h
+Here is one possible and very detailed derivation.
+The gradient of a function f : RN → R is
+ ∂f 
+ 
+∂ f  ∂z.1 
+= . 
+∂z  ∂.f 
+∂zN
+
+For f = aT z =
+
+N
+n=1
+
+an zn , we have
+ ∂f   
+   a1 
+∂ f  ∂z.1   . 
+= . = . =a
+∂z  ∂.f   . 
+aN
+∂z
+N
+
+The differential of a [ vector valued ] function f : RN → R M is
+
+A product rule: the differential of a [ vector valued ] function f = uT v
+∂ N u v  
+ i=1 i i   N ∂ui vi + ui ∂vi 
+i=1 ∂z1
+∂z1 
+
+∂uT v  ∂z.1  
+..
+
+=  ..  = 
+.
+∂z
+ ∂ N u v   N ∂ui
+
+∂vi 
+i=1 i i
+v
++
+u
+i
+i
+i=1 ∂zN
+∂zN
+∂zN
+ 1
+ N ∂ui   N
+∂vi 
+ i=1 ∂z1 vi   i=1 ui ∂z1   ∂u
+···
+∂z1
+
+
+
+
+
+
+
+
+
+..
+..
+ + 
+ =  ... . . .
+= 
+.
+.
+ 
+ N ∂ui   N
+∂vi 
+∂u1
+v
+u
+···
+i=1 ∂zN i
+i=1 i ∂zN
+∂zN
+=
+
+∂u
+z
+
+T
+
+v+
+
+∂v
+z
+
+∂uN 
+
+∂z1 
+
+
+ ∂v1
+ ∂z1
+
+..  v +  ..
+ .
+. 
+ ∂v1
+
+∂uN 
+∂zN
+
+∂zN
+
+···
+..
+.
+···
+
+∂vN 
+
+∂z1 
+
+
+..
+.
+
+
+ u
+
+∂vN 
+∂zN
+
+T
+
+u
+
+For f = zT Az we can identify u = Az and v = z and therefore
+∂zT Az
+∂Az
+=
+∂z
+∂z
+
+T
+
+∂z
+z+
+∂z
+
+T
+
+Az = AT z + Az
+
+Now it is straight forward to see that
+∂(x − Sh)T C−1 (x − Sh) ∂xT C−1 x ∂ − hT ST C−1 x ∂ − xT C−1 Sh ∂hT ST C−1 Sh
+=
++
++
++
+∂h
+∂h
+∂h
+∂h
+∂h
+∂ − 2hT ST C−1 x ∂hT ST C−1 Sh
+=
++
+∂h
+∂h
+T −1
+T −1
+= −2S C x + 2S C Sh
+= −2ST C−1 (x − Sh),
+by using
+∂hT Ah
+= 2Ah
+∂h
+with A = ST C−1 S = AT and
+∂aT h ∂hT a
+=
+=a
+∂h
+∂h
+with a = ST C−1 x.
+
+Exercise: Try to compute above result by finding applying an appropriate chain rule.
+cf. 140427130751 140427130632
+
