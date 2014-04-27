@@ -252,6 +252,7 @@ f (0) = limz→∞ F(z) = 1
 z
 (z−1)2
 
+_6_ 140427095925 
 Final value theorem
 lim f (k) = lim(z − 1)F(z)
 
@@ -283,15 +284,8 @@ Transfer functions
 
 Discrete-time transfer function
 Let’s apply the Z-transform to discrete-time linear systems
-x(k + 1)
-y(k)
-
-=
-=
-
-Ax(k) + Bu(k)
-Cx(k) + Du(k)
-
+x(k + 1) = Ax(k) + Bu(k)
+y(k) =  Cx(k) + Du(k)
 x(0) = x0
 
 Define X(z) =
@@ -341,11 +335,10 @@ of natural response
 
 of forced response
 
+140427093404
 Definition:
-The transfer function of a discrete-time linear system (A, B, C, D) is the ratio
-G(z) = C(zI − A)−1 B + D
-between the Z-transform Y(z) of the output and the Z-transform U(z) of the input
-signals for the initial state x0 = 0
+The transfer function of a discrete-time linear system (A, B, C, D) is the ratio G(z) = C(zI − A)−1 B + D between the Z-transform Y(z) of the output and the Z-transform U(z) of the input signals for the initial state x0 = 0
+
 MATLAB
 
 »sys=ss(A,B,C,D,Ts);
@@ -768,12 +761,9 @@ NG (z)
 DG (z)
 
 Use the adjugate matrix to represent the inverse of zI − A
-C(zI − A)−1 B + D = C
+[ In linear algebra, the adjugate or classical adjoint (occasionally referred to as adjunct) of a square matrix is the transpose of the cofactor matrix. ]
+[ A.I = 1/det(A) adj(A) ]
 
-C Adj(zI − A)B
-det(zI − A)
-
-+D
 
 The denominator DG (z) = det(zI − A) !
 The poles of G(z) coincide with the eigenvalues of A
@@ -801,7 +791,8 @@ The corresponding steady-state output yr = Cxr + Dur is
 yr = (C(I − A)−1 B + D) ur
 DC gain
 
-Cf. final value theorem:
+cf. 140427095925
+final value theorem:
 yr
 
 =
@@ -945,64 +936,9 @@ Algebraically equivalent systems
 
 Linear algebra recalls: Change of coordinates
 Let {v1 , . . . , vn } be a basis of
-The canonical basis of
-
-n
-
-n
-
+The canonical basis 
 (= n linearly independent vectors)
- 
- 
- 
-1
-
-0
-
-0
-
-0
-
-0
-
-1
-
-0
-1
-.
-is e1 =  .. , e2 =  .. , . . ., en =  .. 
-.
-.
-0
-
-A vector w ∈ n can be expressed as a linear combination of the basis vectors,
-whose coefficients are the coordinates in the corresponding basis
-n
-
-n
-
-xi ei =
-
-w=
-i=1
-
-zi vi
-i=1
-
-The relation between the coordinates x = [x1 . . . xn ] in the canonical basis
-and the coordinates z = [z1 . . . zn ] in the new basis is
-x = Tz
-where T =
-
-v1
-
-...
-
-Prof. Alberto Bemporad (University of Trento)
-
-vn
-
-(= coordinate transformation matrix)
+where T = coordinate transformation matrix
 Automatic Control 1
 
 Academic year 2010-2011
@@ -1013,121 +949,12 @@ Academic year 2010-2011
 
 Algebraically equivalent systems
 
-Algebraically equivalent systems
-Consider the linear system
-x(k + 1)
-
-=
-
-Ax(k) + Bu(k)
-
-y(k)
-
-=
-
-Cx(k) + Du(k)
-
-x(0) = x0
-Let T be invertible and define the change of coordinates x = Tz, z = T −1 x
-z(k + 1)
-y(k)
-
-=
-=
-
-T −1 x(k + 1) = T −1 (Ax(k) + Bu(k)) = T −1 ATz(k) + T −1 Bu(k)
-CTz(k) + Du(k)
-
-z0 = T −1 x0
-and hence
-
-z(k + 1)
-y(k)
-
-=
-=
-
-˜
-˜
-Az(k)
-+ Bu(k)
-˜
-˜
-Cz(k) + Du(k)
-
-z(0) = T −1 x0
-˜ B,
-˜ C,
-˜ D)
-˜ are called algebraically
-The dynamical systems (A, B, C, D) and (A,
-equivalent
-Prof. Alberto Bemporad (University of Trento)
-
-Automatic Control 1
-
-Academic year 2010-2011
-
-19 / 21
-
-Lecture: Z-transform
-
-Algebraically equivalent systems
-
-Transfer function of algebraically equivalent systems
-
-˜ B,
-˜ C,
-˜ D)
-˜
-Consider two algebraically equivalent systems (A, B, C, D) and (A,
-˜ = T −1 AT
-A
-˜
-B = T −1 B
-
-˜ = CT
-C
-˜ =D
-D
-
-˜ B,
-˜ C,
-˜ D)
-˜ have the same transfer functions:
-(A, B, C, D) and (A,
-˜
-G(z)
-
-=
-=
-=
-=
-=
-
-˜ − A)
-˜ −1 B
-˜+D
-˜
-C(zI
-−1
-−1
-CT(zT IT − T AT)−1 T −1 B + D
-CTT −1 (zI − A)TT −1 B + D
-C(zI − A)−1 B + D
-G(z)
-
+Two algebraically equivalent systems have the same transfer functions:
 The same result holds for continuous-time linear systems
 
-Prof. Alberto Bemporad (University of Trento)
-
-Automatic Control 1
-
-Academic year 2010-2011
 
 20 / 21
 
-Lecture: Z-transform
 
 Algebraically equivalent systems
 
