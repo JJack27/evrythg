@@ -17,7 +17,6 @@ www.itr.ei.tum.de
 4. Model Reference Adaptive systems
 5. Autotuning, Gain Scheduling
 6. Practical Issues and Implementation, Applications
-
 Pole Placement
 
 Indirect STR
@@ -59,7 +58,9 @@ Direct STR
 
 3
 
-Pole Placement
+cf. 140427084015
+Pole Placement
+
 SISO model of process:
 
 A(q)y(t) = B(q)(u(t) + ν(t))

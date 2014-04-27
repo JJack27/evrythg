@@ -7328,6 +7328,7 @@ Section 3.4. In Section 3.5 we show how a direct self-tuning regulator is obtain
 of direct and indirect algorithms. In Section 3.6 we discuss how to modify the
 adaptive controllers so that they can deal with disturbances.
 
+_108_ 140427084015
 3.2 POLE PLACEMENT DESIGN
 A simple method for control design will now be presented. The idea is to determine a controller that gives desired closed-loop poles. In addition it is required
 that the system follows command signals in a specified manner. This is a simple
@@ -7399,8 +7400,10 @@ Ay(t) = B (u(t) + v(t))
 
 where A and B denote polynomials in either the differential operator p = d/ dt
 or the forward shift operator q. It is assumed that A and B are relatively prime,
-that is, that they do not have any common factors. Further, it is assumed that
-A is monic, that is, that the coefficient of the highest power in A is unity.
+that is, that they do not have any common factors. 
+
+Further, it is assumed that A is monic, that is, that the coefficient of the highest power in A is unity.
+
 A general linear controller can be described by
 Ru(t) = Tuc (t) − Sy(t)
 
