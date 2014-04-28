@@ -12,7 +12,7 @@ try
     for t=[1,2,4] %Not testing the cvx solution with the biggest system.
         for i=1:length(testSetsWF(t).P)
             % TODO What's the matter with test 2.3 ?
-            %     for t=[2] 
+            %     for t=2 
             %        for i=3
             % Seems like I should not assign any power to c_1?
             fprintf('Running test %d.%d\n', t, i)

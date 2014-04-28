@@ -27,6 +27,7 @@ n = length(h); %#ok<NASGU>
 cvx_begin 
 	cvx_quiet true % no screen outpunt
     cvx_solver SDPT3 % select solver
+    cvx_expert true % disable the successive approximation warning
     variable p(n)
     maximize(sum_log(1 + gamma .* p))
     subject to
@@ -37,13 +38,10 @@ R = cvx_optval/log(2);
 [p_, i] = max(p);
 assert(p_ > 0)
 mu = 1/(p_ + 1/gamma(i))/log(2);
-<<<<<<< HEAD
 %{
 figure
 hold
 h = [plot(p/50, 'b'), plot(gamma, 'g')]
 legend({'$p/50$', '$\gamma$'}, 'Interpreter', 'Latex')
 %}
-=======
->>>>>>> 8bd5f267db2f29d28f2923b59f754c182677665d
 end
