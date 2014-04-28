@@ -77,32 +77,12 @@ SS 2014
 1
 (det(2πCx ))1/2
 
-2
 
-1
-exp − 2 c , the contour lines fx (x) = k(c) are determined by
-
-(x − µx )T C−1 (x − µx ) = c,
-x
+140427112856
+the contour lines fx (x) = k(c) are determined by
 which is a quadratic form that describes an ellipse with center µx . The principle axes are given
 by the eigenvectors vx,i of C−1 . The intersection point of the contour line fx (x) = k(c) with i-the
-x
-√
 principle axis is given at a distance of c/λi from µx , where λi is the i-th eigenvalue of C−1 .
-x
-For x1 ∼ N(3, 1), x2 ∼ N(1, 2), and x = [x1 , x2 ]T , we have x ∼ N(µx , Cx ) with
-µx =
-
-3
-1
-
-and
-
-Cx =
-
-1 0
-.
-0 2
 
 The eigenvalues of C−1 are λ1 = 1 and λ2 = 1/2. The corresponding eigenvectors are given as
 x
@@ -262,12 +242,10 @@ SS 2014
 A. Multivariate Gaussian Distributions
 A random vector x = [x1 , . . . , xN ]T ∈ RN×1 with expected value µx = E [x] and covariance matrix
 Cx = E (x − µx )(x − µx )T is said to be (jointly) Gaussian, or multivariate normal, if
-aT x ∼ N(aT µx , aT Cx a)
-
-∀a ∈ RN×1 ,
-
+aT x ∼ N(aT µx , aT Cx a) ∀a ∈ RN×1 ,
 i.e., if any linear combination of its components results in an univariate Gaussian random variable
 with the respective mean and variance.
+
 Some remarks on Gaussian random vectors, where we assume that all covariance matrices have
 full rank:
 • x ∼ N(µx , Cx ) has the PDF
@@ -346,43 +324,23 @@ fx (y)dy2
 −∞
 
 due to the symmetry of fx (y).
-• Any aﬃne transformation y = Ax + b of a a jointly Gaussian random vector x, where A and b
+
+_5_ 140427111146
+Any affine transformation y = Ax + b of a a jointly Gaussian random vector x, where A and b
 are deterministic, is jointly Gaussian (calculate the characteristic function of aT y ). It follows
 that y ∼ N(Aµx + b, ACx AT ).
-c Associate Institute for Signal Processing
-Technische Universit¨ t M¨ nchen
-a u
-
-Statistical Signal Processing
-
-SS 2014
-
-6
+[ expected value and covariance matrix ]
 
 • Any non-empty subset J of a jointly Gaussian random vector x is jointly Gaussian (choose
 appropriate selection matrix A and b = 0).
-• If a jointly Gaussian vector random x is partitioned into x = [xa xb ]T it follows that µx =
-[µxa µxb ]T and that
-Cx =
 
-Cxa Cxa xb
-.
-CTa xb Cxb
-x
-
+_6_ 140427112452
+If a jointly Gaussian vector random x is partitioned into x = [xa xb ]T 
 The random variable xa |xb = b is jointly Gaussian (advanced: factorize the joint PDF of x into
 the marginal PDF of xb and a second factor by exploiting properties of the inverse of a block
 matrix). The conditional PDF of xa |xb = b is determined by the conditional mean
-µxa |xb =b = µxa + Cxa xb C−1 (b − µxb )
-xb
 and the conditional covariance matrix
-Cxa |xb = Cxa − Cxa xb C−1 CTa xb
-xb x
 which is the Schur complement of Cxb in Cx . Finally, we have that the conditional random
 variable xa |xb = b is distributed according to (xa |xb = b) ∼ N(µxa |xb =b , Cxa |xb ).
 
-c Associate Institute for Signal Processing
-Technische Universit¨ t M¨ nchen
-a u
 
-

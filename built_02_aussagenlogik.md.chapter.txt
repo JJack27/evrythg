@@ -1,0 +1,311 @@
+Mathematische Logik 
+
+Mathematische Logik 
+LSR 
+
+Rationale Agenten 
+Agenten 
+
+Arten von Agenten 
+
+Software 
+Roboter 
+... 
+
+Ziel: das &quot;richtige&quot; tun, &quot;erfolgreich&quot; sein 
+Notwendig: 
+
+Beschreibung der Umgebung 
+Sensoren und Aktoren des Agenten 
+Möglichkeit, &quot;Erfolg&quot; zu messen 
+
+⇒ Aufgabenbeschreibung 
+Aufgabenbeschreibung 
+Leistungsbewertung 
+Beispiel: Staubsauger 
+
+Menge Schmutz aufgesammelt 
+Fläche sauberer Boden 
+
+⇒ Leistungsbewertung nach gewünschtem Ergebnis, nicht nach erwartetem Verhalten 
+Beschreibung der Umgebung 
+
+Vollständig beobachtbar vs. teilweise beobachtbar 
+deterministisch vs. stochastisch 
+episodisch vs. sequenziell 
+statisch vs. dynamisch 
+diskret vs. kontinuierlich 
+Einzelagent vs. Multiagent 
+
+Rationalität 
+Abhängig von 
+
+Leistungsbewertung
+
+Vorwissen
+
+möglichen Aktionen
+
+bisherige Wahrnehmungen 
+
+Definition: 
+Ein rationaler Agent soll für jede mögliche Wahrnehmungsfolge eine Aktion auswählen, von der erwartet werden kann, dass sie seine Leistung maximiert, wenn man seine Wahrnehmungsfolge sowie sein vorhandenes Wissen, über das er verfügt, in Betracht zieht. 
+Rationalität vs. Allwissenheit 
+Rationalität maximiert erwartete Leistung 
+Perfektion maximiert tatsächliche Leistung 
+Wissensbeschreibung - Knowledge base 
+
+Darstellung des Wissens 
+Wissen/Fakten über die Welt werden in Form von Sätzen / sentences in der Wissensrepräsentation / knowledge base gespeichert. 
+Informationsquellen: 
+
+Deklarativer Ansatz: dem System wird Wissen explizit mitgeteilt 
+Lernen aus Wahrnehmung und Erfahrung 
+
+Wissensdarstellung im Allgemeinen: 
+
+Syntax (Regeln der Sprache, wie werden gültige Sätze zusammengesetzt) 
+Semantik (Bedeutung des Wissens in der realen Welt) 
+
+Die Abbildung zwischen Syntax und Semantik ist eine Interpretation . 
+Logische Konsequenz ( Entailment ) als zentrales Element für Schlussfolgerungen ( reasoning/inference/deduction ): Generieren neuer Sätze aus der Knowledge Base (die Fakten beinhaltet, die axiomatisch wahr sind), d.h. die aus der KB folgen 
+\(\textrm{KB} \models a\) - The KB entails, or models, the fact \(a\) . 
+Korrekte (sound) Inferenzmethoden generieren nur Sätze, die aus der KB folgen. Die Schritte dabei sind gleichzeitig ein formaler Beweis . 
+Vollständigkeit (completeness) einer Inferenzmethode besagt, dass jedes richtige Theorem, dass mit einer KB vereinbar ist, auch hergeleitet werden kann. 
+
+Eigenschaften von logischen Sätzen: 
+
+äquivalent : \(a \equiv b\) iff \(a \models b\) and \(b \models a\) 
+gültig , wenn sie unter allen Interpretationen notwendigerweise wahr sind ( Tautologien ) 
+erfüllbar , wenn sie unter manchen Interpretationen wahr sind. 
+nicht erfüllbar , wenn sie in keiner Interpretation wahr sind. 
+
+Frage: wie funktioniert Schließen? 
+Aussagenlogik / Propositional Logic 
+
+Aussagenlogik als Wissensrepräsentation 
+Syntax : Symbole &amp; Boolsche Verknüpfungen ( \(\vee\) , \(\wedge\) , \(\neg\) , \(\implies\) , \(\iff\) ) 
+Semantik : Festlegung der Interpretation von Symbolen und Wahrheitstabellen für Operatoren 
+
+Beispiel : Implikation 
+
+\(A\) 
+\(B\) 
+\(A \implies B\) 
+
+False 
+False 
+True 
+
+False 
+True 
+True 
+
+True 
+False 
+False 
+
+True 
+True 
+True 
+
+Wahrheitstabellen für ganze Sätze: 
+
+können aus den einzelnen Teilaussagen erstellt werden, wenn die Präzedenz eindeutig ist ( Extensionalität ). 
+Präzedenz kann durch Klammern vorgegeben werden. 
+
+Eigenschaften der logischen Äquivalenz: 
+
+Kommutativität von \(\wedge\) : 
+\((a \wedge b) \equiv (b \wedge a)\) 
+
+Kommutativität von \(\vee\) : 
+\((a \vee b) \equiv (b \vee a)\) 
+
+Assoziativität von \(\wedge\) : 
+\(((a \wedge b) \vee c) \equiv (a \wedge (b \vee c))\) 
+
+Assoziativität von \(\vee\) : 
+\(((a \vee b) \vee c) \equiv (a \vee (b \vee c))\) 
+
+Eliminierung der doppelten Negation: 
+\(\neg(\neg a) \equiv a\) 
+
+Kontraposition: 
+\((a \Rightarrow b) \equiv (\neg a \Rightarrow \neg b)\) 
+
+Implikationseliminierung: 
+\((a \Rightarrow b) \equiv (\neg a \vee b)\) 
+
+Bikonditionalelminierung: 
+\((a \Leftrightarrow b) \equiv ((a \Rightarrow b) \wedge (b \Rightarrow a))\) 
+
+de Morgan: 
+\(\neg (a \wedge b) \equiv (\neg a \vee \neg b)\) 
+
+de Morgan: 
+\(\neg (a \vee b) \equiv (\neg a \wedge \neg b)\) 
+
+Distributivität von \(\wedge\) über \(\vee\) : 
+\((a \wedge (b \vee c)) \equiv ((a \wedge b) \vee (a \wedge c))\) 
+
+Distributivität von \(\vee\) über \(\wedge\) : 
+\((a \vee (b \wedge c)) \equiv ((a \vee b) \wedge (a \vee c))\) 
+
+Normalformen 
+
+CNF/KNF (Conjunctive Normal Form)
+[ Konjunktion ist Und ]
+\(P \vee \left(Q \wedge R \wedge \left(T \vee \neg P\right)\right)=\left(P \vee Q\right) \wedge \left(P \vee R\right) \wedge \left(P \vee T \vee \neg P\right)\) 
+
+DNF (Disjunctive Normal Form)
+
+\(P \vee \left(Q \wedge R \wedge \left(T \vee \neg P\right)\right)=P \vee \left(Q \wedge R \wedge T\right) \vee \left(Q \wedge R \wedge \neg P\right)\) 
+
+Knowledge Bases sind oft in CNF, so dass jede Formal eine Disjunktion ( Klausel ) ist, und die Formeln implizit in einer großen Konjunktion verbunden werden, um die KB zu bilden. 
+
+Typische Probleme für Aussagenlogik 
+Erfüllbarkeitsproblem der Aussagenlogik ( satisfiability, SAT ) 
+Ist eine aussagenlogische Formel erfüllbar, d.h. gibt es eine Möglichkeit, eine Belegung zu finden (jedes Symbol in der Formal mit wahr bzw. falsch zu assoziieren), so dass die Formel wahr wird? 
+
+\(P \vee \left(Q \wedge R \wedge \left(T \vee \neg P\right)\right)\) ist erfüllbar für \(P=True\) . 
+\(P \wedge \left(\left(T \wedge \neg P\right) \vee \left(Q \wedge R \wedge \neg P\right)\right)\) ist nicht erfüllbar. 
+
+Inferenz (Schlussfolgern) 
+Gegeben Regeln und Fakten in einer KB: Welche neuen Sachverhalte lassen sich damit vereinigen oder daraus folgern? 
+(kann als Erfüllbarkeitsproblem dargestellt werden, aber hat einen anderen Charakter mit Hinblick auf intelligentes Verhalten von einem Agenten) 
+Inferenz und [Inferenzregeln] 
+Inferenz (logisches Schließen) wird durch Anwenden einer Folge von Regeln erreicht. 
+Die Folge von Umformungen stellt einen formalen Beweis dar. 
+Einige mögliche Inferenzregeln: 
+
+\(A\) 
+\(B\) 
+\(A \implies B\) 
+
+Abduktion 
+bekannt 
+neu 
+bekannt 
+
+Induktion 
+bekannt 
+bekannt 
+neu 
+
+Deduktion 
+neu 
+bekannt 
+bekannt 
+
+Üblicherweise sollte das formale Ergebnis der Anwendung der Inferenzregel mit ihrer semantischen Anwendung übereinstimmen ( Korrektheit ) — Überprüfung z.B. mit Wahrheitstabelle 
+
+Übliche Inferenzregeln in der Aussagenlogik: 
+
+Modus ponens \[\begin{align*} 
+p \\
+\sf p \implies q \\
+\sf \therefore \overline{q}
+\end{align*}\] Wenn es regnet, gehe ich ins Kino. Es regnet. Also gehe ich ins Kino. 
+And-Elimination \[\begin{align*} 
+p \\
+\sf p \wedge q \\
+\sf \therefore \overline{q}
+\end{align*}\] Ich kaufe sowohl Popkorn als auch Eis. Ich kaufe Eis. Also kaufe ich auch Popkorn. 
+And-Introduction \[\begin{align*} 
+p \\
+\sf q \\
+\sf \therefore \overline{p \wedge q}
+\end{align*}\] Ich kaufe Eis. Ich kaufe Popkorn. Also kaufe ich sowohl Eis als auch Popkorn. 
+
+Or-Introduction \[\begin{align*}
+p \\
+\sf \therefore \overline{p \vee q}
+\end{align*}\] Ich kaufe Popkorn. Also kaufe ich Popkorn oder Nachos. 
+Resolution (Transitivität der Implikation) \[\begin{align*}
+p \vee q\\
+\sf \neg p \vee r \\
+\sf \therefore \overline{q \vee r}
+\end{align*}\] oder \[\begin{align*}
+\neg p \implies q \\
+\sf p \implies r \\
+\sf \therefore \overline{\neg p \implies r}
+\end{align*}\] Wenn ich zu Fuß ins Kino gehe, werde ich spät ankommen. Wenn ich dort spät ankomme, werde ich die Werbung verpassen. Also: wenn ich zu Fuß gehe, werde ich die Werbung verpassen. 
+
+Komplexität der Inferenz 
+
+In der Aussagenlogik ist Inferenz im Allgemeinen ein NP-hartes Problem 
+Praktische Probleme sind dennoch meist lösbar 
+
+Inferenz in Horn-Wissensbasen 
+
+Def. Horn-Klausel: 
+Formeln der Form \[P_1 \wedge P_2 \wedge \ldots \wedge P_N \implies Q \equiv \neg P_1 \vee \neg P_2 \vee \ldots \vee \neg P_N \vee Q\] wobei \(P_1, \ldots P_N\) und \(Q\) nicht-negierte Symbole sind, werden Horn-Klauseln ( horn clauses ) genannt.
+
+Wissensbasen die sich vollständig in Horn-Klauseln umwandeln lassen, erlauben immer Inferenz in polynomialer Zeit. 
+Ein einfaches Beispiel: 
+Regeln (Axiome): 
+
+Wenn ich heute Abend lange arbeite, gehe ich nicht ins Kino: \(\sf\text{LangeArbeiten} \implies \neg \text{FilmHeute}\) 
+Wenn ich heute Abend nicht ins Kino gehe, gehe ich morgen: \(\sf \neg \text{FilmHeute} \implies \text{FilmMorgen}\) 
+Ich muss lange arbeiten: \(\sf\text{LangeArbeiten}\) 
+
+Schließen 
+
+Resolution:
+\[\begin{align*} 
+\text{LangeArbeiten} \implies \neg \text{FilmHeute} \\
+\sf \neg \text{FilmHeute} \implies \text{FilmMorgen} \\
+\sf \therefore \overline{\text{LangeArbeiten} \implies \text{FilmMorgen}}
+\end{align*}\] 
+
+Modus Ponens
+\[\begin{align*} 
+\text{LangeArbeiten} \\
+\sf \text{LangeArbeiten} \implies \text{FilmMorgen} \\
+\sf \therefore \overline{\text{FilmMorgen}}
+\end{align*}\] 
+
+Auswahl von Aktionen für Agenten mit Aussagenlogik 
+
+Ein einfacher Agent für Pacman: 
+
+1 Geist 
+Möglichst Punkte essen 
+Nicht mit dem Geist kollidieren 
+
+Modell 
+Zustand als aussagenlogische Variablen: 
+
+Position von Pacman: Pacman1_1 , Pacman2_1 , ..., Pacman4_4 
+Position des Geists: Geist1_1 , Geist2_1 , ..., Geist4_4 
+Position von Punkten: Punkt1_1 , Punkt2_1 , ..., Punkt4_4 
+
+ein möglicher Zustand zum Zeitschritt \(k\) : 
+\[
+\begin{gather*} 
+\neg Pacman1\_1^{(k)} \wedge \neg Pacman2\_1^{(k)} \wedge \ldots \wedge \neg Pacman3\_2^{(k)} \wedge Pacman3\_3^{(k)} \\ 
+\sf \wedge \neg Pacman3\_4^{(k)} \wedge \ldots \wedge \neg Pacman4\_4^{(k)} \wedge \\
+\sf \neg Geist1\_1^{(k)} \wedge \neg Geist2\_1^{(k)} \wedge \ldots \wedge \neg Geist3\_2^{(k)} \wedge \\ 
+\sf Geist3\_3^{(k)} \wedge \neg Geist3\_4^{(k)} \wedge \ldots \wedge \neg Geist4\_4^{(k)} \wedge \\
+\sf Punkt1\_1^{(k)} \wedge \neg Punkt2\_1^{(k)} \wedge Punkt 3\_1 \wedge \ldots \wedge \neg Punkt4\_4^{(k)}
+\end{gather*} 
+\] 
+
+Regeln 
+Bewegung von Pacman 
+\(Pacman1\_1^{(k)} \wedge GoNorth^{(k)} \implies Pacman2\_1^{(k+1)}\) \(Pacman1\_1^{(k)} \wedge GoEast^{(k)} \implies Pacman1\_2^{(k+1)}\) \(\ldots\) \(Pacman2\_1^{(k)} \wedge GoEast^{(k)} \implies Pacman2\_2^{(k+1)}\) \(Pacman2\_1^{(k)} \wedge GoNorth^{(k)} \implies Pacman3\_1^{(k+1)}\) \(\ldots\) 
+Geistern ausweichen 
+\(Pacman1\_1^{(k)} \wedge Ghost2\_1 \implies \neg GoNorth^{(k)}\) \(Pacman1\_1^{(k)} \wedge Ghost1\_2 \implies \neg GoEast^{(k)}\) \(\ldots\) 
+Punkte einsammeln, wenn es welche gibt \[\begin{gather*}
+(Pacman1\_1^{(k)} \wedge Punkt1\_2^{(k)} \implies GoEast^{(k)}) \vee \\
+\sf (Pacman1\_1^{(k)} \wedge Punkt2\_1^{(k)} \implies GoEast^{(k)}) \vee \\
+\sf (Pacman1\_1^{(k)} \wedge Punkt1\_2^{(k)} \wedge Punkt2\_1^{(k)} \implies (GoNorth^{(k)} \wedge GoEast^{(k)}))
+\end{gather*}\] \(\ldots\) 
+etc. etc. 
+
+Probleme mit dieser Darstellung 
+
+Größe des Zustandsraums und Anzahl der Regeln explodieren mit Anzahl der möglichen Positionen 
+Konsistenz der Regeln ist notwendig, aber schwer zu überprüfen 
+extreme Redundanz in der Repräsentation (für Positionen und Zeitschritte)

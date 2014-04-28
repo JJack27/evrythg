@@ -348,10 +348,11 @@ vector. The symbol
 
 will denote the m × n matrix of ﬁrst-order partial derivatives of the transformation from x
 to y. Such a matrix is called the Jacobian matrix of the transformation ψ().
-Notice that if x is actually a scalar in Convention 3 then the resulting Jacobian matrix
-is a m × 1 matrix; that is, a single column (a vector). On the other hand, if y is actually a
-scalar in Convention 3 then the resulting Jacobian matrix is a 1 × n matrix; that is, a single
-row (the transpose of a vector).
+
+140427130632
+Notice that if x is actually a scalar in Convention 3 then the resulting Jacobian matrix is a m × 1 matrix; that is, a single column (a vector). On the other hand, if y is actually a scalar in Convention 3 then the resulting Jacobian matrix is a 1 × n matrix; that is, a single row (the transpose of a vector).  
+[ Note that the commonly used definition of the gradient is the transpose of the Jacobian defined here ]
+
 Proposition 5 Let
 y = Ax
 
@@ -456,19 +457,9 @@ but the right hand side of the above is simply element (i, j) of A ∂x . Hence
 
 (34)
 
-q.e.d.
-Proposition 7 Let the scalar α be deﬁned by
-α = yT Ax
 
-(35)
-
-where y is m × 1, x is n × 1, A is m × n, and A is independent of x and y, then
-∂α
-= yT A
-∂x
-
+_6_ 140426152848
 (36)
-5
 
 CE 8361
 
@@ -569,13 +560,11 @@ Spring 2006
 
 Proposition 9
 
+
+_7_ 140426153116
 For the special case where A is a symmetric matrix and
-\alpha = x^T A x
-
-(48)
-
+\alpha = x^T A x (48)
 where x is n × 1, A is n × n, and A does not depend on x, then
-
 \frac{\partial \alpha}{\partial x} = 2 x^T A (49)
 
 Proof: This is an obvious application of Proposition 8. q.e.d.
@@ -719,14 +708,10 @@ Substituting back in for w we arrive at
 
 (62)
 
-q.e.d.
-Proposition 13 Let the scalar α be deﬁned by the quadratic form
-α = xT Ax
+_8_ 140427130751
+Proposition 13 Let the scalar α be deﬁned by the quadratic form α = xT Ax (63) where x is n × 1, A is n × n, and x is a function of the vector z, while A does not depend on z.
 
-(63)
-
-where x is n × 1, A is n × n, and x is a function of the vector z, while A does not depend
-on z. Then
+Then
 ∂α
 ∂x
 = xT A + AT

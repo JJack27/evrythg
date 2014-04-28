@@ -1,0 +1,2458 @@
+Lecture: Discrete-time linear systems
+
+Automatic Control 1
+
+Discrete-time linear systems
+Prof. Alberto Bemporad
+University of Trento
+
+Academic year 2010-2011
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+1 / 32
+
+Lecture: Discrete-time linear systems
+
+Introduction
+
+Introduction
+y(t), y(kTs)
+
+u(kTs)
+
+3.5
+
+4
+3.5
+
+3
+3
+2.5
+
+2.5
+2
+
+2
+1.5
+1.5
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+1
+0
+
+time t
+
+1
+
+2
+
+3
+
+4
+
+5
+
+time t
+
+Sampling of a continuous signal
+
+Discrete-time signal
+
+Discrete-time models describe relationships between sampled variables
+x(kTs ), u(kTs ), y(kTs ), k = 0, 1, . . .
+The value x(kTs ) is kept constant during the sampling interval [kTs , (k + 1)Ts )
+A discrete-time signal can either represent the sampling of a continuous-time
+signal, or be an intrinsically discrete signal
+Discrete-time signals are at the basis of digital controllers (as well as of digital
+filters in signal processing)
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+2 / 32
+
+Lecture: Discrete-time linear systems
+
+Difference equations
+
+Difference equation
+Consider the first order difference equation (autonomous system)
+x(k + 1)
+x(0)
+
+=
+=
+
+ax(k)
+x0
+
+The solution is x(k) = ak x0
+3
+
+2.5
+
+a>1
+
+x(k)
+
+2
+
+1.5
+
+a=1
+1
+
+0.5
+
+0<a<1
+0
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+k
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+3 / 32
+
+Lecture: Discrete-time linear systems
+
+Difference equations
+
+Difference equation
+
+First-order difference equation with input (non-autonomous system)
+x(k + 1)
+x(0)
+
+=
+=
+
+ax(k) + bu(k)
+x0
+
+The solution has the form
+k−1
+
+x(k) =
+
+k
+
+a x0
+
++
+
+natural response
+
+ai bu(k − 1 − i)
+i=0
+
+forced response
+
+The natural response depends on the initial condition x(0), the forced response
+on the input signal u(k)
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+4 / 32
+
+Lecture: Discrete-time linear systems
+
+Difference equations
+
+Example - Wealth of a bank account
+k: year counter
+ρ: interest rate
+x(k): wealth at the beginning of year k
+u(k): money saved at the end of year k
+x0 : initial wealth in bank account
+Discrete-time model:
+x(k + 1)
+x(0)
+
+(1 + ρ)x(k) + u(k)
+x0
+Stored amount of money (keur)
+
+10 k€
+5 k€
+10 %
+
+50
+
+45
+
+40
+
+35
+
+30
+
+x(k)
+
+x0
+u(k)
+ρ
+
+=
+=
+
+25
+
+20
+
+15
+
+x(k) = (1.1) · 10 +
+k
+
+1 − (1.1)k
+1 − 1.1
+
+Prof. Alberto Bemporad (University of Trento)
+
+10
+
+5 = 60(1.1) − 50
+k
+
+5
+
+0
+
+0
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+3.5
+
+4
+
+4.5
+
+5
+
+k (years)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+5 / 32
+
+Lecture: Discrete-time linear systems
+
+Difference equations
+
+Linear discrete-time system
+Consider the set of n first-order linear difference equations forced by the
+input u(k) ∈
+
+x1 (k + 1) = a11 x1 (k) + . . . + a1n xn (k) +b1 u(k)
+
+
+x2 (k + 1) = a21 x1 (k) + . . . + a2n xn (k) +b2 u(k)
+
+
+..
+..
+..
+.
+.
+.
+
+
+
+xn (k + 1) = an1 x1 (k) + . . . + ann xn (k) +bn u(k)
+
+x1 (0) = x10 , . . . xn (0) = xn0
+In compact matrix form:
+x(k + 1)
+x(0)
+x 
+1
+where x =  ...  ∈
+
+n
+
+=
+=
+
+Ax(k) + Bu(k)
+x0
+
+.
+
+xn
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+6 / 32
+
+Lecture: Discrete-time linear systems
+
+Difference equations
+
+Linear discrete-time system
+
+The solution is
+k−1
+
+x(k) =
+
++
+
+Ak x 0
+natural response
+
+Ai Bu(k − 1 − i)
+i=0
+
+forced response
+
+If matrix A is diagonalizable, A = TΛT
+λ
+
+0 ...
+0 λ2 ...
+1
+
+0
+0
+
+−1
+
+
+
+λk1 0 ...
+ 0 λk2 ...
+
+
+
+0
+0
+
+
+
+
+
+
+−1
+Λ =  .. .. . . ..  ⇒ Ak = T 
+.. .. . . .. 
+
+T
+. . . .
+. . . .
+0 0 ... λn
+
+0 0 ... λkn
+
+where T = [v1 . . . vn ] collects n independent eigenvectors.
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+7 / 32
+
+Lecture: Discrete-time linear systems
+
+Modal response
+
+Modal response
+Assume input u(k) = 0, ∀k ≥ 0
+Assume A is diagonalizable, A = TΛT −1
+The state trajectory (natural response) is
+n
+
+x(k) = Ak x0 = TΛk T −1 x0 =
+
+αi λki vi
+i=1
+
+where
+λi = eigenvalues of A
+vi = eigenvectors of A
+αi = coefficients that depend on the initial condition x(0)
+ α1 
+α =  ...  = T −1 x(0), T = [v1 . . . vn ]
+αn
+
+The system modes depend on the eigenvalues of A, as in continuous-time
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+8 / 32
+
+Lecture: Discrete-time linear systems
+
+Modal response
+
+Example
+Consider the linear discrete-time system
+x1 (k + 1)
+x2 (k + 1)
+
+x1 (0)
+x2 (0)
+
+1
+x (k) + 21 x2 (k)
+2 1
+x2 (k) + u(k)
+−1
+1
+
+=
+=
+=
+=
+
+
+
+
+
+ x(k + 1)
+
+x(0)
+
+1
+2
+
+=
+
+1
+2
+
+0
+
+0
+1
+
+x(k) +
+
+1
+
+u(k)
+
+−1
+1
+
+=
+
+Eigenvalues of A: λ1 = 21 , λ2 = 1
+Solution:
+x (k),x (k)
+1
+
+x(k)
+
+=
+
+=
+
+=
+
+1
+2
+
+k
+
+1
+2
+
+0
+
+k−1
+−1
+1
+
+1
+
+1
+2k
+
+0
+
+1−
+
++
+i=0
+
+1 − 1k
+2
+1
+1
+2
+
+1
+2
+
+0
+k−1
+
+−1
+1
+
+i=0
+k−1
+
+k−1
+
+1
+
++
+
++
+i=0
+
+i
+
+1
+2
+
+1
+1 − 1i
+2
+1
+
+u(k − 1 − i)
+
+1
+
+0.5
+
+u(k − 1 − i)
+
+0
+
+−0.5
+
+1 − 1i
+2
+1
+
+u(k − 1 − i)
+
+−1
+
+−1.5
+
+natural response
+
+2
+
+1.5
+
+0
+1
+
+forced response
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+step k
+
+simulation for u(k) ≡ 0
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+9 / 32
+
+Lecture: Discrete-time linear systems
+
+Linear difference equations
+
+nth -order difference equation
+Consider the nth -order difference equation forced by u
+an y(k − n) + an−1 y(k − n + 1) + · · · + a1 y(k − 1) + y(k) =
+bn u(k − n) + · · · + b1 u(k − 1) + b0 u(k)
+Equivalent linear discrete-time system in canonical state matrix form
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+1
+0
+...
+ 0
+0
+1
+...
+
+ .
+.
+
+.
+x(k + 1) =  ..
+.
+
+ 0
+0
+0
+...
+−an −an−1 −an−2 . . .
+y(k) = (bn − b0 an ) . . . (b1 − b0 a1 )
+
+
+ 
+0
+0
+
+0
+0 
+ 
+ . 
+. 
+ . 
+. 
+.  x(k) +  .  u(k)
+
+ 
+0
+1 
+−a1
+1
+x(k) + b0 u(k)
+
+There are infinitely many state-space realizations
+
+MATLAB
+
+tf2ss
+
+nth -order difference equations are very useful for digital filters, digital
+controllers, and to reconstruct models from data (system identification)
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+10 / 32
+
+Lecture: Discrete-time linear systems
+
+Discrete-time linear systems
+
+Discrete-time linear system
+
+
+ x(k + 1)
+y(k)
+
+x(0)
+
+=
+=
+=
+
+Ax(k) + Bu(k)
+Cx(k) + Du(k)
+x0
+
+Given the initial condition x(0) and the input sequence u(k), k ∈ , it is
+possible to predict the entire sequence of states x(k) and outputs y(k), ∀k ∈
+The state x(0) summarizes all the past history of the system
+The dimension n of the state x(k) ∈ n is called the order of the system
+The system is called proper (or strictly causal) if D = 0
+General multivariable case:
+x(k)
+u(k)
+y(k)
+Prof. Alberto Bemporad (University of Trento)
+
+∈
+∈
+∈
+
+n
+m
+p
+
+Automatic Control 1
+
+A
+B
+C
+D
+
+∈
+∈
+∈
+∈
+
+n×n
+n×m
+p×n
+p×m
+
+Academic year 2010-2011
+
+11 / 32
+
+Lecture: Discrete-time linear systems
+
+Discrete-time linear systems
+
+Example - Student dynamics
+Problem Statement:
+3-years undergraduate course
+percentages of students promoted, repeaters, and dropouts are roughly constant
+direct enrollment in 2nd and 3rd academic year is not allowed
+students cannot enrol for more than 3 years
+
+Notation:
+k
+xi (k)
+u(k)
+y(k)
+αi
+βi
+γi
+
+Year
+Number of students enrolled in year i at year k, i = 1, 2, 3
+Number of freshmen at year k
+Number of graduates at year k
+promotion rate during year i, 0 ≤ αi ≤ 1
+failure rate during year i, 0 ≤ βi ≤ 1
+dropout rate during year i, γi = 1 − αi − βi ≥ 0
+
+3rd -order linear discrete-time system:
+x1 (k + 1)
+ x (k + 1)
+2
+ x3 (k + 1)
+y(k)
+
+
+=
+=
+=
+=
+
+β1 x1 (k) + u(k)
+α1 x1 (k) + β2 x2 (k)
+α2 x2 (k) + β3 x3 (k)
+α3 x3 (k)
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+12 / 32
+
+Lecture: Discrete-time linear systems
+
+Discrete-time linear systems
+
+Example - Student dynamics
+In matrix form
+
+
+ x(k + 1)
+
+
+y(k)
+
+
+=
+=
+
+
+ 
+β
+0
+0
+1
+ 1
+
+ 
+ α1 β2 0  x(k) +  0  u(k)
+0 α2 β3
+0
+0 0 α3 x(k)
+
+Simulation
+y(k)
+40
+
+α1 = .60
+α2 = .80
+α3 = .90
+
+β1 = .20
+β2 = .15
+β3 = .08
+
+20
+
+0
+2012
+
+2014
+
+2016
+
+2018
+
+2020
+
+2018
+
+2020
+
+step k
+u(k)
+51
+
+u(k) ≡ 50, k = 2012, . . .
+
+50
+
+49
+2012
+
+2014
+
+2016
+
+step k
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+13 / 32
+
+Lecture: Discrete-time linear systems
+
+Discrete-time linear systems
+
+Example - Supply chain
+!1x1(k)
+
+!2x2(k)
+"2x2(k)
+
+"1x1(k)
+
+u(k)
+
+#3x3(k)
+
+P
+
+S
+x1(k)
+
+y(k)
+$3x3(k)
+
+R
+
+x2(k)
+
+x3(k)
+
+Problem Statement:
+S purchases the quantity u(k) of raw material at each month k
+a fraction δ1 of raw material is discarded, a fraction α1 is shipped to producer P
+a fraction α2 of product is sold by P to retailer R, a fraction δ2 is discarded
+retailer R returns a fraction β3 of defective products every month, and sells a
+fraction γ3 to customers
+
+Mathematical model:
+x1 (k + 1)
+ x (k + 1)
+2
+ x3 (k + 1)
+y(k)
+
+
+=
+=
+=
+=
+
+(1 − α1 − δ1 )x1 (k) + u(k)
+α1 x1 (k) + (1 − α2 − δ2 )x2 (k) + β3 x3 (k)
+α2 x2 (k) + (1 − β3 − γ3 )x3 (k)
+γ3 x3 (k)
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+k
+x1 (k)
+x2 (k)
+x3 (k)
+y(k)
+
+month counter
+raw material in S
+products in P
+products in R
+products sold to customers
+
+Academic year 2010-2011
+
+14 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Equilibrium
+Consider the discrete-time nonlinear system
+x(k + 1)
+y(k)
+
+=
+=
+
+f (x(k), u(k))
+g(x(k), u(k))
+
+Definition
+A state xr ∈ n and an input ur ∈ m are an equilibrium pair if for
+initial condition x(0) = xr and constant input u(k) ≡ ur , ∀k ∈ ,
+the state remains constant: x(k) ≡ xr , ∀k ∈
+
+Equivalent definition: (xr , ur ) is an equilibrium pair if f (xr , ur ) = xr
+xr is called equilibrium state, ur equilibrium input
+The definition generalizes to time-varying discrete-time nonlinear systems
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+15 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Stability
+Consider the nonlinear system
+x(k + 1)
+y(k)
+
+=
+=
+
+f (x(k), ur )
+g(x(k), ur )
+
+and let xr an equilibrium state, f (xr , ur ) = xr
+Definition
+The equilibrium state xr is stable if for each initial conditions x(0) “close
+enough” to xr , the corresponding trajectory x(k) remains near xr for all k ∈
+a
+
+a
+
+Analytic definition: ∀ε > 0 ∃δ > 0 : x(0) − xr < δ ⇒ x(k) − xr < ε, ∀k ∈
+
+The equilibrium point xr is called asymptotically stable if it is stable and
+x(k) → xr for k → ∞
+Otherwise, the equilibrium point xr is called unstable
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+16 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Stability of first-order linear systems
+Consider the first-order linear system
+x(k + 1) = ax(k) + bu(k)
+xr = 0, ur = 0 is an equilibrium pair
+For u(k) ≡ 0, ∀k = 0, 1, . . ., the solution is
+x(k) = ak x0
+The origin xr = 0 is
+3
+
+unstable if |a| > 1
+
+2.5
+
+stable if |a| ≤ 1
+
+2
+x(k)
+
+asymptotically stable if |a| < 1
+
+a>1
+1.5
+1
+0.5
+
+x0
+
+Automatic Control 1
+
+0<a<1
+
+xr
+
+0
+0
+Prof. Alberto Bemporad (University of Trento)
+
+a=1
+
+a=0
+2
+
+4
+
+k
+
+6
+
+8
+
+10
+
+Academic year 2010-2011
+
+
+_17_ 140426200329
+Stability of discrete-time linear systems
+[ the modulus means the absolute value / magnitude of a complex number ]
+
+Since the natural response of x(k + 1) = Ax(k) + Bu(k) is x(k) = Ak x0 , the stability
+properties depend only on A. We can therefore talk about system stability of a
+discrete-time linear system (A, B, C, D)
+Theorem:
+Let λ1 , . . ., λm , m ≤ n be the eigenvalues of A ∈
+x(k + 1) = Ax(k) + Bu(k) is
+
+n×n
+
+. The system
+
+asymptotically stable iff |λi | < 1, ∀i = 1, . . . , m
+(marginally) stable if |λi | ≤ 1, ∀i = 1, . . . , m, and the eigenvalues with unit
+modulus have equal algebraic and geometric multiplicity a
+unstable if ∃ i such that |λi | > 1
+a
+Algebraic multiplicity of λi = number of coincident roots λi of det(λI − A). Geometric
+multiplicity of λi = number of linearly independent eigenvectors vi , Avi = λi vi
+
+The stability properties of a discrete-time linear system only depend on the modulus of the eigenvalues of matrix A
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+18 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Stability of discrete-time linear systems
+Proof:
+The natural response is x(k) = Ak x0
+If matrix A is diagonalizable1 , A = TΛT −1 ,
+λ
+
+1 0 ...
+0 λ2 ...
+
+0
+0
+
+
+
+
+
+λk 0 ...
+
+0
+
+ 01 λk ... 0
+
+
+
+2
+k
+
+
+Λ=
+ .. .. . . ..  ⇒ A = T  .. .. . . ..
+ . . . .
+. . . .
+0
+
+0 ... λn
+
+0
+
+0 ... λkn
+
+
+
+
+ T −1
+
+
+
+Take any eigenvalue λ = ρejθ :
+|λk | = ρ k |ejkθ | = ρ k
+A is always diagonalizable if algebraic multiplicity - geometric multiplicity
+
+1
+If A is not diagonalizable, it can be transformed to Jordan form. In this case the natural
+response x(t) contains modes kj λk , j = 0, 1, . . . , alg. multiplicity = geom. multiplicity
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+19 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Example 1
+
+
+0
+ x(k + 1) =
+1
+
+x10
+x(0) = x20
+solution:
+
+x1 (k)
+
+=
+
+x2 (k)
+
+=
+
+1
+
+0
+
+x(k)
+
+1
+2
+
+⇒ eigenvalues of A:
+
+0,
+
+1
+2
+
+0, k = 1, 2, . . .
+1
+2
+
+k−1
+
+x10 +
+
+1
+2
+
+k
+
+x20 , k = 1, 2, . . .
+
+1.5
+
+1
+
+0.5
+
+x2(k)
+
+x1(k)
+
+0.5
+
+asymptotically stable
+0
+
+0
+
+−0.5
+
+−0.5
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+−1
+
+k
+Prof. Alberto Bemporad (University of Trento)
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+k
+Automatic Control 1
+
+Academic year 2010-2011
+
+20 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Example 2
+
+
+0
+1
+
+ x(k + 1) =
+
+
+x(0) =
+
+x1 (k)
+x2 (k)
+
+⇒ eigenvalues of A: {+j, −j}
+
+1
+
+1
+
+0.8
+
+0.6
+
+0.6
+
+0.4
+
+0.4
+
+0.2
+
+0.2
+
+2
+
+0
+
+marginally stable
+
+0
+
+−0.2
+
+−0.2
+
+−0.4
+
+−0.4
+
+−0.6
+
+−0.6
+
+−0.8
+
++ x20 sin kπ
+, k = 0, 1, . . .
+x10 cos kπ
+2
+2
+kπ
+kπ
+x10 sin 2 + x20 cos 2 , k = 0, 1, . . . ,
+
+=
+=
+
+0.8
+
+−1
+
+x(k)
+
+x10
+x20
+
+x (k)
+
+x1(k)
+
+solution:
+
+−1
+0
+
+−0.8
+
+0
+
+2
+
+4
+
+6
+
+−1
+
+k
+Prof. Alberto Bemporad (University of Trento)
+
+0
+
+2
+
+4
+
+6
+
+k
+Automatic Control 1
+
+Academic year 2010-2011
+
+21 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Example 3
+
+
+1
+0
+
+ x(k + 1) =
+
+x1 (k)
+x2 (k)
+
+x(k)
+
+⇒ eigenvalues of A: {1, 1}
+
+x10
+x20
+
+x(0) =
+
+=
+=
+
+1
+1
+
+x10 + x20 k, k = 0, 1, . . .
+x20 , k = 0, 1, . . .
+
+7
+
+Note: A is not diagonalizable !
+
+2
+
+6
+
+1.5
+
+5
+1
+4
+0.5
+
+x2(k)
+
+x1(k)
+
+3
+
+2
+
+1
+
+unstable
+
+0
+
+−0.5
+
+0
+−1
+−1
+−1.5
+
+−2
+
+−3
+
+0
+
+2
+
+4
+
+6
+
+−2
+
+k
+
+Prof. Alberto Bemporad (University of Trento)
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+k
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+22 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Example 4
+
+
+2
+1
+
+ x(k + 1) =
+
+
+80
+
+80
+
+60
+
+60
+
+40
+
+40
+
+x (k)
+
+2
+
+x1(k)
+
+x1 (k)
+x2 (k)
+
+20
+
+0
+
+−20
+
+−20
+
+2
+
+4
+
+6
+
+=
+=
+
+⇒ eigenvalues of A: {0, 2}
+
+2k x10 , k = 0, 1, . . .
+2k−1 x10 , k = 1, 2, . . .
+
+unstable
+
+20
+
+0
+
+0
+
+x(k)
+
+x10
+x20
+
+x(0) =
+
+solution:
+
+−40
+
+0
+0
+
+−40
+
+k
+Prof. Alberto Bemporad (University of Trento)
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+k
+Automatic Control 1
+
+Academic year 2010-2011
+
+23 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Zero eigenvalues
+Modes λi =0 determine finite-time convergence to zero.
+This has no continuous-time counterpart, where instead all converging
+modes tend to zero in infinite time (eλi t )
+Example: dynamics of a buffer
+u(k)
+x3(k)
+
+x1 (k + 1)
+ x (k + 1)
+2
+ x3 (k + 1)
+y(k)
+
+
+=
+=
+=
+=
+
+x2 (k)
+x3 (k)
+u(k)
+x1 (k)
+
+x2(k)
+
+x1(k)
+
+
+
+
+
+
+
+ x(k + 1)
+
+
+
+
+y(k)
+
+y(k)
+
+Natural response: A3 x(0) = 0 for all x(0) ∈
+
+=
+
+0
+
+0
+0
+
+1
+0
+0
+
+
+ 
+0
+0
+
+ 
+1  x(k) +  0  u(k)
+0
+1
+
+=
+
+1
+
+0
+
+0
+
+x(k)
+
+3
+
+For u(k) ≡ 0, the buffer deploys after at most 3 steps !
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+24 / 32
+
+Lecture: Discrete-time linear systems
+
+Stability of discrete-time linear systems
+
+Summary of stability conditions for linear systems
+
+system
+asympt. stable
+unstable
+stable
+
+∀i = 1, . . . , n
+∃i such that
+∀i, . . . , n
+and ∀λi such that
+algebraic = geometric mult.
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+continuous-time
+ℜ(λi ) < 0
+ℜ(λi ) > 0
+ℜ(λi ) ≤ 0
+ℜ(λi ) = 0
+
+discrete-time
+|λi | < 1
+|λi | > 1
+|λi | ≤ 1
+|λi | = 1
+
+Academic year 2010-2011
+
+25 / 32
+
+Lecture: Discrete-time linear systems
+
+Sampling continuous-time systems
+
+Exact sampling
+Consider the continuos-time system
+
+ ˙x(t) =
+y(t) =
+
+x(0) =
+
+Ax(t) + Bu(t)
+Cx(t) + Du(t)
+x0
+
+We want to characterize the value of x(t), y(t) at the time instants
+t = 0, Ts , 2Ts , . . . , kTs , . . ., under the assumption that the input u(t) is
+constant during each sampling interval (zero-order hold, ZOH)
+y(t), y(kTs)
+
+u(t), u(kTs)
+
+1.5
+
+2
+
+1.5
+
+¯(k), kTs ≤ t < (k + 1)Ts
+u(t) = u
+
+1
+1
+
+0.5
+0.5
+
+0
+
+¯x(k) x(kTs ) and ¯y(k) y(kTs ) are the state
+and the output samples at the kth sampling
+instant, respectively
+
+0
+−0.5
+
+−1
+−0.5
+−1.5
+
+−1
+
+−2
+0
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+2
+
+4
+
+6
+
+time t
+
+8
+
+10
+
+0
+
+2
+
+4
+
+6
+
+time t
+
+Academic year 2010-2011
+
+8
+
+10
+
+26 / 32
+
+Lecture: Discrete-time linear systems
+
+Sampling continuous-time systems
+
+Exact sampling
+Let us evaluate the response of the continuous-time system between time
+t0 = kTs and t = (k + 1)Ts from the initial condition x(t0 ) = x(kTs ) using
+Lagrange formula:
+(k+1)Ts
+
+t
+
+x(t) = eA(t−t0 ) x(t0 )+
+
+eA(t−σ) Bu(σ)dσ = eA((k+1)Ts −kTs ) x(kTs )+
+t0
+
+eA((k+1)Ts −σ) Bu(σ)dσ
+kTs
+
+¯(k), kTs ≤ σ < (k + 1)Ts .
+Since the input u(t) is piecewise constant, u(σ) ≡ u
+By setting τ = σ − kTs we get
+Ts
+
+eA(Ts −τ) dτ
+
+x((k + 1)Ts ) = eATs x(kTs ) +
+
+Bu(kTs )
+
+0
+
+and hence
+
+Ts
+
+¯x(k + 1) = e
+
+ATs
+
+eA(Ts −τ) dτ
+
+¯x(k) +
+
+B¯
+u(k)
+
+0
+
+¯(k) !
+which is a linear difference relation between ¯x(k) and u
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+27 / 32
+
+Lecture: Discrete-time linear systems
+
+Sampling continuous-time systems
+
+Exact sampling
+The discrete-time system
+¯x(k + 1)
+¯y(k)
+
+=
+=
+
+¯ x(k) + B¯
+¯ u(k)
+A¯
+¯ x(k) + D¯
+¯ u(k)
+C¯
+
+depends on the original continuous-time system through the relations
+Ts
+
+¯
+A
+
+eATs ,
+
+eA(Ts −τ) dτ
+
+¯
+B
+
+¯
+C
+
+B,
+
+¯
+D
+
+C,
+
+D
+
+0
+
+¯ B,
+¯ C,
+¯ D)
+¯ provides the exact evolution of state
+If u(t) is piecewise constant, (A,
+and output samples at discrete times kTs
+y(t), y(kTs)
+0.4
+
+0.2
+
+0
+
+MATLAB
+sys=ss(A,B,C,D);
+sysd=c2d(sys,Ts);
+[Ab,Bb,Cb,Db]=ssdata(sysd);
+
+−0.2
+
+−0.4
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+6
+
+7
+
+8
+
+9
+
+10
+
+time t
+u(t), u(kTs)
+1
+
+0.5
+
+0
+
+−0.5
+
+−1
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+time t
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+28 / 32
+
+Lecture: Discrete-time linear systems
+
+Sampling continuous-time systems
+
+Exact sampling
+1
+of the rise time = time to move from 10%
+Rule of thumb: Ts ≈ 10
+to 90% of the steady-state value, for input u(t) ≡ 1, x(0) = 0
+y(t), y(kTs)
+
+rise time
+1
+
+1
+
+90 %
+
+0.8
+
+0.9
+
+0.6
+0.8
+
+0.4
+0.7
+
+0.2
+
+output
+
+0.6
+
+0
+0
+
+0.5
+
+1
+
+1.5
+
+2
+
+0.4
+
+3
+
+3.5
+
+4
+
+4.5
+
+5
+
+3
+
+3.5
+
+4
+
+4.5
+
+5
+
+2
+
+0.3
+
+1.5
+
+0.2
+
+1
+
+10 %
+0.1
+
+0.5
+
+rise time
+0
+
+2.5
+
+time t
+u(t), u(kTs)
+
+0.5
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+time t
+
+0
+0
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+time t
+
+More on the choice of sampling time in the second part of the course ...
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+29 / 32
+
+Lecture: Discrete-time linear systems
+
+Sampling continuous-time systems
+
+Approximate sampling - Euler’s method
+x(t)
+x((k+1)T
+x((k
++ 1)Ts)
+
+˙x(kTs ) ≈
+
+x((k + 1)Ts ) − x(kTs )
+
+x((k +x((k+1)T
+1)Ts ) − )¡x(kT
+x(kTs ) )
+T
+Ts
+x(t)
+_˙
+x(kT
+s)
+
+x(kTs )
+x(kT
+
+Ts
+
+TTs
+
+t
+
+(k+1)T
+(k
++ 1)Ts
+
+kT
+kT
+s
+
+Leonhard Paul Euler
+(1707-1783)
+
+For nonlinear systems ˙x(t) = f (x(t), u(t)):
+¯x(k + 1) = ¯x(k) + Ts f (¯x(k), u
+¯(k))
+For linear systems ˙x(t) = Ax(t) + Bu(t):
+x((k + 1)Ts ) = (I + Ts A)x(kTs ) + Ts Bu(kTs )
+¯
+A
+
+I + ATs ,
+
+¯
+B
+
+Ts B,
+
+¯
+C
+
+C,
+
+¯
+D
+
+D
+
+Tsn An
+
+Note that eTs A = I + Ts A + . . . + n! + . . .
+Therefore when Ts is small Euler’s method and exact sampling are similar
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+30 / 32
+
+Lecture: Discrete-time linear systems
+
+Sampling continuous-time systems
+
+Example - Hydraulic system
+Continuous time:
+
+Discrete time:
+
+
+
+
+
+
+
+d
+h(t)
+dt
+
+=
+
+−
+
+
+
+q(t)
+
+=
+
+a
+
+2g
+
+a
+A
+
+2g
+
+h(t) + A1 u(t)
+h(t)
+
+ h(k
+¯ + 1)
+
+¯(k)
+q
+
+=
+
+¯
+h(k)
+−
+
+=
+
+a
+
+2g
+
+Ts a
+A
+
+¯
+h(k)
++
+
+Ts
+¯(k)
+u
+A
+
+¯
+h(k)
+
+2g
+
+level h(t) (m)
+7
+
+u
+
+6
+
+5
+
+4
+
+3
+
+h
+
+2
+
+continuous time
+
+1
+
+q
+
+Euler approximation
+0
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+time (s)
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+31 / 32
+
+Lecture: Discrete-time linear systems
+
+Sampling continuous-time systems
+
+English-Italian Vocabulary
+
+discrete-time linear systems
+sampling interval
+difference equation
+zero-order hold
+piecewise constant
+rise time
+
+sistemi lineari a tempo discreto
+tempo (o intervallo) di campionamento
+equazione alle differenze
+mantenitore di ordine zero
+costante a tratti
+tempo di salita
+
+Translation is obvious otherwise.
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+32 / 32
+
+

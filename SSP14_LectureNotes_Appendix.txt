@@ -719,15 +719,9 @@ X ∼ N (µ, C).
 
 (A.50)
 
-Covariance matrices of uncorrelated random variables X1 , . . . , Xn are diagonal
-2
-2
-C = diag σ1 , . . . , σn ,
+140427111434
+Covariance matrices of uncorrelated random variables X1 , . . . , Xn are diagonal with variances σi = Var [Xi ], i ∈ {1, . . . , n} as main diagonal elements.
 
-(A.51)
-
-2
-with variances σi = Var [Xi ], i ∈ {1, . . . , n} as main diagonal elements.
 Given n uncorrelated Gaussian random variables the joint PDF is
 
 1
@@ -771,7 +765,9 @@ n
 fXi (xi ).
 i=1
 
+\todo{Are independent variables uncorrlated}
 Important special case: Uncorrelated Gaussian random variables are always stochastic independent!
+
 Correlation between the random variables X1 , . . . , Xn leads to a non-diagonal covariance matrix C. Since
 C is in general Positive Semidefinite (PSD), X ∼ N (µ, C) can be transformed to Y ∼ N (0, I), by
 the linear transformation
