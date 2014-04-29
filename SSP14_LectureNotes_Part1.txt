@@ -925,25 +925,14 @@ P (erasure) = 1 − θ.
 We now study the maximum-likelihood framework for estimating the unknown parameter θ based on N
 independent observations:
 The statistical model {X, F, Pθ ; θ ∈ Θ} is
-{
 
-{0, 1, . . . , N }
+_25_ 140429163030 
+and the respective random variable X , which counts the number of successful Bernoulli trials within N attempts.
 
-, {0, 1, . . . , N }N , BN,θ ; θ ∈ [0, 1]},
+X is Binomially Distributed according to
 
-number of successes over N observations
-
-and the respective random variable X , which counts the number of successful Bernoulli trials within N
-attempts. X is Binomially Distributed according to
-BN,θ (x) =
-
-N x
-θ (1 − θ)N −x ,
-x
-
-25
-
-x ∈ {0, 1, . . . , N }.
+[factorial formula for the binoial coefficients ]
+[  \binom nk = \frac{n!}{k!\,(n-k)!} ]
 
 Given the likelihood function
 L(x; θ) =
@@ -1028,8 +1017,9 @@ N
 (3.17)
 (3.18)
 
-Obviously, the ML Estimator of the success probability θ is unbiased, and the MSE is equal to the variance
-of the estimator,
+ 140429164613
+Obviously, the ML Estimator of the success probability θ is unbiased, and the MSE is equal to the variance of the estimator,
+
 Bias [TML ] = 0,
 ε [TML ] = Var [TML ] =
 Can we improve the estimator?
@@ -1043,7 +1033,8 @@ N
 
 (3.20)
 
-Alternative Solution:
+Alternative Solution:
+_28_ 140429164246
 
 T
 

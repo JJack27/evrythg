@@ -165,8 +165,9 @@ x∗
 (5.11)
 (5.12)
 
-Note, that E[t(x)] = \sigma_{\eta} c(θ).
+_47_ 140428113502 
 \todo{Why's that?}
+Note, that E[t(x)] = \sigma_{\eta} c(θ).
 
 47
 
@@ -343,155 +344,12 @@ Note. We distinguish
  and E [(T (X ) − θ)2 ] = E [E [(T(X ) − θ)2 | θ]], which assumes θ to be a random variable, such that the
 expectation has to be taken over both random variables.
 
-52
-
-Proof
-E [ε(T (X ))] =
-Θ
-
-X
-
-(T(x) − θ)2 fX (x|θ)fθ (θ; σ) dxdθ
-
-Θ
-
-(T(x) − θ)2 fX ,θ (x, θ)dθdx
-
-Θ
-
-(T(x) − θ)2 fθ|X (θ|x)dθ fX (x)dx
-
-=
-X
-
-=
-X
-
-=fX ,θ (x,θ)
-
-min!
-
-⇒ min
-T(x)
-
-Θ
-
-(T(x) − θ)2 fθ|X (θ|x)dθ
-
-i.e.
-
-∀x : Tx = T (x)
-∂
-!
-⇒
-(Tx − θ)2 fθ|X (θ|x)dθ = 0
-∂Tx Θ
-⇒2
-⇒Tx
-
-Θ
-
-(Tx − θ)fθ|X (θ|x)dθ = 0
-
-Θ
-
-fθ|X (θ|x)dθ =
-
-Θ
-
-θfθ|X (θ|x)dθ, i.e.
-
-⇒T(x) = E [θ|x] .
-53
-
+cf.  140424133343
 (Bayes)
 
-6.2
-
 Bernoulli Experiment (Cont’d)
-
-In Section 3.4, we found the Maximum Likelihood Estimate of the success probability of a
-Bernoulli Experiment as
-x
-ˆ
-θML = argmax {log L(x; θ)} = ,
-(6.6)
-N
-θ
-given the statistical model by means of the Probability Mass Function
-BN,θ (x) =
-
-N x
-θ (1 − θ)N −x ,
-x
-
-x ∈ {0, 1, . . . , N }.
-
-ˆ
-Since the derivation of θML did not take into account that θ ∈ [0, 1], we can expect a better estimator by
-just exploiting the trivial side information
-fθ (θ) =
-
-1 ; θ ∈ [0, 1]
-.
-0 ; otherwise
-
-The optimal estimator in terms of the Mean Squared Error can be obtained by means of the Conditional Mean Estimator
-ˆ
-θCM = E [θ | x] =
-
-1
-0
-
-θfθ|x (θ | x) dθ.
-
-(6.7)
-
-The required Conditional PDF is
-fθ|x (θ) =
-
-pX |θ (x | θ)
-,
-pX (x)
-54
-
-θ ∈ [0, 1]
-
-(6.8)
-
-with1
-pX (x) =
-
-pX |θ (x | θ)fθ (θ) dθ,
-
-Θ
-1
-
-x ∈ {0, 1, . . . , N }
-
-(6.9)
-
-1
-
-N x
-θ (1 − θ)N −x dθ
-x
-0
-0
-N
-x!
-1
-=
-=
-.
-x (N − x + 1)(N − x + 2) · · · (N + 1)
-N +1
-=
-
-BN,θ (x) dθ =
-
-(6.10)
-(6.11)
+In Section 3.4, we found the Maximum Likelihood Estimate of the success probability of a Bernoulli Experiment as
+cf. 140429163030, 140429164246
 
 Then the Conditional Mean Estimator equals (cf. alternative solution in Section 3.4)
 ˆ
@@ -530,81 +388,21 @@ pX (x)−1 x + 1
 x (N − x + 1)(N − x + 2) · · · (N + 2)
 N +1 N +2
 
-(6.15)
-
+ 140429170659
 applying the partial integration technique (m, n ∈ N) we obtain
-
-xm (1 − x)n dx =
-
-m
-n+1
-
-1
-0
-
-(6.14)
-
-xm−1 (1 − x)n+1 dx = · · · =
-
-m!
-(n + 1) · · · (n + m)
-
-55
-
-1
-0
-
-(1 − x)n+m dx =
-
-m!
-.
-(n + 1) · · · (n + m + 1)
-
-6.3
+[ integration over a binomial distribution ]
 
 Mean Estimation Example (Cont’d)
 
 We again consider the estimation of the unknown mean value θ of a random variable
-2
-X ∼ N (θ, σX |θ ),
-
 (6.16)
-
-X1 , . . . , XN ,
-
 (6.17)
-
+ 140429171339
 now based on N i.i.d. observations
-
 drawn with respect to the Conditional PDF2
-1
-1
-exp − 2
-fX1 ,...,XN |θ (x1 , . . . , xN |θ) = √
-2σX |θ
-( 2πσX |θ )N
-
-N
-
-i=1
-
-(xi − θ)2 .
-
 (6.18)
 
 A priori knowledge about the unknown parameter θ is given by the PDF of the unknown parameter θ ∼
-2
-N (m, σθ ), i.e.
-θ∼√
-
-1
-1
-exp − 2 (θ − m)2
-2σθ
-2πσθ
-
-= fθ (θ).
-
 (6.19)
 
 2 The diﬀerence between statistics drawn from a Conditional Distribution and statistics drawn from a Unconditional Distribution is
@@ -640,94 +438,16 @@ with
 
 (6.23)
 
-Interpretation. Since X is the sum of independent random variables
-X = θ + η,
-2
-2
-with θ ∼ N (m, σθ ) and η ∼ N (0, σX |θ ), the variance of the sum is equal to the sum of variances.
-
-57
+ 140429170923
+Interpretation. Since X is the sum of independent random variables with θ ∼ N (m, σθ ) and η ∼ N (0, σX |θ ), the variance of the sum is equal to the sum of variances.  
 
 (6.24)
 
-For the computation of the Conditional Mean Estimator we need two steps:
-a) Conditional PDF fθ|X1 ,...,XN (θ|x1 , . . . , xN ):
-fθ|X1 ,...,XN (θ|x1 , . . . , xN ) =
+For the computation of the Conditional Mean Estimator we need two steps:
+a) Conditional PDF fθ|X1 ,...,XN (θ|x1 , . . . , xN ) (6.27)
+cf. 140429171339
 
-fX1 ,...,XN |θ (x1 , . . . , xN |θ)fθ (θ)
-fX1 ,...,XN (x1 , . . . , xN )
-
-(6.25)
-
-fX1 ,...,XN |θ (x1 , . . . , xN |θ)fθ (θ)
-
-=
-Θ
-
-(6.26)
-
-fX1 ,...,XN |θ (x1 , . . . , xN |θ)fθ (θ)dθ
-
-=fX1 ,...,XN (x1 ,...,xN ) (Marginalization)
-
-1
-= γ exp − 2
-2σX |θ
-with γ such that
-
-Θ
-
-N
-
-i=1
-
-fθ|X1 ,...,XN (θ|x1 , . . . , xN )dθ = 1.
-
-58
-
-(xi − θ)2 exp −
-
-1
-(θ − m)2 ,
-2
-2σθ
-
-(6.27)
-
-b) Conditional Mean E [θ|x1 , . . . , xN ]:3
-ˆ
-θCM = E [θ|x1 , . . . , xN ]
-=
-Θ
-
-=
-
-(6.28)
-
-θfθ|X1 ,...,XN (θ|x1 , . . . , xN )dθ
-
-N
-i=1 xi
-2
-σX |θ
-
-+
-
-m
-2
-σθ
-
-N
-1
-+ 2
-2
-σX |θ σθ
-
-with Conditional PDF
-
-(6.29)
-
-(6.30)
+b) Conditional Mean E [θ|x1 , . . . , xN ] (6.30)
 
 ,
 

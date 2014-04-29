@@ -538,36 +538,10 @@ fY (y)
 
 (A.33)
 
-Important Relations
-∞
-−∞
-
-fX ,Y (ξ, y) dξ =
-
+_17_ 140429162603 
+Important Relations
 Marginalization
-
-∞
-−∞
-
-fX |Y (ξ, y) dξ =
-
-∞
-−∞
-
-fY |X (y|ξ)fX (ξ) dξ = fY (y),
-
-(A.34)
-
 Theorem of total probability
-
-∞
-−∞
-
-fX ,Y (ξ, y)
-1
-dξ =
-fY (y)
-fY (y)
 Normalization
 
 231
