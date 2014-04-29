@@ -1,4 +1,4 @@
-def input(fname):
+def _input(fname):
 	with open(str(fname), 'r') as fin:
 		print(r'\blockquote{')
     		print(fin.read().decode('utf8'))

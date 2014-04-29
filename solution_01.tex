@@ -1,179 +1,75 @@
 \input{pre.tex}
+\pyc{execfile('solution_01.py')}
 
-\begin{sympycode}
-# RL_3.py
-from RL_3 import *
-\end{sympycode}
-
-\begin{pycode}	
-
-# _pythontex.py
-from _pythontex import input
-# RL_3.py
-import RL_3 as syms 
-from numpy import arange
-from numpy import ones
-from numpy import zeros
-from numpy import vstack
-from numpy import array
-from numpy.linalg import norm
-from numpy import tile
-from matplotlib.pyplot import plot
-from matplotlib.pyplot import axis
-from matplotlib.pyplot import grid
-from matplotlib.pyplot import xlabel
-from matplotlib.pyplot import title
-from matplotlib.pyplot import legend
-from matplotlib.pyplot import savefig
-from matplotlib.pyplot import close
-
-r = vstack((ones((6,1)), zeros((6,1)), tile(array([[1], [0]]), (3, 1)))).flatten()
-s = 12 # start of alternating target
-def estimate():
-	q_k = [0] 
-	for i in range(r.shape[0]):
-		q_   =  q_k[-1] 
-		q_  += alpha[i] * (r[i] - q_)	
-		q_k.append(q_)
-	return array(q_k)
-# assume that time indices start at 1
-def plot_r(r):
-	k = arange(r.shape[0])+1
-	plot(k, r, '-o', color = '0.75', # grey
-	label = 'Target')
-	xlabel('$k$')
-a=0.5
-def plot_q_k(k=arange(r.shape[0]+1)+1, alpha=a):
-	plot(k, q_k, 'bo', 
-	label = 'Estimate')
-	title(r'$\alpha$ = %s' %(alpha))
-
-def setup_figure(r):
-	close('all')
-	plot_r(r)
-	grid()
-	axis(ymin = -0.1, ymax= 1.1)
-
-\end{pycode}
-\pyc{input(140423111519)}
-\begin{pycode}
-
-setup_figure(r)
-alpha = a * ones(r.shape)
-q_k = estimate()
-ef = lambda : norm(r[s:] - q_k[s:-1])**2
-e = {a: ef()}
-plot_q_k()
-legend()
-savefig('task_1.pdf')
-
-\end{pycode}
+\begin{verbatim}
+Michael Baumann
+#03636497
+\end{verbatim}
 
 \begin{figure}[ht]
-\includegraphics[width=\textwidth]{task_1.pdf}
+\includegraphics[width=\textwidth]{140423111519.pdf}
+\caption{\pyc{_input(140423111519)}}
 \end{figure}
-\pyc{input(140423105502)}
-$$\s{Eq(r_k, 1)} \; \forall k$$
-$$\s{Eq(alpha, 0.5)}$$ 
-Using the geometric series
-$$\s{Eq(Q_k, 1 - 0.5**k)}$$
 
-\begin{pycode}
-
-print(r"\begin{tabular}{c|c}")
-print(r"$N$ & $Q_k$ \\ \hline")
-for k_ in [6, 10, 20]:
-	print (r'%s & %s \\' %(k_, (lambda k : -0.5**k + 1)(k_)))
-print(r"\end{tabular}")
-
-\end{pycode}
-
-\pyc{input(140424090205)}
-\begin{pycode}
-setup_figure(r)
-a = 1.0/8 
-alpha = a * ones(r.shape)
-q_k = estimate()
-e[a] = ef()
-plot_q_k()
-legend()
-savefig('task_2.pdf')
-
-\end{pycode}
+\pyc{_input(140423105502)}
+We have
+$$\alpha = 0.5 \;;\; r = 1 \;;\; \forall K$$
+Using equation (2.7) from the online textbook
+$$Q_k = (1 - \alpha)^k Q_0 + \sum\limits_{i=1}^k \alpha (1-\alpha)^{k-i} r_i$$
+becomes
+$$Q_k = 0.5  \sum\limits_{i=1}^k 0.5^{k-i}$$
+Using the geometric series we obtain
+$$Q_k = 1 - 0.5^k$$
+\pyc{t_140423105502()}
 
 \begin{figure}[ht]
-\includegraphics[width=\textwidth]{task_2.pdf}
+\includegraphics[width=\textwidth]{140424090205.pdf}
+\caption{\pyc{_input(140424090205)}}
 \end{figure}
-\pyc{input(140424090951)}
-\begin{pycode}
 
-setup_figure(r)
-a = 1.0
-alpha = a * ones(r.shape)
-q_k = estimate()
-e[a] = ef()
-plot_q_k()
-legend()
-savefig('task_3.pdf')
-
-\end{pycode}
 \begin{figure}[ht]
-\includegraphics[width=\textwidth]{task_3.pdf}
+\includegraphics[width=\textwidth]{140424090951.pdf}
+\caption{\pyc{_input(140424090951)}}
 \end{figure}
+
 Measure the error using the squared distance.
-$$\epsilon = \sum\limits_{\s{k}=\pp{s}}^{\pp{r.shape[0]}}\s{(r_k - Q_k)**2}$$
-\begin{pycode}
-print(r"\begin{tabular}{c|c}")
-print(r"$\alpha$ & $\epsilon$ \\ \hline")
-for k in e.keys():
-	print(r"%s & %s\\" %(k, e[k]))
-print(r"\end{tabular}")
-\end{pycode}
+$$\epsilon = \sum\limits_{k=12}^{18} Q_k - r_k$$
+\pyc{t_140424090951()}
 
-\pyc{input(140424105951)}
-\begin{pycode}
-
-setup_figure(r)
-a = "1/k"
-alpha = array([1./(k_+1) for k_ in range(r.shape[0])])
-q_k = estimate()
-plot_q_k()
-legend()
-savefig('task_4.pdf')
-
-\end{pycode}
 \begin{figure}[ht]
-\includegraphics[width=\textwidth]{task_4.pdf}
-\end{figure}
-\pyc{input(140424133343)}
-Initially it is very sensitive to the observed reward.
+\includegraphics[width=\textwidth]{140424105951.pdf}
+\caption{\pyc{_input(140424105951)}
+\pyc{_input(140424133343)}
+Initially a step size adapted in this way leads to fast learning.
 Contrary to a large fixed step size it does not oscillate when the target is changing.
-\pyc{input(140424133907)}
-The adaption rate is continously decreasing over time.
-\pyc{input(140424135248)}
-\begin{pycode}
+\pyc{_input(140424133907)}
+The learning/adaption rate is continously decreasing over time and 0 in the limit.
+Thus using  this stepsize an agent would not be able to follow a changing target after some time.
+}
+\end{figure}
 
-A = [-0.5, 1.5, 2.0, 2.5]
-fn = 'task_5_%s.pdf' 
-r = r[:6]
-for a_ in A:
-	setup_figure(r)
-	alpha = a_ * ones(r.shape[0])
-	q_k = estimate()
-	axis(ymin = min(q_k), ymax= max(q_k))
-	plot_q_k(alpha=a_)
-	legend()
-	savefig((fn %a_).replace(".", "_", 1))
+\begin{figure}
+	\begin{subfigure}[ht]{0.49\textwidth}
+	\includegraphics[width=\textwidth]{140424135248-0_5.pdf}
+	\end{subfigure}
+	~
+	\begin{subfigure}[ht]{0.49\textwidth}
+	\includegraphics[width=\textwidth]{1404241352481_5.pdf}
+	\end{subfigure} 
 
-\end{pycode}
-
-\begin{pycode}
-
-for a_ in A:
-	print(r'\begin{figure}[ht]')
-	print(r'\includegraphics[width=\textwidth]{%s}' %((fn %a_).replace(".", "_", 1)))
-	print(r'\end{figure}')
-
-\end{pycode}
+	\begin{subfigure}[ht]{0.49\textwidth}
+	\includegraphics[width=\textwidth]{1404241352482_0.pdf}
+	\end{subfigure}
+	~
+	\begin{subfigure}[ht]{0.49\textwidth}
+	\includegraphics[width=\textwidth]{1404241352482_5.pdf}
+	\end{subfigure} 
+\caption{Exploring steps sizes $\alpha$}
+\label{fig:140424135248}
+\end{figure}
+\pyc{_input(140424135248)}
+Based on the plots shown in figure \ref{fig:140424135248} the safe range seems to be 
+$$\alpha \in \left[0, 2 \right]$$
+(where $\alpha = 0$ seems rather pointless)
 \input{post.tex}
 
