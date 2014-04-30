@@ -343,17 +343,12 @@ Datenverarbeitung
 
 ¨
 ¨
-Technische Universitat Munchen
-
+ 140430084615
 Unifying Return Notations
-In episodic tasks we number the time steps of each
-episode starting from zero
-The goal state is deﬁned as a absorber state with zero
-reward
-
+In episodic tasks we number the time steps of each episode starting from zero
+The goal state is deﬁned as a absorber state with zero reward
 Now all cases can be covered by writing
-Gt = ∞ γk Rt+k +1 ,
-k =0
+[ ... ]
 where γ can be 1 only if an absorber state is always
 reached
 
@@ -760,15 +755,7 @@ Datenverarbeitung
 Technische Universitat Munchen
 
 More on the Bellman Equation
-vπ (s) =
-
-a
-
-π(a|s)
-
-s ,r
-
-p(s , r|s, a)[r + γvπ (s )]
+cf. 140430095413
 
 This is a set of (linear) equations, one for each state.
 The value function for π is its unique solution.

@@ -829,15 +829,18 @@ n-step return (Section 7.1)
 
 π
 π(s)
-π(a|s)
 p(s |s, a)
-r(s, a, s )
 
 policy, decision-making rule
 action taken in state s under deterministic policy π
-probability of taking action a in state s under stochastic policy π
+
+ 140430100357
+$\pi(a|s)$ probability of taking action a in state s under stochastic policy π
+
 probability of transition from state s to state s under action a
-expected immediate reward on transition from s to s under action a
+
+_13_ 140430095658
+$r(s, a, s')$ expected immediate reward on transition from s to s under action a
 
 vπ (s)
 v∗ (s)
@@ -3943,9 +3946,13 @@ p(s |s, a) r(s, a, s ) + γvπ (s ) ,
 
 where it is implicit that the actions, a, are taken from the set A(s), and
 the next states, s , are taken from the set S, or from S+ in the case of an
-episodic problem. Equation (3.10) is the Bellman equation for vπ . It expresses
-a relationship between the value of a state and the values of its successor
-states. Think of looking ahead from one state to its possible successor states,
+episodic problem. 
+
+_76_ 140430095413
+Equation (3.10) is the Bellman equation for vπ . It expresses a relationship between the value of a state and the values of its successor
+states.
+
+Think of looking ahead from one state to its possible successor states,
 as suggested by Figure 3.4a. Each open circle represents a state and each solid
 circle represents a state–action pair. Starting from state s, the root node at
 the top, the agent could take any of some set of actions—three are shown in
