@@ -1,0 +1,50 @@
+¨
+¨
+TECHNISCHE UNIVERSITAT MUNCHEN
+Fakult¨t f¨r Elektrotechnik und Informationstechnik
+a u
+Lehrstuhl f¨r Datenverarbeitung
+u
+Prof. Dr.-Ing. K. Diepold
+
+Data Analysis for Computer Engineering
+Introduction to Reinforcement Learning
+Markov Decision Processes
+due to 06.05.2014
+
+Consider the MDP above, in which there are two states, A and B, two actions, forward and back,
+and the deterministic rewards on each transition are as indicated by the numbers. Note that if
+action forward is taken in state A, then the transition may be either to A with a reward of +1 or to
+B with a reward of -1. These two possibilities occur with probabilities 2/3 (for the transition to A)
+and 1/3 (for the transition to state B).
+Consider two deterministic policies, π1 and π2 :
+
+π1 (A) = back
+
+π2 (A) = f orward
+
+π1 (B) = f orward
+
+π2 (A) = f orward
+
+1. (1 pt) Show a typical trajectory (sequence of states, actions and rewards) from A for policy π1
+
+2. (1 pt) Show a typical trajectory (sequence of states, actions and rewards) from A for policy π2
+
+3. (1 pt) Assuming the discount-rate parameter is γ = 0.5, what is the return from the initial
+state for the second trajectory?
+G0 =
+
+4. (0.5 pt) Assuming γ = 0.5, what is the value of state B under policy π1 ?
+vπ1 (B) =
+
+1
+
+5. (0.5 pt) Assuming γ = 0.5, what is the value of state A under policy π2 ?
+vπ2 (A) =
+6. (1 pt) Assuming γ = 0.5, what is the action-value of state A, back under policy π1 ?
+qπ1 (A, back) =
+
+2
+
+

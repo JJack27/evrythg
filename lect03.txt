@@ -83,21 +83,6 @@ Technische Universitat Munchen
 
 Notation
 Some agreements on the used notation (see textbook)
-s
-a
-S
-A(s)
-t
-T
-St
-At
-Rt
-Gt
-π(a|s)
-p(s |s, a)
-
-Slide 4/31
-
 state
 action
 set of all (nonterminal) states
@@ -110,6 +95,7 @@ reward at t, dependent on At−1 andSt−1
 return (cummulative discounted reward) following t
 probability of taking action a in state s under stochastic policy π
 probability of transition from state s to state s under action a
+_4_ 140429175902 
 
 Data Analysis for Computer Engineering
 
