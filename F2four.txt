@@ -1,0 +1,1035 @@
+Lecture 2: z-transform and I/O models
+
+Shift-operator
+Forward shift operator
+
+• Shift operator
+• I/O models
+• Direct sampling
+
+q f ( k) = f ( k + 1)
+
+Backward shift (delay) operator
+
+• z-transform
+• Poles and zeros
+
+q−1 f ( k) = f ( k − 1)
+
+• Selection of sampling interval
+
+The range of the shift operator is double inﬁnite sequences
+
+• Frequency response of sampled-data systems
+• Lyapunov theory for discrete-time systems
+
+Compare with the differential operator p =
+
+d
+dt
+
+Shift-operator calculus
+
+Reciprocal polynomials
+
+y( k + na) + a1 y( k + na − 1) + ⋅ ⋅ ⋅ + ana y( k)
+
+y( k + na) + a1 y( k + na − 1) + ⋅ ⋅ ⋅ + ana y( k)
+
+= b0 u( k + nb) + ⋅ ⋅ ⋅ + bnb u( k)
+
+where na ≥ nb. Using the shift operator gives
+
+( qna + a1 qna−1 + ⋅ ⋅ ⋅ + ana ) y( k) = (b0 qnb + ⋅ ⋅ ⋅ + bnb )u( k)
+Introduce the polynomials
+na−1
+
+na
+
+A( z) = z
+
++ a1 z
+
+nb
+
+B ( z) = b0 z
+
++ ⋅ ⋅ ⋅ + ana
+
+nb−1
+
++ b1 z
+
++ ⋅ ⋅ ⋅ + bnb
+
+the difference equation can be written as
+A( q) y( k) = B ( q)u( k)
+
+B ( q)
+u( k)
+y( k) =
+A( q)
+
+can be written as
+
+= b0 u( k + nb) + ⋅ ⋅ ⋅ + bnb u( k)
+
+y( k) + a1 y( k − 1) + ⋅ ⋅ ⋅ + ana y( k − na)
+
+= b0 u( k − d) + ⋅ ⋅ ⋅ + bnb u( k − d − nb)
+
+Pole excess d = na − nb
+Reciprocal polynomial
+A∗ ( z) = 1 + a1 z + ⋅ ⋅ ⋅ + ana zna = zna A( z−1 )
+
+The system description in the backward shift operator
+A∗ ( q−1 ) y( k) = B ∗ ( q−1 )u( k − d)
+y( k) =
+
+B ∗ ( q−1 )
+u( k − d)
+A∗ ( q−1 )
+
+Pulse-transfer function operator
+
+SISO systems
+
+State-space system
+x( k + 1) = qx( k) = Φ x( k) + Γ u( k)
+
+H ( q) = C( qI − Φ)−1 Γ + D =
+
+If no common factors
+
+Use the shift operator
+
+B ( q)
+A( q)
+
+deg A = n
+
+( qI − Φ) x( k) = Γ u( k)
+
+A( q) = det[ qI − Φ]
+
+and
+
+Eliminate x( k)
+
+y( k) + a1 y( k − 1) + ⋅ ⋅ ⋅ + an y( k − n)
+
+y( k) = Cx( k) + Du( k) = C( qI − Φ)−1 Γ + D u( k)
+
+Pulse-transfer operator
+−1
+
+H ( q) = C( qI − Φ) Γ + D
+
+= b0 u( k) + ⋅ ⋅ ⋅ + bn u( k − n)
+
+where ai are the coefﬁcients of the characteristic polynomial of
+Φ.
+
+In the backward-shift operator
+H ∗ ( q−1 ) = C( I − q−1 Φ)−1 q−1 Γ + D = H ( q)
+
+Poles, zeros, and system order
+H ( q) = C( qI − Φ)−1 Γ + D =
+
+Poles: A( q) = 0
+Zeros: B ( q) = 0
+System order: deg A( q)
+
+B ( q)
+A( q)
+
+Important to use the forward shift operator for poles/zeros,
+system order, and stability.
+The backward shift operator is suited for causality considerations.
+
+Example – Double integrator with delay
+h = 1 and τ = 0.5 gives
+
+
+
+
+ 1 1  Γ =  0.375 
+
+
+
+Φ=
+1
+0
+
+Then
+
+1
+
+0.5
+
+
+
+ 0.125 
+
+Γ0 = 
+0.5
+
+H ( q) = C ( qI − Φ)−1 (Γ 0 + Γ 1 q−1 )
+
+
+1 
+q−1
+ 
+
+
+
+ 
+−1 
+0
+q−1
+ 0.125 + 0.375q 
+
+
+=1 0
+
+
+( q − 1)2
+0.5 + 0.5q−1
+
+=
+
+0.125( q2 + 6q + 1)
+0.125( q−1 + 6q−2 + q−3 )
+=
+q( q2 − 2q + 1)
+1 − 2q−1 + q−2
+
+Order: 3
+Poles: 0, 1, and 1
+√
+Zeros: −3 ± 8
+
+z-transform
+
+140428160056
+How to get H ( q) from G (s)?
+
+Use Table 2.1
+Zero-order hold sampling of a continuous-time system, G (s).
+
+Deﬁnition of z-transform
+Consider the discrete-time signal { f ( kh) : k = 0, 1, . . .}.
+
+b1 qn−1 + b2 qn−2 + ⋅ ⋅ ⋅ + bn
+H ( q) =
+qn + a1 qn−1 + ⋅ ⋅ ⋅ + an
+G (s)
+
+h
+q−1
+
+1
+s2
+
+h2 ( q+1)
+2( q−1)2
+
+a
+s+ a
+
+∞
+k=0
+
+f ( kh) z− k
+
+The inverse transform is given by
+
+H ( q)
+
+1
+s
+
+Z ( f ( kh)) = F ( z) =
+
+1−exp(−ah)
+q−exp(−ah)
+
+f ( kh) =
+
+1
+2π i
+
+F ( z) zk−1 dz
+
+where the contour of integration encloses all singularities of
+F ( z). Maps a semi-inﬁnite time sequence into a function of a
+complex variable
+
+Example
+Let y( kh) = kh for k ≥ 0. Then
+Y ( z) = 0 + hz−1 + 2hz−2 + ⋅ ⋅ ⋅
+
+= h( z−1 + 2z−2 + ⋅ ⋅ ⋅
+hz
+=
+( z − 1)2
+
+• Similarities with Laplace transform
+• Common in applied mathematics
+• How the theory of sampled-data systems started
+
+Properties of z-transform
+1. Deﬁnition.
+∞
+F ( z) =
+
+k=0
+
+f ( kh) z− k
+
+2. Time shift.
+Z q−n f = z−n F
+Z { qn f } = zn ( F − F1 )
+−1
+where F1 ( z) = n=0 f ( jh) z− j
+j
+3. Initial value theorem.
+4. Final-value theorem.
+5. Convolution.
+
+Z( f ∗ ) = Z
+
+k
+
+n=0
+
+f (n) ( k − n) = (Z f )(Z )
+
+Pulse-transfer function
+
+Why both q and z?
+
+x( k + 1) = Φ x( k) + Γ u( k)
+
+• Could be sufﬁcient with only the shift operator q
+
+y( k) = Cx( k) + Du( k)
+
+• Many books contain the z-transform
+• Must be aware of the difﬁculties with z-transform
+
+Take the z-transform of both sides
+z
+
+∞
+k=0
+
+−k
+
+z x( k) − x(0)
+
+=
+
+∞
+k=0
+
+−k
+
+Φ z x( k) +
+
+∞
+k=0
+
+Γ z− ku( k)
+
+• Remember q operator and z complex variable
+
+Hence
+z( X ( z) − x(0)) = Φ X ( z) + Γ U ( z)
+
+X ( z) = ( zI − Φ)−1 ( zx(0) + Γ U ( z))
+Y ( z) = C ( zI − Φ)−1 zx(0) + ( C ( zI − Φ)−1 Γ + D ) U ( z)
+
+Pulse-transfer function
+H ( z) = C( zI − Φ)−1 Γ + D
+
+A warning
+!!!Use the z-transform tables correctly!!!!
+f ( kh)
+
+δ ( k) (pulse)
+1
+
+k ≥ 0 (step)
+
+kh
+1
+( kh)2
+2
+e−kh/T
+1 − e−kh/T
+
+L f (t)
+
+Z f (kh)
+
+T
+1 + sT
+1
+s(1 + sT )
+
+z
+z−1
+hz
+( z − 1)2
+h2 z( z + 1)
+2( z − 1)3
+z
+z − e−h/T
+z(1 − e−h/T )
+( z − 1)( z − e−h/T )
+
+–
+1
+s
+1
+s2
+1
+s3
+
+Calculation of H ( z) given G (s) using z-transform
+tables
+{u (kh )}
+
+Zero-order
+hold
+
+G (s)
+
+y(t )
+
+{ y(kh )}
+
+H(z)
+
+1
+
+Warning. Notice that Z f in the table does not give the zeroorder-hold sampling of a system with the transfer function L f .
+
+u (t )
+
+1. Determine the step response of the system with the
+transfer function G (s).
+
+2. Determine the corresponding z-transform of the step
+response using the table.
+3. Divide by the z-transform of the step function.
+G ( s)
+˜
+→ Y = Z (L−1 Y )
+s
+˜
+→ H ( z) = (1 − z−1 ) Y ( z)
+
+Y ( s) =
+
+Double integrator – Sampling using table
+Transfer function G (s) = 1/s2
+
+Formula for H ( z)
+The following formula can be derived:
+
+Introduce the step
+Y (s) =
+
+z−1 1
+H ( z) =
+z 2π i
+
+1
+s3
+
+h2 z( z + 1)
+˜
+Y = Z (L−1 Y ) =
+2( z − 1)3
+Get the pulse transfer function
+
+H ( z) =
+
+h2 ( z + 1)
+2( z − 1)2
+
+z− k f ( kh − h + mh),
+
+0≤m≤1
+
+The inverse transform is given by
+f (nh − h + mh) =
+
+G (s)
+
+Poles:
+• A pole z = a is associated with the time function z( k) = a k
+
+Deﬁnition: Modiﬁed z-transform
+
+k=0
+
+esh − 1
+s
+
+Interpretation of poles and zeros
+
+Can be used to determine intersample behavior
+∞
+
+s= s i
+
+1
+Res
+z − esh
+
+where si are the poles of G (s)
+Multiple poles inﬂuence the calculations of the residues.
+
+Modiﬁed z-transform
+
+˜
+F ( z, m) =
+
+γ − i∞
+
+esh G (s)
+ds
+z − esh s
+
+If G (s) goes to zero at least as fast as s −1 for a large s and
+has distinct poles (none at the origin)
+
+Use the table
+
+˜
+H ( z) = (1 − z−1 ) Y ( z) =
+
+γ + i∞
+
+1
+2π i
+
+Γ
+
+˜
+F ( z, m) zn−1 dz
+
+Γ encloses all singularities of the integrand
+
+• A pole z = a is an eigenvalue of Φ
+Zeros:
+
+• A zero z = a implies that the transmission of the input
+u( k) = a k is blocked by the system
+
+• A zero is related to how inputs and outputs are coupled to
+the states
+
+Transformation of poles λ i(Φ) = eλ i ( A)h
+s
+
+z
+
+ωN
+
+−ω N
+
+New evidence of alias problem
+z = esh
+Several points in the s-plane is mapped into the same point in
+the z-plane.
+The map is not bijective
+
+ωN
+
+3π / h
+p2 x
+
+π/h
+
+p1 x
+
+−ω N
+
+S0
+ωN
+
+p1 x
+
+−π /h
+
+p2 x
+
+px
+x
+
+−3 π / h
+−ω N
+
+Sampling of a second order system
+2
+ω0
+2
+s2 + 2ζ ω 0 s + ω 0
+Poles of the discrete-time system are given by the mapping
+1
+
+Imaginary axis
+
+ζ= 0
+ζ = 0.2
+
+Transformation of zeros
+More difﬁcult than poles
+In general, more sampled zeros than continuous
+For short sampling periods zi esi h
+For large s then G (s) s−d
+where d = deg A(s) − deg B (s)
+The r = d − 1 sampling zeros go to the zeros of the polynomials Z d
+
+ζ = 0.4
+
+d
+
+Zd
+
+ζ = 0.6
+
+0.5
+
+1
+
+1
+
+2
+3
+
+z+1
+
+ζ = 0.8
+
+ζ = 1.0
+
+0
+−1
+
+−0.5
+
+0
+Real axis
+
+0.5
+
+1
+
+4
+5
+
+z2 + 4z + 1
+
+z3 + 11z2 + 11z + 1
+
+z4 + 26z3 + 66z2 + 26z + 1
+
+Systems with unstable inverse
+
+Selection of sampling period
+
+Continuous-time system is nonminimum phase if it has right
+half-plane zeros or time delays.
+A discrete-time system is in many books deﬁned to be nonminimum phase if it has zeros outside the unit disc
+We will use the following notation:
+Deﬁnition – Unstable inverse
+A discrete-time system has an unstable inverse if it has zeros
+outside the unit disc
+Nonminimum phase
+
+?
+
+(a) 1
+
+Number of samples per
+rise time
+
+0
+
+4 − 10
+
+0
+
+5
+
+The rise times of the
+signals are Tr = 1.
+a) Nr = 1, b) Nr = 2,
+c) Nr = 4, d) Nr = 8
+
+0
+
+0
+
+5
+
+(c) 1
+
+5
+
+0
+
+0
+
+5
+
+(d) 1
+
+0
+
+5
+
+1
+
+0
+0
+
+5
+
+0
+
+5
+
+Time
+
+Time
+
+Pole-zero variation with h
+
+4 − 10
+
+1
+(s + 1)(s2 + s + 1)
+
+(b)
+1
+
+0
+
+1
+
+0
+
+0
+
+5
+
+(c)
+
+1
+
+0
+
+5
+
+(d)
+1
+
+0
+
+1
+
+0
+
+5
+Time
+
+0
+
+0
+
+5
+
+Imaginary axis
+
+ζ = 0.5, ω 0 = 1.83 gives
+Tr = 1;
+a) h = 0.125 (ω 0 h =
+0.23)
+b) h = 0.25 (ω 0 h = 0.46)
+c) h = 0.5 (ω 0 h = 0.92)
+d) h = 1.0 (ω 0 h = 1.83)
+
+0
+
+0
+−1
+
+0
+
+G (s) =
+
+0.2 − 0.6
+
+5
+
+1
+
+−1
+
+(a)
+
+0
+
+1
+
+−1
+
+Unstable inverse
+
+Corresponds to (for
+dominating modes)
+
+ω 0h
+
+−1
+(b) 1
+0
+
+Tr
+Nr =
+h
+
+Second order system
+Tr
+Nr =
+h
+
+1
+
+0
+
+h=0+
+
+h=0+
+
+h=0+
+
+0
+
+−1
+
+Time
+
+−4
+
+−3
+
+−2
+
+−1
+Real axis
+
+h = 0.0001, 0.2, 0.5, 1, 2, and 3
+
+0
+
+1
+
+Example
+
+Nyquist and Bode diagrams
+Nyquist curve: H ( eiω h )
+for ω h ∈ [0, π ], i.e. up to ω N
+• Interpretation
+• Higher order harmonics
+• Discuss more in connection with Chapter 7
+
+Imaginary axis
+
+1
+G (s) = 2
+s + 1.4s + 1
+
+Zero-order hold sampling
+h = 0.4
+
+−1
+
+−0.5
+
+0
+
+0.5
+
+1
+
+Real axis
+
+1
+
+0.01
+
+0.066z + 0.055
+H ( z) = 2
+z − 1.450z + 0.571
+
+0.1
+
+1
+
+10
+
+0
+Phase
+
+Continuous-time (dashed),
+discrete-time (full)
+
+−0.5
+
+Gain
+
+• Periodic
+
+0
+
+−180
+0.1
+
+A. M. Lyapunov
+1857–1918
+
+1
+Frequency, rad/s
+
+10
+
+Lyapunov theory
+Consider the system
+x( k + 1) = f ( x( k)),
+
+Monotonic convergence x( k + 1)
+condition for stability
+
+f (0) = 0
+
+<
+
+x( k) a too strong
+
+Find other "norm", a Lyapunov function V ( x)
+• V ( x) is continuous in x and V (0) = 0
+
+• V ( x) is positive deﬁnite
+• ∆ V ( x) = V ( f ( x)) − V ( x) is negative deﬁnite
+• V ( x ) → ∞,
+
+x →∞
+
+Existence of Lyapunov function implies asymptotic stability for
+the solution x = 0
+
+Geometric interpretation
+x( k + 1) = f ( x( k)),
+
+x2
+
+V(x(k + 1))
+
+Linear system
+
+f (0) = 0
+
+x( k + 1) = Φ x( k)
+V ( x) = x T Px
+
+P>0
+
+∆ V ( x) = V (Φ x) − V ( x) = x Φ T P Φ x − x T Px
+
+x (k + 1)
+
+x(k)
+
+x1
+
+T
+
+= x T Φ T P Φ − P x = − x T Qx
+
+V is a Lyapunov function iff there exists a P > 0 that satisﬁes
+the Lyapunov equation
+
+Φ T PΦ − P = −Q
+
+Q>0
+
+V(x(k))
+
+Example
+
+0.4
+
+Φ=
+
+0
+
+−0.4 0.6
+
+State x2
+
+2
+
+
+
+
+
+Summary
+
+
+
+1 0
+
+
+Q=
+0
+
+1
+
+• Piecewise constant input and periodic sampling gives timeinvariant discrete-time system
+• Solution of the system equation, λ (Φ)
+• Shift operator q and pulse transfer operator
+• z-transform and pulse transfer function
+• Be careful with z-transform tables
+
+0
+
+• Poles, zeros, and system order
+• Selection of sampling period
+
+−2
+
+Nr =
+−2
+
+0
+State x1
+
+ω 0h
+
+2
+
+• Frequency function
+
+Tr
+4 − 10
+h
+0.2 − 0.6
+
+

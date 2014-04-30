@@ -2303,9 +2303,12 @@ use the differential operator p = d/ dt. The output of the system with the
 transfer function G (s) when the input signal is u(t) will then be denoted by
 y(t) = G ( p)u(t)
 The output will also depend on the initial conditions. In using the above
-notation it is assumed that all initial conditions are zero. To deal with discrete
-time systems, we introduce the forward shift operator q defined by
+notation it is assumed that all initial conditions are zero. 
+
+_41_ 140428154655
+To deal with discrete time systems, we introduce the forward shift operator q defined by
 qy(t) = y(t + 1)
+
 The output of a system with input u and pulse transfer function H ( z) is denoted
 by
 y(t) = H ( q)u(t)
@@ -7498,11 +7501,8 @@ Eq. (3.6) that Am must also be a factor of Ac . The closed-loop characteristic
 
 Pole Placement Design
 
-95
-
-polynomial thus has the form
-Ac = Ao Am B +
-
+ 140428172254
+The closed loop characteristic polynomial thus has the form
 (3.9)
 
 Since B + is a factor of B and Ac , it follows from Eq. (3.4) that it also divides
@@ -7615,8 +7615,8 @@ Furthermore, T = Ao Bm = Ao qn−d0 Am (1)/ b0 , and the Diophantine equation
 in Step 2 reduces to
 AR′ + b0 S = A′c = Ao Am
 
-This equation is easy to solve because R′ is the quotient and b0 S is the remainder when Ao Am is divided by A. However, all process zeros must be stable and
-well damped to allow cancellation.
+This equation is easy to solve because R′ is the quotient and b0 S is the remainder when Ao Am is divided by A. However, all process zeros must be stable and well damped to allow cancellation.
+\todo{When are process zeros stable?}
 
 3.2
 

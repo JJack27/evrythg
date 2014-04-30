@@ -1,0 +1,4 @@
+sys = tf(1,[1, 1, 0])
+sysd = c2d(sys, 0.5)
+z = zero(sysd)
+p = pole(sysd)

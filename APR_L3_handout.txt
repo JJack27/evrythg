@@ -139,24 +139,8 @@ Controller:
 
 Ru(t) = T uc (t) − Sy(t)
 
+_6_ 140428164043
 Elimination of u(t) / y(t):
-y(t) =
-
-BT
-BR
-uc (t) +
-ν(t)
-AR + BS
-AR + BS
-
-u(t) =
-
-AT
-BS
-uc (t) −
-ν(t)
-AR + BS
-AR + BS
 
 Closed loop characteristic polynomial:
 AR + BS = Ac
@@ -378,7 +362,7 @@ Direct STR
 
 
 
-Pole Placement
+Pole Placement
 Specify desired Ac and compute R and S by solving the
 Diophantine equation (solution exists for A, B relatively prime)
 
@@ -386,6 +370,9 @@ Controller: Ru(t) = T uc (t) − Sy(t)
 Determination of controller polynomial T : model following
 Desired response from uc to y: Am ym (t) = Bm uc (t)
 Condition for model following (assuming ν(t) = 0):
+cf. 140428164043
+
+
 ym (t) = y(t) ⇒
 
 Pole Placement
@@ -519,18 +506,10 @@ Transfer function in continous time: G(s) =
 s(s+1)
 
 [normalized motor model]
-
+140428171237
+[ Use Matlab: tf(1,[1, 1, 0]); c2d(ans, 0.5) ]
 Impulse transfer function with sample time 0.5sec:
-B(q)
-b0 q + b1
-0.1065q + 0.0902
-= 2
-= 2
-A(q)
-q + a1 q + a2
-q − 1.6065q + 0.6065
-zeros in: −0.84, poles in: 1, 0.61
-H(q) =
+
 
 Design will lead to controller of first order and a closed-loop of 3rd
 order (deg(Ac ) ≥ 2deg(A) − 1)
