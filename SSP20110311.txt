@@ -1,0 +1,83 @@
+Statistical Signal Processing, SS2010
+Fr., 11.3.2011, 10:00h HS D
+Name
+
+Student ID
+
+Points
+
+Grade
+
+. . . / 100
+You may use a simple pocket calculator to solve the numerical problems. Duration of the exam is 90 min.
+1. Describe the Whitening Approach in the context of linear models (Sketch, CRLB and derivation
+ˆ
+of the estimator θ).
+(20 Points)
+2. A random variable X characterised by its PDF fX (x) is mapped onto a new random variable Y
+by means of a transformation
+Y = −2 · (X − 3)2 .
+(1)
+Derive the resultant PDF fY (y).
+(10 Points)
+3. Explain the terms eﬃcient estimator, unbiased estimator, minimum variance estimator, and asymptotically unbiased estimator using appropriate sketches. Give an example estimator for each category.
+(15 Points)
+4. Explain the concept of a Matched Filter (Sketch, Interpretation, Application). When and how is
+it used?
+(15 Points)
+5. A binary detection problem is modelled by
+H0 :
+
+x[n] = w[n]
+
+(2)
+
+H1 :
+
+x[n] = s[n] + w[n],
+
+(3)
+
+where the noise samples w[n] are iid N (0, σ 2 ) and s[n] = 12. Sketch the resultant PDFs and
+clearly visualise the threshold, critical regions, and regions of detection errors.
+Assuming further that the signal s[n] is changed to s[n] = 2δ[n] + 3δ[n − 1] − 5δ[n − 2] and σ = 1,
+derive a test statistic and an expression for the optimal detection threshold given PF A .
+(20 Points)
+6. Given a signal model
+x[n] = 2 · θ + w[n],
+
+(4)
+
+2
+
+where w[n] are iid N (0, σ ). Derive the CRLB for a linear estimator of the unknown parameter
+ˆ
+θ. Further, derive the Maximum Likelihood estimator (MLE) θM LE for the unknown parameter
+θ assuming the availability of sample sets of size N > 1.
+Assuming that the unknown parameter is known to be uniformly distributed within the range of
+ˆ
+θ ∈ [π, 2π], derive the Maximum A-Posteriori estimator (MAP) θM AP for the unknown parameter.
+Complete the following table with the results obtained using your estimators:
+Estimator
+ˆ
+θM LE
+ˆM AP
+θ
+(20 Points)
+Good luck!
+
+x using N samples
+¯
+0.13
+8.25
+17.74
+......
+......
+
+......
+......
+
+......
+......
+
+
