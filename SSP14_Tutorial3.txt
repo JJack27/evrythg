@@ -1,0 +1,287 @@
+Statistical Signal Processing
+
+SS 2014
+
+1
+
+3. Fisher Information Matrix and Cram´ r–Rao Bound
+e
+
+Problem 3.1
+
+Scalar Estimation
+
+A scalar parameter θ is estimated by an estimator ˆ (1) , . . . , x (N) ) based on N statistics x (1) , . . . , x (N)
+θ(x
+(1)
+(N)
+with the joint PDF fx (1) ,...,x (N) (x , . . . , x ; θ). Note that ˆ (1) , . . . , x (N) ) is a random variable as it
+θ(x
+(1)
+(N)
+depends on the statistics x , . . . , x . The score function is deﬁned as
+g (x , . . . , x
+(1)
+
+(N)
+
+(1)
+(N)
+∂ (x (1) , . . . , x (N) ; θ) ∂ log L(x , . . . , x ; θ)
+=
+,
+; θ) =
+∂θ
+∂θ
+
+where L(x (1) , . . . , x (N) ; θ) is the likelihood function. Assuming that L(x (1) , . . . , x (N) ; θ) satisﬁes the
+regularity conditions (here for L(x; θ))
+1) L(x; θ) > 0 ∀x ∈ X, ∀θ ∈ Θ,
+2) L(x; θ) diﬀerentiable with respect to θ on Θ,
+3)
+
+∂
+L(x; θ)
+X ∂θ
+
+dx =
+
+∂
+∂θ X
+
+L(x; θ) dx,
+
+the variance of the score function
+(N)
+Var g (x (1) , . . . , x (N) ; θ) = IF (θ)
+(N)
+is the Fisher information IF (θ) and serves as a metric for the information on θ contained in the N
+statistics x (1) , . . . , x (N) . If the estimator is unbiased, the inverse of the Fisher information gives the
+Cram´ r–Rao bound (CRB) on the variance of the estimator ˆ (1) , . . . , x (N) ).
+e
+θ(x
+
+a) Assuming that L(x (1) , . . . , x (N) ; θ) satisﬁes the regularity conditions, show that N i.i.d. statistics
+x (1) , . . . , x (N) carry N times as much information about θ as one statistic x (1) . This means that for N
+i.i.d. statistics
+(N)
+(1)
+IF (θ) = NIF (θ),
+(i)
+where IF (θ) is the Fisher information of i statistics.
+
+b) Consider N i.i.d. statistics x (1) , . . . , x (N) , where x (i) is
+1) uniformly distributed on the interval [0, θ] with unknown θ ∈ (0, ∞), i.e., x (i) ∼ U(0, θ),
+2) Gaussian with unknown mean θ ∈ (−∞, ∞) and known variance σ2 , i.e., x (i) ∼ N(θ, σ2 ),
+3) binomially distributed with unknown success probability θ ∈ (0, 1) and known number of trials
+K, i.e., x (i) ∼ B(K, θ).
+Determine, if applicable, the CRB and the Fisher information for an unbiased estimation of the
+parameter θ using N i.i.d. statistics x (1) , . . . , x (N) for each distribution. Justify your answer.
+c Associate Institute for Signal Processing
+Technische Universit¨ t M¨ nchen
+a u
+
+Statistical Signal Processing
+
+Problem 3.2
+
+SS 2014
+
+2
+
+Multivariate Estimation I
+
+θ(x
+A parameter θ ∈ R M is estimated using an estimator ˆ (1) , . . . , x (N) ) ∈ R M based on N statistics
+(1)
+(N)
+(1)
+(N)
+x , . . . , x with the joint PDF fx (1) ,...,x (N) (x , . . . , x ; θ). The score function is deﬁned as
+g (x , . . . , x
+(1)
+
+(N)
+
+(1)
+(N)
+∂ (x (1) , . . . , x (N) ; θ) ∂ log L(x , . . . , x ; θ)
+; θ) =
+=
+,
+∂θ
+∂θ
+
+where L(x (1) , . . . , x (N) ; θ) is the likelihood function. Assuming that L(x (1) , . . . , x (N) ; θ) satisﬁes the
+regularity conditions (cf. problem 3.1), the covariance matrix of the score function
+Cov g (x (1) , . . . , x (N) ; θ) = I(N) (θ)
+F
+is known as the Fisher information matrix. If ˆ (1) , . . . , x (N) ) is unbiased, the CRB is given as
+θ(x
+Cov ˆ (1) , . . . , x (N) )
+θ(x
+
+I(N) (θ)
+F
+
+−1
+
+.
+
+Consequently, the CRB for the estimate of the m-th entry of θ is given as
+Var ˆm (x (1) , . . . , x (N) ) ≥
+θ
+
+I(N) (θ)
+F
+
+−1
+
+.
+m,m
+
+In the following, we investigate the CRB for the estimation of the channel gain h of the transmission
+system discussed in problem 2.1, i.e., of
+x (i) = hs(i) + n(i) .
+As the noise vectors n(1) , . . . , n(N) are assumed to be i.i.d. with n(i) ∼ N(0, C = σ2 I M ), the
+statistics x (1) , . . . , x (N) are independent and Gaussian. In addition, the regularity conditions on
+ˆ
+L(x (1) , . . . , x (N) ; θ) are satisﬁed. The ML estimator hML for h derived in problem 2.1b) is used.
+a)
+
+ˆ
+Is the ML estimator hML unbiased?
+
+b)
+
+Why does
+I(N) (h) = N I(1) (h)
+F
+F
+
+not hold in this case?
+c) Determine the Fisher information matrix
+I(N) (h) = Cov g (x (1) , . . . , x (N) ; h) .
+F
+
+ˆ
+d) Determine a lower bound on the variance of the m-th entry in hML , i.e., the CRB for the estimate
+of the m-th channel gain.
+
+c Associate Institute for Signal Processing
+Technische Universit¨ t M¨ nchen
+a u
+
+Statistical Signal Processing
+
+Problem 3.3
+
+SS 2014
+
+3
+
+Advanced: Multivariate Estimation II
+
+θ(x) ∈ R M based on one statistic x with
+A parameter θ ∈ R M is estimated by an unbiased estimator ˆ
+the PDF fx (x; θ). The covariance matrix of the estimator ˆ
+θ(x) is given as
+Cˆ = E ˆ − E ˆ
+θ(x)
+θ(x)
+θ
+
+ˆ −E ˆ
+θ(x)
+θ(x)
+
+T
+
+.
+
+In the following, assume that L(x; θ) satisﬁes the regularity conditions (cf. problem 3.1). Then, the
+score function
+∂
+∂
+g (x; θ) =
+(x; θ) =
+log (L(x; θ))
+∂θ
+∂θ
+can be used in order to obtain the CRB on Cˆ .
+θ
+a) Let t(x, θ) be a function of x and θ. Show that
+E g (x; θ)t (x, θ) =
+T
+
+Hint: Start with
+
+∂ E[ t T (x,θ)]
+∂θ
+
+∂ E t T (x, θ)
+
+∂t T (x, θ)
+.
+∂θ
+
+−E
+
+∂θ
+
+and use the deﬁnition of the score function g (x; θ).
+
+θ(x) be an unbiased estimator for θ. Use the result from sub-problem a) to
+b) Let t(x, θ) = ˆ
+determine E g (x; θ)ˆT (x) . Note that ˆ
+θ
+θ(x) is not a function of θ.
+c)
+
+Show that E [g (x; θ)] = 0.
+
+d) The covariance matrix of the score function is called Fisher information matrix IF (θ). Let
+t(x, θ) = g (x; θ) and determine IF (θ) using the results from a) and c).
+e) Now consider the random variables u = aT ˆ
+θ(x), a ∈ R M and v = bT g (x; θ), b ∈ R M . Starting
+with
+Cov [u, v ]
+ρu,v = √
+≤ 1,
+Var [u] Var [v ]
+show that
+Var ˆm (x) ≥ (IF (θ))−1
+θ
+
+m,m
+
+.
+
+f) The eﬃciency of an estimator is deﬁned as the ratio of the least possible variance and the
+actual variance. It can be shown that, under certain conditions (cf. chapter 4.6) and assuming i.i.d.
+statistics x (1) , . . . , x (N) , every ML estimator is asymptotically unbiased, i.e.,
+ˆ
+lim E θML (x (1) , . . . , x (N) ) = θ,
+
+N→∞
+
+and asymptotically eﬃcient, i.e.,
+√
+ˆ
+N θML (x (1) , . . . , x (N) ) − θ
+
+N→∞
+
+(1)
+∼ N 0, IF (θ)
+
+−1
+
+.
+
+Why does not every practical implementation of an estimator use the ML principle?
+c Associate Institute for Signal Processing
+Technische Universit¨ t M¨ nchen
+a u
+
+
