@@ -6,7 +6,7 @@ Send,  {+}
 sleep, 10
 Send,  y
 sleep, 10
-IfWinExist, IPython
+IfWinExist, Console
 {
     WinActivate ;
 Send, paste
@@ -29,7 +29,7 @@ Send,  y
 sleep, 10
 Send,  y
 sleep, 10
-IfWinExist, IPython
+IfWinExist, Console
 {
     WinActivate ;
 Send, paste 
