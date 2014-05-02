@@ -1,0 +1,1098 @@
+An Introduction to Complex Differentials and
+Complex Differentiability
+
+Raphael Hunger
+
+Technical Report
+TUM-LNS-TR-07-06
+2007
+
+Technische Universit¨ t M¨ nchen
+a u
+Associate Institute for Signal Processing
+Prof. Dr.-Ing. Wolfgang Utschick
+
+Contents
+
+1. Introduction
+
+3
+
+2. Complex Differentiability and Holomorphic Functions
+
+4
+
+3. Differentials of Analytic and Non-Analytic Functions
+
+8
+
+4. Differentials of Real-Valued Functions
+
+11
+
+5. Derivatives of Functions of Several Complex Variables
+
+14
+
+6. Matrix-Valued Derivatives of Real-Valued Scalar-Fields
+
+17
+
+Bibliography
+
+20
+
+2
+
+1. Introduction
+
+This technical report gives a brief introduction to some elements of complex function theory. First,
+general deﬁnitions for complex differentiability and holomorphic functions are presented. Since
+non-analytic functions are not complex differentiable, the concept of differentials is explained both
+for complex-valued and real-valued mappings. Finally, multivariate differentials and Wirtinger
+derivatives are investigated.
+
+3
+
+2. Complex Differentiability and Holomorphic Functions
+
+Complex differentiability is deﬁned as follows, cf. [Schmieder, 1993, Palka, 1991]:
+Deﬁnition 2.0.1. Let A ⊂ C be an open set. The function f : A → C is said to be (complex)
+differentiable at z0 ∈ A if the limit
+f (z) − f (z0 )
+lim
+(2.1)
+z→z0
+z − z0
+exists independent of the manner in which z → z0 . This limit is then denoted by f (z0 ) =
+and is called the derivative of f with respect to z at the point z0 .
+
+df (z)
+dz z=z0
+
+A similar expression for (2.1) known from real analysis reads as
+df (z)
+f (z + ∆z) − f (z)
+= lim
+,
+∆z→0
+dz
+∆z
+
+(2.2)
+
+where ∆z ∈ C now holds. Note that if f is differentiable at z0 then f is continuous at z0 . An
+equivalent, but geometrically more illuminating way to deﬁne the derivative follows from the linear
+approximation of f in the local vicinity of z0 [Palka, 1991].
+Deﬁnition 2.0.2. Let A be an open set. The function f : A → C is said to be (complex) differentiable at z0 ∈ A if there exists a complex-valued scalar g such that
+f (z) = f (z0 ) + g · (z − z0 ) + e(z, z0 ),
+
+(2.3)
+
+holds for every z ∈ A and the function e(·, ·) satisﬁes the condition
+lim
+
+z→z0
+
+e(z, z0 )
+= 0.
+z − z0
+
+4
+
+(2.4)
+
+2. Complex Differentiability and Holomorphic Functions
+
+5
+
+The remainder term e(z, z0 ) in (2.4) obviously is o(|z − z0 |) for z → z0 and therefore g · (z − z0 )
+dominates e(z, z0 ) in the immediate vicinity of z0 if g = 0. Close to z0 , the differentiable function
+f (z) can linearly be approximated by f (z0 ) + f (z0 )(z − z0 ). The difference z − z0 is rotated by
+∠f (z0 ), scaled by |f (z0 )| and afterwards shifted by f (z0 ).
+The concept of a differentiability in a single point readily extends to differentiability in open sets.
+
+Deﬁnition 2.0.3. Let U ⊆ A be a nonempty open set. The function f : A → C is called holomorphic (or analytic) in U, if f is differentiable in z0 for all z0 ∈ U. Moreover, if f is analytic in the
+complete open domain-set A, f is a holomorphic (analytic) function.
+
+An interesting characteristic of a function f analytic in U is the fact that its derivative f is analytic
+in U itself [Spiegel, 1974]. By induction, it can be shown that derivatives of all orders exist and
+are analytic in U which is in contrast to real-valued functions, where continuous derivatives need
+not be differentiable in general. However, basic properties for the derivative of a sum, product, and
+composition of two functions known from real-valued analysis remain inherently valid in the complex domain. Assume that f (z) and g(z) are differentiable at z0 . Then, the following propositions
+hold:
+Proposition 2.0.1. The sum f + g is differentiable at z0 and
+(f + g) (z0 ) = f (z0 ) + g (z0 ).
+
+(2.5)
+
+Proposition 2.0.2. The product f g is differentiable at z0 and
+(f g) (z0 ) = f (z0 )g(z0 ) + f (z0 )g (z0 ).
+
+Proposition 2.0.3. If g(z0 ) = 0, the quotient
+f
+g
+
+(z0 ) =
+
+f
+g
+
+(2.6)
+
+is differentiable at z0 and
+
+f (z0 )g(z0 ) − f (z0 )g (z0 )
+.
+g 2 (z0 )
+
+(2.7)
+
+Proposition 2.0.4. If f is differentiable at g(z0 ), the composition f ◦ g is differentiable at z0 and
+(f ◦ g) (z0 ) = f (g(z0 ))g (z0 ) (chain rule).
+
+(2.8)
+
+Complex differentiability is closely related to the Cauchy-Riemann equations [Lang, 1993]. A necessary condition for f being holomorphic in U requires the Cauchy-Riemann equations to be satisﬁed.
+
+6
+
+2. Complex Differentiability and Holomorphic Functions
+
+Theorem 2.0.1: Let f (z) = u(z) + jv(z) with u(z), v(z) ∈ R and z = x + jy with x, y ∈ R.
+In terms of x and y, the function f (z) can be expressed as F (x, y) = U (x, y) + jV (x, y) with
+U (x, y), V (x, y) ∈ R. A necessary condition for f (z) being holomorphic in U is that the following
+system of partial differential equations termed Cauchy-Riemann-equations holds for every z =
+x + jy ∈ U:
+∂V (x, y)
+∂U (x, y)
+∂V (x, y)
+∂U (x, y)
+=
+and
+=−
+.
+(2.9)
+∂x
+∂y
+∂y
+∂x
+
+Proof : According to Deﬁnition 2.0.3, f (z) is holomorphic in U if f (z) is differentiable at every
+z ∈ U. Differentiability at z implies that the limit
+f (z + ∆z) − f (z)
+∆z→0
+∆z
+
+= lim
+
+lim
+
+z=x+jy
+
+∆x→0
+∆y→0
+
+F (x + ∆x, y + ∆y) − F (x, y)
+∆x + j∆y
+
+exists no matter which curve ∆z moves along when approaching zero, see Deﬁnition 2.0.1
+and (2.2). Setting ∆z = ∆x + j∆y, two possible curves for ∆z → 0 are considered. The ﬁrst
+curve goes in the horizontal direction with ∆y = 0 and ∆x → 0 yielding
+F (x + ∆x, y) − F (x, y)
+∆x→0
+∆x
+U (x + ∆x, y) − U (x, y)
+V (x + ∆x, y) − V (x, y)
++j
+= lim
+∆x→0
+∆x
+∆x
+∂V (x, y)
+∂U (x, y)
++j
+.
+=
+∂x
+∂x
+The second curve goes in the vertical direction with ∆x = 0 and ∆y → 0 yielding
+f (z = x + jy) = lim
+
+F (x, y + ∆y) − F (x, y)
+∆y→0
+j∆y
+V (x, y + ∆y) − V (x, y)
+U (x, y + ∆y) − U (x, y)
++j
+= lim
+∆y→0
+j∆y
+j∆y
+∂U (x, y) ∂V (x, y)
++
+.
+=
+j∂y
+∂y
+As both expressions have to be the same for f (z) being holomorphic, (2.9) immediately follows
+as a necessary condition.
+f (z = x + jy) = lim
+
+2
+The next theorem provides conditions under which the Cauchy-Riemann equations are sufﬁcient
+for f (z) being holomorphic.
+Theorem 2.0.2: If the partial derivatives of U (x, y) and V (x, y) with respect to x and y are continuous, the Cauchy-Riemann equations are sufﬁcient for f (z) being holomorphic.
+
+Proof :
+
+See [Spiegel, 1974].
+
+2
+
+2. Complex Differentiability and Holomorphic Functions
+In the following, we give examples for analytic functions and functions which are not analytic.
+Examples for analytic functions:
+•
+
+f (z) = z n
+
+•
+
+f (z) =
+
+•
+
+f (z) = ln(z)
+
+•
+
+f (z) = exp(az)
+
+az + b
+cz + d
+
+f (z) = nz n−1
+ad − bc
+(cz + d)2
+1
+f (z) =
+z
+f (z) =
+
+f (z) = a exp(az)
+
+Examples for non-analytic functions:
+• f (z) = |z|2
+• f (z) = {z}
+• f (z) = {z}
+• f (z) = z ∗
+
+7
+
+3. Differentials of Analytic and Non-Analytic Functions
+
+The total differential of the bivariate function F (x, y) associated to the univariate function f (z)
+via F (x, y) = U (x, y) + jV (x, y) = f (z)|z=x+jy reads as [Henrici, 1974]
+dF =
+
+∂F (x, y)
+∂F (x, y)
+dx +
+dy.
+∂x
+∂y
+
+(3.1)
+
+Of course, differentiability of F (x, y) with respect to x and y in the real sense has to be imposed
+for the existence of the differential dF in (3.1). This implies the differentiability of the real-valued
+functions U (x, y) and V (x, y) with respect to x and y. Rewriting (3.1) by means of F (x, y) =
+U (x, y) + jV (x, y) yields
+dF =
+
+∂U (x, y)
+∂V (x, y)
+∂U (x, y)
+∂V (x, y)
+dx + j
+dx +
+dy + j
+dy.
+∂x
+∂x
+∂y
+∂y
+
+(3.2)
+
+Making use of
+dz = dx + jdy,
+dz ∗ = dx − jdy,
+
+(3.3)
+
+the two differentials dx and dy can be expressed via
+1
+(dz + dz ∗ )
+2
+1
+dy = (dz − dz ∗ ) .
+2j
+
+dx =
+
+(3.4)
+
+Inserting (3.4) into the differential expression dF in (3.1) and reordering the result leads to
+dF =
+
+1 ∂U (x, y) ∂V (x, y)
+∂V (x, y) ∂U (x, y)
++
++j
+−
+dz
+2
+∂x
+∂y
+∂x
+∂y
+1 ∂U (x, y) ∂V (x, y)
+∂V (x, y) ∂U (x, y)
++
+dz ∗ .
+−
++j
++
+2
+∂x
+∂y
+∂x
+∂y
+
+(3.5)
+
+A major result can already be anticipated here.
+Proposition 3.0.1. The differential of any analytical function f (z) does not depend on the differential dz ∗ .
+8
+
+3. Differentials of Analytic and Non-Analytic Functions
+
+9
+
+Proof : Since any analytical function f (z) satisﬁes the Cauchy-Riemann equations in (2.9), the
+factor in front of dz ∗ in the second line of (3.5) is zero. Obviously, the differential dF does not
+depend on dz ∗ .
+2
+Note that the converse of Proposition 3.0.1 is also true: If the differential of a function f does not
+depend on dz ∗ , the function f is analytical.
+Rearranging the terms in (3.5), the differential dF can be expressed as
+dF =
+
+∂
+1 ∂
+(U (x, y) + jV (x, y)) − j (U (x, y) + jV (x, y)) dz
+2 ∂x
+∂y
+1 ∂
+∂
++
+(U (x, y) + jV (x, y)) + j (U (x, y) + jV (x, y)) dz ∗ .
+2 ∂x
+∂y
+
+Recognizing that U (x, y) + jV (x, y) = F (x, y), we ﬁnally obtain by factoring out the partial
+differential operators
+dF =
+
+∂
+∂
+1 ∂
+1 ∂
+−j
++j
+F (x, y) dz +
+F (x, y) dz ∗ .
+2 ∂x
+∂y
+2 ∂x
+∂y
+
+(3.6)
+
+According to the total differential for real-valued multivariate functions, the introduction of the
+∂
+∂
+two operators ∂z and ∂z ∗ is reasonable as it leads to the very nice description of the differential df ,
+where the real-valued partial derivatives are hidden [Trapp, 1996].
+Theorem 3.0.1: The differential df of a complex-valued function f (z) : A → C with A ⊂ C
+can be expressed as
+∂f (z)
+∂f (z) ∗
+df =
+dz .
+(3.7)
+dz +
+∂z
+∂z ∗
+
+Proof : See the preceding derivation and the deﬁnition of the partial derivatives
+following.
+
+∂
+∂z
+
+and
+
+∂
+∂z ∗
+
+in the
+2
+
+Deﬁnition 3.0.1. The two ‘partial derivative’ operators
+
+∂
+∂z
+
+and
+
+1 ∂
+∂
+∂
+:=
+−j
+,
+∂z
+2 ∂x
+∂y
+∂
+∂
+1 ∂
++j
+:=
+,
+∗
+∂z
+2 ∂x
+∂y
+
+∂
+∂z ∗
+
+are deﬁned by
+
+(3.8)
+
+and are often referred to as the Wirtinger derivatives [Wirtinger, 1926] and correspond to half of
+the del-bar and del operator [Spiegel, 1974].
+
+10
+
+3. Differentials of Analytic and Non-Analytic Functions
+
+Basic rules for this Wirtinger calculus are given in the next theorem.
+Theorem 3.0.2: For the Wirtinger derivatives, the common rules for differentiation known from
+real-valued analysis concerning the sum, product, and composition of two functions hold as well.
+In particular,
+∂ ∗
+∂
+z = ∗ z = 0,
+∂z
+∂z
+which means that z ∗ can be regarded as a constant when differentiating with respect to z, as well
+as z can be regarded constant when differentiating with respect to z ∗ .
+
+Proof :
+
+With z = x + jy and z ∗ = x − jy, Theorem 3.0.2 follows immediately from (3.8).
+
+2
+
+Examples:
+•
+
+∂ 2
+∂
+|z| =
+(zz ∗ ) = z ∗
+∂z
+∂z
+
+•
+
+∂
+∂
+exp −|z|2 =
+exp (−zz ∗ ) = −z ∗ exp |z|2
+∂z
+∂z
+
+Corollary 3.0.1. Derivatives of the conjugate function f ∗ (z) satisfy the relationships
+∂f ∗ (z)
+=
+∂z
+
+Proof :
+
+∂f (z)
+∂z ∗
+
+∗
+
+and
+
+∂f ∗ (z)
+=
+∂z ∗
+
+See the deﬁnition of the Wirtinger derivatives in (3.8).
+
+∂f (z)
+∂z
+
+∗
+
+.
+
+(3.10)
+
+2
+
+4. Differentials of Real-Valued Functions
+
+Optimizations in communications and signal processing are frequently targeted on the maximization of a utility or on the minimization of a cost. Hence, most objectives are real-valued, as the
+standard total order can only handle real-valued arguments. On account of this, this chapter deals
+with functions f (z) : U → R having complex-valued arguments z ∈ U ⊂ C that are mapped
+to real-valued scalars f (z) ∈ R. In addition, simpliﬁcations resulting from this circumstance are
+investigated.
+First of all it is obvious that the only possibility of a real-valued function f (z) with complex
+argument z for being analytic is that f (z) is constant for all z of its domain. This follows from the
+Cauchy-Riemann equations in (2.9), since v(z) = V (x, y) = {f (z)} = 0 for real-valued f (z).
+This leads to the following proposition.
+Proposition 4.0.1. All non-trivial (not constant) real-valued functions f (z) mapping z ∈ A ⊂ C
+onto R are non-analytic functions and therefore not complex differentiable.
+
+With the deﬁnition of the differential dF in (3.2) and (3.6), it is easy to prove the following theorem.
+Theorem 4.0.1: The differential df of a real-valued function f (z) : A → R with complex-valued
+argument z ∈ A ⊂ C can be expressed as
+df = 2
+
+∂f (z)
+dz
+∂z
+
+=2
+
+∂f (z) ∗
+dz
+∂z ∗
+
+(4.1)
+
+and is equivalent to
+dF =
+
+∂F (x, y)
+∂F (x, y)
+dx +
+dy.
+∂x
+∂y
+
+(4.2)
+
+Due to the property that the non-trivial real-valued functions are not analytic, stationary points of
+the real-valued f (z) cannot be obtained by searching for points z where the derivative f (z) is
+zero. However, we can detect stationary points z of f (z) by a vanishing differential df .
+11
+
+12
+
+4. Differentials of Real-Valued Functions
+
+Theorem 4.0.2: The differential df of a real-valued function f (z) : A → R with complex
+argument z ∈ A ⊂ C vanishes if and only if the Wirtinger derivative is zero:
+df = 0 ⇔
+
+∂f (z)
+= 0.
+∂z
+
+(4.3)
+
+Proof : First, we prove that ∂f (z) = 0 leads to df = 0. This is a result from (4.1). The converse is
+∂z
+shown by the following reasoning. For arbitrary ratios of dx and dy, dF from (4.2) and therefore
+df can only vanish if both partial derivatives of F (x, y) with respect to x and y are zero. With
+∂f (z)
+1 ∂U (x, y)
+∂U (x, y)
+(dx + jdy) ,
+dz =
+−j
+∂z
+2
+∂x
+∂y
+
+(4.4)
+
+vanishing partial derivatives document the second way of the equivalence relation in Theorem 4.0.2
+as F (x, y) = U (x, y) for real-valued f (z).
+2
+Gradient-based iterative algorithms targeted on maximizing or minimizing an objective function
+can be constructed by optimizing dz in the differential expression (4.1).
+Corollary 4.0.1. The steepest ascent of a real-valued function f (z) : A → R with complexvalued argument z ∈ A ⊂ C is obtained for
+dz =
+
+∂f (z)
+ds,
+∂z ∗
+
+where ds is a real-valued differential. Thus, the steepest ascent points to the direction of
+
+Proof :
+
+(4.5)
+∂f (z)
+.
+∂z ∗
+
+As the differential df of a real-valued function can be expressed as (see Equ. 4.1)
+df = 2
+
+∂f (z) ∗
+dz ,
+∂z ∗
+
+df is maximized for real-valued ∂f (z) dz ∗ if the norm of dz is ﬁxed. Hence, dz ∗ has to be a scaled
+∂z ∗
+∂f (z)
+version of the conjugate of ∂z ∗ . Equivalently, dz must be a scaled version of ∂f (z) and (4.5)
+∂z ∗
+immediately follows.
+2
+An iterative implementation could therefore read as
+z ←z+2
+
+∂f (z)
+ds,
+∂z ∗
+
+4. Differentials of Real-Valued Functions
+
+13
+
+where ds can be interpreted as the step-size. Notice that there is a factor 2 in front of the Wirtinger
+derivative which follows from (4.1)!
+
+5. Derivatives of Functions of Several Complex Variables
+
+When switching to functions of several complex variables stacked in the column vector z =
+[z1 , . . . , zn ]T ∈ Cn , we conﬁne ourselves to mappings onto the one-dimensional complex domain C. For them, the holomorphic-property is deﬁned by the following two deﬁnitions which are
+equivalent [Krantz, 1992]:
+Deﬁnition 5.0.1. A function f (z) : Cn ⊃ A → C is said to be holomorphic if for each k ∈
+{1, . . . , n} and each ﬁxed z1 , . . . , zk−1 , zk+1 , . . . , zn the function
+w → f ([z1 , . . . , zk−1 , w, zk+1 , . . . , zn ]T )
+is holomorphic according to the one-dimensional sense in Deﬁnition 2.0.3 on the set {w ∈ C :
+[z1 , . . . , zk−1 , w, zk+1 , . . . , zn ]T ∈ A}.
+
+This is nothing else than that the function f (z) has to be holomorphic in each variable z 1 , . . . , zn .
+An equivalent deﬁnition reads as follows [Krantz, 1992]:
+Deﬁnition 5.0.2. A function f (z) : A → C that is continuously differentiable in each variable z k ,
+k ∈ {1, . . . , n} is said to be holomorphic if the Cauchy-Riemann equations are satisﬁed in each
+variable separately.
+
+Although there are many differences between univariate and multivariate complex functions, the
+Wirtinger calculus easily extends to the case of several complex variables.
+Theorem 5.0.1: The differential df of a multivariate complex-valued function f (z) : A → C
+with A ⊂ Cn can be expressed as
+n
+
+df =
+k=1
+
+∂f (z)
+dzk +
+∂zk
+
+n
+
+k=1
+
+∂f (z) ∗
+dzk
+∗
+∂zk
+
+∂f (z)
+∂f (z) ∗
+=
+dz +
+dz .
+T
+∂z
+∂z H
+
+14
+
+(5.2)
+
+5. Derivatives of Functions of Several Complex Variables
+Note that the operators
+
+∂
+∂z
+
+and
+
+∂
+∂z ∗
+
+15
+
+read as
+∂
+∂
+∂
+=
+,...,
+∂z
+∂z1
+∂zn
+
+T
+
+∂
+∂
+∂
+=
+,..., ∗
+∗
+∗
+∂z
+∂z1
+∂zn
+
+T
+
+,
+(5.3)
+.
+
+If they are applied to a scalar ﬁeld f (z) they generate a column vector of dimension n and mimic
+the gradient operator for real-valued functions. Again, both the differential dz = [dz 1 , . . . , dzn ]T
+and its conjugate dz ∗ are required to express the differential df in (5.2) for non-analytic functions.
+Similar to Theorem 4.0.2, we make the following observation for mappings onto R:
+Theorem 5.0.2: The differential df of a real-valued function f (z) : A → R with complex
+argument z ∈ A ⊂ Cn vanishes if and only if the vector-valued Wirtinger derivative is zero:
+∂f (z)
+= 0.
+∂z
+
+df = 0 ⇔
+
+(5.4)
+
+Finally, the conjugate Wirtinger derivative again points into the direction of the steepest ascent:
+Corollary 5.0.1. The steepest ascent of a real-valued function f (z) : A → R with complexvalued argument z ∈ A ⊂ Cn is obtained for
+dz =
+
+∂f (z)
+ds,
+∂z ∗
+
+(5.5)
+
+where ds is a real-valued differential.
+
+Proof :
+
+From Theorem 5.0.1, the differential of the function f with real-valued image reads as
+df = 2
+
+∂f (z)
+dz .
+∂z T
+
+According to the Cauchy-Schwarz inequality, dz has to be the conjugate of
+valued differential and the proof is complete.
+
+∂f (z) T
+∂z T
+
+times a real2
+
+A gradient ascent step could for example read as
+z ←z+2
+with the step-size ds.
+
+∂f (z)
+ds
+∂z ∗
+
+(5.7)
+
+16
+
+5. Derivatives of Functions of Several Complex Variables
+
+Examples for vector-valued Wirtinger derivatives:
+∂f (z)
+= AT z ∗
+• f (z) = z H Az
+∂z
+∂f (z)
+= zHA
+∂z T
+∂f (z)
+= Az
+∂z ∗
+∂f (z)
+= z T AT
+H
+∂z
+
+6. Matrix-Valued Derivatives of Real-Valued Scalar-Fields
+
+In this section, derivatives of real-valued scalar-ﬁelds are investigated. Common representatives of
+such scalar ﬁelds in communications and signal processing are trace or determinant expressions.
+Deﬁnition 6.0.1. Let f : Cn×n → R denote a functional acting as a map A → f (A). Then the
+derivative of f (A) with respect to the matrix A returns a matrix-valued function whose entry in
+the m-th row and n-th column reads as
+∂
+f (A)
+∂A
+
+=
+m,n
+
+∂
+f (A).
+∂[A]m,n
+
+(6.1)
+
+Sometimes the functional f is a composition of several operations where the outer one is a linear
+operator like the trace-operator for example. In such a case, the partial derivative operator and this
+outer linear operator may be interchanged as their commutator vanishes:
+∂
+∂
+tr(A(t)) = tr
+A(t) .
+∂t
+∂t
+Clearly, derivatives of matrices with respect to scalars turn then out to be necessary and will therefore be discussed now.
+The derivative of a matrix A(t) with respect to the variable t the matrix depends on follows from
+the element-wise application of the partial derivative operator onto the entries of A. Hence, the
+element in the m-th row and n-th column of the derivative reads as
+∂
+A(t)
+∂t
+
+=
+m,n
+
+∂
+[A(t)]m,n .
+∂t
+
+(6.3)
+
+If t is complex valued, then the partial derivative operator denotes the Wirtinger derivative. Equivalently, t may stand for an element of the matrix A(t). For example, if t = [A] m,n = am,n we
+have
+∂
+A = e m eT ,
+(6.4)
+n
+∂am,n
+where em denotes the m-th canonical unit vector of appropriate dimension the elements of which
+are all zero except for the one in the m-th row. For the following examples, all matrices are assumed
+17
+
+18
+
+6. Matrix-Valued Derivatives of Real-Valued Scalar-Fields
+
+to be constant and mutually independent. Moreover, no special structure or symmetry is assumed
+for them.
+Examples:
+n
+n
+n
+n
+∂A
+∂f (A)
+T
+=
+=
+• f (A) = tr(A)
+ek e tr
+ek eT tr ek eT
+∂A
+∂[A]k,
+k=1 =1
+k=1 =1
+n
+
+n
+
+n
+
+T T
+
+=
+k=1 =1
+
+•
+
+f (A) = tr(AB)
+
+ek eT = I n
+k
+
+ek e e ek =
+
+∂f (A)
+=
+∂A
+
+n
+
+k=1
+n
+
+∂AB
+ek e tr
+∂[A]k,
+=1
+
+n
+
+T
+
+k=1
+n
+n
+
+ek eT tr ek eT B
+
+=
+n
+
+n
+
+k=1 =1
+
+ek eT eT Bek =
+
+=
+k=1 =1
+
+n
+
+ek eT [B]l,k = B T
+k=1 =1
+
+Many information theoretic expressions involve the determinant-operator. For the derivative of
+them, the following proposition holds:
+Proposition 6.0.1. The derivative of the determinant of a matrix A(t) which depends on a parameter t with respect to this parameter reads as
+∂A(t)
+∂
+.
+det(A(t)) = det(A) tr A−1
+∂t
+∂t
+
+∂
+1
+det(A(t)) = lim
+[det(A(t + ∆t)) − det(A(t))]
+∆t→0 ∆t
+∂t
+1
+[det(A(t) + ∆tB(t)) − det(A(t))]
+= lim
+∆t→0 ∆t
+1
+= det(A(t)) lim
+det(In + ∆tA−1 (t)B(t)) − 1 ,
+∆t→0 ∆t
+
+Proof :
+
+(6.5)
+
+(6.6)
+
+We have
+
+∂
+where B(t) = ∂t A(t). Making use of the Schur-decomposition [Golub and Loan, 1991], we can
+−1
+rewrite A (t)B(t) to A−1 (t)B(t) = QΛQH with unitary Q and the upper triangular matrix Λ
+the diagonal values of which are the eigenvalues λi , i ∈ {1, . . . , n}. We get
+
+∂
+1
+det(A(t)) = det(A(t)) lim
+∆t→0 ∆t
+∂t
+
+n
+
+(1 + ∆tλi ) − 1
+i=1
+
+n
+
+= det(A(t))
+
+λi = det(A(t)) tr(Λ) =
+i=1
+
+= det(A(t)) tr A−1 (t)B(t) .
+This completes the proof.
+2
+From differentiating the identity matrix In = A(t)A−1 (t) with respect to t by means of the product
+rule, we obtain the following proposition:
+
+6. Matrix-Valued Derivatives of Real-Valued Scalar-Fields
+
+19
+
+Proposition 6.0.2. The derivative of the inverse of a matrix A(t) with respect to the parameter t
+reads as
+∂A(t) −1
+∂ −1
+(6.7)
+A (t) = −A−1 (t)
+A (t).
+∂t
+∂t
+
+Bibliography
+
+[Golub and Loan, 1991] Golub, G. H. and Loan, C. V. (1991). Matrix Computations. Johns Hopkins University Press.
+[Henrici, 1974] Henrici, P. (1974). Applied and Computational Complex Analysis (Volume I),
+volume 1. Wiley-Interscience.
+[Krantz, 1992] Krantz, S. G. (1992). Function Theory of Several Complex Variables. American
+Mathematical Society.
+[Lang, 1993] Lang, S. (1993). Complex Analysis (Graduate Texts in Mathematics). Springer.
+[Palka, 1991] Palka, B. P. (1991). An Introduction to Complex Function Theory (Undergraduate
+Texts in Mathematics). Springer.
+[Schmieder, 1993] Schmieder, G. (1993). Grundkurs Funktionentheorie. Teubner Verlag.
+[Spiegel, 1974] Spiegel, M. (1974). THEORY AND PROBLEMS OF Complex Variables with an
+introduction to CONFORMAL MAPPING and its applications. McGraw Hill Book Company.
+[Trapp, 1996] Trapp, H. (1996). Funktionentheorie einer Ver anderlichen. Universit¨
+atsverlag Os¨
+nabr¨ bei V&R unipress.
+uck
+[Wirtinger, 1926] Wirtinger, W. (1926). Zur formalen Theorie der Funktionen von mehr komanderlichen.
+plexen Ver¨
+
+20
+
+
