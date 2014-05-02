@@ -348,26 +348,9 @@ Unifying Return Notations
 In episodic tasks we number the time steps of each episode starting from zero
 The goal state is deﬁned as a absorber state with zero reward
 Now all cases can be covered by writing
-[ ... ]
-where γ can be 1 only if an absorber state is always
-reached
+_v('140502094041')
+where γ can be 1 only if an absorber state is always reached
 
-Slide 14/31
-
-Data Analysis for Computer Engineering
-
-¨
-Johannes Gunther
-
-29.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
 
 Example for discounting
 0≤γ≤1

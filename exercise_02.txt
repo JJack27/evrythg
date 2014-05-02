@@ -22,10 +22,6 @@ Consider two deterministic policies, π1 and π2 :
 
 π1 (B) = f orward
 
- 140430091020
-\todo{Shouldn't that be}
-[ $\pi_2(B) = \operatorname{forward}$ ]
-π2 (A) = f orward
 
  140430083858
 1. (1 pt) Show a typical trajectory (sequence of states, actions and rewards) from A for policy $pi_1$
@@ -40,7 +36,7 @@ Consider two deterministic policies, π1 and π2 :
  140430090659
 4. (0.5 pt) Assuming γ = 0.5, what is the value of state B under policy π1 ?
 
- 140430094553
+('140430094553')
 5. (0.5 pt) Assuming γ = 0.5, what is the value of state A under policy π2 ?
 
 6. (1 pt) Assuming γ = 0.5, what is the action-value of state A, back under policy π1 ?
