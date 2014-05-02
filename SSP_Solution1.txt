@@ -34,6 +34,9 @@ Cy = E (y − µy )(y − µy )T = E yy T
 5 −1
 .
 −1 2
+_v('140502184703')
+[ inverse of a $2 \times 2$ matrix ]
+[ inverse of a 2x2 matrix ]
 
 b) As z is generated from x using the linear transformation z = BDx, we have
 µz = E [z] = E [BDx] = BD E [x] = B Dµx
@@ -240,107 +243,49 @@ SS 2014
 5
 
 A. Multivariate Gaussian Distributions
-A random vector x = [x1 , . . . , xN ]T ∈ RN×1 with expected value µx = E [x] and covariance matrix
-Cx = E (x − µx )(x − µx )T is said to be (jointly) Gaussian, or multivariate normal, if
-aT x ∼ N(aT µx , aT Cx a) ∀a ∈ RN×1 ,
-i.e., if any linear combination of its components results in an univariate Gaussian random variable
-with the respective mean and variance.
+A random vector x = [x1 , . . . , xN ]T  RN×1 with expected value $\mu_x$ = E [x] and covariance matrix Cx = E (x − µx )(x − µx )T is said to be (jointly) Gaussian, or multivariate normal, if
+_v('140502180716')
+i.e., if any linear combination of its components results in an univariate Gaussian random variable with the respective mean and variance.
 
-Some remarks on Gaussian random vectors, where we assume that all covariance matrices have
-full rank:
-• x ∼ N(µx , Cx ) has the PDF
-fx (x) =
-
-1
-1
-exp − (x − µx )T C−1 (x − µx ) .
-x
-(det (2πCx ))1/2
-2
+Some remarks on Gaussian random vectors, where we assume that all covariance matrices have full rank:
+_v('140502185534')
 
 • A vector x of independent Gaussian random variables xi is jointly Gaussian.
 • A jointly Gaussian PDF of x implies that all marginal PDFs are Gaussian (choose a = e j ),
 however it is important to note that marginal Gaussian distributions for each component xi do
 not imply that x is jointly Gaussian. A counterexample: consider the jointly Gaussian random
 vector x ∼ N(0, I) with the PDF fx (x) and random vector y with the PDF
-
-2 f (y) if ± y ≥ 0
- x
-
-fy (y) = 
-0
-
-otherwise.
-fy (y) is constructed by multiplying fx (y) by two in the ﬁrst and third quadrant and setting it to
-0 in the second and fourth quadrant. Obviously, the PDF of y is not Gaussian. However, the
+
+fy (y) is constructed by multiplying fx (y) by two in the ﬁrst and third quadrant and setting it to 0 in the second and fourth quadrant. Obviously, the PDF of y is not Gaussian. However, the
 marginal distributions of y1 and y2 are Gaussian as, for example,
-∞
-
-fy1 (y1 ) =
-
- −∞
- ∞
-
-
-
-=
-
-
-
-
-
-
-=
-
-
-
-=
-
-0
-0
-
-−∞
-∞
-
-fy (y)dy2
-2 fx (y)dy2
-2 fx (y)dy2
-
-f (y)dy2
-−∞ x
-∞
-f (y)dy2
-−∞ x
-∞
-
-if y1 ≥ 0
-
-if y1 < 0
-if y1 ≥ 0
-if y1 < 0
-
-fx (y)dy2
-
-−∞
 
 due to the symmetry of fx (y).
 
-_5_ 140427111146
-Any affine transformation y = Ax + b of a a jointly Gaussian random vector x, where A and b
-are deterministic, is jointly Gaussian (calculate the characteristic function of aT y ). It follows
-that y ∼ N(Aµx + b, ACx AT ).
+
+Any affine transformation y = Ax + b of a a jointly Gaussian random vector x, where A and b are deterministic, is jointly Gaussian (calculate the characteristic function of aT y ). It follows
+that 
+_v('140502183103')
+_v('140502182946')
 [ expected value and covariance matrix ]
 
-• Any non-empty subset J of a jointly Gaussian random vector x is jointly Gaussian (choose
-appropriate selection matrix A and b = 0).
+_5_
 
-_6_ 140427112452
-If a jointly Gaussian vector random x is partitioned into x = [xa xb ]T 
+• Any non-empty subset J of a jointly Gaussian random vector x is jointly Gaussian (choose appropriate selection matrix A and b = 0).
+
+
+If a jointly Gaussian vector random x is partitioned into x = [xa xb]T 
+_v('140427112452')
+
 The random variable xa |xb = b is jointly Gaussian (advanced: factorize the joint PDF of x into
 the marginal PDF of xb and a second factor by exploiting properties of the inverse of a block
-matrix). The conditional PDF of xa |xb = b is determined by the conditional mean
+matrix).
+
+The conditional PDF of xa |xb = b is determined by the conditional mean
+_v('140502194115')
 and the conditional covariance matrix
-which is the Schur complement of Cxb in Cx . Finally, we have that the conditional random
-variable xa |xb = b is distributed according to (xa |xb = b) ∼ N(µxa |xb =b , Cxa |xb ).
+_v('140502194158')
+which is the Schur complement of Cxb in Cx.
 
+Finally, we have that the conditional random variable xa |xb = b is distributed according to
 
+_6_
