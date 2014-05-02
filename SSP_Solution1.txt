@@ -1,0 +1,172 @@
+Statistical Signal Processing 
+SS 2014
+1. Multivariate Gaussian Distribution
+Solution
+
+Problem 1.1 Aﬃne Transformation of Gaussian Random Variables
+a)
+
+The random variable y is generated using the linear transformation (as b = 0)
+y = Bx
+
+with
+
+B=
+
+1 −2
+1 1
+
+of x = [x1 , x2 ]T . Therefore, it follows that y ∼ N(µy , Cy ). For x, we have x ∼ N(0, I2 ). The mean vector
+
+and the covariance matrix Cy of y is given as
+
+_v('140502184703')
+[ inverse of a $2 \times 2$ matrix ]
+[ inverse of a 2x2 matrix ]
+
+b) As z is generated from x using the linear transformation z = BDx, we have
+µz = E [z] = E [BDx] = BD E [x] = B Dµx
+=0
+and
+Cz = E (z − µz )(z − µz )T = E zz T
+
+= E (B Dx)(B Dx)T = BDCx DT BT = BBT
+
+=
+
+5 −1
+.
+−1 2
+
+D is a rotation matrix and therefore orthonormal, i.e., D−1 = DT . Multiplying with D leads to
+a rotation of the coordinate system. As the contour lines of the PDF of x are circles around the
+origin, a multiplication with D does not change the PDF. Thus, y and z have the same PDF.
+c)
+
+For contour lines we have
+fx (x) =
+
+1
+1
+exp − (x − µx )T C−1 (x − µx ) = k.
+x
+1/2
+(det (2πCx ))
+2
+c Associate Institute for Signal Processing
+Technische Universit¨ t M¨ nchen
+a u
+
+Statistical Signal Processing
+
+Deﬁning k(c) :=
+
+SS 2014
+
+1
+(det(2πCx ))1/2
+
+
+140427112856
+the contour lines fx (x) = k(c) are determined by
+which is a quadratic form that describes an ellipse with center µx . The principle axes are given
+by the eigenvectors vx,i of C−1 . The intersection point of the contour line fx (x) = k(c) with i-the
+principle axis is given at a distance of c/λi from µx , where λi is the i-th eigenvalue of C−1 .
+
+The eigenvalues of C−1 are λ1 = 1 and λ2 = 1/2. The corresponding eigenvectors are given as
+x
+vx,1 = [1, 0]T and vx,2 = [0, 1]T . The contour line fx (x) = k(1) is shown in Figure 1.1.
+For y = Bx, using sub-problem b) we compute
+µy = Bµx =
+
+1
+4
+
+Cy = BCx BT =
+
+and
+
+9 −3
+.
+−3 3
+
+It remains to determine the eigenvalues and eigenvectors of
+C−1 =
+y
+
+1
+18
+
+3 3
+3 9
+
+=
+
+1/6 1/6
+.
+1/6 1/2
+
+The roots of the characteristic polynomial det C−1 − λI2 = 0 are the eigenvalues
+[ distribute the prefactor $\frac{1}{6^2}$ equally to both ]
+
+The corresponding (unscaled) eigenvectors are given as
+[ can choose one arbitrary element $v_i \neq 0$ freely ]
+The contour line fy (y) = j(1), where j(c) is deﬁned analogously to k(c), is shown in Figure 1.2.
+
+d) Determine the conditional PDF of y1 given y2 = a.
+y is partioned into y = [y1 y2 ]T with µy = [µy1 µy2 ]T = [1 4]T and
+The conditional PDF of the random variable y1 |y2 = a is determined by the conditional mean
+
+-2-
+
+and the conditional variance
+Finally, we have that (y1 |y2 = a) ∼ N(5 − a, 6), which diﬀers from the marginal PDF of y1 as y1 and y2 are not independent.
+
+
+A. Multivariate Gaussian Distributions
+A random vector x = [x1 , . . . , xN ]T  RN×1 with expected value $\mu_x$ = E [x] and covariance matrix Cx = E (x − µx )(x − µx )T is said to be (jointly) Gaussian, or multivariate normal, if
+_v('140502180716')
+i.e., if any linear combination of its components results in an univariate Gaussian random variable with the respective mean and variance.
+
+Some remarks on Gaussian random vectors, where we assume that all covariance matrices have full rank:
+_v('140502185534')
+
+• A vector x of independent Gaussian random variables xi is jointly Gaussian.
+• A jointly Gaussian PDF of x implies that all marginal PDFs are Gaussian (choose a = e j ),
+however it is important to note that marginal Gaussian distributions for each component xi do
+not imply that x is jointly Gaussian. A counterexample: consider the jointly Gaussian random
+vector x ∼ N(0, I) with the PDF fx (x) and random vector y with the PDF
+
+fy (y) is constructed by multiplying fx (y) by two in the ﬁrst and third quadrant and setting it to 0 in the second and fourth quadrant. Obviously, the PDF of y is not Gaussian. However, the
+marginal distributions of y1 and y2 are Gaussian as, for example,
+
+due to the symmetry of fx (y).
+
+
+Any affine transformation y = Ax + b of a a jointly Gaussian random vector x, where A and b are deterministic, is jointly Gaussian (calculate the characteristic function of aT y ). It follows
+that 
+_v('140502183103')
+_v('140502182946')
+[ expected value and covariance matrix ]
+
+-5-
+
+Any non-empty subset J of a jointly Gaussian random vector x is jointly Gaussian (choose appropriate selection matrix A and b = 0).
+
+
+If a jointly Gaussian vector random x is partitioned into x = [xa xb]T 
+_v('140427112452')
+
+The random variable xa |xb = b is jointly Gaussian (advanced: factorize the joint PDF of x into
+the marginal PDF of xb and a second factor by exploiting properties of the inverse of a block
+matrix).
+
+The conditional PDF of xa |xb = b is determined by the conditional mean
+_v('140502194115')
+and the conditional covariance matrix
+_v('140502194158')
+which is the Schur complement of Cxb in Cx.
+
+Finally, we have that the conditional random variable xa |xb = b is distributed according to
+
+-6-
