@@ -17,5 +17,5 @@ def _c(t):
     Capture an image for tag
     t: time tag
     """
-    Popen('MiniCap -captureregselect -save "%s.png" -exit' %(tn(t)))
+    Popen('MiniCap -captureregselect -save "%s.png" -exit' %(fn(t)))
 

@@ -1411,10 +1411,10 @@ SVD consists also of any A ∈ CM ×N .
 
 B.4
 
+_v('140501165820')
 Projection Matrices
+Deﬁnition. The Orthogonal Projection of any x ∈ S onto a subspace U spanned by the ONS {u1 , u2 , . . . , uK } by the Projection Matrix P U .
 
-Deﬁnition. The Orthogonal Projection of any x ∈ S onto a subspace U spanned by the ONS
-{u1 , u2 , . . . , uK } by the Projection Matrix P U .
 K
 
 uk uT x = U U T x = P U x,

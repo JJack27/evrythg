@@ -633,13 +633,14 @@ In the following, will will refer to both cases brieﬂy as convex optimization 
 
 12
 
-Chapter 2. Gradient-Based Algorithms
+Chapter 2. Gradient-Based Algorithms
 
+('140501164409')
 TASK 2.1
-
 • Is the projection unique? Why (not)?
+[ only orthogonal projections are unique ]
+• How can the projection be formulated mathematically?  cf. ('140501165820')
 
-• How can the projection be formulated mathematically?
 The simple update rule (2.2) makes the gradient-projection method an attractive approach, if
 ∇f and PC (·) can be calculated eﬃciently. Furthermore, if the speed of convergence is significant, additional eﬀorts may be necessary in order to optimize the stepsize parameter s(a) .
 In the ﬁrst part of this chapter, we will apply the projected-gradient method to maximize the
@@ -650,29 +651,22 @@ control algorithms, that ensure convergence and balance the speed of convergence
 2.2 MIMO Multiple Access Channel
 In the MIMO Multiple Access Channel (MAC) model, a set of K transmitters simultaneously
 accesses a physical resource to transmit data to a single receiver.
+
 Similarly to the Point-to-Point MIMO channel (see Chapter 1), each of the K transmitters is
-equipped with n antennas and the single receiver is equipped with m antennas. The received
-signal vector is given by
-K
+equipped with n antennas and the single receiver is equipped with m antennas.
+[ m = Symbol('m') ]
 
-H k Wk x k + η
-
-y=
-
-(2.3)
-
+The received signal vector is given by K
 k=1
 
-where Hk ∈ Cm×n denotes the k-th transmitter’s channel matrix, Wk ∈ Cn×n denotes
-the precoder matrix of the input signal, xk ∼ NC (0, In ) comprises the n scalar channel inputs of the k-th transmitter and η ∼ NC (0, Cη ) denotes an additive noise distortion. In
+where Hk ∈ Cm×n denotes the k-th transmitter’s channel matrix, 
+[ $W_k \in \mathbb C^{n \times n}$ ]
+denotes the precoder matrix of the input signal, xk ∼ NC (0, In ) comprises the n scalar channel inputs of the k-th transmitter and η ∼ NC (0, Cη ) denotes an additive noise distortion. In
 the following we assume Cη = In . With the covariances of the precoded input signals
 H
 H
 Qk = E[Wk xk xk H Wk ] = Wk Wk , the achievable data rate in the MAC (using dirty paper coding techniques [3]) is given by
-K
-
-Hk Qk H H )
-
+_v('140501193431')
 (2.4)
 
 H
@@ -693,18 +687,7 @@ Implement a function to compute R(W1 , . . . , WK ).
 1 Deliverables (Matlab code ﬁle): rateW.m
 • Function deﬁnition: function R = rateW(W,H)
 2 Input Speciﬁcation:
-13
-
-Chapter 2. Gradient-Based Algorithms
-(a)
-
-(a)
-
 • H: m × n × K set of channel matrices H1 , . . . , HK
-(a)
-
-(a)
-
 • W: n × n × K set of precoders W1 , . . . , WK
 3 Output Speciﬁcation:
 • R: achievable sum rate R
@@ -823,9 +806,11 @@ deﬁned element-wise as
 δf (X)
 δ[X]n,1 . . . δ[X]n,n
 
-where [X]i,j = eT Xej denotes the j-th scalar element of the i-th row of X. Since the cost
-i
-function R is a real valued function with complex arguments we can use the Wirtinger derivative to compute the gradient (for details see [5]). With (2.8) we calculate the Wirtinger derivative of (2.5) element-wise for the i-th row and the j-th column element, for each of the K
+where [X]i,j = eT Xej denotes the j-th scalar element of the i-th row of X. 
+
+Since the cost function R is a real valued function with complex arguments we can use the Wirtinger derivative to compute the gradient (for details see [5]). 
+
+With (2.8) we calculate the Wirtinger derivative of (2.5) element-wise for the i-th row and the j-th column element, for each of the K
 precoder matrices as
 δR(W1 , . . . , WK )
 ∗
@@ -924,7 +909,11 @@ H k Wk e j ,
 
 ℓ=1
 
-where we have used the identities δ ln det(X) = tr(X −1 δX) and tr(AB) = tr(BA) [6]. By
+('140501184819')
+where we have used the identities δ ln det(X) = tr(X −1 δX) and tr(AB) = tr(BA)
+[ invariance of the trace in cyclic rotations ][6].
+
+By
 arranging the elements we obtain the matrix derivative for each of the K precoder matrices.
 We denote the components of the gradient as
 δR(W1 , . . . , WK )
@@ -1174,11 +1163,12 @@ To perform a gradient step on the set of covariance matrices {Qk }K , the Wirtin
 k=1
 of the cost function R with respect to {Qk }K must be calculated.
 k=1
+
 TASK 2.6
-1 ,...,Q
-Calculate the Wirtinger derivative Vk = δR(QδQT K ) for (2.4) to construct the unconk
-strained gradient step. Proceed at ﬁrst element-wise and then rearrange the matrix elements,
-as it has been shown before for the precoder matrices.
+Calculate the Wirtinger derivative _v('140501193956') 
+for (2.4)[ cf. 140501193431 ] to construct the unconstrained gradient step. 
+
+Proceed at ﬁrst element-wise and then rearrange the matrix elements, as it has been shown before for the precoder matrices.
 
 Similar to the precoder approach, we can now use the gradient matrices Vk for an unconstrained
 gradient step on the set of covariances matrices
@@ -1254,34 +1244,9 @@ k=1
 
 tr(Qk ) ≤ P.
 
-Through analysis of the KKT conditions it can be shown that the optimal covariance matrices Q⋆ must have the same eigenbasis Uk as the respective unconstraint matrices Q′ . The
-k
-k
+Through analysis of the KKT conditions it can be shown that the optimal covariance matrices [ $Q_k^*$ ] must have the same eigenbasis [ $U_k$ ] as the respective unconstraint matrices [ $Q_k^'$ ] 
+
 optimization problem in (2.18) can thus be reformulated to
-K
-
-λ⋆ · · · λ⋆
-1,1
-K,n
-
-K
-
-n
-
-(λ′
-k,i
-
-= arg min
-k=1 i=1
-
-− λk,i ) s. t. λk,i ≥ 0,
-
-n
-
-k=1 i=1
-
-λk,i ≤ P
-
 (2.19)
 
 ⋆

@@ -12,7 +12,8 @@ try
             g = gradW(testSets(t).W,testSets(t).H);
             if max(abs(testSets(t).gradW(:)-g(:)))>zeta
                 display(['FAIL, wrong gradient, test No. ' num2str(t)])
-                keyboard
+                fprintf('Should be \t Is\n')
+                [testSets(t).gradW(:), g(:)] %#ok<NOPRT>
                 ok=false;
             end
     end
