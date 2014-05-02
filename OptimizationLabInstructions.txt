@@ -618,20 +618,16 @@ s.t.: X ∈ C.
 (2.1)
 X
 
-Given that f is a continuously diﬀerentiable function over a nonempty closed convex set C
-under a Lipschitz assumption on the gradient ∇f ,
-X (a+1) = PC X (a) + s(a) ∇f (X (a) )
+Given that f is a continuously diﬀerentiable function over a nonempty closed convex set C under a Lipschitz assumption on the gradient , _v('140502123932') (2.2)
+converges to a stationary point for a → ∞ when certain conditions on the stepsize(s) $s^{(a)}$ are fulﬁlled.
 
-(2.2)
-
-converges to a stationary point for a → ∞ when certain conditions on the stepsize(s) s(a) are
-fulﬁlled. In (2.2), the operator PC deﬁnes a projection of its argument to the convex set C, c.f.,
+In (2.2), the operator PC deﬁnes a projection of its argument to the convex set C, c.f.,
 (2.1). Again, if f is concave, X (∞) is the global maximizer of f .
 1
 
 In the following, will will refer to both cases brieﬂy as convex optimization problems.
 
-12
+_13_ 
 
 Chapter 2. Gradient-Based Algorithms
 
@@ -652,36 +648,22 @@ control algorithms, that ensure convergence and balance the speed of convergence
 In the MIMO Multiple Access Channel (MAC) model, a set of K transmitters simultaneously
 accesses a physical resource to transmit data to a single receiver.
 
-Similarly to the Point-to-Point MIMO channel (see Chapter 1), each of the K transmitters is
-equipped with n antennas and the single receiver is equipped with m antennas.
-[ m = Symbol('m') ]
+Similarly to the Point-to-Point MIMO channel (see Chapter 1), each of the $K$ transmitters is equipped with $n$ antennas and the single receiver is equipped with $m$ antennas.
 
-The received signal vector is given by K
-k=1
-
-where Hk ∈ Cm×n denotes the k-th transmitter’s channel matrix, 
+The received signal vector is given by K k=1
+where $H_k \in \mathbb{C}^{m \times n}$ denotes the k-th transmitter’s channel matrix, 
 [ $W_k \in \mathbb C^{n \times n}$ ]
-denotes the precoder matrix of the input signal, xk ∼ NC (0, In ) comprises the n scalar channel inputs of the k-th transmitter and η ∼ NC (0, Cη ) denotes an additive noise distortion. In
-the following we assume Cη = In . With the covariances of the precoded input signals
-H
-H
-Qk = E[Wk xk xk H Wk ] = Wk Wk , the achievable data rate in the MAC (using dirty paper coding techniques [3]) is given by
-_v('140501193431')
+denotes the precoder matrix of the input signal,
+
+xk ∼ NC (0, In ) comprises the n scalar channel inputs of the k-th transmitter and η ∼ NC (0, Cη ) denotes an additive noise distortion.In the following we assume Cη = In.  
+
+With the covariances [-matrices] of the precoded input signals
+$Q_k = \operatorname{E}[W_k x_k x_k^H W_k^H ] = Wk Wk$ , the achievable data rate in the MAC (using dirty paper coding techniques [3]) is given by
 (2.4)
-
-H
-Hk Wk Wk H H ).
-
-R = log2 det(Im +
-
 (2.5)
+_v('140501193431')
 
-k=1
-K
-
-= log2 det(Im +
-k=1
-
+_14_
 PROGRAMMING TASK 2.2
 Implement a function to compute R(W1 , . . . , WK ).
 1 Deliverables (Matlab code ﬁle): rateW.m
@@ -718,57 +700,11 @@ Imposing a sum power constraint leads to a convex optimization problem with eith
 precoder matrices {W1 , . . . , WK } = {Wk }K , or the set of covariance matrices {Qk }K
 k=1
 k=1
-as optimization variables. The respective optimization problems are given by
-K
+as optimization variables.
 
-K
-
-max
-
-W1 ,...,WK
-
-H
-H k Wk Wk H H )
-
-log2 det(Im +
-
-s.t.
-k=1
-
-k=1
-
-and
-max
-
-H
-
-log2 det(Im +
-
-(2.6)
-
-K
-
-K
-Q1 ,...,QK
-
-||Wk ||2 ≤ P
-F
-
-Hk Qk H )
-
-s.t.
-k=1
-
-k=1
-
-tr(Qk ) ≤ P.
-
-(2.7)
-
-Although (2.6) and (2.7) yield the same result, 2 the gradient-based optimization approaches
-for solving (2.6) and (2.7) show signiﬁcant diﬀerences in terms of formulation of the projection
-PC , computational complexity, and the convergence speed of the resulting algorithms.
-2
+The respective optimization problems are given by
+_v('140502130621')
+Although (2.6) and (2.7) yield the same result, 2 the gradient-based optimization approaches for solving (2.6) and (2.7) show signiﬁcant differences in terms of formulation of the projection PC , computational complexity, and the convergence speed of the resulting algorithms.  
 
 This is true only, if {Wk }K have full row/column rank. Note that the number of subchannels ℓ per transmitter
 k=1
@@ -776,7 +712,7 @@ can be preselected by choosing a reduced size precoder matrix W ∈ Cn×ℓ with
 is non-convex and the retrieved precoder W yields a suboptimal sumrate. In this tutorial, we restrict ourselves to
 the computation of full rank n × n precoder matrices to preserve convexity.
 
-14
+_15_
 
 Chapter 2. Gradient-Based Algorithms
 
@@ -1207,8 +1143,12 @@ Implement a function to compute the gradient ∇R(Q1 , . . . , QK ).
 2.4.2 Projection Step
 The projection of the unconstrained covariance matrices {Q′ }K after the gradient step is
 k k=1
-based on the same principle as for the precoder matrices. The full derivation of the covariance
-projection step is shown in [4]. In this section we highlight the main results only. The projection
+based on the same principle as for the precoder matrices.
+
+The full derivation of the covariance projection step is shown in [4].
+cf. 140502101553
+
+In this section we highlight the main results only. The projection
 
 18
 
@@ -1332,8 +1272,10 @@ F
 which is an approximation of the gradient projected onto the tangent cone of the constraint set
 at X (a−1) .
 PROGRAMMING TASK 2.9
-Implement a general projected gradient algorithm based on (2.1) and (2.2). Use a ﬁxed step
-size of s(a) = 1 and the termination condition in (2.22) with ζ = 10−10 .
+Implement a general projected gradient algorithm based on (2.1) and (2.2). 
+cf. 140502123932
+Use a ﬁxed step size of s(a) = 1 and the termination condition in (2.22) with ζ = 10−10 .
+
 1 Deliverables (Matlab code ﬁle): projGrad.m
 • Function deﬁnition:
 function [xOpt fOpt] = projGrad(fun,grad,proj,x,nIter)
@@ -1349,43 +1291,35 @@ function [xOpt fOpt] = projGrad(fun,grad,proj,x,nIter)
 • fOpt: corresponding value of the objective function
 4 Hints:
 • Calculate the squared Frobenius norm like this:
-
-1
-2
-
 gApprox = (x − xOld)/s;
 frobNorm = gApprox(:)'*gApprox(:);
 
-20
+_21_
 
-Chapter 2. Gradient-Based Algorithms
 
 • Make sure that the initial value lies within the feasible set
+\todo{How to check this?}
 
 PROGRAMMING TASK 2.10
 Implement a function that plots the value of the objective function with respect to the iterations a = 1, · · · , N when using the projected gradient algorithm to solve the sum rate
-maximization problems in (2.7) and (2.6) respectively.
+maximization problems in (2.7) and (2.6)
+cf. 140502130621
+respectively.
+
 1 Deliverables (Matlab code ﬁle): plotObjValues.m
 • Function deﬁnition: function = plotObjValues(H,P,nIter)
 2 Input Speciﬁcation:
-(a)
-
-(a)
-
 • H: m × n × K set of channel matrices H1 , . . . , HK
 • P: available sum transmit power P
 • nIter: number of iterations N
 3 Hints:
 
-• To use the cost, gradient and projection functions implemented earlier as arguments
-of the projected gradient algorithm projGrad the number of arguments has to be
-reduced. This can be done by creating a new function handle, e.g. grad = ...
-@(x)gradW(x,H). Now it is possible to call grad(W) with one argument. The
+• To use the cost, gradient and projection functions implemented earlier as arguments of the projected gradient algorithm projGrad the number of arguments has to be reduced. This can be done by creating a new function handle, e.g. grad = ...  @(x)gradW(x,H). Now it is possible to call grad(W) with one argument. The
 local variable H, which has to exist when the function handle is created, is always
 used as the second argument.
-• To test the function generate complex Gaussian distributed channel coeﬃcients
-H = (randn(m,n,K)+ 1i*randn(m,n,K))/sqrt(2) and use an arbitrary
-positive real number for the transmit power P .
+• To test the function generate complex Gaussian distributed channel coeffcients
+H = (randn(m,n,K)+ 1i*randn(m,n,K))/sqrt(2) 
+and use an arbitrary positive real number for the transmit power P .
 
 2.6 Step-Size Control Methods
 Step size control plays a crucial role in Gradient algorithms with respect to the algorithms’
@@ -1550,43 +1484,37 @@ For s0 = smin ,
 0
 
 2.6.3 Generalized Armijo Step-Size Rule
-The computational eﬀort to compute the exact line search is very high and makes this approach
-undesirable in practical systems. The Armijo rule is an inexact line search method for unconstrained optimization problems which has been extended to the case of the constrained
-projected-gradient method [2]. The generalized Armijo rule ensures convergence to the optimum solution even for the constrained case, if the step size is parametrized as
-(a)
+The computational eﬀort to compute the exact line search is very high and makes this approach undesirable in practical systems. The Armijo rule is an inexact line search method for unconstrained optimization problems which has been extended to the case of the constrained
+projected-gradient method [2]. 
 
-s(a) = s0 β b
-
-(a)
-
+The generalized Armijo rule ensures convergence to the optimum solution even for the constrained case, if the step size is parametrized as
 (2.26)
-(a)
+with $0 < \beta < 1$ as an iteration-independent constant, and $s_0^{(a)}$ as an iteration-dependent that itself must be bounded above and below by two iteration independent positive real numbers
+$0 < s^{\min} ≤ s_0^{a} ≤ s^{\max}< \infty$.
 
-with 0 < β < 1 as an iteration-independent constant, and s0 as an iteration-dependent that
-itself must be bounded above and below by two iteration independent positive real numbers
-(a)
-0 < smin ≤ s0 ≤ smax < ∞. The iteration-dependent parameter b(a) ∈ N0 is used for an
-0
-0
-(a)
-exponential scaling of s0 via the basis β. Since N0 ⊂ R, the optimal step-size w.r.t. (2.25)
+The iteration-dependent parameter $b(a) \in \mathbb{N}_0$ is used for an exponential scaling of s0 via the basis β.
+
+
+Since N0 ⊂ R, the optimal step-size w.r.t. (2.25)
 is obtained via (2.26) with probability zero. The Armijo solution however is guaranteed to lie
 in a ǫ interval that encloses the optimum solution and ensures that ǫ → 0 as a → ∞. The
 parameter b(a) must be obtained dynamically for each gradient step according to the Armijo
 rule.
 The Armijo rule [1] is known from the lecture to this course. The general idea behind the
 Armijo rule is that very large or very small step-sizes must relate to a signiﬁcant increase in the
-cost function in order to qualify for application. This relation is measured by the slope of the
-gradient and a scaling constant σ from that the intersection of the cost function and the σ-scaled
-ﬁrst order linear approximation of the cost function is derived. The parameter b ∈ N0 is then obtained by ﬁnding the pair of adjacent stepsize parameters b↑ and b↓ that inclose the intersection
-24
+cost function in order to qualify for application. 
 
-Chapter 2. Gradient-Based Algorithms
+This relation is measured by the slope of the gradient and a scaling constant $\sigma$ from that the intersection of the cost function and the σ-scaled ﬁrst order linear approximation of the cost function is derived. The parameter b ∈ N0 is then obtained by ﬁnding the pair of adjacent stepsize parameters b↑ and b↓ that inclose the intersection
+
+_25_
+
 
 point for a deﬁned value of σ. For sake of simplicity we only search in the increasing direction.
-(a)
-That is, if the initial step size s0 leads to a point below the intersection point with the cost
-function we choose b = 0. Otherwise, the Armijo step size is found by successively increasing
+
+
+That is, if the initial step size $s_0^{(a)}$ leads to a point below the intersection point with the cost function we choose b = 0. 
+
+Otherwise, the Armijo step size is found by successively increasing
 b(a) by 1, until the evaluation of the σ-scaled linear approximation undertakes the cost function
 f . That process is described mathematically in terms of the combinatorial optimization
 ˜(a) =
@@ -1633,12 +1561,13 @@ F
 
 s0 β b ↓
 
-where PTC (X (a) ) performs a projection of the gradient onto the tangent cone at X (a) . The
-actual choice is then b(a) = max(˜(a) , 0). A visualization of the Armijo rule is depicted in
-b
-Figure 2.2.
-In general, PTC (X (a) ) must be derived analytically, similarly to the way the projection on the
-constraint set PC has been derived for the precoder and the covariance approach earlier in this
+where $P_{T_C}(X^{(a)})$ performs a projection of the gradient onto the tangent cone at $X^{(a)}$.
+\todo{Understand that}
+
+The actual choice is then b(a) = max(˜(a) , 0). A visualization of the Armijo rule is depicted in Figure 2.2.
+
+
+In general, PTC (X (a) ) must be derived analytically, similarly to the way the projection on the constraint set PC has been derived for the precoder and the covariance approach earlier in this
 chapter. Furthermore, the additional projection operation must be performed which increases
 the computational costs of the step-size control. In order to overcome this burden, the tangent
 cone projection can be estimated via the constraint set projection. This (under-)estimation is
@@ -1681,13 +1610,10 @@ F
 
 . (2.31)
 
+\todo{Code it}
 PROGRAMMING TASK 2.13
-Implement the Armijo step size control of s(a) for the projected gradient algorithm
-(method='armijo'. Use the Armijo parameter set β = 1/2 and σ = 0.2. As a heuristic
-(a)
-(0)
-for the initial step size, we choose s0 = 2s(a−1) . Choose s0 = 100 for the initial step
-size in the ﬁrst iteration.
+Implement the Armijo step size control of s(a) for the projected gradient algorithm (method='armijo'. Use the Armijo parameter set β = 1/2 and σ = 0.2. As a heuristic (a) (0) for the initial step size, we choose s0 = 2s(a−1) . Choose s0 = 100 for the initial step size in the ﬁrst iteration.
+
 1 Deliverables (Matlab code ﬁle): projGrad.m
 • Function deﬁnition:
 function [xOpt fOpt] =

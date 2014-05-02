@@ -12,7 +12,8 @@ try
             Q = projQ(testSets(t).Q,testSets(t).P);
             if max(abs(testSets(t).projQ(:)-Q(:)))>zeta
                 display(['FAIL, wrong projection, test No. ' num2str(t)])
-                keyboard
+                fprintf('Should be \t Is\n')
+                [testSets(t).projQ(:),Q(:)] %#ok<NOPRT>
                 ok=false;
             end
     end

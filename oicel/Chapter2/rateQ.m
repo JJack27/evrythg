@@ -1,4 +1,4 @@
-function R = rateQ(Q,H)
+function R = rateQ(Q, H)
 K = size(Q,3);
 S = arrayfun(@(k) H(:, :, k) * Q(:, :, k) * H(:, :, k)', ...
     1:K, 'UniformOutput', false);

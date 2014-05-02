@@ -1,0 +1,739 @@
+('140502101553')
+A GENERAL COVARIANCE-BASED OPTIMIZATION FRAMEWORK USING ORTHOGONAL PROJECTIONS
+Raphael Hunger, David A. Schmidt, Michael Joham, and Wolfgang Utschick
+
+ABSTRACT
+We present a general framework for the minimization of a function
+which is parametrized by a set of covariance matrices over a constraint set. Since all covariance matrices have to obey the property
+of being positive semideﬁnite, this characteristic has to be reﬂected
+in the constraint set. In addition, the sum of all traces of the covariance matrices shall be upper bounded. Using a preconditioned
+gradient descent algorithm, we derive an orthogonal projection onto
+this constraint set in an easy to follow monolithic way such that it directly results from the deﬁnition of the projection. Interestingly, this
+projection allows for a descriptive water-spilling interpretation in the
+style of the well-known water-ﬁlling algorithm. Two possible applications are investigated: the sum mean-square-error minimization
+and the weighted sum-rate maximization for the MIMO broadcast
+channel. Simulations ﬁnally reveal the excellent performance of the
+proposed framework.
+1. INTRODUCTION
+Many optimizations arising in the context of information theory and
+signal processing feature the nice property that the precoding matrices always appear as outer products in the involved expressions.
+Congruously, all terms can be represented by functions of the covariance matrices. Prominent examples for such expressions are
+mean-square-error (MSE) terms (e.g., [1, 2, 3]), rate terms (e.g.,
+[4, 5, 6, 7]), and signal-to-noise ratio terms (e.g., [8, 9]). For the
+optimization of any of such covariance-based objectives either in
+the MIMO multiple access channel (MAC) or in the MIMO broadcast channel (BC), we present a general framework consisting of
+three parts: an unconstrained gradient descent in combination with
+a proper step-size rule, a preconditioning alleviating the inﬂuence of
+different transmit powers, and an orthogonal projection which optimally maps the unconstrained gradient update back onto the set of
+feasible covariance matrices. Indeed, the ﬁnal result of this mapping
+was also independently applied in [10]. However, our derivation of
+the optimum projection is based on an optimization following from
+the deﬁnition of the orthogonal projection. Moreover, it offers an
+easy to follow interpretation in the style of the well known waterﬁlling algorithm.
+Considering an arbitrary objective Ψ (·) depending on several
+covariance matrices, we ﬁrst derive the three aforementioned parts
+our general framework consists of. In the sequel, we present a
+clearly laid out pseudo-code algorithm which can easily be implemented in Matlab for example. This algorithm acts as the composition of those three elements termed as the preconditioned projected
+gradient algorithm. In addition, if the objective is convex, convergence to the global optimum is ensured. Having derived our concept
+
+for general cost functions, we investigate its performance when applied to the sum-MSE minimization and the weighted sum-rate maximization. Both optimizations clearly fall in the category of convex
+covariance-based optimizations. Besides the observation of an extremely quick convergence, the simulations also conﬁrm the conjecture that covariance-based optimizations outperform the respective
+precoder-based ones in terms of iterations until convergence.
+2. COVARIANCE-BASED GRADIENT DESCENT
+We focus on the minimization of a function Ψ (·) which is jointly
+convex in every of its arguments. In particular, we turn our attention
+to the case where the arguments resemble a set {Q1 , . . . , QK } of K
+covariance matrices each of which has to fulﬁll the positive semidefiniteness constraint Qk
+0, ∀k ∈ {1, . . . , K}. Upper bounding
+the sum of the traces by the constant Ptx , the resulting optimization
+reads as
+minimize Ψ (Q1 , . . . , QK )
+Q 1 ,...,Q K
+
+0 ∀k ∈ {1, . . . , K},
+
+s.t.: Qk
+K
+X
+
+(1)
+tr(Qk ) ≤ Ptx .
+
+k=1
+
+In general, a closed form solution to above minimization (1) is not feasible thus necessitating the use of an iterative algorithm. In this paper we apply the scaled projected gradient algorithm [11] which
+performs a preconditioned gradient descent step followed by an orthogonal projection onto the constraint set. The gradient descent step
+for the covariance matrix 
+('140502102824')[ $Q_k \in \mathbb{C}^{r_k \times r_k}$ ]
+ignoring the constraints can be expressed as
+
+(2)
+
+where s ∈ R+ denotes the (iteration-dependent) step-size. The
+iteration-dependent preconditioning scalar p > 0 increases the speed
+of convergence by normalizing the sum of the gradient traces to the
+same order of magnitude as the transmit power: Thus, the gradient
+is almost independent of the current transmit signal-to-noise ratio.
+P
+i ˛.
+h tx
+p = ˛P
+˛ K
+∂Ψ (Q 1 ,...,Q K ) ˛
+˛
+˛ k=1 tr
+T
+∂Q
+k
+
+For the computation of the Wirtinger derivatives, see [12]. Any objective Ψ (·) which we will investigate in the sequel has the property
+that the gradients with respect to any k are negative semideﬁnite:
+∂Ψ (Q1 , . . . , QK )
+∂QT
+k
+
+0 ∀k.
+
+(3)
+
+As a consequence, the unconstrained gradient descent update in (2)
+′
+yields positive semideﬁnite matrices Qk 0 ∀k and the traces satisfy the inequality
+tr(Q′ ) ≥ tr(Qk ) ∀k.
+k
+
+(4)
+
+3. PROJECTION ONTO THE CONSTRAINT SET
+Obviously, the updated temporary covariance matrices Q′ , . . . , Q′
+1
+K
+do not comply with the constraint set in (1). As a consequence, they
+have to be mapped to the constraint set C which is deﬁned by
+˛
+n
+˛
+C = C1 , . . . , CK ˛ Ck
+
+0 ∀k,
+
+K
+X
+
+k=1
+
+o
+tr(Ck ) ≤ Ptx .
+
+(5)
+
+P
+Due to the sum-trace constraint K tr(Ck ) ≤ Ptx , all covarik=1
+ances are coupled. Hence, the nonlinear projection has to map all
+′
+′
+matrices Q1 , . . . , QK simultaneously to the set C in (5). Composing the blockdiagonal matrix
+˘ ¯K
+Q′ = blockdiag Q′ k=1 ∈ CR×R ,
+k
+PK
+where R = k=1 rk , the orthogonal projection of Q′ onto C yielding the blockdiagonal covariance matrix C is achieved by the operation C = (Q′ )⊥ .
+3.1. The Naive Projection Approach
+In our precoder-based projection algorithm in [13], the objective is
+a function depending on the precoders T1 , . . . TK instead of the coP
+2
+variance matrices. There, the constraint set K
+k=1 Tk F ≤ Ptx is
+H
+simply a ball, as the covariances Qk = Tk Tk are positive semidefinite by construction. The orthogonal projection onto the sphere is
+obtained by a common scaling of all precoders such that the sumpower constraint is met with equality. Since we are working with
+the covariances, the constraint set (5) does not simply represent a
+ball any longer. But due to the fact that the unprojected gradient update Q′ in (2) already fulﬁlls the positive semideﬁniteness constraint
+k
+0 ∀k (cf. Eq. 3), one might think of scaling all covariance maQ′
+k
+trices according to
+C = (Q′ )⊥ =
+
+Ptx
+Ptx
+Q′ = PK
+Q′
+tr(Q′ )
+tr(Q′ )
+k
+k=1
+
+Note that the blockdiagonal matrix Q′ is positive semideﬁnite and
+satisﬁes tr(Q′ ) > tr(Q) = Ptx according to (4). Additionally, the
+gradient ∂Ψ (·)/∂QT does not vanish in the optimum, i.e., not all ink
+equalities in (4) can hold with equality. This implies a blockdiagonal
+structure of E⊥ with E⊥ being Hermitian and negative semideﬁnite.
+Therefore, we can ignore the blockdiagonal structure for the derivation in the following without loss of generality.
+Theorem 1. The orthogonal projection of the matrix Q′ with eigenvalue decomposition Q′ = U ΛU H onto the constraint set C reads
+as C = U DU H , where U is the unitary eigenbasis of Q′ and Λ
+contains the eigenvalues λ1 , . . . , λR . The diagonal entries of the diagonal matrix D are di = [λi −µ]+ , and the spilling level µ follows
+P
+from R [λi − µ]+ = Ptx , where the operator [·]+ is deﬁned by
+i=1
+[·]+ = max(0, ·).
+Proof. Assigning the Lagrangian function
+L = tr(EE H ) + 2µ[tr(Q′ + E) − Ptx ] − 2 tr[S(Q′ + E)] (8)
+to the minimization in (7), the Lagrangian multipliers feature the
+properties µ ≥ 0 and S 0. From the derivative of (8) with respect
+to E T , we ﬁnd
+(9)
+E⊥ = S − µIR .
+Furthermore, the second KKT condition S(Q′ + E⊥ ) = 0 ﬁrst
+implies that
+SQ′ + S 2 − µS = 0,
+and second, that S and Q′ must have the same eigenbasis. Assuming
+the eigenvalue decompositions Q′ = U ΛU H and S = U ΣU H ,
+where U is unitary and Λ and Σ are diagonal with non-negative
+diagonal entries, this leads to
+ΣΛ + Σ 2 − µΣ = 0.
+In scalar form, these R equations read as
+2
+σi + σi (λi − µ) = 0, i ∈ {1, . . . , R},
+
+having the two possible solutions σi = 0 or σi = µ − λi with
+µi > λi to ensure Σ 0. A compact notation is therefore
+σi = [µ − λi ]+ .
+Hence, the summand E⊥ generating the matrix C according to (6)
+reads as (cf. Eq. 9)
+E⊥ = U [µIR − Λ]+ U H − µIR ,
+
+in order to let C = (Q′ )⊥ ∈ C hold, similar to our precoder-based
+design in [13]. However, this kind of projection is not orthogonal,
+and the scaled projected gradient algorithm employing this kind of
+naive projection inherited from the precoder-based approach fails to
+converge to a point that fulﬁlls the KKT optimality conditions of (1).
+
+and the projected matrix C = Q′ + E⊥ = U DU H features the
+eigenvalues
+
+3.2. The Orthogonal Projection Approach
+
+Summing up, the orthogonally projected matrix C reads as
+
+In case of an orthogonal projection and by means of a step-size adaptation convergence of the iterative algorithm can be ensured, cf. [11].
+The orthogonal projection of Q′ onto the constraint set C in (5) minimizes the distance between Q′ and C ∈ C [11, 14]. Here, we use
+the Frobenius norm as a distance measure. What follows is a solid
+and easy-to-follow derivation of the orthogonal projection [14]
+` ´
+(6)
+C = Q ′ ⊥ = Q ′ + E⊥ ,
+where E⊥ is found via
+E⊥= argmin E
+E
+
+2
+F
+
+s.t.: tr(Q′ +E) ≤ Ptx , Q′ +E
+
+0.
+
+(7)
+
+di = λi + σi − µ = λi + [µ − λi ]+ − µ = [λi − µ]+ .
+
+C = U [Λ − µIR ]+ U H .
+
+(10)
+
+(11)
+
+It remains to determine the spilling level µ.
+Corollary 1. The spilling level is µ = L ( L λi − Ptx ) if all λi are sorted non-increasingly [ in decreasing order ]. The number of active streams $L$ is found by initializing L with $R = \sum\limits_{k=1}^K r_k$ [ cf. 140502102824 ] and checking afterwards, if the termination criterion LλL − L λi + Ptx > 0 holds. If so, the optimum L has been found, otherwise, L is repeatedly reduced by one until the termination criterion is met.
+
+
+Algorithm 1 Covariance-based preconditioned projected gradient
+algorithm for a general cost function Ψ (Q1 , . . . , QK ).
+Require: Accuracy ε, transmit power Ptx
+P
+1: Q k ← PK tx r Irk ∀k
+initialize all covariance matrices
+
+3
+
+σ4
+
+k=1
+
+k
+
+2: d ← 1
+initialize inverse step-size
+3: old cost ← Ψ (Q 1 , . . . , Q K )
+evaluate objective
+4: repeat
+1 ,...,Q
+5:
+Gk ← ∂Ψ (Q∂Q T K ) ∀k gradient computation for all users
+k
+
+6:
+
+4
+
+Fig. 1. Water-spilling interpretation of the projection.
+
+Proof. The number L of active streams after the projection is deﬁned by λL −µ(L) > 0 and λL+1 −µ(L) ≤ 0. Note that µ(L) = 0
+would imply Σ = 0, E = 0, and therefore Q = Q′ . But since
+tr(Q′ ) > Ptx , µ(L) = 0 is not possible and the complementary
+slackness condition says that the full power Ptx has to be consumed
+P
+by Q. Then, we have µ(L) = ( L λi−Ptx )/L. In order to ensure
+i=1
+that λL −µ(L) > 0, we start with L = R and check if this inequality
+holds. If not, L is decreased until λL −µ(L) > 0 holds. Otherwise,
+the optimum L has been found because λL+1 − µ(L) ≤ 0 is automatically fulﬁlled since the inequality λL+1 − µ(L+1) > 0 was not
+fulﬁlled in the previous iteration.
+Note that the solution in (11) represents the unique global optimum of the projection. This follows from the closest point theorem
+due to the convexity of the set C. The same result was independently
+found in [10] almost at the same time. However, we derive the orthogonal projection monolithically as a requirement for the projected
+gradient algorithm. In contrast to [10], we come up with a compact
+and easy to follow derivation directly following from the KKT conditions of the orthogonal projection.
+3.3. Water-Spilling Interpretation of the Projection
+Due to the similarity of Eq. (10) and the standard water-ﬁlling solution, we present a graphical interpretation for the orthogonal projection. Now, the eigenvalues λi of Q′ represent the powers of the
+individual modes of the unprojected gradient update (2). In sum,
+they correspond to the amount of water before the projection. Having applied the projection, the energies di of the modes follow from
+spilling water with the level µ, which is illustrated in Figure 1, such
+P
+that the total water mass L di equals Ptx .
+i=1
+4. THE COMPLETE COVARIANCE-BASED PROJECTED
+GRADIENT ALGORITHM
+Combining the unconstrained preconditioned gradient descent
+in (2) and the orthogonal projection from Section 3.2, we end up at
+the covariance-based preconditioned projected gradient algorithm,
+which is depicted in Alg. 1 in detail. Given an accuracy ε and a
+transmit power Ptx , the algorithm starts with the initialization of all
+covariance matrices Qk ∀k with scaled identities in Line 1. Having set up the inverse step-size d, the current objective under white
+signaling is evaluated in Line 3. Lines 5 to 18 correspond to one
+outer iteration. After the computation of the gradient in Line 5, the
+preconditioning scalar p which reduces the sensitivity to the transmit power Ptx is determined in Line 6. Lines 8 to 15 are executed
+
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17:
+18:
+19:
+
+precoditioning scalar computation
+p ← PK Ptx
+tr(G k )
+k=1
+repeat
+1
+s← d
+set step-size
+′
+Qk ← Qk − p · s · Gk
+unconstr. gradient update (2)
+C ← (Q′ )⊥ simult. projection of blockdiagonal Q′ (11)
+new cost ← Ψ (C1 , . . . , CK )
+evaluate objective
+cost reduction ← old cost − new cost
+if cost reduction ≤ 0 then
+d←d+1
+decrease step-size
+end if
+until cost reduction > 0
+Qk ← Ck ∀k
+save new covariances
+old cost ← new cost
+save new objective
+until cost reduction ≤ ε
+
+until the projected gradient descent leads to a reduction of the objective. First, the unconstrained gradient update according to (2) is
+performed in Line 9. Then, the result is simultaneously projected
+onto the convex set C from (5) via (11). If the resulting covariance
+matrices C1 , . . . , CK bring a reduction of the cost function, these
+covariances are saved in Line 17. Otherwise, the step-size is reduced
+in Line 14 by increasing d by one.
+5. APPLICATIONS SUITED FOR THE
+COVARIANCE-BASED PROJECTED GRADIENT
+ALGORITHM
+Having derived the covariance-based gradient descent step in combination with the orthogonal projection onto the convex constraint
+set, we point out two well known optimizations in the MIMO broadcast channel which can be solved using above general framework:
+sum-MSE minimization with linear pre- and decoding and weighted
+sum-rate maximization utilizing nonlinear dirty paper coding [15].
+5.1. Sum-MSE Minimization
+Based on the MSE duality results in [16, 17, 18] stating that the
+MIMO BC and the MIMO MAC feature the same MSE region under a sum-power constraint with linear ﬁltering, any MSE-based optimization in the BC can conveniently be solved in the dual MAC
+and afterwards be transformed back to the BC. Thus, we can exploit
+the hidden convexity [16] of the BC sum-MSE minimization and
+solve the equivalent optimization in the uplink, where it turns out to
+be convex. Converting the solution of the dual MAC problem to the
+downlink BC turns out to be very easy entailing a very low complexity since only a single scalar has to be computed, cf. [16]. Assuming
+MMSE receivers in the dual MAC, the sum-MSE cost function Ψ (·)
+reads as
+»“
+K
+”−1 –
+X
+−2
+H
+Ψ (Q1 , . . . , QK ) = tr IN +ση
+Hℓ Qℓ Hℓ
++R−N,
+ℓ=1
+
+with Hk ∈ CN×rk denoting the channel matrix describing the transmission from user k to the base station, N refers to the number of
+2
+antennas at the base station, and ση is the noise variance at each
+receive antenna. Above objective involves the Wirtinger derivatives
+K
+“
+”−2
+X
+∂Ψ (Q1 , . . . , QK )
+−2
+H
+−2
+H
+= −ση Hk IN +ση
+Hℓ Qℓ Hℓ
+Hk
+T
+∂Qk
+ℓ=1
+
+which obviously satisfy (3) such that the orthogonal projection described in Section 3.2 is optimum. If the gradient update (2) yielded
+an indeﬁnite matrix Q′ , the projection would look different. Bek
+cause of the joint convexity of the cost function with respect to the
+covariance matrices Q1 , . . . , QK and due to the convexity of the
+constraint set, the algorithm described in Section 4 converges to the
+global optimum.
+5.2. Weighted Sum-Rate Maximization
+Similar to the MSE regions for linear ﬁltering in the previous section,
+the capacity regions of the BC and the MAC obtained by nonlinear
+processing exactly coincide. The linking element between uplink
+and downlink is again resembled by duality transformations [5]. Every rate tuple feasible in the BC can also be achieved in the MAC
+and vice versa, and the conversion from one domain to the other is
+obtained by means of singular-value-decomposition-based transformations resulting from the effective/ﬂipped channel framework. In
+turn, this duality converts the weighted sum-rate to a concave function in the dual MAC. There, the rate of user π[k] reads as (cf. [4])
+˛
+˛
+Pk
+˛
+−2
+H ˛
+˛IN +ση
+ℓ=1 H π[ℓ] Q π[ℓ] H π[ℓ] ˛
+˛,
+Rπ[k] = log 2 ˛
+(12)
+˛
+1
+−2 Pk−
+H ˛
+˛IN +ση
+ℓ=1 H π[ℓ] Q π[ℓ] H π[ℓ] ˛
+
+where π[1] is the index of the user who is decoded last. From the
+polymatroidal structure of the capacity region it follows that the decoding order π[·] is optimal, if the rate weights w1 , . . . , wK are
+sorted in a nonincreasing order [19], i.e., wπ[1] ≥ wπ[2] ≥ . . . ≥
+wπ[K] . W.l.o.g. we assume in the following a renumbering of the
+users for a clearer notation such that w1 ≥ w2 ≥ . . . ≥ wK
+and π[·] becomes the identity mapping. Let αk = wk − wk+1 for
+k ∈ {1, . . . , K − 1} and αK = wK . The cost function Ψ (·) corP
+responding to the negative weighted sum-rate − K wk Rk then
+k=1
+reads as (cf. Eq. 12)
+˛
+˛
+K
+k
+˛
+˛
+X
+X
+˛
+−2
+H˛
+Hℓ Qℓ Hℓ ˛ . (13)
+Ψ (Q1 , . . . QK ) = − αk log 2 ˛IN +ση
+˛
+˛
+k=1
+
+ℓ=1
+
+The Wirtinger derivatives can be computed via
+
+K
+i
+“
+”−1
+X
+∂Ψ (Q)
+1 X
+H
+H
+−2
+αi Hk IN + ση
+Hℓ Qℓ Hℓ
+Hk .
+=−
+T
+ln 2 i=k
+∂Qk
+ℓ=1
+
+Again, (3) holds and due to the convexity of (13), the iterative algorithm in Section 4 reaches the global optimum.
+6. SIMULATION RESULTS
+6.1. Sum-MSE Minimization
+We investigate the number of iterations which are required to let
+different iterative algorithms targeted at minimizing the sum-MSE
+achieve an MSE which is smaller than (1 + ε) times the total MMSE
+with an accuracy of ε = 10−4 . The total MMSE is assumed to
+
+be reached after 100 iterations of our proposed algorithm since our
+algorithm has converged then long before. Fig. 2 shows the number
+of iterations to reach the MMSE up to a fraction of ε versus the
+relative frequency for three different algorithms. For this setup, K =
+4 two-antenna users (rk = 2 ∀k) are served by a base station with
+N = 4 antennas, and the transmit power is set to Ptx = 10, whereas
+2
+the noise variance is ση = 1. Moreover, we averaged over 10000
+i.i.d. channel realizations where each entry of Hk has a zero-mean
+complex Gaussian distribution with variance one.
+The alternating optimization approach in [20] optimizes the
+transmit and receive ﬁlters in an alternating fashion directly in the
+downlink and is resembled by the red bars. Unfortunately, this algo2
+rithm is very sensitive to the ratio Ptx /ση and a higher ratio results
+in a slower speed of convergence. As a consequence, the relative frequencies have a nonzero support between 20 and 200 approximately,
+and the average number of iterations to achieve the target MSE is
+around 75. Increasing the number of antennas N at the base station
+leads to a reduced number of iterations. In [17] the authors present
+a projected gradient descent algorithm working on the precoders.
+Thus, the orthogonal projection onto the sum-power constraint is
+simply a rescaling of the matrices obtained by the unconstrained gradient descent. The corresponding green bars show a much denser
+histogram at much fewer iterations yielding an average number of
+iterations around 16. Finally, our proposed approach performing the
+covariance-based projection is depicted by the blue curve. The average number of iterations necessary to converge within a tolerance
+of ε reduces to about 6, i.e., less than half of the number of iterations are required compared to the precoder-based approach in [17],
+and less than ten percent compared to the alternating optimization
+in [20]. Note that the last two algorithms have been initialized with
+scaled identity covariance matrices in the uplink and solve the optimization in this dual MAC whereas the alternating optimization approach directly operates in the downlink. There, the precoders have
+been initialized such that they correspond to a white power allocation
+in the uplink, i.e., according to [16], the precoders are scaled Hermitian MMSE receivers of the downlink. This initialization yields
+much better results than a white power allocation in the downlink.
+6.2. Weighted Sum-Rate Maximization
+We measure the number of iterations that are needed in order to
+let the weighted sum-rate grow above (1 − ε) times the maximum
+weighted sum-rate. This time, the relative accuracy ε = 10−3 is
+slightly larger than before due to the fact that the algorithm in [21]
+takes an enormous amount of time to reach this target rate. All other
+parameters are left unchanged, and the weight vector w is arbitrarily
+set to w = [1, 2, 3, 4]T . We compare four different algorithms: The
+covariance-based rank-one covariance matrix update in [21], which
+can be regarded as the ﬁrst one tackling the problem of maximizing
+the weighted sum-rate. Second, the precoder-based conjugate gradient approach in [22], third, the covariance-based conjugate gradient
+approach from Liu et al. in [10], and ﬁnally, our proposed method
+which is also mentioned in [22] to some extent.
+The right plot of Fig. 3 shows that the algorithm in [21] converges extremely slowly. Since the covariance matrix updates have
+only rank one, an average number of about 450 iterations is necessary to reach the desired target rate. Moreover, every single iteration has a critically high complexity since many function evaluations
+have to be executed for the one-dimensional bisection which determines the optimum step-size. The most recent work from Liu et al.
+in [10] combines a conjugate gradient ascent with an Armijo rule for
+the outer step-size. However, convergence cannot be guaranteed this
+
+0.25
+
+Proposed Algorithm
+Precoder-Based Alg. [17]
+Alternating Optimization [20]
+
+Relative Frequency
+
+0.2
+
+[3]
+
+0.15
+[4]
+
+0.1
+[5]
+
+0.05
+[6]
+
+0
+0
+
+20
+
+40
+
+60
+
+Iteration
+
+80
+
+100
+
+Fig. 2. Relative frequency of the number of iterations required to
+achieve an MSE smaller than (1 + ε) times the MMSE, where ε =
+10−4 . The mean values correspond to the dashed vertical lines.
+
+[7]
+
+[8]
+
+[9]
+
+0.8
+
+Proposed Algorithm
+Precoder-Based Alg. [22]
+Liu’s Algorithm [10]
+Rank-One Update [21]
+
+Relative Frequency
+
+0.7
+0.6
+0.5
+
+0.010
+
+[10]
+
+[11]
+[12]
+
+0.4
+0.3
+0.005
+
+[13]
+
+0.2
+0.1
+[14]
+
+0
+
+0
+
+5
+
+Iteration
+
+10
+
+400
+
+450
+
+500
+
+550
+
+Iteration
+
+Fig. 3. Relative frequency of the number of iterations required to
+achieve a weighted sum-rate larger than (1 − ε) times the maximum
+weighted sum-rate, where ε = 10−3 .
+
+[15]
+[16]
+
+[17]
+
+way since this kind of step-size rule should be applied to the inner
+step-size which is held constant in [10]. Its performance is depicted
+in the left plot of Fig. 3, yielding an average number of around 6
+iterations to reach the target rate. Both the conjugate gradient precoder based approach from B¨ hnke et al. in [22] and our proposed
+o
+covariance-based algorithm obtain an even smaller average number
+of iterations, which is about 3. The latter one needs only two iterations in 30 percent of the cases whereas the ﬁrst one features a
+smaller standard deviation and requires only 3 iterations in about 75
+percent of the cases.
+
+[18]
+
+[19]
+
+[20]
+
+[21]
+7. REFERENCES
+[1] S. Serbetli and A. Yener, “Transceiver Optimization for Multiuser
+MIMO Systems,” IEEE Trans. Signal Process., vol. 52, no. 1, pp. 214–
+226, January 2004.
+[2] A.J. Tenenbaum and R.S. Adve, “Joint Multiuser Transmit-Receive
+
+[22]
+
+Optimization Using Linear Processing,” in IEEE International Conference on Communications, Paris, France, June 2004, vol. 1, pp. 588–
+592.
+M. Codreanu, A. Tolli, M. Juntti, and M. Latva-aho, “Weighted Sum
+MSE Minimization for MIMO Broadcast Channel,” in 17th International Symposium on Personal, Indoor, and Mobile Radio Communications (PIMRC), September 2006.
+W. Yu, W. Rhee, S. Boyd, and J.M. Ciofﬁ, “Iterative Water-Filling for
+Gaussian Vector Multiple-Access Channels,” IEEE Trans. Inf. Theory,
+vol. 50, no. 1, pp. 145–152, January 2004.
+S. Vishwanath, N. Jindal, and A. Goldsmith, “Duality, Achievable
+Rates, and Sum-Rate Capacity of MIMO Broadcast Channels,” IEEE
+Trans. Inf. Theory, vol. 49, pp. 2658–2668, October 2003.
+J. Lee and N. Jindal, “Symmetric Capacity of MIMO Downlink Channels,” in IEEE International Symposium on Information Theory (ISIT),
+July 2006, pp. 1031–1035.
+W. Yu and J. M. Ciofﬁ, “Sum Capacity of Gaussian Vector Broadcast
+Channels.,” IEEE Trans. Inf. Theory, vol. 50, no. 9, pp. 1875–1892,
+September 2004.
+R. Doostnejad, T. J. Lim, and E. Sousa, “Precoding for the MIMO
+Broadcast Channels with Multiple Antennas at Each Receiver,” in in
+Proc. of The Johns Hopkins University Conf. on Information Sciences
+and Systems, Baltimore, MD, Mar. 2005.
+A. Wiesel, Y. C. Eldar, and S. Shamai, “Linear recoding via conic
+optimization for ﬁxed MIMO receivers,” IEEE Trans. Signal Process.,
+vol. 54, no. 1, pp. 161–176, January 2006.
+J. Liu and Y. T. Hou, “Maximum Weighted Sum Rate of Multi-Antenna
+Broadcast Channels,” in International Conference on Communications
+(ICC 2008), Beijing, China, May 2008.
+D. P. Bertsekas and J. N. Tsitsiklis, Parallel and distributed computations, Prentice-Hall, 1989.
+R. Hunger, “An Introduction to Complex Differentials and Complex
+Differentiability,” Tech. Rep. TUM-LNS-TR-07-06, Technische Universit¨ t M¨ nchen, October 2007.
+a u
+R. Hunger, D. A. Schmidt, and W. Utschick, “Sum-Capacity and
+MMSE for the MIMO Broadcast Channel without Eigenvalue Decompositions,” in IEEE International Symposium on Information Theory
+(ISIT), Nice, June 2007.
+N. J. Higham, “Matrix Nearness Problems and Applications,” in Applications of Matrix Theory, M. J. C. Gover and S. Barnett, Eds. 1989,
+pp. 1–27, Oxford University Press.
+M. Costa, “Writing on Dirty Paper,” IEEE Trans. Inf. Theory, vol. 29,
+no. 3, pp. 439–441, May 1983.
+R. Hunger, M. Joham, and W. Utschick, “On the MSE-Duality of the
+Broadcast Channel and the Multiple Access Channel,” Submitted to
+IEEE Transactions on Signal Processing.
+A. Mezghani, M. Joham, R. Hunger, and W. Utschick, “Transceiver
+Design for Multi-User MIMO Systems,” in Proc. ITG/IEEE WSA 2006,
+March 2006.
+S. Shi, M. Schubert, and H. Boche, “Downlink MMSE Transceiver
+Optimization for Multiuser MIMO Systems: Duality and Sum-MSE
+Minimization,” IEEE Trans. Signal Process., vol. 55, no. 11, pp. 5436–
+5446, November 2007.
+D. Tse and S. Hanly, “Multi-Access Fading Channels: Part I: Polymatroid Structure, Optimal Resource Allocation and Throughput Capacities,” IEEE Trans. Inf. Theory, vol. 44, no. 7, pp. 2796–2815, Nov
+1998.
+R. Hunger, W. Utschick, D. A. Schmidt, and M. Joham, “Alternating
+Optimization for MMSE Broadcasting,” in Proc. ICASSP 2006, May
+2006, vol. IV, pp. IV–757–IV–760.
+H. Viswanathan, S. Venkatesan, and H. Huang, “Downlink Capacity
+Evaluation of Cellular Networks With Known-Interference Cancellation,” IEEE J. Sel. Areas Commun., vol. 21, pp. 802–811, June 2003.
+R. B¨ hnke and K. Kammeyer, “Weighted Sum Rate Maximization
+o
+for the MIMO-Downlink Using a Projected Conjugate Gradient Algorithm,” in First International Workshop on Cross Layer Design (IWCLD 07), Jinan, China, September 2007.
+
+
