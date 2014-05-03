@@ -503,16 +503,11 @@ for all k = 1, 2, . . . , n, and consequently,
 
 q.e.d.
 
-6
-
-CE 8361
-
-Spring 2006
 
 Proposition 9
+140426153116
+-7-
 
-
-_7_ 140426153116
 For the special case where A is a symmetric matrix and
 \alpha = x^T A x (48)
 where x is n × 1, A is n × n, and A does not depend on x, then

@@ -53,6 +53,7 @@ V (θ, k) = (Y T Y − Y T Φθ − θT ΦT Y + θT ΦT Φθ)
 = (Y Y − 2Y T Φθ + θT ΦT Φθ)
 2
 A minimum is reached when gradθ V (θ, k) is zero. Taking the derivative of V along θ
+140503201539
 cf. 140426153116 140426152848
 [ \psi^T \psi is symmetric ]
 and setting the RHS to zero
@@ -100,15 +101,9 @@ y (k) = a1 + a2 u(k)
 which is in the same form as the stationary process y(k) = c1 + c2 u(k) + e(k).
 
 Problem 2: Discrete-Time Control Systems
-a) The general solution for a continuous-time dynamic system with initial condition y_c(t0) = y0 is
+a) The general solution for a continuous-time dynamic system with initial condition $y_c(t_0) = y_0$ is
 given by
-
-t
-
-ea(t−τ ) buc (τ )dτ
-
-yc (t) = ea(t−t0 ) y0 +
-t0
+_v('140503210127')
 
 The state of the system at sampling time (k + 1)T starting at time kT is therefore given by
 (k+1)T
@@ -136,10 +131,9 @@ y((k + 1)T ) = eaT y(kT ) + (eaT − 1) b u(kT )
 Setting c := eaT and d := a (eaT − 1)b answers the question.
 
 As the system is scalar, the eigenvalues of the open-loop system are given by the constant a.
+[ cf. 140426200329 ]
 
 In the continuous-time case if a < 0, the system is stable. 
-cf. 140426200329
-
 If a < 0, then c = eaT < 1 which
 means stability in the discrete-time case. If a > 0, then c > 1. The stability properties of the
 continuous-time system carry over to the discrete-time system.
@@ -150,9 +144,9 @@ y(k + 1) = ay(k)
 a = (c − d K_p )
 is formed. From the previous results, only the constant a can be found, whereas the constants c
 and d cannot be found uniquely.
+-3-
 
 Problem 3: Regressor Models
-
 a) Continuous-time transfer function
 [ Multiplication with s corresponds to taking derivative ]
 [ http://en.wikipedia.org/wiki/Laplace_transform#Proof_of_the_Laplace_transform_of_a_function.27s_derivative ]
@@ -160,19 +154,9 @@ a) Continuous-time transfer function
 b) Non-linear system
 x(k) = −x(k − 1)2 2sin(u(k − 1))
 
-a
-b
-
-(6)
-
 c) State space model
 The ODE which is given through the state space model is given by
 y = ay + by + cu
-¨
-˙
-
-(7)
-
 and the regressor model is therefore given by
 [ \dot{x}_1 = x_2 ]
 

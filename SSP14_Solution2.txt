@@ -648,16 +648,7 @@ T −1
 = −2S C x + 2S C Sh
 = −2ST C−1 (x − Sh),
 by using
-∂hT Ah
-= 2Ah
-∂h
-with A = ST C−1 S = AT and
-∂aT h ∂hT a
-=
-=a
-∂h
-∂h
-with a = ST C−1 x.
+_v('140503201539')
 
 Exercise: Try to compute above result by finding applying an appropriate chain rule.
 cf. 140427130751 140427130632
