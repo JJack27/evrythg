@@ -211,21 +211,11 @@ N →∞
 Consistency and Unbiasedness
 
 Deﬁnition. Consistent Estimators are characterized by
-
-lim T (x1 , . . . , xN ) = θ.
-
-N →∞
-
-(2.1)
+_v('140503091548') (2.1)
 
 Obviously, T1 and T2 are consistent.
 Deﬁnition. Unbiased Estimators are characterized by
-
-E [T (X1 , . . . , XN )] = θ.
-
-9
-
-(2.2)
+_v('140503091610') (2.2)
 
 T1 and T2 are random variables which depend on the randomly drawn observations X1 , . . . , XN . Unbiasedness means that averaging over the entire sample set gets the true parameter:
  T1 is Unbiased, since

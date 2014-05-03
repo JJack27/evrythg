@@ -59,45 +59,13 @@ If the random variables n(1) , . . . , n(N) are correlated, what is the ML estim
 
 In the following, the channel gains h1 and h2 are known and the random variables n(1) , . . . , n(N) are
 uncorrelated. The unknown covariance matrix C shall be estimated.
-e)
 
-ˆ
-What is the ML estimator CML for the noise covariance matrix C?
-
-c Associate Institute for Signal Processing
-Technische Universit¨ t M¨ nchen
-a u
-
-Statistical Signal Processing
-
-SS 2014
+e) What is the ML estimator CML for the noise covariance matrix C?
 
 Hint:
-∂ det ( A)
-= det ( A) ( A−1 )T
-∂A
-∂tr AX−1 B
-= −(X−1 BAX−1 )T
-∂X
-∂tr {XB}
-= BT
-∂X
-f)
+_v('140503090632') [ derivatives of trac and determinant ]
 
-ˆ
 The ML estimator CML is consistent, but is it unbiased as well?
-
-c Associate Institute for Signal Processing
-Technische Universit¨ t M¨ nchen
-a u
-
-2
-
-Statistical Signal Processing
-
-SS 2014
-
-3
 
 B. Multivariate Derivatives
 
