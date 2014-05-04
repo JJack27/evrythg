@@ -1,0 +1,1674 @@
+Lecture: Introduction
+
+Automatic Control 1
+Prof. Alberto Bemporad
+University of Trento
+
+Academic year 2010-2011
+Faculty of Engineering
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+Lecture: Introduction
+
+Outline
+
+Lecture outline
+
+What is automatic control ?
+Application examples
+Course information
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+2 /50
+
+Lecture: Introduction
+
+What is control ?
+
+What is control ? A real life example ...
+water knobs
+
+desired temperature
+r(t)
+
+disturbance
+
+shower
+
+d(t)
+water inflow
+
+water temperature
+
+u(t)
+
+y(t)
+
+skin sensations
+
+Water inflow u(t) must be controlled to reach and maintain
+the desired temperature r(t)
+Sensors on skin measure water temperature y(t)
+Water inflow u(t) manipulated so that y(t)≈r(t) …
+… in spite of flow and temperature fluctuations d(t)
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+3 /50
+
+Lecture: Introduction
+
+What is control ?
+
+What is control ? A real life example ...
+steering wheel
+
+desired lateral
+displacement r(t)
+
+disturbance
+
+vehicle on road
+
+d(t)
+steering angle
+
+lateral displacement
+y(t)
+
+u(t)
+
+eyes watching current displacement
+
+Steering wheel must be controlled to reach and maintain
+the desired lateral displacement r(t) within the lane
+(e.g.: staying in the middle of the lane)
+Eyes measure current later displacement y(t)
+Steering wheel u(t) manipulated so that y(t)≈r(t) …
+… in spite of changes of road curvature and of r(t)
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+4 /50
+
+Lecture: Introduction
+
+What is control ?
+
+What is automatic control ?
+embedded control unit
+
+reference
+r(t)
+
+disturbance
+
+process
+
+d(t)
+manipulated input
+
+output
+
+u(t)
+
+y(t)
+
+measurements
+
+How to control the inputs u(t) to the process automatically
+to make the output y(t) track the given reference r(t) ?
+
+performance
+
+How to exploit the measurements of y(t) to track the reference
+r(t) in spite of disturbances d(t) acting on the process ?
+
+robustness
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+5 /50
+
+Lecture: Introduction
+
+What is control ?
+
+What is control ? A real life example …
+Mom is washing hands,
+she drains hot water
+(=disturbance entering
+the process)
+disturbance
+reference
+r(t)
+
+d(t)
+manipulated input
+u(t)
+
+output
+y(t)
+
+measurements
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+6 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Application areas of control engineering
+Aeronautics & aerospace
+Automotive
+Manufacturing
+Process control (chemical, pharmaceutical,
+steel, pulp & paper, ...)
+Power electronics
+Telecommunications
+Environmental systems
+Financial engineering
+Supply chains
+Power networks
+...
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+7 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Adaptive Cruise Control (ACC)
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+8 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Adaptive Cruise Control (ACC)
+
+Electronic Control Unit
+
+road slope
+d(t)
+desired speed
+r(t)
+
+engine torque/brakes
+u(t)
+
+vehicle
+
+speed/position
+y(t)
+
+measurements
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+9 /50
+
+Lecture: Introduction
+
+Lane Warning
+
+Examples of control systems
+
+/DQH 'HWHFWLRQ +: SODWIRUP
+HALF - HAptical Lane Feedback
+&HQWUR
+5LFHUFKH
+)LDW
+
+Optical sensor detects and tracks lane markings
+
+VIP ECU
+
+9LVLRQ driver by: components
+9LVLRQ 6\VWHP
+• Automotive
+Incipient lane change signalled to the 6\VWHP
+
+A N E WA RN I N G
+
+&OXE RI
+
+([SHUWV
+
+• Power supply: 12Vbat - 500mA
+
+ptical sensor detects and tracks lane markings.
+• rumble strip)
+- Haptic signal on driver seat (simulation of analogue video inputs
+9HKLFOH
+- driver feedback on steering wheel
+gnals theHapticincipient change of lane&RQWURO
+by means of:• DSP @ 60Mhz
+
+- Acoustic directional signals 6\VWHP
+Haptic feedback on steering wheel (HALF)
+• CAN + RS-232 interface
+Haptic signal on driver seat (simulation of rumble strip)
+• many configurable Digital I/ Os
+Acoustic directional automatically maintained
+signals
+Lane can be
+• 2MB DRAM + SRAM
+
+6WHHULQJ 6\VWHP
+6WHHULQJ 6\VWHP
+
+Orbassano
+17th Dec. 2002
+
+electric power steering
+
+Prof. A. Bemporad (University of Trento)
+
+Product
+Automatic Control 1 & Process Engineering
+
+Academic Year 2010/2011
+
+10 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Lane Warning
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+11 /50
+
+)
+
+Lecture: Introduction
+
+Examples of control systems
+
+Lane Warning
+
+desired lateral
+displacement
+
+Electronic Control Unit
+
+r(t)
+
+d(t)
+
+Driver
+Torque
+
+Torque
+Demand
+
+u(t)
+
++ $ Brava 1600)
+Vehicle (Fiat / )
+
+Steer
+actuated
+Demand
+
+lateral
+
+VV
+H
+H
+Q
+Q
+
++$/) GHPRQVWUDWRU KDV y(t) GHYHORSHG E\ &5)
++$/) GHPRQVWUDWRU KDV EHHQ GHYHORSHG E\ &5)
+EHHQ
+displacement
+XVLQJ D )LDW %UDYD 
+XVLQJ D )LDW %UDYD 
+
+,QJ 9 0XUGRFFR
+
+measurements
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+12 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Idle speed control
+Objective:
+maintain the engine speed at a given rpm
+
+Power steering + air conditioning
+
+Torque disturbance: power steering
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+13 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Active suspensions
+Active Suspension System
+Ford Mercur XR 40i
+active
+suspensions
+passive
+suspensions
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+14 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+(Semi)active suspensions
+Ms=suspended	  mass
+Mus=unsprung	  mass
+x4	  sprung	  mass
+velocity
+suspension
+deﬂection
+x2	  unsprung	  mass
+velocity
+tire	  
+deﬂection
+
+active	  suspensions
+semiactive	  suspensions
+semiactive	  suspensions
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+15 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Traction control
+Problem:	  Improve	  driver's	  ability	  to	  control	  a	  vehicle	  under	  adverse	  
+external	  conditions	  (wet	  or	  icy	  roads)
+
+indoor	  tests	  at	  ice	  arena	  (μ¼	  0.2)
+
+2000	  Ford	  Focus,	  2.0l	  4-­‐cyl	  engine
+5-­‐speed	  manual	  transmission
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+16 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Air to Fuel Ratio (AFR) control
+Control objectives:
+Maintain the stoichiometric Air to Fuel Ratio (AFR) and avoid oxygen saturation
+(empty or full catalyst)
+Fuel
+Tank
+
+Fuel injector
+(Actuator)
+
+Air
+
+Air/Fuel
+mixture
+
+Exhaust gas
+
+Delay
+UEGO
+(Sensor)
+
+Prof. A. Bemporad (University of Trento)
+
+Exhaust gas
+
+Automatic Control 1
+
+Three Way Catalyst
+
+Academic Year 2010/2011
+
+17 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Control of suspensions
+
+(Courtesy	  of	  Daimler-­‐Chrysler)
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+18 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Active steering
+
+Courtesy of
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+19 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Segway Human Transporter
+
+www.segway.com
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+20 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Segway Human Transporter
+The Segway™ Human Transporter (HT) is the first
+self-balancing, electric-powered transportation device.
+With dimensions no larger than the average adult body
+and the ability to emulate human balance, the Segway
+HT uses the same space as a pedestrian, and can go
+wherever a person can walk.
+
+Dynamic stabilization is the essence of the Segway
+Human Transporter (HT). Dynamic stabilization
+enables Segway HT to work seamlessly with the body’s
+movements.
+Gyroscopes and tilt sensors in Segway HT monitor a user’s center of
+gravity at about 100 times a second. When a person leans slightly
+forward, Segway HT moves forward. When leaning back, Segway HT
+moves back.
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+21 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Segway Human Transporter
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+22 /50
+
+Lecture: Introduction
+
+Short historical notes
+Water level controllers date back to ancient Greece
+(Ktesibios of Alexandria, water clock, 270 B.C.), (Philon of Byzantium, 250 B.C.)
+(Heron of Alexandria, ≈100 A.D.)
+
+Other examples in the 17th-18th century
+(Cornelis Drebbel’s incubator, 1620), (Edmund Lee’s self-regulating wind machine, 1745)
+(Thomas Mead’s lift tenter and speed controller, 1787)
+
+James Watt’s ﬂyball governor (1788)
+Used to regulate the speed of steam engines.
+If speed increases, flyballs spread apart and
+the steam flow through the throttle is reduced.
+And vice versa.
+
+Frequency domain (1930-1950)
+(H. Nyquist, H.W. Bode, N.B. Nichols)
+
+State-space and optimal control (1950-1980)
+(R. Kalman, R. Bellman)
+
+Nonlinear, robust, adaptive, optimization-based, (…) control (1980-today)
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+23 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Is control needed after all ?
+Friday November 7, 1997
+Baby Benz falls foul of a moose
+“Mercedes is recalling 3,000 brand-new
+A Class mini cars to correct stability
+problems revealed in Scandinavian
+tests.”
+A Class failed the “moose test”, simulating a sudden swerve
+to avoid a moose on the road.
+The recall of about 3,000 cars followed motoring press
+reports which indicated the A Class is unstable, and likely
+to roll over, in extreme lane-changing tests.
+Problem solved by introducing the Electronic Stability
+Program (ESP), which automatically manipulates brakes
+(and engine torque) to keep skid under control.
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+24 /50
+
+Lecture: Introduction
+EC – DG INFSO – SMART 2007/047
+Monitoring and control: today's market, its evolution till 2020 and the impact of ICT on these
+
+WORKSHOP: Brussels the 9th of October 2
+
+Is control needed Worldwide?Monitoring & Control Markets
+after all
+EC – DG INFSO – SMART 2007/047
+Monitoring and control: today's market, its evolution till 2020 and the impact of ICT on these
+
+WORKSHOP: Brussels the 9th of October 2008
+
+Worldwide Monitoringby application
+& Control Markets
+Total world: !187,9 bn
+by application
+•
+Factory automation, the sum of Manufacturing plus
+
+Worldwide Monitoring & Control market market with 58
+Process industries, remains the main
+industries
+Total
+billion euros, comparable to
+billion):
+(=188 billions euro)– sum of ManufacturingVehicles (56dominates with 2/3 of world: !187,9 bn
+•
+Factory automation, the With 38 billion euros out of 58, Services
+plus
+
+56,4
+
+Vehicles
+
+total Factory market market.
+Process industries, remains the mainAutomation with 58
+industries
+Vehicles
+– to Among Services the sub segment Integration installation and
+Integration,
+billion euros, comparable Vehicles (56 billion):
+
+for 50% of
+Monitoring & control oftraining accountsdominatesthem. 2/3 of
+≈ semiconductor industry
+Industry
+– With 38 billion euros out 58, Services
+with
+Manufacturing
+total Factory Automation market.
+≈ 2 x mobile phoneTogether, three application markets, Vehicles,
+industry
+•
+
+–
+
+Industry
+Among Services the sub segment Integration installation and
+Integration,
+Manufacturing and Process industries represent 60% of
+M
+f t i
+dP
+i d ti
+t Process
+f
+training accounts for 50% of them.
+total Monitoring & Control market.
+
+Still growing, young areas with great potentials
+Healthcare
+•
+Together, three application between 10 and 20 billion
+•
+Ranked
+(power fgrids, and Process markets, Vehicles,order : euros the next three
+building industries representtenvironment)
+automation,
+Critical
+Manufacturing d P applications tmarkets are in 60% of
+M
+t i
+i d
+i
+f
+•
+
+Logistics &
+transport
+
+Ranked between 10 and 20 billion euros the next three
+Environment
+applications markets are in one, Home is, for the moment, a small niche market.
+•
+Last order :
+–
+–
+–
+
+•
+
+Critical infrastructures
+Logistic & transport
+g
+p
+
+Healthcare
+Critical infrastructures
+A report &
+Logistic & transport a presentation prepared by:
+g
+p
+
+26,3
+
+18,0
+10,9
+8,6
+
+18,0
+
+Power grids
+
+7,2
+
+10,9
+
+7,2
+
+Building
+
+7,2
+Homes
+
+18,3
+
+57,8
+
+Environment
+
+Power grids
+
+4,3
+Hard
+Soft
+Serv
+
+0,7
+
+7,2
+
+Building
+
+25
+
+Available for download: http://www.decision.eu/smart2007.htm
+
+Last one, Home is, for the moment, a small niche market.
+
+Household
+appliances
+Homes
+
+A report & a presentation prepared by:
+
+Available for download: http://www.decision.eu/smart2007.htm
+
+Prof. A. Bemporad (University of Trento)
+
+31,5
+
+Logistics &
+18,3
+transport
+
+8,6
+Household
+appliances
+
+57,8
+
+26,3
+
+Healthcare
+Critical
+Infrastructures
+
+31,5
+
+56,4
+
+Industry
+Process
+
+Infrastructures
+
+– Healthcare
+total Monitoring & Control market.
+–
+–
+
+Industry
+Manufacturing
+
+Automatic Control 1
+
+4,3
+0,7
+
+Hard
+Soft
+Serv
+
+25
+Academic Year 2010/2011
+
+25 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Process control
+y
+wj
+
+Control is heavily used in the process industries
+
+y
+wi ! j
+
+If
+»
+the controller does its best to track rj, sacrificing ri tracking if
+y
+necessary. If w j = 0 , on the other hand, the controller completely ignores
+deviations rj–yj.
+
+Usually slow processes (heat transfer, chemical reactions, distillation, etc.)
+
+Choosing the weights is a critical step. You will usually need to tune your
+controller, varying the weights to achieve the desired behavior.
+
+Usually several input and output variables
+
+As an example, consider Figure 1-3, which depicts a type of chemical reactor (a
+CSTR). Feed enters continuously with reactant concentration CAi. A reaction
+takes place inside the vessel at temperature T. Product exits continuously, and
+contains residual reactant at concentration CA (<CAi).
+The reaction liberates heat. A coolant having temperature Tc flows through
+Example: Continuous stirred-tank reactor
+coils immersed in the reactor to remove excess heat.
+CAi
+
+Tc
+T
+
+CA
+
+Figure 1-3: CSTR Schematic
+Manipulated inputs:
+
+reactant concentration CAi in feed
+From the Model Predictive Control Toolbox point for view, T and CA would be
+coolant CAi and Tc would
+plant outputs, and temperature Tcbe inputs. More specifically, CAi would be
+an independent disturbance input, and Tc would be a manipulated variable
+(actuator).
+Controlled outputs:
+
+There is one manipulated variable (the coolant temperature), so it’s impossible
+reactant concentration CAi in vessel
+to hold both T and CA at setpoints. Controlling T would usually be a high
+vessel temperature T
+priority. Thus, you might set the output weight for T much larger than that for
+CA. In fact, you might set the CA weight to zero, allowing CA to float within an
+Prof. A. operating region (to of Trento)
+Automatic Control 1
+acceptableBemporad (Universitybe defined by constraints).
+
+www.abacusengg.in
+Academic Year 2010/2011
+
+26 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Control systems example: Ball and plate
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+27 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Control systems example: Ball and plate
+
+commands
+control
+station
+
+Prof. A. Bemporad (University of Trento)
+
+measurements
+
+Automatic Control 1
+
+ball &
+plate
+
+Academic Year 2010/2011
+
+28 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Robotics
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+29 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Robotics
+
+Snake Robot (Biorobotics and Biomechanics Lab, Technion, Israel)
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+30 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Functional electrical stimulation
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+31 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Aeronautics and aerospace
+Control systems heavily used in:
+Aircrafts (roll, pitch, yaw)
+Helicopters
+Satellites
+…
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+32 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Aeronautics and aerospace. Quadcopter example
+Parrot AR Drone
+
+• 6 DoF Inertial Measurement Unit
+(3 accelerometers, 3 gyros)
+
+•468MHz ARM9 CPU running Linux
+•Ultrasound altimeter/ground detector
+•Two cameras:
+- Vision-based stabilization (176x144)
+- Wifi streaming (640x480)
+7 (27)
+
+Prepared
+
+Title
+
+M. Lefébure
+
+AR Drone Developer Guide
+
+Approved
+
+Date
+
+Revisio
+n
+
+File
+
+1.0
+
+AR Drone Developer Guide Release 1.0.doc
+
+quadcopter
+
+05/01/2010
+
+flight control unit
+
+desired angles
+
+engine torques
+
+r(t)
+
+u(t)
+
+measurements
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+angles/positions
+y(t)
+
+•
+
+2D-tag: magnetic cylindrical tag
+
+Academic Year 2010/2011
+
+33 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Aeronautics and aerospace. Quadcopter example
+z
+
+• Manipulated inputs
+
+ψ y
+φ
+
+f2
+
+τ2
+
+f3
+
+– total force u
+˜ ˜ ˜
+– torques τθ , τφ, τψ
+
+f1
+
+τ3
+f4
+mg
+
+• Outputs to regulate
+
+l
+
+τ1
+
+τ4
+
+x
+θ
+
+x, y, z, θ, φ, ψ, x, y, z, θ, φ, ψ
+˙ ˙ ˙ ˙ ˙ ˙
+
+m¨
+x
+m¨
+y
+m¨
+z
+¨
+θ
+¨
+φ
+¨
+ψ
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+=
+=
+=
+=
+=
+=
+
+−u sin θ − β x
+˙
+u cos θ sin φ − β y
+˙
+u cos θ cos φ − mg − β z
+˙
+τθ
+˜
+τφ
+˜
+τψ
+˜
+
+Academic Year 2010/2011
+
+34 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Aeronautics and aerospace. Quadcopter example
+
+Outputs: position (x,y,z)
+
+Prof. A. Bemporad (University of Trento)
+
+Inputs: torques and force
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+35 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Aeronautics and aerospace. Quadcopter example
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+36 /50
+
+Lecture: Introduction
+
+Examples of control systems
+
+Financial engineering. Example: Option hedging
+• The	  ﬁnancial	  institution	  sells	  a	  synthetic	  option	  to	  a	  customer	  and	  gets	  y(0) (€)
+• Such	  money	  is	  	  used	  to	  create	  a	  portfolio	  y(t) of	  underlying	  assets	  (e.g.	  stocks)
+whose	  quantities	  at	  time	  t	  are	  u1(t),	  u2(t),	  ...,	  un(t)
+• At	  the	  expiration	  date	  T,	  the	  option	  is	  worth	  the	  payoﬀ	  r(T)	  =	  wealth	  (€)	  to	  be	  
+returned	  to	  the	  customer
+Portfolio (*) vs. Payoff
+
+20
+
+100
+
+payoff r(T)
+
+18
+80
+
+16
+
+option price
+
+14
+12
+
+60
+
+How	  to	  adjust	  dynamically	  
+the	  portfolio	  so	  that	  
+wealthy(T) = payoﬀ	  r(T)	  ?	  ...
+
+portfolio wealth
+
+10
+
+40
+
+8
+
+20
+
+6
+4
+
+0
+
+wealth y(T)
+
+2
+0
+
+0
+
+0.05
+
+0.1
+
+0.15
+
+0.2
+
+0.25
+
+0.3
+
+time	  (years)
+
+Prof. A. Bemporad (University of Trento)
+
+0.35
+
+0.4
+
+!20
+0
+
+0.45
+
+Automatic Control 1
+
+20
+
+40
+
+60
+
+80
+100
+120
+140
+Stock price at expiration
+
+160
+
+180
+
+asset	  price	  at	  expiration
+
+Academic Year 2010/2011
+
+200
+
+37 /50
+
+Lecture: Introduction
+
+Control systems technology
+
+A typical control system
+
+D
+
+1001
+
+A
+
+A
+
+D/A converters
+
+1001
+
+actuators
+
+sensors
+
+D
+
+A/D converters
+
+process
+
+?
+control unit
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+38 /50
+
+Lecture: Introduction
+
+Control systems technology
+
+Most used sensors and actuators in control systems
+Sensors
+temperature
+pressure
+flow
+level
+velocity, position
+acceleration
+force (strain) / deformation
+
+Actuators
+
+Prof. A. Bemporad (University of Trento)
+
+electrical motors (DC, brushless, step)
+pumps
+valves
+heaters
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+39 /50
+
+Lecture: Introduction
+
+Control systems technology
+
+Sensors and actuators in control systems
+
+angular position
+
+thermocouple
+
+pressure sensor
+
+brushless motor
+strain gage
+
+pump
+
+liquid flow sensor
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+valve
+Academic Year 2010/2011
+
+40 /50
+
+Lecture: Introduction
+
+Open-loop vs. closed-loop control
+
+Open-loop vs. closed-loop control
+Closed-loop control (feedback control)
+Measurements of the output variables are fed back to the process through the controller
+disturbance
+reference
+
+manipulated input
+
+output
+
+measurements
+
+Open-loop control (feedforward control)
+The manipulated input variable is generated without measuring the output variable
+
+reference
+
+Prof. A. Bemporad (University of Trento)
+
+manipulated input
+
+Automatic Control 1
+
+output
+
+Academic Year 2010/2011
+
+41 /50
+
+Lecture: Introduction
+
+Control systems design
+
+How to design a (modern) control system
+Understand the automation problem:
+
+-
+
+Which variables can be manipulated by actuators ?
+What are the output variables of interest ?
+What should we measure ?
+Which are the disturbances ?
+
+Get a reliable simulation model
+Get a simplified mathematical model of the main process dynamics
+Use design techniques to synthesize the control algorithm
+Test in simulation, validate on real process
+
+Control design requires a dynamical model of the open-loop process
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+42 /50
+
+Lecture: Introduction
+
+Course contents
+
+What you will learn in this course
+The tools to study the mathematical properties of dynamical
+systems (control theory is often called “systems theory”)
+
+Building simple dynamical models of common physical
+processes
+
+Computer-aided tools for analysis, simulation, and control of
+dynamical systems (in MATLAB™)
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+43 /50
+
+Lecture: Introduction
+
+Course contents
+
+What you will learn in this course
+Analysis of dynamical systems in continuous time
+(differential equations, Laplace transform, stability)
+Models of dynamical systems (electrical, mechanical, hydraulic,...)
+Analysis of dynamical systems in discrete-time
+(difference equations, Zeta transform)
+State-feedback control synthesis in the time domain (pole-placement)
+State estimation
+Output feedback control (dynamic compensator)
+Integral action
+
+Automatic Control 2: Frequency-domain analysis and synthesis (loop shaping)
+and more advanced control techniques (optimal, nonlinear, predictive, ...)
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+44 /50
+
+Lecture: Introduction
+
+Textbooks
+
+Suggested references
+A. Bemporad - Lecture notes (what you’re looking at right now …)
+(maybe enough …)
+K.J. Åström, B. Wittenmark, Computer-controlled Systems,
+Theory and Design, Prentice-Hall
+(good classical textbook on digital control)
+
+G.F. Franklin, J.D. Powell, M. Workman “Digital Control of
+Dynamic Systems”, Addison-Wesley Longman.
+(good classical textbook on digital control)
+
+T. Kailath, “Linear Systems”, Prentice-Hall
+(advanced textbook for state-space concepts)
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+45 /50
+
+Lecture: Introduction
+
+Textbooks
+
+Suggested references
+E. Fornasini, G. Marchesini, “Appunti di Teoria dei Sistemi” ,
+Edizioni Libreria Progetto (in Italian)
+(advanced textbook for state-space concepts)
+
+P Bolzern, R. Scattolini, N. Schiavoni, “Fondamenti di
+.
+controlli automatici” (in Italian)
+(good textbook for frequency-domain)
+
+K.J. Åström, R.M. Murray, “Feedback Systems: An Introduction
+for Scientists and Engineers”, (available on-line for download)
+(new textbook, plenty of examples)
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+46 /50
+
+Lecture: Introduction
+
+Logistics
+
+Logistics
+Midterm exam: April 21, 2011. No expiration date.
+= Final exam of Automatic Control 1 (TLC)
+= Exam of AC2 for those elder mechatronic students that already
+passed AC1.
+Final exam: sometimes in June 2011 (AC1 + AC2).
+Note: Submitting a new AC1 test automatically kills the midterm test !
+Classroom exercises
+Classroom exercises in MATLAB™
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+47 /50
+
+Web site
+
+http://www.ing.unitn.it/~bemporad/teaching/ac
+Prof. A. Bemporad (University of Trento)
+
+30 novembre 2010
+
+Lecture: Introduction
+
+Logistics
+
+Logistics
+Lectures
+
+Wednesday
+
+10.30
+
+13.00 Room A102
+
+Thursday
+
+10.30
+
+13.00 Room A102
+
+Friday
+
+10.30
+
+13.00 Room A102
+
+Appointments for questions & explanations: send an email
+
+Teaching assistants:
+Matteo Rubagotti
+Sergio Trimboli
+Prof. A. Bemporad (University of Trento)
+
+http://www.ing.unitn.it/~rubagott
+http://www.ing.unitn.it/~trimboli
+Automatic Control 1
+
+Academic Year 2010/2011
+
+49 /50
+
+Lecture: Introduction
+
+End of lecture
+
+Questions ???
+
+Prof. A. Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic Year 2010/2011
+
+50 /50
+
+
