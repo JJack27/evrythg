@@ -24,45 +24,15 @@ b) Based on the previous solution, give a solution of
 
 Problem 2: Pole - Placement Design
 Given the linear discrete-time plant
-G(q) =
-
-B(q)
-0.11q + 0.09
-= 2
-.
-A(q)
-q − 1.61q + 0.61
-
-(1)
-
+...
 design a controller of the form
 R(q)u = T (q)uc − S(q)y
-which aﬀects the system output y(q) as shown in the block diagram below. The controller design
-involves the calculation of polynomials R(q), T (q), and S(q), to achieve desired closed-loop behaviour.
-v
+which aﬀects the system output y(q) as shown in the block diagram cf. 140505232806 below. The controller design involves the calculation of polynomials R(q), T (q), and S(q), to achieve desired closed-loop behaviour.
 
-uc
-Ru = T uc − Sy
-
-u
-
-y
-
-G= B
-A
-
-a) By calculating the poles and zeros of the open-loop transfer function (1), what can be said about
-the dynamics of the uncontrolled system, i.e. is it stable or not, if stable, in what way?
+a) By calculating the poles and zeros of the open-loop transfer function (1), what can be said about the dynamics of the uncontrolled system, i.e. is it stable or not, if stable, in what way?
 b) Derive expressions for the closed-loop transfer functions
-Guc (q) =
-
-y
-uc
-
-and Gv (q) =
-
-y
-v
+$G_{u_c}(q) = \ldots$
+$G_v(q) = \ldots$
 
 c) Let the desired closed-loop behaviour be deﬁned by the dynamics
 y = Gm (q)uc =

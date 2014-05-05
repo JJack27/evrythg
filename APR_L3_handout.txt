@@ -156,122 +156,8 @@ Direct STR
 
 Diophantine Equation
 AR + BS = Ac
+cf. 140505230713
 Sylvester matrix:
-1
-
-⇓0
-
-
- a1
-
-
- a2
- .
- .
- .
-
- a
- n
-
- 0
-
- .
- ..
-0
-
-1
-
-
-
-⇓0
-
-b0
-
-⇓0
-
-0
-..
-.
-
-b1
-
-b0
-b1
-
-1
-
-b2
-..
-.
-
-a1
-
-bn
-
-b2
-..
-.
-
-an
-..
-.
-
-...
-..
-.
-..
-.
-..
-.
-..
-.
-..
-.
-..
-.
-
-a2
-..
-.
-
-0
-..
-.
-
-bn
-..
-.
-
-...
-..
-.
-..
-.
-..
-.
-..
-.
-..
-.
-..
-.
-
-...
-
-0
-
-an
-
-0
-
-...
-
-0
-
-a1
-a2
-..
-.
 
 Pole Placement
 
@@ -342,13 +228,16 @@ Diophantine equation (solution exists for A, B relatively prime)
 
 Controller: Ru(t) = T uc (t) − Sy(t)
 Determination of controller polynomial T : model following
-Desired response from uc to y: Am ym (t) = Bm uc (t)
+
+Desired response from $u_c$ to $y$:
+$A_m y_m(t) = B_m u_c(t)$
+
 Condition for model following (assuming ν(t) = 0):
 cf. 140428164043
 
+-9-
 
 ym (t) = y(t) ⇒
-
 Pole Placement
 
 Bm

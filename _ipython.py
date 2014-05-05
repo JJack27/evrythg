@@ -18,12 +18,4 @@ def _c(t):
     t: time tag
     """
     Popen('MiniCap -captureregselect -save "%s.png" -exit' %(fn(t)))
-def _l(t):
-    """ 
-    Use a matplotlib figure to display latex on the fly
-    """
-    title('$%s$'%t)
 
-from sympy import MatrixSymbol
-x = MatrixSymbol('X', 3, 3)
-TeX1(latex(x.as_explicit()))

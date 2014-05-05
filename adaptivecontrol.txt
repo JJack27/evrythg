@@ -7276,12 +7276,7 @@ Reference
 Controller
 
 Figure 3.1
-
-Process
-Input
-
-Output
-
+('140505232806')
 Block diagram of a self-tuning regulator.
 
 Estimation can be performed continuously or in batches. In digital implementations, which are most common, different sampling rates can be used for the
@@ -7398,13 +7393,11 @@ we have n ≥ m + d0 , and trailing coefficients of A∗ may thus be zero.
 We will mostly deal with discrete time systems. Since the design method is
 purely algebraic, we can handle continuous systems simultaneously by writing
 the model
-Ay(t) = B (u(t) + v(t))
-(3.1)
-
-where A and B denote polynomials in either the differential operator p = d/ dt
-or the forward shift operator q. It is assumed that A and B are relatively prime,
+Ay(t) = B (u(t) + v(t)) (3.1)
+where A and B denote polynomials in either the differential operator p = d/ dt or the forward shift operator q. It is assumed that A and B are relatively prime,
 that is, that they do not have any common factors. 
 
+('140505225747')
 Further, it is assumed that A is monic, that is, that the coefficient of the highest power in A is unity.
 
 A general linear controller can be described by
@@ -35439,198 +35432,23 @@ algorithm is to find a good way to test for a polynomial being zero.
 Solving the Diophantine Equation
 By using the extended Euclidean algorithm it is now straightforward to solve
 the Diophantine equation
-AR + BS = Ac
-(11.11)
-
-This is done as follows: Determine the greatest common divisor G and the associated polynomials X , Y, U , and V using the extended Euclidean algorithm.
-To have a solution to Eq. (11.11), G must divide Ac . A particular solution is
-given by
-R0 = X Ac div G
+AR + BS = Ac (11.11)
+This is done as follows: Determine the greatest common divisor G and the associated polynomials X , Y, U , and V using the extended Euclidean algorithm.  To have a solution to Eq. (11.11), G must divide Ac . A particular solution is given by
 (11.12)
-S0 = YAc div G
-
 and the general solution is
-
-R = R0 + QU
-S = S0 + QV
-
 (11.13)
 
 where Q is an arbitrary polynomial. The minimum-degree solution is obtained
 by choosing Q = − S0 div V . This implies that S = S0 mod V .
 
 Relations to Ordinary Linear Equations
-By equating coefficients of equal order, the Diophantine equation given by
-Eq. (11.11) can be written as a set of linear equations:
-
-
-b0 0 . . . 0 
-0 ... 0
- 1
-
-
-
-
-
-. 
-.
-..
-..
-
-
-. .   r1   ac 1 − a1 
-. .
-b1 b0
-.   
-.
-
- a1 1
-
-  
-
-
-  
-
-
-
-
-..
-..
-
-
-.
-
- .  
- a2 a1
-.
-. 0
-. 0  .  
-b2 b1
-
- .  
-
-.
-
-  
-
-
-  
- .
-
-  
-
-.
-.
-.
-
-  
- .
-..
-..
-.
- .
-.
-.
-
-  
-
-. 1
-. b0   r k   ac n − an 
-.
-.
-.
-
-  = 
-
-
-  
-
-(11.14)
-  
-
-.
-.
-
-  s0   ac n+1 
-
-.
-.
-
-  
- an
-
-
-.
-a1 bn
-.
-b1    
-
-  
-
-
-  
-
-
-
-.
-
-  
-
-.  .  
-.
-.
-
-
-.  .  
-.
-.
-
- .  
- 0 an
-
-
-0 bn
-.   
-.
-
-  
-
-
- . .
- sl
- .
-. ..
-..
-..
-ac k+l+1
-
-
-.
-..
-
- .
-.
-.
-.
-
-
-.
-
-
-
-
-0 . . . 0 an
-0 . . . 0 bn
+By equating coefficients of equal order, the Diophantine equation given by Eq. (11.11) can be written as a set of linear equations:
+\ldots
 k columns
-
 l + 1 columns
 
-11.5
-
-Estimator Implementation
-
-465
-
+-480-
+('140505230713')
 The matrix on the left-hand side is called the Sylvester matrix; it occurs frequently in applied mathematics. It has the property that it is nonsingular if
 and only if the polynomials A and B do not have any common factors. If there
 are no common factors, a unique solution to Eq. (11.14) exists. Notice, however,

@@ -59,25 +59,9 @@ and Y (q) = − q −
 
 (2)
 
-The second solution of (1) can be found by using the following result: If X(q) and Y (q) are a
-solution for a diophantine equation A(q)X(q) + B(q)Y (q) = C(q), then there are inﬁnitely many
-solutions of the form
-B(q)
-ˆ
-X(q) = X(q) +
-k
-D(q)
-
-A(q)
-ˆ
-Y (q) = Y (q) −
-k
-D(q)
-
-k∈Z
-
-where D(q) is the greatest common divisor of A(q) and B(q). Using (2), we get a second set of
-solution by choosing k = 1, for example.
+The second solution of (1) can be found by using the following result: If X(q) and Y (q) are a solution for a diophantine equation A(q)X(q) + B(q)Y (q) = C(q), then there are infnitely many solutions of the form
+_c('140505231313')
+where D(q) is the greatest common divisor of A(q) and B(q). Using (2), we get a second set of solution by choosing k = 1, for example.
 X2 (q) = q +
 
 9
@@ -151,43 +135,11 @@ qp2 = 0.61
 The system is marginally stable (critically damped). The zero is qz = − 11 .
 
 b) The output y of the system is given by
-B(q)
-(u + v)
-A(q)
-
-(4)
-
-T (q)uc − S(q)y
-R(q)
-
-(5)
-
-y=
 The control input u is given by
-u=
 Plugging (5) into (4) yields
-
-B(q) T (q)uc − S(q)y
-+v
-A(q)
-R(q)
-A(q)R(q)y =B(q)(T (q)uc − S(q)y) + B(q)R(q)v
-A(q)R(q)y + B(q)S(q)y =B(q)T (q)uc + B(q)R(q)v
-(A(q)R(q) + B(q)S(q))y =B(q)T (q)uc + B(q)R(q)v
-y=
-
 Setting v = 0 and u = 0, respectively, yields
-Guc =
 
-B(q)T (q)
-A(q)R(q) + B(q)S(q)
-
-Gv =
-
-B(q)R(q)
-A(q)R(q) + B(q)S(q)
-
-c) The desired poles of Gm (q) are p1,2 = 0.1. Therefore,
+c) The desired poles of Gm (q) are p1,2 = 0.1. Therefore,
 q 2 + am0 q + am1 = (q − 0.1)2 = q 2 − 0.2q + 0.01
 Hence, am0 = −0.2 and am1 = 0.01.
 The model shall have unity static gain, i.e. y(∞) = 1. With the Final Value Theorem, we can
