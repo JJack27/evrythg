@@ -62,45 +62,26 @@ cf. 140427084015
 Pole Placement
 
 SISO model of process:
-
-A(q)y(t) = B(q)(u(t) + ν(t))
+$A(q)y(t) = B(q)(u(t) + ν(t))$
 
 with:
 
-A(q) = 1q n + a1 q n−1 + . . . + an
-B(q) = b1 q m−1 + b2 q m−2 + . . . + bm
+$A(q) = 1 q^n + a_1 q_{n−1} + . . . + a_n$
+$B(q) = b_1 q^{m−1} + b2 q^{m−2} + . . . + b_m$
 
-output
-input
-disturbance
-
-y(t)
-u(t)
-ν(t)
+output $y(t)$
+input $u(t)$
+disturbance $ν(t)$
 n ≥ m + d0
-
-Assumptions:
-
 Pole Placement
-
-,
-
-d0 =
-
-time delay
-∆t
-
-A is a monic polynomial
-A, B are relatively prime (greatest common
-factor of 1 )
-Indirect STR
-
-Direct STR
-
-4
+d0 = time delay
+Assumptions:
+$A$ is a monic polynomial [ In algebra, a monic polynomial is a univariate polynomial in which the leading coefficient (the nonzero coefficient of highest degree) is equal to 1 ]
+A, B are relatively prime (greatest common factor of 1 )
+-4-
 
 Pole Placement
-SISO model of process: A(q)y(t) = B(q)(u(t) + ν(t))
+SISO model of process: 
 2 degrees of freedom controller:
 R(q)u(t) = (T (q)uc (t) − S(q)y(t))
 
@@ -139,22 +120,15 @@ Controller:
 
 Ru(t) = T uc (t) − Sy(t)
 
-_6_ 140428164043
+140428164043
 Elimination of u(t) / y(t):
 
-Closed loop characteristic polynomial:
-AR + BS = Ac
-Pole Placement
+Closed loop characteristic polynomial
+$AR + BS = A_c$
+Diophantine Equation
 
-⇒ Diophantine Equation
-Indirect STR
+-6-
 
-Direct STR
-
-6
-
-Diophantine Equation
-AR + BS = Ac
 Requirement: A,B relatively prime ⇒ solution always exists
 B´ezout’s identity: AR + BS = 1
 Examples:

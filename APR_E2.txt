@@ -1,0 +1,106 @@
+¨
+¨
+TECHNISCHE UNIVERSITAT MUNCHEN
+
+¨
+LEHRSTUHL FUR INFORMATIONSTECHNISCHE REGELUNG
+ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
+
+Adaptive and Predictive Control (APC)
+´
+Dr. Stefan Sosnowski / Denis Cehaji´
+c
+
+SS2014
+05.05.2014.
+
+EXERCISE 2
+Problem 1: Diophantine Equation
+
+a) Find two diﬀerent solutions for the following diophantine equation
+(q + 2)(q + 3)X(q) + (q + 4)Y (q) = 1
+b) Based on the previous solution, give a solution of
+(q + 2)(q + 3)X(q) + (q + 4)Y (q) = (q 2 + a1 q + a0 )
+
+Problem 2: Pole - Placement Design
+Given the linear discrete-time plant
+G(q) =
+
+B(q)
+0.11q + 0.09
+= 2
+.
+A(q)
+q − 1.61q + 0.61
+
+(1)
+
+design a controller of the form
+R(q)u = T (q)uc − S(q)y
+which aﬀects the system output y(q) as shown in the block diagram below. The controller design
+involves the calculation of polynomials R(q), T (q), and S(q), to achieve desired closed-loop behaviour.
+v
+
+uc
+Ru = T uc − Sy
+
+u
+
+y
+
+G= B
+A
+
+a) By calculating the poles and zeros of the open-loop transfer function (1), what can be said about
+the dynamics of the uncontrolled system, i.e. is it stable or not, if stable, in what way?
+b) Derive expressions for the closed-loop transfer functions
+Guc (q) =
+
+y
+uc
+
+and Gv (q) =
+
+y
+v
+
+c) Let the desired closed-loop behaviour be deﬁned by the dynamics
+y = Gm (q)uc =
+
+k(bm0 q + bm1 )
+Bm (q)
+uc = 2
+uc
+Am (q)
+q + am0 q + am1
+
+(2)
+
+Determine am1 , am0 , and k of the desired transfer function Gm , such that it has two poles p1,2 = 0.1
+and unity static gain.
+The equations that determine the controller polynomials T (q), R(q),
+A(q)R(q) + B(q)S(q) = Ac (q)
+B(q)T (q)
+Bm (q)
+=
+Ac (q)
+Am (q)
+
+(3)
+
+Here the choice of Ac (q) is still subject to controller design.
+d) From (3), determine T (q) and the remaining parameter of Bm (q) by using an appropriate Bm (q).
+Compare with the approach in the lecture.
+e) What is a feasible choice for Ac (q)? Try Ac (q) = Am (q) and Ac (q) = Am (q)A0 (q) with A0 (q) =
+q + 0.1.
+f) Assume that the choice of the coeﬃcients a1 , a0 , b1 , and b0 of the polynomials in the process
+transfer function
+B(q)
+b1 q + b0
+G(q) =
+= 2
+A(q)
+q + a1 q + a0
+are only a ﬁrst guess. Formulate and discuss the algorithm that adapts these coeﬃcients online.
+
+

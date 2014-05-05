@@ -1,0 +1,387 @@
+¨
+¨
+TECHNISCHE UNIVERSITAT MUNCHEN
+
+¨
+LEHRSTUHL FUR INFORMATIONSTECHNISCHE REGELUNG
+ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
+
+Adaptive and Predictive Control (APC)
+´
+Dr. Stefan Sosnowski / Denis Cehaji´
+c
+
+SS2014
+05.05.2014.
+
+EXERCISE 2 - SOLUTION
+Problem 1: Diophantine Equation
+a) The following diophantine equation is given
+(q + 2)(q + 3)X(q) + (q + 4)Y (q) = 1
+(q 2 + 5q + 6)X(q) + (q + 4)Y (q) = 1
+
+(1)
+
+A comparison of the coeﬃcient on the LHS and the RHS of (1) suggests the following choice of
+X(q) and Y (q):
+X(q) = x0
+Y (q) = y1 q + y0
+Hence, (1) results in the following system of linear equations
+x0 + y1 = 0
+5x0 + 4y1 + y0 = 0
+6x0 + 4y0 = 1
+Solving this system of linear equations, we get a ﬁrst solution
+x0 =
+
+1
+2
+
+y0 = −
+
+and hence,
+X(q) =
+
+1
+2
+
+y1 = −
+
+1
+2
+
+1
+1
+1
+and Y (q) = − q −
+2
+2
+2
+
+(2)
+
+The second solution of (1) can be found by using the following result: If X(q) and Y (q) are a
+solution for a diophantine equation A(q)X(q) + B(q)Y (q) = C(q), then there are inﬁnitely many
+solutions of the form
+B(q)
+ˆ
+X(q) = X(q) +
+k
+D(q)
+
+A(q)
+ˆ
+Y (q) = Y (q) −
+k
+D(q)
+
+k∈Z
+
+where D(q) is the greatest common divisor of A(q) and B(q). Using (2), we get a second set of
+solution by choosing k = 1, for example.
+X2 (q) = q +
+
+9
+2
+
+Y2 (q) = −q 2 −
+
+11
+13
+q−
+2
+2
+
+(3)
+
+We can check if our solution is really a solution by plugging it into (1):
+1
+1
+1
++ 4k) + (q + 4)(−kq 2 − q − 5kq − − 6k) =
+2
+2
+2
+1 2
+5
+kq 3 + q + 4kq 2 + 5kq 2 + q + 20kq + 6kq + 3 + 24k − kq 3
+2
+2
+1 2
+1
+− q − 5kq 2 − q − 6kq − 4kq 2 − 2q − 20kq − 2 − 24k = 1
+2
+2
+
+(q 2 + 5q + 6)(kq +
+
+Therefore, it is veriﬁed that (3) is a solution.
+b) The polynomials X(q) = X0 (q)(q2 + a1 q + a0 ) and Y (q) = Y0 (q)(q2 + a1 q + a0 ) with X0 (q) =
+1
+and Y0 (q) = − 1 q − 2 obtained previously solve the diophantine equation.
+2
+
+1
+2
+
+Proof: Plugging in:
+1
+1
+1
+(q + 2)(q + 3) (q 2 + a1 q + a0 ) + (q + 4)(− q − )(q 2 + a1 q + a0 ) =
+2
+2
+2
+and factoring out (q 2 + a1 q + a0 ), we obtain
+1
+1
+1
+(q 2 + a1 q + a0 ) [(q + 2)(q + 3) + (q + 4)(− q − )] = (q 2 + a1 q + a0 )
+2
+2
+2
+from above = 1
+
+Problem 2: Pole Placement Design
+a) The poles are calculated by ﬁnding the zeros of A(q) = q 2 − 1.61q + 0.61. These are:
+qp1 = 1,
+
+qp2 = 0.61
+
+9
+The system is marginally stable (critically damped). The zero is qz = − 11 .
+
+b) The output y of the system is given by
+B(q)
+(u + v)
+A(q)
+
+(4)
+
+T (q)uc − S(q)y
+R(q)
+
+(5)
+
+y=
+The control input u is given by
+u=
+Plugging (5) into (4) yields
+
+B(q) T (q)uc − S(q)y
++v
+A(q)
+R(q)
+A(q)R(q)y =B(q)(T (q)uc − S(q)y) + B(q)R(q)v
+A(q)R(q)y + B(q)S(q)y =B(q)T (q)uc + B(q)R(q)v
+(A(q)R(q) + B(q)S(q))y =B(q)T (q)uc + B(q)R(q)v
+y=
+
+Setting v = 0 and u = 0, respectively, yields
+Guc =
+
+B(q)T (q)
+A(q)R(q) + B(q)S(q)
+
+Gv =
+
+B(q)R(q)
+A(q)R(q) + B(q)S(q)
+
+c) The desired poles of Gm (q) are p1,2 = 0.1. Therefore,
+q 2 + am0 q + am1 = (q − 0.1)2 = q 2 − 0.2q + 0.01
+Hence, am0 = −0.2 and am1 = 0.01.
+The model shall have unity static gain, i.e. y(∞) = 1. With the Final Value Theorem, we can
+1
+compute y(∞) with the input uc = 1−q−1 to:
+y(∞) = lim(1 − q −1 )Gm (q)uc = lim Gm (q)
+q→1
+
+=
+
+q→1
+
+k(bm0 + bm1 )
+k(bm0 + bm1 )
+=
+1 − 0.2 + 0.01
+0.81
+
+Hence,
+k=
+
+0.81
+bm 0 + bm 1
+
+d) The polynomial T (q) is given by
+T (q) =
+
+Bm Ac
+k(bm0 + bm1 )
+Ac
+·
+=
+· 2
+B Am
+0.11q + 0.09 q − 0.2q + 0.01
+
+By choosing bm0 = 0.11 and bm1 = 0.09 we get
+T (q) =
+with k =
+
+0.81
+0.11+0.09
+
+q2
+
+4.05Ac
+kAc
+= 2
+− 0.2q + 0.01
+q − 0.2q + 0.01
+
+= 4.05.
+
+In the example from the lecture: B(q) was compensated by choice of Ac (q). Note: This is only
+possible if B(q) has stable zeros.
+e) Setting Ac = Am , we get
+(q 2 − 1.61q + 0.61)R(q) + (0.11q + 0.09)S(q) = q 2 − 0.2q + 0.01
+and T =
+
+4.05Ac
+q 2 −0.2q+0.01
+
+= 4.05. Because of deg(T ) = deg(S) = deg(R), we make the ansatz:
+R(q) = r0 and S(q) = s0
+
+and get
+r0 q 2 − 1.61r0 q + 0.61r0 + 0.11s0 q + 0.09s0 = q 2 − 0.2 + 0.01
+Coeﬃcient comparison yields
+r0 = 1
+−1.61r0 + 0.11s0 = −0.2
+0.61r0 + 0.09s0 = 0.01
+
+⇒ s0 = 12.81
+⇒ s0 = −6.6
+
+This choice of Ac has too few degrees of freedom and leads to a contradiction; Ac = Am is not a
+feasible choice.
+
+The second choice is Ac = Am (q + 0.1). With this ansatz T (q) = 4.05(q + 0.1). Therefore, we
+make the ansatz (deg(T ) = deg(S) = deg(R))
+R(q) = r1 q + r0 and S(q) = s1 q + s0
+
+(6)
+
+Expanding the diophantine equation using (6) and comparing the coeﬃcients yields the following
+linear equation system
+
+  
+
+  
+
+0
+1
+0
+0
+r0
+1
+r0
+0.585
+ 1
+r   1 
+−1.61 0 0.11 r1   −0.1 
+
+  = 
+
+
+⇒  1 = 
+−1.61 0.61 0.11 0.09 s0  −0.01
+s0  −3.954
+0.61
+0
+0.09 0
+s1
+0.001
+s1
+8.409
+With Ac = Am (q + 0.1) all unknown parameters can be determined and hence, the choice of
+Ac = Am (q + 0.1) leads to a feasible solution of the problem.
+f) Deﬁne polynomials Am , Bm , A0 appropriately. Rewrite the system as regressor model:
+b 1 q + b0
+y
+=
++ a1 q + a0
+u
+y(k) + a1 y(k − 1) + a0 y(k − 2) = b1 u(k − 1) + b0 u(k − 2)
+G(q) =
+
+q2
+
+y(k) = φT θ
+ 
+
+
+b1
+u(k − 1)
+b 
+ u(k − 2) 
+
+θ =  0
+φ=
+a1 
+−y(k − 1)
+a0
+−y(k − 2)
+Then use the following algorithm to adapt the coeﬃcients online:
+Algorithm 1: Coeﬃcients adaptation
+while control do
+Compute new estimation for the model
+θ(k) = [b1 (k − 1) b0 (k − 1) a1 (k − 1) a0 (k − 1)]T =
+= f (θ(k − 1), y(k), y(k − 1), y(k − 2), u(k − 1), u(k − 2))
+Compute resulting controller parameters in T , S, and R
+Calculate control input
+T uc (k) − Sy(k)
+u(k) =
+R
+
+Discussion: Steady-state behavior for wrong guesses of parameters in A and B
+y∞ =
+
+B(1)T (1)
+uc,∞
+A(1)R(1) + B(1)S(1)
+
+q→1
+
+with A(1) = 0 (this is true, if and because the process has integrating behavior):
+y∞ =
+
+T (1)
+uc,∞
+S(1)
+
+Rewrite the formula for T from above (requirement: T (1) = S(1)):
+T (1) =
+
+1+am1 +am0
+(bm1 + bm0 )Ac (q)
+bm1 +bm0
+Am (q)(bapprox + bapprox )
+1
+0
+
+=
+
+Ac (1)
++ bapprox
+0
+
+bapprox
+1
+
+Further, Ac (1) = A(1)approx R(1) + B(1)approx S(1) = B(1)approx S(1), if only A(1)approx = 1 can be
+assured. (E.g. eliminating one parameter of A, such that always 1 + a1 + a0 = 0 is yielded.)
+Then, unity steady-state behavior is achieved yet with wrong parameters:
+y∞ = uc,∞
+
+
