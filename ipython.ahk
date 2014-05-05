@@ -6,7 +6,7 @@ Send,  {+}
 sleep, 10
 Send,  y
 sleep, 10
-IfWinExist, IPython
+IfWinExist, Console
 {
     WinActivate ;
 Send, paste
@@ -21,20 +21,16 @@ Return
 
 #Persistent 
 !Space::
-Send,  {Esc}
-sleep, 10
 Send,  {"}
 sleep, 10
 Send,  {+}
 sleep, 10
 Send,  y
 sleep, 10
-Send,  y
-sleep, 10
 IfWinExist, IPython
 {
     WinActivate ;
-Send, paste 
+Send, ^v 
 sleep, 10
 Send, {ENTER}
 sleep, 10

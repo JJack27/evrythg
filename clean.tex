@@ -2,7 +2,7 @@
 \usepackage{amsmath}  % required for {\operatorname}
 \usepackage{amsfonts} % required for {\mathbb}
 \usepackage{hyperref} % allows \href{url}{Label}, not yet made available on arch
-\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 \usepackage{siunitx}
 \usepackage[]{biblatex}
 \usepackage[babel]{csquotes}
@@ -14,7 +14,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{dsfont}
-\bibliography{CognitiveScience2011ModelLearning.bib}
+\bibliography{ CognitiveScience2011ModelLearning.bib, BaraffRigidBodySimulation.bib }
 \begin{document}
 \tableofcontents
 
@@ -32,8 +32,8 @@ import clean_numeric_values as n
 
 % set up python
 \begin{pythoncode}
-os.chdir(r'C:\Users\Murad\evrythg')
-execfile('clean.py')
+%os.chdir(r'C:\Users\Murad\Dropbox\evrythg')
+%execfile('clean.py')
 \end{pythoncode}
 
 
@@ -41,7 +41,7 @@ execfile('clean.py')
 Model the dynamics of a rigid body in an environment partly filled with water.
 \section{Model description}
 \subsection{Statics}
-Assume that a rigid body is specified by its geometry $\s{G}$ and density $\s{rho}$, both assumed not to change over time.    Positions $\s{r}$ are described using a right handed coordinate system aligned such, that the $\s{z}$-Axis is collinear to line of action of gravity.  Unit vectors along the axes are given as
+Assume that a rigid body is specified by its geometry $\s{G}$ and density $\s{rho}$, both assumed not to change over time.    Positions $\s{r}$ are described using a right handed world coordinate system aligned such, that the $\s{z}$-Axis is collinear to line of action of gravity.  When convenient we make use of a body coordinate system coordinates $\s{b}$.  Unit vectors along the axes are given as
 \begin{equation*}
 \s{[i, j, k]} = \s{eye(3)}
 \end{equation*}
@@ -77,13 +77,18 @@ In general
 \begin{equation}
 	\begin{split}
 		\s{Eq(F, f)} \\
-		\s{Eq(sddot, h)} \\
+		\s{Eq(sddot, h)}\\
 \end{split}
-	\label{eq:eom}
+\label{eq:eom}
 \end{equation}
-
+Following \cite{140505160511} we propose 
+\begin{equation*}
+	\s{e_140505171627}
+\end{equation*}
+such that $(C_W(t), \s{q}})$ specifies the relation between body and world coordinate system, $\s{P}$ is the linear and $\s{L}$ the angular momentum.  
+Then the idealized equations of motion are given as $\ldots$
 \section{Implementation}
-To solve equations (\ref{eq:maw}, \ref{eq:poa}) we require indicator functions $\mathds{1}_{(.)}(.)$, to decide if any coordinate $\s{r}$ is occupied by a infinitesimal volume $\s{Vi}$ at time $\s{t}$ and if so which density $\s{rhoi}$ is to be assigned to $\s{Vi}$.
+To solve equations (\ref{eq:maw}, \ref{eq:poa}) indicator functions $\mathds{1}_{(.)}(.)$ decide if any coordinate $\s{r}$ is occupied by a infinitesimal volume $\s{Vi}$ at time $\s{t}$ and if so which density $\s{rhoi}$ is to be assigned to $\s{Vi}$.
 As such functions are hard to define for the general case we start with simplified setups.  
 If the rigid body is described by a planar triangle and $\s{X}$ is neglected we obtain the forces illustrated in Figure \ref{fg:fbda}
 As an anlytical approach seems feasible for simple shapes only, we propose a more general framework.
@@ -127,12 +132,12 @@ The result is shown in Figure \ref{fg:fbdb}.
 3. Wir machen eine (bspw. SVM-)Regression mit den IMU-Werten und erhalten mit der Regressionsgeraden eine Pr"adiktion (oder ein Modell), wie sich das Boot bewegen wird. \\
 \todo[inline]{Wie wuerde die Input-Output Relation formal aussehen?}
 4. Mithilfe dieser Pr"adiktion, die wir zu jedem Zeitpunkt t erhalten, regeln wir die Position der Masse. \\
-\todo[inline]{Entspricht einem inverse model in \cite{Nguyen_CP_2011}, oder?  Sind wir sicher dass das Problem dann nicht ill-posed ist?}
+\todo[inline]{Entspricht einem inverse model in \cite{140505160108}, oder?  Sind wir sicher dass das Problem dann nicht ill-posed ist?}
 5. Wir spielen die Simulation mit deiner gew"ahlten Funktion X durch. \\
 6. Aus der Simulation erhalten wir eine Pr"adiktion (oder ein Modell) f"ur jeden Zeitpunkt t. \\ 
 7. Mithilfe dieser Pr"adiktion, die wir zu jedem Zeitpunkt t erhalten, regeln wir die Position der Masse. \\ 
 8. Wir vergleichen die beiden Vorangehensweisen.
 }
-\todo[inline]{Continue reading \cite{Nguyen_CP_2011}}
+\todo[inline]{Continue reading \cite{140505160108}}
 \printbibliography
 \input{post.tex}

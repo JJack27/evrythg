@@ -5,6 +5,8 @@ from sympy import Symbol
 from sympy import Derivative
 from sympy import Function
 from sympy import abc
+from sympy import Matrix
+from sympy import Eq
 
 # Cartesian unit vectors
 i = Symbol(r'\mathbf{i}') # unit vector along x-Axis
@@ -25,15 +27,21 @@ mi = Symbol(r'\operatorname{d} %s' %(m)) # infinitesimal masses
 W = Symbol(r'W') # gravity force
 Wi = Symbol(r'\operatorname{d} %s' %(W)) # infinitesimal gravity forces
 B = Symbol(r'B') # buoyant force
-C_W = Symbol(r'C_W') # center of gravity 
+C_W = Symbol(r'C_{W}') # center of gravity 
 C_B = Symbol(r'C_B') # center of buoyancy
 X = Symbol(r'X') # unknown force
 F = Symbol(r'F') # total force
 g = Symbol(r'g') # earth acceleration
 t = Symbol('t') # time
-s = Function(r's')(t) # state vector
-sdot = Derivative(s, t)
-sddot = Derivative(s, Symbol('t'),2)
+s = Function(r's')(t) # state vector; 
+r = Symbol('r') # position
+b = Symbol('b') # position in body coordinate system
+q = Symbol('q')(t) # quaternion
+P = Symbol('P')(t) # Linear momentum 
+L = Symbol('L')(t) # Angular momentum 
+e_140505171627 = Eq(s, Matrix([[C_W(t)], [q], [P], [L]])) # 140505171627
+sdot = Derivative(s, t) # 1st derivative
+sddot = Derivative(s, Symbol('t'),2) # 2nd derivative
 f = Function('\operatorname{f}')(s, sdot) # total force as a function
 h = Function('\operatorname{h}')(F) # change of state 
 ss = Symbol(r's^*') # state vector in equilibrium
@@ -46,7 +54,6 @@ VA = Symbol(r'A') # Vertex
 VB = Symbol(r'B') # Vertex 
 VC = Symbol(r'C') # Vertex 
 c = Symbol(r'\mathsf{c}', commutative=False) # some constant
-r = Symbol('r') # position
 ri = Symbol(r'\operatorname{d} %s' %(r)) # infinitesimal position element
 x = Symbol('x') # x-coordinate
 y = Symbol('y') # y-coordinate
@@ -56,4 +63,4 @@ p = Symbol('p') # a particle
 V_p = _idx(V, p) # volume of a particle
 r_p = _idx(r, p) # position of a particle
 rho_p = _idx(abc.rho, p) # density of a particle
-tau_B = Symbol(r'\tau_%s' %(B))
+tau_B = Symbol(r'\tau_%s' %(B)) # torque caused by buoyancy

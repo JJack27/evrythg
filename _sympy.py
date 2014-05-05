@@ -1,5 +1,6 @@
 from sympy import Symbol
 from sympy import abc
+# tex_magic.py
 from tex_magic import TeX1 
 
 

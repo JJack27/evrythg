@@ -1,8 +1,4 @@
-Physically Based Modeling
-Rigid Body Simulation
-David Baraff
-Pixar Animation Studios
-
+cf. 140505160511
 Please note: This document is ©2001 by David Baraff. This chapter may be freely
 duplicated and distributed so long as no consideration is received in return, and
 this copyright notice remains intact.
@@ -1073,46 +1069,8 @@ any given time, the auxiliary quantities I(t), ω(t) and v(t) are computed by
 v(t) =
 The derivative
 
-P(t)
-,
-M
-
-d
-dt X(t)
-
-I(t) = R(t)Ibody R(t) T
-
-and
-
-ω(t) = I(t)−1 L(t).
-
-(2–42)
-
-is
-
-
- 
-x(t)
-v(t)
- R(t)   ω(t)∗ R(t)
-d
-d
- =
-X(t) = 
-F(t)
-dt
-dt  P(t)  
-τ(t)
-L(t)
-
-
-
-.
-
-
 (2–43)
 
-d
 The next section gives an implementation for the function Dxdt() that computes dt X(t).
 One ﬁnal note: rather than represent the orientation of the body as a matrix R(t) in X(t), it is
 better to use quaternions. Section 4 discusses using quaternions in place of rotation matrices. Brieﬂy,
