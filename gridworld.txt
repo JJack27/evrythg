@@ -1,3 +1,51 @@
+TECHNISCHE UNIVERSITAT MUNCHEN
+Fakult¨t f¨r Elektrotechnik und Informationstechnik
+a u
+Lehrstuhl f¨r Datenverarbeitung
+u
+Prof. Dr.-Ing. K. Diepold
+
+Introduction to Reinforcement Learning
+Lab Course: Gridworld
+30.04.2014/07.05.2014
+
+Introduction
+In this practical we will implement a very simple Markov decision process (MDP), called gridworld.
+It is a discrete and deterministic environment, where the agent can select from a set of four actions
+(UP, DOWN, LEFT, RIGHT), that will take the agent to the adjacent ﬁeld.
+As a further feature, we will place blocked ﬁelds on the gridworld, so the agent cannot enter certain
+cells, which will therefore serve as walls. To prevent the agent from transitioning out of the gridworld,
+we always place a wall around it.
+As the gridworld is an episodic MDP, there are goal states and start states. Most of the times,
+we will only have one start state and one goal state, that the agent should reach, but ﬁrst we will
+implement a variant, where there are two goal states, and the agent uniformly starts in all states in
+every episode.
+
+Tasks
+• Write down a numpy array representation for a 4x4 maze with two goal states (as described
+in the textbook).
+• Use the matplotlib imshow capabilities to visualize the maze (Hint: interpolation=’nearest’
+does the trick in many cases).
+• Implement a state transition probability function P , which accepts a state, an action and a
+state transitioned into and returns the probability of taking this transition.
+• Implement a reward function R in the same way.
+• Implement a random policy π, that uniformly selects among the four actions.
+• Implement a function, that returns the start state distribution.
+• Sample the stationary distribution of the MDP. This means sample a lot of state transitions
+according to a policy and count how many times you encounter a speciﬁc state. Then divide by
+the total number of transitions. If you sampled enough, this should approximate the stationary
+distribution of the MDP.
+• (optional) Implement a diﬀerent policy and sample the stationary distribution for this policy.
+Compare to the original policy.
+
+1
+
+References
+[1] R. Sutton and A. Barto. Introduction to Reinforcement Learning. MIT Press. 1998.
+
+2
+
+=======
 ¨
 ¨
 TECHNISCHE UNIVERSITAT MUNCHEN
@@ -47,4 +95,3 @@ Compare to the original policy.
 
 2
 
-

@@ -2068,3 +2068,2073 @@ Academic year 2010-2011
 42
 
 
+=======
+Lecture: Continuous-time linear systems
+
+Automatic Control 1
+
+Continuous-time linear systems
+Prof. Alberto Bemporad
+University of Trento
+
+Academic year 2010-2011
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+1
+
+Lecture: Continuous-time linear systems
+
+Dynamical systems
+
+Dynamical models
+
+A dynamical system is an object (or a set of objects) that evolves over time,
+possibly under external excitations.
+Examples: a car, a robotic arm, a population of animals, an electrical circuit,
+a portfolio of investments, etc.
+The way the system evolves is called the dynamics of the system.
+A dynamical model of a system is a set of mathematical laws explaining in a
+compact form and in quantitative way how the system evolves over time,
+usually under the effect of external excitations.
+Main questions about a dynamical system:
+1
+2
+3
+
+Understanding the system (“How X and Y inﬂuence each other ?”)
+Simulation (“What happens if I apply action Z on the system ?”)
+Design (“How to make the system behave the way I want ?”)
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+2
+
+Lecture: Continuous-time linear systems
+
+Dynamical systems
+
+Dynamical models
+
+Qualitative models only useful in non-technical domains
+(examples: politics, advertisement, psychology,...)
+Experiments provide an answer, but have limitations:
+1
+2
+3
+
+maybe too expensive (example: launch a space shuttle)
+maybe too dangerous (example: a nuclear plant)
+maybe impossible (the system doesn’t exist yet!)
+
+In contrast, mathematical models allows us to:
+1
+
+2
+3
+
+capture the main phenomena that take place in the system
+(example: Newton’s law – a force on a mass produces an acceleration)
+analyze the system (relations among dynamical variables)
+simulate the system (=make predictions) about how the system behaves under
+certain conditions and excitations (in analytical form, or on a computer)
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+3
+
+Lecture: Continuous-time linear systems
+
+Dynamical systems
+
+Dynamical models
+Working on a model has almost zero cost compared to real experiments (just
+mathematical thinking, paper writing, computer coding)
+However, a simulation (or any other inference obtained from the model) is as
+better as the dynamical model is closer to the real system
+Conﬂicting objectives:
+1
+
+Descriptive enough to capture the main behavior of the system
+
+2
+
+Simple enough for analyzing the system
+
+“Make everything as simple as possible, but not simpler.”
+– Albert Einstein
+Albert Einstein
+(1879-1955)
+
+Making a good model is an art ! (that you are learning ...)
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+4
+
+Lecture: Continuous-time linear systems
+
+Differential equations
+
+Ordinary differential equations (ODEs)
+First order differential equation (=the simplest dynamical model):
+˙(t)
+x
+x(0)
+
+=
+=
+
+a∈ , ˙
+x
+x0 ∈
+
+ax(t)
+x0
+
+dx
+dt
+
+Its unique solution is x(t) = eat x0
+4.5
+4
+3.5
+
+a>0
+
+x(t)
+
+3
+2.5
+2
+1.5
+
+a=0
+
+1
+
+a<0
+
+0.5
+0
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+t
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+5
+
+Lecture: Continuous-time linear systems
+
+Differential equations
+
+Examples
+x(t) = velocity
+
+x(t) = voltage
+
+R
+x(t)
+C
+
+x(t)
+M
+!
+
+Kirchhoff’s voltage law:
+
+Newton’s law:
+
+−RC˙(t) − x(t) = 0
+x
+
+−βx(t) = M˙(t)
+x
+
+x(t) = x(0)e
+
+β
+
+t
+− RC
+
+Prof. Alberto Bemporad (University of Trento)
+
+x(t) = x(0)e− M t
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+6
+
+
+
+Differential equations
+
+First order differential equations with inputs
+
+Introduce the forcing signal $u(t)$
+The unique solution x(t) is
+
+natural response
+forced response
+
+effect of the initial condition
+effect of the input signal
+
+
+-7-
+
+Lecture: Continuous-time linear systems
+
+Differential equations
+
+Examples
+
+x(t) = velocity
+
+x(t) = voltage
+
+R
+
+x(t)
+x(t)
+
+u(t)
+
+C
+
+u(t)
+M
+!
+
+u(t) − RC˙(t) − x(t) = 0
+x
+
+−βx(t) + u(t) = M˙(t)
+x
+
+1
+˙(t) = − RC x(t) −
+x
+
+˙(t) = − M x(t) +
+x
+
+Prof. Alberto Bemporad (University of Trento)
+
+β
+
+1
+u(t)
+RC
+
+Automatic Control 1
+
+1
+M
+
+Academic year 2010-2011
+
+8
+
+Lecture: Continuous-time linear systems
+
+Linear systems
+
+Continuous-time linear systems
+System of n ﬁrst-order differential equations with inputs
+
+
+
+
+
+
+
+
+
+
+˙1 (t)
+x
+˙2 (t)
+x
+.
+.
+.
+˙n (t)
+x
+x1 (0) = x10 ,
+
+Setting x = [x1 . . . xn ] ∈
+linear system
+
+=
+=
+=
+...
+
+n
+
+a11 x1 (t) + . . . + a1n xn (t)
+a21 x1 (t) + . . . + a2n xn (t)
+.
+.
+.
+an1 x1 (t) + . . . + ann xn (t)
+xn (0) = xn0
+
++b1 u(t)
++b2 u(t)
+.
+.
+.
++bn u(t)
+
+, the equivalent matrix form is the so-called
+˙(t) = Ax(t) + Bu(t)
+x
+
+with initial condition
+x(0) = x0 = [x10 . . . xn0 ] ∈
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+n
+
+Academic year 2010-2011
+
+9
+
+Lecture: Continuous-time linear systems
+
+Linear systems
+
+Example: RLC circuit
+R
+
+L
+x"(t)
+
+u(t)
+
+u(t) − Rx1 (t) − L
+x1 (t) =
+
+dx2 (t)
+C dt
+
+dx1 (t)
+dt
+
+x!(t)
+C
+
+− x2 (t) = 0
+
+Kirchhoff’s voltage law
+Kirchhoff’s current law
+
+Rewrite as the 2nd order linear system
+dx1 (t)
+dt
+dx2 (t)
+dt
+
+or in matrix form
+
+
+˙(t) = 
+x
+
+= − R x1 (t) − 1 x2 (t) + 1 u(t)
+L
+L
+L
+1
+= C x1 (t)
+
+−R
+L
+
+−1
+L
+
+1
+C
+
+0
+
+
+
+ x(t) + 
+
+A
+Prof. Alberto Bemporad (University of Trento)
+
+
+
+Automatic Control 1
+
+1
+L
+
+0
+
+
+ u(t)
+
+B
+Academic year 2010-2011
+
+10
+
+Lecture: Continuous-time linear systems
+
+Linear systems
+
+Example: Mass-spring-damper system
+x!(t), x"(t)
+u(t)
+M
+!
+
+K
+
+˙1 (t) = x2 (t)
+x
+M˙2 (t) = u − βx2 (t) − Kx1 (t)
+x
+
+velocity = derivative of traveled distance
+Newton’s law
+
+Rewrite as the 2nd order linear system
+dx1 (t)
+dt
+dx2 (t)
+dt
+
+= x2 (t)
+β
+
+= − M x2 (t) −
+
+K
+1
+x (t) + M u(t)
+M 1
+
+or in matrix form
+
+˙(t) = 
+x
+
+0
+
+1
+
+K
+−M
+
+−M
+
+β
+
+
+
+ x(t) + 
+
+A
+Prof. Alberto Bemporad (University of Trento)
+
+
+
+Automatic Control 1
+
+0
+1
+M
+
+
+ u(t)
+
+B
+Academic year 2010-2011
+
+11
+
+Lecture: Continuous-time linear systems
+
+Linear algebra recalls
+
+Linear algebra recalls
+
+
+a11
+ a21
+A= .
+ .
+.
+an1
+1
+0
+= .
+.
+.
+0
+
+
+
+I
+
+a12
+a22
+.
+.
+.
+an2
+0
+1
+.
+.
+.
+0
+
+...
+...
+...
+...
+
+...
+...
+
+a1n
+a2n
+.
+.
+.
+ann
+
+...
+...
+
+
+
+
+
+
+0
+0
+. 
+. 
+.
+1
+
+square matrix of order n, A ∈
+
+n×n
+
+
+identity matrix of order n
+
+Characteristic equation of A:
+det(λI − A) = 0
+Characteristic polynomial of A:
+P(λ) = det(λI − A) = λn + an−1 λn−1 + . . . + a1 λ + a0
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+12
+
+Lecture: Continuous-time linear systems
+
+Linear algebra recalls
+
+The eigenvalues of A are the roots λ1 , . . . , λn of its characteristic polynomial
+
+An eigenvector of A is any vector such that for some i = 1, 2, . . . , n.
+Diagonalization of A:
+_v('140504214018')
+(not all matrices A are diagonalizable, see Jordan normal form)
+
+
+-13- 
+
+Lecture: Continuous-time linear systems
+
+Linear algebra recalls
+
+Linear algebra recall
+Example:
+Eigenvalues: λ1 =
+
+Complex numbers recall:
+Imaginary unit: 
+Cartesian form: $c = a + jb$, $c \in \mathbb{C}$ , a, b ∈
+Real part of c: $\mathcal{R} c = a$
+Imaginary part of c: Im c = b
+Conjugate of c: ¯ = a − jb
+Polar form: c = ρejθ , ρ ≥ 0, θ ∈
+Modulus or magnitude: [ ... ]$\rho$
+Angle or phase: ∠c = θ
+Complex exponential: $\exp(c) = ... $
+('140504222729')
+[ $| \exp(j b) = 1$ ]
+-14- 
+
+Lecture: Continuous-time linear systems
+
+Linear algebra recalls
+
+Lagrange’s formula
+For the continuous-time linear system ˙ = Ax + Bu with initial condition
+x
+x(0) = x0 ∈ n , there exists a unique solution x(t)
+t
+
+x(t) =
+
+eAt x0
+
++
+
+natural response
+
+eA(t−τ) Bu(τ)dτ
+0
+
+forced response
+
+The exponential matrix is deﬁned as
+MATLAB
+E = expm(A*t)
+If A is diagonalizable [...]
+-15-
+
+Lecture: Continuous-time linear systems
+
+Linear algebra recalls
+
+Eigenvalues and modes
+Let u(t) ≡ 0 and assume A diagonalizable
+The state trajectory is the natural response
+_v('140504233114')
+where $v_i$ =eigenvector of A, $\lambda_i$ eigenvalue of A, $\alpha = $
+The evolution of the system depends on the eigenvalues λi of A, called modes of the system (sometimes we also refer to eλi t as the i-th mode)
+A mode λi is called excited if αi = 0
+-16-
+
+
+Linear ordinary differential equations
+
+Differential equations of order n
+By setting x1 (t) y(t), x2 (t) ˙(t), . . . , xn (t) yn−1 (t), this is equivalent to the system of n ﬁrst-order equations
+Example:
+17
+
+Lecture: Continuous-time linear systems
+
+Linear ordinary differential equations
+
+nth -order linear ODE with input
+One can verify by inspection that the given nth -order ODE is equivalent to the following 1st -order linear system of ODEs:
+
+The operation of transforming a nth -order ODE into a linear system of 1st -order ODEs is called state-space realization. There are inﬁnitely many realizations.
+_v('140504215652')
+cf. 140504220319   
+-18-
+
+Lecture: Continuous-time linear systems
+
+Linear ordinary differential equations
+
+Examples of state-space realizations
+Example 1
+from sympy import Matrix
+from sympy import Symbol
+A = Matrix([[0, -1],[2, -3]])
+lambda_1 = -1
+v_1 = Matrix([[1],[1]])
+A * v_1 - lambda_1 * v_1
+lambda_2 = -2
+v_2 = Matrix([[1], [2]])
+A * v_2 - lambda_2 * v_2
+T = v_1.row_join(v_2)
+[ ... ]
+cf. 140504233114
+
+Lecture: Continuous-time linear systems
+
+Linear ordinary differential equations
+
+Alternative state-space realization method
+In the following special case (=no input derivatives)
+dy(n) (t)
+dtn
+
++ an−1
+
+dy(n−1) (t)
+dtn−1
+
++ · · · + a1 ˙(t) + a0 y(t) = b0 u(t)
+y
+
+we can deﬁne the following states
+x1
+x2
+.
+.
+.
+
+=
+=
+=
+
+y
+˙
+y
+.
+.
+.
+
+xn
+
+=
+
+dn−1 y
+dtn−1
+
+→
+→
+
+˙1 = x2
+x
+˙2 = x3
+x
+
+→
+
+˙n =
+x
+
+dn y
+dtn
+
+= −an−1
+
+dy(n−1) (t)
+dtn−1
+
+− · · · − a1 ˙(t) − a0 y(t) + b0 u(t)
+y
+
+and therefore set
+
+
+0
+
+ 0
+
+A= .
+.
+ .
+
+1
+0
+
+.
+.
+.
+
+0
+1
+
+...
+...
+
+0
+0
+
+..
+
+.
+.
+.
+
+.
+
+0
+0
+0 ...
+1
+−a0 −a1 −a2 ... −an−1
+
+
+
+
+
+0
+
+
+
+
+0
+
+.
+, B =  . 
+
+.
+0
+b0
+
+C = [ 1 0 0 ... 0 ] , D = 0
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+20
+
+Lecture: Continuous-time linear systems
+
+Linear ordinary differential equations
+
+Other state-space realization methods
+The following state-space realization is called controllable canonical form
+_v('140504220319')
+
+
+0
+
+ 0
+
+A= .
+.
+ .
+
+1
+0
+
+0
+1
+
+...
+...
+
+.
+.
+.
+
+..
+
+0
+0
+
+.
+. .
+.
+
+0
+0
+0 ...
+1
+−a0 −a1 −a2 ... −an−1
+
+C = [ b0
+
+b1 ... bn−1 ] ,
+
+
+
+0
+
+0
+
+, B =  . 
+.
+.
+
+0
+1
+
+D=0
+
+The following state-space realization is called observable canonical form 2
+
+
+
+bn−1
+n−1 1 0 0 ... 0
+ bn−2 
+ −an−2 0 1 ... 0 0 
+
+
+
+
+A =  . . .. . . .  , B =  . 
+. .
+. . .
+ . 
+. 
+ . . . . . .
+
+ −a
+
+−a1
+−a0
+
+C = [ 1 0 0 ...
+
+1
+2
+
+0 0 ... 0 1
+0 0 ... 0 0
+0 0],
+
+b1
+b0
+
+D=0
+
+We will see later in the course that the pair (A, B) is completely reachable.
+We will see later in the course that the pair (A, B) is completely observable.
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+21
+
+Lecture: Continuous-time linear systems
+
+Linear systems
+
+State vector
+Generally speaking, the state of a dynamical system is a set of variables that
+completely summarizes the past history of the system, and allows us to
+predict its future motion
+For the linear system
+˙(t)
+x
+y(t)
+
+=
+=
+
+Ax(t) + Bu(t)
+Cx(t) + Du(t)
+
+given the initial state x(0) and the input signal u(t), ∀t ∈ [0, T], we already know how to compute the state x(t) and the output y(t) of the system,
+If we know the initial state x(0), we can neglect the past history
+The dimension n of the state $x(t)$ $n$ is called the order of the system
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+22
+
+Lecture: Continuous-time linear systems
+
+Linear systems
+
+Some classes of dynamical systems
+Causality: a dynamical system is causal if y(t) does not depend on future
+inputs u(τ) ∀τ > t (strictly causal if ∀τ ≥ t)
+A linear system is always causal, and strictly causal iff D = 0
+Linear time-varying (LTV) systems:
+˙(t)
+x
+y(t)
+
+=
+=
+
+A(t)x(t) + B(t)u(t)
+C(t)x(t) + D(t)u(t)
+
+When A, B, C, D are constant, the system is said linear time-invariant (LTI)
+Multivariable systems: more generally, a system can have m inputs
+(u(t) ∈ m ) and p outputs (y(t) ∈ p ). For linear systems, we still have
+˙(t)
+x
+y(t)
+
+=
+=
+
+Ax(t) + Bu(t)
+Cx(t) + Du(t)
+
+with
+A∈
+Prof. Alberto Bemporad (University of Trento)
+
+n×n
+
+, B∈
+
+n×m
+
+, C∈
+
+Automatic Control 1
+
+p×n
+
+, D∈
+
+p×m
+
+Academic year 2010-2011
+
+23
+
+Lecture: Continuous-time linear systems
+
+Linear systems
+
+Some classes of dynamical systems
+
+Nonlinear systems
+˙(t)
+x
+y(t)
+where f :
+functions
+
+n+m
+
+→
+
+n
+
+,g:
+
+n+m
+
+→
+
+=
+=
+p
+
+f (x(t), u(t))
+g(x(t), u(t))
+are (rather arbitrary) nonlinear
+
+Time-varying nonlinear systems are very general classes of dynamical systems
+˙(t)
+x
+y(t)
+
+Prof. Alberto Bemporad (University of Trento)
+
+=
+=
+
+f (t, x(t), u(t))
+g(t, x(t), u(t))
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+24
+
+Lecture: Continuous-time linear systems
+
+Stability
+
+Equilibrium
+Consider the continuous-time nonlinear system
+˙(t)
+x
+y(t)
+
+=
+=
+
+f (x(t), u(t))
+g(x(t), u(t))
+
+Definition
+A state $x_r$ ∈ n and an input $u_r$ m are an equilibrium pair if for initial condition x(0) = xr and constant input u(t) ≡ ur the state remains constant: x(t) ≡ xr , ∀t ≥ 0
+
+Equivalent deﬁnition: (xr , ur ) is an equilibrium pair if f (xr , ur ) = 0
+
+$x_r$ is called equilibrium state, $u_r$ equilibrium input
+The deﬁnition generalizes to time-varying nonlinear systems
+25
+
+Lecture: Continuous-time linear systems
+
+Stability
+
+Stability
+Consider the nonlinear system
+[ ... ]
+and let xr an equilibrium state, f (xr , ur ) = 0
+Definition
+The equilibrium state xr is stable if for each initial conditions x(0) “close
+enough” to xr , the corresponding trajectory x(t) remains near xr for all t ≥ 0 a
+
+Analytic deﬁnition: ∀ε > 0 ∃δ > 0 : x(0) − xr < δ ⇒ x(t) − xr < ε, ∀t ≥ 0
+
+The equilibrium point xr is called asymptotically stable if it is stable and
+x(t) → xr for t → ∞
+Otherwise, the equilibrium point xr is called unstable
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+26
+
+Lecture: Continuous-time linear systems
+
+Stability
+
+Stability of equilibria - Examples
+asymptotically stable equilibrium
+stable equilibrium
+asymptotically stable 
+unstable if a < 0
+28
+
+Lecture: Continuous-time linear systems
+
+Stability of continuous-time linear systems
+
+Stability of continuous-time linear systems
+Since the natural response of ˙ = Ax + Bu is x(t) = eAt x0 , the stability properties
+x
+depend only on A. We can therefore talk about system stability of a linear system
+(A, B, C, D)
+Theorem:
+Let λ1 , . . ., λm , m ≤ n be the eigenvalues of A ∈
+[ $A \in \mathbb{R}^{n \times n}$ ]
+. The system ˙ = Ax + Bu is
+x
+
+asymptotically stable iff ℜλi < 0, ∀i = 1, . . . , m
+(marginally) stable if ℜλi ≤ 0, ∀i = 1, . . . , m, and the eigenvalues with null real part have equal algebraic and geometric multiplicity
+unstable if ∃ i such that ℜλi > 0
+Algebraic multiplicity of λi = number of coincident roots λi of det(λI − A). 
+Geometric multiplicity of λi = number of linearly independent eigenvectors vi , Avi = λi vi
+
+The stability properties of a linear system only depend on the real part of the eigenvalues of matrix A
+-29-
+
+Lecture: Continuous-time linear systems
+
+Stability of continuous-time linear systems
+
+Stability of continuous-time linear systems
+Proof:
+The natural response is x(t) = eAt x0 (eAt
+If matrix A is diagonalizable , A = TΛT
+
+Take any eigenvalue λ = a + jb:
+|eλt | = eat |ejbt | = eat
+
+A is always diagonalizable if algebraic multiplicity = geometric multiplicity
+
+3
+If A is not diagonalizable, it can be transformed to Jordan form. In this case the natural
+response x(t) contains modes tj eλt , j = 0, 1, . . . , alg. multiplicity - geom. multiplicity
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+cf. 140504222729 
+-30-
+
+Lecture: Continuous-time linear systems
+
+Stability of continuous-time linear systems
+
+Example 1
+
+
+0
+2
+
+ ˙(t) =
+x
+x(0) =
+
+=
+=
+
+x(t)
+
+⇒ eigenvalues of A: {−1, −2}
+
+x10
+x20
+
+x1 (t)
+x2 (t)
+
+
+
+−1
+−3
+
+solution:
+
+0.5
+
+0.5
+
+x (t)
+
+1
+
+asymptotically stable
+
+2
+
+x (t)
+1
+
+1
+
+x10 (2e−t − e−2t ) + x20 (−e−t + e−2t )
+x10 (2e−t − 2e−2t ) + x20 (−e−t + 2e−2t )
+
+0
+
+−0.5
+
+0
+
+0
+
+2
+
+4
+
+6
+
+8
+
+−0.5
+
+t
+Prof. Alberto Bemporad (University of Trento)
+
+0
+
+2
+
+4
+
+6
+
+8
+
+t
+Automatic Control 1
+
+Academic year 2010-2011
+
+31
+
+Lecture: Continuous-time linear systems
+
+Stability of continuous-time linear systems
+
+Example 2
+
+
+solution:
+
+x1 (t)
+x2 (t)
+
+⇒ eigenvalues of A: {+j, −j}
+
+1
+
+x10 cos t − x20 sin t
+x10 sin t + x20 cos t
+
+1
+
+0.5
+
+=
+=
+
+1.5
+
+0.5
+
+x2(t)
+
+1.5
+
+x1(t)
+
+x(t)
+
+x10
+x20
+
+x(0) =
+
+
+
+−1
+0
+
+0
+1
+
+ ˙(t) =
+x
+
+0
+
+marginally stable
+
+0
+
+−0.5
+
+−0.5
+
+−1
+
+−1
+
+−1.5
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+−1.5
+
+t
+Prof. Alberto Bemporad (University of Trento)
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+t
+Automatic Control 1
+
+Academic year 2010-2011
+
+32
+
+Lecture: Continuous-time linear systems
+
+Stability of continuous-time linear systems
+
+Example 3
+
+
+0
+0
+
+ ˙(t) =
+x
+x(0) =
+
+
+solution:
+
+x1 (t)
+x2 (t)
+
+=
+=
+
+1
+0
+
+x(t)
+
+⇒ eigenvalues of A: {0, 0}
+
+x10
+x20
+
+x10 + x20 t
+x20
+
+12
+
+2
+
+10
+
+Note: A is not diagonalizable !
+
+1.5
+
+8
+1
+6
+
+x2(t)
+
+4
+
+1
+
+x (t)
+
+0.5
+
+2
+
+unstable
+
+0
+
+−0.5
+0
+−1
+−2
+−1.5
+
+−4
+
+−6
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+−2
+
+0
+
+t
+Prof. Alberto Bemporad (University of Trento)
+
+2
+
+4
+
+6
+
+8
+
+10
+
+t
+Automatic Control 1
+
+Academic year 2010-2011
+
+33
+
+Lecture: Continuous-time linear systems
+
+Stability of continuous-time linear systems
+
+Example 4
+
+
+1
+1
+
+ ˙(t) =
+x
+
+solution:
+
+x1 (t)
+x2 (t)
+
+⇒ eigenvalues of A: {−1, 1}
+
+6
+
+4
+
+4
+
+2
+
+x10 et
+1
+1
+x et + (x20 − 2 x10 )e−t
+2 10
+
+8
+
+6
+
+=
+=
+
+10
+
+8
+
+2
+
+x2(t)
+
+10
+
+x1(t)
+
+x(t)
+
+x10
+x20
+
+x(0) =
+
+
+
+0
+−1
+
+0
+
+unstable
+
+0
+
+−2
+
+−2
+
+−4
+
+−4
+
+−6
+
+−6
+
+−8
+
+−10
+
+−8
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+−10
+
+0
+
+t
+Prof. Alberto Bemporad (University of Trento)
+
+2
+
+4
+
+6
+
+8
+
+10
+
+t
+Automatic Control 1
+
+Academic year 2010-2011
+
+34
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+Linearization of nonlinear systems
+Consider the nonlinear system
+˙(t)
+x
+y(t)
+
+=
+=
+
+f (x(t), u(t))
+g(x(t), u(t))
+
+Let (xr , ur ) be an equilibrium, f (xr , ur ) = 0
+Objective: investigate the dynamic behaviour of the system for small
+perturbations ∆u(t) u(t) − ur and ∆x(0) x(0) − xr .
+The evolution of ∆x(t)
+
+x(t) − xr is given by
+
+˙
+∆x(t) = ˙(t) − ˙r = f (x(t), u(t))
+x
+x
+= f (∆x(t) + xr , ∆u(t) + ur )
+∂f
+∂f
+≈
+(xr , ur ) ∆x(t) +
+(xr , ur ) ∆u(t)
+∂x
+∂u
+A
+
+Prof. Alberto Bemporad (University of Trento)
+
+B
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+35
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+Linearization of nonlinear systems
+
+Similarly
+∆y(t) ≈
+
+∂g
+∂x
+
+(xr , ur ) ∆x(t) +
+C
+
+where ∆y(t)
+equilibrium
+
+∂g
+∂u
+
+(xr , ur ) ∆u(t)
+D
+
+y(t) − g(xr , ur ) is the perturbation of the output from its
+
+The perturbations ∆x(t), ∆y(t), and ∆u(t) are (approximately) ruled by the
+linearized system
+˙
+∆x(t) = A∆x(t) + B∆u(t)
+∆y(t) = C∆x(t) + D∆u(t)
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+36
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+Lyapunov’s indirect method
+Consider the nonlinear system ˙ = f (x), with f differentiable, and assume
+x
+x = 0 is equilibrium point (f (0) = 0)
+Consider the linearized system ˙ = Ax, with A =
+x
+
+∂f
+∂ x x=0
+
+If ˙ = Ax is asymptotically stable, then the origin x = 0 is also an
+x
+asymptotically stable equilibrium for the nonlinear system (locally)
+If ˙ = Ax is unstable, then the origin x = 0 is an unstable equilibrium for the
+x
+nonlinear system
+If A is marginally stable, nothing can be said about the stability of the origin
+x = 0 for the nonlinear system
+
+Aleksandr Mikhailovich Lyapunov
+(1857-1918)
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+37
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+Example: Pendulum
+y(t) = angular displacement
+˙(t) = angular velocity
+y
+¨(t) = angular acceleration
+y
+u(t) = mg gravity force
+h˙(t) = viscous friction torque
+y
+l = pendulum length
+ml2 = pendulum rotational inertia
+
+l
+y(t)
+h
+m
+u(t) = mg
+
+mathematical model
+ml2 ¨(t) = −lmg sin y(t) − h˙(t)
+y
+y
+in state-space form (x1 = y, x2 = ˙)
+y
+˙1
+x
+˙2
+x
+
+Prof. Alberto Bemporad (University of Trento)
+
+=
+=
+
+x2
+g
+− l sin x1 − Hx2 ,
+
+Automatic Control 1
+
+H
+
+h
+ml2
+
+Academic year 2010-2011
+
+38
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+Example: Pendulum
+Look for equilibrium states:
+x2r
+g
+− l sin x1r − Hx2r
+
+=
+
+0
+0
+
+⇒
+
+x2r = 0
+x1r = ±kπ, k = 0, 1, . . .
+u(t) = mg
+h
+m
+
+l
+l
+h
+m
+u(t) = mg
+
+x2r = 0, x1r = 0, ±2π, . . .
+
+Prof. Alberto Bemporad (University of Trento)
+
+x2r = 0, x1r = 0, ±π, ±3π, . . .
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+39
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+Example: Pendulum
+Linearize the system around x1r = 0, x2r = 0
+0
+g
+−l
+
+∆˙(t) =
+x
+
+1
+−H
+
+∆x(t)
+
+A
+
+ﬁnd the eigenvalues of A
+det(λI − A) = λ2 + Hλ +
+
+g
+l
+
+= 0 ⇒ λ1,2 =
+
+1
+
+H2 − 4
+
+−H ±
+
+2
+
+g
+l
+
+1.5
+
+ℜλ1,2 < 0 ⇒ ˙ = Ax
+x
+asymptotically stable
+
+1
+
+by Lyapunov’s indirect method
+xr = 0 is also an asymptotically
+0
+stable equilibrium for the
+pendulum
+
+y(t)
+
+0.5
+0
+−0.5
+−1
+−1.5
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+t
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+40
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+Example: Pendulum
+Linearize the system around x1r = π, x2r = 0
+∆˙(t) =
+x
+
+0
+g
+l
+
+1
+−H
+
+∆x(t)
+
+A
+
+ﬁnd the eigenvalues of A
+det(λI − A) = λ2 + Hλ −
+
+g
+l
+
+= 0 ⇒ λ1,2 =
+
+1
+2
+
+H2 + 4
+
+−H ±
+
+g
+l
+
+4
+3
+2
+
+λ1 < 0, λ2 > 0 ⇒ ˙ = Ax unstable
+x
+y(t)
+
+by Lyapunov’s indirect method
+xr = 0 is also an unstable
+0
+equilibrium for the pendulum
+
+1
+0
+−1
+−2
+−3
+−4
+0
+
+2
+
+4
+
+6
+
+8
+
+10
+
+t
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+41
+
+Lecture: Continuous-time linear systems
+
+Linearization
+
+English-Italian Vocabulary
+
+dynamics
+natural response
+eigenvalue
+eigenvector
+modulus or magnitude
+angle or phase
+nonlinear systems
+controllable canonical form
+observable canonical form
+
+dinamica
+risposta libera
+autovalore
+autovettore
+modulo
+fase
+sistemi non lineari
+forma canonica di raggiungibilità
+forma canonica di osservabilità
+
+Translation is obvious otherwise.
+
+Prof. Alberto Bemporad (University of Trento)
+
+Automatic Control 1
+
+Academic year 2010-2011
+
+42
+
