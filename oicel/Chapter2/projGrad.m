@@ -12,7 +12,7 @@ switch method
         sigma = 0.2;
 end
 
-
+val = zeros(N, 1);
 s   = 100;
 fnorm2 = @(X) X(:)' * X(:);
 for a = 1:N
@@ -22,7 +22,7 @@ for a = 1:N
         case 'open_loop'
             s = 1/a;
         case 'armijo'
-            b = -5; % allow larger step sizes !
+            b = 0; 
             s = 2 * s;
             c = @(b) sigma * fnorm2(proj(xOld + s * beta^b * grad(xOld)) - xOld) / (s * beta^b);
             while true
@@ -32,21 +32,12 @@ for a = 1:N
                 b = b+1;
             end
             s = s * beta^b;
-            %{
-            % plausibility check:
-            [fun(proj(xOld + s * beta^(b-1) * grad(xOld))),
-            fun(proj(xOld + fminunc(@(s)- fun(proj(xOld + s * ...
-            grad(xOld))),...
-            1, options) * grad(xOld))),
-            fun(proj(xOld + s * beta^(b) * grad(xOld))),
-            fun(proj(xOld + s * beta^(b+1) * grad(xOld)))]
-            %}
         otherwise
             s = 1;
     end
     x = proj(x + s * grad(xOld));
     gApprox = (x - xOld)/s;
     if fnorm2(gApprox) < zeta; break; end
+    val(a) = fun(x);
 end
-val = fun(x);
 end

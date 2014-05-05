@@ -180,172 +180,20 @@ SS 2014
 3
 
 The ML estimator hˆ ML is given as the solution of
-
-
-N
-
-
-
-
-N
-1
-
-(i) T −1 (i)
-(i) 
-(i)
-(2πC))
-(x
-−
-S
-h)
-C
-(x
-−
-S
-h)
-hˆ ML = argmax 
-−
-log(det
-−
-
-
-
- 2
-
-2 i=1
-h∈R2
-
- N
-
-
-
-
-
-(i) T −1 (i)
-(i) 
-(i)
-(x
-−
-S
-h)
-C
-(x
-−
-S
-h)
-.
-= argmin 
-
-
-
-
-
-h∈R2
-i=1
 
 This again is an unconstrained convex OP as the objective function is a sum of convex functions
-and therefore convex as well. Thus, the condition
- N
-
-N
-
-∂ 
-∂
-(i) T −1 (i)
-(i) 
-(i)
-(x(i) − S(i) h)T C−1 (x(i) − S(i) h)
- (x − S h) C (x − S h) =
-∂h i=1
-∂h
-i=1
-N
-!
-
-−2S(i),T C−1 (x(i) − S(i) h) = 0
-
-=
-i=1
-
+and therefore convex as well. Thus, the condition [ ... ]
 is necessary and sufficient for global optimality and we determine hˆ ML as
-N
 
-N
-(i),T
+('140503084231')
+Remark: Without taking into account that the OP is convex, the second derivative given as [ ... ] as the sum of positive definite matrices is again positive definite, is necessary in order to assure that the stationary point actually is a minimizer.
 
-S
 
-C x =
 
-i=1
+c) If only one observation is taken into account, the estimator is given as [ ... ] which actually is the ML estimator if only one observation is available, cf. sub-problem a). 
 
-⇒ hˆ ML =
-
-−1 (i)
-
-S(i),T C−1 S(i) hˆ ML
-
-i=1
-N
-(i) (i)
-i=1 s x
-.
-N
-(i),2
-i=1 s
-
-Remark: Without taking into account that the OP is convex, the second derivative given as
- N
-
-N
-
-∂2 
-(i) T −1 (i)
-(i) 
-(i)
-
-(x
-−
-S
-h)
-C
-(x
-−
-S
-h)
-=
-2S(i),T C−1 S(i) 0,
-
-
-
-∂2 h  i=1
-i=1
-as the sum of positive definite matrices is again positive definite, is necessary in order to assure that
-the stationary point actually is a minimizer.
-c) If only one observation is taken into account, the estimator is given as
-(1)
-ˆ (1) ) = x ,
-h(x
-s(1)
-
-which actually is the ML estimator if only one observation is available, cf. sub-problem a). The
+The
 ˆ (1) ) is unbiased as
-estimator h(x
-E
-
-1
-hs(1)
-x (1)
-(1)
-=
-E
-x
-=
-= h.
-s(1)
-s(1)
-s(1)
-
 ˆ (1) ) is not consistent as
 The estimator h(x
 lim
@@ -541,51 +389,10 @@ N
 (x(i) − S(i) h)(x(i) − S(i) h)T .
 i=1
 
-Note that the [ trace ] tr {·} operator is linear and that aT Ba = tr aT Ba = tr BaaT . As log det
-log det
+('140503090533')
+Note that the [ trace ] tr {·} operator is linear and [ invariant against cyclic rotations ]
 
-1
-2π
-
-K
-2π
-
-=
-
-+ log det (K) we have
-(x(1) , . . . , x(N) ; K) = −N log(2π) +
-
-N
-N
-log det (K) − tr KC .
-2
-2
-
-ˆ ML is given as the solution of
-The ML estimator K
-ˆ ML = argmax −N log(2π) + N log det (K) − N tr KC
-K
-2
-2
-K 0
-= argmin − log det (K) + tr KC .
-K 0
-
-The objective function is the sum of − log det(K), which is a convex function in K 0, and tr KC ,
-which is a linear function of K, and therefore convex. The constraint set is the convex cone of
-ˆ ML is convex. In order to solve this OP,
-positive definite matrices. Thus, the OP which determines K
-we search for a stationary point of the objective function
-∂
-− log(det (K)) + tr KC
-∂K
-
-=−
-
-1
-!
-det (K) (K −1 )T + C T = 0
-det (K)
+The objective function is the sum of − log det(K), which is a convex function in K 0, and tr KC , which is a linear function of K, and therefore convex. The constraint set is the convex cone of ˆ ML is convex. In order to solve this OP, positive definite matrices. Thus, the OP which determines K we search for a stationary point of the objective function
 
 and observe that only one stationary point
 K ∗ = C −1
@@ -841,16 +648,7 @@ T −1
 = −2S C x + 2S C Sh
 = −2ST C−1 (x − Sh),
 by using
-∂hT Ah
-= 2Ah
-∂h
-with A = ST C−1 S = AT and
-∂aT h ∂hT a
-=
-=a
-∂h
-∂h
-with a = ST C−1 x.
+_v('140503201539')
 
 Exercise: Try to compute above result by finding applying an appropriate chain rule.
 cf. 140427130751 140427130632

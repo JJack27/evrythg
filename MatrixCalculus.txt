@@ -290,66 +290,17 @@ q.e.d.
 
 Matrix Diﬀerentiation
 
-In the following discussion I will diﬀerentiate matrix quantities with respect to the elements
-of the referenced matrices. Although no new concept is required to carry out such operations,
-the element-by-element calculations involve cumbersome manipulations and, thus, it is useful
-to derive the necessary results and have them readily available 2 .
+In the following discussion I will diﬀerentiate matrix quantities with respect to the elements of the referenced matrices. Although no new concept is required to carry out such operations, the element-by-element calculations involve cumbersome manipulations and, thus, it is useful to derive the necessary results and have them readily available 2 .
+
 Convention 3
-Let
-y = ψ(x),
-where y is an m-element vector, and x is an n-element
- ∂y
-∂y1
-1
-···
-∂x1
-∂x
- ∂y2 ∂y2
-2
-∂y  ∂x1 ∂x2 · · ·
-= .
-.
-.
-∂x  .
-.
- .
-∂ym
-∂x1
-
-∂ym
-∂x2
-
-···
-
-(23)
-vector. The symbol
-
-∂y
-1
-
-∂xn
-∂y2
-∂xn
-
-.
-.
-.
-
-∂ym
-∂xn
-
-
-
-
-
-
+Let y = ψ(x), where y is an m-element vector, and x is an n-element
 
 (24)
 
 will denote the m × n matrix of ﬁrst-order partial derivatives of the transformation from x
 to y. Such a matrix is called the Jacobian matrix of the transformation ψ().
 
-140427130632
+('140427130632')
 Notice that if x is actually a scalar in Convention 3 then the resulting Jacobian matrix is a m × 1 matrix; that is, a single column (a vector). On the other hand, if y is actually a scalar in Convention 3 then the resulting Jacobian matrix is a 1 × n matrix; that is, a single row (the transpose of a vector).  
 [ Note that the commonly used definition of the gradient is the transpose of the Jacobian defined here ]
 
@@ -552,16 +503,11 @@ for all k = 1, 2, . . . , n, and consequently,
 
 q.e.d.
 
-6
-
-CE 8361
-
-Spring 2006
 
 Proposition 9
+140426153116
+-7-
 
-
-_7_ 140426153116
 For the special case where A is a symmetric matrix and
 \alpha = x^T A x (48)
 where x is n × 1, A is n × n, and A does not depend on x, then
@@ -707,82 +653,24 @@ Substituting back in for w we arrive at
 ∂z
 
 (62)
-
-_8_ 140427130751
+140427130751
+ 
 Proposition 13 Let the scalar α be deﬁned by the quadratic form α = xT Ax (63) where x is n × 1, A is n × n, and x is a function of the vector z, while A does not depend on z.
 
 Then
-∂α
-∂x
-= xT A + AT
-(64)
-∂z
-∂z
 Proof: This is an obvious application of Proposition 12. q.e.d.
 Proposition 14 For the special case where A is a symmetric matrix and
 α = xT Ax
 
 (65)
-
-where x is n × 1, A is n × n, and x is a function of the vector z, while A does not depend
-on z. Then
-∂x
-∂α
-= 2xT A
 (66)
-∂z
-∂z
-Proof: This is an obvious application of Proposition 13. q.e.d.
 Deﬁnition 5 Let A be a m×n matrix whose elements are functions of the scalar parameter
 α. Then the derivative of the matrix A with respect to the scalar parameter α is the m × n
 matrix of element-by-element derivatives:
- ∂a
-
-∂a12
-11
-· · · ∂a1n
-∂α
-∂α
-∂α
- ∂a21 ∂a22
-
-· · · ∂a2n 
-∂A  ∂α
-∂α
-∂α 
- .
-(67)
-=
-.
-. 
-.
-. 
-∂α  .
-.
-.
- .
-∂am1
-∂α
-
-∂am2
-∂α
-
-···
-
-∂amn
-∂α
 
 Proposition 15 Let A be a nonsingular, m × m matrix whose elements are functions of
 the scalar parameter α. Then
-∂A −1
-∂A−1
-= −A−1
-A
-(68)
-∂α
-∂α
-8
-
+-8-
 CE 8361
 
 Spring 2006

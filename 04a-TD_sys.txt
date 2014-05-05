@@ -1129,33 +1129,24 @@ k
 Academic year 2010-2011
 
 
-_17_ 140426200329
 Stability of discrete-time linear systems
-[ the modulus means the absolute value / magnitude of a complex number ]
+('140426200329')
 
-Since the natural response of x(k + 1) = Ax(k) + Bu(k) is x(k) = Ak x0 , the stability
-properties depend only on A. We can therefore talk about system stability of a
-discrete-time linear system (A, B, C, D)
+Since the natural response of x(k + 1) = Ax(k) + Bu(k) is x(k) = Ak x0 , the stability properties depend only on A. We can therefore talk about system stability of a discrete-time linear system (A, B, C, D)
+
 Theorem:
-Let λ1 , . . ., λm , m ≤ n be the eigenvalues of A ∈
-x(k + 1) = Ax(k) + Bu(k) is
-
-n×n
-
-. The system
-
+Let λ1 , . . ., λm , m ≤ n be the eigenvalues of A the system  x(k + 1) = Ax(k) + Bu(k) is 
 asymptotically stable iff |λi | < 1, ∀i = 1, . . . , m
 (marginally) stable if |λi | ≤ 1, ∀i = 1, . . . , m, and the eigenvalues with unit
 modulus have equal algebraic and geometric multiplicity a
 unstable if ∃ i such that |λi | > 1
-a
-Algebraic multiplicity of λi = number of coincident roots λi of det(λI − A). Geometric
-multiplicity of λi = number of linearly independent eigenvectors vi , Avi = λi vi
 
-The stability properties of a discrete-time linear system only depend on the modulus of the eigenvalues of matrix A
-Prof. Alberto Bemporad (University of Trento)
+Algebraic multiplicity of λi = number of coincident roots λi of det(λI − A). Geometric multiplicity of λi = number of linearly independent eigenvectors vi, Avi = λi vi
 
-Automatic Control 1
+The stability properties of a discrete-time linear system only depend on the modulus of the eigenvalues of matrix A  
+[ the modulus means the absolute value / magnitude of a complex number ]
+
+-18- 
 
 Academic year 2010-2011
 

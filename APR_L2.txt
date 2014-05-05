@@ -55,29 +55,64 @@ Parameter Estimation
 
 5
 
-[ Least Squares Estimation ]
-[ Loss function in ]
+Regression Models
+
+observed variable $y(i)$
+regressors $\phi^T$
+model parameters $\theta^0$
+index (time) $i$
+experimental data
+
+-6-
+
+Loss Function for Least Squares Estimation
+Objective: Choose parameter set θ such, that the sum of squares
+of the diﬀerences between measured (y) and estimated (ϕT θ)
+outputs is minimized.
+Loss function
+V (θ, t) =
+
+1
+2
+
+t
+
+(y(i) − ϕT θ)2
+i=1
+
+Linear in unknown parameters θ0
+Quadratic cost function
+⇒ Analytic solution
+
+Parameter Estimation
+
+7
+
+Residuals of the Least Squares Estimation
+residuals:
+
+ε(i) = y(i) − y (i) = y(i) − ϕT (i)θ
+ˆ
+
 matrix notation:
+[ ... ]
+_v('140503201135')
+Parameter Estimation
 
+8
 
+Theorem for Least Squares Estimation
+ˆ
+E = Y − Y = Y − Φθ
 ˆ
 V (θ, t) is minimal for the following choice of parameters θ:
 ˆ
 ΦT Φθ = ΦT Y
 If the matrix ΦT Φ is nonsingular (invertible), the minimum is
 unique and is given by
-ˆ
-θ = (ΦT Φ)−1 ΦT y = P ΦT Y
 with
-t
-
-ϕ(i)ϕT (i))−1
-
-P (t) = (
-i=1
-Parameter Estimation
-
-9
+_v('140503202223')
+-9-
 
 Remarks
 Nonsingularity of ΦT Φ ⇒ excitation condition
@@ -291,14 +326,14 @@ Determination of P (t) instead of P −1 (t): Matrix inversion lemma
 K(t) = P (t)ϕ(t) = P (t − 1)ϕ(t)(I + ϕT (t)P (t − 1)ϕ(t))−1
 Parameter Estimation
 
-_18_ 140426154206 
+17
+
 Recursive Least-Squares Estimation
 Summary:
-last estimate corrected by the colored term, which is
-proportional to the error of a prediction computed using the
-last estimate
-K(t) introduces a weighting for the combination of the last
-estimate and the correction
+_v('140503203547')
+last estimate corrected by the colored term, which is proportional to the error of a prediction computed using the last estimate
+K(t) introduces a weighting for the combination of the last estimate and the correction
+-18-
 
 Exponential Forgetting 1/2
 Pragmatic approaches for handling time-varying parameters:
@@ -306,7 +341,6 @@ Abrupt changes in the parameters: resetting
 Slowly varying parameters: forgetting factor λ
 Reformulate least-squares criterion:
 V (θ, t) =
-
 1
 2
 
@@ -335,7 +369,7 @@ Parameter Estimation
 
 20
 
-Identiﬁcation of Finite-Impulse Response
+Identiﬁcation of Finite-Impulse Response
 Models 1/2
 LTI dynamic systems: uniquely determined by the impulse response
 Model (truncated after n samples):
@@ -462,9 +496,7 @@ Parameter Estimation
 
 24
 
-Experimental Conditions
-cf. 140426210207
-
+Experimental Conditions
 Example: y(t) + ay(t − 1) = bu(t − 1) + e(t) + ce(t − 1)
 ˆ
 with a = −0.8, b = 0.5, c = 0, P (0) = 100I, θ and e(t) is zero mean white noise (σ = 0.5)
@@ -487,8 +519,9 @@ b
 Parameter Estimation
 
 25
-Persistant Excitation
-cf. 140426204256
+
+Persistant Excitation
+
 u is persistently exciting (PE) of order n if for all t there exist
 m, 1 > 0, 2 > 0 such that:
 t+m
@@ -520,12 +553,14 @@ periodic signal of period n: PE of order n
 random signal u(t) = H(z)e(t) with pulse transfer function
 H(z) and white noise e(t): PE of any order
 Applications:
-
-cf. 140426205130
-FIR model of order n can be identiﬁed with input signal which is PE of order n. Notice that there are n parameters to be identiﬁed. 
-Transfer function model can be identiﬁed if input signal is PE of order deg(A) + deg(B) + 1
+FIR model of order n can be identiﬁed with input signal which
+is PE of order n. Notice that there are n parameters to be
+identiﬁed.
+Transfer function model can be identiﬁed if input signal is PE
+of order deg(A) + deg(B) + 1
 Parameter Estimation
 
+27
 
 Identiﬁcation in Closed Loops
 Adaptive Control: system identiﬁcation online in closed loops
@@ -751,8 +786,7 @@ Parameter Estimation
 
 31
 
-140426210207
-Identiﬁcation in Closed Loops
+Identiﬁcation in Closed Loops
 Example: y(t) + ay(t − 1) = bu(t − 1) + e(t) + ce(t − 1)
 ˆ
 with a = −0.8, b = 0.5, c = 0, P (0) = 100I, θ and e(t) is zero mean white noise (σ = 0.5)

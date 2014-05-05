@@ -335,55 +335,24 @@ scalar product in RN that turns it into an isometrically isomorphic Hilbertspace
 
 ctu
 
-Linear maps between ﬁnite dimensional Hilbert spaces. Let H and F be ﬁnite
-dimensional Hilbert spaces and let
-L(H, F ) := {L : H → F is linear}
+Linear maps between ﬁnite dimensional Hilbert spaces. Let H and F be ﬁnite dimensional Hilbert spaces and let
+$\mathcall{L}(H, F ) := \dots$ (13)
+denote the set of all linear maps from H to F . Then L(H, F ) is also a ﬁnite dimensional vector space with dimension
+dim L(H, F ) = dim H · dim F.  (14)
 
-(13)
-
-denote the set of all linear maps from H to F . Then L(H, F ) is also a ﬁnite dimensional
-vector space with dimension
-dim L(H, F ) = dim H · dim F.
-
-(14)
-
-Le
-
-Since we need to compare diﬀerent linear maps in the future, it is good to know that
-this vector space can be endowed with a norm in a natural way, namely the so-called
-induced norm
-Lx F
-L := sup
-, L ∈ L(H, F ).
+Since we need to compare diﬀerent linear maps in the future, it is good to know that this vector space can be endowed with a norm in a natural way, namely the so-called induced norm
 (15)
-x H
-x∈H
 
-If not explicitly mentioned otherwise, we will always endow L(H, F ) with this induced norm. We are now ready to deﬁne diﬀerentiability of a function between two
-Hilbertspaces.
+If not explicitly mentioned otherwise, we will always endow L(H, F ) with this induced norm. We are now ready to deﬁne diﬀerentiability of a function between two Hilbertspaces.
 
-5
-
-M. Kleinsteuber, M. Seibert
+-5-
 
 Nonconvex Optimization
 
-Deﬁnition 2.5 (Diﬀerentiability). Let X ⊂ H be an open subset and x0 ∈ X . A
-function f : X → F is called diﬀerentiable in x0 if an Ax0 ∈ L(H, F ) exists with
-lim
-
-x→x0
-
-f (x) − f (x0 ) − Ax0 (x − x0 )
-=0
-x − x0
-
-(16)
+Deﬁnition 2.5 (Diﬀerentiability). Let X ⊂ H be an open subset and x0 ∈ X . A function  $\operatorname{f} \ldots $ is differentiable in x0 if an Ax0 ∈ L(H, F ) exists with
+_v('140505090623') (16)
 
 The following holds true:
-
-No
-tes
 
 1. The following statements are equivalent:
 • The function f is diﬀerentiable in x0 .
@@ -397,7 +366,7 @@ f (x) = f (x0 ) + Ax0 (x − x0 ) + rx0 (x) · x − x0 .
 • There exists an Ax0 ∈ L(H, F ) such that
 
 f (x) = f (x0 ) + Ax0 (x − x0 ) + o( x − x0 ).  (16)
- 140430104446
+_v('140430104446')
 \todo{Does  $+ o|| x - x+0 || mean that we add a term that is much smaller then || x - x_0 ||$?}
 
 2. If f is diﬀerentiable in x0 , then f is continuous in x0 .
@@ -412,23 +381,16 @@ Given an arbitrary point y with y = 1 construct a sequence of points xn = x0 + n
 n ∈ N\{0}. Together with the equation obtained above this yields limn→∞ (Ax0 −B)y = 0
 for all y as above. Therefore, we have Ax0 = B, i.e. the operator is unique.
 
-ctu
 
-Deﬁnition 2.6. We say that f is diﬀerentiable in X if f is diﬀerentiable for all x0 ∈ X .
+Deﬁnition 2.6. We say that $\operatorname{f}$ is differentiable in X if f is differentiable for all x0 ∈ X .
+
 The mapping
-Df : X → L(H, F )
-x0 → Df (x0 ) := Ax0
-
 (19)
+is called the differential map of f . Df(x0) is called the derivative of f in x0 .
 
-Le
+The function f is smooth if Df is continuous, i.e. smooth is another word for continuously diﬀerentiable. We abbreviate this by writing f ∈ C 1 (X ).
 
-is called the diﬀerential map of f . Df (x0 ) is called the derivative of f in x0 .
-The function f is smooth if Df is continuous, i.e. smooth is another word for continuously
-diﬀerentiable. We abbreviate this by writing f ∈ C 1 (X ).
-
-Recall: H, F are Hilbert spaces and X ⊂ H is an open subset with x0 ∈ X . Further,
-let f be a mapping from H to F . Then the derivative of f in x0 is denoted by Df (x0 ).
+Recall: H, F are Hilbert spaces and X ⊂ H is an open subset with x0 ∈ X . Further, let f be a mapping from H to F . Then the derivative of f in x0 is denoted by Df (x0 ).
 It is a linear mapping Df (x0 ) : H → F . The diﬀerential map is deﬁned by
 Df : X → L(H, F )
 x0 → Df (x0 ).
@@ -442,43 +404,16 @@ x0 → Df (x0 ).
 Nonconvex Optimization
 
 2.1 Directional Derivatives
-As before, we have two Hilbert spaces H, F with an open subset X ⊂ H and a mapping
-f : X → F . Furthermore, we have a direction v ∈ H. We then deﬁne the function
-ϕv : (−ε, ε) → F
-
+As before, we have two Hilbert spaces H, F with an open subset X ⊂ H and a mapping f : X → F . Furthermore, we have a direction $v \in H$. We then deﬁne the function
 (21)
-
-t → f (x0 + tv),
-
-No
-tes
-
+[ $\phi_v$ is a function of $t$ ]
 where ε > 0 such that x0 + tv ⊂ X for all t ∈ (−ε, ε). If f is diﬀerentiable in x0 , it is
 readily shown in Theorem 2.9 that ϕv is diﬀerentiable as well. Note, that the other way
 round does not hold in general, i.e. diﬀerentiability of ϕv does not imply diﬀerentiability
 of f .
-Deﬁnition 2.7 (Directional derivative). If ϕv is diﬀerentiable in 0, its derivative is
-called directional derivative of f in x0 in direction v. It is denoted by Dv f (x0 ). Thus
-Dv f (x0 ) :=
+Deﬁnition 2.7 (Directional derivative). If ϕv is diﬀerentiable in 0, its derivative is called directional derivative of f in x0 in direction v. It is denoted by Dv f (x0 ). Thus 
 
-d
-dt
-
-ϕv (t) =
-t=0
-
-d
-dt
-
-f (x0 + tv) − f (x0 )
-.
-t→0
-t
-
-f (x0 + tv) = lim
-
-t=0
-
+_v('140505090207')
 (22)
 
 re
@@ -517,9 +452,7 @@ This means the directional derivative in direction v is the same as applying the
 
 Le
 
-Proof. Due to the diﬀerentiability of f we have
-f (x0 + tv) = f (x0 ) + Df (x0 ) · (tv) + o( tv )
-= f (x0 ) + tDf (x0 ) · v + o( tv )
+Proof. Due to the differentiability of f cf.  140430104446 we have
 
 (25)
 

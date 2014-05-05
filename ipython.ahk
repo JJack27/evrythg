@@ -13,6 +13,8 @@ Send, paste
 sleep, 10
 Send, {ENTER}
 sleep, 10
+Send, {ENTER}
+sleep, 10
 Send, {ALTDOWN}{TAB}{ALTUP} 
 }
 Return
