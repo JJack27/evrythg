@@ -19,7 +19,7 @@
 \usepackage{pythontex}
 \newcommand{\s}{\sympy}
 \newcommand{\p}{\pyc}
-\newcommand{\pp}[1]{\pyc{print(#1)}}
+\newcommand{\pp}[1]{\pyc{_p(#1)}}
 \newcommand{\argmin}{\operatornamewithlimits{argmin}}
 \usepackage[bordercolor=white, backgroundcolor=white]{todonotes}  
 \usepackage{float}
@@ -28,11 +28,6 @@
 \usepackage{subcaption}
 \usepackage{dsfont}
 \begin{document}
-\begin{sympycode}
-sys.path.append(r'C:\Users\Murad\evrythg')
-\end{sympycode}
-\begin{pycode}
-import os
-os.chdir(r'C:\Users\Murad\evrythg')
-#sys.path.append(r'C:\Users\Murad\evrythg')
-\end{pycode}
+\pyc{import os}
+\pyc{os.chdir(r'C:\Users\Murad\Dropbox\evrythg')}
+
