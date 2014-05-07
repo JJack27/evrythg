@@ -99,3 +99,18 @@ vnoremap <A-UP> :m '<-2<CR>gv=gv
 nnoremap <Space> :
 nnoremap <S-Space> q:/
 vnoremap Y "+y
+
+" searching
+set smartcase
+
+" insert mode mappings
+"" line modifications
+inoremap CC <esc>c
+inoremap SS <esc>s
+inoremap DD <esc>dd
+inoremap UU <esc>u
+inoremap YY <esc>V"+y
+""quick movements
+inoremap II <esc>i
+inoremap AA <esc>a
+inoremap OO <esc>o
