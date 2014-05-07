@@ -26,10 +26,11 @@ def _m(fn):
     """
     Compile latex using pythontex
     """
-    cmds = ['pdflatex -interaction=nonstopmode %s > %s',
+    fn = fn.split('.')[0]
+    cmds = ['pdflatex -interaction=nonstopmode %s.tex > %s',
     'biber %s > %s',
-    "C:\Users\mchl\Anaconda\python.exe  %s\pythontex\pythontex\pythontex.py %s > %s" %(environ['HOME'], '%s', '%s'),
-    'pdflatex -interaction=nonstopmode %s > %s']
+    "%s  %s\pythontex\pythontex\pythontex.py %s.tex > %s" %(environ['PYTHON'], environ['HOME'], '%s', '%s'),
+    'pdflatex -interaction=nonstopmode %s.tex > %s']
     for c in cmds: 
             cmd = c %(fn, 'log.swp')
             print strftime('%d %b %Y %H:%M:%S: ') + cmd 
@@ -38,4 +39,4 @@ def _m(fn):
     ext = ['out', 'log', 'aux']
     for e in ext:
         print('\tRunning rm -f %s.%s' %(fn.split('.')[0], e))
-        system('rm -f %s.%s' %(fn.split('.')[0], e))
+        system('rm -f %s.%s' %(fn, e))
