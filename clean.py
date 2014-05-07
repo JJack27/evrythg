@@ -59,3 +59,15 @@ _scatter(w_i.take(arange(0, w_i.shape[0], n.K), axis=0), color = 'g')
 legend(scatterpoints=1)
 grid()
 savefig('triangle_tilde.pdf')
+# _sympy.py
+from _sympy import _latex
+_l = _latex()
+_p = _l.out
+_d = _l.symbol_names
+from sympy import MatrixSymbol
+from sympy import Symbol
+from sympy import Matrix
+X = MatrixSymbol('X', 3, 3)
+_d[X]=r'\Phi_W'
+k = Symbol('k')
+_d[k]=r'\Phi_k_W'

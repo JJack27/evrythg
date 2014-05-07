@@ -52,8 +52,8 @@ class _latex:
         _p(Matrix([[X], [X]]))
         k = Symbol('k')
         _d[k]=r'\k_W'
-        _p(Sum(X * k, (k, 1, 10))
+        _p(Sum(X * k, (k, 1, 10)))
         """
-        return latex(expr, symbol_names=self.symbol_names)
+        print(latex(expr, symbol_names=self.symbol_names))
 
 

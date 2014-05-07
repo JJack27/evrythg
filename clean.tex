@@ -8,6 +8,7 @@
 \usepackage[babel]{csquotes}
 \usepackage{pythontex}
 \newcommand{\s}{\sympy}
+\newcommand{\p}[1]{\pyc{_p(#1)}}
 \usepackage{todonotes}  
 \usepackage{float}
 \usepackage{graphicx}
@@ -30,14 +31,13 @@ from _sympy import _idx
 import clean_numeric_values as n
 \end{sympycode}
 
-% set up python
-\begin{pythoncode}
-%os.chdir(r'C:\Users\Murad\Dropbox\evrythg')
-%execfile('clean.py')
-\end{pythoncode}
+\pyc{import os}
+\pyc{os.chdir(r'C:\Users\Murad\Dropbox\evrythg')}
+\pyc{execfile('clean.py')}
 
 
 \section{Task description}
+$\pyc{_p(X)}$
 Model the dynamics of a rigid body in an environment partly filled with water.
 \section{Model description}
 \subsection{Statics}
