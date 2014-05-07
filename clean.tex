@@ -6,7 +6,7 @@
 \usepackage{siunitx}
 \usepackage[]{biblatex}
 \usepackage[babel]{csquotes}
-\usepackage{pythontex}
+\usepackage[]{pythontex}
 \newcommand{\s}{\sympy}
 \newcommand{\p}[1]{\pyc{_p(#1)}}
 \usepackage{todonotes}  
@@ -37,11 +37,10 @@ import clean_numeric_values as n
 
 
 \section{Task description}
-$\pyc{_p(X)}$
 Model the dynamics of a rigid body in an environment partly filled with water.
 \section{Model description}
 \subsection{Statics}
-Assume that a rigid body is specified by its geometry $\s{G}$ and density $\s{rho}$, both assumed not to change over time.    Positions $\s{r}$ are described using a right handed world coordinate system aligned such, that the $\s{z}$-Axis is collinear to line of action of gravity.  When convenient we make use of a body coordinate system coordinates $\s{b}$.  Unit vectors along the axes are given as
+Assume that a rigid body is specified by its geometry $\pyc{_o(G)}$ and density $\s{rho}$, both assumed not to change over time.    Positions $\s{r}$ are described using a right handed world coordinate system aligned such, that the $\s{z}$-Axis is collinear to line of action of gravity.  When convenient we make use of a body coordinate system coordinates $\s{b}$.  Unit vectors along the axes are given as
 \begin{equation*}
 \s{[i, j, k]} = \s{eye(3)}
 \end{equation*}
@@ -83,7 +82,7 @@ In general
 \end{equation}
 Following \cite{140505160511} we propose 
 \begin{equation*}
-	\s{e_140505171627}
+	\pyc{_o(e[140505171627])}
 \end{equation*}
 such that $(C_W(t), \s{q}})$ specifies the relation between body and world coordinate system, $\s{P}$ is the linear and $\s{L}$ the angular momentum.  
 Then the idealized equations of motion are given as $\ldots$

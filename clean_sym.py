@@ -39,7 +39,6 @@ b = Symbol('b') # position in body coordinate system
 q = Symbol('q')(t) # quaternion
 P = Symbol('P')(t) # Linear momentum 
 L = Symbol('L')(t) # Angular momentum 
-e_140505171627 = Eq(s, Matrix([[C_W(t)], [q], [P], [L]])) # 140505171627
 sdot = Derivative(s, t) # 1st derivative
 sddot = Derivative(s, Symbol('t'),2) # 2nd derivative
 f = Function('\operatorname{f}')(s, sdot) # total force as a function

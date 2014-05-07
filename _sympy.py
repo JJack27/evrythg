@@ -54,6 +54,7 @@ class _latex:
         _d[k]=r'\k_W'
         _p(Sum(X * k, (k, 1, 10)))
         """
-        print(latex(expr, symbol_names=self.symbol_names))
-
+	l = latex(expr, symbol_names=self.symbol_names)
+        print(l)
+	return l
 
