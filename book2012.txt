@@ -4788,20 +4788,14 @@ learning problem.
 
 Chapter 4
 Dynamic Programming
-The term dynamic programming (DP) refers to a collection of algorithms that
-can be used to compute optimal policies given a perfect model of the environment as a Markov decision process (MDP). Classical DP algorithms are of
-limited utility in reinforcement learning both because of their assumption of
-a perfect model and because of their great computational expense, but they
-are still important theoretically. DP provides an essential foundation for the
-understanding of the methods presented in the rest of this book. In fact, all
-of these methods can be viewed as attempts to achieve much the same eﬀect
-as DP, only with less computation and without assuming a perfect model of
+The term dynamic programming (DP) refers to a collection of algorithms that can be used to compute optimal policies given a perfect model of the environment as a Markov decision process (MDP). Classical DP algorithms are of limited utility in reinforcement learning both because of their assumption of a perfect model and because of their great computational expense, but they are still important theoretically. DP provides an essential foundation for the understanding of the methods presented in the rest of this book. In fact, all of these methods can be viewed as attempts to achieve much the same effect as DP, only with less computation and without assuming a perfect model of
 the environment.
-Starting with this chapter, we usually assume that the environment is a
-ﬁnite MDP. That is, we assume that its state and action sets, S and A(s), for
-s ∈ S, are ﬁnite, and that its dynamics are given by a set of transition probabilities, p(s |s, a) = Pr{St+1 = s | St = s, At = a}, and expected immediate rewards, r(s, a, s ) = E[Rt+1 | At = a, St = s, St+1 = s ], for all s ∈ S, a ∈ A(s),
-and s ∈ S+ (S+ is S plus a terminal state if the problem is episodic). Although
-DP ideas can be applied to problems with continuous state and action spaces,
+Starting with this chapter, we usually assume that the environment is a ﬁnite MDP. That is, we assume that its state and action sets, $\mathcal{S}$ and $\mathcal{A}(s)$, for s ∈ S, are ﬁnite, and that its dynamics are given by
+a set of transition probabilities, $p(s |s, a) = Pr{S_{t+1} = s | S_t = s, A_t = a}$
+and expected immediate rewards, $r(s, a, s') = \mathbb{E}[R_{t+1} | A_t = a, S_t = s, S_{t+1} = s ]$,
+for all s ∈ S, a ∈ A(s),
+and s ∈ S+ ($\mathcall{S}^+$ is S plus a terminal state if the problem is episodic). 
+Although DP ideas can be applied to problems with continuous state and action spaces,
 exact solutions are possible only in special cases. A common way of obtaining
 approximate solutions for tasks with continuous states and actions is to quantize the state and action spaces and then apply ﬁnite-state DP methods. The
 methods we explore in Chapter 9 are applicable to continuous problems and
@@ -4885,23 +4879,11 @@ approximation, v0 , is chosen arbitrarily (except that the terminal state, if an
 
 must be given value 0), and each successive approximation is obtained by using
 the Bellman equation for vπ (3.10) as an update rule:
-vk+1 (s) = Eπ[Rt+1 + γvk (St+1 ) | St = s]
-=
+_v('140507090509')
+$v_{k+1} = \ldots$ (4.5)
 
-π(a|s)
-a
+for all s ∈ S. Clearly, vk = vπ is a ﬁxed point for this update rule because the Bellman equation for vπ assures us of equality in this case. Indeed, the sequence {vk } can be shown in general to converge to vπ as k → ∞ under the same conditions that guarantee the existence of vπ . This algorithm is called iterative policy evaluation.
 
-s
-
-p(s |s, a) r(s, a, s ) + γvk (s ) ,
-
-(4.5)
-
-for all s ∈ S. Clearly, vk = vπ is a ﬁxed point for this update rule because
-the Bellman equation for vπ assures us of equality in this case. Indeed, the
-sequence {vk } can be shown in general to converge to vπ as k → ∞ under the
-same conditions that guarantee the existence of vπ . This algorithm is called
-iterative policy evaluation.
 To produce each successive approximation, vk+1 from vk , iterative policy
 evaluation applies the same operation to each state s: it replaces the old value
 of s with a new value obtained from the old values of the successor states
