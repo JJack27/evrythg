@@ -102,3 +102,6 @@ oicel/
 
 # Dropbox
 *in\ Konflikt\ stehende\ Kopie*
+
+# notebooks
+*.ipynb

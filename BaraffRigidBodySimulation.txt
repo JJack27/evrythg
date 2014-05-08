@@ -765,15 +765,7 @@ mi v(t) =
 
 This gives us the nice result that the total linear momentum of our rigid body is the same as if the
 body was simply a particle with mass M and velocity v(t). Because of this, we have a simple transformation between P(t) and v(t): P(t) = Mv(t) and v(t) = P(t)/M. Since M is a constant,
-v(t) =
-˙
-
-˙
-P(t)
-.
-M
-
-(2–28)
+('3069142070') (2–28)
 
 The concept of linear momentum lets us express the effect of the total force F(t) on a rigid body
 quite simply. Appendix A derives the relation
@@ -837,44 +829,7 @@ analogous to the relation P(t) = F(t).
 2.10 The Inertia Tensor
 The inertia tensor I(t) is the scaling factor between angular momentum L(t) and angular velocity ω(t). At a given time t, let ri be the displacement of the ith particle from x(t) by deﬁning
 ri = ri (t) − x(t). The tensor I(t) is expressed in terms of ri as the symmetric matrix
-
-
-
-
-
-−mi ri x ri y
-
-−miri x ri z
-
-−miri y ri x
-
-mi (ri 2 + ri 2 )
-x
-z
-
-−mi ri y ri z
-
-−miri z ri x
-
-I(t) =
-
-mi (ri 2 + ri 2 )
-y
-z
-
-−miriz ri y
-
-
-
-mi (ri 2 + ri 2 )
-x
-y
-
-
-
-
-
-(2–32)
+_v('140508103608') (2–32)
 
 For an actual implementation, we replace the ﬁnite sums with integrals over a body’s volume in
 world space. The mass terms mi are replaced by a density function. At ﬁrst glance, it seems that
@@ -1066,9 +1021,13 @@ L(t)
 Thus, the state of a rigid body is its position and orientation (describing spatial information), and its
 linear and angular momentum (describing velocity information). The mass M of the body and bodyspace inertia tensor Ibody are constants, which we assume we know when the simulation begins. At
 any given time, the auxiliary quantities I(t), ω(t) and v(t) are computed by
-v(t) =
+('140508101044')
+('140508100858')
+(2-42)
 The derivative
-
+('140508084043')
+('140508084312')
+('140508085707')
 (2–43)
 
 The next section gives an implementation for the function Dxdt() that computes dt X(t).
@@ -1397,12 +1356,7 @@ In using quaternions to represent rotations, if q1 and q2 indicate rotations, th
 composite rotation of q1 followed by q2 .4 In a moment, we’ll show how to change the routines of
 section 3 to handle the quaternion representation for orientation. Before we can make these changes
 though, we’ll need a formula for q(t). Appendix B derives the formula
-˙
-q(t) = 1 ω(t)q(t).
-˙
-2
-
-(4–2)
+('140508082948') (4–2)
 
 where the multiplication ω(t)q(t) is a shorthand for multiplication between the quaternions [0, ω(t)]
 and q(t). Note the similarity between equation (4–2) and
@@ -1515,27 +1469,10 @@ we add the line
 rb->R = QuaterionToMatrix(normalize(rb->q));
 prior to computing rb->Iinv. The routine normalize returns q divided by its length; this
 unit length quaternion returned by normalize is then passed to QuaterionToMatrix which
-returns a 3 × 3 rotation matrix. Given a quaternion q = [s, v], QuaterionToMatrix returns the
+returns a 3 × 3 rotation matrix. 
 
-S IGGRAPH 2001 C OURSE N OTES
-
-G22
-
-P HYSICALLY B ASED M ODELING
-
-matrix
-
-1 − 2v2 − 2v2 2v x v y − 2svz 2v x vz + 2sv y
-y
-z
- 2v x v y + 2svz 1 − 2v2 − 2v2 2v y vz − 2sv x  .
-x
-z
-2v x vz − 2sv y 2v y vz + 2sv x 1 − 2v2 − 2v2
-x
-y
-
-
+Given a quaternion q = [s, v], QuaterionToMatrix returns the matrix
+_v('140508101835')
 In case you need to convert from a rotation matrix to a quaternion,
 quaternion matrixToQuaternion(const matrix &m)
 {
