@@ -342,7 +342,7 @@ Datenverarbeitung
 
 ¨
 ¨
- 140430084615
+140430084615
 Unifying Return Notations
 In episodic tasks we number the time steps of each episode starting from zero
 The goal state is deﬁned as a absorber state with zero reward
