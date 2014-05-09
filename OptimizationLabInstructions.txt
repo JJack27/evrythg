@@ -1572,45 +1572,11 @@ chapter. Furthermore, the additional projection operation must be performed whic
 the computational costs of the step-size control. In order to overcome this burden, the tangent
 cone projection can be estimated via the constraint set projection. This (under-)estimation is
 given as
-PTC (X (a) ) (V (a) )
-
-2
-F
-
-(a)
-
-≥
-
-PC (X (a) + s0 β b V (a) ) − X (a)
-
-2
-F
-
 (2.30)
 
-(a)
-( s0 β b )2
-
 The resulting approximated relations (2.28) and (2.29) then read as
-(a)
-
-(a)
-
-f (PC (X (a) + s0 β b V (a) )) − f (X (a) )
-
-σ
-
-PC (X (a) + s0 β b V (a) ) − X (a)
-(a)
-
-s0 β b
-
-2
-F
-
 . (2.31)
 
-\todo{Code it}
 PROGRAMMING TASK 2.13
 Implement the Armijo step size control of s(a) for the projected gradient algorithm (method='armijo'. Use the Armijo parameter set β = 1/2 and σ = 0.2. As a heuristic (a) (0) for the initial step size, we choose s0 = 2s(a−1) . Choose s0 = 100 for the initial step size in the ﬁrst iteration.
 
@@ -1673,7 +1639,7 @@ pp. 76–80.
 
 27
 
-Chapter 3
+Chapter 3
 
 Linear Programming and Interior-Point
 Methods
