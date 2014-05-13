@@ -1,0 +1,1 @@
+A matrix $A$ is called positive definite if $x A x > 0$ for all $x \in \mathbb{R}^n$

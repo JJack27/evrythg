@@ -37766,7 +37766,7 @@ Laboratory, Lidingo.
 control theory." IBM J. Res. Dev., Il , pp. 389-405.
 - (1970). Introduction to Stochastic Control Theory, Academic Press, New York.
 - (1980). "Piece-wise detarministic signals." In O. D. ANDERSON, Ed., Time Series. North
-Holland. Amsterdam.
+olland. Amsterdam.
 -
 
 (1983a). "Computer-aided modeling, analysis and design of control systems: A

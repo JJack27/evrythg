@@ -3,3 +3,5 @@ $s(t)= [x(t), q(t), P(t), L(t)]^T$
 In an discrete approximation $I_{\mathrm{body}}$ is given as
 _v('140508101835')
 _v('140508101835')
+_v('140505090207')
+_m(r'\frac{d}{dt} |_{t=1} \operatorname{f}(x_0 + tv) = \frac{d}{d t}t \sqrt{v_1*2 + v_2^2} = 0')

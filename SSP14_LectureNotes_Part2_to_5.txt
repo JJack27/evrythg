@@ -1,2770 +1,697 @@
 Part II
 Examples
-
-42
-
-5. ML Principle for Direction of Arrival Estimation
+5. ML Principle for Direction of Arrival Estimation
 We consider the estimation of the Direction Of Arrival (DoA) θ of an impinging planar wavefront
 by means of an antenna array with M antennas.
-
-ry
-
-θ
-k
-
 x0 (t)
-
 x1 (t)
-d
-
 x2 (t)
-
-rx
-
-d
-
 Fig. 5.1: Spatial sampling of a planar wavefront.
-
-43
-
-The received signal vector at the antenna array at time instant t ∈ R is equal to
+The received signal vector at the antenna array at time instant t ∈ R is equal to
 x(t) = ξas(t) + η(t)
-
-∈ CM ,
-
 (5.1)
-
 with the signal at the mth antenna element as
-
 xm (t) = ξ ej 2π sin(θ)md/λ s(t) + ηm (t),
-
-m = 0, . . . , M − 1.
-
 (5.2)
-
 The d and λ denote the distance between two adjacent antenna elements and the wavelength of the
 assumed Narrowband Signal. The received signal is assumed to be corrupted by the Gaussian noise
 vector η(t) ∼ N (0, C η ).
 The ξ ∈ R represents the attenuation which the transmitted signal s(t) ∈ R experiences over the transmission path.
-
 Without loss of generality we thus assume a Uniform Linear Array (ULA) with M antenna elements,
 i.e.
-
-
-α0
- α1 
-
-
 a =  .  , with α = ej 2π sin(θ)d/λ .
 (5.3)
- . 
-.
-αM −1
-44
-
-In order to ﬁnd the ML estimate of the DoA parameter θ, we consider the respective Likelihood Function for observations of the received vector x(t) at t1 , . . . , tN ,1 implicitly assuming a stationary scenario
+In order to ﬁnd the ML estimate of the DoA parameter θ, we consider the respective Likelihood Function for observations of the received vector x(t) at t1 , . . . , tN ,1 implicitly assuming a stationary scenario
 over the respective time intervall,
-
-1
 L(x1 , . . . , xN ; θ) = M N
 exp −
-π
 det C η
-
-N
-
 i=1
-
 (xi − ξasi )H C −1 (xi − ξasi ) .
-η
-
 (5.4)
-
 For simplicity reasons we restrict the further analysis to the case of a single observation N = 1 and Addi2
 tive White Gaussian Noise η(t) ∼ N (0, ση I), i.e.
-
-
 [ Die Determinante einer Diagonalmatrix ist das Produkt der Eintraege auf der Hauptdiagonalen ]
-
 (5.5)
-
 simplicity of notation we use xi instead of x(ti ).
-45
-After some simple reformulation steps the ML optimization problem is equal to
-
+After some simple reformulation steps the ML optimization problem is equal to
 min (x − ξas)H (x − ξas)
-θ
-
 (5.6)
-
 Since the cost function can be expanded in
 (x − ξas)H (x − ξas) = xH x − 2 Re ξxH as + ξ 2 aH as2 ,
-
 (5.7)
-
 and 
 $\alpha^H \alpha = M$ [independent of \theta ]
 , it can be further reduced to
-
 max Re xH a(θ) .
-θ
-
-ˆ
 The ML Estimator θ = argmax Re xH a(θ)
-θ
-
 (5.8)
-
 is obviously a Nonlinear Estimator.
-
 Note. In order to estimate the attenuation ξ, we need further information about the Training Signal
 (Pilot Signal) s(t).
-
-46
-
-The Likelihood function of the given estimation problem obviously belongs to the familiy of Exponential
+The Likelihood function of the given estimation problem obviously belongs to the familiy of Exponential
 Distributions. We consider θ as parameter to be estimated. After some reformulation steps L(x; θ) can
 be expressed as
-
-1
 (x − ξas)H (x − ξas)
 L(x; θ) =
 exp −
-2
-2
 (πση )M
-ση
-
 h(x) exp cH (θ)t(x)
-,
-=
 exp(b(θ))
-
 (5.9)
-
 with
-xH x
-1
 exp − 2
-2
 (πση )M
-ση
-1
 ξas
 c(θ) = 2
 ση (ξas)∗
-
 h(x) =
-
 t(x) =
-
-x
-x∗
-
 (5.10)
 (5.11)
 (5.12)
-
-_47_ 140428113502 
 \todo{Why's that?}
 Note, that E[t(x)] = \sigma_{\eta} c(θ).
-
-47
-
 (5.13)
-
-Consequently, the Fisher Information of the ML estimation problem can be obtained as2
+Consequently, the Fisher Information of the ML estimation problem can be obtained as2
 IF (θ) =
-
 ∂c(x)
-∂θ
-
-H
-
-ξ 2 s2 ∂
-= 2
-ση ∂θ
-
 ∂ E [t(x)]
-∂θ
 a
 a∗
-
-H
-
 (5.14)
-
-∂
-∂θ
-
 a
 a∗
-
-.
-
 (5.15)
-
 Since θ is real,
-ξ 2 s2
 IF (θ) = 2
-ση
-
-∂
-∂θ
-
 a
 a∗
-
 ξ 2 s2 ∂a
-=2 2
-ση ∂θ
-
-H
-
-∂
-∂θ
-
 a
 a∗
-
 (5.16)
-
-2
-
-.
-
 (5.17)
-
 Finally, with ∂αm /∂θ = j m(2πd/λ) cos θαm−1 and |αm−1 | = 1,
-ξ 2 s2
 IF (θ) = 2 2
-ση
-2 2
-
-=2
-
-2 E [x]
-
-ξ s
-2
-ση
-
-2πd
-cos θ
-λ
-2πd
-cos θ
-λ
-
-2 M −1
-
-m2
-
-m=1
-2
-
 M (M − 1)(2M − 1)
-d ξ 2 s2
-∝
 (cos θ)2 M 3 .
-2
-6
-λ ση
-
 = ξas.
-
-48
-
 (5.18)
-
-References
- S. M. Kay. Fundamentals of Statistical Signal Processing: Estimation Theory, volume I, Prentice Hall
+References
+ S. M. Kay. Fundamentals of Statistical Signal Processing: Estimation Theory, volume I, Prentice Hall
 Signal Processing Series, 1993.
-
-49
-
-Part III
+Part III
 Estimation of Random Variables
-
-50
-
-6. Bayes Estimation
+6. Bayes Estimation
 In contrast to the Maximum-Likelihood principle an A Priori information about the unknown parameter
 θ ∈ Θ is now taken into account. We assume the a priori information of the unknown parameter to be
 given by means of the
 PDF :fθ (θ; σ)
 Conditional PDF :fX |θ (x|θ),
-
 (6.1)
 (6.2)
-
 where σ parameterizes the statistical model of the (now!) random variable θ. Instead of uniformly minimizing
 the MSE criterion we consider the Mean MSE with respect to the parameter θ,
-
 E (T (X ) − θ)2 = E E (T (X ) − θ)2 | θ
-
-=
-Θ
-
-X
-
 (T(x) − θ)2 fX |θ (x|θ)dx fθ (θ; σ)dθ.
 E (T(X )−θ)2 |θ
-
-51
-
 (6.3)
-
-6.1
-
 Conditional Mean Estimator
-
 Theorem. The Conditional Mean Estimator (Bayes Estimator) TCM is MSE optimal,
-
-TCM :
-
-x → E [θ|x]
-
-=
-Θ
-
 θfθ|X (θ|x)dθ,
-
 (6.4)
-
 i.e. TCM minimizes the Mean MSE cost criterion
 E E (T (X ) − θ)2 | θ
-
-.
-
 (6.5)
-
 Note. We distinguish
- E [(T (X ) − θ)2 |θ], which corresponds to the MSE subject to the condition of the (unknown) deterministic outcome of the random variable θ,
- and E [(T (X ) − θ)2 ] = E [E [(T(X ) − θ)2 | θ]], which assumes θ to be a random variable, such that the
+ E [(T (X ) − θ)2 |θ], which corresponds to the MSE subject to the condition of the (unknown) deterministic outcome of the random variable θ,
+ and E [(T (X ) − θ)2 ] = E [E [(T(X ) − θ)2 | θ]], which assumes θ to be a random variable, such that the
 expectation has to be taken over both random variables.
-
-cf.  140424133343
 (Bayes)
-
 Bernoulli Experiment (Cont’d)
 In Section 3.4, we found the Maximum Likelihood Estimate of the success probability of a Bernoulli Experiment as
-cf. 140429163030, 140429164246
-
 Then the Conditional Mean Estimator equals (cf. alternative solution in Section 3.4)
-ˆ
 θCM = pX (x)−1
 = pX (x)−1
 = pX (x)−1
-=
 1 m-times
-1
-0
-
-x+1
-.
-N +2
-
-1
-
 θpX |θ (x | θ) dθ
-
-0
-1
-0
-
 (6.12)
-
-N x+1
 θ (1 − θ)N −x dθ
-x
-
 (6.13)
-
-N
 (x + 1)!
 pX (x)−1 x + 1
-=
 x (N − x + 1)(N − x + 2) · · · (N + 2)
-N +1 N +2
-
- 140429170659
 applying the partial integration technique (m, n ∈ N) we obtain
 [ integration over a binomial distribution ]
-
 Mean Estimation Example (Cont’d)
-
 We again consider the estimation of the unknown mean value θ of a random variable
 (6.16)
 (6.17)
- 140429171339
 now based on N i.i.d. observations
 drawn with respect to the Conditional PDF2
 (6.18)
-
 A priori knowledge about the unknown parameter θ is given by the PDF of the unknown parameter θ ∼
 (6.19)
-
 2 The diﬀerence between statistics drawn from a Conditional Distribution and statistics drawn from a Unconditional Distribution is
 essential for the understanding of the following results.
-
-56
-
-Note. Consider the diﬀerence between
+Note. Consider the diﬀerence between
 Variance Of θ :
-
-2
-σθ ,
-
 Conditional Variance Of X :
 Variance Of X :
-
-2
-σX .
-
 (6.20)
-2
-
-σX |θ ,
-
 (6.21)
 (6.22)
-
 with
-2
-2
-2
-σX = σX |θ + σθ .
-
 (6.23)
-
- 140429170923
 Interpretation. Since X is the sum of independent random variables with θ ∼ N (m, σθ ) and η ∼ N (0, σX |θ ), the variance of the sum is equal to the sum of variances.  
-
 (6.24)
-
 For the computation of the Conditional Mean Estimator we need two steps:
 a) Conditional PDF fθ|X1 ,...,XN (θ|x1 , . . . , xN ) (6.27)
-cf. 140429171339
-
 b) Conditional Mean E [θ|x1 , . . . , xN ] (6.30)
-
-,
-
 which is Linear In Observations x1 , . . . , xN (!) and after some reformulation steps:
-
-ˆ
-θCM =
-
-3 Eq.
-
-2
-σX |θ
-
-2
-σθ
-N
-ˆ
-2 θML +
-2 m.
-σX |θ
-σX |θ
-2
-2
-σθ +
-σθ +
-N
-N
-
 (6.30) can be read out from Eq. (6.27) after some reformulation steps.
-
-59
-
 (6.31)
-
-Discussion.
-
-2
- Given a large number N of observations or a small conditional variance σX |θ of observations or a large
-2
+Discussion.
+ Given a large number N of observations or a small conditional variance σX |θ of observations or a large
 variance σθ of the a priori distribution of the unknown parameter, it is recommended to rely on the
 Maximum-Likelihood Estimator, since
-
-ˆ
-ˆ
-ˆ
-ˆ
 lim θCM = 2lim θCM = 2
 lim θCM = θML ,
-
-N →∞
-
-σX |θ →0
-
-σθ →∞
-
-1
-ˆ
-θML =
-N
-
 (6.32)
-
-N
-
 xi .
-
 (6.33)
-
 i=1
-
-2
- However, given a small variance σθ of the a priori distribution of the unknown parameter or a large
-2
+ However, given a small variance σθ of the a priori distribution of the unknown parameter or a large
 conditional variance σX |θ of observations, we better rely on the Mean Value of parameter θ, since
-
-ˆ
 lim θCM =
-
-2
-σθ →0
-
-ˆ
 lim θCM = m.
-
-2
-σX |θ →∞
-
-60
-
 (6.34)
-
- The respective Minimum Mean Square Error (MMSE) is given by4
-
+ The respective Minimum Mean Square Error (MMSE) is given by4
 E E (TCM − θ)2 | θ
-
 = E E (E [θ|x] − θ)2 | x
-
 (6.35)
-
-= E E [θ|x]2 − 2 E [θ|x] E [θ|x] + E θ2 |x
-
 (6.36)
-
-= E E θ2 |x − E [θ|x]2
-
 (6.37)
-
 = E [Var [θ|x]]
-
 (6.38)
-
-2
-= σθ −
-
-4
-σθ
-2 .
-σX |θ
-2
-σθ +
-N
-
 (6.39)
-
- Any requisites of the CM Estimator can be found from the mean vector and covariance matrix of the
+ Any requisites of the CM Estimator can be found from the mean vector and covariance matrix of the
 joint distribution of (X , θ)T , i.e.
-
-E
-
-=
-
-µX
-µθ
-
 Var
-
-4 Eq.
-
-X
-θ
-X
-θ
-
-=
-
-cX ,X cX ,θ
-cθ,X cθ,θ
-
-=
-
-m
-m
-
 (6.39) can be read out from Eq. (6.27) after some reformulation steps.
-
-61
-
 (6.40)
-
-,
-=
-
-2
-2
-2
-σθ + σX |θ σθ
-2
-2
-σθ
-σθ
-
-.
-
 (6.41)
-
-6.4
-
 Multivariate Variables
-
 Given two random vectors X ∼ N (µX , C X ), θ ∼ N (µθ , C θ ), and the covariance matrix C z from the
 joint distribution of Z = (X , θ)T ,
-CZ =
-
-C X C X ,θ
-C θ,X C θ
-
-,
-
 (6.42)
-
 the Multivariate Conditional Mean Estimator is obtained as
-
-TCM :
-
 x → E [θ|x] = µθ + C θ,X C −1 (x − µX ).
-X
-
+[ $\mu_{\theta}$ is the prior mean ]
 (6.43)
-
 The respective MMSE is equal to the Trace of the conditional covariance matrix C θ|X , this is
 E (TCM − θ)2 = tr C θ|X = tr C θ − C θ,X C −1 C X ,θ .
-X
-
 (6.44)
 
-Note. Given Jointly Gaussian Random Variables X and Y , the Conditional Mean Estimator E [Y |X ] is a Linear Function in X . This does not hold for arbitrarily jointly distributed random
-variables!
-62
-
-6.5
+Note. Given Jointly Gaussian Random Variables X and Y , the Conditional Mean Estimator E [Y |X ] is a Linear Function in X . This does not hold for arbitrarily jointly distributed random variables!
 
 Mean Estimation Example (Cont’d)
-
 From a multivariate r.v. perspective we obtain
-
-
-X1
 X =  ...  ∼ N (µX , C X ) and θ ∼ N (µθ , σθ2),
-
-
-XN
-
 (6.45)
-
 and thus
-
-µX = m1,
-
-µθ = m,
-
-2
-C θ,X = σθ 1T ,
-
-2
-2
-C X = σθ 11T + σX |θ I,
-
 (6.46)
-
 where 1 = [1, . . . , 1]T and I is the unity matrix. With C −1 we obtain the CE Estimator
-X
-
-2
-2
-2
 TCM = m + σθ 1T (σθ 11T + σX |θ I)−1 (x − m1) =
-
-63
-
-N
 i=1 xi
-2
-σX |θ
-
-+
-
-m
-2
-σθ
-
-N
-1
-+ 2
-2
-σX |θ σθ
-
-.
-
 (6.47)
-
-Note.
+Note.
 Computation of C −1 can be obtained in closed form solution by appling the Matrix Inversion Lemma:
-X
-
-2
-2
 C −1 = (σθ 11T + σX |θ I)−1
-X
-
-
-
 (6.48)
-1
-
-
-
-2
-σX |θ 
-1 
-
-
-T
-= 2 I − 11
-,
-1
-N 
-σX |θ 
-+ 2
-2
-σθ
-σX |θ
-
 (6.49)
-
 where
-
-
-
-
-11T = 
-
-
-1
-1
-.
-.
-.
-1
-
-
-
-
-
- 1 1 ···
-
-
-1
-
-64
-
-
-
-
-
-=
-
-
-1 ···
-1 ···
-.
-.
-.
-
-1
-1
-.
-.
-.
-
-1 1 ···
-
-1
-
-1
-1
-.
-.
-.
-
-
-
-
-
-.
-
-
-6.6
-
 Orthogonality Principle
-
 The Orthogonality Principle is an inherent property of the Conditional Mean Estimator.
 It describes the inherent Stochastic Orthogonality between the CM estimation error and any
 observations statistics or functions thereof, i.e.
-
 E [(TCM (X1 , . . . , XN ) − θ)h(X1 , . . . , XN )] = 0,
-
 TCM (X1 , . . . , XN ) − θ
-
-⊥
-
 h(X1 , . . . , XN )
-
 (6.50)
-
 (6.51)
-
 where h : RN → R, x1 , . . . , xN → h(x1 , . . . , xN ).
-Proof.
 E [(TCM (X ) − θ)h(X )] = E [(TCM (X )h(X )] − E [θh(X )] = E [E [θ|X ] h(X )] − E [θh(X )]
 = E [E [θh(X )|X ]] − E [θh(X )] = E [θh(X )] − E [θh(X )] = 0.
-
-65
-
 (6.52)
 (6.53)
-
-6.7
-
 Mean Estimation Example (Cont’d)
-
 The parameter θ to be estimated and the corresponding observation statistic X are Jointly Gaussian
 Distributed according to
-X
-θ
-
-∼N
-
-µX
-µθ
-
-,
-
-cX ,X cX ,θ
-cθ,X cθ,θ
-
-=N
-
-m
-m
-
-,
-
-2
-2
-2
-σθ + σX |θ σθ
-2
-2
-σθ
-σθ
-
-.
-
 (6.54)
-
 As an Sufficient Statistic5 for estimating the unknown realization of the random variable θ we use6
-1
-S=
-N
-
-N
-
 Xi .
-
 (6.55)
-
 i=1
-
 Applying the Orthogonality Principle we obtain
 E [(TCM − θ)S ] = E [TCM S ] − E [θS ] = 0.
-
 (6.56)
-
 Knowing that the MSE optimal estimator is linear in S , we substitute TCM by a linear model
 TCM (X ) = aS + b.
-
 (6.57)
-
 For h(x1 , . . . , xN ) = S , the Orthogonality Principle is now equal to
 E [(TCM − θ)S ] = E [(aS + b − θ)S ] = 0.
 5 The
-
 concept of Sufficient Statistic is later introduced in this course.
 that the realizations of the statistics X1 , . . . , XN are conditioned on the unknown realization of θ.
-
 6 Note,
-
-66
-
 (6.58)
-
-The Orthogonality Principle leaves one Degree of Freedom which is statisﬁed by a second
+The Orthogonality Principle leaves one Degree of Freedom which is statisﬁed by a second
 orthogonality propostion with h(x1 , . . . , xN ) = 1,
 E [(aS + b − θ)1] = E [aS + b] − E [θ] = 0.
-
 (6.59)
-
 Then we obtain
-
 a=
-
-cθ,S
-2
-σS
-
 and b = µθ − aµS ,
-
 (6.60)
-
 and the Conditional Mean Estimator is given by7
-
-TCM :
-
 7 Since
-
-s → µθ +
-
-2
-σθ
-
-cθ,S
 (s − µS ) = m + 2
 (s − m) =
-2
-σS
-σX |θ
-2
-N + σθ
-
-N
 i=1 xi
-2
-σX |θ
-
-+
-
-m
-2
-σθ
-
-N
-1
-+ 2
-2
-σX |θ σθ
-
-.
-
 (6.61)
-
 the realizations of the statistics X1 , . . . , XN are conditioned on the unknown realization of θ, we obtain cθ,S = E [θS ] − E [θ] E [S ] =
-
-2
-2
 E [E [θS |θ]] − E [θ] E [E [S |θ]] = E θ2 − (E [θ])2 = σθ and σS = E S 2 − (E [S ])2 = E E S 2 |θ
-2
-2
-σX |θ
-σX |θ
-2
 (E [θ])2 = E
-+ θ 2 − m2 =
-+ σθ .
-N
-N
-
-67
-
 − (E [E [S |θ]])2 = E Var [S |θ] + E [S |θ]2 −
-
-Part IV
+Part IV
 Linear Estimation
-
-68
-
-7. Linear Estimation
+7. Linear Estimation
 In this chapter we directly focus on linear models, i.e. given an observation x corresponding to the respective random variable, we consider the estimation of the realization of the random variable y by
-
-y = xT t + m.
-ˆ
-
 (7.1)
-
 In contrast to the Maximum-Likelihood Estimators and the Conditional Mean Estimators,
 where the inference of the estimator is based on statistical parameters of a given Probability Distribution Function, here the estimation of y, by inference of t and m, is based on N pairs of jointly
 drawn observations (xi , yi ), where
-
-
-
-
-y1
-xT
-1
- . 
- . 
 (7.2)
 y =  .  and X =  .  .
-.
-.
-T
-yN
-xN
-69
-
-7.1
-
 Least Squares Estimation
-
 In Least Squares (LS) Estimation the Linear Estimator – the inference of t and m – is based
 on the minimization of the sum of squared errors between the observations and outcomes of the Linear
 Model1 y = xT t.
-ˆ
 The related Optimization Problem is equal to
-
-N
-
 min
-t∈R
-
 i=1
-
 (yi − xT t)2
 i
-
-⇔
-
 The solution of the LS Problem is given by
-
-
-y1 − xT t
-1
-
-
-.
-.
 min 
-
-.
-t∈R
-T
-yN − xN t
-
-2
-
-⇔
-
 min y − Xt
-t∈R
-
-2
-2
-
-.
-
 (7.3)
-
-2
-
 tLS = (X T X)−1 X T y,
-
 (7.4)
-
 implicitly assuming that N is larger than the dimension of the observation vectors xi and the observation
 vectors form a linear independent basis of RN .
-
 1 The
-
 aﬃne case y = xT t + m can similarly be treated by y = x ,T t , with t =
-
-70
-
-t
-m
-
 and x =
-
-x
-1
-
-.
-
-Alternative Solution
+Alternative Solution
 By means of the Singular Value Decomposition2 of the Observation Matrix X, we obtain
-y − Xt
-
-2
-2
-
-,
-
-Σ
-0
-
 with X = U , U ⊥
-
-V T.
-
 (7.5)
-
 After some reformulations,3 the cost function is equal to
-y − Xt
-
-2
-2
-
-=
-
-y − U, U⊥
-T
-
-=
-
-U
-U ⊥,T
-
-y−
-
-Σ
-0
-Σ
-0
-
-2
-
-V Tt
-
-=
-
-U, U⊥
-
-2
-2
-
-V Tt
-
-T
-
-=
-2
-
-UT
-U ⊥,T
-
-y−
-
-T
-
-U y − ΣV t
-U ⊥,T y
-
 Since the lower part of the vector does not depend on t, the inequality y − Xt
 the minimum value is achieved if
-U T y − ΣV T t = 0N ×M
 Note. Der residual error U ⊥,T y
-
-2
-2
-
-2
-
-V Tt
-2
-
-2
-
-.
-2
-2
-2
-
-≥ U ⊥,T y
-
-2
-2
-
 holds and
-
-t = V Σ −1 U T y.
-
 corresponds to the orthogonal projection of y onto span U ⊥ .
-
-2 For
-3 If
-
-⇔
-
-Σ
-0
-
 real-valued matrices the singular vectors can be chosen real-valued, too.
 Q is unitary, Qx 2 = x 2 .
-2
-2
-
-71
-
 (7.6)
-
-7.2
-
 Mean Estimation Example (Cont’d)
-
-2
 In order to estimate the mean value θ of the normal distribution θ ∼ N (m, σθ ) based on observations
-2
 xi ∼ N (θ, σX |θ ), i = 1, . . . , N by means of Least Squares Estimation, we introduce the linear
 model4
-
 xi = θ,
-ˆ
-
 (7.7)
-
 and thus the LS optimization problem
-N
-
 min
-θ
-
 i=1
-
 (xi − θ)2
-
-.
-
 Comparing this linear model with the general LS model, we consequently obtain
-
-
- 
-x1
-1
- . 
- . 
 y =  .  and x =  .  .
-.
-.
-xN
-1
-
 (7.8)
-
 (7.9)
-
 The resulting LS Estimator is determined by
-
-T
 ˆ = (1T 1)−1 1T y = 1 y
-θ
-1T 1
-N
-N
-1
 i=1 1 · xi
-=
-=
 xi .
 N i=1
-1T 1
 4 The
-
 xi , yi , and t are replaced by constant input 1, xi , and θ. The constant input is due to estimating the weight t = θ, cf. (7.7).
-
-72
-
 (7.10)
 (7.11)
-
-7.3
-
 Orthogonal Projection
-
 Given the LS solution tLS in Eq. (7.4), we obtain the vector of approximated observations as y LS =
-ˆ
 X(X T X)−1 X T y. Consequently, the Approximation Error can be expressed as as y − y 2 =
-ˆ
-2
 y − X(X T X)−1 X T y = y(I − X(X T X)−1 X T )y and the matrix
 P = X(X T X)−1 X T
-
 (7.12)
-
 is the Projection Matrix onto the subspace, which is spanned by the column vectors of X. The matrix
 P maps any vector y to its Best Approximation y LS , which is element of the subspace spanned by
-ˆ
 the column vectors of X.5
 This inspires an alternative derivation of the LS estimator based on the Orthogonality Principle.
 To this end, we take into account that y ∈ span [X] and obtain
-ˆ
 y − XtLS ⊥ span [X]
-
-y − XtLS ∈ null X T ,
-
-⇔
-
 (7.13)
-
 and thus
 X T (y − XtLS ) = 0.
-
 (7.14)
-
 tLS = (X T X)−1 X T y.
-
 (7.15)
-
 Consequently,
-
 5 Note
-
 that the column vectors of X are not the observation vectors xi .
-
-73
-
-y
 P : RN → span [X]
-
 span [X]⊥
-
 span [X]
-
-Py
-
 Fig. 7.1: Orthogonal Projection of y ∈ RN onto span [X] ⊂ RN .
-
-74
-
-Given N is larger than the dimension of the observation vectors xi and the observation vectors form a
+Given N is larger than the dimension of the observation vectors xi and the observation vectors form a
 linear independent basis of RN :
-tLS = X T X
-
-−1
-
-X T y ∈ RN ,
-
 (7.16)
-
-X + = X TX
-
-−1
-
-X T ∈ CN ×P
-
 (7.17)
-
 where the matrix
 is referred to as the Moore-Penrose Pseudoinverse.
 The comparison of Eq. (7.16) with the Orthogonality Principle results in the projection matrix
-P = XX + = X X T X
-
-−1
-
-X T,
-
 (7.18)
-
 and, taking into account the Singular Value Decomposition X = U ΣV T ,6
-X+ =
-
-V ΣU T U ΣV T
-
-−1
-
-V ΣU T = V Σ 2 V T
-
-−1
-
-V ΣU T = V Σ −2 V T V ΣU T
-
-= V Σ −1 U T
-
 (7.19)
-
 and thus
-P = XX + = U ΣV T V Σ −1 U T
-= U U T.
-6 If
-
 RN = span [X], the matrix V of singular vectors is unitary.
-
-75
-
 (7.20)
-
-LS Estimation (scalar)
+LS Estimation (scalar)
 Given a sample set {(x1 , y1 ), . . . , (xN , yN )},
 elements yi ∈ R,
-
-x1
- .
-x= .
-.
-xN
-
 the LS estimator is denoted by
-
 i.e. the vector of observations xi ∈ R and the vector of
-
-
-
-
-
-
-
-
-y1
- . 
 and y =  .  ,
-.
-yN
-
-tLS : R → R, x → yLS ,
-ˆ
-
-yLS = xtLS .
-ˆ
-
 (7.21)
-
 Minimizing the Euklidean Norm of y − y with y = xt by applying the Orthogonality Principle
-ˆ
-ˆ
 yields
 y − xtLS ⊥ span [x]
-
-y − xtLS ∈ null xT ,
-
-⇔
-
 and thus
 xT (y − xtLS ) = 0.
 If follows for the optimal weight:
-tLS =
-
-xT y
-.
-xT x
-
-76
-
 (7.22)
-
 (7.23)
-
-y2 y4 y1
-
-y3
-
-y
-
 ◦ = yi
 • = yi
-ˆ
-x
-x1
-
-x2
-
-x3
-
-x4
-
 Fig. 7.2: Principle of scalar linear estimation: y = xt
-ˆ
-
-77
-
-LS Estimation (scalar and aﬃne)
+LS Estimation (scalar and aﬃne)
 Assuming the linear estimator as
-tLS : R → R, x → y ,
-ˆ
 the vector of observations xi becomes a matrix
-
-xT
-1
- xT
- 2
-X= .
- .
-.
-xT
-N
-
-y = xt1 + t2 = [x 1]
-ˆ
-
-t1
-t2
-
-= xT t,
-
 (7.24)
-
 of observation vectors xT = [xi 1], i.e.
 i
- 
-
-[x1 1]
-  [x2 1] 
- 
-
-=
-.
-.
-.
- 
-
-.
-[xN 1]
-
 Since y = Xt, or in other words y ∈ span [X], the Orthogonality Principle yields:
-ˆ
-ˆ
 y − XtLS ⊥ span [X]
-
-y − XtLS ∈ null X T ,
-
-⇔
-
 and
 X T (y − XtLS ) = 0.
-
 (7.25)
-
 Given N ≥ 2 and at least 2 observation vectors form a linear independent basis of R2 ,
-tLS = X T X
-
-78
-
-−1
-
-X T y.
-
 (7.26)
-
-y2 y4 y1
-
-y3
-
-y
-
 ◦ = yi
-ˆ
 • = yi
-x
-x1
-
-x2
-
-x3
-
-x4
-
 Fig. 7.3: Principle of scalar aﬃne estimation: y = xt1 + t2
-ˆ
-79
-
-LS Estimation (multi-dimensional)
+LS Estimation (multi-dimensional)
 We now consider the most general case with {(x1 , y 1 ), . . . , (xN , y N )}, i.e. the matrix of observation vectors
 xT and y T ,
 i
 i
-
-
-
-
-yT
-xT
-1
-1
- . 
- . 
 (7.27)
 X =  .  and Y =  .  .
-.
-.
-T
-T
-yN
-xN
 The optimal linear estimator with respect to the LS criterion
-
 and y T = xT T LS ,
-LS
-
 (7.28)
-
 is found by applying the Orthogonality Principle columnwise:
 columnwise :
-
 Y − XT LS ⊥ span [X]
-
-⇔
-
-Y − XT LS ∈ null X T ,
-
 and
 X T (Y − XT LS ) = 0.
-
 (7.29)
-
 If N is larger than the dimension of observation vectors xi and the observation vectors form a linear
 independent basis of RN ,
-−1
-T LS = X T X
-X TY .
 (7.30)
-
-80
-
-7.4
-
 Linear Minimum Mean Square Estimator
-
 The Linear Minimum Mean Square Estimator (LMMSE) is the estimator which minimizes the
 MSE based on a Linear Model for the estimator,
-y = xT t + m or y = tT x + m,
-ˆ
-ˆ
-
 (7.31)
-
 i.e. the LMMSE Estimator is minimizer of the optimization problem7 mint,m E
 Given the joint PDF of the random variables
-µz =
-
-µx
-µy
-
-y − tT x − m
-
-2
-
-.
-
 z = (x , y )T, with mean values and covariances
 and C z =
-
-C x c x ,y
-cy , x cy
-
 (7.32)
-
-,
-
 the LMMSE Estimator is given by
 y = µy + cy ,x C −1 (x − µx ) = µy + cy ,x C −1 x − cy ,x C −1 µx .
-ˆ
-x
-x
-x
-=tT
-
-7 In
-
 contrast to the standard notation, we denote random vectors by
-
-=m
-
 x in order to avoid any confusions with matrix notation X.
-81
-
 (7.33)
-
-The achievable MMSE is equal to
-
-E
-
-y − X Tt − m
-
-2
-
-= cy − cy ,x C −1 cx ,y .
-x
-
+The achievable MMSE is equal to
 (7.34)
-
 In the case of Zero-Mean random variables,
-E
-
-x
-y
-
-=
-
-µx
-µy
-
-= 0,
-
 (7.35)
-
 the LMMSE Estimator and its minimum MSE is
-
 LMMSE Estimator: y = cy ,x C −1 x,
-ˆ
-x
 Minimum MSE:
-
-E [cy ,x ] = cy − tT cx ,y .
-
-82
-
 (7.36)
 (7.37)
-
-Part V
+Part V
 Examples
-
-83
-
-8. Estimation of a Matrix Channel
+8. Estimation of a Matrix Channel
 The estimation of a Multiple-Input Multiple Output (MIMO) channel is considered. In particular
 we assume a MIMO channel with K antenna elements at the transmitter and M antenna elements at the
 receiver, which means KM transmission channels to be estimated.
-
-η
-
-sn
-
-yn
-
-h
-K
-
-M
-
 Fig. 8.1: Estimation of a MIMO channel.
-
-84
-
-Three Linear Estimators,
-
-ˆ
-h = T y ∈ CKM ,
+Three Linear Estimators,
 are introduced and compared:
- The Minimum Mean Square Error Estimator (MMSE),
- the Maximum Likelihood Estimator (ML),
- and the ”Matched Filter” Estimator (MF).
-
-85
-
+ The Minimum Mean Square Error Estimator (MMSE),
+ the Maximum Likelihood Estimator (ML),
+ and the ”Matched Filter” Estimator (MF).
 (8.1)
-
-8.1
-
 Model for Training Channel
-
 The addressed model allows to cover a variety of scenarios, including Time-Variant and Dispersive channels. For the sake of simplicity, we assume the simplest case of an Time-Invariant NonDispersive MIMO channel. The task is to ﬁnd good estimates of the channel coeﬃcients
-
-hm,k ,
-
-m = 1, . . . , M
-k = 1, . . . , K,
-
 (8.2)
-
 where hm,k denotes the channel coeﬃcient from the kth transmitter to the mth receiver.
 To this end, we assume N vectors of Training Signals sn ∈ CK , n = 1, . . . , N . The estimation of the
 channel coeﬃcients hm,k is based on the received signal vectors
-
-y n = Hsn + η n ,
-
-n = 1, . . . , N,
-
 (8.3)
-
 where H, y n and η n denotes the matrix of channel coeﬃcients, the received signal vector and the noise
 corruption at the receiver for the nth training vector, respectively.
-
-86
-
-The model for the training channel is thus given by
-[y 1 , . . . , y N ] = H [s1 , . . . , sN ] + [η 1 , . . . , η N ],
-Y
-
-¯
-S
-
+The model for the training channel is thus given by
 (8.4)
-
-N
-
-¯
 i.e. Y = H S + N .
 By stacking the column vectors of the matrices, y = vec(Y ), h = vec(H) and n = vec(N ), we obtain1
-
-y = Sh + n
-¯T
 = (S ⊗ I M )h + n,
-¯T
 The so called Kronecker Produkt S ⊗ I M means
-
-s1,1 I M s1,2 I M · · ·
- s2,1 I M s2,2 I M · · ·
-
-¯T
-S ⊗ IM = 
-.
-.
-.
-.
-
-.
-.
-sN,1 I M sK,2 I M · · ·
 1 Here
-
 (8.5)
-I M ∈ CM ×M .
-
-s1,K I M
-s2,K I M
-.
-.
-.
-sN,K I M
-
-
-
-
-
- ∈ CN M ×KM .
-
-
 we use the following identity for matrix equations: AXB = C ⇔ (B T ⊗ A) vec(X) = vec(C).
-
-87
-
 (8.6)
-
 (8.7)
-
-Example. K=M=N=2.
-s11 s12
-s21 s22
-
-η11 η12
-η21 η22
-
-=
-
-h11 h12
-h21 h22
-
-=
-
-y11 y12
-y21 y22
-
-h11 s11 + h12 s21 h11 s12 + h12 s22
-h21 s11 + h22 s21 h21 s12 + h22 s22
-
-+
-
-+
-
-η11 η12
-η21 η22
-
-
-
- 
- 
-
-y11
-h11 s11 + h12 s21
-η11
- y21   h21 s11 + h22 s21   η21 
-
- 
- 
-
- y12  =  h11 s12 + h12 s22  +  η12 
-y22
-h21 s12 + h22 s22
-η22
-
-
- 
-
-s11 0 s21 0
-h11
-η11
- 0 s11 0 s21   h21   η21 
-
- 
-
-=
- s12 0 s22
-  h12  +  η12 
-0 s12 0 s22
-h22
-η22
-
-
- 
-1 0
-1 0
-h11
-s21
- s11 0 1
-0 1   h21  
-
-+
-=
-
-1 0
-1 0   h12  
-s12
-s22
-0 1
-0 1
-h22
-
- 
-
-h11
-η11
-s11 s21
-1 0  h21   η21 
-
-+
-.
-⊗
-=
-s12 s22
-0 1  h12   η12 
-h22
-η22
-88
-
-
-η11
-η21 
-
-η12 
-η22
-
-n
-S
-
-y
-
-T
-ˆ
-h
-
-h
-KM
-
-KM
-
-MN
-
+Example. K=M=N=2.
 Fig. 8.2: Model for the estimation of a MIMO channel.
-
-89
-
-Further Assumptions.
+Further Assumptions.
 We further assume that the stacked vector of channel coeﬃcients
 distortions n ∈ CN M are Gaussian Distributed as2
-
 h ∼ N (0, C h )
-
 and
-
-h ∈ CKM
-
 and the stacked vector of
-
 n ∼ N (0, C n ) .
-
 (8.8)
-
 In the following we assume no correlations between noise vectors at diﬀerent time instances, thus leading
 to a covariance C n = I N ⊗ C η ∈ CN M .
 Additionally, assuming no correlations between distortions of adjacent antenna elements leads to
-2
-C n = ση I N M .
 The covariance matrix of the channel vector in general also shows additional structural properties, which
 are not taken into account in the following.
 The channel vectors h and the noise distortions n are assumed to be Stochastically Independent,
 and thus Uncorrelated ( Cov h, nH = 0 ).
 Note. Not taking into account these structural properties does not change the channel estimates, however,
 might be very useful to design more eﬃcient algorithms.
-
-2 In
-
 contrast to the standard notation, we again denote random vectors by
-
-90
-
 x in order to avoid any confusions with matrix notation X.
-
-Due to the Linear Channel Model y = Sh + n, we conclude that the stacked vector of signal vector
+Due to the Linear Channel Model y = Sh + n, we conclude that the stacked vector of signal vector
 at the receiver and the unknown channel vector z = [y T , hT ] are Jointly Gaussian Distributed.
 The covariances of the Joint Gaussian PDF is equal to
-
-Cz =
-
-C y C y ,h
-C h ,y C h
-
-,
-
 (8.9)
-
 with
 C y = Var [y ] = E
-
 yy H = E (S h + n)(S h + n)H · · · = SC h S H + C n ,
 C y ,h = Cov [y , h] = E yhH = E (S h + n)hH · · · = SC h ,
-C h ,y = C H,h = C h S H ,
-y
-
 (8.10)
 (8.11)
 (8.12)
-
 where we intensively applied Cov h, nH = E hnH 0 − µh µT = 0.
-n
 Note. For the following estimators, we assume full knowledge of the covariance matrices
-C y ∈ CN M ×N M
-
 and C y ,h ∈ CN M ×KM .
-
 In practice the required covariance matrices must be estimated as well!
-91
-
 (8.13)
-
-8.2
-
 Minimum Mean Square Error Estimator
-
 Since we assume Jointly Gaussian Distributed random variables, the Conditional Mean
 Estimator is identical with the MMSE Estimator T MMSE , the minimizer of
 min E
-T
-
 h − T (Sh + n)
-
-2
-
-,
-
 (8.14)
-
 which is given by
-
-ˆ
-hMMSE = T MMSE y,
-
 (8.15)
-
-T MMSE = C h ,y C −1
-y
-
 (8.16)
-
-= C h S H SC h S H + C n
-= C h S H C −1 S + I KM
-n
-
-92
-
-−1
-−1
-
-C h S H C −1 .
-n
-
 (8.17)
 (8.18)
-
-8.3
-
 Maximum-Likelihood Estimator
-
 If we consider the unknown channel vector as deterministic, the Jointly Distributed Random Variables y
 and h are replaced by y ∼ N Sh, C y |h =h , with C y |h =h = C n , and the Conditional PDF
 fy |h (y|h) = π N M det C n
-
-−1
-
 exp −(y − Sh)H C −1 (y − Sh) .
-n
-
 (8.19)
-
 Consequently, the ML Estimator T ML is the minimizer of the optimization problem
 min (y − Sh)H C −1 (y − Sh) ,
-n
-
 (8.20)
-
-T
-
 which results into
-ˆ
-hML = T ML y,
-
 (8.21)
-
-T ML = S H C −1 S
-n
-
-−1
-
-S H C −1 .
-n
-
 (8.22)
-
 Note. Given the ML Estimator T ML the MMSE Estimator, can be denoted as
-ˆ
-hMMSE = I + S H C −1 S
-n
-= SHC n S
-
-−1
-2
-
-−1
-
-C −1
-h
-
-−1
-
-T ML = . . .
-
-I KM + S H C n S
-
-−1
-2
-
-C −1 S H C n S
-n
-
-93
-
 (8.23)
-−1
-2
-
-−1
-
-SHC n S
-
-1
-2
-
-T ML .
-
 (8.24)
-
-8.4
-
 Correlation Estimator
-
 Assuming training signals such that S H S ∝ N I KM ×KM and further assuming AGWN, the ML Estimator
 is equal to the so called Correlation Estimator (C)
-
-ˆ
-hC = T C y,
-T C = S H C −1 S
-n
-
 (8.25)
-−1
-
-S H C −1 ∝ S H .
-n
-
 (8.26)
-
 Note. The Correlation Estimator is the simplest estimator which is often applied beyond cases
 where it is identical with the ML Estimator.
-
-94
-
-8.5
-
 Matched Filter Estimator
-
 The Matched Filter Estimator (MF) takes the principle of Strong Correlations between the
-ˆ
 channel vector h and its h as a cost function. In other words, the MF Estimator T MF is the maximizer of
 the optimization problem
-
-
- E hH h 2 
-ˆ
-
-
-.
 (8.27)
 max
 T  Var [T n ] 
-
-
 The corresponding MF estimator is equal to
-
-ˆ
-hMF = T MF y,
-
 (8.28)
-
-T MF ∝ C h S H C −1 .
-n
-
 (8.29)
-
-95
-
-8.6
-
 Special Case
-
 In order to simplify the further analysis we assume training signals such that
-2
-S H S = N σs I KM
-
 (8.30)
-
-2
-C n = ση I N M ,
-
 (8.31)
-
-2
-2
 where σs and ση are the variances of single training and noise distortions signals.
-
 Using these assumptions the proposed estimators can be denoted as follows:
-
-T MF ∝ C h S H ,
-
 (8.32)
-
-T ML = S H C −1 S
-n
-
-H
-
-−1
-
-−1
-
-S H C −1 =
-n
-
-T MMSE = C h S C n S + I KM
-
-−1
-
-1
-SH,
-2
-N σs
-H
-
 (8.33)
-
-−1
-
-ChS Cn =
-
-2
-ση
-Ch +
-I
-2 KM
-N σs
-
-−1
-
-Ch
-
-1
-SH .
-2
-N σs
-T ML
-
-96
-
 (8.34)
-
-The simpliﬁed case allows a convenient asymptotic analysis for the three estimators.
-
+The simpliﬁed case allows a convenient asymptotic analysis for the three estimators.
 High Noise Regime :
-
 lim T MMSE = T ML
-
 (8.35)
-
-2
 lim ση T MMSE ∝ T MF .
-
 Low Noise Regime:
-
 (8.36)
-
-2
-ση →0
-
-2
-ση →∞
-
-97
-
-Using the Eigen Value Decomposition of the channel covariance matrix
-KM
-
-C h = U ΛU H =
-
+Using the Eigen Value Decomposition of the channel covariance matrix
 λi ui uH ,
 i
-
 (8.37)
-
 i=1
-
 the estimators are equal to
-
-T MF ∝ U ΛU H S H
-1
-T ML =
-SH,
-2
-N σs
-T MMSE = U
-
 (8.38)
 (8.39)
-
-2
-ση
-I
-Λ+
-2 KM
-N σs
-
-−1
-
-ΛU H T ML .
-
 (8.40)
-
 Interpretation. Denoting the MMSE estimate in a series of the eigenvectors ui , i = 1, . . . , KM ,
-KM
-
-ˆ
-hMMSE =
 i=1
-
 λi
 λi +
-
-2
-ση
-2
-N σs
-
-ˆ
 ui uH hML ,
 i
-
 (8.41)
-
 the improvement by the MMSE Estimator can be interpreted as a Weighting Of The ML Estimate
 which is optimally adapted to the eigenspaces of the random channel vector.
-98
-
-8.7
-
 Bias/Variance Trade–Oﬀ
-
 For the analysis of all introduced channel estimators we consider the decomposition of the Mean Square
 Error into the estimator’s Squared Bias and Variance. Since we compare estimators of diﬀerent
 paradigms with respect to A Priori Information about the unkown parameter, we study the mean
 average of the respective Bias/Variance Decomposition. To this end, the MSE is decomposed by the
 following steps3
-E
-
 h − T (Sh + n)
-
-2
-
 = E E h − T (Sh + n)
- 
-
-|h
-
-2
-
 (8.42)
-2
-
-
-
 = E E  (I KM − T S)h +T n  | h
 Bias
-
-
-
 = E  (I KM − T S)h
-
-2
-
 Squared Bias
-
 Average Squared Bias
-
-
-
-
-
-
-| h + E E
-
-Tn
-
 (8.43)
-
-2
-
 Variance
-
-
-
-
-|h 
-
 Average Variance = Variance
-
 = tr (I KM − T S)C h (I KM − T S)H + tr T C n T H .
 3 The
-
 last step is found by using the identity E
-
-x
-
-2
-
-=E
-
-x Hx
-
-= E tr
-
-99
-
-xx H
-
-= tr E
-
 (8.44)
-
-xx H
-
-x
-
-= tr [R ].
-
 (8.45)
-
-2
-2
 For the simpliﬁed assumptions S H S = N σs I KM and C n = ση I N M :
-
 Estimator
-
 Averaged Squared Bias
-
 ML/Correlator
-
-0
-
 λi λi − 1
-λ1
 i=1
-
-KM
-
-MMSE
 i=1
-
-
-
-
 λi 
-
-
-2
-ση
-2
-N σs
-
-KM
-
-KM
-
 Matched Filter
-
 Variance
-
-1
-
-2
-ση
-1+
-2
 λi N σ s
-
-KM
-
-−1
-
 i=1
-
-2
-
-
-− 1
-
-
-KM
 i=1
-
-2
-
 λi
-λ1
-
-2
-ση
-2
-N σs
-
-1
-2
-ση
-1+
-2
 λi N σs
-
-2
-
-2
-ση
-2
-N σs
-
 The minimum MSE achieved by the MMSE Estimator is given by
-KM
-
-E
-
 h − T (Sh + n)
-
-2
-
-=
 i=1
-
-100
-
-2
-ση
-2
-N σs
-
 λi
-2
-ση
 λi +
-2
-N σs
-
-.
-
 (8.46)
-
-8.8
-
 Numerical Experiments
-
 We consider
- a Non-Dispersive MIMO channel h = vec[H],
- with M = K = 8 antenna elements,
- a Uniform Linear Arrays at the receiver,
- and N = 16 training signal vectors sn ∈ {−1, +1}K (Binary).
- The covariance matrix C h corresponds to 8 impinging planar wavefronts at
-
-−45◦ , −32.1◦ , −19.3◦ , −6.4◦ , 6.4◦ , 19.3◦ , 32.1◦ , 45◦ ,
-
+ a Non-Dispersive MIMO channel h = vec[H],
+ with M = K = 8 antenna elements,
+ a Uniform Linear Arrays at the receiver,
+ and N = 16 training signal vectors sn ∈ {−1, +1}K (Binary).
+ The covariance matrix C h corresponds to 8 impinging planar wavefronts at
 (8.47)
-
 where each Azimuth Angle represents a cluster of wavefronts spread according to a Laplace
 Angular Power Spectrum with spread σ = 5◦
-
-101
-
-to kth transmitter
-
-φk
-
-φ
-
-1
-
-M
-
-d
-
-d
-
+to kth transmitter
 Fig. 8.3: Array geometry.
-
-102
-
-10+0
-
 maximum likelihood
 matched ﬁlter
 red.-rank ML (R = 30)
 red.-rank ML (opt. rank)
-MMSE
-
-tr [C h ]
-
-E
-
-ˆ
-h−h
-
-2
-
-10−1
-
-10−2
-
-10−3
-−10
-
-−5
-
-0
-
-5
-
-2
-2
-σs /ση [dB]
-
-10
-
-15
-
-20
-
 Fig. 8.4: Normalized MSE of channel estimators for M = 8, K = 8, and N = 16.
-
-103
-
-8.9
-
 Numerical Experiments (cont’d)
-
 We now consider
- a Dispersive Single-Input Multiple-Output (SIMO) channel h = vec[H],
- with M = 8 receiver antenna elements, K = 1 transmitter antenna elements,
- a Uniform Linear Arrays at the receiver,
- with dispersion order L = 4,
- and N = 16 training signal vectors sn ∈ {−1, +1}K (Binary).
- The covariance matrix C h corresponds to 5 impinging planar wavefronts at
-
-−45◦ , −22.5◦ , 0◦ , 22.5◦ , 45◦
-
+ a Dispersive Single-Input Multiple-Output (SIMO) channel h = vec[H],
+ with M = 8 receiver antenna elements, K = 1 transmitter antenna elements,
+ a Uniform Linear Arrays at the receiver,
+ with dispersion order L = 4,
+ and N = 16 training signal vectors sn ∈ {−1, +1}K (Binary).
+ The covariance matrix C h corresponds to 5 impinging planar wavefronts at
 (8.48)
-
 per delay, where each Azimuth Angle represents a cluster of wavefronts spread according to a
 Laplace Angular Power Spectrum with spread σ = 5◦
-
-104
-
-10+0
-
-tr [C h ]
-
-E
-
-ˆ
-h−h
-
-2
-
-10−1
-
-10−2
 maximum likelihood
 correlator
 matched ﬁlter
-MMSE
-−10
-
-−5
-
-0
-
-5
-
-2
-2
-σs /ση [dB]
-
-10
-
-15
-
-20
-
 Fig. 8.5: Normalized MSE of channel estimators for M = 8, K = 1, L = 4 (Dispersive), and N = 16.
-
-105
-
-References
- S. M. Kay. Fundamentals of Statistical Signal Processing: Estimation Theory, volume I, Prentice Hall
+References
+ S. M. Kay. Fundamentals of Statistical Signal Processing: Estimation Theory, volume I, Prentice Hall
 Signal Processing Series, 1993.
- L. L. Scharf. Statistical Signal Processing: Detection, Estimation, and Time Series Analysis, 1st edtition,
+ L. L. Scharf. Statistical Signal Processing: Detection, Estimation, and Time Series Analysis, 1st edtition,
 Prentice Hall, 1991.
- F. A. Dietrich and W. Utschick. Pilot assisted channel estimation based on second order statistics. IEEE
+ F. A. Dietrich and W. Utschick. Pilot assisted channel estimation based on second order statistics. IEEE
 Transactions on Signal Processing, 53(3):1178–1193, 2005.
-
-106
-
-

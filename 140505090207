@@ -1,0 +1,1 @@
+$\operatorname{D} \operatorname{f} (x_0) := \frac{d}{dt} |_{t=0} \operatorname{f}(x_0 + t) = \operatorname{lim}\limits_{t \to 0}\frac{\operatorname{f}(x_0 + tv)}{t}$

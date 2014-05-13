@@ -1,90 +1,39 @@
-¨
-¨
 Fachgebiet UNIVERSITAT MUNCHEN
-TECHNISCHE
 Fakult¨t f¨r Elektrotechnik und Informationstechnik
 a u
 Geometrische Optimierung
 Fachgebiet f¨r Geometrische Optimierung und Maschinelles Lernen
-u
 und Maschinelles Lernen
 Prof. Dr. Martin Kleinsteuber
 Non-convex Optimization for Analyzing Big Data
 Assignment #1, May 5, 2014
 Due date: 13.05.2013, 15:00
-Your solutions should be submitted via Moodle. Submissions should either be done by
-Latex or written by hand and then scanned.
-
+Your solutions should be submitted via Moodle. Submissions should either be done by Latex or written by hand and then scanned.
 Hilbert Spaces and Inner Products
 Task 1: (5 points)
-• Given the positive deﬁnite matrix A ∈ Rn×n . (Note: A matrix A is called
-positive deﬁnite if x Ax > 0 for all x ∈ Rn .) Show that
-X, Y
-
-A
-
-:= tr(XAY )
-
+• Given the positive deﬁnite matrix A ∈ Rn×n . (Note: ('140512164544')) Show that
+...
 is an inner product.
+\todo{Is it sufficient to consider $X, Y \in mathbb{R}^n$?}
 • Given two Hilbert spaces H1 , H2 with scalar products ·, ·
 tively. We deﬁne
-
-H1 ,
-
-·, ·
-
-H2 ,
-
 respec-
-
 H1 ⊕ H2 := {(x1 , x2 ) : x1 ∈ H1 , x2 ∈ H2 }
 with the inner product
 (x1 , x2 ), (y1 , y2 )
-
-H1 ⊕H2
-
-:= x1 , x2
-
-H1
-
-+ y1 , y2
-
-H2 .
-
-Show that H1 ⊕ H2 is a Hilbert space. Find the orthogonal complement of the
-subspace {(x1 , 0) : x1 ∈ H1 }.
-
+Show that H1 ⊕ H2 is a Hilbert space. 
+('140512162926')
 Diﬀerentiation
 Task 2: (5 points)
 • Let f : R2 → R be given by
-
- x2 + y 2 ,
-
 f (x, y) =
-x,
-
-
-− x2 + y 2 ,
-
-y > 0,
-y = 0,
-y < 0.
-
-Show that (a) every directional derivative of f exists in (0,0) and (b) f is not
-diﬀerentiable in (0,0).
-
-• Given the function f : R2 → R deﬁned by
-
+('140512185916')
+• Given the function f : R2 → R deﬁned by
  √ x·y , (x, y) = (0, 0),
-x2 +y 2
 f (x, y) :=
-0,
 (x, y) = (0, 0).
 Show that f is continuous and partially diﬀerentiable, but not diﬀerentiable.
 • Given the function
-f : Rn×n → R,
 A → log (det(A)) .
 Determine the derivative Df (A). Hint: Use the fact that log (det(A)) = tr (log(A))
 which was proven in the tutorial.
-
-

@@ -1,0 +1,633 @@
+4. Bayesian Estimation
+
+Problem 4.1
+
+Variance of a Gaussian Random Variable
+
+a) In case some prior knowledge on the random parameter θ is available, this knowledge can be
+used for designing an improved estimator. In case of the Bayes estimator, the prior knowledge is
+given by a prior probability density function fθ (θ) of the parameter θ. An uniformly minimumvariance unbiased estimator (UMVUE) is an estimator T that is unbiased and has the lowest possible
+variance for unbiased estimation. This means, that we have
+Var [T ] ≤ Var [S] ,
+where S is any other unbiased estimator, for all θ ∈ Θ. In case unbiased estimators with minimum
+variance can not be found for all θ ∈ Θ, an UMVUE is not available. In this case, a reasonable
+approach is to search for an estimator that minimizes the mean squared error (MSE) over the
+value range of the parameter which is possible if a probability density is assigned to θ. The
+conditional mean estimator minimizes the MSE, where expectation is taken with respect to fxθ (x, θ).
+However, we assume that θ is an realization of the random variable θ drawn from fθ (θ)
+which is not necessarily the true PDF. The conditional mean estimator is in general only MSE
+optimal with respect to the assumed prior PDF fθ (θ) and not an UMVUE. If the assumed prior PDF
+differs significantly from the true PDF of θ, this may have an impact on the performance of the
+estimator.
+b)
+
+Bayes’ rule for the posterior PDF fθ|x1 ,...,xN (θ|x1 , . . . , xN ) is given as
+(N)
+πθ|x
+(θ) := fθ|x1 ,...,xN (θ|x1 , . . . , xN ) =
+
+fx1 ,...,xN |θ (x1 , . . . , xN ) fθ (θ)
+Θ
+
+fx1 ,...,xN ,ξ (x1 , . . . , xN , ξ)dξ
+
+,
+
+where we denote the posterior PDF by π(N)
+(θ) for notational convenience.
+θ|x
+c) As fx1 ,...,xN |θ (x1 , . . . , xN ) is a Gaussian PDF, fθ (θ) is the PDF of a Gamma distribution, and the
+denominator is for normalization, we have that
+
+
+N
+
+ −θ N
+1 α−1
+θ2
+(N)
+πθ|x (θ) = γ √
+exp 
+(xi − µ)2  βα
+θ exp (−βθ)
+2 i=1
+Γ(α)
+( 2π)N
+
+
+ −θ N
+
+N
+∝ θ 2 exp 
+(xi − µ)2  θα−1 exp (−βθ)
+2 i=1
+ 
+ 
+N
+ 
+ 
+1
+N
+2
+∝ exp − β +
+(xi − µ)  θ θ(α+ 2 )−1 ,
+2 i=1
+48
+
+4. Bayesian Estimation
+
+49
+
+where γ is the normalization factor. We identify the posterior PDF as the PDF of a Gamma
+distribution with the parameters
+N
+,
+2
+N
+1
+(xi − µ)2 ,
+β =β+
+2 i=1
+
+α =α+
+
+i.e., we have that θ|x1 , . . . xN ∼ Γ(α , β ).
+d) The conditional mean estimator for the precision θ is given as the mean of the posterior PDF.
+Thus, we have that
+α
+θˆCM = E[θ|x1 , . . . , xN ] =
+β
+which leads to the conditional mean estimator for the variance σ2 = θ−1 given as
+σ
+ˆ 2CM
+
+β+
+β
+=
+=
+α
+
+1
+2
+
+N
+i=1 (xi
+α + N2
+
+− µ)2
+
+.
+
+The ML estimator for the variance assuming a known mean µ is, cf. problem 2.1f), given as
+σ
+ˆ 2ML
+
+1
+=
+N
+
+N
+i=1
+
+(xi − µ)2 ,
+
+which results in the conditional mean estimator
+σ
+ˆ 2CM
+
+2β + N σ
+ˆ 2ML
+=
+=
+2α + N
+
+2β
++σ
+ˆ 2ML
+N
+.
+2α
++1
+N
+
+The conditional mean estimator converges to the ML estimator σ
+ˆ 2ML for a large number of observations N, i.e.,
+2β
++σ
+ˆ 2ML
+N
+N→∞ 2α + 1
+N
+
+lim σ
+ˆ 2CM = lim
+
+N→∞
+
+=σ
+ˆ 2ML .
+
+The conditional mean estimator converges to the mean of the prior PDF β/α for a small number of
+observations N, i.e,
+2β + N σ
+ˆ 2ML β
+= .
+N→0
+2α + N
+α
+
+lim σ
+ˆ 2CM = lim
+
+N→0
+
+4. Bayesian Estimation
+
+Problem 4.2
+
+50
+
+Mean of a Gaussian Random Variable
+
+a) Following Bayes’ rule, the posterior PDF can be determined as
+π(N)
+(θ) := fθ|x1 ,...,xN (θ|x1 , . . . , xN ) =
+θ|x
+
+fx1 ,...,xN |θ (x1 , . . . , xN ) fθ (θ)
+Θ
+
+fx1 ,...,xN ,ξ (x1 , . . . , xN , ξ)dξ
+
+,
+
+where π(N)
+(θ) is introduced for notational convenience.
+θ|x
+b) As fx1 ,...,xN |θ (x1 , . . . , xN ) is Gaussian, fθ (θ) is Gaussian, γ is a normalization factor, we have
+
+
+N
+
+
+1
+
+ exp − 1 (θ − mθ )T C−1
+(xi − θ)T C−1
+π(N)
+(θ) = γ exp −
+x|θ (xi − θ)
+θ (θ − mθ )
+θ|x
+2 i=1
+2
+
+
+ 1 N
+
+T −1
+
+∝ exp −
+(xi − θ)T C−1
+(x
+−
+θ)
++
+(θ
+−
+m
+)
+C
+(θ
+−
+m
+)
+θ
+θ 
+x|θ i
+θ
+2 i=1
+1
+∝ exp −
+2
+
+N
+
+i=1
+
+T −1
+T −1
+(xTi C−1
+x|θ xi − xi Cx|θ θ − θ Cx|θ xi
+
+T −1
+T −1
+T −1
+T −1
++ θT C−1
+x|θ θ) + θ Cθ θ − θ Cθ mθ − mθ Cθ θ + mθ Cθ mθ
+
+
+
+1 T
+−1
+−1
+T
+∝ exp − θ (NCx|θ + Cθ )θ − 2θ C−1
+x|θ
+2
+
+N
+
+xi +
+i=1
+
+For a Gaussian PDF fx (x) with x ∼ N(µx , Cx ), we have
+
+
+
+
+
+C−1
+
+θ mθ 
+
+.
+
+1
+fx (x) ∝ exp − (x − mx )T C−1
+x (x − mx )
+2
+1
+T −1
+∝ exp − xT C−1
+.
+x x − 2x Cx mx
+2
+Comparing the expression found for fx (x) and π(N)
+(θ), we can observe that the posterior PDF π(N)
+(θ)
+θ|x
+θ|x
+is Gaussian with
+−1
+C(N),−1
+≡ NC−1
+x|θ + Cθ
+θ|x
+
+C(N),−1
+m(N)
+≡ C−1
+x|θ
+θ|x
+θ|x
+
+N
+
+−1 ˆ
+−1
+xi + C−1
+θ mθ = Cx|θ N θML + Cθ mθ .
+
+i=1
+
+Thus, the conditional mean of the posterior PDF π(N)
+(θ) is given as
+θ|x
+−1
+ˆ
+m(N)
+= C(N)
+C−1
+x|θ N θML + Cθ mθ
+θ|x
+θ|x
+
+with the covariance matrix of the posterior PDF given as
+−1
+C(N)
+= NC−1
+x|θ + Cθ
+θ|x
+
+−1
+
+.
+
+4. Bayesian Estimation
+
+51
+
+c) Reformulating C(N)
+using the provided hint gives
+θ|x
+C(N)
+θ|x
+
+
+ 1
+=  Cx|θ
+N
+= Cθ
+
+=
+
+−1
+
++
+
+−1
+
+−1 
+Cθ 
+
+1
+Cx|θ + Cθ
+N
+
+−1
+
+1
+1
+Cx|θ
+Cx|θ + Cθ
+N
+N
+
+1
+Cx|θ
+N
+−1
+
+Cθ ,
+
+which are two different but equivalent expressions for C(N)
+. They can be used to determine
+θ|x
+−1
+ˆ
+m(N)
+= C(N)
+C−1
+x|θ N θML + Cθ mθ
+θ|x
+θ|x
+
+= Cθ
+
+1
+Cx|θ + Cθ
+N
+
+−1
+
+1
+1
+1
+ˆ
+Cx|θ C−1
+Cx|θ
+Cx|θ + Cθ
+x|θ N θML +
+N
+N
+N
+
+= Cθ
+
+1
+Cx|θ + Cθ
+N
+
+−1
+
+1
+1
+θˆ ML + Cx|θ
+Cx|θ + Cθ
+N
+N
+
+−1
+
+−1
+
+Cθ C−1
+θ mθ
+
+mθ .
+
+The conditional mean estimator is given as the mean of the posterior PDF, i.e.,
+θˆ CM = E(N)
+[θ|x1 , . . . , xN ]
+θ|x
+= Cθ
+
+1
+Cx|θ + Cθ
+N
+
+−1
+
+1
+1
+θˆ ML + Cx|θ
+Cx|θ + Cθ
+N
+N
+
+−1
+
+mθ .
+
+d) Compare lecture notes Section 6.3 Mean Estimation Example (Contd). For scalar random
+variables, the result of the previous sub-problem simplifies to
+−1
+
+1 2
+1
+σ + σ2θ
+θˆML + σ2x|θ
+N
+N x|θ
+σ2x|θ
+Nσ2θ
+= 2
+θˆML + 2
+mθ .
+σx|θ + Nσ2θ
+σx|θ + Nσ2θ
+
+1 2
+σ + σ2θ
+θˆCM = σ2θ
+N x|θ
+
+−1
+
+mθ
+
+The conditional mean estimator is a convex combination of the ML estimator θˆML and the mean
+of the prior PDF mθ . Therefore, θˆCM is in between mθ and θˆML . In case σ2θ 0 and an increasing
+number of observations we belief more in the ML estimate θˆML and less in the prior mθ . In case
+σ2θ = 0, the prior is correct and the estimate is mθ independent of the number of iterations N.
+Contrary, in case σ2θ
+σ2x|θ , the prior contains so much uncertainty that the ML estimate θˆML is
+used. Given either a large number of observations N, a small conditional variance σ2x|θ , or a large
+variance σ2θ of the a prior distribution of θ, it is recommended to rely on the ML estimator, since
+lim θˆCM = lim θˆCM = lim θˆCM = θˆML .
+
+N→∞
+
+σ2x|θ →0
+
+σ2θ →∞
+
+4. Bayesian Estimation
+
+52
+
+However, given either a small number of observations N, a large conditional variance σ2x|θ of
+observations, or a small variance σ2θ of the a prior distribution of θ, we better rely on the mean of
+the prior distribution, since
+lim θˆCM = lim θˆCM = lim θˆCM = mθ .
+
+N→0
+
+σ2x|θ →∞
+
+σ2θ →0
+
+4. Bayesian Estimation
+
+Problem 4.3
+
+53
+
+Gaussian Transmission Model
+
+a) In order to formulate the conditional posterior PDF fθ|x (θ|x), let
+z=
+
+x
+θ
+
+=
+
+Hθ + n
+θ
+
+=
+
+H M×L I M×M
+I L×L 0L×M
+
+θ
+.
+n
+
+As θ and n are independent and Gaussian, z is Gaussian as well. The posterior density fθ|x (θ|x) is
+again Gaussian, see provided hint, with expected value
+Eθ|x [θ|x] = E θ + Cθx C−1
+x (x − E [x])
+and covariance matrix
+Cθ|x = Cθ − Cθx C−1
+x Cxθ .
+From the transmission model, we have that
+E [x] = E Hθ + n = Hµθ ,
+Cθx = E (θ − µθ )(x − E [x])T = E (θ − µθ )(H(θ − µθ ) + n)T
+= E (θ − µθ )(θ − µθ )T HT = Cθ HT = CTxθ ,
+
+Cx = E (x − Hµθ )(x − Hµθ )T
+
+= E (H(θ − µθ ) + n)(H(θ − µθ ) + n)T
+
+= H E (θ − µθ )(θ − µθ )T HT + Cn = HCθ HT + Cn .
+From this we obtain the conditional mean
+Eθ|x [θ|x] = µθ + Cθ HT (HCθ HT + Cn )−1 (x − Hµθ )
+and the covariance matrix
+Cθ|x = Cθ − Cθ HT (HCθ HT + Cn )−1 HCθ
+of the Gaussian posterior PDF.
+b)
+
+The conditional mean estimator is given as the mean of the posterior PDF. Thus, we have
+θˆ CM = Eθ|x [θ|x] = µθ + Cθ HT (HCθ HT + Cn )−1 (x − Hµθ ).
+
+c) We consider x = y + n with the random mean y = Hθ, where θ ∼ N(µθ , Cθ ). The prior PDF
+of the random mean y is y ∼ N(µy , Cy ) with µy = Hµθ and Cy = HCθ HT . y and x are jointly
+Gaussian and for the posterior PDF of y given x we need
+E [x] = E [y + n] = µy ,
+Cyx = E (y − µy )(x − E [x])T = E (y − µy )((y − µy ) + n)T
+
+4. Bayesian Estimation
+
+54
+
+= E (y − µy )(y − µy )T = Cy = CTxy ,
+
+Cx = Cy + Cn .
+
+The mean of the posterior PDF is given as
+E[y |x] = E [y ] + Cyx C−1
+x (x − E [x])
+
+= Hµθ + HCθ HT HCθ HT + Cn
+
+−1
+
+(x − Hµθ ).
+
+This leads to the conditional mean estimator for the mean, cf. sub-problem 4.2b),
+yˆ CM = Hµθ + HCθ HT HCθ HT + Cn
+= H µθ + Cθ HT HCθ HT + Cn
+= Hθˆ CM .
+
+−1
+−1
+
+(x − Hµθ )
+
+(x − Hµθ )
+
+

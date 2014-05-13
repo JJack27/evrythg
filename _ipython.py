@@ -1,27 +1,33 @@
-from subprocess import Popen
+from subprocess import Popen # for windows
+from os import system # for linux
 from os import getcwd
 from os import environ
 from os.path import sep
 from os import system
 from time import strftime
-
+from sys import platform
 fn = lambda t: getcwd() + sep + t
 fn.__doc__="Create an absolute file path for tag.\nt: time tag"
-
+    
 def _v(t):
     """
     View the tagged image
     t: time tag
     """
-    Popen('jpegview %s.png' %(fn(t)))
+    if platform == 'linux2':
+        system('feh %s.png &' %(fn(t)))
+    else:
+        Popen('jpegview %s.png' %(fn(t)))
 
 def _c(t):
     """
     Capture an image for tag
     t: time tag
     """
-    Popen('MiniCap -captureregselect -save "%s.png" -exit' %(fn(t)))
-
+    if platform == 'linux2':
+        system('scrot -s %s.png &' %(fn(t)))
+    else:
+        Popen('MiniCap -captureregselect -save "%s.png" -exit' %(fn(t)))
 def _m(fn):
     """
     Compile latex using pythontex

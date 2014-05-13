@@ -1,0 +1,4 @@
+Continuous functions of two variables satisfy all of the usual properties familiar from single variable calculus:
+* The sum of a finite number of continuous functions is a continuous function.
+* The product of a finite number of continuous functions is a continuous function.
+* The quotient of two continuous functions is a continuous function wherever the denominator is non-zero.

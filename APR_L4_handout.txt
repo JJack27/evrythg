@@ -1,0 +1,458 @@
+Adaptive and Predictive Control
+L4: Model Reference Adaptive Systems
+Dr.-Ing. Stefan Sosnowski
+Institute for Information-Oriented Control
+Technische Universit¨
+at M¨
+unchen
+APR Lecture, summer semester 2014
+www.itr.ei.tum.de
+Midterm Exam
+Date: 05.06.2014
+Time: 13:15-14:45
+Length: 60min
+Open book exam
+Bonus on final exam grade if midterm is passed
+Participation optional
+MIT-Rule
+Lyapunov
+Content
+1. Introduction to Adaptive and Predictive Control
+2. Parameter Estimation
+3. Self tuning Controller, Pole placement
+4. Model Reference Adaptive systems
+5. Autotuning, Gain Scheduling
+6. Practical Issues and Implementation, Applications
+MIT-Rule
+Lyapunov
+Model Reference Adaptive Systems
+Model Output ym
+Model
+Controller Parameter θ
+Reference uc
+Controller
+Adjustment
+Mechanism
+Plant
+Desired output given by reference model
+Parameter adjustment methods:
+MIT-Rule: Gradient decent
+Lyapunov stability
+Given: y(t) = Gθ (p)u(t),
+ym (t) = Gm (p)uc (t)
+MIT-Rule
+Lyapunov
+MIT-Rule
+Original version of Model Reference Adaptive Control (MRAC)
+developed at MIT
+MIT Rule: Use gradient descent method for parameter adaptation
+One adjustable controller parameter θ
+e = y − ym
+Loss function:
+System output
+Model output
+
+with $\gamma$ as adaptation gain and θ˙ =
+MIT-Rule
+Lyapunov
+MIT Rule Example 1/7
+Given: stable SISO system
+y(t) = kG(p)(u(t))
+with
+System output
+Known stable transfer function
+Control input
+Constant unknown gain
+Differential operator
+Problem: Find a controller u(t) =
+T (p)
+R(p) uc (t)
+y(t)
+G(s)
+u(t)
+ym (t) = Gm (p)(uc (t)) = k0 G(p)(uc (t))
+where k0 is a given constant gain.
+MIT-Rule
+Lyapunov
+MIT Rule Example 2/7
+If k were known:
+y(t) = kG(p)(u(t))
+ym (t) = k0 G(p)(uc (t))
+Solution with a simple proportional controller:
+u(t) = θuc (t),
+with
+Then:
+y(t) = kG(p)(θuc (t)) = kG(p)(
+MIT-Rule
+uc (t)) = ym (t)
+Lyapunov
+MIT Rule Example 3/7
+Adaptation of θ:
+Error between real and model outputs:
+e(t, θ) = y(t) − ym (t) = kG(p)θ(t)uc (t) − k0 G(p)uc (t)
+Goal: Update of θ(t), so that e(t, θ) → 0 for t → ∞
+Jacobian as measure for e(t, θ):
+J(t, θ) = |e(t, θ)|2
+Time derivative (chain rule):
+Negative time derivative:
+MIT-Rule
+Lyapunov
+MIT Rule Example 4/7
+Sensitivity derivative:
+e=
+[kG(p)θ(t)uc (t)] = kG(p)uc (t)
+= k0 G(p)uc (t) = ym (t)
+Adaptation law:
+2e
+e = −2γ
+ym (t)e(t, θ)
+with arbitrary γ > 0, since γ = 2γ
+with arbitrary γ > 0
+θ˙ = −γym (t)e(t, θ)
+Remark: J(·) = |e(·)|
+MIT-Rule
+θ˙ = −γym (t)sgn(e(t, θ))
+Lyapunov
+MIT Rule Block diagram
+MIT-Rule
+Lyapunov
+MIT Rule Example 5/7
+Transfer function: G(s) =
+Parameters: k = 1 (process), k0 = 2 (desired)
+Reference: uc (t) sinusoidal function
+MIT-Rule
+Lyapunov
+MIT Rule Example 6/7
+Transfer function
+G(s) =
++ a1 s + a2
+a1 > 0,
+a2 > 0
+Characteristic polynomial
++ a1 s + a2
+s3 + a1 s2 + a2 s + µ = 0
+Stable zeros if and only if
+and
+a1 a2 > µ = γk ym
+With any choice of γ > 0 ⇒ stability loss for sufficiently large
+magnitudes of uc !
+MIT-Rule
+Lyapunov
+MIT Rule Example 7/7
+Transfer function: G(s) = s2 +a11 s+a2
+Parameters: k = a1 = a2 = kk0 = 1, γ = 0.1
+Reference: uc (t) square wave with amplitudes (a) = 0.1, (b) = 1,
+(c) = 3.5
+MIT-Rule
+Lyapunov
+Normalized MIT Rule
+Rewrite: θ˙ = γΦe(t, θ) with Φ := − ∂θ
+e(t, θ)
+Modification to make adaptation independent of signal level:
+γΦe
+with small constant α to avoid problems for Φ → 0
+MIT-Rule
+Lyapunov
+MIT Rule Summary
+Adaptation law based on the gradient descent for minimizing the
+error e = y − ym
+∂e
+θ˙ = −γe
+Choice of adaption gain is critical and depends on the signal level
+γΦe
+No guarantee that adaptive system based on the MIT rule will be
+stable!
+MIT-Rule
+Lyapunov
+Aleksandr Mikhailovich Lyapunov
+Working fields:
+differential equations
+potential theory
+dynamical systems
+probability theory
+Most famous for stability
+theory of a dynamical
+system
+MIT-Rule
+Lyapunov
+Stability
+The solution x(t) = 0 of the system
+x(t)
+= f (x, t),
+f (0, t) = 0, ∀t
+is stable if for any ε > 0 there exists a number δ(ε) > 0 such that
+||x(t0 )|| ≤ δ
+||x(t, t0 )|| ≤ ε ∀t ≥ t0
+Uniformly stable: δ(ε, t0 ) can be chosen independently on t0
+Uniformly asymptotically stable: uniformly stable and ∀x(t0 )
+||x(t, t0 )|| → 0
+MIT-Rule
+as
+Lyapunov
+Simple Example
+Stability of x = 0 of system
+x(t)
+= −ax(t)
+Solution:
+x(t, t0 ) = e−a(t−t0 ) x(t0 )
+a≥0
+−a(t − t0 ) ≤ 0 for t ≥ t0
+|e−a(t−t0 ) | ≤ 1 for t ≥ t0
+|x(t, t0 )| ≤ 1|x(t0 )| ≤ δ for t ≥ t0
+Conclusion: uniform stability for δ = ε
+a>0
+|e−a(t−t0 ) | → 0 for t → ∞
+|x(t, t0 )| → 0 for t → ∞
+Conclusion: uniform asymptotic stability
+MIT-Rule
+Lyapunov
+Class κ functions
+A continuous function α : [0, c(→ [0, ∞) is said to belong to class
+κ, if
+it is strictly increasing
+α(0) = 0
+It belongs to class κ∞ , if c = ∞ and α(r) → ∞ as r → ∞
+MIT-Rule
+Lyapunov
+Positive definite and semidefinite functions
+A continuously differentiable function V : Rn → R is called
+positive definite in a region U ⊂ Rn containing the origin if
+1. V (0) = 0
+2. V (x) > 0,
+x ∈ U and x = 0
+A function is called positive semidefinite if Condition 2 is replaced
+by V (x) ≥ 0.
+A positive definite function has level curves that enclose the origin.
+MIT-Rule
+Lyapunov
+Positive definite and semidefinite functions
+Velocity vector dx/dt = f (x) always points toward the
+interior of the level curves
+Solution that starts inside a given level curve can never pass
+to the outside of the same level curve
+MIT-Rule
+Lyapunov
+Lyapunov’s Theorem
+Let x = 0 be a stationary point of x˙ = f (x, t). Let V (t, x) be a
+continuously differentiable function such that
+α1 (||x||) ≤ V (t, x) ≤ α2 (||x||)
+V˙ (t, x) =
+f (x, t) ≤ −α3 (||x||)
+for t ≥ 0, α1 (·) and α2 (·) ∈ κ
+if α3 (·) ≥ 0, then x = 0 is uniformly stable
+if α3 (·) ∈ κ, then x = 0 is uniformly asymptotically stable
+MIT-Rule
+Lyapunov
+Remarks on Lyapunov’s Theory
+V is positive definite: α1 (||x||) ≤ V (t, x) means
+V (t, x(t)) ≤ C
+V (t, x) ≥ α1 (r)
+||x(t)|| ≤ α1−1 (C)
+V is decrescent: V (t, x) ≤ α2 (||x||) means
+||x(t0 || ≤ δ
+V (t, x) ≥ c
+V (t0 , x(t0 )) ≤ α2 (δ) = C
+||x(t)|| ≥ α2−1 (c)
+Negative Lie derivative: V˙ (t, x) ≤ 0 means
+V (t, x(t)) is not increasing along the trajectories and
+converges (to a non negative number).
+||x(t0 || ≤ δ
+||x(t)|| ≤ α1−1 (α2 (δ)) = ε
+MIT-Rule
+Lyapunov
+Lyapunov Equation
+Stability of the solution x = 0 of the system
+x(t)
+= Ax(t)
+Consider the Lyapunov function
+V (t, x) = xT P x
+Note that with a positive definite P = P T > 0
+α1 (||x||) ≡ λmin {P }||x||2 ≤ V (t, x) ≤ λmax {P }||x||2 ≡ α2 (||x||)
+Computing derivative along the trajectories we have
+V˙ = xT (AT P + P A)x = −xT Qx ≡ −α3 (||x||)
+provided the Lyapunov equation
+is solved with P = P T > 0
+MIT-Rule
+Lyapunov
+Simple Example continued
+Lyapunov equation for stability of solution x = 0 of system
+x(t)
+= −ax(t)
+is
+AT P + P A = −Q(−a)T P + P (−a) = −Q
+(2a)P = Q
+For any Q > 0 the solution
+2a
+is positive if and only if
+a>0
+MIT-Rule
+Lyapunov
+Invariance Principle
+LaSalle’s Theorem
+Let Ω ⊂ D be a compact set that is positively invariant with respect
+to x˙ = f (x) : D → Rn
+Let V : D → Rn be a continuously differentiable function such
+that V˙ ≤ 0 in Ω.
+Let E be the set of all points in Ω where V˙ = 0 . Let M be the
+largest invariant set in E.
+Then, every solution starting in Ω approaches M as t → ∞.
+⇒ Valid only for time-invariant systems!
+⇒ Asymptotic stability for negative semidefinite V˙
+MIT-Rule
+Lyapunov
+Barbalat’s Lemma
+If g is a real function of a real variable t, defined and uniformly
+continuous for t ≥ 0, and if the limit of the integral
+lim
+g(s)ds
+exists and is a finite number, then
+lim g(t) = 0
+Remarks:
+g(t) is uniformly continous ⇐ g(t)
+is bounded
+g(t) and g(t)
+are bounded,
+lim
+g (s)ds
+MIT-Rule
+< 0 ⇒ lim g(t) = 0
+Lyapunov
+Boundedness and Convergence Set
+Theorem: Consider a system x˙ = f (t, x) where f (x, t) is
+piecewise continuous in t and locally Lipschitz in x ∈ D, and
+f (t, 0) is uniformly bounded for all t ≥ 0.
+Let V (x, t) be a continuously differentiable function such that
+W1 (x) ≤ V (x, t) ≤ W2 (x)
+f (x, t) ≤ −W (x) ≤ 0
+for t ≥ 0, where W1 (x), W2 (x) are continuous positive defined and
+radially unbounded, and W (x) is continuous positive semidefinite.
+Take: r : ||x|| ≤ r ∈ D and define ρ = min {W1 (x)}
+Then, for any x(t0 ) ∈ W2 (x) ≤ ρ:
+x(t) is bounded for all t ≥ t0 .
+W (x(t)) → 0 as t → ∞
+MIT-Rule
+Lyapunov
+Stability Analysis
+Function candidate: V
+V positive
+definite
+yes
+V˙ negative
+semidefinite
+Invariance
+Principle
+yes
+yes
+V˙ negative
+definite
+Timeinvariant
+Barbalat’s
+Lemma
+asymptotically stable
+MIT-Rule
+Lyapunov
+Example 1/5
+The system dynamics and the model to match are
+y(t)
+˙ = −ay(t) + bu(t),
+y˙ m (t) = −am ym (t) + bm uc (t)
+The controller and the error signals are defined by
+u(t) = θ1 uc (t) − θ2 y(t),
+e(t) = y(t) − ym (t)
+Taking time derivative of e(t), we obtain
+e˙ = −am e − (bθ2 + a − am )y + (bθ1 − bm )uc
+Introduce a Lyapunov function candidate as
+V (x) =
+e2 +
+(bθ2 + a − am )2 (bθ1 − bm )2
+where x(t) = [e(t), bθ2 (t) + a − am , bθ1 (t) − bm ]T
+MIT-Rule
+Lyapunov
+Example 2/5
+Time derivative of
+V (x) =
+e2 +
+(bθ2 + a − am )2 (bθ1 − bm )2
+is
+bθ2 + a − am ˙
+V˙ = ee˙ +
+= e (−am e − (bθ2 + a − am )y + (bθ1 − bm )uc ) +
+bθ2 + a − am ˙
+bθ2 + a − am ˙
+θ2 − γye0 +
+= −am e2 +
+θ1 + γuc e0
+MIT-Rule
+Lyapunov
+Example 3/5
+Choice of adaptation laws
+θ˙1 = −γuc e,
+θ˙2 = γye
+leads to shaping the time-derivative for V as
+V˙ = −am e2 (t),
+{→ this is W (x)}
+Since V (x) = xT P x with P = diag{1, 1/(bγ), 1/(bγ)},
+we conclude from the boundedness theorem that
+x(t) = [e(t), bθ2 (t) + a − am , bθ1 (t) − bm ]T is bounded
+W (x(t)) → 0
+e(t) → 0
+Remark: No guarantee for parameter convergence
+MIT-Rule
+Lyapunov
+Example: Lyapunov vs MIT
+Update law for both:
+θ˙ = γΦe
+Lyapunov: Φ =
+MIT-Rule
+−uc (t)
+y(t)
+Lyapunov
+am
+p+am
+−uc (t)
+y(t)
+Example 4/5
+Process: G(s) =
+MIT-Rule
+Model: Gm (s) =
+Lyapunov
+Example 5/5
+Parameter convergence
+Dotted: MIT Rule for comparison
+MIT-Rule
+Lyapunov
+General Case 1/2
+Given a continuous time system and the target dynamics
+Consider the controller and the error signals
+u(t) = M uc (t) − Lx(t),
+e(t) = x(t) − xm (t)
+For a solvable model-matching problem, the error dynamics are
+e˙ = Ax + Bu − Am xm − Bm uc
+= Am e + (A − Am − BL)x + (BM − Bm )uc
+= Am e + Ψ(θ − θ0 )
+Consider a Lyapunov function candidate
+MIT-Rule
+e P e + (θ − θ0 )T (θ − θ0 )
+Lyapunov
+General Case 2/2
+Time derivative of V =
+eT P e + γ1 (θ − θ0 )T (θ − θ0 ) :
+V˙ = eT [P Am + ATm P ]e + (θ − θ0 )T ΨT P e + (θ − θ0 )T θe
+If we solve the Lyapunov equation for P
+and choose the update law as
+θ˙ = −γΨT P e = −γΨT P (x − xm )
+then
+V˙ = − eT (t)Qe(t)
+and we conclude that e(t) → 0.
+MIT-Rule
+Lyapunov
+References
+Gianluca Antonelli et al. Experimental validation of a new adaptive control scheme for quadrotors MAVs.
+In: 2013 IEEE/RSJ International Conference on Intelligent Robots and Systems. IEEE, Nov. 2013,
+pp. 2439–2444. isbn: 978-1-4673-6358-7. doi: 10.1109/IROS.2013.6696699.
+Petros Ioannou and Bar´
+yp Fidan. Adaptive Control Tutorial (Advances in Design and Control).
+SIAM, Society for Industrial and Applied Mathematics, 2006. isbn: 9780898716153.
+Ivana Palunko and Rafael Fierro.
+Adaptive control of a quadrotor with dynamic changes in the center of gravity.
+In: Proceedings 18th IFAC World Congress (2011).

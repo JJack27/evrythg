@@ -64,19 +64,11 @@ from _sympy import _latex
 _l = _latex()
 _o = _l.out
 _d = _l.symbol_names
-from sympy import Symbol
-from sympy import Function
-from sympy import Matrix
-from sympy import Eq
-t = Symbol('t') # time
-s = Function(r's')(t) # state vector; 
-G = Symbol(r'\mathcal{G}') # Geometry
-P = Symbol('P')(t) # Linear momentum 
-L = Symbol('L')(t) # Angular momentum 
-q = Symbol('q')(t) # quaternion
-C_W = Symbol(r'C_W')(t) # center of gravity 
-C_W = Symbol(r'C_W') # center of gravity 
+from clean_sym import *
+# clean_sym.py
 _d[C_W] = r'{C_W(t)}' 
 from sympy import Symbol
 e = dict()
 e[140505171627] = (Eq(s, Matrix([[C_W], [q], [P], [L]])))
+
+e[('140507215327')] = Eq(qdot, 1/2 * omega * q)

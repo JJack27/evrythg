@@ -1,0 +1,392 @@
+3. Fisher Information Matrix and Cram´er–Rao Bound
+Problem 3.1
+Scalar Estimation
+a) As the N statistics x (1) , . . . , x (N) are i.i.d., it follows that
+(N)
+IF (θ) = Var  log 
+L(x (i) ; θ)
+(i)
+log L(x ; θ) 
+= Var 
+log L(x (i) ; θ)
+Var
+= N Var
+log L(x (1) ; θ)
+(indep.)
+(indep.)
+(ident.)
+= NIF(1) (θ).
+b) For each of the distributions, we first have to check whether the regularity conditions are
+satisfied or not, i.e., whether the CRB is applicable or not. As the statistics are i.i.d., we can consider
+L(x(1) ; θ) = fx (1) (x(1) ; θ).
+1) As the N statistics are i.i.d. with x (i) ∼ U(0, θ), we consider L(x(1) ; θ) =
+regularity condition
+∀x(1) ∈ [0, θ]. The first
+L(x(1) ; θ) > 0 ∀x ∈ X
+is satisfied for each θ ∈ Θ as L(x(1) ; θ) = 1θ ∀x(1) ∈ [0, θ]. However, the Likelihood function is not
+differentiable for all θ ∈ Θ as, cf. lecture notes Section 3.4 Introductory Example (cont’d),
+Thus, the regularity conditions for the derivation of the CRB are not satisfied
+\todo{Is that because it is not continuous at $\theta = 0$}
+and the CRB does not apply. In fact, we cannot define a score function with zero mean as log L(x(1) ; θ) and its derivative is not defined for all θ ∈ Θ.  Let us consider what would happen if we calculate the Fisher information for those θ for which it exists ignoring the fact that the regularity conditions are not satisfied. We would obtian that the Fisher information is zero, as ∂θ∂ log L(x(1) ; θ) is a constant with respect to x ∈ X and that the corresponding CRB would be undefined.
+\todo{Why is the derivative with respect to x important?}
+[ rather note that 4.3 is not fullfilled cf. 140510091627 ]
+Remark: Nevertheless, it can be shown that the estimator
+max{x (1) , . . . , x (N) }
+actually is a UMVU estimator using the Lehmann-Scheff´e theorem (beyond scope of this course).
+2) As the Gaussian distribution is an exponential model where a(θ) has a non-vanishing continous
+derivativeon Θ, the regularity conditions are satisfied. As the N statistics are i.i.d. with x (i) ∼ N(θ, σ2 )
+it follows that IF(N) (θ) = NIF(1) (θ). In order to determine IF(1) (θ), we identify the exponential family
+fx (1) (x(1) , θ) = √
+exp −
+(x(1) − θ)2
+1 (1),2
+(x
+− 2θx(1) + θ2 ) − log(2πσ2 )
+(1)
+= exp − 2 x(1),2 exp
++ log(2πσ2 )
+= exp −
+= h(x(1) ) exp a(θ)t(x(1) ) − b(θ) ,
+where
+h(x(1) ) = exp −
+1 (1),2
+a(θ)t(x(1) ) =
+θx(1)
+b(θ) =
++ log(2πσ2 ).
+In order to construct an unbiased estimator, we choose
+t(x(1) ) = x(1)
+a(θ) = 2 ,
+which results in the Fisher information
+IF(1) (θ) =
+(1)
+∂a(θ)
+∂a(θ) ∂ E t(x )
+as E t(x (1) ) = E x (1) = θ. Thus, the Fisher information for N i.i.d. statistics is given as
+IF(N) (θ) =
+Consequently, the CRB for the unbiased estimation of θ using N i.i.d. statistics is given as
+Var ˆθ(x (1) , . . . , x (N) ) ≥
+Remark: Without taking into account that the Gaussian distribution is an exponential model, the
+Fisher information for one statistic can be determined by considering
+(x (1) − θ)2
+L(x (1) ; θ) = √
+exp −
+3. Fisher Information Matrix and Cram´er–Rao Bound
+1 (1)
+(x − θ)2 ,
+(x (1) ; θ) = − log(2πσ2 ) −
+∂ (x (1) ; θ)
+g(x (1) ; θ) =
+= 2 (x (1) − θ).
+Thus, the Fisher information for one statistic is given as
+IF(1) (θ) = E g(x (1) ; θ)2 =
+E (x (1) − θ)2 = 2 .
+3) As the Binomial distribution is an exponential model where a(θ) has a non-vanishing continous
+derivative on Θ, the regularity conditions are satisfied. As the N statistics are i.i.d. with x (i) ∼ B(K, θ)
+it follows that IF(N) (θ) = NIF(1) (θ). In order to determine IF(1) (θ), we identify the exponential family
+K x(1)
+(1)
+θ (1 − θ)K−x
+(1)
+= (1) exp x(1) log(θ) + (K − x(1) ) log(1 − θ)
+= (1) exp x(1) (log(θ) − log(1 − θ)) − (−K log(1 − θ))
+fx (1) (x(1) , θ) =
+= h(x(1) ) exp a(θ)t(x(1) ) − b(θ) ,
+where
+h(x(1) ) =
+x(1)
+a(θ)t(x(1) ) = x(1) log
+b(θ) = −K log (1 − θ) .
+As E x (i) = Kθ, we choose
+x(1)
+t(x ) =
+(1)
+a(θ) = K log
+which results in the Fisher information
+IF(1) (θ) =
+(1)
+∂a(θ) ∂ E t(x )
+∂a(θ)
+θ(1 − θ)
+E x (1)
+as E t(x (1) ) = [ K ] = θ. Hence, the Fisher information for N i.i.d. statistics is given as
+IF(N) (θ) = N
+θ(1 − θ)
+Consequently, the CRB for the estimation of θ using N i.i.d. statistics is given as
+θ(1 − θ)
+Var ˆθ(x (1) , . . . , x (N) ) ≥
+ 3. Fisher Information Matrix and Cram´er–Rao Bound
+Remark: Without taking into account that the Binomial distribution is an exponential model, the
+Fisher information for one statistic can be determined by considering
+K x (1)
+(1)
+θ (1 − θ)K−x ,
+(1)
+(x (1) ; θ) = log (1) + x (1) log(θ) + (K − x (1) ) log(1 − θ),
+x (1) K − x (1)
+g(x (1) ; θ) =
+L(x (1) ; θ) =
+Recall that for x (i) ∼ B(K, θ), we have that
+E x (i) = Kθ,
+Var x (i) = Kθ(1 − θ),
+E x (i),2 = Kθ(1 − θ) + K 2 θ2 .
+For the Fisher information of one statistic, this results in
+x (1),2 2x (1) (K − x (1) ) (K − x (1) )2
+θ(1 − θ)
+(1 − θ)2
+Kθ − Kθ2 + K 2 θ2 2K 2 θ − 2(Kθ − Kθ2 + K 2 θ2 )
+θ(1 − θ)
+(1 − θ)2
+Kθ(1 − θ)2 + θ2 (K 2 − K)(1 − θ)2
+θ2 (1 − θ)2
+−2θ(K 2 − K)θ(1 − θ) + 2θ2 (K 2 − K)θ(1 − θ)
+θ2 (1 − θ)2
+θ2 (K 2 − K)θ2 + θ(K − 2K 2 )θ2 + K 2 θ2
+θ2 (1 − θ)2
+θ (1 − θ)
+θ(1 − θ)
+IF(1) (θ) = E g(x (1) ; θ)2 = E
+3. Fisher Information Matrix and Cram´er–Rao Bound
+Problem 3.2
+a)
+Multivariate Estimation I
+The ML estimator for the channel gain h derived in problem 2.1b) is given as
+(i) (i)
+(i),2
+From E x (i) = E hs(i) + n(i) = hs(i) it directly follows that
+which means that the estimator is unbiased.
+(1)
+b) A necessary condition for I(N)
+F (θ) = N IF (θ) is that all observations are i.i.d.. In our problem,
+the observations are independent but not identically distributed as the observations x (1) , . . . , x (N) are
+independently Gaussian distributed with common covariance matrix Cx = C = σ2 I M but different
+means hs(i) .
+c) As the statistics x (1) , . . . , x (N) are independent and Gaussian with x (i) ∼ N(hs(i) , σ2 I M ), the
+joint PDF is given as
+(i)
+(i) T (i)
+(i) 
+exp
+fx (1) ,...,x (N) (x(1) , . . . , x(N) ; θ) =
+(x
+(x
+det 2πσ2 I M 2
+ 1 N (i)
+= exp − 2
+(x − θs(i) )T (x(i) − θs(i) ) − log(2πσ2 ) 2 
+(1)
+= h(x , . . . , x(N) ) exp a(θ)T t(x(1) , . . . , x(N) ) − b(θ) ,
+where
+h(x(1) , . . . , x(N) ) = exp − 2
+a(θ)T t(x(1) , . . . , x(N) ) = −
+x(i),T x(i)  ,
+−θT x(i) s(i) − s(i) x(i),T θ
+s(i) x(i) ,
+b(θ) =
+log(2πσ2 ) +
+In order to construct an unbiased estimator, we choose
+a(θ) = 2
+t(x(1) , . . . , x(N) ) =
+s(i),2
+(i) (i)
+(i),2
+θT θs(i),2 .
+3. Fisher Information Matrix and Cram´er–Rao Bound
+with E t(x (1) , . . . , x (N) ) = θ, cf. sub-problem a). Therefore, we have an exponential model where
+a(θ) has a non-vanishing continous derivative on Θ and the regularity conditions are satsified. This
+results in the Fisher information matrix
+I(N)
+F (θ)
+∂a(θ)
+∂ E t(x (1) , . . . , x (N) )
+s(i),2  = 2
+∂a(θ)
+s(i),2 I M
+(1)
+(N)
+) = θ, it follows that
+as I(N)
+F (θ) has to be symmetric and due to E t(x , . . . , x
+∂ E t(x (1) , . . . , x (N) )
+Remark: Without taking into account that the Gaussian distribution is an exponential model, the
+Fisher information matrix can be determined by considering
+( (x (1) , . . . , x (N) ; h))
+(i)
+(i)
+− log det(2πCx ) −
+(x (i) − hs(i) )T C−1
+x (x − hs )
+1 (i)
+(i) T (i)
+(i) 
+(x
+(x
+g(x (1) , . . . , x (N) ; h) =
+∂ 1 (i)
+(x − hs(i) )T (x (i) − hs(i) )
+s(i) (x (i) − hs(i) ).
+For the Fisher information matrix, this results in
+(1)
+(N)
+I(N)
+; h) gT (x (1) , . . . , x (N) ; h)
+F (h) = E g(x , . . . , x
+s(i) (x (i) − hs(i) )
+s( j) (x ( j) − hs( j) )T 
+s(i) x (i)
+s( j) x ( j),T  − E  4
+s(i) x (i)
+hT s( j),2 
+(
+(
+(
+(i),2
+(i),2
+s( j) x ( j),T  − 4
+hT s( j),2
+s(i) x (i)
+hs(i),2
+hs(i),2
+hT s( j),2 +
+hs(i),2
+hT s( j),2
+3. Fisher Information Matrix and Cram´er–Rao Bound
+s(i) x (i)
+s(i) x (i)
+s( j) x ( j)  =
+( j) ( j),T 
+s(i),2 s( j),2 hhT .
+E s(i) x (i) x (i),T s( j)
+(i),2
+(i) (i),T
+s(i) E x (i) s( j) E x ( j),T
+(i),2
+T (i)
+(i),2 (i)
+s(i),2 hhT s( j),2 .
+we finally obtain
+I(N)
+F (h)
+s(i),2 σ2 I M
+s(i),4 hhT +
+s(i),2 s( j),2 hhT −
+s(i),2 I M .
+The CRB for the m-th channel gain is given as
+Var hˆ m,ML ≥
+IF(N) (h)
+which in our case results in
+Var hˆ m,ML ≥
+(i),2
+s(i),2 s( j),2 hhT
+3. Fisher Information Matrix and Cram´er–Rao Bound
+Problem 3.3
+a)
+Advanced: Multivariate Estimation II
+Using the definition of the score function
+(x; θ) =
+log (L(x; θ))
+L(x; θ),
+L(x; θ) ∂θ
+g (x; θ) =
+and expanding
+E t T (x, θ) , we obtain
+E t T (x, θ) =
+t T (x, θ)L(x; θ)dx
+L(x; θ)t T (x, θ) dx
+L(x; θ) t T (x, θ)dx +
+L(x; θ)
+g (x; θ)L(x; θ)t T (x, θ)dx +
+= E g (x; θ)t T (x, θ) + E
+t (x, θ) dx
+t (x, θ) L(x; θ)dx
+t (x, θ) .
+Therefore, it follows that
+E g (x; θ)t (x, θ) =
+∂ E t T (x, θ)
+∂t T (x, θ)
+b) For t(x, θ) = ˆ
+θ(x) and assuming that ˆ
+θ(x) is an unbiased estimator for θ, we have
+θT (x)
+and
+θ (x) = E 0TM×M = 0TM×M = 0 M×M .
+Therefore we obtain
+E g (x; θ)ˆ
+θT (x) = I M×M .
+c) Using the definition of the score function, we can write
+E [g (x; θ)] = E
+log (L(x; θ)) = E
+L(x; θ)
+L(x; θ) ∂θ
+3. Fisher Information Matrix and Cram´er–Rao Bound
+L(x; θ)
+L(x; θ)dx
+L(x; θ)
+L(x; θ)dx
+d) From E [g (x; θ)] = 0 M×1 , it follows that
+IF (θ) = E g (x; θ)g T (x; θ) .
+By choosing t(x, θ) = g (x; θ) and using the result of sub-problem a), we obtain
+E g (x; θ)g T (x; θ) = 0 M − E 
+(x; θ) 
+(x; θ) .
+e) In order to determine the correlation coefficient1 ρu,v we require
+Cov [u, v ] = E aT ˆ
+θ(x)g T (x; θ)b
+= aT E ˆ
+θ(x)g T (x; θ) b
+= aT I M b
+= aT b,
+Var [u] = aT E ˆ
+θ(x)ˆ
+θT (x) a − aT E ˆ
+θ(x) E ˆ
+θT (x) a
+= aT Cˆθ a,
+Var [v ] = bT E g (x; θ)g T (x; θ) b
+= bT IF (θ)b.
+The inequality
+bT aaT b
+aT Cˆθ abT IF (θ)b
+holds for all b including the maximizer of ρ2u,v with respect to b. The maximizer b is given by
+bT aaT b
+K bT IF (θ)b
+bT aaT b
+= argmax T
+b IF (θ)b
+b = argmax
+ρu,v = Cov [u, v ] / Var [u] Var [v ] ≤ 1 is the Cauchy-Schwarz inequality | u, v | ≤ u v .
+3. Fisher Information Matrix and Cram´er–Rao Bound
+This is the maximization of a generalized Rayleigh quotient. Assuming that IF (θ) 0, there exist a
+decomposition IF (θ) = BT B with B−1 B = BB−1 = I. Introducing the substitution y = Bb leads to
+the optimization problem
+y = argmax
+yT B−T aaT B−1 y
+= argmax yT B−T aaT B−1 y
+= argmax
+yT B−T a
+which has the solution
+B−T a
+B−T a
+= γB−T a.
+Re-substitution of y = Bb leads to
+b = B−1 y = γB−1 B−T a = γ BT B
+a = γ (IF (θ))−1 a.
+For the correlation coefficient evaluated at b , we obtain (note that (IF (θ))−1 is symmetric)
+bT aaT b
+γaT (IF (θ))−1 aaT γ (IF (θ))−1 a
+bT IF (θ)b γaT (IF (θ))−1 IF (θ)γ (IF (θ))−1 a
+aT (IF (θ))−1 aaT (IF (θ))−1 a
+= aT (IF (θ))−1 a.
+a (IF (θ)) a
+Inserting this result into the correlation coefficient ρ2u,v results in
+aT (IF (θ))−1 a
+aT Cˆθ a
+or equivalently
+aT Cˆθ a ≥ aT (IF (θ))−1 a.
+The inequality holds for arbitrary a, including a = em = [0, . . . , 0, 1, 0, . . . , 0]T , and therefore
+Var ˆθm (x) ≥ (IF (θ))−1
+f) In practical implementations, only a limited amount of samples is available. Therefore, the
+value of an asymptotic result is questionable. Additionally, the likelihood function is often not
+know exactly, which has an impact on the performance of the estimator. Therefore metrics for
+the robustness of the estimator are necessary, which indicate how the estimator behaves when the
+assumed likelihood function changes.

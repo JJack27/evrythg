@@ -1,4 +1,7 @@
 from sympy.printing import latex
+from os import system
+from IPython.core.display import Image 
+
 class _latex:
     """
     Print a latex representation with special symbols replaced
@@ -22,6 +25,7 @@ def _input(fname):
     ''' Insert file content '''
     with open(str(fname), 'r') as fin:
         return fin.read().decode('utf8')
+
 eq = lambda t: _m(_input(str(t))).d()
 
 from IPython.core.display import Math
@@ -48,6 +52,7 @@ class _m(object):
    def d(self):
       '''''Displays the content of the expression in mathmode'''''
       MDPL(comp_str(self.listofatoms))
+      return self
 
    def r(self,pos,newstr):
       '''''Replaces an atom with another atom'''''
@@ -98,13 +103,29 @@ class _m(object):
       for i in positions: temp[i] = "\color{red}{"+temp[i]+"}"
       return temp
 
-   def l(self):
+   def labelatoms(self):
       '''''Label atoms by adding underbraces'''''
       self.labeledatoms = [ "\underbrace{" + self.listofatoms[i] + "}_{" + str(i) + "}" for i in range(len(self.listofatoms)) ]
 
    def fs(self):
       '''''Shows the content whilst labeling positions'''''
-      self.l()
+      self.labelatoms()
       MDPL(comp_str(self.labeledatoms))
                                                             
-                                                            
+_v = lambda t: Image(filename='%s.png' %t)                              
+_v.__doc__="Display Image \n fn: Image"
+
+def _s(fn):
+    """
+    Include file content and format as latex
+    fn: Filename
+    """
+    ip = get_ipython()
+    ip.set_next_input('%%%%latex \n%s' %_input(fn))
+
+def _p(fn):
+    """
+    Put text into clipboard
+    """
+    system('clip < %s' %(fn))
+

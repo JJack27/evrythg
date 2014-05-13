@@ -97,7 +97,7 @@ vnoremap <A-UP> :m '<-2<CR>gv=gv
 
 " some additional mappings
 nnoremap <Space> :
-nnoremap <S-Space> q:/
+nnoremap <S-Space> q:?
 vnoremap Y "+y
 
 " searching

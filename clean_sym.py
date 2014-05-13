@@ -37,6 +37,7 @@ s = Function(r's')(t) # state vector;
 r = Symbol('r') # position
 b = Symbol('b') # position in body coordinate system
 q = Symbol('q')(t) # quaternion
+qdot = Derivative(q, t) # 1st derivative
 P = Symbol('P')(t) # Linear momentum 
 L = Symbol('L')(t) # Angular momentum 
 sdot = Derivative(s, t) # 1st derivative
@@ -57,9 +58,22 @@ ri = Symbol(r'\operatorname{d} %s' %(r)) # infinitesimal position element
 x = Symbol('x') # x-coordinate
 y = Symbol('y') # y-coordinate
 z = Symbol('z') # z-coordinate
-R = Symbol(r'\mathcal{R}') # the environment
+R = Symbol(r'R')(t) # a rotation matrix
+Rdot = Derivative(R, t) # 1st derivative
 p = Symbol('p') # a particle
 V_p = _idx(V, p) # volume of a particle
 r_p = _idx(r, p) # position of a particle
 rho_p = _idx(abc.rho, p) # density of a particle
 tau_B = Symbol(r'\tau_%s' %(B)) # torque caused by buoyancy
+omega= Symbol(r'\omega')(t) # angular velocity
+from _sympy import _latex
+_l = _latex()
+_o = _l.out
+_d = _l.symbol_names
+from clean_sym import *
+# clean_sym.py
+_d[C_W] = r'{C_W(t)}' 
+from sympy import Symbol
+e = dict()
+e['140505171627'] = _o(Eq(s, Matrix([[C_W(t)], [q], [P], [L]])))
+e[('140507215327')] = _o(Eq(qdot, 1./2 * omega * q))

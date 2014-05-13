@@ -1,1568 +1,444 @@
 Lecture Notes
-
 Statistical Signal Processing
 Univ.-Prof. Dr.-Ing. Wolfgang Utschick
 Technische Universitaet Muenchen
 Summer 2014
-
-\begin{sympyblock}
-from sympy import *
-from sympy import abc
-init_printing(forecolor='White')
-
-E = Function('E') # expectation
-Var = Function('Var') # variance
-
-x = abc.x # realization of the random variable X
-theta = abc.theta # the parameter to be estimated
-f_X = Function(r'f_X')(x, theta) # probality density function
-L = Function('L')(x, theta) # likelihood function
-g = Function('g')(x, theta) # score function
-T = Function('T')(x) # estimator
-a = Function('a')(theta)
-b = Function('b')(theta)
-t = Function('t')(x)
-h = Function('h')(x)
-I_F = Function('I_F')(theta) # fisher information
-
-e_4_4 = Eq(g, Derivative(L, theta))
-e_4_6 = Rel(Var(T), 1/I_F, '>=')
-e_4_15 = Eq(f_X, h * exp(a *t)/exp(b))
-e_4_16 = Eq(I_F, Derivative(a, theta) * Derivative(E(t), theta))
-\end{sympyblock}
-
-
-
-© 2014 Univ.-Prof. Dr.-Ing. Wolfgang Utschick
-
+  © 2014 Univ.-Prof. Dr.-Ing. Wolfgang Utschick
 A circulation of this document to other parties without a written consent of the author is forbidden.
 Email: utschick@tum.de
-A
 Layout by LTEX2ε
-
-Part I
+Part I
 Parameter Estimation
-
-3
-
-1. Statistic Modeling
+1. Statistic Modeling
 Statistic Estimation treats the problem of inferring underlying characteristics of unknown random
 variables on the basis of observations of outputs of those random variables.
 The basic problem of statistical estimation is to infer the Probability Measure P, which the realizations
 of the respective random variables X : Ω → X are subject to.
 The most critical part of any parameter estimation problem is the choice of a proper Statistic Model
 (Ω, F, Pθ ), with the metric space (X, B) and
-
 Observation Space : X,
 Sigma Algebra : F,
 Probability Measure : Pθ , θ ∈ Θ.
-
 (1.1)
 (1.2)
 (1.3)
-
 The stochastic model is a set of Probability Spaces and the task of statistic estimation is to select
 the most appropriate candidate.
-4
-
-1.1
-
 Standard Model
-
 Deﬁnition. We call the introduced statistical model Standard Model and the inference problem Parameter Estimation, if
-
-Θ ⊂ RD ,
-
 (1.4)
-
 and the random variable X is either Discrete or Continuous.
 Commonly used terminology:
- Random variables Xi : Ω → X are Statistics, and
- its realizations xi of Xi are Observations, Samples, Measurements, etc.
-
+ Random variables Xi : Ω → X are Statistics, and
+ its realizations xi of Xi are Observations, Samples, Measurements, etc.
 Deﬁnition. A special statistic is the random variable T : X → Θ, which maps one or multiple samples
 to θ ∈ Θ or another parameter depending thereof. The random variable or statistic T : X → Θ is called
 Estimator.
-
-5
-
-1.2
-
 Introductory Example
-
 Given observations X1 , . . . , XN of a uniquely distributed random variable
-X : Ω → [0, θ],
-
 with [0, θ] ⊂ R such that FX (ξ) =
-
-ξ
-θ
-
 (1.5)
-
 and fX (ξ) = 1 , if 0 ≤ ξ ≤ θ.
-θ
-
 The unknown parameter θ, which describes the random variable X is Deterministic and Unknown.
-x
-
-x
-
-x xx
-
-x
 max xi θ
-
-0
-
 Fig. 1.1: Estimating the upper bound of an intervall.
 How to estimate the upper bound? Any guesses?
-
-6
-
-How to estimate the upper bound?
+How to estimate the upper bound?
 1. Attempt: Given E [X ] = θ/2, we conclude for the statistics Xi
-1
-T1 = 2 ·
-N
-
-N
-
 Xi :
 i=1
-
-ˆ
-x1 , . . . , xN → θ1 .
-
 (1.6)
-
 Average
-
 2. Attempt: Since for large N the maximum observed value will be close to the upper bound, we
 conclude
 T2 = max {Xi } :
 i=1,...,N
-
 How realiable are these attempts?
-
-7
-
-ˆ
-x1 , . . . , xN → θ2 .
-
 (1.7)
-
-Estimator T1 : According to the Law of Large Numbers (Chebyshev Inequality):
-Pθ
-
-T1 θ
-≥
-−
-2
-2
-
-≤
-
+Estimator T1 : According to the Law of Large Numbers (Chebyshev Inequality):
 Var [X ]
-−→ 0.
-N 2 N →∞
-
 (1.8)
-
 Estimator T2 : Again with respect to the Law of Large Numbers:
 Pθ (|T2 − θ| ≥ ) = Pθ (X1 ≤ θ − , . . . , XN ≤ θ − )
-N
-
-=
 i=1
-N
-
-=
 i=1
-
-=
-
 Pθ (Xi ≤ θ − )
-θ−
-θ
-N
-
-θ−
-θ
-
-= 1−
-<1
-
-8
-
-N
-
-θ
-
-−→ 0.
-
-N →∞
-
 (1.9)
-
-2. Quality Criteria
-2.1
-
+2. Quality Criteria
 Consistency and Unbiasedness
-
 Deﬁnition. Consistent Estimators are characterized by
 _v('140503091548') (2.1)
-
 Obviously, T1 and T2 are consistent.
 Deﬁnition. Unbiased Estimators are characterized by
 _v('140503091610') (2.2)
-
-T1 and T2 are random variables which depend on the randomly drawn observations X1 , . . . , XN . Unbiasedness means that averaging over the entire sample set gets the true parameter:
- T1 is Unbiased, since
-
+T1 and T2 are random variables which depend on the randomly drawn observations X1 , . . . , XN . Unbiasedness means that averaging over the entire sample set gets the true parameter:
+ T1 is Unbiased, since
 E [T1 (X1 , . . . , XN )] = E
-
-2
-N
-
-N
-
 Xi =
 i=1
-
-2
-N
-
-N
-
 E [Xi ] =
 i=1
-
-2
-θ
-· N · = θ.
-N
-2
-
 (2.3)
-
- T2 is Asymptotically Unbiased, since
-θ
-
+ T2 is Asymptotically Unbiased, since
 E [T2 (X1 , . . . , XN )] =
-0
-
 ξ · fT2 (ξ) dξ =
-
-N
-θ,
-N +1
-
 (2.4)
-
 where
-d
-d
 fT2 (ξ) = FT2 (ξ) =
-dξ
-dξ
-
-ξ
-θ
-
-N
-
-=N·
-
-ξ N −1
-,
-θN
-
-ξ ∈ [0, θ].
-
 (2.5)
-
- Consequently, we introduce an unbiased version of estimator T2 by
-T2 =
-
-N +1
-T2 .
-N
-
-10
-
+ Consequently, we introduce an unbiased version of estimator T2 by
 (2.6)
-
-T1
-T2
-T2
-
-2.0
-1.5
-1.0
-0.5
-0.0
-2.0
-1.5
-1.0
-0.5
-0.0
-2.0
-1.5
-1.0
-0.5
-0.0
-
-1
-
-5
-
-10
-
-15
-
-20
-
-25
-N
-
-30
-
-35
-
-40
-
-45
-
-50
-
-1
-
-5
-
-10
-
-15
-
-20
-
-25
-N
-
-30
-
-35
-
-40
-
-45
-
-50
-
-1
-
-5
-
-10
-
-15
-
-20
-
-25
-N
-
-30
-
-35
-
-40
-
-45
-
-50
-
 Fig. 2.1: T1 , T2 , and T2 for 30 uniformly chosen (i.i.d.) samples of size N = 1 . . . 50 with θ = 1.
-
-11
-
-2.2
-
 Variance
-
 Deﬁnition. A further quality measure for an estimator is its Variance
-
 Var [T (X1 , . . . , XN )] = E (T − E [T ])2 .
-
 (2.7)
-
 For the estimators T1 , T2 and T2 of the introductory example we obtain
-θ2
-,
 Var [T1 ] =
-3N
 Var [T2 ] =
-
 (2.8)
-
-N θ2
-,
 (N + 1)2 (N + 2)
-
 (2.9)
-
-2
-
-N +1
 Var [T2 ] =
 Var [T2 ]
-N
-θ2
-=
-.
 N (N + 2)
-
-12
-
 (2.10)
 (2.11)
-
-Table 2.1: Variances of the estimators T1 , T2 and T2 for N = 10 observations.
-
+Table 2.1: Variances of the estimators T1 , T2 and T2 for N = 10 observations.
 Estimator
-
-T1
-T2
-T2
-
-T
-
-2
 Variance σT
-5 2
-150 θ
-5 2
-726 θ
-5 2
-600 θ
-
-13
-
-2.3
-
 Mean Square Error
-
 Deﬁnition. An extension of the Variance is the Mean Square Error (MSE)
-
 ε[T ] = E (T − θ)2 .
-
 (2.12)
-
 For the estimators T1 and T2 of the introductory example the MSE is already known, since these estimators
 are unbiased and thus E [T1 ] = E [T2 ] = θ and ε[T ] = Var [T ].
 The MSE of the 2nd estimator can be obtained by
 ε[T2 ] = E (T2 − θ)2
-
 = E (T2 )2 − 2 E [T2 ] θ + θ2
-= ...
-2θ2
-=
-.
 (N + 2)(N + 1)
-
-14
-
 (2.13)
-
-Table 2.2: MSEs of the estimators T1 , T2 and T2 for N = 10 observations.
-
+Table 2.2: MSEs of the estimators T1 , T2 and T2 for N = 10 observations.
 Estimator
-
-T1
-T2
-T2
-
-T
-
-15
-
-MSE ε[T ]
-1 2
-30 θ
-1 2
-66 θ
-1 2
-120 θ
-
-Mean
-
-1.4
-1.2
-1.0
-0.8
-0.6
-
-MSE
-
+Mean
 Variance
-
-1
-100
-10−1
-10−2
-10−3
-10−4
-100
-10−1
-10−2
-10−3
-10−4
-
-5
-
-10
-
-15
-
-20
-
-25
-N
-
-30
-
-35
-
-40
-
-45
-
-50
-
-1
-
-5
-
-10
-
-15
-
-20
-
-25
-N
-
-30
-
-35
-
-40
-
-45
-
-50
-
-1
-
-5
-
-10
-
-15
-
-20
-
-25
-N
-
-30
-
-35
-
-40
-
-45
-
-50
-
 Fig. 2.2: Estimated (solid) and analytical (dashed-dotted) Mean, Variance, and MSE for T1 (black),
 T2 (blue), and T2 (yellow) for 30 uniformly chosen (i.i.d.) samples of size N = 1 . . . 50 with θ = 1.
-16
-
-2.4
-
 Bias/Variance Trade–Oﬀ
-
 The MSE of an estimator T ,
 ε[T ] = E (T (X1 , . . . , XN ) − θ)2 ,
-
 (2.14)
-
 can be decomposed in its Bias and its Variance, i.e.1
-
-
-2
-
-
-
 ε[T ] = E (T − E [T ])2 + E [T ] − θ
 Bias[T ]
-
 Var[T ]
-
 = Var [T ] + (Bias[T ])2 .
-
 Bias and Variance of an estimator cannot be minimized independently.
-
 1 The
-
 (2.15)
-
 decomposition can easily be shown by taking the expectation of the expansion of (T − E [T ] + E [T ] − θ)2 .
-
-17
-
 (2.16)
-
-2.5
-
 Introductory Example (cont’d)
-
 Another estimator Tα can be constructed by
-ˆ
-x1 , . . . , xN → θα ,
-
-Tα = α · T2 :
-
 (2.17)
-
 with
 Bias[Tα ] = E [Tα ] − θ = α E [T2 ] − θ =
 The estimator Tα is obviously unbiased if α =
-
-αN
-−1
-N +1
-
-N +1
-.
-N
-
 Bias[Tα ]2
-
-α
-N +1
-N
-
-18
-
-θ.
-
 (2.18)
-
-3. Maximum Likelihood Estimation
-3.1
-
+3. Maximum Likelihood Estimation
 Maximum Likelihood Principle
-
 Given the statistical model {X, F, Pθ ; θ ∈ Θ}, the Maximum-Likelihood (ML) principle suggest to
 select a candidate probability measure Pθ , such the observed outcomes of the experiment become most
 probable.
-ˆ
 A maximum likelihood estimator TML picks the θ ∈ Θ which maximizes the Likelihood Function, i.e.
 TML : x1 , . . . , xN → argmax {L(x1 , . . . , xN ; θ)}.
-θ∈Θ
-
-19
-
 (3.1)
-
-Deﬁnition. The Likelihood Function depends on the statistical model {X, F, Pθ ; θ ∈ Θ}, i.e.
+Deﬁnition. The Likelihood Function depends on the statistical model {X, F, Pθ ; θ ∈ Θ}, i.e.
 Discrete R.V. : L(x1 , . . . , xN ; θ) = Pθ (x1 , . . . , xN ),
 Continuous R.V. : L(x1 , . . . , xN ; θ) = fX1 ,...,XN (x1 , . . . , xN ; θ).
-
 (3.2)
 (3.3)
-
 Assuming that all observations are drawn from Identically Independently Distributed (i.i.d.)
 random variables X1 , . . . , XN ,
-N
-
 Pθ (x1 , . . . , xN ) =
-
 Pθ (xi ),
-
 (3.4)
-
 fXi (xi ; θ),
-
 (3.5)
-
 i=1
-N
-
 fX1 ,...,XN (x1 , . . . , xN ; θ) =
 i=1
-
 with fX1 = · · · = fXN .
-
-20
-
-3.2
-
 Log-Likelihood Function
-
 Due to the monotonicity of the log-function and assuming i.i.d. random variables, we obtain the following
 expressions:
-
 TML : x1 , . . . , xN → argmax {log(L(x1 , . . . , xN ; θ))}
-
 (3.6)
-
-θ∈Θ
-
-N
-
 = argmax log(
-
 L(xi ; θ))
-
 (3.7)
-
 log(L(xi ; θ)) .
-
-θ∈Θ
-
 (3.8)
-
 i=1
-N
-
 = argmax
-θ∈Θ
-
 i=1
-
 Note. The computation of the maximum likelihood estimate obviously involves the solution of an optimization problem.
-
-21
-
-3.3
-
 Channel Estimation Example
-
 We consider the estimation of the attenuation coeﬃcient h of a Single-Input Single-Output transmission
 channel with Additive White Gaussian Noise (AWGN) N ∼ N (0, σ 2 ) at the receiver.
-
-N
-
-h
-
 si
-
 Yi
-
 Fig. 3.1: Channel model.
 The model of the receiver signal is
 Yi = hsi + N ,
-
 Yi ∼ N (hsi , σ 2 ),
-
 (3.9)
-
 where si denotes the i-th training signal.
 Assuming N observations y1 , . . . , yN according to the training signals s1 , . . . , sN , the likelihood function is
 given by L(y1 , . . . , yN ; θ) = N fYi (yi ; θ), with θ = h and
 i=1
-1
-1
 exp − 2 (yi − θsi )2 .
 fYi (yi ) = √
-2σ
-2πσ
-
-22
-
 (3.10)
-
-The maximum-likelihood estimation is derived by
-N
-
-ˆ
+The maximum-likelihood estimation is derived by
 hML = argmax
-θ∈R
-
-log
 i=1
-N
-
 = argmax
-θ∈R
-
 i=1
-N
-
 = argmin
-θ∈R
-
 i=1
-
-−
-
-1
-1
-√
 exp − 2 · (yi − θsi )2
-2σ
-2πσ
-
-1
 · (yi − θsi )2
-2
-2σ
-
-1
 · (yi − θsi )2
-2
-2σ
-
-1
-· ||y − θs||2
-2σ 2
-θ∈R
 = argmin ||y − θs||2 .
 = argmin
-
 (3.11)
-
-θ∈R
-
-ˆ
 where s = [s1 , . . . , sN ]T . The respective estimator hML is given by the Pseudo Inverse of the vector s
 of training signals, i.e.
-sT y
-ˆ
-hML = T .
-s s
-
 (3.12)
-
 The ML Estimator is obviously identical with the Least Squares Estimator. This changes considerably
 when the statistics Yi are correlated or when N is non-Gaussian distributed.
-
-23
-
-3.4
-
 Introductory Example (cont’d)
-
 The likelihood function for a single observation (N = 1) reads
- 1
-x≤θ
- θ,
 L(x; θ) =
-
-0
 otherwise.
-If N > 1:
-
 L(x1 , . . . , xN ; θ) =
-
-
-
-
-
-1
-,
-θN
-
 xi ≤ θ
-
-0
-
 L(x1 , . . . , xN ; θ)
-
 otherwise.
-
 ∀i = 1, . . . , N
-
 The ML Estimator is given by
-ˆ
 θ = argmax {L(x1 , . . . , xN ; θ)}
-θ∈R
-
 = max {x1 , . . . , xN },
 i=1,...,N
-
-θ
-
 which corresponds to the 2nd intuitive attempt.
 max {xi }
-
 i=1,...,N
-
-24
-
-Bernoulli Experiment
+Bernoulli Experiment
 We now consider a Bernoulli Experiment with success probability θ, e.g. the transmission of a data
 packet over a link with probabilities
 P (no erasure) = θ,
 P (erasure) = 1 − θ.
-
 (3.13)
 (3.14)
-
 We now study the maximum-likelihood framework for estimating the unknown parameter θ based on N
 independent observations:
 The statistical model {X, F, Pθ ; θ ∈ Θ} is
-
-_25_ 140429163030 
 and the respective random variable X , which counts the number of successful Bernoulli trials within N attempts.
-
 X is Binomially Distributed according to
-
 [factorial formula for the binoial coefficients ]
 [  \binom nk = \frac{n!}{k!\,(n-k)!} ]
-
-Given the likelihood function
+Given the likelihood function
 L(x; θ) =
-
-N x
 θ (1 − θ)N −x ,
-x
-
 the log-likelihood function reads
 log L(x; θ) = log
-
-N
-x
-
 + x log θ + (N − x) log (1 − θ).
-
 The ML-Estimator can be obtained by
-ˆ
 θ = argmax {log L(x; θ)},
-θ∈Θ
-
 i.e.
-d
 log L(x; θ)
-=0
-dθ
-ˆ
-θ=θ
-x
-1
-⇔
 + (N − x)
 (−1) = 0
-ˆ
-ˆ
-θ
-1−θ
-ˆ x
-⇔ TML : x → θ = .
-N
-
-26
-
-Quality of
-
-x
-TML : x → N
-
+Quality of
 Since X is binomially distributed
-E [X ] = N θ,
 Var [X ] = N θ(1 − θ),
-
 (3.15)
 (3.16)
-
 we obtain
-E [TML ] = E
-
-X
-N
-
 Var [TML ] = Var
-
-=
-X
-N
-
-1
-1
-E [X ] = θN = θ,
-N
-N
-1
-1
 θ(1 − θ)
 = 2 Var [X ] = 2 N θ(1 − θ) =
-.
-N
-N
-N
-
 (3.17)
 (3.18)
-
- 140429164613
 Obviously, the ML Estimator of the success probability θ is unbiased, and the MSE is equal to the variance of the estimator,
-
 Bias [TML ] = 0,
 ε [TML ] = Var [TML ] =
 Can we improve the estimator?
-
-27
-
 (3.19)
 θ(1 − θ)
-.
-N
-
 (3.20)
-
 Alternative Solution:
-_28_ 140429164246
-
-T
-
-:x→
-
-E [T ] = E
-
-x+1
-N +2
-
-X +1
-Nθ + 1
-=
-N +2
-N +2
-
 ⇒ Bias [T ] =
-
-1 − 2θ
-,
-N +2
-
 (3.21)
-
-2
-
 ε [T ] = Var [T ] + Bias [T ]
 = Var
-=
-
-X +1
-+
-N +2
-
 Var [X + 1]
-+
 (N + 2)2
-
-2
-
-1 − 2θ
-N +2
-1 − 2θ
-N +2
-
-2
-
-2
-
 Var [X ]
-1 − 2θ
-=
-+
-2
 (N + 2)
-N +2
 N θ(1 − θ) + (1 − 2θ)2
-.
-=
 (N + 2)2
-
-28
-
 (3.22)
-
-ε[TML ]
-
-0.025
-
-ε[T ]
-
-0.5
-
-1
-
-θ
-
 Fig. 3.2: Comparison of the achievable MSEs for N = 10 observations.
 Note. Biased estimators can provide better estimates than unbiased estimators.
-
-29
-
-3.5
-
 Best Unbiased Estimator
-
 ML Estimators are not necessarily the best estimators. A wide class of estimators is deﬁned by minimizing
 the MSE under an unbiasedness constraint.
 Deﬁnition. Given the statistical model {X, F, Pθ ; θ ∈ Θ}, we call an estimator Best Unbiased
 Estimator if E [T (X1 , . . . , XN )] = θ and
-
 Var [T (X1 , . . . , XN )] ≤ Var [S (X1 , . . . , XN )] ,
-
-∀θ ∈ Θ,
-
 (3.23)
-
 for any alternative unbiased estimator S .
-
 ' Best unbiased estimators are also referred to as Uniformly Minimum Variance Unbiased (UMVU) Estimators. '
 The estimator T2 =
-
-N +1
-T2
-N
-
 of the introductory example is a UMVU Estimator.
-
-30
-
-4. Fisher’s Information Inequality
-An universal lower bound for the variance of an estimator can be introduced, if the following conditions are
-fulﬁlled:
-L(x; θ) > 0, ∀x, θ, (4.1)
-L(x; \theta) differentiable with respect to \theta,
-
-\input{ SSP14_LectureNotes_Part1_31_2.txt } (4.3)
-
+4. Fisher’s Information Inequality
+An universal lower bound for the variance of an estimator can be introduced, if the following [ regularity ] conditions are
+fulfflled:
+_v('140510091627')
+[ (4.1) - (4.3) ]
 Deﬁnition. Consequently, we deﬁne the Score Function as
-
-g(x; θ) =
-
-∂
-L(x; θ)
-∂
-log L(x; θ) = ∂θ
-,
-∂θ
-L(x; θ)
-
-with 
-\input{ SSP14_LectureNotes_Part1_31.txt }
-
-31
-
-(4.4)
-
-4.1
-
-Cram´r-Rao Lower Bound
-e
-
+$\operatorname{g}(x; \theta) = \ldots$
+_v('140509215904') (4.4)
+\todo{Why is $\operatorname{E}(\operatorname{g}(x) \ldots$ = 0?}
+Cramer-Rao Lower Bound
 Given the score function g(x; θ) of an estimation problem, and the Fisher Information term IF (θ) =
 Var [g(X , θ)], the variance of any possible estimator can be lower bounded by
-
-Var [T (X )] ≥
-
-∂ E [T (X )]
-∂θ
-
-2
-
-1
-,
-IF (θ)
-
 (4.5)
-
 and
-
-\s{e_4_6}
+_v('140509220300') (4.6)
 if T is unbiased.
-
-32
-
-1
-,
-IF (θ)
-
-(4.6)
-
-Proof
 ∂ E [T(X )]
-∂
-=
-∂θ
-∂θ
-
-X
-
 T(x)fX (x; θ)dx =
-
 T(x)
-X
-
-∂
 fX (x; θ)dx
-∂θ
-
-∂
 = (T(x) − E [T(X )]) fX (x; θ)dx +
-∂θ
-X
-
-X
-
 E [T(X )]
-
-∂
 fX (x; θ)dx
-∂θ
-=0
-
-=
-X
-
-1
-
-∂
 fX (x; θ)dx
 fX (x; θ) ∂θ
-
 (T(x) − E [T(X )]) fX (x; θ)
-
-1
-
-∂
 fX (x; θ) .
 fX (x; θ) ∂θ
-
 (T(x) − E [T(X )]) fX (x; θ),
-
-=
-
 Appling the Cauchy-Schwarz Inequality, | a, b |2 ≤ a, a · b, b , yields:
-\input{ SSP14_LectureNotes_Part1_31.txt }
-
-4.2
-
 2nd Version of Fisher Information
-
 An alternative expression for the Fisher Information term IF (θ) can be derived,
-
 IF (θ) = Var [g(X , θ)]
 = E g(X , θ)2 − E [g(X , θ)]2
-=0
-
 = E g(X , θ)
-= −E
-
-2
-
-∂2
 log L(X ; θ) ,
-∂θ2
-
 (4.10)
 (4.11)
-
 which can be interpreted as the negative Mean Curvature of the Log-Likelihood Function.
 The last step from (4.10) to (4.11) is not obvious.
-34
-
-Proof
-∂2
-∂
 log L(x; θ) =
-2
-∂θ
-∂θ
-∂
-=
-∂θ
-
-∂2
 L(x; θ)
-∂θ2
-
-∂
 L(x; θ)
-∂
-∂θ
 − L(x; θ)
 L(x; θ)
-∂θ
 L(x; θ)2
-
-=
-
-∂2
 L(x; θ)
-∂θ2
-
-=
-
 L(x; θ)
-∂2
 L(x; θ)
-∂θ2
-
-=
-
 ⇒ E g(X , θ)
-
-2
-
-=E
-
 L(x; θ)
-
-∂2
 L(X ; θ)
-∂θ2
-
 L(X ; θ)
-
-=
-X
-∂2
-∂θ 2
-
-∂
 log L(x; θ)
-∂θ
-1
-∂
 L(x; θ)
 L(x; θ) ∂θ
-
-2
-∂
 L(x; θ)
-∂θ
 L(x; θ)2
-
-−
-
 − g(x, θ)2 .
-
-−
-
-∂2
 log L(X ; θ)
-∂θ2
-
-∂2
-∂2
 L(x; θ)dx − E
 log L(X ; θ) .
-∂θ2
-∂θ2
-X
-
 L(x;θ)dx=
-
-35
-
 (4.12)
-
-∂2
-1=0
-∂θ 2
-
 (4.13)
-
-4.3
-
 Interpretation
-
 The 2nd version of the Fisher Information IF (θ) as the negative Mean Curvature of the Log´
 Likelihood Function allows an interpretation of the Cramer-Rao Lower Bound.
 IF (θ) = − E
-
-∂2
 log L(X ; θ) .
-∂θ2
 curvature
-
 E [log L(x; θ)]
-
 E [log L(x; θ)]
 ﬂat curvature
-
-ˆ
-θ θ
-
 strong curvature
-
-Θ
-
-ˆ
-θ θ
-
-36
-
-Θ
-
-Properties of the Fisher Information:
- The log-likelihood function log(L(x1 , . . . , xN ) depends on given observations x1 , . . . , xN .
- A weak curvature of log(L(x1 , . . . , xN ) corresponds to little information in x1 , . . . , xN .
- A strong curvature of log(L(x1 , . . . , xN ) indicates more information in x1 , . . . , xN .
- The Fisher information IF (θ) refers to the negative mean curvature at the true parameter θ.
- IF (θ) is based on the expectation of the negative mean curvature of log(L(X1 , . . . , XN ) with respect to
+Properties of the Fisher Information:
+ The log-likelihood function log(L(x1 , . . . , xN ) depends on given observations x1 , . . . , xN .
+ A weak curvature of log(L(x1 , . . . , xN ) corresponds to little information in x1 , . . . , xN .
+ A strong curvature of log(L(x1 , . . . , xN ) indicates more information in x1 , . . . , xN .
+ The Fisher information IF (θ) refers to the negative mean curvature at the true parameter θ.
+ IF (θ) is based on the expectation of the negative mean curvature of log(L(X1 , . . . , XN ) with respect to
 the observation statistics X1 , . . . , XN .
- IF (θ) is a function of θ.
- IF (θ) is monotonically increasing with the number of independent observation statistics, i.e. given the
+ IF (θ) is a function of θ.
+ IF (θ) is monotonically increasing with the number of independent observation statistics, i.e. given the
 (1)
 Fisher Information IF (θ) for a single observation statistic (N = 1), then
 (N )
-
 (1)
-
 IF (θ) = N · IF (θ).
-
-37
-
 (4.14)
-
-4.4
-
 Exponential Models
-
 Deﬁnition. A Exponential Model is a statistical model {X, F, Pθ ; θ ∈ Θ} with random variable X
 and
- 
-\s{e_4_15}
-
+_v('140509222738')
 h(x) exp(a(θ)t(x))dx for normalization.
-
 Then the respective Fisher Information can be directly obtained by
-
-\s{e_4_16}
-(4.16)
-
-For the special case that fX (x; θ) can be arranged such that E [t(X )] = θ, the unbiased estimator
-
+_v('140509222832')
+For the special case that fX (x; θ) can be arranged such that E [t(X )] = θ, the unbiased estimator
 T : x → t(x).
-
 (4.17)
-
 can directly be obtained. Otherwise, t(x) at least provides a Sufficient Statistic for estimating θ.
-Given an Exponential Model it can be shown that the
- Unbiased Estimator T : x → t(x)
- is a UMVU Estimator,
-
-´
- and thus achieves the Cramer-Rao Lower Bound.
-
-39
-
-4.5
-
+Given an Exponential Model it can be shown that the Unbiased Estimator T : x → t(x) is a UMVU Estimator, and thus achieves the Cramer-Rao Lower Bound.
 Mean Estimation Example
-
 We consider the estimation of the unknown mean value θ = µ of a random variable X ∼ N (µ, σ 2 ) based
 on a single observation.
 The respective PDF can be arranged as follows:
-1
-1
 exp − 2 (x − θ)2
-2σ
-2πσ
-2
-θx
-θ
-1
-1
-−
 + log(2πσ 2 )
 exp − 2 x2 ,
-2
-2
-σ
-2σ
-2
-2σ
-
 fX (x; θ) = L(x; θ) = √
 = exp
-
 a(θ)t(x)
-
 b(θ)
-
 (4.18)
-
 h(x)
-
 with t(x) = x and a(θ) = θ/σ 2 .
 Thus the single observation UMVU Estimator T (1) of θ = µ can be obtained as
-
-ˆ
 T (1) : θ = x,
-
 Bias[T (1) (X )] = 0,
-
 with
-
 which minimizes both the variance and the MSE criterion to
-1
 ∂a(θ)
 Var T (1) =
-=
-IF
-∂θ
-40
-
-−1
-
-= σ2.
-
 (4.19)
-
 (4.20)
-
-4.6
-
 Asymptotically Eﬃcient Estimators
-
 Deﬁnition. An estimator T (X1 , . . . , XN ) is Asymptotically Efficient if1
-√
-
-N →∞
-
 (1)
-
-−1
-
 N (T(X1 , . . . , XN ) − θ) ∼ N (0, IF (θ) )
-
 Given the following requirements are fulﬁlled,
- Θ is an open set,
- fX (x; θ) and
-
-X
-
+ Θ is an open set,
+ fX (x; θ) and
 fX (x; θ)dx is twice diﬀerentiable with respect to θ,
-
- IF (θ) < ∞,
- ...
-
+ IF (θ) < ∞,
 then a Maximum-Likelihood Estimator is Asymptotically Efficient.
 1 Convergence
-
 in distribution.
-
-41
-
 (4.21)
-
-
