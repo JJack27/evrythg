@@ -234,19 +234,18 @@ C −1 = (σθ 11T + σX |θ I)−1
 (6.49)
 where
 Orthogonality Principle
-The Orthogonality Principle is an inherent property of the Conditional Mean Estimator.
-It describes the inherent Stochastic Orthogonality between the CM estimation error and any
-observations statistics or functions thereof, i.e.
-E [(TCM (X1 , . . . , XN ) − θ)h(X1 , . . . , XN )] = 0,
-TCM (X1 , . . . , XN ) − θ
-h(X1 , . . . , XN )
-(6.50)
-(6.51)
-where h : RN → R, x1 , . . . , xN → h(x1 , . . . , xN ).
+
+The Orthogonality Principle is an inherent property of the Conditional Mean Estimator.  It describes the inherent Stochastic Orthogonality between the CM estimation error and any observations statistics or functions thereof, i.e.
+_v('140514133928') (6.50)
+_v('140514133929') (6.51)
+
+where $\operatorname{h} : \ldots \mathbb{R}^N \to → \mathbb{R} \ldots$
+Proof.
 E [(TCM (X ) − θ)h(X )] = E [(TCM (X )h(X )] − E [θh(X )] = E [E [θ|X ] h(X )] − E [θh(X )]
 = E [E [θh(X )|X ]] − E [θh(X )] = E [θh(X )] − E [θh(X )] = 0.
 (6.52)
 (6.53)
+
 Mean Estimation Example (Cont’d)
 The parameter θ to be estimated and the corresponding observation statistic X are Jointly Gaussian
 Distributed according to
@@ -291,9 +290,7 @@ Linear Estimation
 7. Linear Estimation
 In this chapter we directly focus on linear models, i.e. given an observation x corresponding to the respective random variable, we consider the estimation of the realization of the random variable y by
 (7.1)
-In contrast to the Maximum-Likelihood Estimators and the Conditional Mean Estimators,
-where the inference of the estimator is based on statistical parameters of a given Probability Distribution Function, here the estimation of y, by inference of t and m, is based on N pairs of jointly
-drawn observations (xi , yi ), where
+In contrast to the Maximum-Likelihood Estimators and the Conditional Mean Estimators, where the inference of the estimator is based on statistical parameters of a given Probability Distribution Function, here the estimation of y, by inference of t and m, is based on $N$ pairs of jointly drawn observations (xi , yi ), where
 (7.2)
 y =  .  and X =  .  .
 Least Squares Estimation
@@ -301,17 +298,11 @@ In Least Squares (LS) Estimation the Linear Estimator – the inference of t and
 on the minimization of the sum of squared errors between the observations and outcomes of the Linear
 Model1 y = xT t.
 The related Optimization Problem is equal to
-min
-i=1
-(yi − xT t)2
-i
 The solution of the LS Problem is given by
-min 
-min y − Xt
-(7.3)
+_v('140514131838') (7.3)
 tLS = (X T X)−1 X T y,
-(7.4)
-implicitly assuming that N is larger than the dimension of the observation vectors xi and the observation
+_v('140514132215') (7.4)
+implicitly assuming that N is larger than the dimension of the observation vectors $x_i$ and the observation
 vectors form a linear independent basis of RN .
 1 The
 aﬃne case y = xT t + m can similarly be treated by y = x ,T t , with t =
@@ -321,14 +312,17 @@ By means of the Singular Value Decomposition2 of the Observation Matrix X, we ob
 with X = U , U ⊥
 (7.5)
 After some reformulations,3 the cost function is equal to
+(7.6)
 Since the lower part of the vector does not depend on t, the inequality y − Xt
 the minimum value is achieved if
-Note. Der residual error U ⊥,T y
-holds and
+Note. Der residual error U ⊥,T y holds and
 corresponds to the orthogonal projection of y onto span U ⊥ .
+
 real-valued matrices the singular vectors can be chosen real-valued, too.
-Q is unitary, Qx 2 = x 2 .
-(7.6)
+
+$Q$ is unitary, $|| Q x ||_2^2 = || x ||_2^2$ 
+[ the multiplication with a unitary matrix does not change the norm, thus $[[U^T], [U^{\perp, T}]]$ may be dropped ]
+
 Mean Estimation Example (Cont’d)
 In order to estimate the mean value θ of the normal distribution θ ∼ N (m, σθ ) based on observations
 xi ∼ N (θ, σX |θ ), i = 1, . . . , N by means of Least Squares Estimation, we introduce the linear
@@ -397,8 +391,8 @@ the LS estimator is denoted by
 i.e. the vector of observations xi ∈ R and the vector of
 and y =  .  ,
 (7.21)
-Minimizing the Euklidean Norm of y − y with y = xt by applying the Orthogonality Principle
-yields
+Minimizing the Euklidean Norm of $y − \hat{y}$ with y = xt by applying the Orthogonality Principle yields
+\todo{Why does the orthogonal projection minimize the norm of the error?}
 y − xtLS ⊥ span [x]
 and thus
 xT (y − xtLS ) = 0.
