@@ -15,6 +15,8 @@ IfWinNotActive
 	sleep, 10
 	Send, {o}
 	sleep, 10
+	Send, {Enter}
+	sleep, 10
 	Send, {ESC}
 	sleep, 10
 	Send,  {"}
@@ -25,11 +27,6 @@ IfWinNotActive
     }
 else
 {
-	Send,  {"}
-	sleep, 10
-	Send,  {+}
-	sleep, 10
-	Send,  y
 	Send, {ALTDOWN}{TAB}{ALTUP}
 }
 }

@@ -1,465 +1,162 @@
 Exact Solutions to MDPs
-
 Institute for Data Processing
 Technische Universität München
-
-06.05.2014
-
-1 / 42
-
-Part I
+Part I
 Recap
-
-2 / 42
-
-The RL Framework
+The RL Framework
 Agent
 state
-
-st
-
 reward
-
 action
-
-rt
-
 at
-
-rt+1
-st+1
-
 Environment
-
 Agent and environment interact at discrete time steps,
-t = 1, 2, . . . , N
-1
-
-State at t: st ∈ S
-
-2
-
-Action at t: at ∈ A(st ) ⊂ A
-
-3
-
-Successor state at t + 1: st+1 ∈ S
-
-4
-
+State at t: st  S
+Action at t: at  A(st )  A
+Successor state at t + 1: st+1  S
 Reward at state st+1 : |rt+1 | < ∞
-3 / 42
-
-Modelling RL as a stochastic process
-
+Modelling RL as a stochastic process
 RL as a stochastic process
 Sequence of interactions {sk , ak , rk , sk +1 , ak +1 . . .} can be
 modeled as a stochastic process
-r1
-r2
 s1 → a1 → s2 → a2 → . . . → s∞
 Deﬁnition
 A state st is Markov if and only if
-P(st+1 |s1 , . . . , st ) = P(st+1 |st )
-
-4 / 42
-
-Markov Decision Processes
-
+Markov Decision Processes
 A Markov decision process is a tuple (S, A, P, R, γ)
-1
-
 S is a ﬁnite set of states
-
-2
-
 A is a ﬁnite set of actions
-
-3
-
 a
 P is a state transition probability matrix, {pss = P(s |s, a)}
-
-4
-
 a
-R is a reward function, rss := r(s, a) = E[r|s, a] ∈ R
-
-5
-
-γ ∈ [0, 1] is a discount factor
-
-5 / 42
-
-What is value function
+R is a reward function, rss := r(s, a) = E[r|s, a]  R
+γ  [0, 1] is a discount factor
+What is value function
 Problem
 Given a sequence of rewards after step t as
 [ note different (better) indexing of states cf. 140430084615 ]
-{rt+1 , rt+2 , rt+3 , . . .},
 how to evaluate the states, in associated with the goal?
 Main idea: to use the reward signal to formalize the idea of
 a goal, i.e. evaluating states;
 Solution: to deﬁne a value function V , which is a mapping
 from states to real numbers, i.e.
-V : S → R,
-
-s → fs (rt+1 , rt+2 , rt+3 , . . .).
-
-6 / 42
-
-The return
-
+The return
 Hypothesis (the reward hypothesis)
 That all of what we mean by goals and purposes can be well
 thought of as the maximization of the cumulative sum of a
 received reward signal.
 Deﬁnition
 The discounted return is deﬁned as
-∞
-
-γk rt+k +1
-
-Rt :=
-where γ ∈ [0, 1]
-
-k =0
-
-7 / 42
-
-Value Functions
-
-1
-
+where γ  [0, 1]
+Value Functions
 Value function: the value of a state s for a given policy π
-∞
-
-
-
-
-
-π
-π
-t
-
-
-V (s) := E[R (s)] = E 
-γ rt+1 |s0 = s, π
-
-
-
-
-t=0
-
-2
-
 The optimal value of a state s
-∞
-
-
-
-
-
-
-
 V ∗ (s) := max Eπ∗ 
 γt rt+1 |s0 = s, a0 = a 
-
-
-
-
-a∈A(s)
-t=0
-
-8 / 42
-
-The Bellman equations
-
+aA(s)
+The Bellman equations
 Proposition
-1
-
-For any policy π, the value function V π ∈ RK satisﬁes
-V π (s) =
-a
-
-2
-
+For any policy π, the value function V π  RK satisﬁes
 a
 a
-pss rss + γV π (s )
-
+a
 π(s, a)
-s
-
-The optimal value function V ∗ ∈ RK satisﬁes
+The optimal value function V ∗  RK satisﬁes
 a
 a
-pss rss + γV ∗ (s )
-
 V ∗ (s) = max
-
-a∈A(s)
-
-s
-
-9 / 42
-
-Two types of RL problems
-
+aA(s)
+Two types of RL problems
 Goals of RL
-1
-
-2
-
 Prediction: given a policy π, to evaluate the future, i.e. the
 value function V π
 Control: to ﬁnd an optimal policy π∗ , in order to optimize
 the future
-
-10 / 42
-
-Part II
+Part II
 Bellman operator
-
-11 / 42
-
-Bellman operator for policy π
-
+Bellman operator for policy π
 Recall: the Bellman equation
-V π (s) =
-
 a
 a
-pss rss + γV π (s )
-
 π(s, a)
 a
-
-s
-
 The Bellman operator T π : RK → RK , component-wise,
 \todo{Is this a typo i.e. should it read $V(s) \mapsto \ldots$? 
-12 / 42
-
-Properties of the Bellman operator
-
+Properties of the Bellman operator
 Lemma
 For any policy π, the Bellman operator T π is a contraction in
-the max-norm, i.e. for any V1 , V2 ∈ RK ,
-T π V1 − T π V2
-
-∞
-
-≤ γ V1 − V2
-
-∞
-
+the max-norm, i.e. for any V1 , V2  RK ,
 Theorem
-For any policy π, the value function V π ∈ RK is a ﬁxed point of
+For any policy π, the value function V π  RK is a ﬁxed point of
 the Bellman operator T π .
-
-13 / 42
-
 Properties of the Bellman operator
-Given two estimates of value function V1 , V2 ∈ RK , for all s ∈ S,
+Given two estimates of value function V1 , V2  RK , for all s  S,
 we have
 \todo{where does the 1st inequality come from?}
 Hence,
-
 a
 a
-pss rss + γV1 (s )
-
-∞
-
-∞
-
-≤ γ V1 − V2
-
-∞
-
-14 / 42
-
-Optimal Bellman operator
-
+Optimal Bellman operator
 Recall: the optimal Bellman equation
 a
 a
-pss rss + γV ∗ (s )
-
 V ∗ (s) = max
-
-a∈A(s)
-
-s
-
+aA(s)
 The optimal Bellman operator T ∗ : RK → RK ,
 component-wise,
 a
 a
-pss rss + γV (s )
-
 V (s ) → max
-
-a∈A(s)
-
-s
-
-15 / 42
-
-Properties of the optimal Bellman operator
-
+aA(s)
+Properties of the optimal Bellman operator
 Lemma
 The optimal Bellman operator T ∗ is a contraction in the
-max-norm, i.e. for any V1 , V2 ∈ RK ,
-T ∗ V1 − T ∗ V2
-
-∞
-
-≤ γ V1 − V2
-
-∞
-
+max-norm, i.e. for any V1 , V2  RK ,
 Theorem
-The value function V ∗ ∈ RK is a ﬁxed point of the optimal
+The value function V ∗  RK is a ﬁxed point of the optimal
 Bellman operator T ∗ .
-
-16 / 42
-
-Properties of the optimal Bellman operator
-Given two estimates of value function V1 , V2 ∈ RK , for all s ∈ S,
+Properties of the optimal Bellman operator
+Given two estimates of value function V1 , V2  RK , for all s  S,
 we have
 a
 a
-pss rss + γV1 (s )
-
 T ∗ V1 (s) − T ∗ V2 (s) = max
-
-a∈A(s)
-
-s
+aA(s)
 a
 a
-pss rss + γV2 (s )
-
 − max
-
-a∈A(s)
-
-s
-
+aA(s)
 ≤ γ max
-
-a∈A(s)
-
+aA(s)
 a
-pss V1 (s ) − V2 (s )
-s
-
-≤ γ V1 − V2
-
-∞
-
 Hence,
-T ∗ V1 − T ∗ V2
-
-∞
-
-≤ γ V1 − V2
-
-∞
-
-17 / 42
-
-Part III
+Part III
 Prediction
-
-18 / 42
-
-Task of prediction
-
+Task of prediction
 Policy evaluation
 Given a policy π, to evaluate the value function V π (s).
-
-19 / 42
-
-State transition matrix
-
+State transition matrix
 Let K be the cardinality of the state space, i.e., K = |S|.
-Then, state transition matrix P deﬁnes transition
-probabilities from all states s to all successor states s ,
+
+Then, state transition matrix P deﬁnes transition probabilities from all states s to all successor states s ,
 where each row of P sums to one.
-[$P_{i, j}$ gives the probaltiy to go from  $s_i$ to $s_j$ ]
+[$P_{i, j}$ gives the probaltiy to go from  $s_j$ to $s_i$ ]
 Known as [right stochastic matrix ] Markov matrix.
 
-20 / 42
-
-Bellman equation in matrix form
-
-1
-
+Bellman equation in matrix form
 The Bellman expectation equations can be expressed as
-V = R + γPV
-where V ∈ RK with one entry per state, i.e.
-   
-
- 
- v1   r1 
- p11 . . . p1K   v1 
-   
-
- 
- .  .
-
- . 
- .  .
- . 
-..
- .  =  .  + γ
-
- . 
-   
-
- 
-.
-   
-
- 
-   
-
- 
-   
-
- 
-vK
-rK
-pK 1 . . . pKK vK
-
-2
-
-Solution: solve the linear equation for V ∈ RK
-(IK − γP) V = R
-
-21 / 42
-
-Prediction method 1: closed form
-
-1
-
+where V  RK with one entry per state, i.e.
+Solution: solve the linear equation for V  RK
+Prediction method 1: closed form
 The solution is
-V = (IK − γP)−1 R,
 with IK − γP being invertible (why?)
 \todo{Why}
-
 Computational complexity is O(n3 ) for n states
 [ matrix inversion via. Gauss-Jordan ]
-
 Direct solution only possible for small MRPs
-
-22 / 42
-
-Closed form solution of prediction
+Closed form solution of prediction
 Lemma
-Every eigenvalue λi of a Markov matrix P ∈ RK ×K satisﬁes
+Every eigenvalue λi of a Markov matrix P  RK ×K satisﬁes
 |λi | ≤ 1 for all i = 1, . . . , K .
 Hence eigenvalues of (IK − γP π ) satisfy
 λi (IK − γP π ) ≥ 1 − γ.
@@ -467,250 +164,85 @@ Hence eigenvalues of (IK − γP π ) satisfy
 For γ < 1, we have (IK − γP π ) is invertible.
 \todo{Why}
 Closed form solution
-V π = (IK − γP π )−1 R π .
-
-23 / 42
-
-Eigenvalue of Markov matrices
-
+Eigenvalue of Markov matrices
 Proof.
-Let λ ∈ C be an eigenvalue of M and x ∈ Cm b a corresponding
+Let λ  C be an eigenvalue of M and x  Cm b a corresponding
 eigenvector. Then Mx = λx. Let k be the index of the largest
 entry of x, i.e. |xk | ≥ |xi | for all i = 1, . . . , n. Then
 [ as $\sum\limits_j=1 A_{k, j} = 1$ ]
 Hence |λ| ≤ 1.
-
-24 / 42
-
-Prediction method 2: convex optimization
-
+Prediction method 2: convex optimization
 The solution is given as
 argmin (IK − γP) V − R
-V ∈RK
-
-2
-2
-
 Convex optimization methods, such as gradient descent
 method, conjugate gradient method, etc.
-
-25 / 42
-
-Prediction method 3: iterative policy evaluations
-
+Prediction method 3: iterative policy evaluations
 Fact
-1
-
 For any policy π, the Bellman operator T π is a contraction
-in the max-norm, i.e. for any V1 , V2 ∈ RK ,
-T π V1 − T π V2
-
-2
-
-∞
-
-≤ γ V1 − V2
-
-∞
-
-For any policy π, the value function V π ∈ RK is a ﬁxed
+in the max-norm, i.e. for any V1 , V2  RK ,
+For any policy π, the value function V π  RK is a ﬁxed
 point of the Bellman operator T π .
-
-26 / 42
-
-Iterative policy evaluation
+Iterative policy evaluation
 Abstract of IPE
 Apply the Bellman operator iteratively
-V0 → V1 → . . . Vk → Vk +1 . . . → V π
 a sweep
-
 Pseudocode (Policy Evaluation)
-For all s ∈ S, iterate
-Vk +1 (s) =
-a∈A(s)
-
-
-
- a
-
-π(s, a) rss + γ
-
-
-
+For all s  S, iterate
+aA(s)
 a
-pss
-s
-
-
-
-
-
-Vk (s )
-
-
-
+π(s, a) rss + γ
+a
 until converge
-
-27 / 42
-
-Convergence properties of IPE
+Convergence properties of IPE
 Calculation
-Vk +1 − V π
-
-∞
-
-= T π Vk − T π V π
-≤ γ Vk − V π
-≤γ
-
-k +1
-
-∞
-
-∞
-
-V0 − V π
-
-∞
-
-k →∞
-
-−−→ 0
-−−
 Lemma
-For a given policy π and an arbitrary V0 ∈ RK , the IPE
-Vk +1 ← T π Vk
+For a given policy π and an arbitrary V0  RK , the IPE
 converges to the true value function V π .
-28 / 42
-
-Part IV
+Part IV
 Control
-
-29 / 42
-
-Task of control
-
+Task of control
 Policy search
 To ﬁnd an optimal policy π∗ , in order to optimize the future
-
-30 / 42
-
-Motivation
-RL
+Motivation
 Agent
 state
-
-st
-
 reward
-
 action
-
-rt
-
 at
-
-rt+1
-st+1
-
 Environment
-
 Idea
 Given a policy π, we can solve the prediction task. Can we use
 value functions to structure the search for good policies?
-
-31 / 42
-
-Policy improvement
-
+Policy improvement
 Given a deterministic policy function π, instead of taking
 a = π(s), we can improve the policy by acting greedily
 a
 a
-pss rss + γV πk (s )
-
 πk +1 (s) = argmax
-a∈A(s)
-
-s
-
+aA(s)
 This is an improvement, π ≥ π, because for any state s,
-V πk +1 (s) ≥ V πk (s)
-
-32 / 42
-
-Control method 1: policy iteration
-
+Control method 1: policy iteration
 Idea
 We can combine policy evaluation and improvement to obtain a
 sequence of monotonically improving policies and value
 functions
-E
-
-I
-
-E
-
-I
-
-E
-
-I
-
-E
-
-π0 → V π0 → π1 → V π1 → π2 → . . . → π∗ → V ∗
-E
-
-1
-
 →: policy evaluation
-
-2
-
 →: policy improvement (“greediﬁcation”)
-
-I
-
-33 / 42
-
-Policy iteration (Pseudocode)
-
+Policy iteration (Pseudocode)
 Pseudocode (PI)
 Choose any initial policy π0 , iterate
-1
-
 Policy evaluation: iterate until converge
-πk
-Vj+1 (s) =
-
-s
-
-a∈A(s)
-2
-
+aA(s)
 a
 a
-pss rss + γVjπk (s )
-
 πk (s, a)
-
 Policy improvement: compute
 a
 a
-pss rss + γV πk (s )
-
 πk +1 (s) = argmax
-a∈A(s)
-
-s
-
+aA(s)
 until converge
-
-34 / 42
-
-Convergence of PI
-
+Convergence of PI
 Theorem
 Policy iteration generates a sequence of policies with
 increasing performance (V πk +1 ≥ V πk ) and it terminates in a
@@ -718,165 +250,56 @@ increasing performance (V πk +1 ≥ V πk ) and it terminates in a
 The sequence of (V πk )k is non-decreasing and we have a ﬁnite
 state and action space and therefore a ﬁnite number of possible
 policies.
-
-35 / 42
-
-Policy iteration comments
-
-1
-
+Policy iteration comments
 In each step of policy iteration
 Policy evaluation involves solving a set of linear equations
 Policy improvement: straightforward
-
-2
-
 Each step of policy iteration is guaranteed to strictly
 improve the policy at some state, when improvement is
 possible
-
-36 / 42
-
-Control solution 2: value iteration
-
+Control solution 2: value iteration
 Fact
-1
-
 The optimal Bellman operator T ∗ is a contraction in the
-max-norm, i.e. for any V1 , V2 ∈ RK ,
-T ∗ V1 − T ∗ V2
-
-2
-
-∞
-
-≤ γ V1 − V2
-
-∞
-
-The optimal value function V ∗ ∈ RK is a ﬁxed point of the
+max-norm, i.e. for any V1 , V2  RK ,
+The optimal value function V ∗  RK is a ﬁxed point of the
 optimal Bellman operator T ∗ .
-
-37 / 42
-
-Value iteration (Pseudocode)
-
+Value iteration (Pseudocode)
 Pseudocode (VI)
-For all s ∈ S, iterate
-
-
- a
-
-Vk +1 (s) = max rss + γ
-
-a∈A(s) 
-
+For all s  S, iterate
 a
-pss
-s
-
-
-
-
-
-Vk (s )
-
-
-
+Vk +1 (s) = max rss + γ
+aA(s) 
+a
 until converge
-
-38 / 42
-
-Convergence properties of VI
+Convergence properties of VI
 Calculation
-Vk +1 − V ∗
-
-∞
-
-= T ∗ Vk − T ∗ V ∗
-≤ γ Vk − V ∗
-≤γ
-
-k +1
-
-∞
-
-∞
-
-V0 − V ∗
-
-∞
-
-k →∞
-
-−−→ 0
-−−
 Lemma
-For an arbitrary V0 ∈ RK , the VI
-Vk +1 ← T ∗ Vk
+For an arbitrary V0  RK , the VI
 converges to the optimal value function V ∗ .
-39 / 42
-
-Asynchronous DP
-
+Asynchronous DP
 All the DP methods described so far require exhaustive
 sweeps of the entire state set, known as synchronous DP
 Asynchronous DP does not use sweeps. Instead it works
 as
-1
-2
-
 Pick a state at random and apply the appropriate backup
 Repeat until converge
-
 Example: asynchronous PI, asynchronous VI
 Still need lots of computation, but does not get locked into
 hopelessly long sweeps
-
-40 / 42
-
-Generalized policy iteration
+Generalized policy iteration
 Generalized Policy Iteration
-!
 Generalized Policy Iteration (GPI): !
 any interaction of policy evaluation and policy improvement, !
 independent of their granularity.!
-
 A geometric metaphor for!
 convergence of GPI: !
-
 R. S. Sutton and A. G. Barto: Reinforcement Learning: An Introduction!
-
-22
-!
-
 R. S. Sutton and A. G. Barto: Reinforcement Learning: An Introduction
-41 / 42
-
-Take-home messages
-
-1
-
+Take-home messages
 Policy evaluation (PE): closed form solution, iterative policy
 evaluation,
-
-2
-
 Policy improvement (PI): form a greedy policy, if only
 locally
-
-3
-
 Policy iteration: alternate between PE and PI
-
-4
-
 Value iteration: intreating the optimal Bellman operator
-
-5
-
 Asynchronous DP: a way to avoid exhaustive sweeps
-
-42 / 42
-
-

@@ -1,0 +1,322 @@
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Data Analysis for Computer Engineering
+Monte Carlo Methods
+Johannes Gunther
+Institute for Data Processing
+Technische Universitat Munchen
+Slide 1/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Part I
+short reminder
+Slide 2/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+General Policy Iteration (GPI)
+A sweep consists of applying a backup operation to each state.
+A full policy-evaluation backup:
+vk +1 (s) = a π(a|s) s ,r p(s , r|s, a) ∗ [r + γvk (s )]
+Slide 3/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+An Example: Gridworld
+An undiscounted episodic task
+Nonterminal states: 1, 2, ..., 14
+One terminal state (shown as shaded squares)
+Actions that would take the agent off the grid will leave
+state unchanged
+Reward is -1 until terminal state is reached
+Slide 4/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Iterative Policy Evaluation for the Gridworld
+π = equiprobable random action choice
+Slide 5/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Iterative Policy Evaluation for the Gridworld
+π = equiprobable random action choice
+Slide 5/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Iterative Policy Evaluation for the Gridworld
+π = equiprobable random action choice
+Slide 5/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Iterative Policy Evaluation for the Gridworld
+π = equiprobable random action choice
+Slide 5/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Iterative Policy Evaluation for the Gridworld
+π = equiprobable random action choice
+Slide 5/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Iterative Policy Evaluation for the Gridworld
+π = equiprobable random action choice
+Slide 5/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Part II
+Monte Carlo Methods
+Slide 6/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Monte Carlo in the Big Picture
+Slide 7/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Monte Carlo for Solving MDPs
+Unlike DP (see last lecture), Monte Carlo methods are
+learning methods
+Experience → values, policy
+Monte Carlo methods can be used in two ways:
+Online: No model necessary and still attains optimality
+Simulated: Learning without a full probability model
+Monte Carlo methods learn from complete sample returns
+like an associate version of bandit method
+Slide 8/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Part III
+Monte Carlo for Value Estimation
+Slide 9/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Monte Carlo Policy Evaluation
+Goal: learn vπ
+Given: some number of episodes under π which contain s
+Idea: Average returns observed after visits to s
+Every-visit MC: average returns for every time s is visited
+in an episode
+First-visit MC: average returns only for ﬁrst time s is visited
+in an episode
+Both converge asymptotically to vπ
+Slide 10/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Law of Large Numbers
+As the number of visits goes to inﬁnity, vπ (s) converges
+Each return is an independent, identically distributed
+estimate for vπ (s)
+lim (x1 + . . . + xn ) = E[xi ]
+In words: By the law of large numbers the sequence of
+averages of these estimates converges to their expected
+value.
+Slide 11/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+First-visit Monte Carlo policy evaluation
+Initialize:
+π ← policy to be evaluated
+V ← an arbitrary state-value function
+Returns(s) ← an empty list, for all s ∈ S
+Repeat forever:
+(a) Generate an episode using π
+(b) For each state s appearing in the episode:
+G ← return following the ﬁrst occurrence of s
+Append G to Returns(s)
+V(s) ← average(Returns(s))
+Slide 12/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Backup Diagram for Monte Carlo
+Entire episode included
+Only one choice at each state
+MC does not bootstrap
+computational expense required
+to estimate one state does not
+depend on the total number of
+states
+Slide 13/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Blackjack Example
+Object: Have your card sum be greater than the dealers
+without exceeding 21
+States (200 of them):
+current sum(12-21)
+dealer’s showing card
+(ace-10)
+do I have a usable ace?
+Reward: +1 for winning, 0 for a draw, -1 for loosing
+Actions: stick (stop receiving cards), hit (receive another
+card)
+Policy: Stick if my sum is 20 or 21, else hit
+Slide 14/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Blackjack Value Functions
+Slide 15/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Part IV
+Monte Carlo for Control
+Slide 16/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Monte Carlo for Control
+Policy iteration, like described in the previous lecture
+Evaluation: MC methods
+Improvement: greedifying
+Slide 17/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Problem with Monte Carlo for evaluate Action Values
+Each episode contains only one action per state
+It is possible, that many relevant state-action pairs will
+never be visited (esp. in deterministic environments)
+So we must ensure to maintain exploration
+One solution: exploring starts - choose random start (with
+probability > 0)
+Slide 18/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Blackjack Example continued
+Exploring starts
+Initial policy as described before
+Slide 19/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Monte Carlo for Control, using Exploring Starts
+Initialize, for all s ∈ S, a ∈ A(s) :
+Q(s, a) ← arbitrary
+π(s) ← arbitrary
+Returns(s, a) ← empty list
+Repeat forever:
+(a) Generate an episode using exploring starts and π
+(b) For each pair s, a appearing in the episode:
+G ← return following the ﬁrst occurrence of s, a
+Append G to Returns(s, a)
+Q(s, a) ← average(Returns(s, a))
+(c) For each s in the episode:
+π(s) ← argmax Q(s, a)
+a
+Slide 20/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+On-policy Monte Carlo Methods
+On-policy: learn about the policy currently executing
+How to get rid of exploring starts?
+Need soft policies: π(a|s) > 0 for all s and a
+Use -greedy methods from lecture 2
+|A (s)|
+greedy
+exploration
+converges to best -soft policy
+Slide 21/23
+Data Analysis for Computer Engineering
+|A (s)|
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Off-policy Monte Carlo Methods
+Off-policy: Learn about a policy, different to the one being
+executed
+Target policy is being learned
+Behavior policy is being executed, generating behavior
+(e.g. stochastic)
+Learns only from the tails of episodes, after the last
+nongreedy action.
+might lead to slow learning, if exploration actions are
+frequent
+Slide 22/23
+Data Analysis for Computer Engineering
+Johannes Gunther
+Lehrstuhl fur
+Datenverarbeitung
+Technische Universitat Munchen
+Summary
+Monte Carlo methods learn directly from experience
+On-line: No model necessary and still attains optimality
+Simulated: No need for a full model (no probability
+distributions required)
+Monte Carlo methods learn from complete sample returns
+Only for episodic tasks useful
+Key issue: maintaining sufﬁcient exploration (via ES, soft
+policies)
+Distinction between on-policy (learn from executed policy)
+and off-policy (learn from different policy than executed)
+Slide 23/23
+Data Analysis for Computer Engineering
+Johannes Gunther

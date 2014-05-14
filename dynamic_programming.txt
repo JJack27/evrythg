@@ -13,24 +13,23 @@ Lab Course: Dynamic Programming
 14.05.2014
 
 Introduction
-In this session, we will implement a dynamic programming solver, to compute the value function
-and optimal policy for the 4x4 gridworld we established last time. We will need the state transition
-probability function P , the reward function R, and a policy π, which can be controlled to be greedy
-to the current value function.
+In this session, we will implement a dynamic programming solver, to compute the value function and optimal policy for the 4x4 gridworld we established last time. We will need the state transition probability function P , the reward function R, and a policy π, which can be controlled to be greedy to the current value function.
 
 Prerequesites
-Carefully read the chapter on dynamic programming in the textbook. Take care you understood the
-difference between policy evaluation, policy improvement, policy iteration and value iteration. Also
-study the concepts of synchronous and asynchronous versions of dynamic programming.
+Carefully read the chapter on dynamic programming in the textbook. Take care you understood the difference between policy evaluation, policy improvement, policy iteration and value iteration. Also study the concepts of synchronous and asynchronous versions of dynamic programming.
 
 Tasks
+
 • Implement a function to evaluate a policy. It should return the value function as an ndarray. . .
 cf. 140507090509
-• Implement the functionality to improve a policy. Therefore, you should first implement a
-policy, which depends on a fixed value function. Then implement the functionality to modify
-this policy to be optimal according to a new value function.
+
+• Implement the functionality to improve a policy. Therefore, you should first implement a policy, which depends on a fixed value function. Then implement the functionality to modify this policy to be optimal according to a new value function.
+
 • Implement policy iteration. Return the optimal value function and the optimal policy.
-• Implement value iteration.
+
+• Implement value iteration. 
+cf. 140514094507 
+
 • Evaluate the runtime difference of policy iteration and value iteration.
 • (optional) Think of a way to nicely visualize a policy and implement the visualization.
 • (optional) If you did implement the asynchronous version of the above functionalities (e.g.
@@ -41,6 +40,6 @@ any difference in runtime or with respect to iteration steps?
 References
 [1] R. Sutton and A. Barto. Introduction to Reinforcement Learning. MIT Press. 1998.
 
-1
 
-
+
+
