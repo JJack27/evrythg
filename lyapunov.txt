@@ -1,0 +1,208 @@
+Notes on Lyapunov’s theorem
+F. Ramponi
+The following notes contain the proof of Lyapunov’s theorem for stability and asymptotic
+stability of an equilibrium point of a nonlinear system, along with applications to the proof
+of asymptotic stability of an equilibrium point via linearization, plus some comments on
+unstable equilibrium points. The material is adapted from Fornasini & Marchesini,
+Appunti di teoria dei sistemi (in Italian); the interested reader can ﬁnd a general and
+broad exposition of Lyapunov theory in Khalil, Nonlinear systems.
+Preliminaries
+We will deal with a continuous time, autonomous, time-invariant nonlinear system
+x(t) = f (x(t))
+(1)
+For simplicity, suppose that x(t) ∈ Rn , f : Rn → Rn , and f is continuous. Suppose also
+that (1) has an equilibrium point at the origin (this is again for simplicity, all the results
+hold in general), i.e. it holds
+f (0) = 0
+Let ϕ(t; 0, x) denote the unique solution x(t) to (1) that corresponds to x(0) = x.
+Stability
+In the following, B(¯, ε) will denote the open ball centered at x of radius ε, that is the
+set {x ∈ Rn : x − x < ε}; B(¯, ε) will denote the closed ball, or the set {x ∈ Rn :
+x − x ≤ ε}; and S(¯, ε) will denote the sphere, or the set {x ∈ Rn : x − x = ε}. Note
+that S(¯, ε) is the boundary of both B(¯, ε) and B(¯
+The following deﬁnitions of stability are due to Aleksandr Lyapunov (1857-1918). An
+equilibrium point xe of a nonlinear system is said to be stable, if for all ε > 0 there exists
+a δ > 0 such that
+x ∈ B(xe , δ) ⇒ ϕ(t; 0, x) ∈ B(xe , ε) for all t ≥ 0
+(In essence, the Lyapunov stability of xe asserts a “simultaneous continuity” — more precisely the equicontinuity — at xe of all the functions in the family {Φt : x → ϕ(t; 0, x)}t≥0 .)
+The equilibrium point xe is said to be asymptotically stable, if for all ε > 0 there exists a
+δ > 0 such that
+x ∈ B(xe , δ) ⇒
+ϕ(t; 0, x) ∈ B(xe , ε) for all t ≥ 0
+limt→+∞ ϕ(t; 0, x) = xe
+It is clear from the deﬁnitions that asymptotic stability implies stability.
+
+Lyapunov functions
+Here, a continuously diﬀerentiable function V : Rn → R is called positive deﬁnite if V (0) = 0 and there exists an open ball B = B(0, ε) such that V (x) > 0 for all x ∈ B.
+The function V is called positive semi-deﬁnite if there exists a B such that V (0) = 0 and
+V (x) ≥ 0 for all x ∈ B.
+Analogously, V is called negative deﬁnite or negative semi-deﬁnite if V (0) = 0 and, respectively, V (x) < 0 for all x ∈ B, x = 0 or V (x) ≤ 0 for all x ∈ B.
+Positive deﬁnite (semi-deﬁnite, etc.) quadratic forms, i.e. functions of the form V (x) =
+x P x where P ∈ Rn×n , P = P > 0 (≥ 0, etc.) are positive deﬁnite (semi-deﬁnite, etc.)
+with respect to the above deﬁnition. In the literature on system theory positive deﬁnite
+functions, when used to establish stability, are called Lyapunov functions. Intuitively,
+their physical meaning is that of an “energy”.
+
+Given the gradient of V ,
+[ note that the gradient is here defined as a row vector ]
+
+consider the function $\dot{\operatorname{V}} \ldots$, called the Lie derivative of V and deﬁned as follows:
+
+V is a function of the state. V (¯), evaluated at a certain state x, gives the rate of increase
+of V , that is the derivative of V with respect to time, along the trajectory of the system
+passing through x. The essential fact about Lyapunov functions is that the computation
+of such rate does not require the preliminary computation of the trajectory.
+Stability criterion
+The following result is of fundamental importance in system theory. It asserts the possibility of establishing stability or asymptotic stability of equilibrium points without explicitly
+computing trajectories.
+Theorem (Lyapunov). Let xe = 0 be an equilibrium point for the system (1). Let
+V : Rn → R be a positive deﬁnite continuously diﬀerentiable function.
+1. If V : Rn → R is negative semi-deﬁnite, then xe is stable.
+2. If V is negative deﬁnite, then xe is asymptotically stable.
+Proof. Suppose that V : Rn → R is negative semi-deﬁnite. Given ε > 0, consider the
+¯ ε). Since its boundary S(0, ε) is compact (closed and bounded) and V is
+closed ball B(0,
+continuous, V admits a minimum m on S(0, ε) by Weierstrass’s theorem. Such minimum
+is positive because V is positive deﬁnite:
+min V (x) = m > 0
+Since V is continuous, in particular at the origin, there exists a δ > 0 such that
+x ∈ B(0, δ) ⇒ |V (x) − V (0)| = V (x) < m
+We claim that this δ is the “right δ” required in the deﬁnition of stability, so that any
+trajectory starting from B(0, δ) never exits B(0, ε). Choose indeed x ∈ B(0, δ) as the initial
+condition for (1), and for the sake of contradiction suppose that the trajectory ϕ(t; 0, x)
+is not entirely contained in the ball B(0, ε). Then there exists a time T in which the
+trajectory intersects the boundary of B(0, ε), i.e. V (ϕ(T ; 0, x)) ≥ m. But the derivative
+˙ , is negative semi-deﬁnite, hence V is non-increasing
+of V with respect to time, that is V
+along the corresponding trajectory (that is, V (ϕ(T ; 0, x)) ≤ V (¯)). Therefore,
+m ≤ V (ϕ(T ; 0, x)) ≤ V (¯) < m
+which is a contradiction. Hence, the trajectory is contained in B(0, ε). Given > 0, we
+have constructed a δ > 0 such that if x ∈ B(0, δ) then ϕ(t; 0, x) ∈ B(0, ε) for all t ≥ 0.
+Hence, 0 is a stable equilibrium point.
+Suppose now that V is negative deﬁnite. Of course, this implies that V is also negative
+semi-deﬁnite, hence the ﬁrst property in the deﬁnition of asymptotic stability is trivially
+satisﬁed. This means that, given ε > 0, there exists δ > 0 such that if x ∈ B(0, δ) then
+ϕ(t; 0, x) ∈ B(0, ε) for all t ≥ 0.
+We claim that limt→+∞ ϕ(t; 0, x) = 0 or, more explicitly that for all ε such that 0 < ε < ε,
+there exists a certain time T such that ϕ(t; 0, x) ∈ B(0, ε ) for all t ≥ T . Indeed, in
+view of stability and time invariance, for all ε > 0 there exists a δ > 0 such that, if
+x(T ) ∈ B(0, δ ), then ϕ(t; T, x(T )) ∈ B(0, ε ) for all t ≥ T . Hence, we just need to prove
+that there exists T such that x(T ) ∈ B(0, δ ).
+For the sake of contradiction, suppose that this is not the case. Then, for all t ≥ 0 we
+have
+ϕ(t; 0, x) ∈ B(0, ε) \ B(0, δ )
+Since B(0, ε) \ B(0, δ ) is compact, and V is continuous and negative deﬁnite, V attains a
+negative maximum −µ there. Hence,
+V (x) ≤ −µ if x ∈ B(0, ε) \ B(0, δ )
+and ﬁnally
+V (ϕ(τ ; 0, x))dτ
+V (ϕ(t; 0, x)) = V (¯) +
+= V (¯) − µt
+Letting t → +∞ we obtain a contradiction, because V (x) ≥ 0 for all x ∈ B(0, ε), but the
+right-hand side tends to −∞. Therefore there must exist T such that x(T ) ∈ B(0, δ ).
+This proves the theorem.
+Pay attention to the fact that Lyapunov’s theorem assumes the existence of a Lyapunov
+function with negative (semi-)deﬁnite Lie derivative, but does not provide any method
+to construct one. In other words, proving the stability of an equilibrium is still not a
+straightforward task, unless we ﬁnd such a function by other means. In certain cases, such
+as linear systems, Lyapunov functions arise naturally, but in general their construction is
+an open problem.
+Asymptotic stability of linear systems
+Now we apply Lyapunov’s theorem to the analysis of time-invariant linear systems. We
+start with an algebraic result:
+Theorem. Let A ∈ Rn×n . The following statements are equivalent:
+1. all the eigenvalues of A have negative real part;
+2. for all matrices Q = Q > 0 there exists an unique solution P = P
+following (Lyapunov) equation:
+> 0 to the
+(2)
+We will just prove the “only if” part, namely:
+Proof (1 ⇒ 2). Suppose that A has eigenvalues with negative real part. Deﬁne
+eA t QeAt dt
+Since the elements of the integrand matrix are all linear combinations of functions of
+the form tk eαt where α has negative real part (the reader can verify this considering the
+Jordan form of A), the integral exists and is ﬁnite. Now we verify that such P is a solution
+to (2). Indeed,
+(A eA t QeAt + eA t QeAt A) dt
+e Qe
+= eA t QeAt
+(since limt→+∞ eA t QeAt = 0). Moreover, the solution is unique; indeed, let P1 and P2 be
+any two solutions:
+Subtracting the second equality from the ﬁrst,
+A (P1 − P2 ) + (P1 − P2 )A = 0
+therefore
+0 = eA
+A (P1 − P2 ) + (P1 − P2 )A eAt
+= eA t A (P1 − P2 )eAt + eA t (P1 − P2 )AeAt
+e (P1 − P2 )eAt
+In other terms, eA t (P1 − P2 )eAt is constant, hence for all t it has the same value that it
+assumes at t = 0:
+eA t (P1 − P2 )eAt = P1 − P2
+Finally, letting t → +∞ on the left-hand side, we obtain P1 − P2 = 0, so that any two
+solutions coincide; uniqueness follows.
+Consider now the time-invariant linear system
+x(t) = A x(t)
+(3)
+where A ∈ Rn×n . We apply Lyapunov’s theorem to verify a result that we already know
+from modal analysis:
+
+_t('140515164953')
+Theorem. If all the eigenvalues of A have negative real part, then the system (3) is asymptotically stable.
+Proof. Since the eigenvalues of A have negative real part, there exists a positive deﬁnite solution P to the Lyapunov equation
+Let us choose, as a Lyapunov function, the quadratic form V (x) = x P x, which is of course a positive deﬁnite function. Its Lie derivative is
+[ _cf('140503201539') ]
+which is negative deﬁnite. Hence, the system is asymptotically stable.
+
+When all the eigenvalues of A have negative real part, we will call A a stability matrix.
+Stability analysis via linearization
+Suppose that xe = 0 is an equilibrium point for (1), and that the function f in (1) is
+continuously diﬀerentiable. Then we can linearize the system around 0, namely consider
+the time-invariant linear system
+x(t) = A x(t)
+(4)
+where A = ∂f (0) ∈ Rn×n .
+It turns out that, if A has eigenvalues with negative real part, something interesting can
+be said not just on (4) but also on the nonlinear system. We have the following result:
+Theorem Let xe = 0 be an equilibrium point for (1), and let f ∈ C 1 (Rn ). If A = ∂f (0) is
+a stability matrix, then xe is an asymptotically stable equilibrium point for the system (1).
+Proof. Suppose that A in (4) is a stability matrix. Consider the Taylor expansion of f
+around its equilibrium point:
+f (x) = f (0) + Ax + σ(x) x
+= Ax + σ(x) x
+where lim
+σ(x) = 0. Since A is a stability matrix, the equation
+admits a solution P = P
+> 0. Consider the (positive deﬁnite) quadratic form
+V (x) := x P x.
+We will apply again Lyapunov’s theorem using V as the Lyapunov function. We have
+indeed
+V (x) =
+V (x) · f (x)
+= 2x P (Ax + σ(x) x )
+= x (A P + P A)x + 2x P σ(x) x
+= −x x + 2x P σ(x) x
+2x P σ(x)
+But now, from Schwartz’s inequality,
+2x P σ(x) = | x, 2P σ(x) |
+≤ x 2P σ(x)
+≤ 2 x P σ(x)
+also tends to 0 as x → 0, there exists ε > 0 such that V (x) < 0
+for all x ∈ B(0, ε) \ {0}, and V is negative deﬁnite. Invoking Lyapunov’s theorem, we can
+conclude that the origin is an asymptotically stable equilibrium point of (1).
+Therefore the term
+2x P σ(x)
+We mention without proof another result:
+Theorem Let xe = 0 be an equilibrium point for (1), and let f ∈ C 1 (Rn ). If the matrix
+A = ∂f (0) has at least one eigenvalue with (strictly) positive real part, then the origin is an
+unstable equilibrium point for both the linearized system (4) and the nonlinear system (1).
+Note that we cannot say anything when we just know that the eigenvalues of A lie in
+the closed left-hand plane, that is, nothing can be said if there are eigenvalues on the
+imaginary axis. For instance, a linear system with all its eigenvalues at 0 can be either
+stable or unstable. (Consider e.g. A =
+Even when the linearized system is stable, this does not imply stability of the nonlinear
+system. As a counterexample, consider the equilibrium point xe = 0 for the nonlinear
+scalar systems x(t) = −x2 (t) and x(t) = x2 (t). By separation of variables, their general
+solutions are respectively x(t) = 1/x1 +t and x(t) = 1/x1 −t . Hence, it is easily seen that
+the origin is an asymptotically stable equilibrium for the ﬁrst system, and an unstable
+equilibrium for the second (because the solution diverges in ﬁnite time). Nevertheless, the
+linearization of both the systems around the origin yields x(t) = 0, which is just stable.

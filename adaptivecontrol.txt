@@ -6414,7 +6414,7 @@ the direction of the negative gradient of J, that is,
 e
 (5.2)
 The MIT Rule
-This is the celebrated MIT rule. The partial derivative $\frac{\partial \e}{\partial \theta}$ which is called the sensitivity derivative of the system, tells how the error is influenced by the adjustable parameter. If it is assumed that the parameter changes are slower than the other variables in the system, then the derivative e/ θ can be evaluated under the assumption that θ is constant.
+_t('140515092737')
 
 There are many alternatives to the loss function given by Eq. (5.1). If it is
 chosen to be
@@ -6650,15 +6650,17 @@ y = kG ( p)u
 ym = k0 G ( p)uc
 e = y − ym
 = −γ ym e
+
 Determination of the Adaptation Gain
-where uc is the command signal, ym is the model output, y is the process
-output, θ is the adjustable parameter, and p = d/ dt is the differential operator.
+_v('140515094820')
+where uc is the command signal, ym is the model output, y is the process output, θ is the adjustable parameter, and p = d/ dt is the differential operator.
+
 Elimination of the variables u and y in these equations gives
 + γ ym ( kG ( p)θ uc ) = γ ym
 (5.11)
 This equation is a compact description of the behavior of the parameters that we
 call the parameter equation. Notice that ym may be considered a known function
-of time. If G (s) is a rational transfer function, Eq. (5.11) is a linear time-varying
+of time. If $\operatorname{G}(s)$ is a rational transfer function, Eq. (5.11) is a linear time-varying
 ordinary differential equation. Such equations may exhibit very complicated
 behavior. It is not possible to give a simple analytical characterization of the
 properties of the system, particularly how they are influenced by the parameter
@@ -6667,17 +6669,14 @@ To get some insight into the behavior of the system given by Eq. (5.11), we
 consider an experiment with the adaptive system such that the equation simplifies considerably. An understanding of the behavior of the system under such
 circumstances will give us some insight, but it will of course not give the full
 picture.
-Consider the following experiment: Assume that the value of parameter θ
-is fixed, that the adaptation mechanism is disconnected, and that a constant
-input signal uc is applied. The adaptation mechanism is then connected when
-all signals have settled to steady-state values. The behavior of the parameter
-is then given by
+
+Consider the following experiment: Assume that the value of parameter θ is fixed, that the adaptation mechanism is disconnected, and that a constant input signal uc is applied. The adaptation mechanism is then connected when all signals have settled to steady-state values. The behavior of the parameter is then given by
 (5.12)
-+ γ ym uo ( kG ( p)θ ) = γ ( ym )2
 which is a linear time-invariant system. This equation is linear with constant
-coefficients. Its stability is governed by the algebraic equation
-s + γ ym uo kG (s) = 0
-(5.13)
+coefficients. 
+Its stability is governed by the algebraic equation
+_m('140515095935') (5.13)
+
 We can immediately conclude that the behavior of the parameter is determined
 by the quantity
 (5.14)
@@ -6699,12 +6698,11 @@ A reasonable choice is to make γ ym uo k = 1. If we disregard the transients, t
 average value of ym uc is 2. This gives γ = 0.5, which is the value used in one
 of the simulations in Fig. 5.3.
 Normalized Algorithms
-It follows from Eq. (5.13) that the adaptive system will be unstable if the
-transfer function G (s) has pole excess larger than 1 and parameter µ in
-Eq. (5.14) is sufficiently large. The parameter µ is large if the signals are large
+It follows from Eq. (5.13) that the adaptive system will be unstable if the transfer function G (s) has pole excess larger than 1 and parameter µ in Eq. (5.14) is sufficiently large. The parameter µ is large if the signals are large
 or if the adaptation gain is large. The behavior of the system depends strongly
 on the signal levels. This will be illustrated by a numerical experiment.
 Stability depends on the signal amplitudes
+_t('140515093900')
 Consider the system in Example 5.1. Let the transfer function G be given by
 G ( s) =
 Equation (5.13) then becomes
@@ -6905,7 +6903,9 @@ Lyapunov’s theorem is very elegant. However, it is necessary to have methods f
 constructing Lyapunov functions for a stable system. To apply the method,
 we therefore have to resort to trial and error. A good first attempt is to test
 quadratic functions. However, for linear systems we have the following important result.
+
 Lyapunov functions for linear systems
+_m('140515110414')
 Assume that the linear system
 (5.22)
 is asymptotically stable. Then for each symmetric positive definite matrix Q
@@ -7148,10 +7148,10 @@ values of adaptation gain γ . For comparison we have also shown the parameters
 obtained with the MIT rule.
 Chapter 5
 Model-Reference Adaptive Systems
+
 State Space Systems
-We will now show how Lyapunov’s theory can be used to derive stable MRASs
-for general linear systems. The idea is the same as used previously. It can be
-described as follows:
+_t('140515111119')
+We will now show how Lyapunov’s theory can be used to derive stable MRASs for general linear systems. The idea is the same as used previously. It can be described as follows:
 1. Find a controller structure.
 2. Derive the error equation.
 3. Find a Lyapunov function and use it to derive a parameter updating law

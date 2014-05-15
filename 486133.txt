@@ -1,26 +1,20 @@
 Computer-Controlled Systems
-Third Edition
-
 Solutions Manual
-
 Karl J. Åström
 Björn Wittenmark
-
 Department of Automatic Control
 Lund Institute of Technology
 October 1997
-
-Preface
+Preface
 This Solutions Manual contains solutions to most of the problems in the fourth
 edition of
 Åström, K. J. and B. Wittenmark (1997): Computer controlled Systems –
-Theory and Applications, Prentice Hall Inc., Englewood Cliffs, N. J.
+heory and Applications, Prentice Hall Inc., Englewood Cliffs, N. J.
 Many of the problems are intentionally made such that the students have to
 use a simulation program to verify the analytical solutions. This is important
 since it gives a feeling for the relation between the pulse transfer function and
 the time domain. In the book and the solutions we have used Matlab/Simulink.
 Information about macros used to generate the illustrations can be obtained by
-writing to us.
 It is also important that a course in digital control includes laboratory exercises.
 The contents in the laboratory experiments are of course dependent on the available equipment. Examples of experiments are
 Illustration of aliasing
@@ -31,2869 +25,505 @@ Controllers based on input-output design
 Control of systems subject to stochastic disturbances.
 Finally we would like to thank collegues and students who have helped us to test
 the book and the solutions.
-
 Karl J. Åström
 Björn Wittenmark
-
 Department of Automatic Control
 Lund Institute of Technology
-Box 118
 S-220 00 Lund, Sweden
-
-i
-
-Solutions to Chapter 2
-
+Solutions to Chapter 2
 Problem 2.1
-˙
-x
-
 −ax + bu
-
-y
-
-cx
-
 The system is described by
-
 Sampling the system using (2.4) and (2.5) gives
 e−ah x( kh) + 1
-
 x( kh + h)
 y( kh)
-
 cx( kh)
-
 − e−
-
-b
 u( kh)
 a
-
 ah
-
-−
-
 The pole of the sampled system is exp( ah). The pole is real. For small values
 of h the pole is close to 1. If a > 0 then the pole moves towards the origin when
 h increases. If a < 0 then the pole moves along the positive real axis.
 Problem 2.2
 a. Using the Laplace transform method we ﬁnd that
-
-Φ
-
 e
-
-Ah
-
-
-
-
-
-
-L −1
-
-sI
-
-−A
-
-−1
-
-
-cos h sin h 
-
-
-sin h cos h
-h
-h
-
- sin s 
-As
-
- ds
 e B ds
-
-
-cos s
-
-Γ
-
-−
-
-0
-
-
-1  s
-
-
-s2 + 1
-1
-
-L −1
-
-−
-
-
-1
-
-
-
-
-1
-
-
-s
-
-− cos h 
-
-
-
-sin h
-
-0
-
 b. The system has the transfer function
 G ( s)
-
-s2
-
-s+3
-+ 3s + 2
-
-s+3
 ( s + 1)( s + 2)
-
 Using the Table 2.1 gives
 H ( q)
-
-c.
-
-2
-
-1
-q
-
-2
-s+1
-
-1
-− s+2
-
 − e− − 1 − e−
 − e− 2 q − e−
-h
-
-2h
-
-h
-
-2h
-
 One state space realization of the system is
-
-
- 
-0 0 0
-1
-
-
- 
-
-
- 
-
-
- 
-˙ 1 0 0 x + 0u
-x 
-
- 
-
-
- 
-
-
- 
-0 1 0
-0
-
-
-y 0 0 1 x
-Now
-A2
-
-
-
-0 0 0
-
-
-
-0 0 0
-
-
-
-
-
-
-
-
-
-1 0 0
-
-A3
-
-0
-
-1
-
-
-
-0 0
- 1
-
-
-
-
- h
-
-
-1 0
-
-
-
-
- 2
-
-h /2 h 1
-
 then
-I + Ah + A2 h2 /2 +
-
 e Ah
-h
-
-Γ
-
-h
-As
-
 e B ds
-0
-
-
-1
-
-T
-s2 /2  ds
-
-s
-
-
-h
-
-h2 /2
-
-T
-h3 /6 
-
-0
-
-
-
-0 0 1
-
 and
 H ( q)
-
-− Φ)− Γ
-
 C ( qI
-
-
-
-
-
-
-
-
-
-
-
-1
-
 (q
-
-− 1)
-
-3
-
-
-
- h 
-
-
-
-  h2 /2 
-
-
-
-x
-x
-x
-
-
-
- 3 
-
-2
-2
 h ( q + 1)/2 h( q 1) ( q 1)
-h /6
-x
-
-x
-
-x
-
-−
-
-−
-
 h3 ( q2 + 4q + 1)
 6( q 1)3
-
-−
-
 Problem 2.3
-
-Φ
 a.
-
-⇒
-
 e Ah
 y( k)
-
-A
-
 − 0.5 y(k − 1)
-y − 0.5q− y
-qy − 0.5 y
-
 6u( k
-
-h
-
-Γ
-
-h
-
 b as
 e
 a
-
 eas b ds
-0
-
 6a
-
-−
-
-6
-
-− lnh2
-
 ln 0.5 ⇒ a
-
 eah
-
 ax( t) + bu( t)
-
-0.5
 as
-
 e b ds
-
-⇒b
-
-˙
 x( t)
-
 y( t)
 x( t)
 (continuous time system)
-
-0
-
 ah
-
-b.
-
-6u
-
 0.5x( kh) + 6u( kh)
-
 y( kh)
 x( kh)
 (discrete-time system)
-
 eah
-Φ
-
-− 1)
-
-6q−1u
-
-1
-
 x( kh + h)
-
-1
-ln Φ
-h
-
-h
-
 b ah
 e
 a
-
-0
-
-−1
-
-6
-
-12 ln 2
-h
-
-−1
-
-
-
-
-
-
-0.5
-1 
-0.5 
-
-
  x( kh) + 
-
  u( kh)
  x( kh + h) 
-
-
-
-
-0
-0.7
-0.3
-
-
-
  y( kh)  1 1  x( kh)
 Eigenvalue to Φ :
-
-
- s + 0.5
 det( sI Φ) 
-
-0
-λ1
-0.5 λ 2
-0.3
-
-−
-
-−
-
-−
-
-−
-
-−1
-
-s + 0.3
-
-
-
-
-
-
 0 ⇔ ( s + 0.5)( s + 0.3)
-
-0
-
 Both eigenvalues of Φ on the negative real axis ⇒ No corresponding continuous system exists.
-2
-
-c.
-
 y( k) + 0.5 y( k
-
-− 1)
-
-− 1) ⇔
-
 −0.5 y(k) + 6u(t)
-
 y( k + 1)
-
-6
-q + 0.5
-
 H ( q)
-
 6u( k
-
 one pole on the negative real axis.
-
 ⇒ No equivalent continuous system exists.
 Problem 2.4
 Harmonic oscillator (cf. A.3 and 3.2a).
-
 Φ x( k) + Γ u( k)
 C x( k)
-
 x( k + 1)
 y( k)
-
 Φ( h)
 Γ( h)
-
 a.
-
-π
-
-h
-
-2
-
-⇒Φ
-
-
-
- cos h sin h 
-
-
-
-
-sin h cos h
-
-
- 1 cos h 
-
-
-
-
-sin h
-
-−
-
-−
-
-
-
- 0 1
-
- Γ
-
-
-1 0
-
-
-y 1 0x
-
- 
-1
- 
- 
-1
-
-−
-
 Pulse transfer operator
-
-−
-
-  
-
-q
-1 −1  1 
-1 0
-
-  
-
-  
-1
-q
-1
-
- 
-
-q 11
-1 
-q+1
-1 0
-
- 
-
- 
-2+1
-q
-q2 + 1
-1 q
-1
-
 H ( q)
-
 C ( qI
-
-− Φ)− Γ
-1
-
-−
-
 Y ( z)
 y( k)
 where θ ( k
-
-−
-
-z+1
-z
-⋅
-z2 + 1 z 1
-
-−
-
 H ( z) U ( z)
-sin
-
-π
-
 (k
-
 − 1)θ (k − 1) + θ (k − 1)
-
-2
 1) is a step at k
-
-1.
-
 G ( s)
 Y ( s)
-
-1
 s( s2 + 1)
-
 y( kh)
-b.
-
- s
-
-
-1 0
-
-1
-
 [see Probl. 2.2]
-
 y( t)
-
-1
-1
-+
-z2 + 1
-z 1
-
-− cos t
-π
-1 − cos k
-2
-
-1
-s
-
-−s
-
-2
-
-−
-
-1
-
-− cos π k
-2
-
 θ (k
-
-−1 −  0 
-  
-  
-  
-1
-
-s
-
-− 1)
-
-1
-s2 + 1
-
-1
-
-s
-+1
-
-1
-
-−
-
-−
-
 The same way as a. ⇒ y( t) 1 cos t, and y( kh) 1 cos π k Notice that
-4
 the step responses of the continuous time and the zero-order hold sampled
 systems are the same in the sampling points.
-
 Problem 2.5
 Do a partial fraction decomposition and sample each term using Table 2.1:
 G ( s)
 H ( q)
-
-5
-1
-1
-− 36 1 + 1 s + 2 − 1 s + 3
-s
-4
-9
-−
-−
-1 q+1
-5
-1 1
-1
 − 36 q − 1 + 1 1 − e− − 27 q − e−
 12 ( q − 1)
 8 q− e
 −e
-
-1
 s2 ( s + 2)( s + 3)
-
-1 1
-6 s2
-
-2
-
-2
-
-3
-
-2
-
-3
-
-3
-
-Problem 2.6
+Problem 2.6
 Integrating the system equation
-˙
-x
-
-Ax + Bu
-
 gives
-kh+h
-
 x( kh + h)
-
 e
-
-Ah
-
 e
-
-Ah
-
 e As B δ ( s
-
 x( kh) +
-
 − kh)u(kh)ds
-
-kh
-
 x( kh) + Bu( kh)
-
 Problem 2.7
 The representation (2.7) is
 x( kh + h)
 y( kh)
-
 Φ x( kh) + Γ u( kh)
 C x( kh)
-
 and the controllable form realization is
 z( kh + h)
 y( kh)
 where
-
-Φ
-C
-
-
-
-1 h
-
-
-
-
-0 1
-
-
-1 0
-
-Γ
-˜
-C
-
-˜
-˜
 Φ z( kh) + Γ u( kh)
-˜
 C z( kh)
-
-
-2
-
-
-1
-
-−1 
-
-
-
-
-or
-
-˜
-ΦT
-
-TΦ
-
-or
-
-˜
-CT
-
-C
-
- 2 
- h /2 
-˜
-
-
-Φ
-
-
-h
-
-
- h2 /2 h2 /2 
-
-˜
-Γ
-
-0
-
 From Section 2.5 we get
-˜
-Φ
-
-T Φ T −1
-
-˜
-Γ
-
-TΓ
-
-C T −1
-
-˜
-C
-
 This gives the following relations
-t11
-
-2t11
-
-t21
-
-−t
-
-t11
-
-21
-
-ht11 + t12
-
-2t12
-
-ht21 + t22
-
-−t
-
 (1)
 (2)
-
-t12
-
-h2
-2
-h2
-2
-h2
-2
-h2
-2
-
-t11 + ht12
-
-1
-
-t21 + ht22
-
-22
-
-0
-
-h2
-t21
-2
-h2
-t12 +
-t22
-2
-t11 +
-
-1
-
 (3)
-
-0
-
 (4)
-
 Equations (1)–(4) now give
-t11
-t12
-
-4
-
-t21
-
-−t
-
-22
-
-1 / h2
 1/(2h)
-
-or
-
-T
-
-
-1 2
-
-
-2h2 2
-
-−
-
-
-h
-
-
-h
-
- 
-1
- 
- 
-0
-
-Problem 2.8
+Problem 2.8
 The pulse transfer function is given by
-
-
-
-1 0 
-z
-
-
 z( z 0.5) 0
-
 C ( zI − Φ)−1 Γ
-
 H ( z)
-
-2z
 z( z
-
-− 0.2
-− 0.5)
-
-− 0.2   2 
- 
- 
- 
-z − 0.5
-1
-
-−
-
 2( z
 z( z
-
-− 0.1)
-− 0.5)
-
 Problem 2.9
 The system is described by
-˙
-x
-
-−
-
-
  a
-
-
-c
-
-−
-
-
- 
-b
-f
-x + u
- 
-
- 
-g
-d
-
-Ax + Bu
-
 The eigenvalues of A is obtained from
-
 (λ + a)(λ + d)
 which gives
-
-− bc
-
 λ 2 + ( a + d)λ + ad
-
 −a + d ±
-2
-
-λ
-
 (a
-
-− d)
-
-2
-
-− bc
-
-0
-
-+ 4bc
-
-4
-
 The condition that a b c, and d are nonnegative implies that the eigenvalues, λ 1
 and λ 2 , are real. There are multiple eigenvalues if both a d and bc 0. Using
 the result in Appendix B we ﬁnd that
 e Ah
 eλ 1 h
-
-α 0 + α 1λ 1 h
-
-λ2h
-
 and
-
-α 0 I + α 1 Ah
-
-α 0 + α 1λ 2 h
-
 e
 This gives
-
 λ 1 eλ 2 h
-λ1
-
-α0
-
-−
-−
-
 −λ e
-−λ
-2
-
-λ1h
-
-2
-
-Φ
-
 eλ 1 h eλ 2 h
 (λ 1 λ 2 ) h
-
-α1
-
-
-α0
-
-
-
 − α ah
-1
-
-α 1 ch
-
-
-α 1 bh 
-
-
-α 0 α 1 dh
-
-−
-
 To compute Γ we notice that α 0 and α 1 depend on h. Introduce
-h
-
-β0
-
 α 0 ( s) ds
-0
-
-λ 1 λ2h
 e
-λ2
-
-1
-
-λ1
-
-−λ
-
-2
-
-−1 − λ
-λ
-
-h
-
-β1
-
 sα 1 ( s) ds
-
-1
-
-λ1
-
-0
-
 then
-
-Γ
-
-−λ
-
-1
-2
-
-λ1
-
 eλ 1 h
-
 eλ 1 h
-
-2
-1
-
-− 1 − λ1
-
-2
-
-−1
-
 eλ 2 h
-
-−1
-
-β 0 B + β 1 AB
-
-5
-
-Problem 2.10
+Problem 2.10
 a.
-
 Using the result from Problem 2.9 gives
-
-−0.0197
-−0.0129
-
-λ1
-λ2
-
 eλ 1 h
-
-0.7895
-
 eλ 2 h
-
-0.8566
-
 Further
-
-α0
-
-α1
-
-0.9839
-
 and
-
-β0
-
-11.9412
-
-β1
-
-63.3824
-
-
-
- 0.281 
-
-
-
-
-0.0296
-
 (β 0 I + β 1 A) B
-
-Γ
-
-b.
-
-
-
-0 
- 0.790
-
-
-
-
-0.176 0.857
-
-α 0 I + 12α 1 A
-
-Φ
-
-0.8223
-
 The pulse transfer operator is now given by
-
 H ( q)
-
-− 0.790 0 −  0.281 
- 
-
- 
- 
-
-−0.176 q − 0.857 0.0297 
-
- q
-
-
- 0 1 
-
-
 C ( qI − Φ)−1 Γ
-
-0.030q + 0.026
-q2 1.65q + 0.68
-
-1
-
-−
-
 which agrees with the pulse transfer operator given in the problem formulation.
-
 Problem 2.11
 The motor has the transfer function G ( s)
 tation is given in Example A.2, where
-
-A
-
-Φ
-
-−
-
-
-
- 1 0
-
-
-
-
-1 0
 exp( Ah)
-
-
-
-
-
-
 e−h
 1 − e−h
-
-B
-
-L −1
-
-h
-As
-
 e B ds
-0
-
 ( sI − A)−1
-
-
-
-0 1
-
-C
-
-L −1
-
-
-1
-s
-
-
 s( s + 1) 1
-
-
-
-
-
-
 − e− 
-
-
-
 h + e− − 1
-
-
-0
-
-
-1
-
-h
-
-Γ
-
- 
-1
- 
- 
-0
-
 1/( s( s + 1)). A state space represen-
-
-0
-
-
-
-
-
-
 e−s
-
-1
-
-−
-
-
-
- ds
-
 e−s
-
-h
-
-1
-
-h
-
 This gives the sampled representation given in Example A.2.
-6
-
-0
-s+1
-
-
-
-
-
-
-a.
-
+a.
 The pulse transfer function is
 H ( z)
-
 C ( zI
-
-− Φ)− Γ
-1
-
-−
-
-−
-
- 
-
   z e−h
-
 0 −1  1 e−h 
-
- 
-
-0 1
-
- 
-
 1 + e−h z 1
 h + e−h 1
-
-
-
-
-
-0 1
 0   1 e−h 
- z 1
-
-
-
-
-
-
 ( z e−h)( z 1) 1 e−h z e−h
 h + e−h 1
-
-−
-
-−
-
-−
-−
-
-−
-−
-−
-−
-−
 − − 1)z + (1 − e− − he− )
 (h + e
 ( z − e− )( z − 1)
 ( h + e− − 1) z + (1 − e− − he− )
 z − (1 + e− ) z + e−
-h
-
-h
-
-−
-
-h
-
-h
-
-h
-
-h
-
-2
-
-b.
-
-h
-
-h
-
-h
-
 The pulse response is
-0
-
 h( k )
-
-−
-
-CΦ
-
-k 1
-
-Now
-
-Φk
-
 e Ah
-
-k
-
-Γ
-
-k
-
-0
-
-k ≥ 1
 e Akh
-
 This gives
-
-
-
-0 1
-
-
-
-C Φ k−1 Γ
-
 − e−
 h − e− −
-h
-
-1
-
 − e− −
 1 − e− −
-
 ( k 1) h
-
-−
-
 e−( k−1) h
-
-
-
 0   1 e−h 
-
-
-
-
-1
 h + e−h 1
-
 ( k 1) h
-
-1
-
 ( k 1) h
-
 + h + e−h
-
 + e−kh
-
-−1
-
-−
-
 An alternative way to ﬁnd h( k) is to take the inverse z-transform of H ( z).
-c.
-
 A difference equation is obtained from H ( q)
 y( kh + 2h)
-
 − (1 + e− ) y(kh + h) + e− y(kh)
 ( h + e− − 1)u( kh + h) + (1 − e− − he− )u( kh)
 1 and z exp(−h). The second pole will move from 1 to
-h
-
-h
-
-h
-
-d.
-
-h
-
-h
-
 The poles are in z
 the origin when h goes from zero to inﬁnity.
 The zero is in
 1 e−h he−h
-z
 f ( h)
 h + e−h 1
 The function f ( h) goes from
-
-− − −−
-
 −1 to 0 when h goes from zero to inﬁnity. See Fig. 2.1.
-
 Problem 2.12
 Consider the following transfer operators of inﬁnity order.
 G ( s)
-
-1 −sτ
 e
-s
-
-h
-
-1
-
-τ
-
-0.5
-
 (τ < h)
-˙
-x
-
 u( t
-
-−τ )
-
 0 ⋅ x + 1 ⋅ u( t
-
-−τ)
-
 (inﬁnite order)
-7
-
-Pole and zero
-
-1
-
-0
-
-−1
-0
-
-10
+Pole and zero
 Sampling period h
-
-20
-
 Figure 2.1 The pole (solid) and zero (dashed) in Problem 2.11.d as function of the
 sampling period.
-
 a.
-
 Discrete time system is given by (cf. CCS p. 38–40).
-
 Φ x( k) + Γ 0 u( k) + Γ 1 u( k
-
 x( k + 1)
-
-Φ
-
 e Ah
-
 e0
-
-1
-
-−
-
-h τ
-
-Γ0
-
-0.5
-As
-
 e ds B
-0
-
-Γ1
-
 e
-
-0.5
-
-1 ds 1
-0
-
-τ
-
-−
-
 A( h τ )
-
-0.5
-As
-
 e ds B
-0
-
 ⇒ x( k + 1)
-
 − 1) (Notice that τ < h)
-
-ds
-0
-
 x( k) + 0.5u( k) + 0.5u( k
-
-0.5
-
-− 1)
-
 State space model:
-
-
-
  x( k + 1) 
-
-
-
-
 u( k )
-
-
-
-
- 
  1 0.5   x( k)   0.5 
-
  u( k )
-
- 
-
-
-+ 
-
-0 0
-1
 u( k 1 )
-
   x( k) 
-
-
-
 y( k)  1 0  
-
-
 u( k 1 )
-
-−
-−
-
-¯ ¯
-¯
 Φ x( k)+ Γ u( k)
-
 The system is of second order.
-b.
-
 The pulse-transfer function is
-
 H ( z)
-
 C ( zI
-
-−
-
-¯
-¯
-Φ)−1 Γ
-
-− 1 −0.5 −  0.5 
- 
-
- 
-
- 
-
-
-−
-
-−
-
-1
-
-0
-z
-1
-
-
-
-
-
-
-
-
-
-1 
-
-
- 1 0  1  z 0.5  0.5 
-
-
-
-
- z 0.5  0.5 
-
-
-
-
-
-
-
-
 z( z 1 ) 0 z 1
 z( z 1 )
-1
-1
-
-−
-
 0.5( z + 1)
 z( z 1 )
-
-−
-
-8
-
-
-
-1 0z
-
-
-
-Invers transform of H ( z) using Table 2.3 gives
-0.5 z−1
-
+Invers transform of H ( z) using Table 2.3 gives
 0.5( z + 1)
 z( z 1 )
-
-−
-
 H ( z)
-
-0
-0.5
-1
-
-c.
-
 The poles are z
-
-0 z
-
-z
-
-− 1 +z z−1
-k≥1
-
-1;
-
 ⇒ h( kh)
-
-−2
-
-z
-
-z
-
-1;
-
-k≥2
-
-k 0
-k 1
-k>1
-
-−1
-
 1 and the zeros: z
-
 Problem 2.13
 a.
-
 This is the same system as in Example 2.6 but with τ
 have d 2 and τ ′ 0.5 and we get
-
 Φ x( k) + Γ 0 u( k
-
 x( k + 1)
 where
-
-Φ
-Γ0
-Γ1
-
 e−1
-
 1.5. In this case we
-
 − 1 ) + Γ u( k − 2 )
-1
-
-0.37
-
 1 − e−0.5
 e−0.5 − e−1
-
-0.39
-0.24
-
 A state representation is obtained from (2.12)
-
-
-
  x( k + 1) 
-
-
-
  u( k 1 ) 
-
-
-
-
-
-
-
-
-
 u( k )
-
-
-  
 Γ 0   x( k)   0 
-
-  
-
-  
-
-  
-0
 1   u( k 2 )  +  0  u( k )
-
-  
-
-  
-
-  
-0
-0
 u( k 1 )
-1
-
-
-
   x( k) 
-
-
-
-
  1 0 0   u( k 2 ) 
-
-
-
-
-
-
-
-
 u( k 1 )
-
-Φ
-
-
-0
-
-
-
-
-0
-
-−
-
-−
-−
-
-−
-−
-
 y( k)
-
-b.
-
-Γ1
-
 The pulse transfer function is
-
 H ( z)
-
-−
-
-
-
-z Φ
-
-
-1 0 0 0
-
-
-
-
-0
-Γ0 z + Γ1
 z2 ( z Φ)
-
-−
-
-−Γ −Γ −  0 
-  
-  
-  
-  
-z
-−1   0 
-  
-  
-  
-1
-
-0
-
-0
-
-1
-
-z
-
-1
-
-0.39z + 0.24
 z2 ( z 0.37)
-
-−
-
 Some calculations give
-
 h( k )
-
-
-k ≤ 1
-0
-Γ0
-k 2
-
 Γ 0 e−( k−2) + Γ 1 e−( k−3) k ≥ 3
-
 Using Theorem 2.4 and the deﬁnition of the z-transform (2.27) we can also
 get the pulse response by expanding H ( z) in z−1 , i.e.,
 H ( z)
-
-0.39z−2 + 0.38z−3 + 0.14z−4 + 0.05z−5 + 0.02z−6 +
-
 The pulse response is now given by the coefﬁcients in the series expansion.
-9
-
-c.
-
 There are three poles p1
-
-p2
-
-−0.62.
-
 0.37 and one zero z1
-
 0 and p3
-
 Problem 2.14
 Sampling the given differential equation using the same procedure as in Problem 2.13 gives
 a e−α h
-
 Using the deﬁnition of τ ′ and with h
-
 1 it follows that d
-3+τ′
-
-τ
 Further
-
-−
-
-h τ′
-
-b3
-
 4 and
-
 e−α s b ds
-
-b
-
-1
-
-α
-
 − e−
-
-−
-
 α ( h τ ′)
-
-0
-
-τ′
-
-′
 e−α ( h−τ )
-
-b4
-
 e−α s b ds
-
-0
-
 e−α ( h−τ
-
-b
-
-α
-
 − e−
-
-′)
-
-αh
-
 Straightforward calculations give
 e−α ( h−τ
-
 ab3 + b4
-b3 + b4
-
-′)
-
-Thus
-
-τ′
-
-1
-
-ln
-
-α
-
 and
-
-τ
-
-4
-
 ab3 + b4
-b3 + b4
-
 − ln1a ln
-
 where it has been used that
-
-+h
-
 ab3 + b4
-b3 + b4
-
 − ln a
-
-α
-
 Problem 2.15
-
 − 0.5 y(k − 1) u(k − 9) + 0.2u(k − 10) ⇔
 y( k + 10) − 0.5 y( k + 9) u( k + 1) + 0.2u( k)
 ( q − 0.5q ) y( k) ( q + 0.2)u( k)
-
  A( q) q − 0.5q
 y( k)
-10
-
-9
-
-10
-
-
-Also
-1
-
-d
 Pole excess
-10
-
-1
-
-B∗
-
 1 + 0.2q−1 u( k
-
 y( k)
-
-
- A∗ q−1
-
-
-
-
-
-
-
-
 System order
-
-q + 0.2
-
 B ( q)
-
-− 0.5q−
-
-⇒
-
-9
-
-q−1
-
-9
 deg A( q)
-
-1
-
-− 0.5q−
-
-10
-
-− 9)
-
-1
-
 A∗ q−1 y( k)
-
-1 + 0.2q−1
-
 − deg B (q)
-
 deg A( q)
-
-9
-
 B ∗ q−1 u( k
-
 d (cf. CCS p. 49).
-
-− d)
-
-Remark
+Remark
 q−10( q + 0.2)
-
-q + 0.2
-q10 0.5q9
-
 B ( q)
 A( q)
-
-−
-
-q−9
-
-q−10 q10
-
-1 + 0.2q−1
-1
-
-− 0.5q
-
-B
-q− d
-
-− 0.5q−
-
-∗
-
-q−9 + 0.2q−10
-1 0.5q−1
-
-−
-
-1
-
-q−1
-
-A∗ q−1
-
-1
-
 Problem 2.16
 FIR ﬁlter:
-H ∗ q−1
-
-b0 + b1 q−1 +
-
-+ b n q− n
-
-b0 + b1 q−1 +
-
 y( k)
-
 + b n q − n u( k )
-
 b 0 u( k ) + b 1 u( k
-
 ⇒ y( k + n)
-
 + b n u( k
-
-b0 q n + b1 q n−1 +
-b0 q n + b1 q n−1 +
-qn
-
-+ bn
-
 H ( q)
 Observable canonical form:
-
  a1 1 0
-
-
  a2 0 1
-
-
-Φ 
-
-
-
-
-
 an 0
-
-
-C 1 0
-0
-
-−
-−
-−
-
 Problem 2.17
-
-− n)
 + b n u( k )
-
 + b n u( k )
-
 n:th order system
-
-b.
-
-− 1) +
-
 b 0 u( k + n) + b 1 u( k + n
-
 ⇒ q n y( k)
 ⇒ H ( q)
-
-− 1) +
-
-D+
-
-
-0
-
-
-0
-
-
-
-
-1
-
-
-
-0
-
-b0 +
-
-b1 q n−1 +
-qn
-
 B ( q)
 A( q)
-
-
-0 1 0
-
-
-0 0 1
-
-
-
-
-
-
-
-
-0
-
-D
-
-+ bn
-
-
-0
-
-
-0
-
-Γ
-
-
-1
-
-
-
-0
-
- 
- b1 
- 
- . 
- 
- . 
- . 
- 
- 
- 
-bn
-
-b0
-
 − 1.5 y(k + 1) + 0.5 y(k)
 q y( k) − 1.5qy( k) + 0.5 y( k)
-
 u( k + 1 ) ⇔
-
 y( k + 2)
-
 qu( k)
-
-2
-
 Use the z-transform to ﬁnd the output sequence when
-0
-
-k<0
-
 y(0)
-
-1
-
 u( k )
-
-k ≥ 0
-
 y( 1)
-
-−
-
-0.5
-1
-
 Table 2.2 (page 57):
-
-Z qn f
-⇒ z2 Y
-
-zn F
-
-−F
-
-1
-
-−
-
-n 1
-
 F1( z)
-
-;
-
 f ( jh) z− j
-
-j 0
-
 − y(0) − y(1)z− − 1.5z Y − y(0)
-1
-
-+ 0.5Y
-
-z U
-
 − u( 0 )
-11
-
-Compute
-
+Compute
 y(1)
-
 − 0.5 y(−1) + 1.5 y(0) 1 − 0.5 + 0.75 1.25
 ⇒ z Y − 0.5 − 1.25z− − 1.5z( Y − 0.5) + 0.5Y z( U − 1)
-z − 1.5z + 0.5 Y − 0.5z − 1.25z + 0.75z zU − z
-0.5z − 0.5z
-z
 U ( z)
-+
-z − 1.5z + 0.5
-z − 1.5z + 0.5
 0.5z( z − 1)
-z
-+
 U ( z)
 ( z − 1)( z − 0.5) ( z − 1)( z − 0.5)
-z
 (step) ⇒
-z−1
-0.5z
-z
-0.5z
-2
-1
-+
-+
-+
 z − 0.5 ( z − 1) ( z − 0.5)
 z − 0.5 ( z − 1)
-z − 0.5
-
 u( 0 )
-
-2
-
-1
-
-2
-
 Y ( z)
-
-U
 Y ( z)
-
-2
-
-2
-
-2
-
-2
-
-2
-
-2
-
-2
-
 Table 2.3 (page 59) gives via inverse transformation.
-
-Z −1
-
-z
-
-−
-
-z
 e−1/T
-
 e−k/T
-
 e−1/T
-
-;
-
-Z −1 z−1
-
-z
-z 0.5
-
-− 1)
-
-1
-
-Z −1 z−1
-
-1
-ln 2
-
 e−( k−1)⋅ln2
-
-Z −1
-
-0.5 ⇒ T
-
-−
-
 (z
-
-2
-
 ⇒ y( k)
-
 0.5e−k⋅ln2
-
-z
-− 1) k − 1
 + 2( k − 1) + e− −
-
 (z
-
-
  y(1)
-
 y(0)
-
-
 y( 1)
-
-−
-
-2
-
 (h
-
-1)
-
 ( k 1) ln2
-
-1.25
-0.5
-1
-
 Checking the result:
-
 y(2)
-
 0.5e−2 ln2 + 2 + e− ln 2
-
 y(2)
-
 u(1) + 1.5 y(1)
-1+
-
-12
-
-3 5
-⋅
-2 4
-
-−1
-4
-
-1
-1
-+2+
-8
-2
-
 − 0.5 y(0)
-21
-8
-
-21
-8
-
-1 + 1.5 ⋅ 1.25
-
-− 0.5
-
-2
-
-Problem 2.18:
+Problem 2.18:
 Verify that
-
-Z
-
 h2 z( z + 1 )
 2( z 1)3
-
-1
 ( kh)2
-2
-
-−
-
-∞
-
 F ( z)
-
-∞
-
-k 0
-
 (cf. Table 2.3)
-
-1
 ( kh)2 z−k
-2
-
-z− k
-
-z
-
-− 1;
-
-z
-
-k 0
-
-−kz− −
-
-d
-Σ z− k
-dz
-
-h2
-2
-
-∞
-
 differentiate twice
-
-−
-
-kz−k
-
 ⇒(multiply by z)
- 2
- d
-
- 2 Σ z− k
-dz
- d2
-z
-
- 2
-dz z 1
-
-4
-
-h2
 f ( z−1)
-2
-
-2
-
 ( k2 + k) z−k−2
-
-3
-
-−
-
-2z2
 ( z 1)3
-
-0
-
-−1
-− 1)
-
-2z2
-.
 ( z 1)3
-
-z
 − − ( z − 1)
-
-k 2 z− k
-
 (z
-
-−
-
-k 2
-
 multiplication by z2 gives ⇒ Σ( k2 + k) z−k
-
 ⇒ F ( z)
-
-− −
-−
-
 ( z 1) z
 ( z 1)2
-z
 ( z 1)2
-
 − k ( − k − 1 ) z− −
 2( z − 1)
-2
 ( z − 1)
 ( z − 1)
-
-−
-
-∞
-
-h2
-f z−1
-2
-
-k 0
-
-d
-z
-dz z 1
-
-k 1
-
 f ( z−1)
-
-k 2 z− k
-
-2
-
 z( z + 1 )
 ( z 1)3
-
-−
-
 h2 z( z + 1 )
 2 ( z 1)3
-
-−
-
 Remark A necessary condition for convergence of f ( z−1) is that f is analytic
 for z > 1. In that case there exists a power series expansion and termwise
 differentiation is allowed.
@@ -2902,1102 +532,252 @@ transfer operator H ( z). Use the method of page 58.
 The sampled system.
 u( k )
 Y ( s)
-
 G ( s) ⋅
-
-z
-
 step ⇒ U ( z)
-
 ⇒ Y ( z)
-
-1
-s
-
-z
-
-1
-s3
-
 h2 z( z + 1 )
 2 ( z 1)3
-
-−
-
 Y ( z)
-
 Y ( z)
 U ( z)
-
 cf. example A1: H ( z)
-
 C ( zI
-
-−
-
 h2 z( z + 1 ) z 1
-⋅
 2 ( z 1)3
-z
-
-− Φ)− Γ.
-
-1
-s
-
 ( Table 3.3)
-
 H ( z) U ( z) ⇒
-
 H ( z)
-
 − 1 ⇒ U (s)
-
-−
-
 h2 ( z + 1 )
 2 ( z 1)2
-
-−
-
-1
-
-13
-
-Problem 2.19
+Problem 2.19
 a.
-
 The transfer function of the continuous time system is
-bc
 ( s + a)
-
 G ( s)
 Equation (2.30) gives
-z
-
-−
-
-1
 Ress
 e−ah
-
-z
-
 H ( z)
-
-−
-
-−
-
 −a
-
 esh
-
-−
-
-1
 e−ah 1
-bc
 −ah
 e
 a
-
-bc 1
 a z
-
 − e−
 − e−
-
-−1
-
-s
-
-bc
 s+a
-
 ah
-
 ah
-
 This is the same result as obtained by using Table 2.1.
-b.
-
 The normalized motor has the transfer function
-1
 s( s + 1)
-
 G ( s)
-
-−
-
 and we get
-
-1
 esh 1
-1
 Res
-sh
 z e
-s
 s( s + 1)
-
-−
-
 H ( z)
-s si
-
 H ( z)
-
-−
-− −
-−
 ( z − 1)( e− − 1) + h( z − e− )
 ( z − e− )( z − 1)
 ( e− − 1 + h) z + (1 − e− − he− )
 ( z − e− )( z − 1)
-1
 e−h 1
-h
-+
 z e−h ( 1)2
-z 1
-h
-
-h
-
-h
-
-h
-
-h
-
-h
-
-h
-
 Compare Problem 2.11.
 Problem 2.21
-s+β
-s +α
 Consider the discrete time system
-
 is lead if β < α
-
-z+b
 z+ a
 arg
-
 eiω h + b
 eiω h + a
-
 arctan
-
 arg
-
-sin ω h
-b + cos ω h
-
-cos ω h + b + i sin ω h
 cos ω h + a + i sin ω h
-
 − arctan
-
-sin ω h
 a + cos ω h
-
 Phase lead if
 arctan
-
-sinω h
-b + cos ω h
-
 > arctan
-
-sin ω h
 a + cos ω h
-
-sin ω h
-sin ω h
->
-b + cos ω h
 a + cos ω h
 We thus get phase lead if b < a.
-14
-
-−
-
 0 we can use the series expansion of ( esh 1)/s
-
 To compute the residue for s
 and get
-
-0 < ωh < π
-
-Output
-
-10
-
-0
-
-0
-
-10
 Time
-
-20
-
 Figure 2.2 Simulation of the step response of the system in Problem 2.22 for b −0.9
 (upper solid), −0.75 (upper dashed), −0.50 (dash-dotted), 0 (dotted), 0.5 (lower solid),
 and 1 (lower dashed).
-
 Problem 2.22
 A state space representation of the system is
-
-
- 
-0.4 
-1
- 1.1
-x + u
-
- 
 x( k + 1) 
-
- 
-1
-0
-0
-
-
-1 
 y( k)
 1 b  x( k)
-b+1
-
-−
-
 −0.9 −0.75 −0.5 0 0.5 and 1 is shown in Fig. 2.2.
-
 Simulation of the system for b
-
 Problem 2.23
 A state space representation of G ( s) is
-
 −ax + (b − a)u
-
-˙
-x
-
-x+u
-
-y
-
 The assumption that the system is stable implies that a > 0. Sampling this
 system gives
 b a
 u( kh)
 x( kh + h) e−ah x( kh) + (1 e−ah)
 a
-
-−
-
-−
-
 y( kh)
-
 x( kh) + u( kh)
-
 The pulse transfer operator is
 H ( q)
-
 − a)(1 − e− )/a + 1
 q − e−
-q+β
 q − e−
 b− a
 1 − e−
 − e−
 (b
-
 ah
-
 ah
-
 ah
-
 where
-
-β
-
 ah
-
 a
-
-b
-1
 a
-
 ah
-
 − e− − 1
 ah
-
-15
-
-The inverse is stable if
-
-b
-1
+The inverse is stable if
 a
-
 − e− − 1 < 1
-
-0<
-
-b
 (1
 a
-
-or
-
 Since a > 0 and (1
-
 − e−
-
 ah
-
 − e−
-
-)<2
-
 ah
-
 ) > 0 then
-
 ah
-
 2a
 1 e−ah
-
-−
-
-0<b<
 For b > 0 we have the cases
 b ≤ 2a
-
 The inverse is stable independent of h.
-
 b > 2a
-
 Stable inverse if ah < ln( b/( b
-
 Problem 2.28
 y( k)
-
 y( k
-
 − 1) + y(k − 2)
-
 y(0)
-
 − 2a)).
-
 y(1)
-
-1
-
 The equation has the characteristic equation
-z2
-
-−z−1
-
 which has the solution
-
-√
-
 y( k)
-
-k
-
-1+ 5
-2
-
-c1
-
 Using the initial values give
-
-√
-
-1± 5
-2
-
-z12
 The solution has the form
-
-0
-
-+ c2
-
-1
-
-− √5
-
-k
-
-2
-
-1
 √5 (√5 + 1)
-2
-1
 √ (√5 − 1)
-
-c1
-c2
-
-2 5
-
 Problem 2.29
 The system is given by
-1
-
-− 0.5q− + q−
-1
-
-2
-
 2q−10 + q−11 u( k)
-
 y( k)
-
 Multiply by q11. This gives
-q9 q2
-
-− 0.5q + 1
-
 The system is of order 11 (
-p12
-p3...11
-
 (2q + 1) u( k)
-
 deg A( q)) and has the poles
-
-√
-
-1 ± i 15
-4
-
 (multiplicity 9)
-
-0
-
 and the zero
-z1
-16
-
 y( k)
-
-−0.5
-
-Problem 2.30
+Problem 2.30
 The system H1 has a pole on the positive real axis and can be obtained by sampling
 a system with the transfer function
-K
 s+a
-
 G ( s)
-
 H2 has a single pole on the negative real axis and has no continuous time equivalent.
 The only way to get two poles on the negative real axis as in H3 is when the
 continuous time system have complex conjugate poles given by
-s2 + 2ζ ω 0 s + ω 2
-0
-
 π /ω where
-
 Further we must sample such that h
-
-ω
-
-0
-
-ω0 1
-
-−ζ
-
-2
-
 We have two possible cases
-i)
-
 G1 ( s)
-
-ω2
-0
-s2 + 2ζ ω 0 s + ω 2
-0
-
-ii)
-
 G2 ( s)
-
-s
-s2 + 2ζ ω 0 s + ω 2
-0
-
 Sampling G1 with h
-
 π /ω gives, (see Table 2.1)
 (1 + α )( q + α )
 ( q + α )2
-
 H ( z)
 where
-
-α
-
-1 +α
-q+α
-
 e−ζ ω 0 h
-
 i.e., we get a pole zero concellation. Sampling G2 gives H ( z)
 0. This implies
 that H3 cannot be obtained by sampling a continuous time system. H4 can be
 rewritten as
-0.9q 0.8
 H4 ( q ) 2 +
 q( q 0.8)
-
-−
-−
-
 The second part can be obtained by sampling a ﬁrst order system with a time
 delay. Compare Example 2.8.
 Problem 2.31
 We can rewrite G ( s) as
-1
-1
-+
-s+1
-s+3
-
 G ( s)
 Using Table 2.1 gives
 H ( q)
-With h
-
-1
-q
-
 0.02 we get
 H ( q)
-
 (q
-
 − e−
 − e−
-
-h
-h
-
-+
-
-1 1
-⋅
-3 q
-
 − e−
 − e−
-
-3h
-3h
-
-0.0392q − 0.0377
 − 0.9802)(q − 0.9418)
-
-17
-
-Problem 2.32
-
-
-
- 
-1
-1 0
-
+Problem 2.32
  x +   u( t
- 
-
-
- 
-1 1
-0
-
-˙
-x
-
-
-
-L −1 
-
-Φ
-
-−
-
-0
-
-
-
-
-
-Γ1
-
-−
-−
-
-τ
-
-0
-
 eh−τ (1
-
- −s 
  e 
-
- −s  ds
-
 se
-
-−
-
-
-
-
-
-
-
-
-
-
-
-
-1
-
-−1
-−
-
-0.2
-
-−
-
-h
-
-0
-
-−1
-
-s
-
- h
  e
-
- h
 he
-
-−1
-
-−1
-
-
-
-
-
-0
-
-
 eh
-
-h τ
-
-
-0
-  ds
- s
 e
-
 −1 + e − 
-
-
-
 1 + ( h − τ − 1) e −
-
-
 e −
 0   −1 + e
-
-
-
-
-
 (h − τ )e − e −
 1 + (τ − 1) e
-
-
-
-
-
-h τ
-
-h τ
-
-h τ
-
-τ
-
-h τ
-
 eh−τ ( 1 + eτ )
-
-0.3
-
-0
-
-
 e − −1
-
-
-
 ( h − τ ) eh−τ − eh−τ + 1
-h τ
-
-
-
-0
-s
-
-τ
-
-s−1
-
-L −1 
-
-
-−1 
-
-
- s h−τ
  e 
-
- s
-
 se 0
-
-s 
  e 
-
- s  ds
-
 se
-
 e A( h−τ )
-
-
-
-
-
-
-−A
-
-
-1
-
-
- s 1
-
-L −1  1
-
-
-
-
 ( s 1)2
-
-h τ
-
-Γ0
-
-sI
-
-−τ )
-
 − h + τ ) + ( h − 1) e
-
-h τ
-
-τ
-
-
-
-
-h
-
 The pulse transfer operator is given by
 H ( q)
-
 C ( qI
-
 − Φ)− (Γ
-1
-
-0
-
-+ Γ 1 q−1 )
-
 where
-
-Φ
-
-18
-
-
-
-0 
- 1.350
-
-
-
-
-0.405 1.350
-
-Γ0
-
-
-
- 0.105 
-
-
-
-
-0.005
-
-Γ1
-
-
-
- 0.245 
-
-
-
-
-0.050
-
-
-
-
-
-
-Solutions to Chapter 3
-
+Solutions to Chapter 3
 Problem 3.1
 Jury’s criterion is used to test if the roots are inside the unit circle.
 a.
-1
-0.9
-0.19
-
-−0.15
-
-−1.5
-−1.5
-−0.15
-
-0.9
-1
-α2
-
-α1
-
-0.19
-
-0.9
-
-−0.15/0.19 −0.79
-
-0.07
 The roots are inside the unit circle since the underlined elements are positive.
 (The roots are 0.75 ± 0.58i.)
-b.
-1
-
-−0.5
-0.75
-0.5
-5/12
-
-−2/3
-−13/20
-
-−3
-2
-
-−2
-−2
-−2/3
-
-2
-
-−3
-
-−0.5
-
-5/12
-
-−0.5
-2 /3
-
-α1
-
-0.5
-0.75
-
-α3
-α2
-
-1
-
-−8/5
-
 One of the underlined elements is negative and there is thus one root outside the
 unit circle. (The roots are 2.19 and 0.40 ± 0.25i.)
-c.
-1
-
-−0.5
-
-−2
-
-2
-
-0.75
-1
-
-−1
-−1
-
-0.33
-
-−0.58
-
-−0.58
-−0.39
-
-0.33
-
-2
-
-−2
-1
-0.75
-
-−0.5
-1
-
-α3
-
-−0.5
-
-α2
-
-1.33
-
-α1
-
-−0.57
-
 There are two roots outside the unit circle. (The roots are 0.35 and 0.82 ± 0.86i.)
-
-d.
-19
-
-1
-
-5
-
-−1.25 −0.25
-−0.56 4.69
-4.69
-
-6
-
-−0.25 −1.25
-6
-
-−0.56
-
-63.70 54.92
-63.70
-54.92
-16.47
 One root is outside the unit circle. (The roots are
 e.
-
-−1.7
-
-1
-
-−0.7
-
-1.7
-
-−0.51
-−0.51
-
-0.51
-0.51
-0
-0
-
-1.7
-
-−1.7
-
-−0.7
-
-−1.25
-
-α2
-
-1
-
-α3
-
-−10.71
-
-α1
-
-5
-
-0.86
-
 −5 −0.5, and 0.5.)
-
-0.51
-0.51
-
-α3
-
-−0.7
-
-α2
-
-1
-
-1
-
-0
-0
-
 The table breaks down since we can not compute α 1 . There is one of the underlined
 elements that is zero which indicates that there is at least one root on the stability
 boundary. (The roots are 0.7 and 0.5 ± 0.866i. The complex conjugate roots are on
@@ -4005,714 +785,148 @@ the unit circle.)
 Problem 3.2
 The characteristic equation of the closed loop system is
 z( z
-
 − 0.2)(z − 0.4) + K
-
-0
-
-K >0
-
 The stability can be determined using root locus. The starting points are z 0 0.2
 and 0.4. The asymptotes have the directions ±π /3 and π . The crossing point
 of the asymptotes is 0.2. To ﬁnd where the roots will cross the unit circle let
 z a + ib, where a2 + b2 1. Then
-
-−
-
 ( a + ib)( a + ib
-
 − 0.2)(a + ib − 0.4) − K
-
 − ib and use a + b 1.
 a − 0.6a − b + 0.08 + i(2ab − 0.6b) − K ( a − ib)
-2
-
 Multiply with a
-
-2
-
-2
-
-2
-
 Equate real and imaginary parts.
 a2
-
 − 0.6a − b
-
-2
-
 b(2a
-
-+ 0.08
-
-− 0.6)
-
 −K a
-Kb
-
 − 0.6a − 1 − a + 0.08 −a(2a − 0.6)
 4a − 1.2a − 0.92 0
 The solution is
-√
-0.652
 a
-0.15 ± 0.0225 + 0.23 0.15 ± 0.502
-−0.352
 This gives K 2a − 0.6 0.70 and −1.30. The root locus may also cross the unit
 circle for b 0, i.e. a ±1. A root at z −1 is obtained when
 −1(−1 − 0.2)(−1 − 0.4) + K 0
-If b
-
 0 then
-
 a2
-
-2
-
-2
-
-12
-
-20
-
-Im
-
-1
-
-0
-
-−1
-
-−1
 Figure 3.1
-
-0
 Re
-
 The root locus for the system in Problem 3.2.
-
-or
-
-1.68
-
-K
 There is a root at z
-
-1
-
 1 when
 1(1
-
 − 0.2)(1 − 0.4) + K
-
-or
-
-0
-
-−0.48
-
-K
-
 The closed loop system is thus stable for
-K ≤ 0.70
 The root locus for K > 0 is shown in Fig. 3.1.
 Problem 3.3
 Sampling the system G ( s) gives the pulse transfer operator
 H ( q)
-
-h
-
-q
-
-−1
-
 The regulator is
 u( kh)
 where K > 0 and τ
 a.
-
 When τ
-
 K uc ( kh
-
 − τ ) − y(kh − τ )
-
 K e( kh
-
-−τ)
-
-0 or h.
-
 0 then regulator is
 u( kh)
-
 K e( kh)
-
 and the characteristic equation of the closed loop system becomes
-Kh + z
-
-−1
-
-0
-
 The system is thus stable if
-K < 2/ h
-21
-
-When there is a delay of one sample (τ
-
+When there is a delay of one sample (τ
 h) then the regulator is
-K
 e( kh)
-q
-
 u( kh)
 and the characteristic equation is
-
-− 1)
-
 K h + z( z
-
-z2
-
-− z + Kh
-
-0
-
 The constant term is the product of the roots and it will be unity when the
 poles are on the unit circle. The system is thus stable if
-K < 1/ h
-b.
-
 Consider the continuous system G ( s) in series with a time delay of τ seconds.
 The transfer function for the open loop system is
-K −sτ
 e
-s
-
 Go ( s)
 The phase function is
-
-− π − wτ
-2
-
 arg Go ( iω )
 and the gain is
-
-K
-
 Go ( iω )
-
-ω
-
 The system is stable if the phase lag is less than π at the cross over frequency
 Go ( iω c )
-
-⇒ ωc
-
-1
-K
-
 The system is thus stable if
-
-−π /2 − ω τ > −π
-π /2
-∞ τ
-K <
-c
-
-π
-
-τ
-
-2h
-
-τ
-
-0
-h
-
 The continuous time system will be stable for all values of K if τ
 0 and
 h. This value is about 50% larger than the value
 for K < π /(2h) when τ
 obtained for the sampled system in b.
-
 Problem 3.4
 The Nyquist curve is Ho ( eiω ) for ω
 Ho ( eiω )
-
 [0 π ]. In this case
-1
-
-− 0.5
-1
-cos ω − 0.5 + i sin ω
-cos ω − 0.5 − i sin ω
-cos ω + sin ω + 0.25 − cos ω
-cos ω − 0.5 − i sin ω
-1.25 − cos ω
 eiω
-
-2
-
-22
-
-2
-
-Im
-
-1
-
-0
-
-−1
-
-−1
-
-0
-
-1
 Re
-
 Figure 3.2
-
-For ω
-
 0 then Ho (1)
-
 The Nyquist curve for the system in Problem 3.4.
-
-−
-
 2 and for ω
 arg Ho
-
 π then Ho ( 1)
-
 −arctg
-
-−
-
 The argument is π /2 for ω
 π /3(cos ω
 values for the real and imaginary parts.
-
 −2/3. The argument is
-
-sin ω
-cos ω 0.5
-
-−
-
 − 0.5). The following table gives some
-
-ω
-
 ReHo
-
-ImHo
-
-0
-
-2
-0.97
-0
-0.40
-0.57
-0.67
-
-−1.32
-−1.16
-−0.80
-−0.50
-
-π /6
-π /3
-π /2
-2π /3
-π
-
-−
-−
-−
-
-0
-
-0
-
 The Nyquist curve is shown in Fig. 3.2.
 Problem 3.5
 Consider the system
-
-
-
- 
-1
-1 0
-
  x( k) +   u( k)
- 
-
-
- 
-1 1
-0
-
-
  0 1  x( k)
-
 x( k + 1)
 y( k)
 We have
 y(1)
-
 x2 (1)
-
-0
-
 y(2)
-
 x2 (2)
-
 x1 (1) + x2 (1)
-
-1
-
-⇒
-
 x1 (1)
-
-1
-23
-
-Further
+Further
 x(2)
 x(3)
-
-
-   
-1 01 1
-
- +  ⋅ 1
-
-   
-1 1
-0
-0
-
- 
-   
-1
-1 02 1
-
- 
    +   ⋅ ( 1)  
-
- 
-   
-1 1
-1
-0
-3
 Φ x(1) + Γ u(1)
-
- 
-2
- 
- 
-1
-
-−
-
 The possibility to determine x(1) from y(1), y(2) and u(1) is called observability.
 Problem 3.6
 a.
-
 The observability matrix is
-
-
-
- C 
-
-
-
-
-CΦ
-
-Wo
-
-
-2
-
-
-1
-
 The system is not observable since det Wo
-b.
-
-−4 
-
-
-−2 
-
-0.
-
 The controllability matrix is
-
-
-Γ
-
-Wc
 det Wc
-
-
-ΦΓ 
-
-
-
-6 1
-
-
-
-
-4 1
-
 2 and the system is reachable.
-
 Problem 3.7
 The controllability matrix is
-Wc
-
-
-Γ
-
-
-ΦΓ 
-
-
-
-1 1 1 1
-
-
-
-
-1 0 0.5 0
-
 For instance, the ﬁrst two colums are linearly independent. This implies that Wc
 has rank 2 and the system is thus reachable. From the input u′ we get the system
-
-
- 
-1 0 
-0
-
-
- 
 x( k + 1) 
  x( k) +   u′ ( k)
-0 0.5
-1
 In this case
-Wc
 rankWc
-
-
-
-0 0 
-
-
-
-
-1 0.5
-
 1 and the system is not reachable from u′ .
-
 Problem 3.8
 a.
 x( k + 1)
-
 x(1)
-
 x(2)
-
-
-0
-
-
-0
-
-
-
-
-0
-
-0
-
-
-
-0
-
-
-
-0
-
-0
-
-
-0
-
-
-
-
-0
 u( 0 )
 u( 1 )
-
-24
-
-1
-0
-0
-1
-0
-0
-1
-0
-0
-
-
- 
-2
-0
-
- 
-
  x( k) +  1  u( k)
- 
- 
-3
-
- 
-
- 
-
- 
-0
-0
-  
- 
-
-21  0  
-3
-
-  
- 
-
-  
   1  +  u( 0 )   3 + u( 0 ) 
- 
-
-  
- 
-
-3  
- 
-
-  
- 
-
-  
- 
-
-0
-1
-0
-0
-
- 
- 
-
-2
-3
   0   3 + u( 0 ) 
-
- 
- 
-
-
- 
- 
-
-
- 
- 
-
 3   3 + u( 0 )  +  u( 1 )   u( 1 ) 
-
- 
- 
-
-
- 
- 
-
-
- 
- 
-
-0
-0
-0
-0
-
-−3
-0
-
 ⇒ x(2)
-
-
-T
-0 0 0
-
-b.
-
 Two steps, in general it would take 3 steps since it is a third order system.
-
-c.
-
-
-Γ
-
-Wc
-
-
-
-0 1 0
-
-
-
-1 0 0
-
-
-
-
-
-
-
-
-
-0 0 0
-
-
-Φ2 Γ 
-
-ΦΓ
-
 not full rank ⇒ not reachable, but may be controlled.
-
-T
  1 1 1  is not in the column space of Wc and can therefore not be reached
 from the origin. It is easily seen from the state space description that x3 will be
 0 for all k > 0.
@@ -4720,605 +934,129 @@ Problem 3.11
 The closed loop system is
 y( k)
 a.
-
 Hcl ( q)uc( k)
-
-Hc H
 u c ( k)
-1 + Hc H
-
 K where K > 0 we get
-
-With Hc
-
-K
-
 y( k)
-
-q2
-
 − 0.5q + K u (k)
-c
-
 Using the conditions in Example 3.2 we ﬁnd that the closed loop system is
 stable if K < 1. The steady state gain is
 Hcl (1)
-b.
-
-K
-K + 0.5
-
 With an integral controller we get
 Hcl ( q)
-
 q( q
-
-−
-
-Kq
 1)( q 0.5) + K q
-
-−
-
 q( q2
-
-−
-
-Kq
-1.5q + 0.5 + K )
-
 The system is stable if
-0.5 + K < 1
-
-0.5 + K >
-
 and
-
-−1 + 1.5
-
 and we get the condition
-0 < K < 0.5
 The steady state gain is Hcl (1)
-
-1.
-
 Problem 3.12
 The z-transform for a ramp is given in Table 2.3, also compare Example 3.13, and
 we get
-z
 U c ( z)
 ( z 1)2
-
-−
-
 Using the pulse transfer functions from Problem 3.11 and the ﬁnal value theorem
 gives
 lim e( k)
-
-k
-
-→∞
-
 − y(k)
-z−1
 ( 1 − H ( z)
-z
-
 lim uc ( k)
-
-k
-
-→∞
-
-lim
-
-→1
-
-z
-
-c
-
 U c ( z)
-
 if K is chosen such that the closed loop system is stable.
-25
-
-Output
-
-2
-
-1
-
-0
-
-0
-
-25
 Time
-
-50
-
 Figure 3.3 The continuous time (solid) and sampled step (dots) responses for the system
 in Problem 3.13.
-
 a.
-
-−
-
 To use the ﬁnal value theorem in Table 2.3 it is required that (1 z−1 ) F ( z)
 does not have any roots on or outside the unit circle. For the proportional
 controller we must then look at the derivative of the error, i.e.
 lim e′ ( k)
-
-k
-
-lim
-
-→1
-
-→∞
-
-z
-
-− 1 z − 0.5z + K − K z
-z
 z − 0.5z + K ( z − 1)
-2
-
-2
-
-z
-
-0.5
-K + 0.5
-
 The derivative is positive in steady-state and the reference signal and the
 output are thus diverging.
-b.
-
 For the integral controller we get
 lim e( k)
-
-k
-
-→∞
-
-lim
-
-→1
-
-z
-
-z
-
 − 1 z(z − 1.5z + 0.5 + K − K ) z
-z
 z( z − 1.5z + 0.5 + K ) ( z − 1)
-2
-
-2
-
-2
-
-0.5
-K
-
 Problem 3.13
 Consider the system
-
-s+1
-s2 + 0.2s + 1
-
 G ( s)
-
 0.1 and the undamped natural frequency is
 The damping of the system is ζ
 1. The step response of the system will have an oscillation with the frequency
-
-ω0
-
-ω
-
-ω0
-
-1
-
 − ζ √0.99 rad/s
-2
-
 The sampled system will not detect this oscillation if h k2π /ω . The frequency
-0.
 Fig. 3.3 shows the continuous time and the sampled step responses when h
-2π /ω
 6.3148. To formalize the analysis we can sample the system with h
 2π /ω . The pulse transfer function is (Table 2.1)
-
 ω will then have the alias ω ′
-
 H ( q)
-
-−
-
 (1
-
 − α )(q − α )
 (q − α )
-2
-
-1
-q
-
-−α
-−α
-
 where α
 exp( 0.1h). There is a pole zero cancellation and only the ﬁrst order
 exponential mode is seen at the sampling points.
-26
-
-2
-
-Im
-
-1
-
-0
-
-−1
-
-−2
-−3
-
-−2
-
-−1
 Re
-
-0
-
-1
-
 Figure 3.4 The root locus when the tank system in Problem 3.14 is controlled with an
 integral controller.
-
 Problem 3.14
 a.
-
 When Hr
-
 K then the pulse transfer function for the closed loop system is
 H c ( q)
-
-q2
-
-−
-
 K (0.030q + 0.026)
 1.65q + 0.68 + K (0.030q + 0.026)
-
 The characteristic equation is
 z2 + (0.030K
-
-− 1.65)z + 0.68 + 0.026K
-
-0
-
 The closed loop system is stable if
-0.68 + 0.026K < 1
-
-−1 − 1.65 + 0.030K
-0.68 + 0.026K > −1 + 1.65 − 0.030K
-0.68 + 0.026K >
-
 This gives the stability region
-
-−0.54 < K < 12.31
 The steady state gain is
-0.056K
-0.03 + 0.056K
-
 H c (1)
-
 The steady state error when the input is a unit step is
 e(
-
-∞)
-
-1
-
 − H (1)
-c
-
-0.03
-0.03 + 0.056K
-
 The minimum error is about 4%.
-b.
-
 If the closed loop system is stable then the steady state error is zero if the
 integral controller is used. The characteristic equation is then
-
 ( z2
-
 − 1.65z + 0.68)(z − 1) + K z(0.03z + 0.026)
-
-0
-
 A scetch of the root locus is shown in Fig. 3.4.
-27
-
-Output
-
-1
-
-0
-
-0
-
-250
 Time
-
-500
-
 Figure 3.5 Step response of the system in Problem 3.14 when the proportional controller
 is used with K 0.5 (solid), 1 (dashed), and 2 (dash-dotted).
-
-Output
-
-1
-
-0
-
-0
-
-1000
 Time
-
-2000
-
 Figure 3.6 Step response of the system in Problem 3.14 when the integral controller is
 used with K 0.01 (solid), 0.025 (dashed), and 0.05 (dash-dotted).
-
-c.
-
 Fig. 3.5 and 3.6 show the step responses when the proportional controller
 with K 0.5, 1, and 2 and the integral controller with K
 0.01, 0.025, and
 0.05 are used on the tank system.
-
 Problem 3.16
 The pulse transfer function for the closed loop system is
 H c ( z)
-
 H o ( z)
 1 + H o ( z)
-
 and the characteristic equation is
 z2 + z + 0.16 + K (4z + 1)
-28
-
 z2 + (1 + 4K ) z + 0.16 + K
-
-0
-
-Using the conditions in Example 3.2 give
-0.16 + K < 1
-
-−1 + 1 + 4K
-0.16 + K > −1 − 1 − 4K
-
-0.16 + K >
-
+Using the conditions in Example 3.2 give
 This implies
-
-K < 0.84
-
-0.16
-0.053
-3
-2.16
-0.432
-K >
-5
 Since it is assumed that K > 0 we get the condition
-K <
-
-−
-
-−
-
-0 < K < 0.053
 for stability.
 Problem 3.17
 Using (3.17) we ﬁnd that the transformation is given by
-Tc
-
-−
-˜
-Wc Wc 1
-
-˜
 where Wc is the controllability matrix of the original system and Wc is the controllability of the transformed system.
-
-
-Γ
-
-Wc
-
-
-ΦΓ 
-
-
-
- 3 11 
-
-
-
-
-4 11
-
 The pulse transfer function of the system is
 H ( z)
-
-C [zI
-
-− 1 −2 −  3 
-  
-  
-−1 z − 2   4 
-
-
-z
-
-5 6
-
-
-− Φ]− Γ
-1
-
-39z + 4
-z2 3z
-
-1
-
-−
-
 Thus the transformed system is given by
-
-
-
-3 0
-
-
-
-
-1 0
-
-˜
-Φ
 and
-
-˜
-Wc
-
-˜
-Γ
-
-
-˜
-Γ
-
- 
-1
- 
- 
-0
-
-˜ ˜
-ΦΓ 
-
-˜
-C
-
-
-
- 39 4 
-
-
-
-1 3
-
-
-
-
-0 1
-
 The transformation to give the controllable form is thus
-Tc
-
-
-
-−1
- 1 3   3 11 
-
-
-
-
-
-
-0 1
-4 11
-
-
-1 1
-
-
-11 4
-
-
-2
-
-
-3
-
-−
-
 In the same way the tranformation to the observable form is given by
-To
-
-˜−
-Wo 1 Wo
-
-
-−1 
-
-6 
-1 0  5
-
- 
-
-
- 
-
-3 1
-11 22
-
-
-
- 5 6
-
-
-
-
-4 4
-
-−
-
-29
-
-Probem 3.18
+Probem 3.18
 a)
-
-i
-
-b)
-c)
-
-i
-iii
-
-d)
 e)
-
-iii
-ii
-
-f)
-g)
-
-ii
-iii
-
 Poles are mapped as z esh . This mapping maps the left half
 plane on the unit circle.
 see a)
@@ -5327,908 +1065,150 @@ as described on p. 63 CCS.
 These zeros may very well be outside the unit circle.
 See Example 2.18 p. 65 CCC
 Sample the harmonic oscillator, Example A.3 p. 530 CCS.
-
-
-
-
  1 0  not controllable
-For
-h 2π /ω Φ 
-
-0 1
 See e)
 See p. 63, CCS
-
 Problem 3.19
 a.
-
 The controllability matrix is
-
-
-Γ
-
-Wc
-
-
-
-0 1 0
-
-
-
-1 2 0
-
-
-
-
-
-
-
-
-
-2 3 0
-
-
-Φ2Γ 
-
-ΦΓ
-
 Since one column is zero we ﬁnd that the system is not reachable (det Wc 0),
 see Theorem 3.7.
-b.
-
 The system may be controllable if the matrix Φ is such that Φ n x(0) 0. In
 this case
-
-
-0 0 0
-
-
-
-
-
-
-Φ3  0 0 0 
-
-
-
-
-
-
-0 0 0
 and the origin can be reached from any initial condition x(0) by the control
 sequence u(0) u(1) u(2) 0.
-
 Probem 3.20
-Ho
-Hr
 a.
-
-1
-q2 + 0.4q
-K
-
-Hr Ho
-1 + Hr Ho
 The system is stable if, see p. 82,
-
-q2
-
-K
-+ 0.4q + K
-
-⇒
-
-Htot
-
-−0.6 < K < 1
-
-K <1
-
-−1 + 0.4
-K > −1 − 0.4
-K >
-
-b.
-
 e( k)
-
-−y
-1−H
-
-uc
-
 E ( z)
-
 tot ( z)
-
 U c ( z)
 0.5) the
-
 If K is chosen such that the closed loop system is stable (e.g. K
 ﬁnal-value theorem can be used.
 lim e( k)
-
-k
-
-→∞
-
-lim
-
-→1
-
-z
-
-lim
-
-→1
-
-z
-
-30
-
-z
-
 − 1 E ( z)
-z
-
-z2 + 0.4z
-z2 + 0.4z + K
-
-lim
-
-→1
-
-z
-
-z
-
-−1 1−
-z
-z
-
-1.4
-1.4 + K
-
-2
-
-K
-+ 0.4z + K
-
-0.74
-
-K
-
-0.5
-
-z
-
-z
-
-−1
-
-Im
-
-2
-
-0
-
-−2
-
-−2
-
-0
-
-2
-
 Re
 Figure 3.7
-
 The root locus for Problem 3.21b.
-
 Problem 3.21
 y( k)
 a.
-Htot
-
-q2
-
-Hr Ho
-1 + Hr Ho
-
-0.4q + 0.8
 u( k )
-1.2q + 0.5
-
-−
-
 (0.4q + 0.8) K
-
-q2
-
 − 1.2q + 0.5 + K (0.4q + 0.8)
-
 (0.4q + 0.8) K
 q2 + q(0.4K 1.2) + 0.5 + 0.8K
-
-−
-
 The system is stable if, see p. 82 CCS,
-0.5 + 0.8K < 1
-
-⇒
-
-−1 + 0.4K − 1.2 ⇒
-0.5 + 0.8K > −1 − 0.4K + 1.2 ⇒
-−0.25 < K < 0.625
-
-0.5 + 0.8K >
-
-b.
-Hr
-Htot
-
-K <
-
-0.625
-
-−6.75
-K > −0.25
-K >
-
-K
-q
-Hr Ho
-1 + Hr Ho
-q3
-
-−
-
-1.2q2
-
 q( q2
-
-−
-
 (0.4q + 0.8) K
 1.2q + 0.5) + K (0.4q + 0.8)
-
 (0.4q + 0.8) K
 + q(0.5 + 0.4K ) + 0.8K
-
 Using root locus, Fig. 3.7, we can determine that the closed loop system is
 stable if
-17 + 489
-0.25 < K <
-16
-
-−
-
-−
-
-√
-
-31
-
-Solutions to Chapter 4
-
+Solutions to Chapter 4
 Problem 4.1
 The characteristic equation of the closed loop system is
 det ( zI
-
 − (Φ − Γ L))
-
-−
-
-−
-
-−
-
 ( a11 + a22 b2 2 b1 1 ) z + a11 a22
 + ( a12 b2 a22 b1 ) 1 + ( a21 b1 a11 b2 ) 2
-z2
-
-−
-
-−
-
 −a
-
 12 a21
-
 Identifying with the desired characteristic equation gives
-
-  
-
-b1
-b2
-
-  1   p1 + tr Φ 
-
-  
-
-
-  
-
 a12 b2 a22 b1 a21 b1 a11 b2
 p2 det Φ
-2
-
-−
-
 where tr Φ
-
-−
-
-−
-
-−
-
 a11 + a22 and det Φ a11 a22 a12 a21 . The solution is
-
- 
-
-
-b2   p1 + tr Φ 
 1  a21 b1 a11 b2
- 1
-
- 
-
-
-
- 
-
-
-∆
 a12 b2 + a22 b1 b1
 p2 det Φ
-2
-
-−
-
-−
-
 where
 To check when ∆
-
-∆
-
 a21 b2
-1
-
 −a
-
-2
-12 b2
-
-−
-
-−
-
 + b1 b2 ( a22
-
 −a
-
-11 )
-
 0 we form the controllability matrix of the system
-
  b a b + a b 
-11 1
-12 2 
- 1
-
-
-Wc  Γ ΦΓ  
-
 b2 a21 b1 + a22 b2
-
 and we ﬁnd that
-
-∆
-
 det Wc
-
 There exists a solution to the system of equations above if the system is control1 and dead beat response we have
 lable. For the double integrator with h
 a11 a12 a22 b2 1, a21 0, b1 0.5, and p1 p2 0.
 This gives
- 
-
-
- 
-
-1  2  1 
- 1
- 1
- 
-
-
- 
-
   ( 1) 
-
- 
-
-1.5
-0.5
-0.5
-1
-2
-
-−
-
-− −
-− −
-
-−
-
 This is the same as given in Example 4.4.
 Problem 4.2
 In this case the desired characteristic equation is
-
 (z
-
 − 0.1)(z − 0.25)
-
-z2
-
-− 0.35z + 0.025.
-
 Using the result from Problem 4.1 we ﬁnd that
-
-∆
 and L is obtained from
- 
- 1
-T
- 
-L
- 
-2
-
 To check the result we form
-
- 1
-Φ ΓL 
-
-0.5
-
-0.5
-
-
-
-
-1  0.5 0   0.75 
-
-
-
-
-
-
-∆ 0.1 1
-0.025
-
-−
-
-
-
-
-
-
-
-
-
-
-
- 0.75 
-
-
-
-
-0.1
-
-
-0.1   0.75 0.1   0.25 0 
-−
- 
-
-−
- 
- 
-
-0.1
-0
-0
-0.5 0.1
 The matrix Φ − Γ L thus has the desired eigenvalues 0.25 and 0.1.
-32
-
-Output u(0)
-
-0
-
-−2
-
-0
-
-1
-
-2
-3
+Output u(0)
 Sampling period h
-
-4
-
-5
-
 u(0) s function of h in Problem 4.3.
-
 Figure 4.1
-
 Problem 4.3
 For the motor in Example A.2 we have
-
-
- α
-
-
-1 α
-
-−
-
-Φ
 where α
-
-
-0
-
-
-1
-
-
-
-
-
-
-Γ
-
-1
-
-−α
-
-− 1 +α
-
-h
-
-
-
-
-
-
 e−h. The dead beat controller is characterized by
-0.
-
-p2
-
-p1
-
 From Problem 4.1 it follows that
-
-
-
 1  (1 α )2 α ( h 1 + α ) 1 h α   1 + α 
-T
-
-
-
-L
-
-
-
-∆
-1 α
-1 α
-α
-
-
 1  (1 α )2 (1 + α ) + α 2 (1 h α ) 
-
-
-
-
-∆
-1 α
-
-
-1  1 α hα 2 
-
-
-
-
-∆
-1 α
-
-−
-
-−
-
-−
-
-−
-
-−
-
-−
-
-− −
-−
-
 where
-
 If x(0)
-
-−
-
 ∆ (1 α )3 + (1
-
-T
  1 1  then
 u( 0 )
-
-− −
-−
-− −
-
-− −
-1
-
 − α ) (h − 1 + α )
-
 h( 1
-
-2
-
-−
-
-−α)
-
-2
-
-α
-− 1 − α h−1h− α+ 1 − α
 (
-)
-2
-
-2
-
-2
-
 This function is shown in Fig. 4.1. We thus want to ﬁnd h such that
-1
-
-− α − hα + 1 − α
 h( 1 − α )
-2
-
-1
-
-2
-
-or
-h
-
 2(1
-
-2α 2
-
-−α)
-
-− 2α + 1
-
 − e− )
 − 2e− + 1
-
 2(1
-
 2e−2h
-
-h
-
-h
-
-33
-
-Output
-
-1
-
-0
-
-−1
-0
-
-5
-
-10
-
-0
-
-5
 Time
-
-10
-
-Input
-
-1
-
-0
-
-−1
-
 Figure 4.2
-
 Deadbeat control of the motor when xT (0)
-
-
-
  1 1  and h
-
-2.21.
-
 This is a nonlinear equation of the form
 f ( h)
-
-h
-
 One way to ﬁnd h is to use the iterative scheme
 f ( h k)
-
-hk+1
 Starting with h0
-
 2 gives
-
-k
-
-hk+1
-
-0
-1
-2
-3
-4
-
-2
-2.26
-2.20
-2.21
-2.21
-
-
-
  0.49 0.51 . Fig. 4.2 shows the response of the
 motor controlled with a deadbeat controller when h
 2.21. We see that the
 system settles after two samples and that the constraint on the control signal is
 fulﬁlled.
-
-with h
-
 2.21 we get L
-
 Problem 4.4
 a.
-
 Using the results in Problem 4.1 gives
-
-
-
-0.1600   0.5900 
-1
- 0.0880
-T
-
-
-
-L
-
-
-
-0.0029
-0.0125 0.0100
-0.1595
-
-−
-
-−
-−
-
-−
-
-−
-
-
-
- 9.22 
-
-
-
-
-3.11
-
 The problem is easily solved using Matlab by giving the commands
-
-fi=[0.55 0.12; 0 0.67];
 ga=[0.01; 0.16];
 P=roots([1 -0.63 0.21])
 L=place(fi,ga,P)
-34
-
-Output
-
-1
-
-0
-0
-
-2
-
-4
-
-0
-
-2
 Time
-
-4
-
-5
-
-Input
-
-0
-−5
-−10
-−15
-
 Figure 4.3
 x( 0 )
-
-b.
-
 The response and the control signal of the system in Problem 4.4 when
-
-T
-
-
  1 0  and L  9.22 3.11 .
-
 From Example 4.4 we ﬁnd that the continuous-time characteristic polynomial
 s2 + 2ζ ω s + ω 2 corresponds to z2 + p1 z + p2 with
-p1
-p2
-
 −2e−
-
-ζωh
-
 e−2ζ ω h
-
 cos(ω h
-
-1
-
-0.21
-
-−ζ
-
-2)
-
-−0.63
-
 This has the solution ζ
 0.7 and ω
 5.6, so the characteristic polynomial
@@ -6236,426 +1216,81 @@ becomes s2 + 7.8s + 31.7. In Matlab you can do
 rd=roots([1-0.63 0.21])
 rc=Log(rd)/h
 Ac=poly(rc)
-
-c.
-
 The chosen sampling interval is higher than recommended by the rule of
 thumb, since
-ω h 1.1 > 0.6
-
-
 The closed loop system when using L  9.22 3.11  is shown in Fig. 4.3
-
-T
 when x(0)  1 0  .
-
 Problem 4.5
 a.
-
 In this case
-
-
- C 
-
-
-Wo 
-
-CΦ
-
-
- 0 
-
-Ω 
-
-
-CΓ
-
-Ψ
-
-−
-
-
-
-1
- 0
-
-
-
-
-0.22 1
-
-
- 0 
-
-
-
-
-0.03
-
-−
-Wo 1
-
-−
-
-
-
- 4.55 4.55 
-
-
-
-
-1
-0
-
-−
-Γ Φ Wo 1 Ω
-
- 
-
-
-
- 0.22   0.78 0   4.55 4.55   0 
-
- 
-
-
-
-
- 
-
-
-
-0.03
-0.22 1
-1
-0
-0.03
-
-−
-
-−
-
-
-
- 0.114 
-
-
-
-
-0
-35
-
-We get
-
-−
-
-
-
+We get
 −  y(k 1)  + Ψ u(k 1)
-
-Φ Wo 1 
-
-
 y( k)
- 
-
-
-
  3.55 3.55   y( k 1)   0.114 
-+
-
-
  u( k
- 
-
-
-
-0
-1
-0
 y( k)
-
-ˆ
 x( k)
-
-b.
-
-−
-
-−
-
-−
-
-− 1)
-
 The dynamical observer (4.28) has the form
-
 − K C )xˆ(k k − 1) + Γu(k) + K y(k).
 In this case we choose K such that the eigenvalues of Φ − K C are in the
-ˆ
 x ( k + 1 k)
-
 (Φ
-
 origin. Using the results from Problem 4.1 but with Φ T and C T instead of Φ
 and Γ gives
-
-
- 2.77 
-
-
-K 
-
-1.78
-c.
-
 The reduced order observer (4.32) has the form
-ˆ
 x ( k k)
-
 − K C )(Φ xˆ(k − 1 k − 1) + Γu(k − 1)) + K y(k).
-
 (I
-
 In this case we want to ﬁnd K such that
-i.
-ii.
-
-CK
-1
 ( I K C )Φ has eigenvalues in the origin. The ﬁrst condition implies that
 k2 1. Further
-
-
- 
-
-k1   0.78 0   0.78 0.22k1
-k1 
-1
-
-
- 
-
 ( I K C )Φ 
-
- 
-
-0
-0
-0
-0
-0.22 0
-
-−
-
-−
-
-−
-
-−
-
-−
-
 The eigenvalues will be in the origin if
-k1
 The observer is then
-
-
-3.55 
-0
  x( k
-ˆ
 x ( k k) 
- ˆ
-
-0
-0
-
-−
-
-ˆ
 Since x2 ( k k)
-ˆ
 x ( k k)
-
-0.78/0.22
-
-3.55.
-
-
-
-
-
-
-
-
-
-55
-
-
-
-
 − 1 k − 1) +  0.114  u(k − 1) +  3.1  y(k)
-
-
-
-
-0
-
 y( k) we get
-
-−
-
-−
-
-
-
- 
-
  3.55 3.55   y( k 1)   0.114 
-
-
-+
  u( k
-
-
-
- 
-0
-1
-0
 y( k)
-
-− 1)
-
 which is the same as the observer obtained by direct calculation.
 Problem 4.6
 From Problem 2.10 we get for h 12
-
-
-
-
-0 
-0.281 
- 0.790
-
  x( kh) + 
-
  u( kh)
 x( kh + h) 
-
-
-
-0.176 0.857
-0.0296
-
-
 y( kh)  0 1  x( kh)
-
-−
-
-−
-
 The continuous time poles of the system are 0.0197 and 0.0129. The observer
 should be twice as fast as the fastest mode of the open loop system. We thus
 choose the poles of the observer in
-z
-36
-
 e−0.0394⋅12
-
-0.62
-
-x1 and xe1
-
-1
-0.5
-0
-
+x1 and xe1
 x2 and xe2
-
-−0.5
-
-0
-
-250
-
-500
-
-0
-
-250
 Time
-
-500
-
-1
-0.5
-0
-−0.5
-
 Figure 4.4
-
 The states (solid) and their estimates (dots) for the tank system in Problem 4.6
-
 The desired characteristic equation of Φ
-z2
-
-− K C is thus
-
-− 1.24z + 0.38
-
-0
-
 Using the results from Problem 4.1 gives
-
-
- 0.139 
-
-
-K 
-
-0.407
 Fig. 4.4 shows the states and the estimated states when x(0)
 when u( kh) is zero up to t
-
-
-T
  1 1  and
-
 250 and one thereafter.
-
 Problem 4.7
 The observer and the controller are described by
-ˆ
 x( k k)
-
-−
-
-ˆ
 ( I K C )Φ x( k
-ˆ
 L x ( k k).
-
-−
-
 u( k )
-
 − 1 k − 1) + (I − K C )Γu(k − 1) + K y(k)
-
-ˆ
 In the state equation both x and y have the time argument k. Introduce
-
 ξ ( k)
 then
-
 ξ ( k)
-
-ˆ
 x( k k)
-
 − K y(k)
-
 − K C )Φ[ξ (k − 1) + K y(k − 1)] + (I − K C )Γu(k − 1)
 − K C )Φξ (k − 1) + (I − K C )Φ K y(k − 1)
 − (I − K C )Γ L[ξ (k − 1) + K y(k − 1)]
@@ -6663,1286 +1298,200 @@ x( k k)
 Φ ξ ( k − 1) + Γ y( k − 1)
 (I
 (I
-
-o
-
-o
-
 The output of the regulator can be written
 u( k )
-
 − Lξ (k) − LK y(k)
-
 Coξ ( k) + Do y( k).
-
 The observer and the regulator can thus be written in the form given in the
 formulation of the problem.
-37
-
-Problem 4.8
+Problem 4.8
 The constant disturbance v( k) can be described by the dynamical system
 w( k + 1)
-
 w( k)
-
 v( k)
-
 w( k)
-
 The process can thus be described on the form given in (4.43) with
- 
-1
-Φw 1
-Φ xw  
- 
-0
 a.
-
 If the state and v can be measured then we can use the controller
 u( k )
-
 − Lx(k) − L w(k).
-w
-
 This gives the closed loop system
-
-−
-
-−
-
 Φ x( k) + Φ xw w( k) Γ Lx( k) Γ Lw w( k)
 (Φ Γ L) x( k) + (Φ xw Γ Lw )w( k)
 C x( k)
-
 x( k + 1)
-
-−
-
 y( k)
-
-−
-
 In general it is not possible to totally eliminate the inﬂuence of w( k). This is
 only possible if Φ xw Γ Lw is the zero matrix. We will therefore only consider
 the situation at the output in steady state
-
-−
-
 y(
-
-∞)
-
-C [I
-
 − (Φ − Γ L)]− (Φ − Γ L )w(∞)
-1
-
-xw
-
-w
-
 Hw (1)w(
-
-∞)
-
 The inﬂuence of w (or v) can be zero in steady state if
 Hw ( 1 )
 This will be the case if
-1
-
-0
-
-−ϕ
-
-− ϕ ) +γ ϕ
 is the ( i j ) element of Φ − Γ L and γ
-Lw
-
 γ 1 (1
-
-c22
-
-c22
-
-2
-
-c12
-
 where ϕ cij
 i is the i:th element of Γ .
 Assume that L is determined to give a dead beat regulator then
-
-
-L  3.21 5.57 
 and
-
-Φ
-
-− ΓL
-
-−
-
-
- 0.142
-
-
-0.179
-
 and
-
-0.142
-
-5.356
-
-Lw
-b.
-
-−0.114 
-
-
-
-
 In this case is the state but not the disturbance measurable. The disturbance
 can now be calculated from the state equation
-
 Φ xw w( k
-
-− 1)
-
 x( k)
-
 − Φ x(k − 1) − Γu(k − 1).
-
 The ﬁrst element in this vector equation gives
 w( k
-
-− 1)
-
 [1 0]( x( k)
-
 − Φ x(k − 1) − Γu(k − 1))
-
-ˆ
 Since w( k) is constant and x( k) is measurable it is possible to calculate w( k)
 w( k 1). The following control law can now be used
-
-−
-
 u( k )
-
-ˆ
 − Lx(k) − L w(k)
-w
-
 where Lw is the same as in (a). Compared with the controller in (a) there is
 a delay in the detection of the disturbance.
-38
-
-2
-
-Output
-
-Output
-
-0.2
-0
-−0.2
-
-−2
-0
-
-5
-
-10
-
-15
-
-0
-
 Estimate ve
-
-0
-
-5
-
-10
-
-15
-
-0
-
-2
-
-Output
-
-0
-
-5
-
-10
-
-15
-
-2
-
-0
-
-−2
-0
-
-5
-
-10
-
-15
-
 Time
-
 Time
-
 Figure 4.5 The output of the system in Problem 4.8 for the regulators in a) (upper left),
 b) (upper right) and c) (lower left and right). The estimate of v is also shown for case c).
 Notice the difference in scale in the upper left curve.
-
-c.
-
 If only the output is measurable then the state and the disturbance can be
 estimated using an observer of the form (4.41)
-
-
-
-ˆ
  x ( k + 1) 
-
-
-
-
-ˆ
 w( k + 1)
 ε ( k)
-
-
-
-
-  
-
-ˆ
-K 
  Φ Φ xw   x( k)   Γ 
-
  ε ( k)
-
  +   u( k ) + 
-
-
-
-
-  
-
-ˆ
 w( k)
-Kw
-0
-1
-0
-ˆ
 y( k) C x( k)
-
-−
-
 The gain vector can now be determined such that the error goes to zero provided the augmented system is observable. The error equation is
-
-
-
-˜
  x( k + 1) 
-
-
-
-
-˜
 w( k + 1)
-
-− KC
-−K C
-
-
-Φ
-
-
-
-w
-
-
-
-˜
 Φ xw   x( k) 
-
-
-
-
-˜
 w( k)
-1
-
 The characteristic equation of the system matrix for the error is
 z3 + ( k 1
-
-− 2.2)z
-
-2
-
 + (1.05
-
-− 1.7k
-
-1
-
-+ k2 + kw) z + 0.7k1 + 0.15
-
-− 0.7k − k
-w
-
-2
-
-0.
-
 The eigenvalues are in the origin if
-k1
-k2
-kw
-
-2.2
-
-−0.6433
-3.3333.
-
 The controller now has to be
 u( k )
-
-ˆ
 − Lxˆ (k) − L w(k)
-w
-
 where L and Lv are the same as in (a). The solutions above have the drawback that there may be an error in the output due to the disturbance if there
 are small errors in the model. Fig. 4.5 show that the output when the controllers in (a), (b) and (c) are used.
-
-39
-
-Problem 4.9
+Problem 4.9
 a.
-
 The state equation for the tank system when h 12 was given in the solution
 to Problem 4.6. The desired characteristic equation is
-z2
-
-− 1.55z + 0.64
-
-0
-
 Using the result in Problem 9.1 give
-L
-b.
-
-
-
- 0.251 0.8962 
-
 An integrator can be incorporated as shown in Section 4.5 by augmenting the
 system with
 x3 ( kh + h) x3 ( kh) + uc ( kh) C x( kh)
-
-−
-
 and using the control law
-
 − Lx(kh) −
-
 u( kh)
-
 3 x3 ( kh) + c u c ( k)
-
 The closed loop system is then
-
-
-
  x( k + 1) 
-
-
-
-
 x3 ( k + 1)
-
-0.281 2
- 0.790 0.281 1
-
-
- 0.176 0.0296
-
-0.857 0.0296
-1
-
-
-
-0
-1
-
-
- 0.281 c 
-
-
-
-
-
-
 +  0.0296 c  uc ( k)
-
-
-
-
-
-
-1
-
-−
-−
-
-−
-
-−
-−
-
-−0.281
-−0.0296
-
-2
-
-1
-
-
-
   x( k) 
-
-
-
-
-3
-
  x3 ( k) 
-
-
-3
-
 The characteristic equation is
-
-−
-+ 0.0296 ) z
 + (2.3240 − 0.5218 − 0.0035 − 0.0296 ) z+
 + (−0.6770 + 0.2408 − 0.0261 − 0.0261 )
-
 z3 + ( 2.647 + 0.281
-
-1
-
-2
-
-1
-
-2
-
-2
-
-1
-
-3
-
-2
-
-3
-
-0
-
 Assume that two poles are placed in the desired location and that the third
 pole is in p. We get the following system of equations to determine the state
 feedback vector.
-
-  
-
-0.0296
-0
-2.647 1.55 p
- 0.281
- 1 
-
-
-  
-
-
-  
-
- 0.5218
-
-  
-
-0.0035
-0.0296   2   2.3240 + 1.55p + 0.64 
-
-  
-
-
-  
-
-
-  
-
-0.0261
-0.0261
-0.2408
-0.6770 0.64p
-3
-
-−
-
 This gives
-
-c.
-
-40
-
-−
-−
-
-−
-−
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2
-
-
-
-1
-
-3
-
-−
-
-−
-
-−
-
-−
-
-−
-−
-
-
-
- 3.279 3.028p 
-
-
-
- 5.934 5.038p 
-
-
-
-
-
-
-
-
-
-1.617 + 1.617p
-
-−
-
 The parameter c will not inﬂuence the characteristic equation, but it is a
 feedforward term from the reference signal, see Fig. 4.11 CCS. Fig. 4.6 shows
 the step response for some values of p. Fig. 4.7 shows the inﬂuence of c when
-p 0.
-
-Output
-
-1
-
-0
-
-0
-
-250
 Time
-
 Figure 4.6 The stepresponse for the tank process when p
 and when c 0.
-
-500
 0 (solid) and 0.5 (dashed),
-
-Output
-
-1
-
-0
-
-0
-
-250
 Time
-
 Figure 4.7 The step response for the tank process when p
 3 (dashed) and 6 (dash-dotted).
-
-500
 0 and when
-
-c
-
 0 (solid),
-
 Problem 4.10
 The process is
-
 x( kh + h)
-
-
-1
-
-
-0
-
-
- 2 
- 2 
-h
-h /2 
-h /2 
  x( kh) + 
-
  u( k ) + 
-
  v( k)
-
-
-
-
-
-1
-h
-h
-
 where v( k) is a sinusoidal. I.e. it can be described by
-
 w( kh + h)
 v( k)
-
-−
-
-
-
-sin ω o h 
- cos ω o h
-
  w( kh)
-
-
-sin ω o h cos ω o h
-
-
  1 0  w( kh)
-41
-
-The augmented system (9.33) is now
-
-
-1
-
-
-0
-
-
-
-
-
-0
-
-
-0
-
-
-
+The augmented system (9.33) is now
  x( kh + h) 
-
-
-
-
 w( kh + h)
 where α
-
 cos ω o h and β
-
-
- 2 
-0
- h /2 
-
-
-
-
   x( kh)   h 
-
-0 
-
-
-
- 
-
-
-+
-
-
- 
-
-
  0  u( kh)
-
 β  w( kh)
-
-
-
-
-
-
-
-
-0
-α
-
-h2 /2
-
-h
-1
-
-h
-
-0
-
-α
-β
-
-0
-
-−
-
 sin ω o h. Assume ﬁrst that the control law is
-
 − Lx(kh) − L w(kh)
-
 u( kh)
-
-w
-
-
-
-
 where
-L
-
-1
-h2
-
-
-
-
-3
-2h
-
-
-
  1 0  we would
 totally eliminate v since v and u are inﬂuencing the system in the same way.
 Compare the discussion in the solution of Problem 4.8.
 Since x( kh) and ξ ( kh) cannot be measured we use the observer of the structure
 (9.35) where
 i.e., a dead beat controller for the states. Further if Lw
-
- 2
-
- h /2 0 
-
-
-
-
-h
-0
-
-Φ xw
-
-Φw
-
 and
-
-
-α
-
-
-β
-
-−β 
-
-
-
-α
-
 The error equation is then
-
-
-
-˜
  x( k + 1) 
-
-
-
-
-˜
 w( k + 1)
-
 − K C Φ   x˜(k) 
-
-
-
-
-˜
 − K C 1   w(k) 
-
-
-0
- 1 − k h h /2
-
-
-
-
-
- −k
-1
-h
 0   x( k) 
-
- ˜
-
-
-
-
-
-
- −k
- ˜
-0
-α
 −β  w(k) 
-
-
-
-
-
-−k 0 β α 
-
-
-Φ
-
-
-
-xw
-
-w
-
-2
-
-1
-
-2
-
-w1
-w2
-
 Let the desired characteristic equation of the error be
-
 (z
-If h
-
 1 and ω o
-
-
-1
-
-
-
- 2.9022
-
-
-
-
- 2.9022
-
-
-
-1
-
-−
-
-−
-
 0.1π then for γ
-0
-
-1
-
 which has the solution
-
-0
-
-
-
-  k1 
-
-
-
-  k2 
-
-0
-
-
-
-
-
-
-
-  kw1 
-
-0.1545  
-
-
-
-
-
-0.1545
-kw2
-
-0.5
-
-−1.9022
-
-4
-
 0.5 we get the following system of equations
-
-0
-
-1
-
-−γ)
-
-0
-
-0.0245 −
-−0.4756 −
-
-
- k1
-
-
- k
-2
-
-kw1
-
-
-kw2
-
-−
-−
-− −
-−
-
-
-
- 4γ + 3.9022 
-
-
-
- 6γ 2 5.8044 
-
-
-
-
-
-
-
-
- 4γ 3 3.9022 
-
-
-
-
-
-
-
-4
-γ
-1
-
-1.9022
-1.1018
-0.2288
-0.1877
-
 Fig. 9.8 shows the states of the double integrator and their estimates when v( t)
 sin(ω o t). It is seen that the controller is able to eliminate the disturbance.
 Problem 4.11
 We have to determine the feedback vector L such that
-42
-
-x1 and xe1
-
-2
-
-0
-
+x1 and xe1
 x2 and xe2
-
-−2
-
-0
-
-10
-
-0
-
-20
-
-10
-
-30
-
-20
-
-30
-
-2
-
-0
-
-−2
-
 Time
 The states of the double integrator 
 (solid) and their estimates (dots) when
-
-
-
-
 Figure 4.8
 v( t)
-
  1 1.5  and Lw
-
 sin(ω o t). The controller is deﬁned by L
-
 a.
-
-Φ
-
-
- 0.9
-
-
-
-− ΓL
-
-−
-
-−
-
-1
-
-2
-
-0.7
-
-1
-
- 1 0 .
-
-
-
-
-
-
 has all eigenvalues in the origin. This gives the condition
 det(λ I
-
-− Φ + Γ L)
-
-−
-
 λ 2 + ( 1.6 +
-λ
-
-1 )λ
-
-+ 0.63
-
-− 0.7
-
-1
-
-+
-
-2
-
-2
-
-−1.6 +
-
 I.e.,
-
-− 0.7
-
-0.63
-
-1
-
-+
-
-1
-
-0
-
-2
-
-0
-
-
-
- 1.6 0.49 
-
-or
-L
-
 The stationary gain of the closed loop system is given by stationary gain of
 the
 m ⋅ C ( I Φ + Γ L)−1 Γ m
-
-−
-
 To get unit steady state gain we choose m
-b.
-
-1
-
 The closed loop characteristic equation is stable if (See Example 3.2)
-
-− 0.7
-0.63 − 0.7
-0.63 − 0.67
-0.63
-
 This gives
-
-1
-
-+
-
-2
-
-<1
-
-1
-
-+
-
-2
-
->
-
-1
-
-+
-
-2
-
-−0.7
-−1.7
-
-1
-
-+
-
-2
-
-< 0.37
-
-1
-
-+
-
-2
-
->
-
-0.37
-
-1
-
-+
-
-2
-
 −1 + (−1.6 +
 > −1 − (−1.6 +
-
-1)
-1)
-
-−3.23
-> −0.03
-43
-
-l2
-
-3
-
-2
-
-1
 Deadbeat
-
-1
-
-2
-
-l1
-
-3
-
-−1
-
 Figure 4.9
-
 The stability area for L in Problem 4.11.
-
 The stability area is shown in Fig. 4.9. Assume that the deadbeat control
 in a. is used. The closed loop system will be unstable if the feedback from
 0), but the system will remain stable if x2 is
@@ -7950,269 +1499,52 @@ x1 is disconnected (i.e., if 1
 disconnected (if 2 0).
 Problem 4.12
 a.
-
 The deadbeat requirement implies that the characteristic equation of the
 closed loop system is
-
-
-0.5 
-2
- λ 0.25 + 1
-2
-
-
-λ
 det(λ I Φ + Γ L) det 
-
-4 1 1
-λ 2+4 2
-
-−
-
-−
-
 λ2 + λ(
-
-1
-
-+4
-
-2
-
-− 2.25) ≡ λ
-
-−
-
-−
-
-−
-
-2
-
 There are inﬁnitely many solutions, one is
-
-
-L  2.25 0 
-b.
-
 The controllability matrix is
-Wc
-
-
-Γ
-
-
-ΦΓ 
-
-
-
- 1 2.25 
-
-
-
-
-4
-9
-
 det Wc
-
 0 implies that the system is not reachable and arbitrary states
-
-T
  2 8  is in the
 cannot be reached from the origin. However, x( k)
-
 column space of Wc and the point can thus be reached.
-
 Φ 2 x(0) + ΦΓ u(0) + Γ u(1)
-
-
-
-
- 
-2.25 
-1
- 0.5625 1.125 
-
  x(0) + 
-
  u( 0 ) +   u( 1 )
- 
-
-
- 
-
-
-4.5
-2.25
-9
-4
-
-T
-
-T
  2 8  and x(0)  0 0  we get
-
 x(2)
-
 With x(2)
-
-2
-8
-44
-
 2.25u(0) + u(1)
 9u(0) + 4u(1)
-
-One solution is
-
-0
-
+One solution is
 u( 1 )
-c.
-
 u( 0 )
-
-2
-
 The observer should have the characteristic equation
-
 (λ
 det(λ I
-
-− 0.2)
-
-− 0.4λ + 0.04 0
-
-
- λ + k − 0.25 −0.5 
-
 det 
-
-
-k −1
-λ −2
 λ + ( k − 2.25)λ + 0.5k − 2k
-λ2
-
-2
-
-− Φ + K C)
-
-1
-
-2
-
-2
-
-1
-
-2
-
-1
-
 Identifying coefﬁcients give the system
-
-− 2.25 −0.4
-0.04
-0.5k − 2k
-k1
-
-2
-
 which has the solution
-K
-
-1
-
-
-
- 1.85 
-
-
-
-
-7.48
-
-45
-
-Solutions to Chapter 5
-
+Solutions to Chapter 5
 Problem 5.1
 Euclid’s algorithm deﬁnes a sequence of polynomials A0
 B and
-A1
-Ai Ai+1 Qi+1 + Ai+2
-
 An where A0
-
-A,
-
 If the algorithm terminates with An+1 then the greatest common factor is An . For
 the polynomials in the problem we get
-A0
-
-z4
-
-A1
-
-z3
-
-− 2.6z + 2.25z − 0.8z + 0.1
-− 2z + 1.45z − 0.35.
-3
-
-2
-
-2
-
 This gives
-Q1
-A2
-
-− 0.6
 −0.4z + 0.42z − 0.11 −0.4(z − 1.05z + 0.275)
-z
-
-2
-
-2
-
 The next step of the algorithm gives
-Q2
-A3
-
-−
-
-−
-
 ( z 0.95)/( 0.4)
-0.1775z 0.08875
-
-−
-
 Finally
-Q3
-
 (z
-
-A4
-
 0.1775( z
-
-− 0.5)
-
-− 0.55)/0.1775
-
-0
-
 The greatest common factor of A and B is thus z
-
-− 0.5.
-
 Problem 5.2
 a.
-
 To use Algorithm 5.1 we must know the pulse-transfer function B ( z)/ A( z)
 and the desired closed-loop characteristic polynomial Acl ( z). Since the desired
 pulse-transfer function from uc to y is Hm ( z) (1 + α )/( z + α ), we know at
@@ -8221,157 +1553,74 @@ Step 1. You easily see that, with A and Acl being ﬁrst order polynomials and
 B a scalar, you can solve the equation for the closed loop system using scalars
 R ( z) r0 and S ( z) s0 :
 A( z) R ( z) + B ( z) S ( z)
-
 ( z + a) ⋅ r0 + 1 ⋅ s0
-
 Acl ( z)
-z+α
-
 Identiﬁcation of coefﬁcients gives the following equation system:
-r0
 ar0 + s0
 with the solution r0
-46
-
 1 and s0
-
-1
-
-α
-
-α
-
 − a.
-
-Step 2. Factor Acl ( z) as Ac ( z) Ao( z) where deg Ao ≤ deg R
+Step 2. Factor Acl ( z) as Ac ( z) Ao( z) where deg Ao ≤ deg R
 and Ac z + α . Choose
 T ( z)
-
 Ac (1)
 A o ( z)
 B (1)
-
 t0 Ao ( z)
-
-0. Thus, Ao
-
-1
-
-1 +α
-
 With this choice of T , the static gain from uc to y is set to 1 ( Hm (1) 1), and
 the observer dynamics are cancelled in the pulse-transfer function from uc to
 y. In this case, there are no observer dynamics, though, since deg Ao 0.
 The resulting control law becomes
 R ( q ) u( k )
 u( k )
-
 − S(q) y(k)
 (1 + α )u ( k) − (α − a) y( k)
 T ( q)u c ( k)
-c
-
 i.e., a (static) proportional controller.
 Solution with higher order observer: The solution above is not the only
 one solving the original problem. We can, for example, decide to have another
 closed loop pole in z
 β , say.
-
-−
-
 Step 1. To solve the equation for the closed loop characteristic polynomial we
 must increase the order of R by one. This gives
-
 ( z + α )( z + β )
-
 ( z + a)( r0 z + r1 ) + 1 ⋅ s0
 and the equation system becomes
-
-r0 1
-
-
-⇐⇒
 ar0 + r1 α + β
-
-
 ar1 + s0 α β
 Step 2. Splitting Acl into factors Ao
 T ( z)
-
 t0 Ao ( z)
-
-
-r0
-
-r1
-
-
-s0
-
 Ac (1)
 A o ( z)
 B (1)
-
 u( k )
-
 T ( q)u c ( k)
-
 − α + β − a u( k − 1 ) +
-
-1+α
-
-−
-
 α +β a
 α β a(α + β
-
-−
-
 z + β and Ac
-
 The resulting control law becomes
 R ( q ) u( k )
-
-1
-
 − a)
-
 z + α gives
-
 (1 + α )( z + β )
-
 − S(q) y(k)
-
-⇒
-
-− 1)
 − α β − a(α + β − a)
 u c ( k) + β u c ( k
-
 y( k
-
-− 1)
-
 The controller thus is a dynamical system. In this case there is a delay of
 one sample from the measurements y to the control signal u. This could have
 been avoided by choosing deg S 1.
-b.
-
 The closed loop characteristic polynomial is given by AR + B S, i.e. ( z + α ) in
 the ﬁrst solution, and ( z + α )( z + β ) in the second one. In both cases we get
 the same closed loop pulse-transfer function from uc to y since the observer
 polynomial is cancelled by T ( z):
 H m ( z)
-
 B ( z) T ( z)
 A( z) R ( z) + B ( z) S ( z)
-
 t0 B ( z)
 A c ( z)
-
-1+α
-z +α
-
 Fig. 5.1 shows the response when the two different controllers are used. It is
 0.99, and that the design parameters
 assumed in the simulations that a
@@ -8380,838 +1629,206 @@ assumed in the simulations that a
 are α
 when regulating a nonzero initial state, but not in the response to a set point
 change.
-
-−
-
-−
-
-−
-
-47
-
-Output
-
-1
-
-0
-
-−1
-0
-
-25
 Time
-
-50
-
 Figure 5.1 The output of the process with y(0) 1, and uc ( k) is 0 for k < 25 and −1
 for k > 25. The dots corresponds to the zero order controller, and the crosses to the ﬁrst
 order controller.
-
 Problem 5.3
 a.
-
 The desired closed loop pulse-transfer function is
 H m ( z)
-
 B m ( z)
-
-z2
-
-− 1.5z + 0.7
-
 In this case, the process zero is cancelled by the controller, so ( z + 0.7) is not a
 factor of Bm . By choosing Bm 0.2z we make the steady state gain Hm (1)
 1, and the pole excess in Hm equals the pole excess in H. Cancellation of
 process poles and zeros is handled by Algorithm 5.3 or through the following
-discussion.
 B + B − , where B + is the part
 First, the process numerator is factored as B
 of the numerator which should be cancelled by the controller, i.e., B + z + 0.7
 and B −
 1. B + must be a part of the R polynomial as well as Acl . This
 gives the Diophantine equation
-¯
 A( z) B + ( z) R( z) + B + ( z) B −( z) S ( z)
-
 ( z2
-
-¯
 − 1.8z + 0.81)R(z) + S(z)
-
-¯
 B + ( z) Acl ( z)
-¯
 Acl ( z)
-
-¯
-¯
 If R ( z) is a constant r0 , the left hand side is of second order, and so must Acl
 ¯ the causality condition (deg S ≤ deg R 1) leads
 be. With this choice of R,
 us to set S ( z) s0 z + s1 . Now, we can solve the Diophantine equation above,
 since we have 3 indeterminates ( r0 , s0 and s1 ) and 3 coefﬁcients to set:
-
-−
-
 ( z2 1.8z + 0.81) ⋅ r0 + ( s0 z + s1 )
-
-r0 1
-
-
-
-1.8r0 + s0
-1.5
-⇐⇒
-
-
-
-0.81r0 + s1 0.7
-
-−
-
-48
-
-−
-
-−
-
-z2 1.5z + 0.7 ⇒
-
-r0 1
-
-
-s0 0.3
-
-
-
-0.11
-s1
-
-−
-
-¯
 B + ( z) R ( z)
-
 Thus, we have R ( z)
 the desired
-
-B+ B−T
 B + ( z2 1.5z + 0.7)
-
-BT
-AR + B S
-
 H m ( z)
-
 z + 0.7 and S ( z)
-
-−
-
-0.3z
-
-z2
-
-−
-
 − 0.11. To obtain
-
-0.2z
-1.5z + 0.7
-
 we must select
-0.2z
-
 T ( z)
 The controller is now
-
 −0.7u(k − 1) + 0.2u (k) − 0.3 y(k) + 0.11 y(k − 1).
-
 u( k )
-b.
-
-c
-
 In this case we do not want to cancel the process zero, so
 H m ( z)
 in order to get Hm (1)
 given by the identity
-
 ( z2
-
-z2
-
-−
-
-0.2
 1.7 ( z + 0.7)
-z2 1.5z + 0.7
-
 B m ( z)
-1.5z + 0.7
-
-−
-
 1. The closed loop characteristic polynomial is now
-
 − 1.8z + 0.81)R(z) + (z + 0.7)S(z)
-
 Acl ( z)
-
 The simplest choice, a zero order controller, will not sufﬁce in this case since
 it would only give 2 parameters r0 and s0 to select the 3 parameters in the
 second order polynomial z2 1.5z + 0.7. Thus, we must increase the order of
 the controller by one and, consequently, add an observer pole which is placed
 at the origin, i.e. Ao z and Acl z3 1.5z2 + 0.7z. Letting
-
-−
-
-−
-
-R
-
-r0 z + r1
-
-S
-
-s0 z + s1
-
 the identity then gives the system of equations
-
-
-
-
-
-
-0.81r0
-
-
-
 Further T
 u( k )
-c.
-
-−1.8r
-
-− 1.8r
-
-1
-
-0
-
-r0
-
-+ r1 + s0
-
-+ 0.7s0 + s1
-
-0.81r1 + 0.7s1
-
-t0 Ao
-
-0.2
-1.7 z.
-
-1
-
-−1.5
-
-⇐⇒
-
-0.7
-0
-
-
-r0
-
-
-r
-1
-
-s0
-
-
-s1
-
-1
-0.0875
-0.2125
-
-−0.1012
-
 The controller is thus
-
 −0.0875u(k − 1) + 0.1176u (k) − 0.2125 y(k) + 0.1012 y(k − 1)
-c
-
 Fig. 5.2 shows the output and the control signal for the controllers in Case a
 and Case b. Case a should probably be avoided because of the ringing in the
 control signal.
-
 Problem 5.4
 a.
-
 Using the controller
 u( k )
-
 S ( q)
 (u c ( k)
 R ( q)
-
 − y(k))
-
 gives the closed loop system
-BS
-AR + B S
-
-Bm
-Am
-49
-
-Output
-
-Output
-
-1
-
-0
-
-0
-
-20
-
-0
-
-40
-
-0
-
-20
-
-40
-
-0
-
-20
 Time
-
-40
-
-0.2
-
-Control
-
-Control
-
-0.2
-0.1
-0
-−0.1
-
-1
-
-0
-
-20
 Time
-
-0.1
-0
-−0.1
-
-40
-
 Figure 5.2 The output and the control signal for the controllers in Case a (left) and
 Case b (right) in Problem 5.3. The ringing in the control signal in Case a is due to the
 cancellation of the process zero on the negative real axis.
-
 Section 5.10 gives one solution to the problem
-R
-
 B ( Am
-
-S
-
-−B
-
-m)
-
-ABm
-
 With the given system and model we get
-
-− 1 − α)
-
-R
-
 1( z + α
-
-S
-
 ( z + a)(1 + α )
-
-z
-
-−1
-
 The controller contains an integrator. Further the pole of the process is cancelled.
-b.
-
 The characteristic polynomial of the closed loop system is
-AR + B S
-
 ( z + α )( z + a)
-
 The closed loop system will contain an unstable mode if a > 1. The controller
 can be written
-S
-A
-Bm
-R
-B Am B m
-
-−
-
 From this we can conclude that in order to get a stable closed loop we must
 fulﬁll the following constraints.
-i.
-
 Bm must contain the zeros of B that are outside the unit circle.
-
-ii.
-
-Am
 Bm must contain the poles of the process that are outside the unit
 circle. The ﬁrst constraint is the same as for the polynomial design discussed
 in Chapter 5.
-
-−
-
 Problem 5.5
 a.
-
 Equation (5.33) gives the pulse transfer operator from uc and v to y:
 y( k)
-
-Bm
-BR
 v( k)
 u c ( k) +
-Am
-AR + B S
-
 The design in Problem 5.2 gave
-R
-S
-50
-
-1
-
-α
-
 −a
-
-We thus get
-1
-BR
-AR + B S
-z +α
+We thus get
 If v( k) is a step there will thus be a steady state error 1/(1 + α ) in the output.
-b.
-
 By inspection of the transfer function from v to y we see that we must make
 R (1) 0 in order to remove the steady state error after a load disturbance
 step. By forcing the factor ( z 1) into R ( z) we thus have obtained integral
 action in the controller. The design problem is solved by using the general
 Algorithm 5.3 or through a discussion like the one below.
-
-−
-
 With R ( z)
-
 (z
-
-¯
 − 1)R(z) the closed loop characteristic equation becomes
-¯
 A( z)( z − 1) R( z) + B ( z) S ( z) A ( z)
-¯
 ( z + a)( z − 1) R( z) + 1 ⋅ S ( z) A ( z)
-cl
-cl
-
-¯
 If R ( z) is a constant r0 , the left hand side is of second order, and so must Acl
-¯
 be. With this choice of R, the causality condition (deg S ≤ deg R 1) leads
 us to set S ( z) s0 z + s1 . Now, we can solve the Diophantine equation above,
 since we have 3 indeterminates ( r0 , s0 and s1 ) and 3 coefﬁcients to set:
-
-
-
-
-
 (a
-
-
-
-
 ( z + a)( z
-
-− 1) r
 −ar
-
-− 1) ⋅ r
-
-r0
-
-0
-
 + ( s0 z + s1 )
-
-1
-
-0
-
-+ s0
-
-α +β
-
-0
-
-+ s1
-
-αβ
-
-⇐⇒
-
 ( z + α )( z + β ) ⇒
-
-r0 1
-
-
 s0 α + β a + 1
-
-
-
 s1 α β + a
-
-−
-
 To obtain the desired
 H m ( z)
-
 B ( z) T ( z)
 A( z) R ( z) + B ( z) S ( z)
-
 we must select
 T ( z)
-
 T ( z)
 ( z + α )( z + β )
-
-1 +α
-z+α
-
 (1 + α )( z + β )
-
 The controller is now
 u( k )
-
 − 1) − (α + β − a + 1) y(k) − (a + α β ) y(k − 1)
 + (1 + α )u ( k) + β (1 + α )u ( k − 1)
-
 u( k
-
-c
-
-c
-
 Fig. 5.3 shows the controllers in Problem 5.2 and the controller with an
 integrator. The reference value is zero and there is an initial value of the
 state in the process. At t 25 a constant load disturbance is introduced. It is
 assumed that a
 0.99, and the design parameters are chosen as α
-0.7
-0.5.
 and β
-
-−
-
-−
-
-−
-
 Problem 5.6
 B / A while the true
 It is assumed that the design is based on the model H
 model is H 0 B 0 / A0 . The pulse transfer operator of the closed loop system is
-Hcl
-
-B0T
-+ B0S
-
-A0 R
-
 The design gives
-T
 and
-AR + B S
-
-T /R
-+ S/R
-
-A0 / B 0
-
-′
-B m Ao
-A0 Am B +
-51
-
-3
-
-Output
-
-2
-
-1
-
-0
-
-0
-
-25
 Time
-
-50
-
 Figure 5.3 The output of the process in Problem 5.5 when the controller does not contain
 an integrator (dots) and when an integrator is introduced (crosses).
-
-or
-
-A
-−B
-
-B + Am Ao
-BR
-
-S
-R
 This gives
-
-′
-B m Ao
-Hcl
-
-′
-B m Ao
-
-R
-A0
-B0
-
-+
-
-′
-Bm B −
-Am
-
-R
-
-+
-
-B Ao Am
-BR
-
-−B
-
-A
-
-Ao Am
-B−R
-
-1
-
-+
-
-H0
-
-1
-−H
-
-Ao
-
-⋅
-
-Ao
-R
-
-+
-
-B−
-Am
-
-R
-1
-H
-
-0
-
-Hm
-
-1
-−H
-
-1+
-
 Problem 5.7
 a.
-
 The design in Problem 5.2 gives
-R
-
-1
-
-S
-
-α
-
-T
-
-1 +α
-
 −a
-
 Assume that the true process is
-1
 z + a0
 Equation (5.41) gives
-Hcl
-52
-
-1+α
 z + a0 + α
-
 −a
-
-R B−
-Ao Am
-
-1
-1
-H
-
-0
-
-1
-−H
-
-10
-
-5
-
-0
-
-0
-
-1
-
-2
-
-3
-
 Frequency
 Figure 5.4 The left hand side of the inequality in Problem 5.7 when z eiω , 0 < ω < π
 for a0
 −0.955 (dashed), −0.9 (dash-dotted) and 0.6 (dotted). The right hand side of
 the inequality is also shown (solid).
-
 The closed loop system is stable if
 a0 + α
-
 −a <1
-
 With the numerical values in the problem formulation we get
-
 −1.4 < a
-
-0
-
-b.
-
-< 0.6
-
 Equation (5.40) gives the inequality
 H ( z)
-
 − H ( z) <
-0
-
 H ( z)
 H m ( z)
-
-z +α
 (1 + α )( z + a)
-
 H f f ( z)
 H f b ( z)
-
-z
-z
-or
-
 − 0.9 − z + a
-1
-
-z
-
-1
-
-0
-
-<
-
-z
-z
-
-− 0.5
-− 0.9
-
-− 0.5
-− 0.9
-
-1 +α
 α a
-
-−
-
-⋅ 2.5
-
-⋅ 2.5
-
 eiω the left hand side of the inequality for different
-Fig. 5.4 shows for z
-0
 values of a . The right hand side is also shown.
 Problem 5.8
 Section 5.6 shows that the control signal is given by (5.52)
 u( k )
-
 H m ( q)
 u c ( k)
 H ( q)
-
 (1 + α )( q + a)
 u c ( k)
-q+α
-
 We may assume that both the process and the model have a continuous time
 correspondence. This implies that a and α are less than zero. Further the desired
 model is stable, i.e. α < 1. The control signal is now obtained by studying the
 step response of Hm / H, which is a stable ﬁrst order system. The largest value
-53
-
-is then either at the ﬁrst step or the ﬁnal value. The magnitude at the ﬁrst step
+is then either at the ﬁrst step or the ﬁnal value. The magnitude at the ﬁrst step
 can be determined either through the initial value theorem or by using series
 expansion and the value is 1 + α . The ﬁnal value is 1 + a. If α < a then
 the closed loop system is faster than the open loop system and the control signal
@@ -9219,450 +1836,111 @@ is largest at the ﬁrst step. If the desired response is slower than the open l
 system then the ﬁnal value is the largest one.
 Problem 5.14
 a.
-
 The rule of thumb on p. 130 gives
-
-ωh
 Identifying with
 gives ω
-
-0.1
-
-s2 + 2ζ ω s + ω 2
-
 0.1. Thus an appropriate sampling interval is
-h
-
-b.
-
-− 0.6
-
-1
-
-−6
-
 Using Example 2.16 we get sampled data characteristic equation
 z2 + a1 z + a2
 where
 a1
 a2
-
 −2e−
-
-ζωh
-
 e−2ζ ω h
-
 cos(
-
-1
-
-0
-
-−ζ
-
-2 ω h)
-
-−1.32
-
-0.5
-
 The poles are in 0.66 ± 0.25i.
 Problem 5.15
 This solution demonstrates how to use Algorithm 5.3.
-
-−
-
 Data: The process is given by A
 q2 1.6q + 0.65 and B
-0.4q + 0.3. Acl
-¯
 will at least contain Ac
 q2 0.7q + 0.25, other factors may be added later
-on. R d
-Sd
 1 since no given factors are forced into the controller. The
-¯
-B m / Am
-B m / Ac
 desired response to command signals is assumed to be Hm
 0.55/( q2 0.7q + 0.25) (cancelled process zero, Hm (1) 1).
-
-−
-
-−
-
 Pole excess condition:
 deg Am
-
 − deg B ≥ deg A − deg B
-2−0 ≥ 2−1
-m
-
 Remark: The fact that we cancel one zero and do not introduce any other zero
 in Bm causes the delay from the command signal to be one time unit more
 than the delay of the process.
 Model following condition:
-Bm
-
-¯
-¯
-B − Bm ⇒ Bm
-
-0.55/0.4
-
-1.375
-
 Degree condition:
 deg Acl
-
 2 deg A + deg Am + deg R d + deg Sd
-2⋅2+2+0+0
-
-with Acl
-54
-
-¯
-¯
 A+ B + Am Acl and Acl
-
-¯ ¯
-Ac Ao .
-
-−1
-
-5
-
-−1
-
-−
-
 Step 1. A+ 1, A−
 A q2 1.6q + 0.65, B + q + 0.75 and B − 0.4 achives
 cancellation of the process zero, but no cancellation of process poles.
 Step 2. Using the degree condition above we may conclude that
-
-¯
 − deg A − deg B − deg A − deg A
-5−0−1−2−2 0
-
-¯
 deg Ao
-
-+
-
 deg Acl
-
-+
-
-m
-
-c
-
 The Diophantine equation to solve thus becomes
-
 (q
-
-2
-
-−
-
-¯
-¯
-¯
-A− R d R + B − Sd S Acl
-2
-¯
-¯
-1.6q + 0.65) R + 0.4 S q
-0.7q + 0.25
-
-−
-
-¯
 Since this is of second order, R must be a constant, r0 , say. In order to solve the
-¯
 identity we must have two more parameters, so we let S s0 q + s1 :
-
 ( q2
-
 − 1.6q + 0.65)r + (s q + s ) ⋅ 0.4
-0
-
-0
-
-q2
-
-1
-
-− 0.7q + 0.25
-
 This gives the system of equations
-1
-
-r0
-+ 0.4s0
-0
-0.65r0 + 0.4s1
-
-−1.6r
-
-r0
-
-−0.7
-0.25
-
-1
-
-s0
-
-⇐⇒
-
-2.25
-
-s1
-
-−1
-
 Step 3. The controller polynomials are now given by (5.45):
-
-S
-
-¯
-Am B + R d R
-¯
-Am A+ Sd S
-
-T
-
-¯
-¯
-Bm A+ Acl
-
-R
-
 Am ( q + 0.75)
 Am (2.25q
-¯
-1.375 ⋅ Ac
-
-− 1)
-
-¯
 Since, in this case, Am
 Ac , this factor can (and should) of course be cancelled
 in all controller polynomials, giving
-R
-
-q + 0.75
-
-S
-
-2.25q
-
-T
-
-1.375
-
-−1
-
 The corresponding degree of the closed-loop polynomial AR + B S will thus be 3
 instead of 5.
 Problem 5.16
-
-−
-
 In this case we want to have an integrator in the controller, i.e., R d ( q 1). This
 will increase the degree of the closed loop by one compared to Problem 5.15 (see
-¯
 (5.42)), which is done by having Ao
 ( q + ao ), say. This gives the Diophantine
 equation
-
 (q
-
-2
-
-−
-
-¯
-¯
-¯
-A− R d R + B − Sd S Acl
-2
-¯
-¯
 1.6q + 0.65)( q 1) R + 0.4 S ( q
 0.7q + 0.25)( q + ao )
-
-−
-
-−
-
-¯
-¯
 R must still be a constant (which as usual will be 1) and S must be of second
 order:
-
 ( q2
-
 − 1.6q + 0.65)(q − 1) + (s q
-
 This gives
-
-0
-
-2
-
-+ s1 q + s2 ) ⋅ 0.4
-
 ( q2
-
 − 0.7q + 0.25)(q + a )
-0
-
 −2.6 + 0.4s a − 0.7
-2.25 + 0.4s
 −0.7a + 0.25
 −0.65 + 0.4s 0.25a
-0
-
-0
-
-1
-
-0
-
-2
-
-0
-
-55
-
-and
+and
 Using a0
-
-¯
 S ( q)
-
 2.5 ( a0 + 1.9) q2
-
 − (0.7a
-
-0
-
 + 2) q + 0.25a0 + 0.65
-
 −0.25, (5.45) gives (after cancelling the common factor A
 R B ( q − 1) q − 0.25q − 0.75
-S 4.125q − 4.5625q + 1.46875
-¯ ¯
-T
-1.375q − 0.34375
-B A
-+
-
-m ):
-
-2
-
-2
-
-m
-
-o
-
 Problem 5.17
 The minimum degree solution has deg A0 1 and gives a unique solution to the
 Diophantine equation. Let us instead use deg A0 2 and deg S deg R 1. This
 gives the equation
-
-−
-
 ( z + 1)( z + 2)( z2 + r1 z + r2 ) + z ⋅ ( s1 z + s0 )
 with the solution
-
-z2 ⋅ z2
-
-− 3z
-
-R0
-
-z2
-
-S0
-
-7z + 6
-
 The controller is causal. Using Theorem 5.1 we also have the solutions
-R
-
-R 0 + Qz
-
-S
-
-S0
-
 − Q(z − 1)(z − 2)
-
 where Q is an arbitrary polynomial. Choose for instance Q
-
-− 3z − z
-
-R
-
-z2
-
-S
-
 7z + 6 + ( z
-
-z2
-
-2
-
-− 4z
-
-− 3z + 2)
-
 −1. This gives
-
-z2 + 4z + 8
-
 This is also a causal controller. The closed loop systems when using R 0 S0 , T0
 S0 and R S, T S respectively are
-B S0
-AR 0 + B S0
-BS
-AR + B S
 The number of zeros are different.
-
-56
-
 z(7z + 6)
-z4
 z( z2 + 4z + 8)
-z4
-
-Solutions to Chapter 6
-
+Solutions to Chapter 6
 Problem 6.1
 In the ﬁrst case it is assumed that we have a control structure as in Fig. 6.1.
 There are three subsystems each with the transfer function
-Ki
-s + Ki
-
 Gi ( s)
-
 and the total transfer function from uc to y is
-G
-
-G1 G2 G3
-s + K 4 G1 G2 G3
-
-K1 K2 K3
 s( s + K 1 )( s + K 2 )( s + K 3 ) + K 1 K 2 K 3 K 4
-
 If either of the gains K i is increased sufﬁciently much the closed system will
 become unstable. Fig. 6.2 shows the response when uc is an impulse and when
 K 1 K 2 K 3 1 and K 4 0.1, 0.25, and 0.75.
@@ -9670,115 +1948,14 @@ A disturbance in the process will propagate in the direction of the ﬂow. In th
 case of control in the direction opposite to the ﬂow each of the subprocesses has
 Raw
 material
-flow u c
-
-x2
-
-Σ
-
-Σ
-
-1
-s
-
-K1
-
-−1
-
-Σ
-
-1
-s
-
-K2
-
-−1
-
-Σ
-
 Final
-product
-x 4 =y
-
-x3
-1
-s
-
-K3
-
-1
-s
-
-−1
-
-− K4
-
 Figure 6.1
-
 Block diagram for the control in the direction of the ﬂow in Problem 6.1.
-
-Output
-
-1
-
-0
-
-0
-
-25
 Time
-
 Figure 6.2 Impulse response for the control in the direction of the ﬂow when K4
 (solid), 0.25 (dashed), and 0.75 (dash-dotted).
-
-50
-0. 1
-
-57
-
-uc
-
-x 4 =y
-1
-s
-
-K4
-
-−1
-
 Figure 6.3
-
-Σ
-
-x3
-1
-s
-
-K3
-
-−1
-
-Σ
-
-1
-s
-
-x2
-K2
-1
-s
-
-Σ
-
-1
-s
-
-K1
-
-−1
-
 Block diagram for the control in the direction opposite of the ﬂow in Problem 6.1.
-
 a transfer function of the type Gi . The system is then represented with the block
 diagram in Fig. 6.3. Notice the order of the states. The system will remain stable
 for all positive values of K i . A disturbance will now propagate in the direction
@@ -9789,183 +1966,54 @@ instead.
 Problem 6.2
 Fig. 6.3 in CCS contains several examples of couplings of simple control loops.
 a.
-
 Cascade control loops are found for the cooling media ﬂow and for the output
-product ﬂow.
-
-b.
-
 Feedforward is used for the level control loop where the input ﬂow is used as
 a measurable disturbance. The input ﬂow is also used as feedforward for the
 cooling of the jacket.
-
-c.
-
 Nonlinear elements are used in the ﬂow control loops of the product output
 and the coolant ﬂow. The ﬂow is probably measured using differential pressure which is proportional to the square of the ﬂow. The square root device
 is thus used to remove the nonlinearity of the measurement device. An intentional nonlinearity is introduced in the selector. Either the temperature
 or the pressure is used to control the coolant ﬂow depending on the status of
 the process.
-
-58
-
-Solutions to Chapter 7
-
+Solutions to Chapter 7
 Problem 7.1
 Which frequencies will the signal
 a1 sin 2π t + a2 sin 20t
-
 f ( t)
-
 give rise to when sampled with h 0.2?
 Since sampling is a linear operation we consider each component of f ( t) separately.
 The sampled signal has the Fourier transform, see (7.3)
-Fs
-
-1
-h
-
-∞
-−∞
-
-k
-
 F (ω + kω s )
-
-2π
-h
-
-ωs
-
 where F (ω ) is the Fourier transform of the time continuous signal. The Fourier
 transform of sin ω 0 t has its support (i.e., the set where it is 0) in the two points
-
-−
-
-−
-
 ±ω 0 . More precisely, it equals π i δ ω + ω 0
 δ ω ω 0 . Thus, if the signal
 sin ω 0 t is sampled with the sample interval h its Fourier transform will be 0 in
 the points
-±ω + kω s ; k 0 ±1 ±2
-For ω 0
-
 2π and ω s
-
-2π /0.2
-
 10π we get the angular frequencies
-
-±2π ± k ⋅ 10π
-
-ω
-
-π ±2 ±8 ±12 ±18 ±22
-
 20 gives rise to
-
-±20 ± k ⋅ 10π
-
-π ±3.63 ±6.37 ±13.63 ±16.37
-
 The output of the sampler is composed of the frequencies
-
-π 2 3.63 6.37 8 12 13.63 16.37
-
-)
-
 Problem 7.2
 We have the following speciﬁcations on the choice of sampling period and presampling ﬁlter:
-
-−
-
-1.
-
 All frequencies in the interval ( f 1 f 1 ) should be possible to reproduce from
 the samples of the continuous time signal.
-
-2.
-
 We want to eliminate the disturbance with the known and ﬁxed frequency
-f 2 5 f 1.
-
 The sampling theorem states that the ﬁrst speciﬁcation will be satisﬁed if and
 only if the sample frequency f s is chosen such that
-f s > 2 f1
 Moreover, for the disturbance f 2 not to fold on the data signal
-
 ( f s /2
-
-− f ) > f − f /2
-1
-
-2
-
-s
-
-⇒
-
-f s > f2 + f1
-
-6 f1
-
 Two cases:
-59
-
-1
-
-10
-
-0
-
 a) h=2π/10
-
-0
-
-10
-
-20
-
-30
-
-0
-
-10
-
-20
-
-30
-
-b) h=2π/20
-
-c) h=2π /50
-
-0
 Figure 7.1
-
-10
-
-25
-
-50
-
 Folding for different frequencies in Problem 7.5.
-
-1.
-
 Filter out the disturbance using an antialiasing ﬁlter. Then sample with f s >
 2 f 1 . Suppose the disturbance should be attenuated 20 dB without effecting
 the datasignal. A n:th order ﬁlter gives maximally n ⋅ 20 dB/decade. So to
 achieve 20 dB in log f2
 0.699 decades takes n 2.
-f1
-
-2.
-
 If f s > 6 f 1 , the disturbance does not mix with the data signal. It can instead
 be removed using digital ﬁlters.
-
 Problems 7.5 and 7.6
 The magnitude of the spectrum of the sampled signal can be obtained by folding
 the spectrum of the time continuous signal around the angular frequency ω N
@@ -9977,2754 +2025,633 @@ The picture will not move if ω r n ⋅ ω s ; for integer values n.
 A correct picture will be seen, if ω s > 2ω r according to the sampling theorem.
 (The eye acts like a low pass ﬁlter).
 The wheel will appear to rotate with a frequency lower than r if ω s < 2ω r . See
-1 /3 ω r .
 Fig. 7.3. For instance let ω s 4/3 ω r . Aliasing will give a frequency ω
 The wheel then appears to rotate three times slower and in the wrong direction.
 If ω s ω r the wheel will appear to stand still. Compare the stroboscope.
-60
-
-− 100
-
-100
-
 a) ω s =120
-
-− 120
-
-− 100
-
-− 60
-
-− 20
-
-20
-
-60
-
-100
-
-120
-
-b) ω s =240
-
-− 140
-
-− 100
-
 Figure 7.2
-
-100
-
 Folding for different frequencies in Problem 7.6.
-
-− ωs − ω r
-
-4
-3
-
-1
-
-140
-
-ω r ωs
-
-0
-
-1
-2
-
-4
-2
-
 Figure 7.3
-
-t
-
-3
-
 Folding in Problem 7.7 when ω s < 2ω r .
-
 Problem 7.9
 The signal is
 u( t)
-
-1
 [sin(6ω 0 t) + sin(2ω 0 t)]
-2
-
 sin(4ω 0 t) cos(2ω 0 t)
-
 Sampling the signal with
-
-2π
-6ω 0
-h
 gives the Nyquist frequency ω N
 3ω 0 . Sampling the signal u( t) gives the alias
 of sin(6ω 0 t) in ω 0. We thus get the frequencies
-
-ωs
-
-f1
-
-0
-
-f2
-
-ω0
-π
-
 in the sampled signal.
-61
-
-Solutions to Chapter 8
-
+Solutions to Chapter 8
 Problem 8.1
 The three transformations Euler’s method (forward difference (8.4)), backward
 difference (8.5) and Tustin’s approximation (8.6) have different stability properties. This can be seen by ﬁnding how the left half s-plane is transformed into the
 z-plane. For Euler’s method we have
-sh + 1
-
-z
-
 This implies that the stability boundary in the sh-plane (the imaginary axis) is
 translated one unit to the right, see Fig. 8.1a. When the backward difference is
 used then
-1
-z
-1 sh
-For s
-
-−
-
 iω we get
-1
-
-1
-
-−ωh
-
 This represents a circle with radius 0.5 and going through the points 0 and 1, see
-Fig. 8.1b.
 Finally for Tustin’s approximation with s iω
-z
-
-1 + iω h/2
-1 iω h/2
-
-−
-
-Now
-z
 arg z
-
-1
 2 arctan ω h
-
 The imaginary axis is thus transformed into the unit circle in the z-plane. If a
 transfer function is stable in the s-plane it will be translated into a stable discrete
 time system if using the backward difference or Tustin’s approximation.
 Problem 8.2
 G ( s)
-
 Forward differences
-
 a
 s+a
-
 a>0
-
 Backward differences
-
-Tustin
-
 Figure 8.1 Transformation of the left half s-plane when using a. Eulers method, b.
 Backward difference and c. Tustin’s approximation.
-
-62
-
-a.
-
+a.
 Using Euler’s method we get
 a
-
 H ( z)
-
 (z
-
 ah
-
 − 1)/h + a
-
-z
-
 − 1 + ah
-
 This corresponds to the difference equation
-
 − 1) y(kh)
-
 y( kh + h) + ( ah
-
 ahu( kh).
-
 The difference equation is stable if
 ah
-or
-
-−1 <1
-
 0 < h < 2/a.
-
 The approximation may, however, be poor even if the difference equation is
 stable.
-b.
-
 For Tustin’s approximation we get
 H ( z)
-
 ( z + 1) ah/2
 (1 + ah/2) z + ( ah/2
-
 a
-
 −1 +a
-
-2z
-
-hz+1
-
 ah/2
 1 + ah/2
-
-z+1
 ah/2
-
-z+
-
-− 1)
-
-−1
-
 ah/2 + 1
-
-−
-
 The pole of the discrete time system will vary from 1 to 1 when h vary from
 0 to inﬁnity. The discrete time approximation is always stable when a > 0.
-c.
-
 Using Tustin’s approximation with prewarping gives
 a/α
 1 + a/α
-
 a
-
 H ( z)
-
-α
 where
-
-z
-
 −1 +a
-
-z+1
-
-α
-
-Thus
-
-z+
-
 a/α
-
-−1
-
 a/α + 1
-
 a
 tan( ah/2)
-
 tan( ah/2)
-⋅
 1 + tan( ah/2)
-
 H ( z)
-
-z+1
-
-z+1
-z+
-
 tan( ah/2)
-
-−1
-
 tan( ah/2) + 1
-
 Problem 8.3
 The lead network
 Gk ( s)
-
-4
-
-s+1
-s+2
-
 should be approximated using different methods. At ω
 argument 19○ and the gain 2.95.
 a.
-
 1.6 rad/s it has the
-
 Euler’s method gives
 H E ( z)
-
-4
-
 (z
 (z
-
-− 1)/h + 1
-− 1)/h + 2
-
-4
-
-−
-−
-
-z 1+h
-z 1 + 2h
-
-4
-
-−
-−
-
-z 0.75
-z 0.5
-
-63
-
-b.
-
 Backward differences
 H B ( z)
-
-c.
-
-4
-
 (z
 (z
-
 − 1)/(zh) + 1
 − 1)/(zh) + 2
-
-4
-
-−
-−
-
 z( 1 + h) 1
 z(1 + 2h) 1
-
-−
-−
-
-z 0.80
-z 0.667
-
 Tustin’s approximation
-
-−1 +1
-4
-2 z−1
-+2
-2z
-
-hz+1
-
 H T ( z)
-
-4
-
 − ( 1 − h/2 )
 − ( 1 − h)
-
-3.6
-
 − (1 − 1/α )
 − (1 − 2/α )
-
-3.596
-
 z( 1 + h/2 )
 z( 1 + h)
-
-hz+1
-
-d.
-
-3.333
-
-z
-
-− 0.778
-z − 0.6
-
 Tustin’s approximation with prewarping
-
-−1 +1
-4
-z−1
-α
-+2
-α
-
 HTW ( z)
-
-z
-
-z+1
-
-4
-
 z(1 + 1/α )
 z(1 + 2/α )
-
-z+1
-
 where
-
-ω1
 tan(ω 1 h/2)
-
-α
-
-z
-z
-
-− 0.775
-− 0.596
-
-z
-z
-
-− 0.803
-− 0.607
-
-7.893
-
 Within two decimals this is the same as in (c).
 e.
-
 Zero order hold sampling gives
 H Z O H ( z)
-
 − e−
 − 4 ⋅ 1 1 − e−
-2z
-
-2h
-
-4
-
-2h
-
-4
-
-z
-
 − e− − (1 − e−
 z − e−
-2h
-
-)/2
-
-2h
-
-2h
-
-4
-
 All ﬁve approximations have all the form
 H ( z)
 The gain and the phase at ω
 H ( eiω h )
-
 arg H ( eiω h )
 H ( eiω h)
-
-K
-
 z+ a
-z+b
-
 1.6 are obtained from
-
 ( eiω h + a)( e−iω h + b)
 eiω h + a
-K iω h
 eiω h + b
 ( e + b)( e−iω h + b)
 1 + ab + ( a + b) cos(ω h) + i( b a) sin(ω h)
-K
 1 + b2 + 2b cos(ω h)
 ( b a) sin(ω h)
 arctan
 1 + ab + ( a + b) cos(ω h)
-K
-
-−
-
-−
-
-K
-
 1 + a2 + 2a cos(ω h)
 1 + b2 + 2b cos(ω h)
-
 The different approximations give at ω
-
 1.6 rad/s.
-
 H ( eiω )
 Euler
 Backward
-Tustin
 Tustin with prewarping
 Zero order hold
-64
-
 arg H ( eiω )
-
-2.97
-2.92
-2.96
-2.96
-3.25
-
-24○
-16○
-19○
-19○
-22○
-
-1
-
 Gain
-
-10
-
-0
-
-10 −2
-10
-
-−1
-
-10
-
-−1
-
-10
 Frequency (rad/s)
-
-10
-
-0
-
-10
-
-1
-
-10
-
-0
-
-10
-
-2
-
-1
-
-10
-
 Phase (deg)
-
-30
-20
-10
-0 −2
-10
-
-10
-
-2
-
 Figure 8.2 The Bode diagrams for the ﬁlter in Example 8.3 when h 0.25 continuous
 time ﬁlter (full); Euler’s method (dashed); backward difference (dotted); Tustin (dashdotted).
-1
-
 Gain
-
-10
-
-0
-
-10 −2
-10
-
-−1
-
-10
-
-−1
-
-10
-
-0
-
-10
-
-1
-
-10
-
-10
 Frequency (rad/s)
-
-0
-
-10
-
 The same as Fig. 8.2 but when h
-
-2
-
-1
-
-10
-
-0.05.
-
 Phase (deg)
-
-30
-20
-10
-0 −2
-10
-
-10
-
 Figure 8.3
-
-2
-
 Fig. 8.2 shows the Bode diagrams for the continuous time system and for the
 Euler, backward and Tustin approximations. Fig. 8.3 is the same as Fig. 8.2 but
 with h 0.05. The shorter sampling period gives a better approximation.
-65
-
-Problem 8.4
+Problem 8.4
 It is assumed that the sample and hold circuit can be approximated by a delay
-15○ .
 of h/2 seconds. Further we will allow a decrease of the phase margin of 5○
 This approximately corresponds to a decrease of the damping by 0.05 0.15. A
 time delay of h/2 seconds gives at the crossover frequency a decrease of
-
-−
-
-∆ϕ
-
-180○ ω c h
-2π
-
 ω c h/2[rad]
-
 This gives
-
-− 15○
-
-− 0.52
-0.15 − 0.5.
-
-ω ch
-
 or approximately
-
-5○
-
-ωch
-0.035
-
-−
-
-0.17
-
-ωch
-
 Problem 8.5
 The transfer function of the integral part of the PID-controller (8.22) is
-K
-Ti s
-
 GI ( s)
 Using Euler’s approximation (8.4) gives
-
-Kh
 Ti ( z 1)
-
-−
-
 H I ( z)
-
 which is the same integral part in (8.23). The derivative part of (8.22) has the
 transfer function
-K Td s
 G D ( s)
-1 + Td s/ N
 Using backward difference gives
-
-− 1)
-zh
 T ( z − 1)
-1+
 K Td( z
-
 H D ( z)
-
-−
-−
-
 K Td( z 1)
 z( h + Td / N ) Td / N
-
-d
-
-zhN
-
-K Td
-h + Td/ N
-
-z
-z
-
-−1
-
-− NhT+ T
-d
-
-d
-
 which is the same as the derivative part on page 308.
 a.
-
 Approximation of the integral part with backward difference gives
-K hz
 Ti( z 1)
-
-−
-
 H I ( z)
-
 An error will then directly inﬂuence the computation of the integral part.
 Euler’s approximation gives a delay of one sampling interval before an error
 will inﬂuence the integral part. The sampling interval is, however, usually
 short for digital PID-algorithms.
-b.
-
 Euler’s approximation for the derivative part gives
 H d ( z)
-
-z
-
 K N ( z − 1)
-− 1 + hN /T
-
-d
-
 A small value of Td can make Hd unstable. Since the D-part of a PIDcontroller sometimes is not used it is necessary that the regulator remains
 stable when Td 0.
-66
-
-Problem 8.6
+Problem 8.6
 Using the bilinear transformation gives
-
-
 H T ( z)
-
-
-K 1 +
-
-K
-
-1
-h
-h 1
-
-K 1+
-+
-2z 1
-2Ti
-Ti z 1
-Ti
-hz+1
-h
-2h
-1+
-1+
-2Ti
 (2Ti + h)( z 1)
-
-−
-
-−
-
-−
-
 This is of the same form as (8.24) with
-1+
-
-h
-2Ti
-
-Kd
-
-K
-
-Tid
-
-Ti + h/2
-
 Problem 8.7
 The tank process in Problem 2.10 has the transfer function
 G ( s)
 a.
-
-0.000468
 ( s + 0.0197)( s + 0.0129)
-
 At the desired cross over frequency we have
 G ( iω c )
-
-0.525
-
 arg G ( iω c )
-
-−115○
-
 We will use a PI controller of the form
 K ( Ts + 1)
-Ts
-
 Gr ( s)
-
 and we want the gain 1/0.523 and the phase
-K
-
-b.
-
-c
-
-1.85
-
-T
-
 −15 degrees at ω . This gives
-
-149
-
 The characteristic equation of the closed loop system is
-s3 + 0.0326s2 + 0.00112s + 0.00000581
 The roots are s1 2
 have a damping ζ
-
-c.
-
 −0.0135 ± 0.0281i and s −0.006. The complex poles
 0.43. The zero of the closed loop system is −0.0062.
-3
-
 Tustin’s approximation with warping gives with α
-1.85 α
 H r ( z)
-
-0
-
-z
-
-− 1 + 0.0067
-
 ω c / tan(ω c h/2)
-
-z+1
-
-α
-
-z
-
-−1
-
-z+1
-
 1.85(α + 0.0067)
-
-α
-
-1+
-
-0.0134
 (α + 0.0067)( z
-
-− 1)
-
 Using the rule of thumb from Section 8.2 for choosing the sampling period
 gives
 h 6 20 seconds
-
-−
-
 The choice h
-
 12 seems to be reasonable. This gives α
 H r ( z)
-
-1.925 1 +
-
 0.165 and
-
-0.0778
-z 1
-
-−
-
-67
-
-Output
-
-1
-
-0
-
-0
-
-250
 Time
-
-500
-
 Figure 8.4 Step response of the tank process when controlled with a continuous time
 (solid) and a discrete time PI controller. The sampling interval is 6 (dash-dotted) and 12
 seconds (dashed).
-
-d.
-
 Fig. 8.4 shows simulations of the step response of the system controlled with
 the continuous time and the approximate discrete time PI-controller when
 h 6 and 12 seconds.
-
 Problem 8.9
 a.
-
 The continuous time controller is
 u( t)
-
 Muc ( t)
-
 − Lx(t).
-
 A discretization is obtained by sampling uc and x and letting u be constant
 between the sampling period points i.e. we get
 u( kh)
-b.
-
-˜
-M
-
-−
-
 L( I + ( A B L) h/2)
-
-
- 2 h 4 4h 
-
-− −
 ( I − LB h/2) M
-
 4(1
-
-
-
-2 41
-
-
-
-− 3h/2 −2h 
-
-
-
-h/2
-
-1
-
-− h)
-
 Fig. 8.5 shows the stepresponse of the system when using the continuous controller and the controllers in a) and b) when h 0.25. It is possible to calculate backwards to ﬁnd out the corresponding damping and natural frequency
 for the controllers in a) and b). A discrete time state space representation of
-
-
 the motor is given in (A.6). Using L  1 2  gives
-
-Φ
-68
-
 − Lx(kh)
-
 Using (8.24) and (8.25) give
-˜
-L
-
-c.
-
 Muc ( kh)
-
-− ΓL
-
-
-
-
-
-
-−
-− −
 1− e
 e−h
-h
-
 − e− )
 − (1 − e− ) 
-
-
-
 ( h − 1 + e− ) 1 − ( h − 1 + e− )
-
 1 (1
-1
-
-h
-
-2
-
-h
-
-2
-
-h
-
-h
-
-Output
-
-1
-
-0
-
-0
-
-1
-
-2
-
-3
-
-4
-
-5
-
 Time
 Figure 8.5 Stepresponses for the motor in Problem 8.9 when a continuous time (solid),
 a discretized (dash-dotted) and a modiﬁed discretized state (dashed) feedback controller
 is used when h 0.25.
-
-For h
-
 0.25 and L
-
-
-
  2 4  we get
-Φ
-
 and for h
-
-
- 0.336
-
-
-0.164
-
-− ΓL
-
-−0.885 
-
-
-
-0.885
-
-
-
  1.75 3  we get
-
 0.25 and L
-
-Φ
-
-
- 0.392
-
-
-0.171
-
-− ΓL
-
-−0.664 
-
-
-
-0.914
-
 These two matrices have the characteristic equations
-z2
-
-− 1.221z + 0.442
-
-0
-
-z2
-
-− 1.305z + 0.471
-
-0.
-
 and
-
 From the equations given in Example 2.16 we can calculate the corresponding
-
-
  2 4 ) we
 continuous time systems. For the discretized controller ( L
 get
-ζ 0.71
-
-ω0
 and for the modiﬁed controller ( L
-
-ζ
-ω0
-
-2.31
-
-2 h 4
-
-−
-
-
-
 − 4h ) we get
-
-0.77
-1.96
-
 The change in the damping is smaller when the modiﬁed controller is used
 and the change in the undamped natural frequency is also smaller.
-
-69
-
-Problem 8.10
+Problem 8.10
 a.
-
 We ﬁrst want to compute a state feedback such that A
 teristic equation
-s2 + 8s + 32 0.
-
-
 Assume L  1 2  then
-A
-
-
-
-
-
-
-− BL
-
-2)
-
-+
-
-1
-
 s2 + (5 +
-
 This gives
-
 Modifying L using (8.16) gives
-
-2 )s
-
-2
-
-
-
-
-
-
-+6+3
-
-2
-
-+
-
-≡ s + 8s + 32.
-
-1
-
-
-
- 17 3 
-
-L
-b.
-
-1
-
-− B L is
-
 The characteristic equation of A
-
 ( s + 3)( s + 2 +
-
-−3 1
-− −2 −
-
 − B L has the charac-
-
-−
-
 L( I + ( A B L) h/2)
-
-
-  1 3h/2
-h/2 
- 17 3  
-
-
-
-
-17h/2 1 5h/2
-
-
  17(1 3h) 3 + h 
-
-L
-
-−
-−
-
-−
-
-−
-
 Fig. 8.6 shows the output when using the discrete time controller in a) for
 different values of h. The response when using the modiﬁed discrete time
 controller from b) is shown in Fig. 8.7.
 Problem 8.12
 a.
-
 Using (8.16) and (8.17) give
-˜
-L
-
 I + (A
-
-L
-
-−
-
-
-
-1 2
-
-
-˜
-M
-b.
-
-
-I
-
-−
-
-
-
-L
-
-
-h
-B L)
-2
-
-
-1
-h/2 
-
-
-h/2 1 h
-
-LB h/2  M 2 2h
-
-−
-
-−
-
-−
-
-−
-
-−
-
-−
-
-
-
- 0.8 1.7 
-
-1.6
-
 Using the backward difference approximation gives
-1
-
 − q− I xˆ(k)
-1
-
-h
-
 (I
-
 − Ah + K C h)xˆ(k)
-
 (A
-
-Φ0
-
 (I
-
 This gives
-ˆ
 x ( k)
-
-− Ah + K C h)−
-
-1
-
-−
-
 − K C )xˆ(k) + Bu(k) + K y(k)
-
-ˆ
 q−1 x( k) + B hu( k) + K hy( k)
-
 Introduce
-
-
-1
- 1
-
-
-2
-1+ h+ h
-h
-
-−
-
-h
-1+h
-
-
-
-
-
-
-ˆ
 Φ 0 x( k 1) + Φ 0 B hu( k) + Φ 0 K hy( k)
-
-
-
-
-
-
-0.03 
-0.19 
- 0.81 0.16 
-
  x ( k 1) + 
-
  u( k ) + 
-
  y( k)
-
-ˆ
-
-
-
-
-0.19
-0.16
-0.16 0.97
-
-−
-
-70
-
-−
-
-
-h/2 
-
-
-h/2 1 h
-
-
-1 h 2 3h
-2
-1
-
-−
-
-1
-
-Output
-
-0.5
-
-0
-
-−0.5
-
-0
-
-1
-
-2
 Time
-
-3
-
-4
-
 Figure 8.6 The response of the system in Problem 8.10 when the state feedback con0.1 (dashed) , 0.2 (dash-dotted) and 0.3 (dotted). The
 troller in a) is used with h
 response for the continuous-time controller is also shown (solid).
-
-1
-
-Output
-
-0.5
-
-0
-
-−0.5
-
-0
-
-1
-
-2
 Time
-
-3
-
-4
-
 Figure 8.7 The response of the system in Problem 8.10 when the modiﬁed state feedback
 controller in b) is used with h
 0.1 (dashed), 0.2 (dash-dotted) and 0.3 (dotted). The
 response for the continuous-time controller is also shown (solid).
-
-71
-
-Solutions to Chapter 10
-
+Solutions to Chapter 10
 Problem 10.1
 a.
-
 Better sensors, for instance a tachometer with less noise.
-
-b.
-
 Flow control with local feedback.
-
-c.
-
 Temperature control in houses.
-
 Problem 10.2
 a.
-
 The time function y( t)
-
 sin(ω t) has the z-transform
-z sin ω h
-
 Y ( z)
-
-z2
-
-− 2z cos ω h + 1
-
 See Table 2.1. Consider a system with
 H d ( z)
-
 Y ( z)
-
 The impulse response of Hd will thus be sin( khω ). That this is the correct
 answer is easily seen by making long division.
 H d ( z)
-b.
-
 sin( hω ) z−1 + sin(2hω ) z−2 + sin(3hω ) z−3 + ⋅ ⋅ ⋅
-
 The time function t ⋅ e−t has the z-transform
 he−hz
 ( z e−h)2
-
-−
-
 Y ( z)
-
 This can be found by looking in a table of z-transforms. The desired system
 thus has the z-transform
 he−hz
 ( z e−h)2
-
-−
-
 H d ( z)
 Long division gives
 H d ( z)
-
 he−h z−1 + 2he−2hz−2 + ⋅ ⋅ ⋅
-
 Problem 10.3
 Using the model of the disturbance gives
 y( k + m)
-
 C ( q)
 w( k + m).
 A( q)
-
 Introduce the identity
 q m−1 C ( q)
-
 where deg F
 y( k + m)
-72
-
-m
-
 − 1 and deg G
-
 F ( q)w( k + 1) +
-
-n
-
 A( q) F ( q) + G ( q)
-
 − 1. Then
-
 qG ( q)
 w( k)
 A( q)
-
 F ( q)w( k + 1) +
-
 qG ( q)
 y( k)
 C ( q)
-
-If w( k + 1)
+If w( k + 1)
 y( k + m) is
-
 w( k + m) are assumed to be zero then the best prediction of
-ˆ
 y( k + m)
-
 qG ( q)
 y( k).
 C ( q)
-
 The operator qG ( q)/ C ( q) is casual since deg C
 Let A( q) q 0.5, C ( q) q and m 3 then
-
-−
-
-q2 ⋅ q
-
 (q
-
 deg G + 1.
-
 − 0.5)(q + f q + f ) + g
-2
-
-1
-
-2
-
-0
-
 This gives the system of equations
-
-−0.5 + f
-−0.5 f + f
-−0.5 f + g
-
-0
-
-1
-
-0
-
-1
-2
-
-0
-
-2
-0
-
-0.25
-
-g0
-
-with solution
-f1
-
-0.5
-
-f2
-
-0.125
-
 The predictor at k + 3 given data up to and including k is thus
-0.125q
 y( k)
-q
-
-ˆ
 y( k + 3 k)
 Let w( k) be zero except at k
-k
-
 y( k)
-
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-
 0.125 y( k)
-
 0 and 5 when it is assumed to be one then
 0.5 y( k
-
 − 1) + w(k)
-
-0
-1
-0.5
-0.25
-0.125
-0.063
-1.031
-0.516
-0.258
-0.129
-0.064
-0.032
-
-−1
-
-ˆ
 y( k k
-
-− 3)
-
-0
-0
-0
-0
-0.125
-0.063
-0.031
-0.016
-0.008
-0.129
-0.064
-0.032
-
 Problem 10.4
 Using (10.11) we ﬁnd that the stationary variance of x fulﬁls (Φ stable)
-P
-
-Φ P Φ T + R1
-
 The stationary covariance exists since the system is stable. Since R 1 is symmetric
 P is also symmetric. Introduce
-P
-
-
- p11
-
-
-p12
-
-
-p12 
-
-
-p22
-
 then
-
-
- p11
-
-
-p12
-
-
-p12 
-
-
-p22
-
-
-
- 0.4 0   p11
-
-
-
-
-0.6 0.2
-p12
-
-−
-
-
-p12   0.4
-
-
-0
-p22
-
-−0.6  +  1
- 
- 
- 
-0.2
-
-0
-
-
-0
-
-
-2
-73
-
-This gives
-
-0.16p11 + 1
-
-p11
-
-−0.24p
-
-p12
-
-0.36p11
-
-p22
-
-+ 0.08p12
-
-− 0.24p
-
-11
-
-12
-
-−0.31 
-
-
-
-
-
- 1.19
-
-
-0.31
-
+This gives
 The solution is
-
-−
-
-P
-
-+ 0.04p22 + 2
-
-2.61
-
 The stationary covariance function is
-
-Φτ P
-
 Ex( k + τ ) x( k) T
-
 It remains to compute Φτ . The eigenvalues of Φ are λ 1
 the results on matrix functions in Appendix B we get
-
-Φτ
-
 0.4 and λ 2
-
-0.2. Using
-
-α 0I + α 1Φ
-
 where α 0 and α 1 are obtained from
-
-λτ
-1
-λτ
-2
-
-α 0 + α 1λ 1
-α 0 + α 1λ 2
-
 −λ λ (λ − − λ − )
-λ −λ
-λ −λ
-λ −λ
-
 The solution is
-
-α0
-
-1
-
-τ 1
-
-2
-
-τ
-
-Φ
-
-τ
-
-1
-
-2
-
-2
-
-2
-
-1
-
-
-
-
-
-
 and
-
-τ
-
-1
-
-α1
-
-τ 1
-
-1
-
-2
-
-0.4τ
-
 −3(0.4 − 0.2 )
-τ
-
-τ
-
-
-0 
-
-
-0.2τ
-
 Finally
 rx (τ )
-
-
-
-
-
-
-1.19 ⋅ 0.4τ
-
-−3.57 ⋅ 0.4
-
-τ
-
-−0.31 ⋅ 0.4
-
-τ
-
-+ 3.27 ⋅ 0.2τ
-
-0.93 ⋅ 0.4τ + 1.68 ⋅ 0.2τ
-
-
-
- τ ≥ 0
-
-
 Problem 10.5
 From the state space description we get the input-output description of the process
 y( k) + a1 y( k
-
 − 1) + ⋅ ⋅ ⋅ + a y(k − n)
-n
-
 c1 v( k
-
 − 1) + ⋅ ⋅ ⋅ + c v(k − n)
-n
-
-−
-
 where ai
-i
-1
 n are the coefﬁcients of the characteristic polynomial of
 the matrix Φ . Multiply the equation above by y( k τ ) and take the mathematical
 expectation. y( k τ ) is independent of all the terms on the right hand if τ > n + 1.
-Thus
 r y (τ ) + a1 r y (τ 1) + ⋅ ⋅ ⋅ + an r y (τ n) 0.
-
-−
-
-−
-
-−
-
 This is called the Yule-Walker equation.
 Problem 10.6
 There are two noise sources v1 and v2 that is used to generate y( k). Using Theorem
 10.2 we ﬁnd that the spectral density of y is
-
-φy
-74
-
 H ( z)φ v H T ( z−1)
-
-where z
+where z
 H ( z)
-
 eiω
-
-
 z + a
-1 1
-
-
-0
-
 C ( zI − Φ)−1 Γ
-
 and
-
-
-
-
-φy
-
-1
-z+b
-
-1
 z+a
-
-z+ b
-
-−1
-
- 1
-
-
-
-
-
-1
-z+b
-
-1
 z+a
-
-
-
-
- 2
-
-σ1 0 
-
-
-
-2
-0 σ2
-
-φv
-Thus
-
-0
-
- σ 2 0  
-
- 1
-
-
-
-2
-0 σ2
-
-1
 z−1 +a
-1
-z−1 +b
-
-
-
-
-
-
-2
-2
-σ1
-σ2
 −1 + a) + (z + b)(z−1 + b)
 ( z + a)( z
-
-2
-2
 σ 1 ( z + b)( z−1 + b) + σ 2 ( z + a)( z−1 + a)
 −1 + a)(z−1 + b)
 ( z + a)( z + b)( z
-
 Using the spectral factorization theorem (Theorem 10.3) we ﬁnd that we can
 generate the same spectral density by sending white noise through
-
-λ
-
 H1 ( z)
-
-z+ c
 ( z + a)( z + b)
-
 this gives the spectral density
-
-φ1
-
-λ2
-
 ( z + c )( z−1 + c )
 ( z + a)( z−1 + a)( z + b)( z−1 + b)
-
 Identiﬁcation with φ y gives the relationship
-
 λ 2 (1 + c 2 )
-
-2
-2
 σ 1 (1 + b2) + σ 2 (1 + a2 )
-
-λ 2c
-
-2
 σ 1 b + σ 2a
-
 Problem 10.7
 The process is
 x( k + 1)
-
 ax( k) + v( k)
-
 y( k)
-
 x( k) + e( k)
-
-−
-
 This is the same as in Example 10.3 with the exception that Ev( k) e( s) r12δ ( k
 s). The covariance function for x will thus be the same but the covariance of y will
 contain an additional term due to the correlation between v and e. From Example
 10.3 we know that
-r1
 rx (τ ) a τ
 1 a2
-
-−
-
 The covariance of y is
 r y (τ )
-
-{
-
 E y( k + τ ) y( k)
-
-}
-
-{
-
 where it has been used that rex (τ )
 rxe (τ + 1)
-
-{
-
-}
-
 E [ x( k + τ ) + e( k + τ )] [ x( k) + e( k)]
-
 rx (τ ) + rxe (τ ) + rex (τ ) + re (τ )
-
-−
-
 rxe ( τ ) in stationarity.
-
 E x( k + τ + 1) e( k)
 arxe (τ ) + rve (τ )
-
-−
-
 rx (τ ) + rxe (τ ) + rxe ( τ ) + re (τ )
-
-}
-
-{
-
 E [ ax( k + τ ) + v( k + τ )] e( k)
-
-}
-75
-
-The last term is zero except for τ
+The last term is zero except for τ
 0, where it is r12 . The ﬁrst term is zero for
 τ ≤ 0. It is natural that white noise in the future is uncorrelated with the present
 value of x. This gives
-
-
-0
-r
- 12
 aτ −1 r12
-
 rxe (τ )
-
-τ ≤ 0
-τ 1
-τ >1
-
-τ ≤ 0
-τ ≥ 1
-
-0
-
 aτ −1 r12
-
- −τ r
  a 1−1a2 + 0 + a−τ −1 r12 + 0 τ < 0
-
-r1
-τ 0
-2 + 0 + 0 + r2
  1− a r
- τ 1
-τ −1 r + 0 + 0
 a 1−a2 + a
-τ >0
-12
-
 and
 r y (τ )
-
 aτ
-
-−1 r12
-
 + aτ
-+ r2
-
-−
-
-r1
 1 a2
-
-−
-
-r1
 1 a2
-
-τ
-τ
-
-0
-0
-
 The deﬁnition of spectral density gives
-1
-2π
-
 φ y (ω )
-
-∞
-−∞
-
-τ
-
 r y (τ ) e−iωτ
-
-−
-r
-r
 − ra (e − 1a)(ea− − a) − 1 − a − ra + 1 − a + r
-1−
 1 r a + r (1 − a ) − r ( e − a)( e− − a) + r a( e − a)( e− − a)
-2π
 a( e − a)( e− − a)
-1
-2π
-
-r1
-
-2
-
-12
-
-iω
-
 a2
-
-1
-
-2
-
-12
-
-1
-
-iω
-
-iω
-
-12
-
-12
-
-2
-
-iω
-
-iω
-
-1
-
-2
-
-iω
-
-2
-
-iω
-
-2
-
 (1)
-
-iω
-
 where it has been used that
-
-∞
-τ
-
-−∞
-
 a τ e−iωτ
-
 ( eiω
-
 The spectral density for
 y( k)
-
-λ
-
-−
-
-−
-
 1 a2
 a)( e−iω
-
 − a)
-
-−c
 − a ε ( k)
-
-q
-q
-
 is (see Theorem 10.2)
-
 λ 2 ( eiω
 2π ( eiω
-
 φ y(ω )
-
 − c)(e− − c)
 − a)(e− − a)
-iω
-
 (2)
-
-iω
-
 Identiﬁcation of (1) with (2) gives the relation
-
 −a −r
 a
 − r a −λ c
-
-
-
-r1 + r12 1
-
-
-
-r12
-
-2
-
-12
-
 1 + a2
 1 + a2
 + r2 a
 a
 a
-
 λ 2 (1 + c 2 )
-
-2
-
-2
-
-⇔
-
 r2 (1 + a2 ) + r1
 r2 a
 A more elegant solution
-
-−r
-
-12
-
-12
-
 λ 2 (1 + c 2 )
-
-λ 2c
-
 The ouput can be written as
-
 y( k)
-76
-
 − 2ar
-
-
-
-
  H ( q) 1   v( k) 
-
-
-
-
 e( k)
-
-where H ( z)
-
-φy
-
-−
-
-1
-.
+where H ( z)
 z a
-
 The spectral density of y is given by
-
-
-
- r
 r12   H ( z−1 ) 
-1 
  H ( z) 1   1
-
-
-
-
-
-
-2π
-r12 r2
-1
-1
 r1 H ( z) H ( z−1) + r12 H ( z) + r12 H ( z−1) + r2
-2π
-1
-r1
-1
-1
-+ r12
-+ −1
-+ r2
 2π ( z a)( z−1 a)
 z a
-z
 a
-
-−
-
 1 z( r12
-2π
-
-−
-
-−
-
-−
-
 − r a) + r − 2ar + r (1 + a ) + z− (r − r a)
 ( z − a)( z− − a)
-2
-
-1
-
-12
-
-2
-
-2
-1
-
-1
-
-12
-
-2
-
 which gives the same equations as in the previous method
-
 − 2ar
 ar − r
-
-12
-
-2
-
 λ 2 (1 + c 2 )
-
-12
-
 r2 (1 + a2 ) + r1
-
-λ 2c
-
 Problem 10.8
 The process can be written as
-q
-q
-
 y( k)
-
 − c e(k)
 −a
-
 a
-q
-
 − c e(k) + e(k)
 −a
-
 where
 x( k + 1)
-
 ax( k) + ( a
-
 x( k) + e( k)
-
 − c)e(k)
-
 Using Problem 10.7 we ﬁnd that
-
-−
-−
-
 ( a c )2
 a c
-1
-
-r1
-r12
-r2
-Thus
 r y (τ )
 with a
-
 0.5 we get for τ
-
 0.7 and c
 r y (τ )
-
-For τ
-
 a τ r1
 + aτ
 1 a2
-
 (0.7) τ
-
-−
-
-0
-
-0.04
-
-1
-
-−1 r12
-
-0.2
-
 − 0.49 + 0.7 (0.7)
-
-τ
-
 0.36(0.7) τ
-
-−
-−
-
-0
-
 ( a c )2
-+1
 1 a2
 1 a2
 The variance can also be obtained from Theorem 10.4.
-r1
-
-−
-
 r y (0)
-
 r y (0)
-
-+ r2
-
-−
-
 1 + c 2 2ac
 1 a2
-
-−
-
-I1
-
-1.08
-
-1.08
-
 Further (10.17) gives
-
-φy
 where z
-
 1 (z
 2π ( z
-
 − c)(z− − c) )
 − a)(z− − a)
-1
-
-1
-
-−
-
-1 1.25 cos ω
-2π 1.49 1.4 cos ω
-
-−
-
 eiω .
-
-77
-
-Problem 10.9
+Problem 10.9
 The variance of the process
 y( k)
-
-q2
-
-q2 + 0.2q
 e( k)
-1.5q + 0.7
-
-b0 q2 + b1 q + b2
 e( k)
 a0 q2 + a1 q + a2
-
-−
-
 can be determined using Theorem 10.4. The formula for I2 gives
-B0
-
 1 + (0.2)2 + 0
-
-B1
-
 2(0.2 + 0)
-
-B2
-
-0
-
 e1
-
-1.7
-
 and
 r y (0)
-
-I2
-
-−
-
 (1
-
-1.04
-
-0.4
-
-1.04 ⋅ 1.7 + 0.4 ⋅ 1.5
 0.49)1.7 1.5 ⋅ 1.5(1
-
-−
-
-− 0.7)
-
-12.33
-
 The recursive scheme in Section 10.4 can also be used to get
-
-−1.5
-−1.5
-−0.45
-
-1
-0.7
-0.51
-
-−0.45
-
-0.7
-
-α2
-
-1
-
-0.2
-
-1
-0.7
-
-−1.5
-
-0.7
-
-−0.8824 −0.45
-
-α1
-
-0.1129
-
-1 β2
-
-0
-
-0.2
-
-1
-
-0.51
-
-0
-
-β1
-
-0.3922
-
-β0
-
-0.51
-
-10.4167
-
-1.1765
-0.1129
-
 This gives
-I2
-
-10.4167 ⋅ 1.1765 + 0.3922 ⋅ 0.2
-
-12.33
-
 These calculations have been performed in high precision and thereafter round-ed.
 Problem 10.10
 The process is
@@ -12732,926 +2659,160 @@ y( k)
 r y (τ )
 This gives
 r y (0)
-
 e( k)
-
 − 2e(k − 1) + 3e(k − 2) − 4e(k − 3)
-
 Ey( k + τ ) y( k)
-
 − 2e(k − 1) + 3e(k − 2) − 4e(k − 3))
 e( k) + 4e( k − 1) + 9e( k − 2) + 16e(6 − 3)
-
 E ( e( k)
-E
-
-2
-
-2
-
-2
-
-1 + 4 + 9 + 16
-
-2
-
-2
-
 + crossterms
-
-30
-
 The mean value of the crossterms are zero since
-
-{
-
 E e( k + τ ) e( k)
 In the same way
-
-−
-
-−
-
-}
-
-τ
-
-0
-
-−
-
-0
-
 r y (1)
 r y (2)
-
 1 ⋅ 3 + ( 2) ⋅ ( 4)
-
 r y (3)
-
 1 ⋅ ( 4)
-
 r y (4)
-
-78
-
 1 ⋅ ( 2) + ( 2) ⋅ 3 + 3 ⋅ ( 4)
-
-0
-
-−
-
-−
-
-−4
-
-k ≥ 4
-
-−
-
-11
-
-−20
-
-Problem 10.11
-1
-1.36 + 1.2 cos ω
-
-Φy
+Problem 10.11
 a.
-
-b
-
 H ( z)
-
-z
-
 Using Theorem 10.2 we get
-
 φ y(ω )
-
 H ( eiω )φ u (ω ) H ( e−iω )
-1
-2π
-
 −a
-
 eiω
-
-b2
-
 e−iω
-
 H ( eiω )
-
 −a
-
 1 + a2
-
-b2 /2π
-1+
 2a cos ω
 a2
-
 −a
-1
 H ( e−iω )
-2π
-b2 /2π
 eiω + e−iω
 a⋅2
-2
-
-−
-
-1
-
-−
-
 1 + a2
-2π
-b2
-
 2a
-− 2π −b cos ω
-2
-
 Identifying with the desired spectral density gives
 2π (1 + a2 )
-
-b2 ⋅ 1.36
-
-−1.2b
-
 2π (2a)
-
-2
-
 Divide the two equations
-
-− 11.36
-.2
-
 1 + a2
 2a
-
-⇒
-
 a2 +
-
-2.72
 a+1
-1.2
-
-− 11.36 ±
-.2
-
 a
-
-−
-√2π
-
 The desired ﬁlter is
 H ( z)
 Theorem 10.4 CCS
-
 Var y
-
 Problem 10.12
 x( k + 1)
-
-I1
-
-1.36
-1.2
-
 2a
-⋅ 2π
-1.2
-
-b
-
-b.
-
-0
-
-√2π
-
-− 1 −0.6
-
-z + 0.6
-2π
-
-1
-
-2
-
-− 0.6
-
-2
-
-2π
-0.64
-
-
-
- 
- 0.3 0.2 
  x( k) +  0  u( k) + v( k)
-
- 
-
-
- 
-0 0.5
-1
-
 The stationary covariance is given by
-
-
- p11
-
-
-p12
-
-
-p12 
-
-
-p22
-
-
- 0.3
-
-
-0
-
-P Φ P Φ T + R1
-
-
-0.2   p11 p12   0.3
-
-
-
-
-p12 p22
-0.5
-0.2
-
- 
-0  1
-+
- 
-0.5
-0
-
-p11
-
-0.09p11 + 0.12p12 + 0.04p22 + 1
-
-p12
-
-0.15p12 + 0.1p22
-
-p22
-
-
-0 
-
-
-0.5
-
-0.25p22 + 0.5
-
-
- 1.1385 0.0784 
-
-
-P 
-
-0.0784 0.667
-79
-
-Problem 10.13
+Problem 10.13
 Example 10.4 shows that the ﬁlter
 H ( z)
-
-b
-
-z
-
 −a
-
 gives the spectral density
-
 Φ(ω )
 In this case r1
-
-80
-
-−
-
 1. Identify with the desired spectral density gives
-1
-⋅
-2π 5.43
-
 This gives a
-
-r1
-b2
-⋅
 2π 1 + a2 2a cos ω
-
 0.9 and b
-
-−
-1.
-
-3
-5.40 cos ω
-
-1
-2π
-
-1.81
-
-−
-
-1
-1.8 cos ω
-
-Solutions to Chapter 11
-
+Solutions to Chapter 11
 Problem 11.1
 For the system we have
-
 −aΦ(t kh)
-
-d
 Φ( t kh)
-dt
-
 Φ( kh kh)
-
-1
-
 This differential equation has the solution
 e−a( t−kh)
-
 Φ( t kh)
 and
-t
-
 e−a( t−s)b ds
-
 Γ( t kh)
-
-b
 (1
 a
-
 − e−
-
-−
-
 a( t kh)
-
-)
-
-kh
-
 The discrete time loss function is obtained from CCS (11.6)-(11.8), which gives
-kh+h
-
-Q1
-
 e−2a( s−kh) ds
-
-kh
-kh+h
-
-Q12
-kh
-
-b
 e−a( s−kh) (1
 a
-
-kh+h
-kh
-
 − e−
-
 − e−
-
-)
-
 2ah
-
-−
-
-b
 (1
 2a2
-
 a( s kh)
-
-) ds
-
 − e−
-
-)
-
 ah 2
-
 − e− − ) + ρ ds
-b
-h−
 3 − 4e− + e−
 2a
-
-b2
 (1
 a2
-
-Q2
-
-1
 (1
 2a
-
-b2
-+ρ
 a2
-
 a( s kh) 2
-
-2
-
 ah
-
 2ah
-
-3
-
 Notice that there will be a Q12 term even if Q12c
-
-0.
-
 Problem 11.2
-˙
-x
-y
-
-
-0
-
-
-0
-
-1
-
 Sample the system
-
-Φ
-
 e
-
-
- 
-1
-0
-x+  u
- 
-
- 
-0
-1
-
-0 x
-
-1
-
-
-0
-
-Ah
-
-h
-
-Γ
-
 e
-
-Aτ
-
-B dτ
-
-
-h
-
-
-1
- 2 
- h /2 
-
-
-
-
-h
-
-0
-
-81
-
-Sample the loss function Q1c
-h
-
-Q1
-0
-h
-
-Q12
-0
-h
-
-Q2
-0
-
-I
-
-Q2c
-
-
-1
-
-
-τ
-
-
-
-01 τ 
-
- dτ
-
-
-1
-0 1
-
-
-1
-
-
-τ
-
-
-
-0   τ 2 /2 
-
- dτ
-
-
-1
-τ
-
-1
-
-h
-
-0
-
+Sample the loss function Q1c
 0. Using (11.6)-(11.8) we get
-
-Q12c
-
-
-
-τ 
-1
-
- dτ
-
-
-τ τ2 +1
-
-
- h
-
- 2
-h /2
-
-
-
-
-
-
-
-
-
-
-
-h
-
-0
-
-
-τ 2 /2 
- dτ
-
-τ 3 /2 + τ
-
-
-  τ 2 /2 
-
- τ 2 /2 τ  
-
- 1 dτ
-
-+
-τ
-
-h
-
-1 +τ 2 +
-
-τ4
-
-h3 /3 + h
-
-h3 /6
-h4 /8 + h2 /2
-dτ
-
-4
-
-h2 /2
-
-h+
-
-
-
-
-
-
-
-
-
-
-
-h3 h5
-+
-3 20
-
-0
-
 Problem 11.3
 The Riccati equation(11.17) gives
 s( k)
-
 a2 s( k + 1) + 1
-
-+1
 − a b bs(sk(k + )1)
-2
-
-2 2
-
-1
-
-2
-
 and (11.19) gives
-
 b−2 ba
-
 L( k)
-
-k
-
-N
-
-− 1 .. 1
-
 a
-b
-
 which gives the controller
 u( k )
-
 − L(k)x(k) − ab x(k) − a x(k)
-b
-b
-2
-
 The minimum loss is given by
 x(0)2 s(0)
-
-min J
-
 x(0)2
-
 and the closed loop system is
 x( k + 1)
-
-0
-
 The state is zero after one step and the resulting controller is thus a dead-beat
 controller.
 Problem 11.5
 a.
-
 The loss function is Σ y2 + ρ u, i.e.
-T
-
-Q1
-
-C C
-
-
-
-1 0
-
-
-
-
-0 0
-
 The steady state value of the Riccati equation is obtained from
-S
-
-Φ T S Φ + Q1
-
 Let
-S
-
-−Φ
-
-T
-
 S Γ( Q2 + Γ T S Γ)−1 Γ T S Φ
-
-
- s11
-
-
-s12
-
-
-s12 
-
-
-s22
-
 For the inventory model we get
-s11
-s12
-
-s11 + 1
-
-s
-− ρ +s
-2
-12
-
-22
-
-s11
-
-− ρ +s
-
-s11
-
-− ρ +s
-
-s2
-12
-
-22
-
-s22
-
-s2
-12
-
-22
-
-82
-
-Pole
-
-1
-
-0.5
-
-0 −2
-10
-
-−1
-
-0
-
-10
-
+Pole
 Figure 11.1
-
-1
-
-2
-
-4
-
-10
-
-10
-
 The pole in Problem 11.5 as a function of the control weighting ρ .
-
 The solution is
-
-1 + 4ρ
-2
-
-1+
-
-s12
-
-s22
-
-s11
-
-1 + s12
-
 The feedback vector is
-
-
 K (ρ )  1
-
-L
-
-
-1
-
 where
 K (ρ )
-b.
-
-3
-
-10
-10
-10
 Control weighting rho
-
-1+
-
-s12
-ρ + s22
-
-1 + 4ρ
-
-2ρ + 1 +
-
-1 + 4ρ
-
 The dynamics of the closed loop system is
-
-Φ
-
-
-
-
-
-
-− ΓL
-
-1
-
-1
-
 − K (ρ ) − K (ρ )
-
-
-
-
-
-
 The poles are obtained from
-
 (λ
-
 − 1)(λ + K (ρ )) + K (ρ )
-
 λ (λ
-
-−
-
 − 1 + K (ρ ))
-
-0
-
-−
-
 There is one pole in the origin and one in 1 K (ρ ). For ρ
 0 then 1 K (ρ )
 0 and as ρ
@@ -13661,1381 +2822,330 @@ a function of ρ .
 The poles of the closed loop system can also be determined from (11.40). For the
 inventory system
 A( z) q( q 1)
-
-→∞
-
-−
-
-→
-
 B ( z)
-
-−
-
-1
-
 and we get
-
 ρ ( z−2
-
 − z− )(z − z) + 1
-1
-
-2
-
 r( z2 + p1 z + p2 )( z−2 + p1 z−1 + p2 )
-83
-
-a)
-
-b)
-
-2
-
+a)
 y(k), u(k)
-
 y(k), u(k)
-
-2
-0
-−2
-
-−2
-0
-
-c)
-
-5
-
-10
-
-0
-
-10
-
-5
 Time
-
-10
-
-2
-
 y(k), u(k)
-
-0
-
-5
-
-0
-
-d)
-
-2
-
 y(k), u(k)
-
-0
-
-−2
-
-0
-−2
-
-0
-
-5
 Time
-
-10
-
 Figure 11.2 The output (solid) and the control signal (dashed) for the system in Prob0, b) ρ
-0.5, c) ρ
 5 and d) ρ
-25.
 lem 11.5 when a) ρ
-
-or
-rp2
-
-0
-
-−ρ
-
 r( p1 + p1 p2 )
-
-2ρ + 1
 Since r
-
-Γ T S Γ + Q2
-
 r(1 + p2 + p2 )
-1
-2
-
 0 then the ﬁrst equation implies that p2
-
-−ρ
-
 0 and we get
-
-rp1
-
-2ρ + 1
-
 r(1 + p2 )
-1
-
 which has the solution
-r
-p1
-
-2ρ 2
-
-2ρ + 1
-
-−
-
-1 + 4ρ
-
-− 2ρ + 1 − ρ 1 + 4ρ
-2
-
-2ρ + 1 + 1 + 4ρ
-2
-
 The poles of the closed loop system are thus one at the origin and one at
-
-−p
-
-2ρ + 1
-
-1
-
 It is easily seen that this is the pole in 1
-
-−
-
-2ρ
-
-1 + 4ρ
-
 − K (ρ ).
-
 Problem 11.6
 The system has the transfer function
 H ( z)
-
-0.030z + 0.026
-z2 1.65z + 0.68
-
-−
-
 Only the output and the control signals are penalized in the loss function. The
 closed loop system has poles that are determined by the stable roots of
-
 ρ + H ( z) H ( z−1)
 This gives
-
-0
-
-0.030z + 0.026
-0.030z−1 + 0.026
-⋅ −2
-1.65z + 0.68 z
-1.65z−1 + 0.68
-
-−
-−
-0.030z + 0.026
-0.030z + 0.026z
-ρ+
-⋅
-z − 1.65z + 0.68 1 − 1.65z + 0.68z
-ρ+
-
-z2
-
-2
-
-2
-
-84
-
-2
-
-0
-
-Im
-
-1
-
-0
-
-−1
-−1
-
 Figure 11.3
-
-or
-
-0
 Re
-
-1
-
 The closed loop poles in Problem 11.6 when ρ is varying.
-
-0.00078z3 + 0.001576z2 + 0.00078z+
-
 ρ (0.68z4
-
-− 2.7720z
-
-3
-
-+ 4.1849z2
-
-− 2.7720z + 0.68)
-
-0
-
 Fig. 11.3 shows the closed loop poles when ρ is varying.
 Problem 11.9
 Solving LQ-problem for system of higher order than one by hand causes much
 work. With numerical packages, like Control toolbox for Matlab, the design is
 signiﬁcantly simpliﬁed for the control engineer. The following Matlab-macro illustrates the solution of Problem 11.9, i.e. sampling of the system, sampling of
 the loss function and solving the Riccati equation.
-
 %Macro for Problem 11.9 CCS
 alpha=0.001;
-k=0.0005;
-rho=0.08;
-h=5;
 A=[0 1; 0 -alpha];
-B=[0; k];
-Q1c=[1 0; 0 0];
-Q12c=[0; 0];
-Q2c=rho;
 %Transform continuous-time LQG problem to the corresponding
 %discrete-time LQG problem
 [Phi,Gam,Q1,Q2,Q12,R1,Je] = lqgsamp(A,B,h,Q1c,Q2c,Q12c,zeros(2,2));
-85
-
-Gain margin
-
-10
-
-5
-
-0
-0
-
-5
-
-10
+Gain margin
 Control weighting rho
 Figure 11.4 The gain margin β min (dashed) and β max (solid) from (11.37).
-
 %Linear quadratic regulator design for discrete-time system
 [L,Lv,S] = lqrd(Phi,Gam,Q1,Q2,Q12);
-L
 The design gives
-
-[3.055 108.7]
-
-L
 Problem 11.10
-
 In Problem 11.5 we have determined r, then
-
-ρ
-
-2ρ
-2ρ + 1 +
-
-r
-
-1 + 4ρ
-
 Equation (11.37) may be used to get the exact values of the gain margin. With
-
-−z
-
 A( z)
 P ( z)
 we get
-z2
-
 − z + β (z
-
-2
-
-z2
-
-z + p1 z
-
-−z
-
-+ p1 z
-
-2
-
-2
-
-+ z)
-
 z( z + (β p1 + β
-
-− 1))
-
 I.e., the system is stable if
-
-−1 < β p
-
-−1 <1 ⇒
-4ρ
-0 ≤ β ≤
-−1 + 1 + 4ρ
-1
-
-β min
-
-+β
-
 β min and β max are also shown in Fig. 11.4.
 Problem 11.11
 The system is
-
 x( k + 1)
 y( k)
-
-86
-
 0.5x( k) + v( k)
 x( k) + e( k)
-
 β max
-
-0
-
-Pole
-
-0.5
-
-0
-
-0
-
-5
+Pole
 State weighting r1
-
-10
-
 Figure 11.5 The pole of the Kalman ﬁlter in Problem 11.11 for different values of r1
 when r2 1.
-
 Theorem 11.5 gives
-
-ˆ
  x( k + 1 k)
-
-
-
-
-
 K ( k)
-
-
-
-
-
  P ( k + 1)
-
 that the Kalman ﬁlter is deﬁned by
-ˆ
 0.5 x( k k
-
 − 1) + K (k)( y(k) − xˆ(k k − 1))
-
 0.5P ( k)
 r2 + P ( k)
-
 0.25P ( k) + r1
-
 − 0.25PP((kk))
-r +
-
-2
-
-2
-
 P (0)
-
-ˆ
 x(0
-
-− 1)
-
-0
-
-r0
-
 The dynamics of the ﬁlter is determined by
-
-Φ
-
-− KC
-
-0.5
-
 − K ( k)
-
 The steady state variance is given from
 P 2 + (0.75r2
-
-− r )P
-1
-
-0.5r2
 r2 + P ( k)
-
-r1 r2
-
 Consider three cases r1 > r2 , r1
->
 r2 and r1 < r2 . In the ﬁrst case P
-<
 r1 and
 Φ K C 0. In the second case P 1.13r1 and Φ K C 0.23. Finally if r1 < r2
-<
 then P 1.33r1 and Φ K C 0.5. Fig. 11.5 shows Φ K C for different values
 of r1 when r2 1.
-
-−
-
-−
-
-−
-
-−
-
 Additional problem
 Suppose that the system in Problem 11.11 has a control signal u( k), i.e. the
 system is
 x( k + 1) 0.5x( k) + v( k) + u( k)
 y( k)
-
 x( k) + e( k)
-
 Determine a steady-state LQG-controller when Q1
-
-1, Q12
-
 0 and Q2
-
-ρ.
-
 Solution to the additional problem
 Equation (11.17) and (11.19) gives
-S
-
-0.25S + 1
-
-L
-
-0.5S
-ρ +S
-
-− 0ρ.25S
-+S
-
-2
-
-87
-
-which has the solution
-L
-
-−0.75ρ + 1 +
-2.5ρ + 2 + 2
-
-− 1) + 4ρ
+which has the solution
 (0.75ρ − 1) + 4ρ
 (0.75ρ
-
-2
-
-2
-
 Using the Kalman ﬁlter from Problem 11.11 and the LQ-controller gives
-ˆ
 x ( k + 1 k)
-
-−
-−
-− −
-
-−
-
-−
-−
-
-ˆ
-ˆ
 Φ x( k k 1) + Γ u( k) + K ( y( k) C x( k k 1))
-ˆ
-ˆ
-ˆ
 Φ x( k k 1) + Γ ( L x ( k k 1)) + K ( y( k) C x( k k
-ˆ
 (Φ Γ L K C ) x( k k 1) + K y( k)
-
 and thus
 U ( q)
-or
-
-−
-
-−
-
-−
-
-− 1))
-
 − L(qI − Φ + Γ L + K C )− K Y (q)
-− LK
 H ( q)
-q − 0.5 + K + L
-1
-
 reg
-
 Problem 11.12
 a.
-
 Equation (11.47) gives
-
 Φ P ( k)Φ T + R 1
-
 P ( k + 1)
-with
-
-Φ
-R1
-C
-
 − Φ P ( k) C
-
-T
-
 ( R 2 + C P ( k) C T )−1 C P ( k)Φ T
-
-
-
-1 1
-
-
-
-
-0 1
-
-
-0 0
-T
-
-
-Γv Γv
-
-
-0 1
-
-
-1 0
-
 we get
 p11 ( k + 1)
-
 p12 ( k + 1)
 p22 ( k + 1)
-
 p11 ( k) + 2p12 ( k) + p22 ( k)
-
-−
-
 − (p
-
 11 ( k) +
-
 p12 ( k))2
 p11 ( k)
-
 p11 ( k) p22( k) p12 ( k)2
 p11 ( k)
 p12 ( k)( p11( k) + p12 ( k))
 p12 ( k) + p22 ( k)
 p11 ( k)
-
-−
-
 p22 ( k) + 1
-
 − p p ( k)
-2
-12
-
-11
-
 p11 ( k + 1)
-
 1 + p11 ( k + 1)
-
 Further
 K ( k)
-For k
-
- 
- k1 
- 
- 
-k2
-
 0 K (0)
-
-
-
  p11 ( k) + p12 ( k)  1
-
-
-
-
 p11 ( k)
 p12 ( k)
-
-k>0
-
 [1 0]T i.e. K is timevarying. The steady state value of P is
-P
-
-
-
-1 1
-
-
-
-
-1 2
-
 The poles of the ﬁlter are found from det(λ I
 has a dead beat response.
-88
-
- 
-2
- 
- 
-1
-
 − (Φ − K C ))
-
-λ2
-
 0 The ﬁlter
-
-4
 p12(k)
-
 p11(k)
-
-4
-2
-0
-
-0
-
-2
-0
-
-5
-
-0
-
-5
-
-4
 p22(k)
-
 Time
-
-2
-0
-
-0
-
-5
 Time
-
 Figure 11.6
-
-b.
-
 The elements of the variance matrix in Problem 11.12.
-
 The initial values of the ﬁlter are
-ˆ
 x(0
-
-− 1)
-
-
-T
-1 1
-
 and assume that P (0) 3I. Fig. 11.5 shows the elements of the covariance
 matrix as a function of time.
 Problem 11.14
 Introduce the notation
-
-1
-Φ 
-
-0
-
-
-1
-
-
-1
-
-Γ1
-
- 
-0
- 
- 
-1
-
 and
-
-Γ2
-
-
-
- 0.5 
-
-
-
-
-1
-
 The state at time k + 3 can now be determined
 x( k + 3)
-
 Φ x( k + 2) + Γ 1 v( k + 2) + Γ 2
 Φ 2 x( k + 1) + ΦΓ 1 v( k + 1) + ΦΓ 2 + Γ 1 v( k + 2) + Γ 2
 Φ 3 x( k) + Φ 2 Γ 1 v( k) + ΦΓ 1 v( k + 1) + Γ 1 v( k + 2)
-+ Φ 2 Γ 2 + ΦΓ 2 + Γ 2
-
 The best estimate of x( k) given y( k) is determined from (11.50). Since v( k),
 v( k + 1) and v( k + 2) are independent of y( k) then the best estimate of x( k + 3)
 is given by
-ˆ
 x ( k + 3 k)
-
-ˆ
 Φ 3 x( k k) + (Φ 2 + Φ + I )Γ 2
-
-
-
-
-
-4.5 
-1 3 ˆ
-
  x ( k k) + 
-
-
-
-
-
-
-0 1
-3
-
 The variance of the estimation error is
 P ( k + 3 k)
-
-T
-T
-T
 Φ 3 P ( k k)(Φ 3) T + 0.01(Φ 2 Γ 1 Γ 1 (Φ 2 ) T + ΦΓ 1 Γ 1 Φ T + Γ 1 Γ 1 )
-
-
-
-
-
-
-1 0
-5 3
-1 3
-
  P ( k k) 
-
- + 0.01 
-
-
-
-
-
-
-
-
-0 1
-3 1
-3 3
-
 If x(0) is known then P (0 0)
-
 0 and
-
-ˆ
 y(3)
-
-
-
  1 3  x(0) + 4.5
-
 and the variance of the prediction error is 0.05.
-
-89
-
-Problem 11.15
+Problem 11.15
 x( k + 1)
-
 ax( k) + v( k)
-
-1
-
 x( k) + e( k)
-
 y( k)
-
-cov v
 cov e
-
-σ
-
 We use the exponential smoothing estimator
-
 − 1 k − 1) + (1 − α ) y(k)
 (1 − α ) q
 y( k) − x( k)
-q −α
 (1 − α ) q
-1
-1
 v( k) + e( k) −
 v( k)
-q −α
 q−a
 q−a
-α
 − (q − (aq)(−q1−) α ) v(k) + (1q− αα)q e(k)
-−
-ˆ
 α x( k
-
-ˆ
 x( k k)
-
-−
-
-ˆ
 [ x( k k) x( k)]
-
 Using Theorem 10.4 we get
-2α 2
 (1 + a)(1 + α )(1
-
-˜
 var x( k k)
-
 − aα )
-
-+
-
-1
-
-−α σ
-
-α +1
-
 Minimize with respect to α , use Maple.
-
-−
-
 σ a(1 + a) + 1
 σ (1 + a)2 + 1
 2 (1 + a) + a
 σa
-1
-
-α min
-
-−
-
 Kalman with direct term
-
 − 1 k − 1) + K ( y(k) − C Φ xˆ(k − 1 k − 1)
-ˆ
 ( I − K C )Φ x( k − 1 k − 1) + K y( k)
-ˆ
 Φ x( k
-
-ˆ
 x ( k k)
-
 This will have the same form as the exponential smoothing estimator only when
 a 1.
 Kalman variance
 a2 P 2
 P a2 P + 1
-P +σ
-
 (1
-
 − a )P − 1
-2
-
-−
-
-P +σ
-
 −a P
-2
-
-2
-
 This gives
-P
-
-1
-
 − σ (1 − a ) + 1
-2
-
-2
-
-2
-
 1 + 2σ (1 + a2 ) + σ 2 (1
-
 −a )
-
-2 2
-
 The gain in the Kalman ﬁlter is
 aP
-P +σ
-
-K
-˜
 var x( k k)
 Numerical values: σ
-
 1 a
-
-− PP σ
-+
-2
-
-P
-
-Pσ
-P +σ
-
-σ
 a
-
-K
-
-0.5.
-
-Exp. smoothing:
-
-0.4222
-
-˜
 var x( k k)
-
-0.6181
-
 Kalman:
-
-90
-
-α
-K
-
-0.2650
-
-˜
 var x( k k)
-
-0.5311
-
-Problem 11.16
+Problem 11.16
 The scalar state equations are
 x( k + 1)
 y( k)
-
 ax( k) + u( k) + v( k)
-
 v( k)
-
 v1 ( k) + mv ;
-
-Ev1
-
-0
-
 x( k) + e( k)
-
 e( k)
-
 e1 ( k) + me ;
-
 Ee1
-
-0
-
 Let
-
-
-x
-
-X
 and
-
-
 a 1
-
-
-0 1
-
-
-
-
-0 0
-
-1 0
-
-
-
-
-
  X ( k + 1)
-
-
-
-
-
-
-
 y( k)
-
-mv
-
-T
 me 
-
- 
- 
-
-0
-1
-1
- 
- 
-
- 
-
- 
  X ( k ) +  0  u( k ) +  0  v ( k )
- 
-  1
-0
- 
- 
-
- 
- 
-
- 
- 
-
-1
-0
-0
-
 1  X ( k) + e1
-
 The observability matrix is then
-
-Wo
-
-
-
- C 
-
-
-
-
-
- CA 
-
-
-
-
-
-
-2
-CA
-
-
-1
-
-
-
  a
-
-
- 2
 a
-
-0
-1
 a+1
-
-
-1
-
-
-
-1
-
-
-
-1
-
-with
 rank Wo
-
-2
-
 This means that me and mv are not both observable and no Kalman-ﬁlter can be
 designed. It is, however, possible to design a second order observer with reconstruction of a linear combination of me and mv . Redeﬁning the state vector X
 as
- 
- x1 
-X  
- 
-m
 where
-x1
-m
 gives
-
-
-
  X ( k + 1)
-
-
-
-
-
-
-
 y( k)
-
 x + me
-
 (a
-
-− 1) m + m
 e
-
-v
-
-
-
- 
- 
 a 1
-
  X ( k) +  1  u( k) +  1  v1 ( k)
- 
- 
-
-
- 
- 
-0 1
-0
-0
- 
-1
   X ( k) + e1 ( k)
- 
-0
-
 Reconstruction of x1 and m is possible if these states are observable. The observability matrix is
- 
-
-
- C  1 0
- 
-
-
-Wo 
- 
-
-CΦ
 a 1
 from which follows that rank Wo
-
-2.
-
 Problem 11.17
 The constants a1 and a2 are determined by the following two conditions
-1.
-
 The correct mean value should be obtained.
-91
-
-2. The variance should be minimized.
+2. The variance should be minimized.
 Condition 1 gives that
 a1 + a2
-
-1
-
 The variance of the estimation error is
-V
-
 E ( x( k)
-
 − xˆ(k))
-
 a2 ⋅ 1 + a2 ⋅ 9
-1
-2
-
 − a x(k) − a e (k) − a x(k) − a e (k))
 + (1 − a ) ⋅ 9 10a + 9 − 18a
 E ( x( k)
-
-2
-
 a2
-1
-
-1
-
-1
-
-1 1
-
-2
-
-2
-
-2
-1
-
-2 2
-
-2
-
-1
-
 Taking the derivative with respect to a1 gives the condition
 20a1
-
-− 18
-
 The estimator is thus
-ˆ
 x ( k)
-
-0
-
-⇐⇒
-
 a1
-
-9
-10
-
-9
-1
 y1 ( k) +
 y2 ( k)
-10
-10
-
 The minimum value of V is
-
-9
-10
 Using only y1 gives the variance 1 and only y2 the variance 9. Thus, a combination
 of the measurements gives a better result than using only the best measurement.
 Assume that the a priori estimate of x is zero and the variance of x is p, i.e.
-Vmin
-
-ˆ
 x (0 0)
 From (11.50) – (11.54) we get
-
 and
 P (1 0)
-
 P (0 0)
-
-p
-
 and
 K (1)
-
-p
-
 P (1 0) C T R 2 + C P (1 0) C T
-
-−1
-
-
-p
-9
-10p + 9
-
-
-1
-
 This gives
-ˆ
 x( k k)
-
-9p
-p
-9
-ˆ
 y1 ( k) +
 y2 ( k) +
 x( k k
-10p + 9
-10p + 9
-10p + 9
-
-− 1)
-
 If p is large then the weights for y1 and y2 will be those calculated above. In the
 example R 1
 0 the steady state gain will then be zero since the estimate will
@@ -15043,3349 +3153,831 @@ approach the true value of x.
 Problem 11.20
 x( k + 1)
 y( k)
-Q1
-
-−
-
-
-
- 
-0.45 
- 1.45
-
  x( k) +  1  u( k)
- 
-
-
- 
-1
-0
-0
-
-
  0.5 0.38  x( k)
-
-
- 0.25 0.19 
-T
-
-
-C C 
-
-0.19 0.1444
-
-Q12
-
-0
-
-Q2
-
-0
-
 The steady state solution is obtained from (11.17). Using Matlab we get the
-solution
-
-
- 0.25 0.19 
-
-
-⇒
-S 
-
-0.19 0.1444
-
-
-L  2.21
-0.45 
-
-−
-
-92
-
-An alternative solution is to use (11.40)
-
+An alternative solution is to use (11.40)
 ρ A( z) A( z−1) + B ( z) B ( z−1)
-ρ
-
-0
-
-⇒
-
-1
 zB ( z)
-b1
-
 P ( z)
-
 2z(0.5z + 0.38)
-
 Now we have to ﬁnd L such that
-
 (Φ
-
 rP ( z) P ( z−1)
 z( z + 0.76)
-
-−
-
-
-
- 0.76 0 
-
-
-
-
-1
-0
-
-− Γ L)
-
 where controllable canonical form have been used. This gives
-
-
-0.45 
-L  2.21
-
-−
-
 Problem 11.21
 a.
-
 First assume that η
-
 0 and use linear quadratic design with
-Q1
-
-Q12
-
-Q2
-
-ρ
-
-Q0
-
-1
-
-N
-
-0
-
-2
-
 Theorem 11.1 gives the Riccati equation
-
 − L(k)
-
 S ( k)
-
-0.5 0.5
-
 L( k)
-
 0.5S ( k)
 ρ + S ( k + 1)
-
 S ( k + 1)
-
 This gives
 S( N )
 S (1)
-
-0.52 ρ
-ρ +1
-
-Q0
-
-⇒
-
-1
-
 L(1)
-
-0.5
-ρ +1
-
-⇒
-
 S (2)
-
 L(0)
-
-0.53
-ρ + 1 + 0.52
-
 − L(k)x(k) − Ly(k). For different values of ρ we
-
 The control law is u( k)
 get
-
-ρ
 L(0)
 L(1)
-b.
-
 In this case η
-
-1.0
-
-0.056 0.093 0.1
-0.250 0.455 0.5
-
-0.1
-
-0
-
 1 and x( k) is reconstructed using a Kalman ﬁlter
-ˆ
 x( k + 1)
-
-ˆ
 0.5 x( k) + u( k) + K ( k) y( k)
-
 − xˆ(k)
-
-with
-R1
-
-R 12
-
-0
-
-R2
-
-η
-
-R0
-
 E x2 (0)
-
-1
-1
-93
-
-Theorem 11.5 gives
+Theorem 11.5 gives
 K ( h)
 P ( k + 1)
 with P (0)
-
-R0
-
 0.5P ( k)
 1 + P ( k)
 0.25P ( k)
-
 − 0.5P(k) K (k)
-
 1. This gives
-k
-
 P ( k)
-
 K ( k)
-
-0
-1
-
-1
-0.25
-0.125 0.056
-
 − L(u)xˆ(k).
-
 The control law is u( k)
 Problem 11.22
 x( k + 1)
-
 x( k) + v( k)
- 
-1
   x( k) + e( k)
- 
-1
-
 y( k)
-
- 
-
 a.
-ˆ
 x( k + 1 k)
-b.
-
-0.01 R 2
-
-R1
-
-1
-
- 
-− K 1
- 
-1
-
-ˆ
 x( k k
-
 − 1) + K y(k)
-
 (11.47) ⇒
-p
-
-p + 0.01
-
-
-
-− p 1
-2
-
-
-p2  1
-p2
-p2
-
-2 2
-σ 1σ 2
-
- σ 2
-
-1  1
-
-0
-
-  
-0  1 
- + p1
- 
-2
-1
-σ2
-
-  
- σ 2 + p
-p −1  1 
-
-  
-1 1
-
-  
-2
-p
-1
-σ2 + p
-2
-2
-σ1 + σ2
-2
-2
 + (σ 1 + σ 2 ) p
-2
-1
-
-2
-1
-
-2
-2
-
-2
-2
-
-K
-
-−1  1 
- 
- 
- 
-1
-
-0.01
-
-0
-2 2
-σ 1σ 2
-2 +σ2
-σ1
-2
-
-0.005 ±
-
-0.0052 + 0.01
-
-0.005 +
-c.
-
-
-1
-
-0.01
-
-σ
-− 0.01p − 0.01σσ + σ
-p
-
-94
-
- 2
-
-σ1 0 
-
-
-
-2
-0 σ2
-
-0.0052 + 0.01
-
-4
-5
-
-0.09458
-
-
-
-−1
-σ 2 σ 2 
-
-σ 2 + p
-p 
-2
-1
-
-
-p1 1 1
-p
-
-
-2 2
-2
-2
-2
 σ 1 σ 2 + p(σ 1 + σ 2 )
-p
-σ2 + p
-
-
-
-
-0.09458
-4 1
- 0.0846 0.0211 
-4 + 5 ⋅ 0.09458
-
-Solutions to Chapter 12
-
+Solutions to Chapter 12
 Problem 12.1
 The m-step ahead predictor is given by
 qG ( q)
 y( k)
 C ( q)
-
-ˆ
 y( k + m k)
-
 where G is obtained from the identity (12.17) and the variance of the prediction
 error is given by (12.19). For m 1 we get
-q2
-
-− 1.4q + 0.5
-
-− 1.2q + 0.4 + g q + g
-
-q2
-
-0
-
 which gives
 G ( q)
-
-1
-
-−0.2q + 0.1
-
-g0 q + g1
-
 The predictor is then given by
-
 −0.2q + 0.1q y(k)
-q − 1.4q + 0.5
-2
-
-ˆ
 y( k + 1 k)
-
-2
-
 and the variance of the prediction error
-˜
 E y2 ( k + 1 k)
-For m
-
-4
-
-2
 q( q2
-
-− 1.4q + 0.5)
-
 This gives
-
 ( q2
-
 F ( q)
-
 − 1.2q + 0.4)(q + f ) + g q + g
-1
-
-q
-
-0
-
-1
-
-− 0.2
-
-−0.14q + 0.08
-
 G ( q)
 and
-
-2
 σ 2 (1 + f 1 )
-
-˜
 E y2 ( k + 2 k)
-For m
-
-σ2
-
-4.16
-
 3 we get
 q2 ( q2
-
-− 1.4q + 0.5)
-
 ( q2
-
 − 1.2q + 0.4)(q
-
 which gives
 F ( q)
 G ( q)
-˜
 E y ( k + 3 k)
-2
-
-q2
-
-2
-
-+ f 1 q + f 2 ) + g0 q + g1
-
-− 0.2q − 0.14
-
-−0.088q + 0.056
-
-2
-2
 σ 2 (1 + f 1 + f 2 )
-
-4.24
-
 Using Theorem 10.4 we can compute the variance of y to
 var( y)
-22
-
-− −
-
-−
-
 (1+1.42+0.52 )(1+0.4)+2( 1.4 1.4 ⋅ 0.5)⋅ 1.2+ 2 ⋅ 0.5(1.22 0.4(1+0.4))
 (1 0.42 )(1 + 0.4) + ( 1.2 + 1.2 ⋅ 0.4) ⋅ 1.2
-4.28
-
-−
-
-−
-
 This implies that the prediction variance is almost the same as the variance of y
 when m ≥ 3.
-95
-
-Problem 12.2
+Problem 12.2
 The identity (12.17) is
 q m−1 ( q + c )
-
 ( q + a)( q m−1 + f 1 q m−2 + ... + f m−1) + g0
-
 This gives
-
 a + f1
-
-c
-
 a f1 + f2
-
-0
-.
-.
-.
-
 a f m−2 + f m−1
-
-0
-
 a f m−1 + g0
-
-0
-
 −a
 (−a)( c − a)
 (−a) ( c − a)
-
 The solution is
-
-c
-
-f1
-f2
-
-2
-
-f3
-.
-.
-.
-
-−
 (−a)
-
 ( a) m−2 ( c
-
-f m−1
-g0
 The m-step ahead predictor is
-
 − a)
-
 − (c − a)
-
-m 1
-
-−
-
 ( a) m−1 ( c
-q+c
-
-ˆ
 y( k + m k)
-
 − a)q y(k)
-
 and the variance of the prediction error is
-˜
 E y( k + m k)
-
 − a) + a (c − a)
 1−a −
 1 + ( c − a)
 1−a
-
 σ 2 (1 + ( c
-σ2
-
-2
-
-2
-
-2
-
 + ⋅ ⋅ ⋅ + a2( m−2)( c
-
 2( m 1)
-
-2
-
 − a) )
-2
-
-2
-
 Problem 12.3
 a.
-
 The C-polynomial has a zero outside the unit circle. Example 12.1 shows how
 the C-polynomial should be changed. It is replaced by
 C ∗ ( z)
-
-5z + 1
-
 5( z + 0.2)
-
 The equivalent process is thus
 y( k)
-b.
-
 − 0.9 y(k − 1)
-
 5( e( k) + 0.2e( k
-
 The two-step-ahead predictor is obtained from
 q( q + 0.2)
 This gives
-
 (q
-
 − 0.9)(q + f ) + g
-1
-
 F ( q)
-
-0
-
-q + 1.1
-
 G( g )
-
-0.99
-
 This predictor is
-ˆ
 y( k + 2 k)
 and
-˜
 E y2 ( k + 2 k)
-96
-
-− 1))
-
-0.99q
 y( k)
-q + 0.2
 25(1 + 1.12 )
-
-55.25
-
-Problem 12.4
+Problem 12.4
 Using the data given up to time k 7 it is possible to calculate y( k) and zd ( k)
 z( k) y( k). zd is the deterministic part of z.
-
-−
-
-k
-
 z( k )
-
 y( k)
-
 z d ( k)
-
-1
-2
-3
-4
-5
-6
-7
-
-320
-320
-325
-330
-350
-370
-375
-
-10
-0
-5
-10
-0
-10
-5
-
-310
-320
-330
-340
-350
-360
-370
-
-−
-−
-
 The prediction of the demand for August through November is
-ˆ
 z(8 7)
-.
-.
-.
-
-ˆ
 zd (8) + y(8 7)
-
-ˆ
 z(11 7)
-
-ˆ
 zd (11) + y(11 7)
-
 We thus need the 1, 2, 3 and 4 step ahead predictors of y. Those are given by
 solving the identity (12.17) and give
-m
-1
-2
-3
-4
-
 F ( q)
-
 G( g )
-
-1
-q + 0.7
-q2 + 0.7q + 0.59
-q3 + 0.7q2 + 0.59q + 0.48
-
-0.7q + 0.1
-0.59q + 0.07
-0.48q + 0.06
-0.40q + 0.05
-
 The prediction is
 qG ( q)
 y( k)
 C ( q)
-
-ˆ
 y( k + m k)
-
 g0 y( k) + g1 y( k
-
-− 1)
-
 which gives the predicted values and their standard deviation σ .
-m
-1
-2
-3
-4
-
-ˆ
 y(7 + m 7)
-
 zd(7 + m)
-
-ˆ
 z( 7 + m 7 ) σ
-
-4.5
-3.7
-3.0
-2.5
-
-380
-390
-400
-410
-
-384.5
-393.7
-403.0
-402.6
-
-5
-6.1
-6.8
-7.2
-
 Problem 12.5
 The polynomials are
-
-−q
-
-2
-
-+ 0.5q
-
-A
-
-q3
-
-B
-
-q + 0.5
-
-C
-
-q3 + 0.8q2 + 0.25q
-
 It is easily seen that C is a stable polynomial, e.g. by the stability triangle. This
 is a necessary condition for the minimum variance design method.
 The pole excess is
 d deg A deg B 2
-
-−
-
 The Diophantine equation is
 q d−1 C ( q)
 q( q + 0.8q + 0.25q)
-3
-
-2
-
 A( q) F ( q) + G ( q)
-
 ( q3
-
-−q
-
-2
-
 + 0.5q)( q + f 1 ) + ( g0 q2 + g1 q + g2 )
-97
-
-Identifying coefﬁcients of powers of q gives
-
-−1 + f
-0.5 − f
-
-0.8
-0.25
-
-1
-1
-
-+ g0
-
-0
-
-0.5 f 1 + g1
-
-0
-
-g2
-
+Identifying coefﬁcients of powers of q gives
 Solving these equations
-
-1.8
-
-f1
-g1
-
-−0.25 + f
-−0.9
-
-g2
-
-0
-
-g0
-
-1.55
-
-1
-
 The minimum variance regulator is obtained from (12.27)
 u( k )
-
-−1 + 0 9q
-q
 − B (G)(F)(q) y(k) (q +.55q)(q + .1.8) y(k)
-q
-0.5
-2
-
 The loss function is
-
 0.52 (1 + 1.82 )
-
-Ey2
-
-1.06
-
 Problem 12.6
 The noise sequence has a non zero mean value. Introduce
 2 + ε ( k)
-˜
 u + u( k )
-
 e( k)
 u( k )
-
 where ε ( k) is zero mean white noise. The process is now
 y( k)
-
 Choose u
 gives
-
 − 0.5 y(k − 1)
-
-−
-
-−
-−
-
-−
-
-˜
 u + u( k 2) + 2 + ε ( k) 0.7(2 + ε ( k 1))
-˜
 u( k 2) + ε ( k) 0.7ε ( k 1) + u + 0.6
-
-−
-
-−
-
 −0.6 and the problem is reduced to the standard problem. The identity
-0.1q
 y( k)
-q 0.2
-
-−
-
-˜
-u
 and
 u( k )
-
-q
-
-0.1q
 y( k)
-0.2
-
-−
-
-− 0.6
-
 Problem 12.7
 a.
-
 The identity gives
-
 F ( q)
 G ( q)
-
 −a
 a( a − c ) q
-
-q+c
-
 and the minimum variance controller is
 u( k )
-b.
-
 The expression above gives the optimal controller u( k)
 0 if a
 0. The
 process is then a moving average process of ﬁrst order. This implies that
 u( k 2) cannot be used to decrease the variance of y( k).
-
-−
-
-98
-
 (
-c q
 − qa+a(−−)a) y(k)
-c
-
-Output
-
-200
-
-100
-
-0
-
-0
-
-50
 Figure 12.1
-
-100
 Time
-
-150
-
-200
-
 The output of the open loop system in Problem 12.8.
-
 Problem 12.8
 a.
-
 The identity gives for d
-
-1
 F ( q)
-
 and for d
-
-2
-
-1
-
 G ( q)
-
-3.2q + 0.2
-
 F ( q)
-
-q + 3.2
-
 G ( q)
-
-5.64q2
-
-− 2.24q
-
 The minimum variance controller is
 u( k )
-
-q
 − B (G)(F)(q) y(k)
-q
-
 and the minimum variance in the two cases are
-d
-d
-b.
-
-1:
-
-Ey2
-
-2:
-
-2
-
-Ey
-
-1
-1 + 3.22
-
-11.24
-
 Fig. 12.1 shows the output of the open loop system for one realization of the
 noise sequence. The output is drifting since the A-polynomial contains an
 integrator. Fig. 12.2 and Fig. 12.3 shows the output and the control signal
 for the same noise realization when the minimum variance controller is used
 with d 1 and d 2.
-
 Problem 12.9
 a.
-
 Assume that
 H ( z)
-
-λ
-
-1
 z+ a
-
 Sending white noise e( k) through this ﬁlter gives the spectral density (see
 Theorem 10.2)
-λ2
-1
 φ (ω )
 2π 1 + a2 + 2a cos ω
-99
-
-Output
-
-10
-
-0
-
-−10
-
-0
-
-50
-
-100
-
-150
-
-200
-
-0
-
-50
-
-100
 Time
-
-150
-
-200
-
-Input
-
-20
-
-0
-
-−20
-
 Figure 12.2 The output and the control signal when d
 controller is used for the process in Problem 12.8.
-
 1 and the minimum variance
-
-Output
-
-10
-
-0
-
-−10
-
-0
-
-50
-
-100
-
-150
-
-200
-
-0
-
-50
-
-100
 Time
-
-150
-
-200
-
-Input
-
-20
-
-0
-
-−20
-
 Figure 12.3
-
 Same as Fig. 12.2 but when d
-
 This implies that λ
 1 and a
 process is now described by
 y( k)
-
-1
-
-or
-
 ( q2 + 0.1q
-b.
-
-−
-
 0.6 gives the desired spectral density. The
-
-1
-0.5q−1
-
 − 0.3) y(k)
-
 Use the controller
 u( k )
-
-100
-
-2.
-
-1
-1
 e( k) + u( k)
-q + 0.6
-q
-
 ( q + 0.6) u( k) + q e( k)
-
 − K y(k)
-
-This gives
-
+This gives
 − 0.3) y(k) −(q + 0.6) K y(k) + q e(k)
-q
 y( k)
 e( k)
 q + (0.1 + K ) q + (0.6K − 0.3)
 The system is stable if
-−0.5 < K < 1.5
 ( q2 + 0.1q
-
-2
-
 Theorem 10.4 gives an expression for the variance of a second order process.
 I2 ( K )
-For K
-c.
-
 1 we get I2
-
-0.7 + 0.6K
-
 (1.3
-
 − 0.6K )((0.7 + 0.6K ) − (0.1 + K ) )
-2
-
-2
-
-3.87.
-
 The minimum value of I2 is obtained from
-dI2
-dK
 This gives the third order equation
-72K 3 + 12K 2
-
-−
-
-0
-
-− 266K + 1
-
-0
-
 2.009, 1.839 and 0.004. Only the root K
 which has the roots K
 gives a stable closed loop system. The value of the variance is
 I2 (0.004)
-d.
-
 The minimum variance is Ey2
-
-0.004
-
-1.12
-
 1 since d
-
-1.
-
 Problem 12.10
 a.
-
 With the proportional controller
 u( k )
-
 − K y(k)
-
 we get the closed loop system
-q2 + 0.5q
 e( k)
 q2 + ( K 0.25) q + 0.5
-
-−
-
 y( k)
-
 Using the results in Theorem 10.4 gives
-B0
-
-1 + 0.52
-
-B1
-
 2(1 ⋅ 0.5 + 0.5 ⋅ 0)
-
-B2
-
-0
-
 e1
-
-1.5
-
 and
-
-1.25
-
-− −
-− −
-
-1
-
 1.25 ⋅ 1.5 ( K 0.25)
 (1 0.25) ⋅ 1.5 ( K 0.25)2(1 0.5)
-2.125 K
 0.5(1.75 K )(1.25 + K )
 Taking the derivative of I2 and putting the derivative equal to zero leads to
 the equation
-K 2 4.25K + 3.25 0
 I2 ( K )
-
-−
-
-−
-
-−
-
 with the solutions K
-
 1 and K
-
-−
-
-3.25. K
 I2 (1)
-
-−
-
 1 gives the variance
-
-4
-3
-
 This is minimal variance for the present control law. With minimum variance
 control we would get E y2 1.
-101
-
-b.
-
 From Example 3.2 we ﬁnd that the closed loop system is stable if
-
-−1 + K − 0.25
-0.5 > −1 − K + 0.25
-0.5 >
-
-or
-
-−1.25 < K < 1.75
-
 Both K 3.25 (the second root in a.) and K 2.125 give an unstable closed
 loop system and the calculation of I2 is no longer valid.
 Problem 12.11
 y( k)
 gives
-
 − 1.5 y(k − 1) + 0.7 y(k − 2) u(k − 2) − 0.5u(k − 3) + v(k)
 A( q) q − 1.5q + 0.7q
 B ( q) q − 0.5
-3
-
-2
-
 Note that the process zero (0.5) is stable and well damped. This means that the
 process zero can be cancelled without problem. The degree conditions gives
 deg Am
-
 a.
-
 v( k)
-
 − deg B
-
-−
-−
-
 ≥ deg A deg B 2
 deg Ao ≥ 2 deg A deg Am deg B +
-m
-
-−
-
-−1
-
 0; Deadbeat Control
 Am ( q)
-
-q2
-
 B + ( q)
-
-q
-
 B − ( q)
-
-− 0.5
-
-1
-
-′
 B m ( q)
-
-1
-
 Ao ( q)
-
-q2
-
 The polynomials R 1 and S are obtained from the Diophantine equation
 A( z) R 1 ( z) + B − ( z) S ( z)
 Recalling the condition deg S
-
 ( z3
-
-− 1.5z
-
-2
-
 deg A
-
 A m ( z) A o ( z)
-
 − 1 the equation becomes
-
 + 0.7z)( z + r1 ) + s0 z2 + s1 z + s2
-
-with solution
-r1
-
-1.5
-
-s0
-
-1.5r1
-
-s1
-
-− 0.7 1.55
-−0.7r −1.05
-
-s2
-
-0
-
-1
-
 This gives the regulator
 u( k )
 where
-
 R ( q)
 T ( q)
-
 Assuming that uc ( k)
 u( k )
-
-102
-
 T ( q)
 u c ( k)
 R ( q)
-
 R 1 ( q) B + ( q)
-B m Ao
-
-q
-
-S
 − R((q)) y(k)
-q
-
 ( q + 1.5)( q
-
-− 0.5)
-
-2
-
 0 gives
-S
-.55q − .
 − R((q)) y(k) − (q1+ 1.5)(q1−05q5)
-q
-0.
-2
-
-z4
-
-b.
-
 v( k)
-
 e( k)
-
 − 0.2e(k − 1); Minimum variance The polynomial C is given by
 C ( q) q − 0.2q
-3
-
-2
-
 The minimum variance control law can be written as
-q
 − B (G)(F)(q) y(k)
-q
-
 u( k )
-
 where the polynomials F and G are obtained from
 q d−1 C ( q)
-
 A( q) F ( q) + G ( q)
-
 deg F
-
-−1
-
-d
-
-1
-
 deg G
-
-2
-
 which in this case is
 q( q3
-
-− 0.2q )
-2
-
 ( q3
-
-− 1.5q
-
 + 0.7q)( q + f 1 ) + g0 q2 + g1 q + g2
-
-2
-
 which yields the equations
-f1
-
-0.7
-
-− 1.5 f
-
-− 1.5 −0.2
-
-+ g0
-0.7 f 1 + g1
-g2
-1
-
-with solution
-f1
-
-0
-0
-
-1.3
-
-g0
-
-0
-
-1.25
-
-g1
-
-−0.91
-
-g2
-
-0
-
 The minimum variance controller is thus given by
-
-.25q − .
 − (q1− 0.5)(q0+91q3) y(k)
-1.
-2
-
 u( k )
-c.
-
 The output is in the deadbeat case given by
 y( k)
-
-CR
-C R1
 e( k)
 e( k)
-AR + B S
-Am Ao
 q−4 C ( q) R 1 ( q) e( k) C ∗ ( q−1) R ∗ ( q−1) e( k)
-1
-
 (1
-
 − 0.2q− )(1 + 1.5q− )e(k)
-1
-
-1
-
 (1 + 1.3q−1
-
 − 0.3q− )e(k)
-2
-
 which is a moving average (MA) process. The variance of the output is then
 simply calculated as
 E ( y2 )
-
 (1 + 1.32 + 0.32 )σ 2
-
-2.78σ 2
-
 In the minimum variance case the output is
 y( k)
-
 q−( d−1) F ( q) e( k)
-
 F ∗ ( q−1) e( k)
-
 (1 + 1.3q−1) e( k)
-
 which also is an MA process. The output variance is
 E ( y2 )
-
 (1 + 1.32 )σ 2
-
-2.69σ 2
-
-103
-
-Output
-
-10
-0
-−10
-
-Output
-
-10
-
-0
-
-50
-
-100
-
-150
-
-200
-
-0
-
-50
-
-100
-
-150
-
-200
-
-0
-
-50
-
-100
 Time
-
-150
-
-200
-
-0
-−10
-
-Loss
-
-500
-
-0
-
 Figure 12.4 The output and the sum of the square of the output for the two regulators
 in Problem 12.11. The deadbeat controller is used in the upper diagram and the minimum
 variance controller in the middle diagram. The accumulated loss functions are shown in
 the lower diagram, deeadbeat (dashed) and minimum variance (solid).
-
-d.
-
 Fig. 12.5 shows the output and the sum of the square of the output for the
 regulators in a and b.
-
 Problem 12.12
 Introduce the polynomials
-
 A( q) D ( q)
-
 B1 ( q)
-
 B ( q) D ( q)
-
 C1 ( q)
 and the noise e1
-
 A1 ( q)
-
 A( q) C ( q)
-
 λ e. The system can then be written as
 y( k)
-
-B1
-C1
 u( k ) + λ
 e1 ( k)
-A1
-A1
-
 (12.1)
-
 Since A, C and D are monic, A1
 AD and C1
 AC will also bo monic. Let
 d. The minimum-variance controller for
 d1 deg A1 deg B1 deg A deg B
 the rewritten system (12.1) is then calculated as
-
-−
-
-−
-
 u( k )
 where
-
 q d1−1 C1 ( q)
-
-q
 − B (Gq)(F )(q) y(k)
-1
-
-1
-
 (12.2)
-
-1
-
 A1 ( q) F1( q) + G1 ( q)
-
 (12.3)
-
 Equation (12.3) is equivalent to
 q d−1 A( q) C ( q)
-
 A( q) D ( q) F1( q) + G1 ( q)
-
 which implies that A must divide G1 , i.e. G1 ( q)
 gives the minimum-variance control law
 u( k )
-104
-
 A( q) G ( q). Putting F
-
-∗
-
-−1
-
-1
-
-∗
-
-−1
-
-q
 − B (G)(D)(A()q)(q) y(k) − B (qG− ()qD ()qA− ()qF ()q− ) y(k)
-q
-q F
-∗
-
-∗
-
-1
-
-∗
-
-1
-
-F1
-
-where F and G satisfy the equation
+where F and G satisfy the equation
 q d−1 C ( q)
-
 D ( q) F ( q) + G ( q)
-
-−
-
-−
-
 with deg F
 d 1 and deg G
 deg D 1. We see that if A
 reduces to the normal minimum variance controller.
-
 D the controller
-
 Problem 12.13
 In this case
 A( q)
-
 q+a
-
 B ( q)
-
-b
-
 C ( q)
-
-q+c
-
 D ( q)
-
-q
-
-d
-
-1
-
 The identity in Problem 12.12 gives
-q+c
-
-⇒
-
-q ⋅ 1 + g0
-g0
-
-c
-
 The minimum variance controller is thus
 u( k )
-
-+
-c
 − c(qbq a) y(k) − b y(k) − ac y(k − 1)
-b
-
 Problem 12.15
 We have
 y1 ( k)
 y2 ( k)
-
-−
-−
-
-1
-1 0.5q−1
 u( k 1 ) +
 e( k)
-1 0.7q−1
-1 0.7q−1
-q−1
 y1 ( k)
-1 + α q−1
-1
-B∗
-C∗
 u( k 2) + ∗ e( k 1)
-∗
-A1 A∗
-A
-
-−
-
-−
-
-−
-
-−
-1
-1 − 0.5q−
 u( k − 2 ) +
 e( k − 1)
 (1 + α q− )(1 − 0.7q− )
 (1 + α q− )(1 − 0.7q− )
-1
-
-1
-
-1
-
-1
-
-1
-
 To normalize the notations it is convenient to introduce a new noise ε ( k)
 a.
-
 Assume that y1 can be measured. The minimum variance controller for y1 is
 then
-
 −0.2 y (k)
-
 u( k )
-b.
-
-−
-
 e( k 1).
-
-1
-
 The variances of y1 and y2 are
-Ey2
-1
-Ey2
-2
-
-1
-1
-
-1
-
-−α
-
-2
-
-2.78
-
-105
-
-c.
-
 The minimum variance controller for y2 when y2 is measurable is obtained
 by using the identity
-1
-
-− 0.5q−
-
 (1 + α q−1 )(1
-
-1
-
 This gives
-
 − 0.7q− )(1 + f q− ) + q− ( g
-1
-
 F ∗ ( q−1)
-
 This gives
 y2 ( k)
-
-0.94
-
-+ g1 q−1 )
-
-1
-
-−1
-
-1
-
 (1 + q−1 )ε ( k)
-
 and
-
-0
-
-− 0.56q−
-
-− 0.941− 0q.56q
-+ −
-
 u( k )
-
-2
-
-1 + q−1
-
 G ∗ ( q−1)
 and the controller
-
-1
-
-1
-
 ε (k
-
 y2 ( k)
-
 − 1) + e(k − 2)
-
 (1 + q−1)(1 + α q−1 ) e( k + 1)
-
 y1 ( k)
-
 The variances of the two signals are
-Ey2
-1
-Ey2
-2
-d.
-
 1 + (α + 1)2 + α 2
-1+1
-
-1.68
-
-2
-
 In this case both y1 and y2 are measurable and y1 ( k) will contain more recent
 information about the noise process than y2 ( k). It is now only necessary to
 predict one step ahead. Introduce the identity
-∗
-A∗ A∗ + q−1 G1
-1
-
-C∗
 This gives
 y2 ( k + 2)
-
-C∗
-B∗
 e( k + 2) + ∗ ∗ u( k)
-A∗ A∗
-A1 A
-1
 e( k + 2) +
-
-But
-
-∗
-G1
-B∗
 e( k + 1) + ∗ ∗ u( k)
-A∗ A∗
-A1 A
-1
-
-A∗
 y1 ( k)
-C∗
-
 ε ( k + 1)
-
-B
-−C
-
-∗
-∗
-
 u( k
-
-− 1)
-
 This gives
 y2 ( k + 2)
-
-−
-
-∗
-G1
-A∗
-B∗
 y ( k)
 u( k
-∗ A∗
-∗ 1
-A1
-C
-C∗
-G∗
-B∗
 ε ( k + 2) + ∗ 1 ∗ y1 ( k) + ∗ ∗ ∗ C ∗
-A1 A
-A1 A C
-
 ε ( k + 2) +
-
 ε ( k + 2) +
-
 − 1) + ABA u(k)
 − G q − u( k )
-∗
-
-∗
-1
-
-∗
-1
-
-1
-
-∗
-G1
 y ( k ) + B ∗ u( k )
-∗ 1
-A1
-
-1
-C∗
-
 The variance is thus minimized when
 u( k )
-
-− AGB
-∗
-1
-
-∗
-1
-
-∗
-
 y1 ( k)
-
 which is an admissible control law. For the speciﬁc system we get
 u( k )
-106
-
-− 11− 00.56q−
-− .8q
-
-−1
-1
-
 y1 ( k)
-
-∗
-
-With this control law we get
-
+With this control law we get
 ε ( k)
-
 y2 ( k)
-
 e( k
-
-− 1)
-
 and
 y1 ( k)
-
 (1 + α q−1 ) y2 ( k + 1)
-
 (1 + α q−1 )ε ( k + 1)
-
 (1 + α q−1 ) e( k)
-
 The variances of the two output signals are
-1 +α2
-
-Ey2
-1
-
-1.64
-
 and
-Ey2
-2
-
-1
-
 We can thus conclude that the extra measurement will greatly improve the
 control of the output of the system.
 Problem 12.16
 The same arguments can be used in this case as when deriving the normal minimum variance controller. Assume that the system has a stable inverse. Also
 assume that deg A deg B deg D i.e. that the process can be written as
 A∗ ( q−1 ) y( k)
-
 B ∗ ( q−1)u( k
-
 − d) + C (q− )e(k) + D (q− )v(k − d)
-∗
-
-∗
-
-1
-
-1
-
 The identity (12.17) can be used here also and gives
 y( k + d)
-
-C∗
-B∗
-D∗
 e( k + d) + ∗ u( k) + ∗ v( k)
-A∗
-A
-A
-G∗
-B∗
-D∗
 F ∗ e( k + d) + ∗ e( k) + ∗ u( k) + ∗ v( k)
-A
-A
-A
-G ∗ A∗
-B∗
-D∗
 F ∗ e( k + d) + ∗
 y( k)
 u( k d)
 v( k
-A
-C∗
-C∗
-C∗
-B∗
-D∗
 + ∗ u( k) + ∗ v( k)
-A
-A
-G∗
-B∗
 F ∗ e( k + d) + ∗ y( k) + ∗ ∗ C ∗ q−d G ∗ u( k)
-C
-A C
-D∗
 + ∗ ∗ C ∗ q−d G ∗ v( k)
-A C
 ∗ e( k + d) + 1 ( G ∗ y( k) + B ∗ F ∗ u( k) + D ∗ F ∗ v( k))
-F
-C∗
-
-−
-
-− −
-
-− d)
-
-−
-
-−
-
 The minimum variance controller is thus
 u( k )
-
-− BGF
-∗
-
-∗
-
-∗
-
 y( k)
-
-−D
-B
-
-∗
-∗
-
 v( k)
-
 Problem 12.17
 A( q) y( k)
 A( q)
-
 B ( q)u( k) + C ( q) e( k)
-q
-
-− 0.9
-
 B ( q)
-
-q
-
 C ( q)
-
-q
-
-− 0.5
-
 LQG-Control: Minimize E ( y2 + ρ u2). Let P ( z) be the closed loop system characteristic equation (12.45)
 rP ( z) P ( z−1)
-
 ρ A( z) A( z−1) + B ( z) B ( z−1 )
-107
-
-P ( z) contains stable zeros of the right hand expression (Lemma 12.1)
-
+P ( z) contains stable zeros of the right hand expression (Lemma 12.1)
 − 0.9)(z− − 0.9) + 1 ⋅ 1
-1.81ρ + 1 − 0.9ρ z− − 0.9ρ z
-
 r( z + p1 )( z−1 + p1 )
-
 ρ (z
-
 r(1 + p2 ) + rp1 z + rp1 z−1
-1
-
-1
-
-1
-
 This gives the system of equations
-
-−0.9ρ
-
-rp1
 r(1 +
-
-1 + 1.81ρ
-
-p2 )
-1
-
 which has two solutions, one of which gives a stable P ( z)
-p1
-
-81
-− 1 +1.18.ρ ρ +
-
 (
-
-1 + 1.81ρ 2
-)
-1.8ρ
-
-−1
-
 Determine the LQG-regulator by means of pole placement:
-Am
-
 P ( z)
-
-z + p1
-
-Ao
-
 C ( z)
-
-z
-
 Control law:
 u( k )
-
-− 0.5
-
-S
 − R((q)) y(k)
-q
-
 where S (0) 0. See computational procedure in Section 12.5.
 The Diophantine equation to be solved is
-AR + B S
-
-PC
-or
-
 − 0.5) (z − 0.9)(z + r ) + zs
-p − 0.5 −0.9 + r + s
-−0.5p −0.9r
-
 ( z + p1 )( z
 This gives
-
-1
-
-1
-
-1
-
-1
-
-0
-
-0
-
-1
-
 The solution is given by
-r1
-
-5
-p1
-9
-
-s0
-
-0.4 +
-
-4
-p1
-9
-
 which results in the controller
 u( k )
-
-− q s+qr
-0
-
-1
-
 y( k)
-
 For the closed loop system we get
 y( k)
-or
 y( k)
-
-B
-C
 u( k ) +
 e( k)
-A
-A
-CR
 e( k)
-AR + B S
-
 Theorem 10.4 gives
 Var y
-108
-
-B
-A
-
-CR
 e( k)
-PC
-
-−
-−
-
-S
 − R y(k)
-R
 e( k)
-P
-
-1 + r2 2r1 p1
-1
-1 p2
-1
-
-+
-
-C
 e( k)
-A
-
-q + r1
 e( k)
-q + p1
-
-The input u is
+The input u is
 u( k )
-
-S
-S
 − R y(k) − R ⋅ R e(k) − S e(k) − q s+qp
-P
-P
-0
-
-1
-
 e( k)
-
 Theorem 10.4 gives
-s2
-0
-1 p2
-1
-
-−
-
 Var u
-
 In the following table the calculations are summarized for ρ
-
-ρ
-
-p1
-
-0.1
-1
-10
-
 Var y
-
-−0.077
-−0.36
-−0.70
-
 0.1 1 and 10.
-
 Var u
-
-1.0012
-0.135
-1.030 0.0658
-1.197 0.0148
-
 Problem 12.24
 From Example 12.16 we get a polynomial description of the process
 A( q) y( k)
 where
-
 B ( q)u( k) + C ( q) e( k)
-
-−1
-
 A( q)
-
-q
-
 B ( q)
-
-h
-
 C ( q)
-
-q+c
-
 The minimum variance regulator is given by the Diophantine
-AR + B S
-
-PC
 where
-
 q d−1 B ( q)
-
 P ( q)
-
-h
-
 The solution is
-r0
-
-h
-
-s0
-
-c+1
-
 and the minimum variance regulator is
-
 − c + 1 y(k)
-h
-
 u( k )
-In LQ
-12.16)
-
 − design we use a state-space description of the process (see Example
 x( kh + h) x( kh) + hu( kh) + v( kh + h) − v( kh)
 y( kh)
-
 x( kh) + ε ( kh)
-
 To obtain the LQ-controller we have to sample the loss function.
 From (11.6) - (11.8) we get
-h
-
-Q1
-
-1 ⋅ ds
-
-h
-
-s ⋅ ds
-
-h2
-2
-
-0
-h
-
-Q12
-0
-h
-
-Q2
-0
-
-s2 ⋅ ds
-
-h3
-3
-109
-
-The Riccati equation is
-
-−
-
+The Riccati equation is
 Φ T S Φ + Q1 LT ( Q2 + Γ T S Γ) L
 ( Q2 + Γ T S Γ)−1 (Γ T S Φ + Q12 )
-
-S
-L
 and the solution is
-
-S
-
-√h
-12
-
-L
-
-1 3+ 3
-h 2+ 3
-
-−p
-√
-1 3+ 3 √
-√ 3−2
-1− h
-h2+ 3
-
 The closed loop system has a pole in
-
-−p
-
-Φ
-
-1
-
-√
-√
-
-1
-
-− ΓL
-
 and
 P ( z)
-
-z + p1
-
 To get the regulator we solve the Diophantine (see p. 481)
-AR + B S
-
-PC
-
 ( q + p1 )( q + c )
-
 (q
-
 S (0)
-
 − 1)(q + r ) + hs q
-1
-
-0
-
-0
-
-r0
-
-−p c
-
-s0
-
-1
 ( p1 + c + 1 + p1 c )
-h
-
 which has the solution
-
 and thus
-
-1
-
-−
-
 u( k )
-
-1
 h ( p1
-
-+ c + 1 + p1 c ) q
 y( k)
-q p1 c
-
-−
-
 Problem 12.29
 The process is described by
-
 B ( z)
-
-− 1.4z + 0.65
-z − 0.2
-
 C ( z)
-
-z2 + 0.4z
-
 A( z)
-
 a.
-
-z2
-
 To get the minimum variance controller we use the identity
 A( z) F ( z) + G ( z)
-
-z2
-
-− 1.4z + 0.65 + g z + g
-0
-
 This gives
-
-u
-b.
-
-− 0.65
-− 1.8q−−00.2.65 y
-q
-
-− BGF y
-
 The dead-beat controller is obtained from the identity
 A( z) F ( z) + G ( z)
 which gives
-
 G ( z)
-u
-
-110
-
-z2 + 0.4z
-
-1.8z
-
 G ( z)
 The control law is
-
-1
-
 zd−1 C ( z)
-
-z2
-
-− 0.65
-− 1.4q−−00.2.65 y
-q
-
-1.4z
-
-c.
-
 Minimum variance control
-1 ⋅σ2
-
 var( y)
 Dead-beat control
-
-4
-
 (1 + 0.42 )σ 2
-
 var( y)
-
-4.64
-
 Problem 12.30
 a.
-
 Assume that C
-
 0 and use the identity
-AF + G
-
-C
 This gives
-
-1
-
-F
-
 −a
-
-G
 and the controller
-
-− BGF y
-
-u
-
 ay
-
 The closed loop system becomes
 y( k)
-
 e( k) + ce( k
-
-− 1)
-
 and the variance
 var( y)
-b.
-
 Assume that C ( z)
 is given by
-
-1 + c2
-
-ˆ
 z + c. The minimum variance controller for this model
-F
-
-1
-
-G
-
-ˆ
-c
-
 −a
-
 The closed loop system is now
-q+c
 e( k)
-ˆ
-q+c
-
 y( k)
-
 which has the variance, see Theorem 6.4
 var( y)
-
-−
-
-ˆ
 (1 + c 2 ) 2c c
-2
-ˆ
-1 c
-
-−
-
-ˆ
 It is better to use a guessed value c if
-ˆ
-0<c<
-
-2c
-1 + c2
-
 Problem 12.31
 The C polynomial has a pole outside the unit circle. Replace C by a new polynomial obtained from spectral factorization
 C ( z) C ( z−1)
-
 (z
-
 − 1.25)(z− − 1.25)
-1
-
 The new process is
 y( k)
-
 1.252 ( z
-
 − 0.8)(z− − 0.8)
-1
-
-−
-
-q2 0.8q
 ε ( k)
-q2 1.1q + 0.3
-
-−
-
 where ε has the standard deviation 1.25.
-111
-
-a.
-
+a.
 The 2-step ahead predictor is given by
 zm−1 C ( z)
 z( z
-
-2
-
 A( z) F ( z) + G ( z)
-
-− 0.8z)
-
 ( z2
-
 − 1.1z + 0.3)(z + f ) + g z + g
-1
-
-0
-
-1
-
 which gives
 F ( z)
-
-z + 0.3
-
 G ( z)
-
-0.03z
-
 and
-
-−
-
 0.03( q 3)
 y( k)
-q 0.8
-
 qG ( q)
 y( k)
 C ( q)
-
-ˆ
 y ( k + 2 k)
-b.
-
-− 0.09
-−
-
 The prediction error variance is
 1.252(1 + 0.32 )
-
-˜
-Ey
-
-1.70
-
 Problem 12.32
 a.
-
-d
-
 2. This gives the identity
 zC ( z)
-
 where deg F
 z3 ( z
-
 1 and deg G
-
-− 0.1)
-
 ( z3
-
 The solution is
-
 A( z) F ( z) + G ( z)
-
 2, i.e.,
-
 − 1.7z + 0.8z − 0.1)(z + f ) + g z
-2
-
-1
-
 F ( z)
-
-1.92z2
-
-2
-
-+ g1 z + g2
-
-z + 1.6
-
 G ( z)
-
-0
-
-− 1.18z + 0.16
-
 and the controller is
 u( k )
-
-18q
 − BGF y(k) − 1.292q−−.1.)(q ++106.16 y(k)
 (q 0 9
-. )
-2
-
-b.
-
 The output variance when using the minimum variance controller in a. is
 given by
-2
-1 + 1.62 3.56
 var( y) 1 + f 1
-
-c.
-
 Since B ( z) has a root outside the unit circle we use the procedure in Theorem
 12.3. Factor B ( z) as
 B ( z) B + ( z) B − ( z)
-
 with B −∗ ( q) monic, so
-
 B + ( z)
 B − ( z)
-
-−2
-−0.9q + 1
-
 The Diophantine to solve is
 q d−1 C ( q) B −∗( q)
 q3 ( q
-
 − 0.1)(q − 0.9)
-
 A( q) F ( q) + B − ( z) G ( q)
-
 − 1.7q + 0.8q − 0.1)( f q + f q + f )
 + (−0.9q + 1)( g q + g q + g )
-
 ( q3
-
-2
-
-0
-
-0
-
-112
-
-2
-
-1
-
-2
-
-1
-
-2
-
-2
-
-This gives the system of equations
-f0
-
-1
-
-−1 −1.7 f + f
-0.8 f − 1.7 f + f + 1.8g
-0 −0.1 f + 0.8 f − 1.7 f − 2g + 1.8g
-0 −0.1 f + 0.8 f − 2g + 1.8g
-0 −0.1 f − 2g
-0
-
-0.09
-
-1
-
-0
-
-1
-
-2
-
-0
-
-1
-
-1
-
-0
-
-2
-
-2
-
-2
-
-0
-
-1
-
-1
-
-2
-
-2
-
+This gives the system of equations
 which has the solution
-f0
-
-1.000
-
-f1
-
-0.700
-
-f2
-
-2.721
-
-g0
-
-2.490
-
-−1.862
-
-g1
-
-0.272
-
-g2
 Equation (12.31) gives
 u( k )
-
-−B
-
 G ( q)
 + ( q) F ( q)
-
-+0
-−
 − −1.245q 0.7q.931q7210.136 y(k)
-q +
-+ 2.
-2
-
 y( k)
-
-2
-
 The closed loop system is
 Ay( k)
-
 Bu( k) + C e( k)
-B
-− GF
-
-or
 y( k)
-
-−
-
 − BGF y(k)
-
-B
-
-+
-
 + C e( k)
-
 y( k) + C e( k)
-
-CF
-CF
 − e(k) qd−1C B −∗ e(k)
-AF + G B
-q2 + 0.7q + 2.721
 e( k)
 q( q 0.9)
-
-F
-
-− −
-
-qd 1 B ∗
-
 e( k)
-
-−
-
 Theorem 10.4 gives the output variance
 Var y
-
-94.7
-
 Problem 12.33
 y( k)
-
-−
-
-0.9q + 1
 q( q 0.7)
 u( k ) +
 e( k)
 ( q 1)( q 0.7)
 ( q 1)( q 0.7)
-
-−
-
-−
-
-−
-
-−
-
 Determine the controller from
-AR + B S
-
 (q
-
-q d−1 C
-
 − 1)(q − 0.7)(q + r ) + (0.9q + 1)(s q + s )
-1
-
-0
-
-1
-
 q2 ( q
-
-− 0.7)
-
 This gives the system of equations
-
-−1.7 + r
-
-0.7
-
-− 1.7r
-
-1
-
-1
-
-+ 0.9s0
-
-−0.7
-
-+ 0.9s1 + s0
-
-0
-
-0.7r1 + s1
-
-0
-113
-
-with the solution
-r1
-
-0.526
-
-s0
-
-0.526
-
-s1
+with the solution
 y( k)
-
-CR
 e( k)
-AR + B S
 var y( k)
-
-−0.368
-CR
-qC
-
 (1 + 0.526q−1) e( k)
-
 (1 + 0.5262)σ 2
-
-1.27σ 2
-
 Compare to Example 12.9 p. 468
 var y( k)
-
-114
-
-20 2
-σ
-19
-
-1.053σ 2
-
-

@@ -1,0 +1,88 @@
+Adaptive and Predictive Control (APC)
+Dr. Stefan Sosnowski / Denis Cehaji´
+Problem 1: MRAC for adaptation of a PD controller using MIT rule
+a) The closed-loop transfer function is given by
+c(Kp +K s)
+(Kp + Kd s)
+Y (s)
+G(s) =
+Uc (s)
+1 + Js (Kp + Kd s)
+b) According to the MIT rule, the reference model should have the same form as the closed-loop
+transfer function, hence, we choose the general reference model
+Gm (s) =
+α(s + β)
+with β > 0 (stable zero).
+c) The update rule for Kp is motivated from minimization of 1 e2 by error e = y − ym . Applying the
+MIT rule yields the update rule for the parameter Kp as
+∂e
+= −γe
+First, let us evaluate
+[ the partial derivative ]
+\todo{Is the derivative of the denumerator (the term after the - )correct? To my mind there is a factor of $K_p$ too much}
+
+In the above expression of ∂Kp , we can replace the second part of the fraction for Uc (s) from the closed-loop transfer function G(s)
+∂e
+Uc (s) −
+Y (s)
+Then, replacing derived
+∂e
+to the above expression of
+= −γe(
+= −γ e(
+≈ −γ e
+(uc − y)
+The last step is an approximation which has to been made because the plant parameters J and c
+are unknown and the adaptive update rule cannot be implemented with unknown parameters. An
+approximation, which is valid when the parameters are close to their ideal values, is to choose the
+unknown numerator as the numerator of the reference model. Note that J and c also show up in
+the denominator, but are hidden in the adaptive gain γ . Finally, this leads to
+(uc − y)
+Kp = − e
+d) The block diagram for the adaptation of Kp :
+Gm (s)
+Gp (s)
+Problem 2: Adaptive controller derivation using Lyapunov theory
+a) The ideal choice of u would be
+am − ap
+to achieve the desired reference behavior
+am − ap
+= am x p + b m r .
+xp = ap xp + bp λ(
+Since λ is unknown θx and θr are unknown as well, which means that they are estimated initially
+and then adjusted according to the adaptive law. Therefore,
+u = θx (t)xp + θr (t)r
+Again, replacing the control input u to the plant dynamics xp results in
+xp = ap xp + bp λ ((θx (t) − θx + θx ) xp + (θr (t) − θr + θr ) r)
+am − ap
+= ap x p + b p λ
+r + bp λ(θx xp + θr r)
+= am xp + bm r + bp λ(θx xp + θr r) ,
+where θx = θx (t) − θx and θr = θr (t) − θr .
+Deﬁning error e = xp − xm , we obtain the expression of error dynamics as
+e = am e + bp λ(θx xp + θr r)
+In order to construct a parameter adjustment mechanism, we ﬁrstly propose a Lyapunov function.
+Consider a Lyapunov function candidate: V (e, θx , θr ) = e2 + bp |λ|θ2 + bp |λ|θ2 .
+The above Lyapunov function candidate V (e, θx , θr ) is in quadratic form and it is positive deﬁnite
+V (e, θ
+For the function to qualify as a Lyapunov function, its derivative has to be negative. Therefore, the
+derivative of V (e, θx , θr ) has to be found
+V (e, θx , θr ) = 2ee + 2bp |λ|(θx θx + θr θr )
+= 2am e2 + 2θx (bp λexp + bp |λ|θx ) + 2θr (bp λer + bp |λ|θr )
+= 2am e2
+where e is replaced with the previously obtained expression of error dynamics [ error equation ].
+Setting
+θx = −sgn(λ)exp
+θr = −sgn(λ)er
+\todo{So are we free to choose $\dot{\tilde{\theta}}_x$, $\dot{\tilde{\theta}}_y$}
+and V (e, θx , θr ) is negative semi-deﬁnite (V ≤ 0),
+[ $a_m < 0$ ! ]
+since it is independent of θx and θr , and thus Lyapunov stable.
+
+b) Introducing gains γx and γr the Lyapunov function and its time derivative are
+V = e2 +
+V = 2am e2 + 2θx (bp λexp +
+θx ) + 2θr (bp λer +
+= 2am e
+θ = −γ sgn(λ)ex
+θx = −γr sgn(λ)er

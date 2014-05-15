@@ -6,22 +6,31 @@ In the following, adaptation for an ideal PD controller
 will be discussed using the Model Reference Adaptive Control (MRAC) scheme. Therefore consider a process with transfer function and unknown parameter J. This describes e.g. a robot arm with unknown load J and current to torque constant c, where the motor current is the input and the angular velocity is the output.  
 
 a) Determine the closed-loop transfer function G(s).
-[ Replace $U(s)$ in the first equation ]
+[ In pole zero representation _v('140514181624') ]
 
-b) Choose a reference model Gm (s) with time constant T = 0.1 and stable zero.
+
+b) Choose a reference model Gm (s) with time constant $T$ = 0.1 and stable zero.
+[ For a time a first order system $G(s) = \frac{a (s + b)}{s + c}$ the time constant is $T = 0$ ]
+
 c) Derive the update formula for Kp using the MIT rule.
+_cf('140514182657')
+
 d) Sketch a block diagram for the adaptation of Kp .
+
 Problem 2: Adaptive Controller Derivation using Lyapunov Theory
 Consider the given plant model
 x˙ p = ap xp + bp λu
 where ap , bp are known and λ = 0 is unknown except for its sign.
-a) Design an adaptive controller via a Lyapunov function approach, such that the plant system behaves
-like the reference model
+
+a) Design an adaptive controller via a Lyapunov function approach, such that the plant system behaves like the reference model
 x˙ m = am xm + bm r
 where am < 0 and r is the reference input.
+_cf('140515111119')
+[ First determine an expression for the optimal parameters $\theta^*$ ]
+[ then state the plant dynamics as functions of $\tilde{\theta} = \theta(t) - \theta^*$ ] 
 b) Extend the previously developed controller, such that some gains γx and γr can be used to adjust
 the rate of convergence of the parameter vectors θx (t) and θr (t).
-Problem 3: Lyapunov for State Space Systems
+Problem 3: Lyapunov for State Space Systems
 Consider the nonlinear plant model
 x˙ 2 = ax21 + bx2 + u
 (1)
@@ -42,3 +51,4 @@ b) Transfer the differential equations in state space representation with matric
 c) Find the elements of P , such that ATm P + P Am = −Q with Q = I in this case.
 d) Determine the update rules for the parameters k1 and k2 , so that e1 approaches zero, by choosing
 an appropriate Lyapunov function containing the weighting matrix P .
+

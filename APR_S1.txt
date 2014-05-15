@@ -53,8 +53,7 @@ V (θ, k) = (Y T Y − Y T Φθ − θT ΦT Y + θT ΦT Φθ)
 = (Y Y − 2Y T Φθ + θT ΦT Φθ)
 2
 A minimum is reached when gradθ V (θ, k) is zero. Taking the derivative of V along θ
-140503201539
-cf. 140426153116 140426152848
+[_cf('140503201539'), _cf('140426153116', _cf('140426152848') ]
 [ \psi^T \psi is symmetric ]
 and setting the RHS to zero
 
