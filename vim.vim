@@ -1,2 +1,2 @@
 " delete all lines not containing text
-v/a\|e\|\$\|(/d
+v/a\|e\|i\|\o\|\$\|(/d

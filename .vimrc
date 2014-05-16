@@ -83,9 +83,9 @@ function! Filter(pattern)
 endfunction
 
 " leader maps
-nnoremap <silent> <leader>d "=strftime("_t('%y%m%d%H%M%S')")<CR>Phhviw"+yy0
-map 	 <leader>gf :split <cfile><cr>
-nmap     <leader>a :call GitGrepWord()<CR><CR>
+nnoremap <silent> <leader>d "=strftime("[ _to('%y%m%d%H%M%S') ]")<CR>Phhviw"+yy0
+map 	 <silent> <leader>gf :split <cfile><cr>
+nmap     <silent> <leader>a :call GitGrepWord()<CR><CR>
 nmap     <silent> <Leader>x :! start "1" "%:p:r.pdf"<CR>
 nnoremap <silent> <Leader>f :call Filter(input("Search for: "))<CR>
 nnoremap <silent> <Leader>F :call Filter(@/)<CR>
