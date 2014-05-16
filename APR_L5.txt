@@ -1,0 +1,940 @@
+Passivity
+Ott Christian
+Institute of Robotics and Mechatronics
+German Aerospace Center (DLR)
+http://www.robotic.dlr.de/Christian.Ott
+These slides are based on [1] and the (German) lecture notes of Univ. Prof. Andreas Kugi, 
+Chair of System Theory and Automatic Control, Saarland University.
+
+Overview
+
+Introduction
+The concepts of dissipative systems and passivity
+Properties of passive systems
+The relation between passivity and Lyapunov stability
+Euler‐Lagrange systems and Hamiltonian systems
+Linear passive systems & positive real systems
+Relation to adaptive control
+Literature
+
+Introduction
+Loosely speaking, the concept of passivity allows to generalize the principle of energy 
+conservation of closed physical systems: For a closed physical system the change of 
+energy is zero, i.e. energy cannot be generated or annihilated by the system itself.
+The theoretical concept of passivity, however, is more general and must not be always 
+related to physical energy.  
+Still this analogy is very useful for understanding the theoretical concepts. 
+Consequently, we will start with a simple mechatronical system which shall serve as an 
+example plant throughout this lecture.
+
+Simple electro‐magnetic Valve (1/2)
+
+
+Mounting
+
+Coil with N windings
+
+
+
+
+
+Fext
+
+
+
+
+Model Assumptions:
+• Magnetic resistance of the mounting and the moving part are neglected.
+• Geometric assumptions: h  D
+
+  h
+• The magnetic permeability of the air and of the sliding gap are given by
+
+0  4 107 VsA 1m 1
+
+Simple electro‐magnetic Valve (2/2)
+V  pin  pout  pdiss
+
+1 L( z ) 2
+Vmag 
+2 z
+z
+Vmag  L( z ) I 2
+ 0 N 2 D 2 ( D   )b
+L( z ) 
+4(h  z )( D   )b  D 2
+Fmag 
+
+zv
+v  Fmag  cz  dv  Fext 
+L( z ) 
+1 
+Iv 
+I
+U  RI 
+z
+L( z ) 
+x  ( z , v, I )
+u  (U , Fext )
+
+
+
+
+
+
+
+Fext
+
+
+
+
+
+
+V
+
+
+L( z ) I 2  mv 2  cz 2
+
+
+
+
+V  UI  Fext v  dv 2  RI 2
+ 
+   
+ 
+pin  pout
+pdiss
+
+
+V ( x(t ))  V ( x(0))   s (U , Fext , I , v)d
+
+s (U , Fext , I , v)  UI  Fext v
+
+Dissipative Systems (1/3)
+Generic time‐invariant nonlinear system： x  f ( x, u )
+y  h ( x, u )
+
+x  X  n
+
+u U  m
+y Y   p
+
+Based on the input and output, we can introduce the so‐called supply rate
+
+s (u , y ) : U Y  ,
+which is a real‐valued function.
+Definition: The system (1)  is said to be dissipative with respect to the supply rate 
+s(u,y), if there exists a non‐negative function 
+
+S ( x) : X  ,
+
+called the storage function, such that the so‐called dissipation inequality
+
+S ( x)  S ( x(0))   s (u ( ), y ( ))d
+
+is fulfilled for all initial values x(0), all input signals u(t) , and all times t 0. If
+
+S ( x)  S ( x(0))   s (u ( ), y ( ))d
+
+holds, the system is said to be lossless with respect to  s.
+
+Dissipative Systems (2/3)
+Interpretation: The  dissipation inequality expresses the fact that the “energy” S of the 
+system at any time is at most equal to the sum of the initial “energy” S(x(0)) and the
+supplied external “energy” 0 s (u ( ), y ( ))d .
+
+
+How much “energy” can we extract from the system via s?
+The available storage is given by S a ( x(0)) : sup 
+
+s (u ( ), y ( ))d .
+0
+uU 
+
+t 0
+
+Theorem: The system (1) is dissipative with respect to s if and only if the available 
+storage is finite S a ( x (0))   x(0)  X .
+In that case the available storage is a lower bound for all possible storage functions S, 
+and the inequality 
+
+0  S a ( x)  S ( x)
+
+holds.
+Proof: see [1].
+
+x  X
+
+Dissipative Systems (3/3)
+If the storage function is continuously differentiable with respect to x, then the 
+dissipation inequality
+
+S ( x)  S ( x(0))   s (u ( ), y ( ))d
+
+is equivalent to the differential dissipation inequality
+S ( x)  s (u (t ), y (t )), t  0
+which often is much easier to check.
+Remark: If a function S(x) fulfills the dissipation inequality and is bounded from below 
+by some finite negative value 
+S ( x)   ,
+then the non‐negative function S(x)‐ can be used as a storage function. Thus, it is 
+sufficient to show that S(x) is bounded from below.
+Example: The electro‐magnetic valve is dissipative with respect to the supply rate
+
+s (U , Fext , I , v)  UI  Fext v
+where the inputs and outputs are assigned as  u  (U , Fext ),
+
+y  ( I , v)
+
+Passivity (1/2)
+Passivity can be seen as a special case of dissipativity. Let us again consider a general 
+time‐invariant nonlinear system of the form
+
+x  f ( x, u )
+y  h ( x, u )
+
+x  X  n
+
+( 2)
+
+u U  m
+y  Y  m
+
+but now with the number of inputs and outputs equal, i.e. m=p.
+
+Definition: The system (2)  is said to be passive if it is dissipative with respect to the 
+supply rate
+s (u , y )  y T u.
+It is strictly input passive if there exists a >0 such that it is dissipative with respect to
+
+s (u , y )  y T u   || u ||2
+It is strictly output passive if there exists a >0 such that it is dissipative with respect to
+
+s (u , y )  y T u   || y ||2
+A lossless passive system is also called conservative.
+
+Passivity (2/2)
+Physical Interpretation: If the product           represents a physical power and S(x) is the 
+yT u
+physical energy stored in the system, then the passivity inequality
+
+S ( x)  S ( x(0))   y T ud
+
+means that the increase of the system’s energy is smaller or equal than the energy 
+supplied via the input.
+Example: The electro‐magnetic valve is passive with respect to the inputs and 
+outputs
+u  (U , Fext ), y  ( I , v)
+Moreover, from 
+
+pdiss  dv 2  RI 2
+
+one can see that it is even strictly output passive.
+Examples of passive systems:
+• Integrator with the state space representation x  u , y  x
+• Nonlinear mass‐spring‐damper like systems of the form
+
+m  d ( x) x  k ( x)  u, k ( x)  V ( x) / x
+y  x, d ( x)  0, V ( x)  0x  
+
+Properties of Passive Systems (1/3)
+Interconnection Properties of Passive Systems:
+A)The parallel interconnection of passive systems results in a passive system again.
+B)The feedback interconnection of passive systems results in a passive system again.
+C)The series interconnection of two passive systems in general is not passive. If the  
+connecting element, however, is “energy conserving” (see figure below), i.e. if it   
+fulfills the condition
+
+ y
+
+
+
+u I  y2 y I d  0,
+
+then this series interconnection is also passive. Remark: This property indeed is 
+utilized in some passivity based controller design methods.
+
+S1 ( x1 )  S1 ( x1 (0))   y1 u1d
+
+A) Parallel Interconnection
+
+
+u1  u
+
+u2  u
+
+Passive 
+System 1
+Passive 
+System 2
+
+
+y  y1  y2
+
+S 2 ( x2 )  S 2 ( x2 (0))   y2 u2 d
+
+
+S1 ( x1 )  S 2 ( x2 )  S1 ( x1 (0)  S 2 ( x2 (0))   ( y1  y2 ) ud
+ 
+ 
+0 
+S ( x1 , x 2 )
+
+
+
+Properties of Passive Systems (2/3)
+e1 , e2 
+B) Feedback Interconnection, input:                , output:  y1 , y2 
+
+
+
+Passive 
+System 1
+
+S1 ( x1 )  S1 ( x1 (0))   y1 u1d
+
+
+
+S 2 ( x2 )  S 2 ( x2 (0))   y2 u2 d
+
+u1   y2  e1
+u 2  y1  e2
+
+Passive 
+System 2
+
+S1 ( x1 )  y1 u1   y1 y2  y1 e1
+S ( x )  yT u  yT y  yT e
+
+
+
+
+
+
+
+
+
+
+S1 ( x1 )  S 2 ( x2 )  y1 e1  y2 e2
+
+Properties of Passive Systems (2/3)
+C) Power conserving interconnection, in which the connecting element fulfills the condition
+
+ y u
+
+
+Passive 
+System 1
+
+
+
+
+
+u1  u I  e1
+u 2  y I  e2
+
+
+
+ y2 y I d  0,
+
+
+Power‐
+conserving
+interconnection
+
+
+Passive 
+System 2
+
+S1 ( x1 )  y1 u1  y1 u I  y1 e1
+S ( x )  yT u  yT y  yT e
+
+
+
+
+
+
+
+
+
+S1 ( x1 )  S 2 ( x2 )  ( y1 u I  y2 y I )  y1 e1  y2 e2
+ 
+ ()  0
+
+Typically, system 1 can be a passive plant and system 2 a passive controller. As an 
+connecting element one can choose a system of the form
+
+u I   0
+ y     C ( x )T
+ I 
+
+C ( x)  y1 
+where C(x) can be freely chosen so far.
+0   y2 
+ 
+
+Lyapunov Stability: A Short Review
+Consider the autonomous system x  f (x)
+
+
+x  X  n
+
+Definition: An equilibrium point x=0 of (*) is said to be …
+• stable, if for each >0 there exists a () such that
+
+|| x(0) ||   || x(t ) ||  t  0
+• attractive,  if there exists an r>0 such that
+
+|| x(0) || r  lim || x(t ) || 0
+t 
+
+• asymptotically stable, if it is stable and attractive.
+• globally asymptotically stable, if it is asymptotically stable and its region of
+attraction is the whole state space.
+Theorem: Let x=0 be an equilibrium point of (*). Let V(x) be a continuously 
+differentiable positive definite function V (0)  0, V ( x)  0, x  0
+which fulfills 
+V ( x) 
+
+V ( x)  
+ f ( x)  0, x  X
+ x 
+then the equilibrium point is stable. If moreover V ( x)  0, x  X
+then it is asymptotically stable. 
+
+Passivity & Lyapunov Stability (1/2)
+x  X  n
+x  f ( x, u )
+y  h ( x, u )
+
+( 2)
+
+u U  m
+y  Y  m
+
+Theorem: Suppose the system (2) is passive with a continuously differentiable storage 
+function S(x) and assume that the point x=0 is an equilibrium of the unforced system 
+(2) with u=0. If the function S(x) is positive definite at the point x=0, then this point is a 
+stable equilibrium of the unforced system
+
+x  f (x,0),
+
+and the function S(x)‐S(0) is a Lyapunov function.
+Remark: For asymptotical stability one may refer to La Salle’s invariance principle.
+Two properties which are often used in the literature and which are useful for proving 
+asymptotic stability in case of strict output passivity are given in the following definition.
+Definitions: 
+lim x  0
+• If for the system (2) u=0 and y=0 for all t>0 implies                      then the system is said 
+t 
+to be zero‐state detectable.
+• If for the system (2) u=0 and y=0 for all t>0 implies x=0 for all t>0 then the system is  
+said to be zero‐state observable
+
+Passivity & Lyapunov Stability (2/2)
+x  f ( x, u )
+y  h( x )
+
+x  X  n
+u U  m
+y  Y  m
+
+A simple controller: Consider the above system with the storage function S(x).
+
+S ( x)  y T u
+If the system is passive but not strict output passive, then one obvious way to make the 
+system strict output passive is to apply a static output feedback
+
+u  ky  v, k  0
+
+with v as a new input. Then the closed loop system satisfies 
+
+S ( x)  y T v  k || y ||2 .
+Stability properties:
+Assume that the storage function is positive definite and that the system is zero‐state 
+u  ky
+detectable, then the feedback                  asymptotically stabilizes the system. 
+
+Euler Lagrange Systems (1/6)
+Let us consider a Lagrangian system with generalized coordinates q  (q )  
+and generalized velocities v  q.
+For simple Lagrangian systems, the Lagrange function L(q,v) is given by the difference 
+of kinetic and potential energy
+
+L(q, v)  T (q, v)  V (q ).
+The equations of motion can be computed by the Euler‐Lagrange equations
+
+d  L( q, v)  L( q, v)
+ Qk
+
+dt  v k 
+q k
+
+k  1,..., n.
+
+Let us assume that the Lagrangian function is non‐degenerated, i.e. the matrix
+
+ 2
+ i j L ( q, v ) 
+ v v
+is regular (non‐singular).
+Example (Robot Manipulator):  T (q, v) 
+
+v M (q )v.
+
+• The inertia matrix M(q) is symmetric and positive definite
+• The potential function V(q) corresponds to the gravity potential.
+
+
+Euler Lagrange Systems (2/6)
+Using the generalized impulse coordinates
+
+L(q, v)
+p 
+v k
+
+k  1,..., n.
+
+and the Legendre‐Transformation
+
+(q k , v k )  (q k , p k )
+one can compute the Hamiltonian equations
+
+d k H (q, p )
+q 
+p k
+H (q, p )
+p 
+ Qk ,
+q k
+
+k  1,..., n.
+
+with the Hamilton function
+
+H (q, p )   p k v k  L(q, v).
+k 1
+
+Euler Lagrange Systems (3/6)
+
+H (q, p )   p k v k  L(q, v).
+k 1
+
+Example (Robot Manipulator):
+
+T ( q, v ) 
+
+v M (q )v.
+
+L(q, v)  T (q, v)  V (q )  v M (q )v  V (q ).
+p
+
+L(q, v)
+ M ( q )v
+v
+
+1
+H (q, p )  vT M (q )v   vT M (q )v  V (q ) .
+2
+ v T M ( q )v  V ( q )
+For the robot manipulator the Hamiltonian function corresponds to the robots energy.
+
+Euler Lagrange Systems (4/6)
+On the relation between the Euler‐Lagrange equations and the Hamiltonian equations:
+
+H (q, p )   p k v k  L(q, v).
+k 1
+
+
+p 
+ n
+j 
+L(q, v) v 
+H (q, p )
+v
+ vk  qk
+ v   p j k 
+ j 1 p
+v j p k 
+p k
+ n
+H (q, p ) 
+v j L(q, v) v j  L(q, p )
+d  L(q, v) 
+
+ Qk  
+  pj k 
+Q  p
+q k
+q k
+dt  v k 
+ j 1 q v  q k 
+ 
+
+d  L(q, v)  L(q, v)
+ Qk
+
+dt  v k 
+q k
+
+Euler Lagrange Systems (5/6)
+Passivity considerations:
+
+d k H (q, p )
+q 
+p k
+H (q, p )
+ Qk ,
+p 
+q k
+
+k  1,..., n.
+
+Time derivative of the Hamilton function:
+
+H (q, p )
+H (q, p )
+q
+H ( q, p ) 
+q
+p
+H (q, p ) H (q, p ) H (q, p ) H (q, p ) H (q, p )
+p
+q
+p
+p
+q
+H (q, p )
+Q  vT Q
+p
+From this one can see that the Euler‐Lagrange system is passive with respect to the 
+input Q and the output v with the H(q,p) as the corresponding storage function. In this 
+context it is also said that v is the collocated output with respect to the input Q.
+
+Euler Lagrange Systems (6/6)
+Let us assume that the generalized forces Q consist of some external control inputs
+
+
+
+and some dissipative forces Qd   R (v) 
+ v
+Q  Qe  Qd .
+
+
+The dissipative forces are described by the Rayleigh’s dissipation function R(v) which 
+fulfills
+
+v
+
+R ( v ) v  0.
+
+Definition: If the Rayleight’s dissipation function fulfills the inequality
+R (v )v    k v k ,
+v
+k 1
+
+ 
+
+ k  0, k  1,..., n.
+
+Then the Lagrangian system is said to be fully damped.
+From this it can easily be verified that a fully damped Euler‐Lagrange system is output 
+passive with respect to the input    e and the output v with the H(q,p) as the 
+corresponding storage function. 
+
+Linear Passive Systems (1/3)
+Consider a time‐invariant linear SISO (single input single output) system in state space 
+form
+x  Ax  bu
+
+y  c T x  du
+or equivalently its transfer function
+
+G (s) 
+
+y(s)
+1
+ c T sE  A b  d
+u (s)
+
+Theorem: The strictly stable linear SISO system (*) is
+• passive if and only if ReG ( j )   0 
+• input passive if and only if 
+
+  0 : ReG ( j )     0
+
+
+
+• output passive if and only if
+
+ReG ( j )    | G ( j ) |2  0
+
+
+
+Notice that with this theorem passivity of linear SISO systems can easily be checked by 
+examining the Nyquist plot of the transfer function.
+
+Linear Passive Systems (2/3)
+
+
+
+yud  0
+
+ yu  u d  0
+ yu  y d  0
+
+
+
+
+
+
+x(t ), u (t ), y (t )  L2 (, )
+Fourier transformation: x ( ) 
+
+
+
+
+
+x(t ) exp(  jt )dt
+
+ˆ ˆ
+Parceval’s theorem:  x (t ) y (t )dt  x, y  x, y 
+
+2
+It is assumed that all signals are causal: u (t )  0, y (t )  0
+ u (t ) t  T
+Let us define the operator ()T : uT (t )  
+t T
+0
+
+
+
+
+
+x( ) y * ( ) d
+
+t0
+
+Linear Passive Systems (3/3)
+
+
+
+
+u (t ) y (t ) dt   uT (t ) y (t )dt 
+
+
+2
+
+
+
+
+
+uT ( ) y * ( )dt
+
+y ( )  G ( j )u ( )
+
+
+
+
+2
+2
+2
+
+u (t ) y (t )dt 
+
+
+
+
+
+G * ( j )u * ( )uT ( ) d
+
+ReG ( j )   j ImG ( j )  | uT ( ) |2 d
+
+
+
+
+
+
+ReG ( j )  | uT ( ) |2 d
+
+Equivalence of the passivity definition and the statement of the theorem:
+
+  0 : ReG ( j )     0
+
+
+
+
+
+u (t ) y (t )dt   u (t )dt
+
+
+
+u (t ) y (t ) dt 
+2
+
+
+
+
+2
+
+Parceval
+
+
+
+
+
+
+
+
+ Re(G ( j ))    | u
+-
+
+
+| uT ( ) | d    u 2 (t ) dt
+
+
+( ) |2 d  0
+
+Positive Real Systems (1/4)
+For linear systems instead of passivity the notion of positive real systems is often used. 
+Definition: A transfer function is positive real (PR) if and only if
+
+ReG(s)  0
+
+s : Re(s)  0
+
+G( s   )
+ 0
+If                   is positive real for a             then G(s) is said to be strictly positive real (SPR).
+Relation between passivity and positive real systems:
+A linear SISO system is passive if and only if its transfer function is positive real. 
+
+Example:
+
+G( s) 
+
+s
+
+ 0
+
+Using s    j one gets
+
+G( s) 
+
+    j
+  j   (   ) 2   2
+
+from which one can see that the transfer function is strictly positive real.
+
+Positive Real Systems (2/4)
+Theorem: A transfer function G(s) is positive real if and only if
+1. G(s) has no poles     with Resi   0
+j
+2. ReG ( j )   0 for all      for which         is not a pole of G(s) 
+si  ji
+3. all poles of the form                  are distinct. For finite i
+the limit
+lim ( s  j )G ( s )
+s i
+
+
+i
+must be positive and real. For infinite       the limit
+G ( j )
+ 
+j
+
+must be positive and real.
+Some simple necessary conditions for SPR:
+• G(s) must be strictly stable.
+• The Nyquist plot of G(s) lies entirely in the right half complex plane.
+• G(s) has relative degree 0 or 1.
+• G(s) is strictly minimum‐phase (i.e. all zeros are strictly in the left half plane).
+
+Positive Real Systems (3/4)
+Let us look at the relation between stability and passivity in the linear case:
+
+x  Ax
+Review: For any strictly stable linear system of the form               one has:
+Q  Q T  0
+V ( x) 
+
+x Px
+
+P  P T  0 : AT P  PA  Q
+
+
+
+
+
+V ( x )  x T Px  x T Px  x T AT Px  x T PAx   x T Qx
+
+Let us consider a linear system of the form
+
+x  Ax  bu
+
+
+y  cT x
+with a Hurwitz matrix A (i.e. the free system shall be strictly stable)
+
+x Px
+V ( x )  x T Pbu  x T Qx
+c  Pb
+V ( x )  yu 
+In case of                 one gets                              x T Qx and thus a passive system.
+V ( x) 
+
+Notice: For a given system of the form (*) with fixed inputs (i.e. for fixed b) one thus 
+c  Pb
+can find an infinity of outputs via                for which the linear system is passive!
+
+Positive Real Systems (4/4)
+Kalman‐Yakubovich Lemma: Consider a controllable linear time‐invariant system of 
+the form
+
+x  Ax  bu
+y  cT x
+
+The transfer function  G ( s )  c T ( sE  A) 1 b
+is strictly positive real if and only if there exist symmetric and positive definite matrices 
+P and Q such that
+
+AT P  AP  Q
+Pb  c
+
+Many variations of this lemma (for PR and SPR) exist in the literature. Sometimes it is 
+also called the “positive real lemma”. It gives a connection between state space 
+representations, transfer functions, and positive realness of linear systems. Also, 
+extensions to MIMO systems can be found in the literature.
+
+Relation to Adaptive Control
+Lemma: Consider two signals                 and                      related to the dynamical system
+e (t )  
+ (t )   m
+
+e(t )  G ( s )( (t )T  (t ))
+G(s)
+ (t )   n
+where            is a strictly positive real transfer function, and                    is a measurable 
+ (t )
+vector. If the vector         varies according to
+
+(t )   (t )e(t )
+with a positive constant            , then         and          are globally bounded. Furthermore, 
+e (t )
+ (t )
+ 0
+ (t )
+if          is bounded, then
+e(t )  0 as t  
+Applications: Output feedback adaptive control
+Derivation of modified parameter update laws (as passive mappings)
+Example:
+
+Literature
+[1] Van der Schaft A., L2‐Gain and Passivity Techniques in Nonlinear Control, 
+Springer, London, 2nd Ed., 1999.
+[2] Slotine E., Li W., Applied Nonlinear Control, Prentice Hall, 1991.
+[3] Sepulchre R., Jancovic M., Kokotovic P., Constructive Nonlinear Control, 
+Springer, London, 1997.
+
