@@ -1,0 +1,5 @@
+_v('140514094507')
+This algorithm is called value iteration. It can be written as a particularly simple backup operation that combines the
+policy improvement and truncated policy evaluation steps:
+$v_{k+1} = \ldots$ (4.10)
+For arbitrary v0 , the sequence {vk } can be shown to converge to v∗ under the same conditions that guarantee the existence of v∗ .

@@ -1,0 +1,2 @@
+Recall that a policy, $\pi$, is a mapping from each state, s ∈ S, and action, a ∈ A(s), to the probability π(a|s) of taking action a when in state s. Informally, the value of a state s under a policy π, denoted vπ (s), is the expected return when starting in s and following π thereafter. For MDPs, we can deﬁne $v_{\pi}(s)$ formally as
+vπ (s) = Eπ[Gt | St = s] = Eπ (3.8)

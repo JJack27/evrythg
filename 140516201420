@@ -1,0 +1,9 @@
+Markov Reward Process
+A Markov reward process is a Markov chain with values.
+Deﬁnition
+A Markov Reward Process is a tuple S, P, R, γ
+S is a ﬁnite set of states
+P is a state transition probability matrix, Pss = P [s | s]
+R is a reward function, $R_s = E[r | s]$
+$\gamma$ is a discount factor, $\gamma \in [0, 1]$
+

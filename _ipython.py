@@ -51,7 +51,7 @@ def _m(fn):
 
 def _gt(fn):
     fn = fn.replace('.pdf', '')
-    if not isfile('%s.pdf' %(fn)):
+    if not isfile('%s.txt' %(fn)):
         print strftime('%d %b %Y %H:%M:%S: Running pdftotext')
         system('pdftotext %s.pdf' %(fn))
     print strftime('%d %b %Y %H:%M:%S: Filtering lines')

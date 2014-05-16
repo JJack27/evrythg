@@ -1,0 +1,679 @@
+Lecture 2: Markov Decision Processes
+David Silver
+Lecture 2: Markov Decision Processes
+1 Markov Processes
+2 Markov Reward Processes
+3 Markov Decision Processes
+4 Extensions to MDPs
+Lecture 2: Markov Decision Processes
+Markov Processes
+Introduction
+Introduction to MDPs
+Markov decision processes formally describe an environment
+for reinforcement learning
+Where the environment is fully observable
+i.e. The current state completely characterises the process
+Almost all RL problems can be formalised as MDPs, e.g.
+Optimal control primarily deals with continuous MDPs
+Partially observable problems can be converted into MDPs
+Bandits are MDPs with one state
+Lecture 2: Markov Decision Processes
+Markov Processes
+Markov Property
+Markov Property
+“The future is independent of the past given the present”
+Deﬁnition
+A state st is Markov if and only if
+P [st+1 | st ] = P [st+1 | s1 , ..., st ]
+The state captures all relevant information from the history
+Once the state is known, the history may be thrown away
+i.e. The state is a suﬃcient statistic of the future
+Lecture 2: Markov Decision Processes
+Markov Processes
+Markov Property
+
+[ _to('140516195847') ]
+
+Lecture 2: Markov Decision Processes
+Markov Processes
+Markov Chains
+Markov Process
+A Markov process is a memoryless random process, i.e. a sequence
+of random states s1 , s2 , ... with the Markov property.
+Deﬁnition
+A Markov Process (or Markov Chain) is a tuple S, P
+S is a (ﬁnite) set of states
+P is a state transition probability matrix, Pss = P [s | s]
+Lecture 2: Markov Decision Processes
+Markov Processes
+Markov Chains
+Example: Student Markov Chain
+Sleep
+Facebook
+Class 1
+Class 2
+Class 3
+Pass
+Lecture 2: Markov Decision Processes
+Markov Processes
+Markov Chains
+Example: Student Markov Chain Episodes
+Sample episodes for Student Markov
+Chain starting from s1 = C1
+s1 , s2 , ..., sT
+Sleep
+Facebook
+Class 1 0.5
+Class 2
+Class 3
+Pass
+C1 C2 C3 Pass Sleep
+C1 FB FB C1 C2 Sleep
+C1 C2 C3 Pub C2 C3 Pass Sleep
+C1 FB FB C1 C2 C3 Pub C1 FB FB
+FB C1 C2 C3 Pub C2 Sleep
+Lecture 2: Markov Decision Processes
+Markov Processes
+Markov Chains
+Example: Student Markov Chain Transition Matrix
+Sleep
+Facebook
+Class 1 0.5
+Class 2
+Class 3
+Pass
+Pass
+Sleep
+ 0.2
+ 0.1
+Pass
+Sleep
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+[ _to('140516201420') ]
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Example: Student MRP
+Sleep
+Facebook
+r = -1
+Class 1
+r = -2
+Class 2
+r = -2
+r = +1
+Class 3
+r = -2
+Pass
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Return
+Return
+Deﬁnition
+The return vt is the total discounted reward from time-step t.
+γ k rt+k+1
+vt = rt+1 + γrt+2 + ... =
+The discount γ ∈ [0, 1] is the present value of future rewards
+The value of receiving reward r after k + 1 time-steps is γ k r .
+This values immediate reward above delayed reward.
+γ close to 0 leads to ”myopic” evaluation
+γ close to 1 leads to ”far-sighted” evaluation
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Return
+Why discount?
+Most Markov reward and decision processes are discounted. Why?
+Mathematically convenient to discount rewards
+Avoids inﬁnite returns in cyclic Markov processes
+Uncertainty about the future may not be fully represented
+If the reward is ﬁnancial, immediate rewards may earn more
+interest than delayed rewards
+Animal/human behaviour shows preference for immediate
+reward
+It sometimes possible to use undiscounted Markov reward
+processes (i.e. γ = 1), e.g. if all sequences terminate.
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Value Function
+Value Function
+The value function V (s) gives the long-term value of state s
+Deﬁnition
+The state value function V (s) of an MRP is the expected return
+starting from state s
+V (s) = E [vt | st = s]
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Value Function
+Example: Student Markov Chain Returns
+Sample returns for Student Markov Chain: Undiscounted (γ = 1),
+starting from s1 = C1
+v1 = r1 + γr2 + ... + γ T −1 rT = r1 + r2 + ... + rT
+v1 = −2 − 2 − 2 + 10
+v1 = −2 − 1 − 1 − 2 − 2
+v1 = −2 − 2 − 2 + 1 − 2 − 2 + 10
+v1 = −2 − 1 − 1 − 2 − 2 − 2 + 1 − 2
+−1 − 1 − 1 − 2 − 2 − 2 + 1 − 2
+C1 C2 C3 Pass Sleep
+C1 FB FB C1 C2 Sleep
+C1 C2 C3 Pub C2 C3 Pass Sleep
+C1 FB FB C1 C2 C3 Pub C1 ...
+FB FB FB C1 C2 C3 Pub C2 Sleep
+Sleep
+Facebook
+Class 1 0.5
+Class 2
+Class 3
+Pass
+−21
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Value Function
+Example: State-Value Function for Student MRP (1)
+V(s) for γ =0
+r = -1
+r = -2
+r = -2
+r = +1
+r = -2
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Value Function
+Example: State-Value Function for Student MRP (2)
+V(s) for γ =0.9
+-7.6
+r = -1
+-5.0
+r = -2
+r = -2
+r = +1
+r = -2
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Value Function
+Example: State-Value Function for Student MRP (3)
+V(s) for γ =1
+r = -1
+r = -2
+r = -2
++0.8
+r = +1
+r = -2
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Bellman Equation
+Bellman Equation for MRPs
+The value function can be decomposed into two parts:
+immediate reward r
+discounted value of successor state γV (s )
+V (s) = E [vt | st = s]
+= E rt+1 + γrt+2 + γ 2 rt+3 + ... | st = s
+= E [rt+1 + γ (rt+2 + γrt+3 + ...) | st = s]
+= E [rt+1 + γvt+1 | st = s]
+= E [rt+1 + γV (st+1 ) | st = s]
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Bellman Equation
+Bellman Equation for MRPs (2)
+V (s) = E r + γV (s ) | s
+V(s)
+V(s')
+V (s) = Rs + γ
+Pss V (s )
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Bellman Equation
+Example: Bellman Equation for Student MRP
+4.3 = -2 + 0.6*10 + 0.4*0.8
+r = -1
+r = -2
+r = -2
+r = +1
+r = -2
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Bellman Equation
+Bellman Equation in Matrix Form
+The Bellman equation can be expressed concisely using matrices,
+where V is a column vector with one entry per state
+V (1)
+P11 . . . P1n
+V (1)
+V (n)
+P11 . . . Pnn
+V (n)
+Lecture 2: Markov Decision Processes
+Markov Reward Processes
+Bellman Equation
+Solving the Bellman Equation
+The Bellman equation is a linear equation
+It can be solved directly:
+(I − γP) V = R
+V = (I − γP)−1 R
+Computational complexity is O(n3 ) for n states
+Direct solution only possible for small MRPs
+There are many iterative methods for large MRPs, e.g.
+Dynamic programming
+Monte-Carlo evaluation
+Temporal-Diﬀerence learning
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Markov Decision Process
+A Markov decision process (MDP) is a Markov reward process with
+decisions. It is an environment in which all states are Markov.
+Deﬁnition
+A Markov Decision Process is a tuple S, A, P, R, γ
+S is a ﬁnite set of states
+A is a ﬁnite set of actions
+P is a state transition probability matrix, Pss = P [s | s, a]
+R is a reward function, Ra = E [r | s, a]
+γ is a discount factor γ ∈ [0, 1].
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Example: Student MDP
+Facebook
+r = -1
+Quit
+Facebook
+Sleep
+r = -1
+r = -2
+r = -2
+r = +1
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Policies
+Policies (1)
+Deﬁnition
+A policy π is a distribution over actions given states,
+π(s, a) = P [a | s]
+A policy fully deﬁnes the behaviour of an agent
+MDP policies depend on the current state (not the history)
+i.e. Policies are stationary (time-independent),
+at ∼ π(st , ·), ∀t > 0
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Policies
+Policies (2)
+Given an MDP M = S, A, P, R, γ and a policy π
+The state sequence s1 , s2 , ... is a Markov process S, P π
+The state and reward sequence s1 , r2 , s2 , ... is a Markov reward
+process S, P π , Rπ , γ
+where
+π(s, a)Ps,s
+a∈A
+π(s, a)Ra
+a∈A
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Value Functions
+Value Function
+Deﬁnition
+The state-value function V π (s) of an MDP is the expected return
+starting from state s, and then following policy π
+V π (s) = Eπ [vt | st = s]
+Deﬁnition
+The action-value function Q π (s, a) is the expected return
+starting from state s, taking action a, and then following policy π
+Q π (s, a) = Eπ [vt | st = s, at = a]
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Value Functions
+Example: State-Value Function for Student MDP
+Vπ(s) for π(s,a)=0.5, γ =1
+Facebook
+r = -1
+-2.3
+Quit
+Facebook
+Sleep
+r = -1
+-1.3
+r = -2
+r = -2
+r = +1
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Expectation Equation
+Bellman Expectation Equation
+The state-value function can again be decomposed into immediate
+reward plus discounted value of successor state,
+V π (s) = Eπ [rt+1 + γV π (st+1 ) | st = s]
+The action-value function can similarly be decomposed,
+Q π (s, a) = Eπ [rt+1 + γQ π (st+1 , at+1 ) | st = s, at = a]
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Expectation Equation
+Bellman Expectation Equation for V π
+V!(s)
+Q!(s,a)
+V π (s) =
+π(s, a)Q π (s, a)
+a∈A
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Expectation Equation
+Bellman Expectation Equation for Q π
+Q!(s,a)
+V!(s')
+Pss V π (s )
+Q π (s, a) = Ra + γ
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Expectation Equation
+Bellman Expectation Equation for V π (2)
+V!(s)
+V!(s')
+V π (s) =
+π(s, a) Ra + γ
+a∈A
+Pss V π (s )
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Expectation Equation
+Bellman Expectation Equation for Q π (2)
+Q!(s,a)
+Q!(s',a')
+Q π (s, a) = Ra + γ
+π(s , a )Q π (s , a )
+a ∈A
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Expectation Equation
+Example: Bellman Expectation Equation in Student MDP
+7.4 = 0.5 * (1 + 0.2* -1.3 + 0.4 * 2.7 + 0.4 * 7.4)
++ 0.5 * 10
+Facebook
+r = -1
+-2.3
+Quit
+Facebook
+Sleep
+r = -1
+-1.3
+r = -2
+r = -2
+r = +1
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Expectation Equation
+Bellman Expectation Equation (Matrix Form)
+The Bellman expectation equation can be expressed concisely
+using the induced MRP,
+with direct solution
+V π = (I − γP π )−1 Rπ
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Optimal Value Functions
+Optimal Value Function
+Deﬁnition
+The optimal state-value function V ∗ (s) is the maximum value
+function over all policies
+V ∗ (s) = max V π (s)
+The optimal action-value function Q ∗ (s, a) is the maximum
+action-value function over all policies
+Q ∗ (s, a) = max Q π (s, a)
+The optimal value function speciﬁes the best possible
+performance in the MDP.
+An MDP is “solved” when we know the optimal value fn.
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Optimal Value Functions
+Example: Optimal Value Function for Student MDP
+V*(s) for γ =1
+Facebook
+r = -1
+Quit
+Facebook
+Sleep
+r = -1
+r = -2
+r = -2
+r = +1
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Optimal Value Functions
+Example: Optimal Action-Value Function for Student MDP
+Q*(s,a) for γ =1
+Facebook
+r = -1
+Q* =5
+Quit
+Facebook
+Q* =6
+Sleep
+Q* =0
+r = -1
+Q* =5
+r = -2
+Q* =6
+r = -2
+r = +1
+Q* =8.4
+r = +10
+Q* =10
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Optimal Value Functions
+Optimal Policy
+Deﬁne a partial ordering over policies
+π ≥ π if V π (s) ≥ V π (s), ∀s
+Theorem
+For any Markov Decision Process
+There exists an optimal policy π ∗ that is better than or equal
+to all other policies, π ∗ ≥ π, ∀π
+All optimal policies achieve the optimal value function,
+V π (s) = V ∗ (s)
+All optimal policies achieve the optimal action-value function,
+Q π (s, a) = Q ∗ (s, a)
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Optimal Value Functions
+Finding an Optimal Policy
+An optimal policy can be found by maximising over Q ∗ (s, a),
+π (s, a) =
+if a = argmax Q ∗ (s, a)
+a∈A
+0 otherwise
+There is always a deterministic optimal policy for any MDP
+If we know Q ∗ (s, a), we immediately have the optimal policy
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Optimal Value Functions
+Example: Optimal Policy for Student MDP
+π*(s,a) for γ =1
+Facebook
+r = -1
+Q* =5
+Quit
+Facebook
+Q* =6
+Sleep
+Q* =0
+r = -1
+Q* =5
+r = -2
+Q* =6
+r = -2
+r = +1
+Q* =8.4
+r = +10
+Q* =10
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Optimality Equation
+Bellman Optimality Equation for V ∗
+The optimal value functions are recursively related by the Bellman
+optimality equations:
+V*(s)
+Q*(s,a)
+V ∗ (s) = max Q ∗ (s, a)
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Optimality Equation
+Bellman Optimality Equation for Q ∗
+Q*(s,a)
+V*(s')
+Q ∗ (s, a) = Ra + γ
+Pss V ∗ (s )
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Optimality Equation
+Bellman Optimality Equation for V ∗ (2)
+V*(s)
+V*(s')
+V ∗ (s) = max Ra + γ
+Pss V ∗ (s )
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Optimality Equation
+Bellman Optimality Equation for Q ∗ (2)
+Q*(s,a)
+Q*(s',a')
+Q ∗ (s, a) = Ra + γ
+Pss max Q ∗ (s , a )
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Optimality Equation
+Example: Bellman Optimality Equation in Student MDP
+6 = max {-2 + 8, -1 + 6}
+Facebook
+r = -1
+Quit
+Facebook
+Sleep
+r = -1
+r = -2
+r = -2
+r = +1
+r = +10
+Lecture 2: Markov Decision Processes
+Markov Decision Processes
+Bellman Optimality Equation
+Solving the Bellman Optimality Equation
+Bellman Optimality Equation is non-linear
+No closed form solution (in general)
+Many iterative solution methods
+Value Iteration
+Policy Iteration
+Q-learning
+Sarsa
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Extensions to MDPs
+Inﬁnite and continuous MDPs
+Partially observable MDPs
+Undiscounted, average reward MDPs
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Inﬁnite MDPs
+Inﬁnite MDPs
+The following extensions are all possible:
+Countably inﬁnite state and/or action spaces
+Straightforward
+Continuous state and/or action spaces
+Conceptually similar, but must deal with measure theory
+Continuous time
+Requires partial diﬀerential equations
+Hamilton-Jacobi-Bellman (HJB) equation
+Limiting case of Bellman equation as time-step → 0
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Partially Observable MDPs
+A POMDP is an MDP with hidden states.
+It is a hidden Markov model with actions.
+Deﬁnition
+A Partially Observable Markov Decision Process is a tuple
+S, A, O, P, R, Z, γ
+S is a ﬁnite set of states
+A is a ﬁnite set of actions
+O is a ﬁnite set of observations
+P is a state transition probability matrix, Pss = P [s | s, a]
+R is a reward function, Ra = E [r | s, a]
+Z is an observation function, Zs = P [o | s, a]
+γ is a discount factor γ ∈ [0, 1].
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Partially Observable MDPs
+Belief States
+Deﬁnition
+A history ht is a sequence of actions, observations and rewards,
+ht = a1 , o1 , r1 , ..., at , ot , rt
+Deﬁnition
+A belief state b(ht ) is a probability distribution over states,
+conditioned on the history ht
+b(ht ) = (P st = s 1 | ht , ..., P [st = s n | ht ])
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Partially Observable MDPs
+Reductions of POMDPs
+The history ht satisﬁes the Markov property
+The belief state b(ht ) satisﬁes the Markov property
+History tree
+Belief tree
+P(s)
+a1o1a1
+a1o2
+a1o1
+a2o1
+P(s|a1)
+a2o2
+a1o1a2
+P(s|a2)
+P(s|a1o1)
+P(s|a1o2)
+P(s|a2o1)
+P(s|a2o2)
+P(s|a1o1a1) P(s|a1o1a2)
+A POMDP can be reduced to an (inﬁnite) history tree
+A POMDP can be reduced to an (inﬁnite) belief state tree
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Average Reward MDPs
+Ergodic Markov Process
+An ergodic Markov process is
+Recurrent: each state is visited an inﬁnite number of times
+Aperiodic: each state is visited without any systematic period
+Theorem
+An ergodic Markov process has a limiting stationary distribution
+d π (s) with the property
+d π (s) =
+Pss d π (s )
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Average Reward MDPs
+Ergodic MDP
+Deﬁnition
+An MDP is ergodic if the Markov chain induced by any policy is
+ergodic.
+For any policy π, an ergodic MDP has an average reward per
+time-step ρπ that is independent of start state.
+ρπ = lim
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Average Reward MDPs
+Average Reward Value Function
+The value function of an undiscounted, ergodic MDP can be
+expressed in terms of average reward.
+V π (s) is the extra reward due to starting from state s,
+V π (s) = Eπ
+(rt+k − ρπ ) | st = s
+There is a corresponding average reward Bellman equation,
+V π (s) = Eπ (rt+1 − ρπ ) +
+(rt+k+1 − ρπ ) | st = s
+= Eπ (rt+1 − ρ ) + V π (st+1 ) | st = s
+Lecture 2: Markov Decision Processes
+Extensions to MDPs
+Average Reward MDPs
+Questions?
+The only stupid question is the one you were afraid to
+ask but never did.
+-Rich Sutton

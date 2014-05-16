@@ -2369,14 +2369,7 @@ lities and thetransition probabilitiesin Table 3.1.
 expected rewards, as and the expected rewards, as in Table 3.1.
 with respect to particular policies.
 
-_t('140516095236')
-Recall that a policy, π, is a mapping from each state, s ∈ S, and action, a ∈
-A(s), to the probability π(a|s) of taking action a when in state s. Informally,
-the value of a state s under a policy π, denoted vπ (s), is the expected return
-when starting in s and following π thereafter. For MDPs, we can deﬁne $v_{\pi}(s)$
-formally as
-vπ (s) = Eπ[Gt | St = s] = Eπ
-(3.8)
+[ _to('140516095236') ]
 
 where Eπ[·] denotes the expected value given that the agent follows policy π,
 and t is any time step. Note that the value of the terminal state, if any, is
@@ -2941,10 +2934,7 @@ the expectations are subscripted by π to indicate that they are conditional on
 π being followed. The existence and uniqueness of vπ are guaranteed as long
 as either γ < 1 or eventual termination is guaranteed from all states under the policy $\pi$
 
-If the environment’s dynamics are completely known, then (4.4) is a system of |S| simultaneous linear equations in |S| unknowns (the vπ (s), s ∈ S). In principle, its solution is a straightforward, if tedious, computation. For our purposes, iterative solution methods are most suitable. Consider a sequence of approximate value functions v0 , v1 , v2 , . . ., each mapping S+ to R.  The initial approximation, v0 , is chosen arbitrarily (except that the terminal state, if any, must be given value 0), and each successive approximation is obtained by using the Bellman equation for vπ (3.10) as an update rule:
-_v('140507090509')
-$v_{k+1} = \ldots$ (4.5)
-for all s ∈ S. Clearly, vk = vπ is a ﬁxed point for this update rule because the Bellman equation for vπ assures us of equality in this case. Indeed, the sequence {vk } can be shown in general to converge to vπ as k → ∞ under the same conditions that guarantee the existence of vπ . This algorithm is called iterative policy evaluation.  
+[ _to('140516143133') ] 
 
 To produce each successive approximation, vk+1 from vk , iterative policy
 evaluation applies the same operation to each state s: it replaces the old value
@@ -3237,13 +3227,8 @@ several ways without losing the convergence guarantees of policy iteration.
 One important special case is when policy evaluation is stopped after just one
 sweep (one backup of each state). 
 
-_v('140514094507')
-This algorithm is called value iteration. It
-can be written as a particularly simple backup operation that combines the
-policy improvement and truncated policy evaluation steps:
-$v_{k+1} = \ldots$ (4.10)
-For arbitrary v0 , the sequence {vk } can be shown to converge to
-v∗ under the same conditions that guarantee the existence of v∗ .
+
+[ _to('140516143424') ]
 
 Another way of understanding value iteration is by reference to the Bellman
 optimality equation (4.1). Note that value iteration is obtained simply by

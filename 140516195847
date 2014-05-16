@@ -1,0 +1,4 @@
+State Transition Matrix
+For a Markov state s and successor state s , the state transition probability is defined by
+State transition matrix $P$ deﬁnes transition probabilities from all states s to all successor states $s'$, where each row of the matrix sums to 1.
+[ with this definition the transition probalities are obtained when the matrix is multiplied with a probality row vector from the left ]
