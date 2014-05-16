@@ -1,0 +1,190 @@
+Economics 520, Fall 2006
+Lecture Note 14: Cram´r-Rao Bound
+Another important result that helps us in the search for a minimum variance unbiased
+estimator is the Cram´r–Rao bound:
+Result 1 (Cramer–Rao bound)
+Let X be a random variable with pdf/pmf fX (x; θ), and that we can interchange integration
+and diﬀerentiation in the following sense:
+fX (x; θ)dx =
+fX (x; θ)dx.
+Let W be an unbiased estimator for θ with ﬁnite variance. Then
+V (W ) ≥
+∂θ (X; θ)
+Proof: Recall that the square of the covariance of two random variables S and U is less
+than or equal to the product of the variances (that is the same as saying that the correlation
+coeﬃcient is less than or equal to one in absolute value:
+[Cov(S, U )]2 ≤ V (S) · V (U ).
+Now let us take S = W and U = ∂ ∂θ f (X; θ). 
+
+_t('140515214623')
+First consider U , known as the score function, and its expectation. Because for all θ, fX (x; θ)dx, we have, fX (x; θ)dx.  Since we can change the order of diﬀerentiation and integration by assumption, we get (x; θ)dx (x; θ) · fX (x; θ)dx
+(x; θ) = E[U ] = 0.
+[ thus the expectation of the score function is zero ]
+
+Therefore the covariance of U and S is the expectation of the product of S and U :
+(x; θ)fX (x; θ)dx =
+W f (x; θ)dx =
+(x; θ)dx
+1 ≤ V (W ) · V (U ),
+V (W ) ≥ 1/V (U ) = 1/E[U 2 ].
+Of course ﬁnding a lower bound for the variance is not so hard. Zero is a lower bound
+that applies with no conditions attached. The interest in the Cram´r–Rao bound stems
+largely from the fact that in many cases the bound can actually be reached; there are often
+estimators with variance equal to the bound.
+Example
+Suppose X has an exponential distribution with mean µ. Consider the estimator µ = X.
+2 . To calculate the Cram´r–Rao bound, consider
+This estimator is unbiased with variance µ
+the log of the density:
+− ln(µ) − x/µ.
+The derivative of the log of the density—the score function—is
+−1/µ + x/µ2 = (x − µ)/µ2 .
+Clearly this has expectation zero (this is a good sign that the regularity conditions are
+satisﬁed. If it did not hold either your algebra is wrong or one of the regularity conditions
+is not satisﬁed. See some of the examples below.) The variance is
+E(X − µ)2 /µ4 = 1/µ2 ,
+and the Cram´r–Rao bound is µ2 . This is the variance of the unbiased estimator µ suggested,
+so that estimator is the minimum variance unbiased estimator. 2
+A corollary of the Cram´r–Rao bound is the following result for N iid random variables.
+Result 2 Let X1 , . . . , XN be iid random variable with common pdf/pmf fX (x; θ), and let
+W be an unbiased estimator for θ. Then
+V (W ) ≥
+∂θ (x; θ)
+Example
+Suppose X1 , . . . , XN are independent with normal distributions with mean µ and known
+variance σ 2 . The obvious estimator for the mean is the sample average x with variance
+2 /N . Consider the log of the density function:
+ln fX (x; µ) = − ln(2πσ 2 ) − 2 (x − µ)2 .
+The score function is
+ln fX (x; µ) = 2 (x − µ).
+Again the score clearly has expectation zero, and the variance is σ 2 /σ 4 = 1/σ 2 , and therefore
+the Cram´r–Rao bound for the single observation case is σ 2 , and the Cram´r–Rao bound
+for the N observation case is σ 2 /N . 2
+Example
+Finally let us consider an example where the Cram´r–Rao bound does not apply. Recall
+that in the proof we have to be able to reverse the order of integration and diﬀerentiation.
+That does not work if the argument of the function enters in the bounds of the integral.
+Suppose X has a uniform distribution on the interval from zero to θ, X ∼ U [0, θ]. The log
+of the density function is
+ln fX (x; θ) = − ln θ.
+The derivative is
+ln fX (x; θ) = −1/θ.
+Note that this clearly does not have expectation zero, which is a property we used in the
+proof of the Cram´r–Rao bound. Nevertheless, let us ignore this and proceed with the
+calculation. The expectation of the square is 1/θ2 , and the Cram´r–Rao bound is equal to
+2 . Now consider the estimator 2X. It clearly is unbiased. Its variance is θ 2 · 4/12 = θ 2 /3,
+lower than the Cram´r–Rao bound, which does not apply in this case. 2
+A diﬀerent characterization of the Cram´r-Rao bound is in terms of the second derivative
+of the log of the density function:
+Result 3 (Cramer–Rao bound)
+Let X be a random variable with pdf/pmf fX (x; θ), and let W be an unbiased estimator for
+θ. Then
+V (W ) ≥ −
+E ∂θ2 (x; θ)
+This result relies on the information matrix equality:
+(x; θ) = E
+(x; θ)2 .
+To see why this holds recall that
+fX (x; θ)dx,
+fX (x; θ)dx.
+and thus, assuming we can change the order of diﬀerentiation and integration, we get
+(x; θ)dx
+(x; θ) · fX (x; θ)dx.
+Now diﬀerentiate again to get
+(x; θ) · fX (x; θ)dx +
+(x; θ) · fX (x; θ)dx +
+(x; θ)
+(x; θ) ·
+(x; θ)dx
+(x; θ) ·
+(x; θ)fX (x; θ)dx
+· fX (x; θ)dx +
+(x; θ)
+fX (x; θ)dx
+(x; θ) + E
+(x; θ)2 .
+Now back to the interpretation of the Cram´r-Rao bound. The Cram´r–Rao bound gives
+a lower bound for the variance of unbiased estimators. In some sense this is helpful only
+if we can ﬁnd an unbiased estimator with variance equal to this bound. If that is the
+case we know this is the minimum variance unbiased estimator. If not, there are two
+possibilities. Either we missed the minimum variance unbiased estimator, or we have an
+minimum variance unbiased estimator with variance larger than the bound. In many cases
+a minimum variance unbiased estimator does not even exist. To demonstrate some of these
+possibilities, consider the following examples. We have already seen an example where the
+bound does not apply.
+Example
+Suppose X has a binomial distribution with parameters 1 and θ. Any estimator for θ can
+be written as
+W = W (X) = W (0) + (W (1) − W (0) · X = α + β · X.
+Its expectation is for any α and β equal to
+There are no α and β that make this equal to θ, and so there is no unbiased estimator for
+θ, let alone one that achieves the Cram´r–Rao bound. 2
+Example
+X1 and X2 are independent binomial random variable with parameters 1 and θ:
+fX1 ,X2 (x1 , x2 |θ) = ( θ)x1 +x2 · (1 − θ)2−x1 −x2 .
+From the form of the density we can tell that X1 + X2 is a suﬃcient statistic. What is the
+Cram´r–Rao bound? The log of the density is
+ln fX1 ,X2 (x1 , x2 |θ) = (x1 + x2 ) · ln θ + (2 − x1 − x2 ) · ln(1 − θ).
+The derivative, or the score function, is
+(x1 , x2 |θ) = (x1 + x2 ) · ln θ − (2 − x1 − x2 ) ·
+2θ(1 − θ)
+The score function clearly has expectation zero. Its variance is the the inverse of the CR
+2θ(1 − θ)
+2θ θ(1 − θ)
+and the CR bound is
+CR = 2θ θ(1 − θ).
+Now consider estimators for θ. Any estimator can be written as
+W = a0 + a1 · X1 + a2 · X2 + a3 · X1 · X2 ,
+with expectation
+E[W ] = a0 + a1 ·
+θ + a2 ·
+θ + a3 · θ.
+Unbiased estimators must have a0 = 0, a3 = 1 and a2 = −a1 , or
+W = a · (X1 − X2 ) + X1 · X2 .
+Next, use Rao–Blackwell to make the estimator a function of the suﬃcient statistic X1 +X2 .
+(check this for X1 + X2 = 0, X1 + X2 = 1, and for X1 + X2 = 2), and
+implying that we must have
+This estimator has mean θ and variance θ(1 − θ), which is strictly higher than the Cram´r–
+Rao bound. Nevertheless, it is the minimum variance unbiased estimator. 2
+Now let us investigate when we have an unbiased estimator with variance equal to the
+Cram´r–Rao bound. In that case we must have, in the notation of the proof of the CR
+bound, that the correlation of the score U and the estimator W is equal to one in absolute
+value. Hence it must be the case that the score is a linear function of W , with coeﬃcients
+possibly depending on θ:
+(X; θ) = a(θ) · W (X) + b(θ).
+Because W is unbiased, or E[W ] = θ, it must be that b(θ) = −a(θ) · θ, and hence we must
+be able to write the score function as
+(X; θ) = a(θ) · (W (X) − θ).
+It turns out that this is both suﬃcient and necessary for the existence of an unbiased
+estimator with variance equal to the Cram´r–Rao bound.
+Result 4 An unbiased estimator with variance equal to the Cram´r–Rao bound exists if
+and only if the score function can be written as
+(X; θ) = a(θ) · (W (X) − θ),
+for some function W (X). The minimum variance unbiased estimator is then equal to the
+maximum likelihood estimator W (X) = θmle .
+We have already proven that the existence of an MVUE with variance equal to the CR
+bound implies the above characterization of the score function. Now let us consider the
+only if part of the result.
+Suppose we can write the score as
+S(X; θ) =
+(X; θ) = a(θ) · (W (X) − θ).
+Because the score function has expectation zero, W (X) is an unbiased estimator. Its variance is equal to a(θ)−2 times the variance of the score function, which itself is equal to the
+inverse of the CR bound:
+V (W (X)) =
+· V (S(X; θ)) =
+a(θ)2
+a(θ)2
+At the same time, by the information matrix equality the expected second derivative of the
+log of the density is also equal to minus the expectation of the square of the ﬁrst derivative
+of the log of the density. The second derivative is equal to
+(X; θ) = E a (θ) · (W (X) − θ) − a(θ) = −a(θ).
+Hence
+a(θ)
+implying that
+V (W (X)) =
+a(θ)
+a(θ)
+Finally, by setting the derivative of the log of the density equal to zero, combined with a
+negative second derivative, we have maximized the log of the density, or the log likelihood
+and so under these conditions the minimum variance unbiased estimator W (X) is equal to
+the maximum likelihood estimator. 2

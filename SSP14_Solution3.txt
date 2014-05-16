@@ -16,6 +16,8 @@ log L(x (1) ; θ)
 (indep.)
 (ident.)
 = NIF(1) (θ).
+[ the sum of the difference of uncorrelated random variables is the sum of their variances ]
+
 b) For each of the distributions, we first have to check whether the regularity conditions are
 satisfied or not, i.e., whether the CRB is applicable or not. As the statistics are i.i.d., we can consider
 L(x(1) ; θ) = fx (1) (x(1) ; θ).
@@ -71,7 +73,7 @@ Fisher information for one statistic can be determined by considering
 (x (1) − θ)2
 L(x (1) ; θ) = √
 exp −
-3. Fisher Information Matrix and Cram´er–Rao Bound
+3. Fisher Information Matrix and Cramer–Rao Bound
 1 (1)
 (x − θ)2 ,
 (x (1) ; θ) = − log(2πσ2 ) −

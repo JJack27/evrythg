@@ -115,7 +115,6 @@ fX (ξ) dξ,
 (A.26)
 with fX : R → [0, ∞[, which is the Probability Density Function (PDF) of X .
 If FX is continous and can be diﬀerentiated almost everywhere, then the random variable X is continuous
-and
 fX (x) =
 dFX (x)
 (A.27)
@@ -215,7 +214,6 @@ fX1 ,...,Xn (x1 , . . . , xn ) = √ n √
 exp − (x − µ)T C −1 (x − µ) .
 2π det C
 The respective Mean Vector and Covariance Matrix is given by
-and
 C = E (X − µ)(X − µ)T
 respectively. A common shorthand notation is
 X ∼ N (µ, C).
@@ -226,7 +224,6 @@ Given n uncorrelated Gaussian random variables the joint PDF is
 fX1 ,...,Xn (x1 , . . . , xn ) =
 exp −
 (x −µ )2
-e
 (xi − µi )σi (xi − µi )
 fXi (xi ).
 \todo{Are independent variables uncorrlated}
@@ -260,7 +257,6 @@ Fig. B.1: Subspace U spanned by diﬀerent pairs of basis vectors
 (B.5)
 Deﬁnition. A vector space S is a Normed Vector Space, if any x ∈ S can be mapped to a scalar
 (Norm) x ∈ R0,+ , with the following properties:
-and
 (B.6)
 Normed vector spaces are also Metric Vector Spaces, with the Metric
 d(x, y) = x − y .
@@ -320,9 +316,6 @@ A further commonly used norm for matrices is the Frobenius Norm • F :
 |am,n =
 aT an
 with am,n = [A]m,n .
-aT
-aT
-aT
  [a1 , a2 , . . . , aN ] =
 (B.27)
 
@@ -388,7 +381,6 @@ Properties of special matrices:
 Given the projection matrices P k = uk uH are constituted by mutually orthonormal basis vectors uk ,
 k = 1, . . . , K, then the vectors uk are the Eigenvectors of matrix A, with the respective Eigenvalues
 Given the Singular Value Decomposition (SVD) of an arbitrary matrix A ∈ CM ×N , i.e. A =
-and
 (B.49)
 Obviously, the Outer Product matrices uk uH and v k v H are mutually orthogonal projection matrices,
 and P Vk = v k v H ,
@@ -406,9 +398,7 @@ Graw Hill, 2002.
  H. Stark and J. W. Woods. Probability, Random Processes, and Estimation Theory for Engineers, 2nd
 edition, Prentice Hall, 1994.
  W. Utschick. Stochastische Signale, Aktuelles Manuskript zur gleichnamigen Vorlesung an der Technischen Universit¨t M¨nchen, 2012.
-a
  G. Strang. Linear Algebra and Its Applications, Harcourt Brace Jovanovich, Publishers, 1988.
  L. N. Trefethen and D. Bau III. Numerical Linear Algebra, Society for Industrial and Applied Mathematic,
  W. Utschick. Mathematische Methoden der Signalverarbeitung, Aktuelles Manuskript zur gleichnamigen
 Vorlesung an der Technischen Universit¨t M¨nchen, 2012.
-a

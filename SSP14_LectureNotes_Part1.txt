@@ -45,14 +45,11 @@ Fig. 1.1: Estimating the upper bound of an intervall.
 How to estimate the upper bound? Any guesses?
 How to estimate the upper bound?
 1. Attempt: Given E [X ] = θ/2, we conclude for the statistics Xi
-Xi :
-i=1
 (1.6)
 Average
 2. Attempt: Since for large N the maximum observed value will be close to the upper bound, we
 conclude
 T2 = max {Xi } :
-i=1,...,N
 How realiable are these attempts?
 (1.7)
 Estimator T1 : According to the Law of Large Numbers (Chebyshev Inequality):
@@ -60,10 +57,9 @@ Var [X ]
 (1.8)
 Estimator T2 : Again with respect to the Law of Large Numbers:
 Pθ (|T2 − θ| ≥ ) = Pθ (X1 ≤ θ − , . . . , XN ≤ θ − )
-i=1
-i=1
 Pθ (Xi ≤ θ − )
 (1.9)
+
 2. Quality Criteria
 Consistency and Unbiasedness
 Deﬁnition. Consistent Estimators are characterized by
@@ -71,13 +67,12 @@ _v('140503091548') (2.1)
 Obviously, T1 and T2 are consistent.
 Deﬁnition. Unbiased Estimators are characterized by
 _v('140503091610') (2.2)
+
 T1 and T2 are random variables which depend on the randomly drawn observations X1 , . . . , XN . Unbiasedness means that averaging over the entire sample set gets the true parameter:
- T1 is Unbiased, since
+
+_t('140515215135')
+T1 is Unbiased, since
 E [T1 (X1 , . . . , XN )] = E
-Xi =
-i=1
-E [Xi ] =
-i=1
 (2.3)
  T2 is Asymptotically Unbiased, since
 E [T2 (X1 , . . . , XN )] =
@@ -141,7 +136,6 @@ decomposition can easily be shown by taking the expectation of the expansion of 
 Introductory Example (cont’d)
 Another estimator Tα can be constructed by
 (2.17)
-with
 Bias[Tα ] = E [Tα ] − θ = α E [T2 ] − θ =
 The estimator Tα is obviously unbiased if α =
 Bias[Tα ]2
@@ -166,10 +160,7 @@ Pθ (xi ),
 (3.4)
 fXi (xi ; θ),
 (3.5)
-i=1
 fX1 ,...,XN (x1 , . . . , xN ; θ) =
-i=1
-with fX1 = · · · = fXN .
 Log-Likelihood Function
 Due to the monotonicity of the log-function and assuming i.i.d. random variables, we obtain the following
 expressions:
@@ -180,34 +171,25 @@ L(xi ; θ))
 (3.7)
 log(L(xi ; θ)) .
 (3.8)
-i=1
 = argmax
-i=1
 Note. The computation of the maximum likelihood estimate obviously involves the solution of an optimization problem.
 Channel Estimation Example
 We consider the estimation of the attenuation coeﬃcient h of a Single-Input Single-Output transmission
 channel with Additive White Gaussian Noise (AWGN) N ∼ N (0, σ 2 ) at the receiver.
-si
-Yi
 Fig. 3.1: Channel model.
 The model of the receiver signal is
-Yi = hsi + N ,
 Yi ∼ N (hsi , σ 2 ),
 (3.9)
 where si denotes the i-th training signal.
 Assuming N observations y1 , . . . , yN according to the training signals s1 , . . . , sN , the likelihood function is
 given by L(y1 , . . . , yN ; θ) = N fYi (yi ; θ), with θ = h and
-i=1
 exp − 2 (yi − θsi )2 .
 fYi (yi ) = √
 (3.10)
 The maximum-likelihood estimation is derived by
 hML = argmax
-i=1
 = argmax
-i=1
 = argmin
-i=1
 exp − 2 · (yi − θsi )2
 · (yi − θsi )2
 · (yi − θsi )2
@@ -224,17 +206,13 @@ The likelihood function for a single observation (N = 1) reads
 L(x; θ) =
 otherwise.
 L(x1 , . . . , xN ; θ) =
-xi ≤ θ
 L(x1 , . . . , xN ; θ)
 otherwise.
-∀i = 1, . . . , N
 The ML Estimator is given by
 θ = argmax {L(x1 , . . . , xN ; θ)}
 = max {x1 , . . . , xN },
-i=1,...,N
 which corresponds to the 2nd intuitive attempt.
 max {xi }
-i=1,...,N
 Bernoulli Experiment
 We now consider a Bernoulli Experiment with success probability θ, e.g. the transmission of a data
 packet over a link with probabilities
@@ -304,35 +282,21 @@ for any alternative unbiased estimator S .
 ' Best unbiased estimators are also referred to as Uniformly Minimum Variance Unbiased (UMVU) Estimators. '
 The estimator T2 =
 of the introductory example is a UMVU Estimator.
+
 4. Fisher’s Information Inequality
 An universal lower bound for the variance of an estimator can be introduced, if the following [ regularity ] conditions are
-fulfflled:
-_v('140510091627')
-[ (4.1) - (4.3) ]
+fullfilled:
+_v('140510091627') [ (4.1) - (4.3) ]
 Deﬁnition. Consequently, we deﬁne the Score Function as
 $\operatorname{g}(x; \theta) = \ldots$
 _v('140509215904') (4.4)
-\todo{Why is $\operatorname{E}(\operatorname{g}(x) \ldots$ = 0?}
+_cf('140515214623')
 Cramer-Rao Lower Bound
-Given the score function g(x; θ) of an estimation problem, and the Fisher Information term IF (θ) =
-Var [g(X , θ)], the variance of any possible estimator can be lower bounded by
+Given the score function g(x; θ) of an estimation problem, and the Fisher Information term $I_F(\theta) = \operatorname{Var}[g(X , \theta)]$, the variance of any possible estimator can be lower bounded by
 (4.5)
-and
 _v('140509220300') (4.6)
 if T is unbiased.
-∂ E [T(X )]
-T(x)fX (x; θ)dx =
-T(x)
-fX (x; θ)dx
-= (T(x) − E [T(X )]) fX (x; θ)dx +
-E [T(X )]
-fX (x; θ)dx
-fX (x; θ)dx
-fX (x; θ) ∂θ
-(T(x) − E [T(X )]) fX (x; θ)
-fX (x; θ) .
-fX (x; θ) ∂θ
-(T(x) − E [T(X )]) fX (x; θ),
+
 Appling the Cauchy-Schwarz Inequality, | a, b |2 ≤ a, a · b, b , yields:
 2nd Version of Fisher Information
 An alternative expression for the Fisher Information term IF (θ) can be derived,
@@ -388,15 +352,12 @@ Properties of the Fisher Information:
 the observation statistics X1 , . . . , XN .
  IF (θ) is a function of θ.
  IF (θ) is monotonically increasing with the number of independent observation statistics, i.e. given the
-(1)
 Fisher Information IF (θ) for a single observation statistic (N = 1), then
 (N )
-(1)
 IF (θ) = N · IF (θ).
 (4.14)
 Exponential Models
 Deﬁnition. A Exponential Model is a statistical model {X, F, Pθ ; θ ∈ Θ} with random variable X
-and
 _v('140509222738')
 h(x) exp(a(θ)t(x))dx for normalization.
 Then the respective Fisher Information can be directly obtained by
@@ -423,7 +384,6 @@ with t(x) = x and a(θ) = θ/σ 2 .
 Thus the single observation UMVU Estimator T (1) of θ = µ can be obtained as
 T (1) : θ = x,
 Bias[T (1) (X )] = 0,
-with
 which minimizes both the variance and the MSE criterion to
 ∂a(θ)
 Var T (1) =
@@ -431,7 +391,6 @@ Var T (1) =
 (4.20)
 Asymptotically Eﬃcient Estimators
 Deﬁnition. An estimator T (X1 , . . . , XN ) is Asymptotically Efficient if1
-(1)
 N (T(X1 , . . . , XN ) − θ) ∼ N (0, IF (θ) )
 Given the following requirements are fulﬁlled,
  Θ is an open set,
@@ -440,5 +399,4 @@ fX (x; θ)dx is twice diﬀerentiable with respect to θ,
  IF (θ) < ∞,
 then a Maximum-Likelihood Estimator is Asymptotically Efficient.
 1 Convergence
-in distribution.
 (4.21)

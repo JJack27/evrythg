@@ -10,7 +10,6 @@ of the estimator θ).
 2. A random variable X characterised by its PDF fX (x) is mapped onto a new random variable Y
 by means of a transformation
 Y = −2 · (X − 3)2 .
-(1)
 Derive the resultant PDF fY (y).
 (10 Points)
 3. Explain the terms eﬃcient estimator, unbiased estimator, minimum variance estimator, and asymptotically unbiased estimator using appropriate sketches. Give an example estimator for each category.
@@ -19,15 +18,12 @@ Derive the resultant PDF fY (y).
 it used?
 (15 Points)
 5. A binary detection problem is modelled by
-(2)
-(3)
 where the noise samples w[n] are iid N (0, σ 2 ) and s[n] = 12. Sketch the resultant PDFs and
 clearly visualise the threshold, critical regions, and regions of detection errors.
 Assuming further that the signal s[n] is changed to s[n] = 2δ[n] + 3δ[n − 1] − 5δ[n − 2] and σ = 1,
 derive a test statistic and an expression for the optimal detection threshold given PF A .
 (20 Points)
 6. Given a signal model
-(4)
 where w[n] are iid N (0, σ ). Derive the CRLB for a linear estimator of the unknown parameter
 θ. Further, derive the Maximum Likelihood estimator (MLE) θM LE for the unknown parameter
 θ assuming the availability of sample sets of size N > 1.

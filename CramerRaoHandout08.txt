@@ -1,0 +1,558 @@
+Course Notes for Math 162: Mathematical Statistics
+The Cramer-Rao Inequality
+Adam Merberg and Steven J. Miller
+May 8, 2008
+Abstract
+The Cram´r-Rao Inequality provides a lower bound for the variance of an unbiased estimator of a parameter. It e allows us to conclude that an unbiased estimator is a minimum variance unbiased estimator for a parameter. In these notes we prove the Cram´r-Rao inequality and examine some applications. We conclude with a discussion of a e probability distribution for which the Cram´r-Rao inequality provides no useful information.  
+Contents
+1 Description of the Problem
+2 The Cram´r-Rao Inequality
+3 Examples and Exercises
+A Interchanging Integration and Diﬀerentiation
+B The Cauchy-Schwarz Inequality
+C The Exponential Density
+D When the Cram´r-Rao Inequality Provides No Information
+Description of the Problem
+Point estimation is the use of a statistic to estimate the value of some parameter of a population having a particular
+type of density. The statistic we use is called the point estimator and its value is the point estimate. A desirable
+property for a point estimator Θ for a parameter θ is that the expected value of Θ is θ. If Θ is a random variable with
+density f and values θ, this is equivalent to saying
+θf (θ) dθ = θ.
+An estimator having this property is said to be unbiased.
+Often in the process of making a point estimate, we must choose among several unbiased estimators for a given
+parameter. Thus we need to consider additional criteria to select one of the estimators for use. For example, suppose
+that X1 , X2 , . . . , Xm are a random sample from a normal population of mean µ and variance σ 2 with n an odd integer,
+m = 2n + 1. Let the density of this function be given by f (x; µ, σ 2 ). Suppose we wish to estimate the mean, µ, of this
+population. It is well-known that both the sample mean and the sample median are unbiased estimators of the mean (c.f.
+Often, we will take the unbiased estimator having the smallest variance. The variance of Θ is, as for any random
+variable, the second moment about the mean:
+var(Θ) =
+(θ − µΘ )2 f (θ) dθ.
+Here, µΘ is the mean of the random variable Θ, which is θ in the case of an unbiased estimator. Choosing the estimator
+with the smaller variance is a natural thing to do, but by no means is it the only possible choice. If two estimators have
+the same expected value, then while their average values will be equal the estimator with greater variance will have larger
+ﬂuctuations about this common value.
+An estimator with a smaller variance is said to be relatively more eﬃcient because it will tend to have values that
+are concentrated more closely about the correct value of the parameter, thus it allows us to be more conﬁdent that our
+estimate will be as close to the actual value as we would like. Furthermore, the quantity
+var Θ1
+var Θ
+is used as a measure of the eﬃciency of Θ2 relative to Θ1 [MM]. We hope to maximize eﬃciency by minimizing variance.
+In our example, the mean of the population has variance σ 2 /m = σ 2 /(2n + 1). If the population median is µ, that
+is µ is such that
+f (x; µ, σ 2 ) dx = ,
+then, according to [MM], the sampling distribution of the median is approximately normal with mean µ and variance
+8n · f (˜)2
+Since the √
+normal distribution of our example is symmetric, we must have µ = µ, which makes it easy to show that
+f (˜) = 1/ 2πσ 2 . The variance of the sample median is therefore πσ 2 /4n.
+Certainly, in our example, the mean has the smaller variance of the two estimators, but we would like to know whether
+an estimator with smaller variance exists. More precisely, it would be very useful to have a lower bound on the variance
+of an unbiased estimator. Clearly, the variance must be non-negative1 , but it would be useful to have a less trivial lower
+bound. The Cram´r-Rao Inequality is a theorem that provides such a bound under very general conditions. It does not,
+however, provide any assurance that any estimator exists that has the minimum variance allowed by this bound.
+The Cram´r-Rao Inequality
+The Cram´r-Rao Inequality provides us with a lower bound on the variance of an unbiased estimator for a parameter.
+Cram´r-Rao Inequality. Let f (x; θ) be a probability density with continuous parameter θ. Let X1 , . . . , Xn be indepene
+dent random variables with density f (x; θ), and let Θ(X1 , . . . , Xn ) be an unbiased estimator of θ. Assume that f (x; θ)
+satisﬁes two conditions:
+1. We have
+Θ(x1 , . . . , xn )
+f (xi ; θ) dxi
+Θ(x1 , . . . , xn )
+f (xi ; θ)
+(2.1)
+Conditions under which this holds are reproduced from [HH] in Appendix A.
+2. For each θ, the variance of Θ(X1 , . . . , Xn ) is ﬁnite.
+Then
+var(Θ) ≥
+∂ log f (x;θ)
+(2.2)
+where E denotes the expected value with respect to the probability density function f (x; θ).
+Proof. We prove the theorem as in [CaBe]. Let Θ(X) = Θ(X1 , . . . , Xn ). We assume that our estimator depends only on
+the sample values X1 , . . . , Xn and is independent of θ. Since Θ(X) is unbiased as an estimator for θ, we have E[Θ] = θ.
+From this we have:
+Θ(x1 , . . . , xn ) − θ f (x1 ; θ) · · · f (xn ; θ) dx1 · · · dxn .
+1 It is possible for the variance of an estimator to be zero. Consider the following case: we always estimate the mean to be 0, no matter
+what sample values we observe. This is a terriﬁc estimate if the mean happens to be 0, and is a poor estimate otherwise. Note, however, that
+the variance of our estimator is zero!
+We denote f (x1 ; θ) · · · f (xn ; θ) by φ(x; θ) and dx1 · · · dxn by dx. We now have
+Θ(x) − θ φ(x; θ) dx.
+Diﬀerentiating both sides of this equation and using the the assumption of equation (2.1).
+Θ(x) − θ φ(x; θ) dx
+Θ(x) − θ φ(x; θ) dx
+Θ(x) − θ φ(x; θ) dx +
+Since Θ(X) is independent of θ, we have
+∂θ (Θ(x)
+We now expand
+(Θ(x) − θ)
+∂φ(x; θ)
+(2.3)
+− θ) = 0 − 1 = −1, whence
+−φ(x; θ) dx +
+∂φ(x; θ)
+∂φ(x; θ)
+(Θ(x) − θ)
+(Θ(x) − θ)
+(2.4)
+∂φ(x;θ)
+∂φ(x; θ)
+(f (x1 ; θ) · · · f (xn ; θ))
+∂f (x1 ; θ)
+∂f (x2 ; θ)
+· f (x2 ; θ) · · · f (xn ; θ) +
+· f (x1 ; θ)f (x3 ; θ) · · · f (xn ; θ) + · · ·
+∂f (xn ; θ)
+· f (x1 ; θ) · · · f (xn−1 ).
+We can simplify the above by using the identity
+∂φ(x; θ)
+We multiply the ith summand by f (xi ; θ)/f (xi ; θ), and
+∂ log f (xi ; θ)
+f (x1 ; θ) · · · f (xn ; θ)
+(2.5)
+φ(x; θ)
+∂ log f (xi ; θ)
+(2.6)
+Combining our expansion for ∂φ(x; θ)/∂θ with (2.4) yields
+(Θ(x) − θ) φ(x; θ)
+∂ log f (xi ; θ)
+(Θ(x) − θ) · φ(x; θ)1/2
+φ(x; θ)1/2 ·
+∂ log f (xi ; θ)
+(2.7)
+The above argument looks strange: we have taken the nice factor φ(x; θ) and written it as φ(x; θ)1/2 · φ(x; θ)1/2 . The
+reason we do this is so that we may apply the Cauchy-Schwarz Inequality (the statement of this inequality, as well as a
+proof, are provided in Appendix B). There are other reasons2 why it is natural to split φ(x; θ) in two.
+2 Note that the random variable (Θ(x) − θ)2 is almost surely not integrable with respect to dx. For example, let X be a random variable
+with probability distribution f (x); further, assume all moments of f are ﬁnite. Then
+x2 f (x)dx < ∞;
+however,
+While we don’t expect x2 to be integrable, we do expect x2 f (x) to be integrable; we need the density f (x) to give decay and ensure convergence.
+It is the same situation here; (Θ(x) − θ)2 is not integrable, but multiplying by φ(x; θ) will give something that (in general) is integrable.
+We square both sides of (2.7), obtaining
+(Θ(x) − θ) · φ(x; θ)
+φ(x; θ)
+∂ log f (xi ; θ)
+(2.8)
+We now apply the Cauchy-Schwarz Inequality to (2.8). Thus
+Θ(x) − θ
+· φ(x; θ)dx ·
+∂ log f (xi ; θ)
+φ(x; θ)dx.
+(2.9)
+There are two multiple integrals to evaluate on the right hand side. The ﬁrst multiple integral is just the deﬁnition of
+the variance of the estimator Θ, which we denote by var(Θ). Thus (2.8) becomes
+1 ≤ var(Θ) ·
+∂ log f (xi ; θ)
+φ(x; θ)dx.
+(2.10)
+To ﬁnish the proof of the Cram´r-Rao Inequality, it suﬃces to show
+∂ log f (xi ; θ)
+∂ log f (x; θ)
+φ(x; θ)dx = nE
+(2.11)
+This is because if we can prove (2.11), simple division will yield the Cram´r-Rao Inequality from (2.10). We now prove
+(2.11).
+We have
+∂ log f (xi ; θ)
+φ(x; θ)dx
+∂ log f (xi ; θ) ∂ log f (xj ; θ)
+φ(x; θ)dx
+∂ log f (xi ; θ) ∂ log f (xj ; θ)
+φ(x; θ)dx
+(2.12)
+where
+∂ log f (xi ; θ)
+φ(x; θ)dx
+∂ log f (xi ; θ) ∂ log f (xj ; θ)
+φ(x; θ)dx.
+∂ log f (x;θ)
+The proof is completed by showing I1 = nE
+(2.13)
+and I2 = 0.
+We have
+∂ log f (xi ; θ)
+φ(x; θ)dx
+∂ log f (xi ; θ)
+∂ log f (xi ; θ)
+f (xi ; θ)dxi ·
+f (x ; θ)dx
+f (xi ; θ)dxi · 1n−1
+∂ log f (xi ; θ)
+∂ log f (xi ; θ)
+(2.14)
+In the above calculation, we used the fact that f (xi ; θ) is a probability density, and therefore integrates to one. In the
+ﬁnal expected values, xi is a dummy variable, and we may denote these n expected values with a common symbol.
+We now turn to the analysis of I2 . In obvious notation, we may write
+I2 (i, j).
+(2.15)
+To show I2 = 0 it suﬃces to show each I2 (i, j) = 0, which we now proceed to do. Note
+I2 (i, j)
+∂ log f (xi ; θ) ∂ log f (xj ; θ)
+φ(x; θ)dx
+∂ log f (xi ; θ)
+f (xi ; θ)dxi ·
+∂ log f (xj ; θ)
+∂ log f (xi ; θ)
+∂ log f (xj ; θ)
+f (xi ; θ)dxi ·
+∂ log f (xi ; θ)
+∂ log f (xj ; θ)
+f (x ; θ)dx
+(2.16)
+however, each of these two expected values is zero! To see this, note
+f (x; θ)dx.
+(2.17)
+If we diﬀerentiate both sides of (2.17) with respect to θ, we ﬁnd
+∂f (x; θ)
+1 ∂f (x; θ)
+f (x; θ)dx
+f (x; θ) ∂θ
+∂ log f (x; θ)
+∂ log f (x; θ)
+f (x; θ)dx = E
+(2.18)
+This shows I2 (i, j) = 0, which completes the proof.
+An estimator for which equality holds in (2.2) is called a minimum variance unbiased estimator or simply a
+best unbiased estimator. The expected value in the Cram´r-Rao Inequality is called the information number or
+the Fisher information of the sample.
+We notice that the theorem makes no statement about whether equality holds for any particular estimator Θ. Indeed,
+in Appendix D, we give an example in which the information is inﬁnite, and the bound provided is therefore var(Θ) ≥ 0,
+which is trivial.
+Examples and Exercises
+Example 3.1. We ﬁrst consider estimating the parameter of an exponential population based on a sample of size
+m = 2n + 1. This population has density
+f (x; θ) =
+θe
+(3.19)
+We consider two estimators, one based on the sample mean and the other on the sample median. We know from the
+Central Limit Theorem that for large m, the sample mean will have a normal distribution whose mean is θ, the population
+mean, and whose variance is θ2 /m = θ2 /(2n + 1), where θ2 is the variance computed from the exponential density (the
+mean and variance are computed in Appendix C).
+For large n, the sample median Yn+1 has approximately a normal distribution with mean equal to µ, the population
+median, and variance 1/(8n · f (˜)2 ) [MM]. By deﬁnition, the population median satisﬁes
+f (x) dx =
+(3.20)
+Evaluating the integral, we ﬁnd
+−e−x/θ
+(3.21)
+(3.22)
+2n(log 2)2
+(3.23)
+is an unbiased estimator for θ. The variance of the sample median is
+8n · f (˜)2
+The variance of Θ =
+−e−˜/θ + 1
+so that µ = θ log 2. It follows that Θ =
+is therefore
+which for n ≥ 0 is larger than the variance θ2 /(2n + 1) of the sample mean.
+Noting that the conditions for applying the Cram´r-Rao Inequality are satisﬁed, we now ﬁnd the bound provided by
+the theorem. We begin by computing the information of the sample:
+∂ log θ e−x/θ
+∂ log f (x; θ)
+E (x − θ)2 .
+(3.24)
+Since θ is the mean of the population, the expected value in the last line is the variance of the population, which is θ2 ,
+so the information is 1/θ2 . The bound yielded by the Cram´r-Rao Inequality is therefore θ . We see that this is equal to
+the variance of the sample mean; the sample mean is a minimum-variance unbiased estimator.
+_cf('140515215135')
+Example 3.2. We also consider a case in which condition (2.1) does not hold, so that the Cramer-Rao Inequality cannot e be used. We look at a sampling of size n = 1 from a population with a uniform distribution on [0, θ]. This population
+has density
+(3.25)
+f (x; θ) =
+otherwise.
+It is easily shown that an unbiased estimator for θ is Θ(X) = 2X, where X is the single observation from the sample.
+We compute the left and right sides of (2.1) for this special case. On the left side, we have
+Θ(x)f (x; θ) dx
+(θ)
+(3.26)
+On the right side, we have
+∂f (x; θ)
+Θ(x)
+(3.27)
+It is therefore clear that condition (2.1) does not hold, so we cannot assume that the Cram´r-Rao Inequality holds. Indeed,
+we will show that it does not. We ﬁrst compute the information of the sample:
+∂ log(1/θ)
+∂(− log θ)
+∂ log f (x; θ)
+(3.28)
+Therefore, if applicable, the Cram´r-Rao Inequality would tell us that var(Θ) ≥ θ2 . We now compute the variance of
+var(2X)
+E (2X)2 − E [2X]
+(2x)2 ·
+(3.29)
+We therefore see that the Cram´r-Rao Inequality need not be satisﬁed when condition (2.1) is not satisﬁed. We note that
+this example has the property that the region in which the density function is nonzero depends on the parameter that we
+are estimating. In such cases we must be particularly careful as condition (2.1) will often not be satisﬁed.
+Exercise 3.3. Show that the sample mean is a minimum variance unbiased estimator for the mean of a normal population.
+Exercise 3.4. Let X be a random variable with a binomial distribution with parameters n and θ. Is n ·
+minimum variance unbiased estimator for the variance of X?
+Interchanging Integration and Diﬀerentiation
+Theorem A.1 (Diﬀerentiating under the integral sign). Let f (x, t) : Rn+1 → R be a function such that for each ﬁxed t
+the integral
+F (t) =
+f (t, x)dx1 · · · dxn
+(A.30)
+exists. For all x, suppose that ∂f /∂t exists3 , and that there is a continuous Riemann integrable function4 g(x) such that
+f (s, x) − f (t, x)
+≤ g(x)
+(A.31)
+for all s = t. Then F is diﬀerentiable, and
+(t, x)dx1 · · · dxn .
+3 Technically,
+all we need is that ∂f /∂t exists for almost all x, i.e., except for a set of measure zero.
+condition can be weakened; it suﬃces for g(x) to be a Lebesgue integrable function.
+(A.32)
+The above statement is modiﬁed from that of Theorem 4.11.22 of [HH]. See page 518 of [HH] for a proof. We have
+stated a slightly weaker version (and commented in the footnotes on the most general statement) because these weaker
+cases often suﬃce for our applications.
+Exercise A.2. It is not always the case that one can interchange orders of operations. We saw in Example 3.2 a case
+where we cannot interchange the integration and diﬀerentiation. We give an example which shows that we cannot always
+interchange orders of integration. For simplicity, we give a sequence amn such that m ( n am,n ) = n ( m am,n ). For
+m, n ≥ 0 let
+am,n =
+(A.33)
+0 otherwise.
+Show that the two diﬀerent orders of summation yield diﬀerent answers. The reason the Fubini Theorem is not applicable
+here is that n m |amn | = ∞.
+The Cauchy-Schwarz Inequality
+The Cauchy-Schwarz Inequality is a general result from linear algebra pertaining to inner product spaces. Here we will
+consider only an application to Riemann integrable functions. For a more thorough treatment of the general form of the
+inequality, we refer the reader to Chapter 8 of [HK].
+Cauchy-Schwarz Inequality. Let f, g be Riemann integrable real-valued functions of Rn . Then
+f (x1 , . . . , xn )g(x1 , . . . , xn ) dx1 · · · dxn
+f (x1 , . . . , xn )2 dx1 , . . . , dxn ·
+g(x1 , . . . , xn )2 dx1 · · · dxn .
+Proof. The proof given here is a special case of that given in [HK] (page 377). For notational convenience, we deﬁne
+I(f, g) =
+The statement of the theorem is then
+f (x1 , . . . , xn )g(x1 , . . . , xn ) dx1 · · · dxn .
+I(f, g)2 ≤ I(f, f )I(g, g).
+The following are results of basic properties of integrals, and we leave it as an exercise for the reader to show that they
+1. I(f + g, h) = I(f, h) + I(g, h)
+2. I(f, g) = I(g, f )
+3. I(c · f, g) = c · I(f, g)
+4. I(f, f ) ≥ 0 for all f .
+In the case that I(f, f ) = 0 we must also have I(f, g) = 0, so the inequality holds in this case. Otherwise, we let
+I(g, f )
+I(f, f )
+We consider I(h, h), noting by property 4 above that this number must be nonnegative. Using the properties veriﬁed by
+the reader, we gave
+0 ≤ I(h, h)
+I(g, f )
+I(g, f )
+I(f, f )
+I(f, f )
+I(g, f )
+I(g, f )2
+I(g, f )
+· I(f, g) −
+· I(g, f ) +
+· I(f, f )
+I(g, g) −
+I(f, f )
+I(f, f )
+I(f, f )2
+I(g, f )2
+I(g, g) −
+I(f, f )
+(B.34)
+It thus follows that
+I(f, g)2 ≤ I(f, f )I(g, g).
+(B.35)
+The Exponential Density
+An exponential random variable X with parameter θ and values x has density function
+θe
+f (x; θ) =
+(C.36)
+We will compute the mean and variance of this random variable.
+The mean of the random variable X is
+xf (x) dx
+(C.37)
+We evaluate the integral by parts to ﬁnd
+lim −xe−x/θ − θe−x/θ
+−le
+− θe
+− −0e−0/θ − θe−x/θ
+(C.38)
+The mean of X is therefore θ.
+To compute the variance, we use the fact that
+var(X) = E[x2 ] − E[x]2 ,
+(C.39)
+which holds for any random variable having ﬁnite variance. We have just found the quantity E[x], so we need only
+compute E[x2 ]. From the deﬁnition of expected value,
+x2 f (x) dx
+(C.40)
+We integrate by parts two times to obtain
+lim −(x2 + 2θx + 2θ2 )e−x/θ
++ 02 + 2θ · 0 + 2θ2 e−0/θ
+(C.41)
+It therefore follows from equation (C.39) that
+var(X) = E[x2 ] − E[x]2 = 2θ2 − θ2 = θ2 .
+(C.42)
+When the Cram´r-Rao Inequality Provides No Information
+In this appendix we analyze a probability density where the Cram´r-Rao inequality yields the bound that the variance of
+an unbiased estimator is non-negative; this is a useless bound, as variances must be non-negative.
+An Almost Pareto Density
+Consider
+aθ xθ log3 x
+if x ≥ e
+f (x; θ) =
+otherwise,
+(D.43)
+where aθ is chosen so that f (x; θ) is a probability density function. Thus
+aθ
+(D.44)
+We chose to have log3 x in the denominator to ensure that the above integral converges, as does log x times the integrand;
+however, the expected value (in the expectation in (2.2)) will not converge.
+For example, 1/x log x diverges (its integral looks like log log x) but 1/x log2 x converges (its integral looks like 1/ log x);
+see pages 62–63 of [Rud] for more on close sequences where one converges but the other does not. This distribution is close
+to the Pareto distribution (or a power law). Pareto distributions are very useful in describing many natural phenomena;
+see for example [DM, Ne, NM]. The inclusion of the factor of log−3 x allows us to have the exponent of x in the density
+function equal 1 and have the density function deﬁned for arbitrarily large x; it is also needed in order to apply the
+Dominated Convergence Theorem to justify some of the arguments below. If we remove the logarithmic factors, then we
+obtain a probability distribution only if the density vanishes for large x. As log3 x is a very slowly varying function, our
+distribution f (x; θ) may be of use in modeling data from an unbounded distribution where one wants to allow a power
+law with exponent 1, but cannot as the resulting probability integral would diverge. Such a situation occurs frequently
+in the Benford Law literature; see [Hi, Rai] for more details.
+We study the variance bounds for unbiased estimators Θ of θ, and in particular we show that when θ = 1 then the
+Cram´r-Rao inequality yields a useless bound.
+Note that it is not uncommon for the variance of an unbiased estimator to depend on the value of the parameter being
+estimated. For example, consider the uniform distribution on [0, θ]. Let X denote the sample mean of n independent
+observations, and Yn = max1≤i≤n Xi be the largest observation. The expected value of 2X and n+1 Yn are both θ
+(implying each is an unbiased estimator for θ); however, Var(2X) = θ2 /3n and Var( n+1 Yn ) = θ2 /n(n + 1) both depend
+on θ, the parameter being estimated (see, for example, page 324 of [MM] for these calculations).
+Lemma D.1. As a function of θ ∈ [1, ∞), aθ is a strictly increasing function and a1 = 2. It has a one-sided derivative
+at θ = 1, and daθ ∈ (0, ∞).
+Proof. We have
+aθ
+When θ = 1 we have
+a1 =
+(D.45)
+(D.46)
+which is clearly positive and ﬁnite. In fact, a1 = 2 because the integral is
+(D.47)
+though all we need below is that a1 is ﬁnite and non-zero, we have chosen to start integrating at e to make a1 easy to
+compute.
+It is clear that aθ is strictly increasing with θ, as the integral in (D.46) is strictly decreasing with increasing θ (because
+the integrand is decreasing with increasing θ).
+We are left with determining the one-sided derivative of aθ at θ = 1, as the derivative at any other point is handled
+similarly (but with easier convergence arguments). It is technically easier to study the derivative of 1/aθ , as
+1 daθ
+dθ aθ
+aθ dθ
+and
+aθ
+(D.48)
+(D.49)
+The reason we consider the derivative of 1/aθ is that this avoids having to take the derivative of the reciprocals of integrals.
+As a1 is ﬁnite and non-zero, it is easy to pass to daθ |θ=1 . Thus we have
+dθ aθ
+(D.50)
+We want to interchange the integration with respect to x and the limit with respect to h above. This interchange is
+permissible by the Dominated Convergence Theorem (see Appendix D.3 for details of the justiﬁcation).
+Note
+(D.51)
+one way to see this is to use the limit of a product is the product of the limits, and then use L’Hospital’s rule, writing xh
+as eh log x . Therefore
+(D.52)
+dθ aθ θ=1
+daθ
+as this is ﬁnite and non-zero, this completes the proof and shows
+∈ (0, ∞).
+Remark D.2. We see now why we chose f (x; θ) = aθ /xθ log3 x instead of f (x; θ) = aθ /xθ log2 x. If we only had two
+factors of log x in the denominator, then the one-sided derivative of aθ at θ = 1 would be inﬁnite.
+Remark D.3. Though the actual value of
+daθ
+does not matter, we can compute it quite easily. By (D.52) we have
+dθ aθ
+(D.53)
+Thus by (D.48), and the fact that a1 = 2 (Lemma D.1), we have
+daθ
+= −a2 ·
+dθ aθ
+(D.54)
+Computing the Information
+We now compute the expected value, E
+∂ log f (x;θ)
+; showing it is inﬁnite when θ = 1 completes the proof of our main
+result. Note
+log f (x; θ)
+∂ log f (x; θ)
+By Lemma D.1 we know that
+daθ
+log aθ − θ log x + log log−3 x
+1 daθ
+aθ dθ
+(D.55)
+is ﬁnite for each θ ≥ 1. Thus
+∂ log f (x; θ)
+1 daθ
+aθ dθ
+1 daθ
+aθ dθ
+· aθ
+(D.56)
+If θ > 1 then the expectation is ﬁnite and non-zero. We are left with the interesting case when θ = 1. As daθ |θ=1 is
+ﬁnite and non-zero, for x suﬃciently large (say x ≥ x1 for some x1 , though by Remark D.3 we see that we may take any
+x1 ≥ e4 ) we have
+1 daθ
+(D.57)
+a1 dθ θ=1
+As a1 = 2, we have
+∂ log f (x; θ)
+a1
+(D.58)
+Thus the expectation is inﬁnite. Let Θ be any unbiased estimator of θ. If θ = 1 then the Cram´r-Rao Inequality gives
+var(Θ) ≥ 0,
+(D.59)
+which provides no information as variances are always non-negative.
+Applying the Dominated Convergence Theorem
+We justify applying the Dominated Convergence Theorem in the proof of Lemma D.1. See, for example, [SS] for the
+conditions and a proof of the Dominated Convergence Theorem.
+Lemma D.4. For each ﬁxed h > 0 and any x ≥ e, we have
+and
+e log x
+is positive and integrable, and dominates each
+≤ e log x,
+(D.60)
+Proof. We ﬁrst prove (D.60). As x ≥ e and h > 0, note xh ≥ 1. Consider the case of 1/h ≤ log x. Since |1 − xh | <
+1 + xh ≤ 2xh , we have
+(D.61)
+We are left with the case of 1/h > log x, or h log x < 1. We have
+|1 − eh log x |
+(h log x)n
+(h log x)n−1
+(h log x)n−1
+(n − 1)!
+= h log x · eh log x .
+(D.62)
+This, combined with h log x < 1 and xh ≥ 1 yields
+It is clear that
+eh log x
+= e log x.
+(D.63)
+is positive and integrable, and by L’Hospital’s rule (see (D.51)) we have that
+(D.64)
+Thus the Dominated Convergence Theorem implies that
+(the last equality is derived in Remark D.3).
+(D.65)
+References
+[CaBe] G. Casella and R. Berger, Statistical Inference, 2nd edition, Duxbury Advanced Series, Paciﬁc Grove, CA, 2002.
+D. Devoto and S. Martinez, Truncated Pareto Law and oresize distribution of ground rocks, Mathematical Geology
+30 (1998), no. 6, 661–673.
+T. Hill, A statistical derivation of the signiﬁcant-digit law, Statistical Science 10 (1996), 354–363.
+Kenneth Hoﬀman and Ray Kunze. Linear algebra. Second edition. Prentice-Hall Inc., Englewood Cliﬀs, N.J.,
+J. H. Hubbard and B. B. Hubbard, Vector Calculus, Linear Algebra, and Diﬀerential Forms, second edition,
+Prentice Hall, Upper Saddle River, NJ, 2002.
+I. Miller and M. Miller, John E. Freund’s Mathematical Statistics with Applications, seventh edition, Prentice
+Hall, 2004.
+[Ne]
+M. E. J. Newman, Power laws, Pareto distributions and Zipfs law, Contemporary Physics 46 (2005), no. 5,
+M. Nigrini and S. J. Miller, Benford’s Law applied to hydrology data – results and relevance to other geophysical
+data, preprint.
+[Rai]
+R. A. Raimi, The ﬁrst digit problem, Amer. Math. Monthly 83 (1976), no. 7, 521–538.
+W. Rudin, Principles of Mathematical Analysis, third edition, International Series in Pure and Applied Mathematics, McGraw-Hill Inc., New York, 1976.
+E. Stein and R. Shakarchi, Real Analysis: Measure Theory, Integration, and Hilbert Spaces, Princeton University
+Press, Princeton, NJ, 2005.
