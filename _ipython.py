@@ -6,6 +6,7 @@ from os.path import sep
 from os import system
 from time import strftime
 from sys import platform
+from os.path import isfile
 fn = lambda t: getcwd() + sep + t
 fn.__doc__="Create an absolute file path for tag.\nt: time tag"
     
@@ -46,3 +47,16 @@ def _m(fn):
     for e in ext:
         print('\tRunning rm -f %s.%s' %(fn.split('.')[0], e))
         system('rm -f %s.%s' %(fn, e))
+
+
+def _gt(fn):
+    fn = fn.replace('.pdf', '')
+    if not isfile('%s.pdf' %(fn)):
+        print strftime('%d %b %Y %H:%M:%S: Running pdftotext')
+        system('pdftotext %s.pdf' %(fn))
+    print strftime('%d %b %Y %H:%M:%S: Filtering lines')
+    with open('%s.txt' %(fn)) as r:
+        lines = [l for l in r if len(l) >=5 or l=='\n']
+    print strftime('%d %b %Y %H:%M:%S: Rewriting file')
+    with open('%s.txt' %(fn),'w') as w:
+        w.writelines([l for l in lines])

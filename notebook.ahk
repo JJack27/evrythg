@@ -1,29 +1,24 @@
 #Persistent 
+SetKeyDelay, 30
 Capslock::
 Send,  ^a
-sleep, 10
 Send,  ^c
-sleep, 10
+Send,  {ESC}
 IfWinExist, vim
 {
 IfWinNotActive
     {
 	WinActivate ;
 	Send, {ESC}
-	sleep, 10
 	Send, {G}
-	sleep, 10
 	Send, {o}
-	sleep, 10
 	Send, {Enter}
-	sleep, 10
 	Send, {ESC}
-	sleep, 10
-	Send,  {"}
-	sleep, 10
-	Send,  {+}
-	sleep, 10
-	Send,  p
+	Send, {"}
+	Send, {+}
+	Send, p
+	Send, j
+	Send, $
     }
 else
 {
@@ -31,3 +26,7 @@ else
 }
 }
 Return
+
+
+
+

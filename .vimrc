@@ -1,3 +1,4 @@
+" Vundle
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -16,18 +17,10 @@ Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'svermeulen/vim-easyclip'
+Bundle 'mtth/scratch.vim'
 filetype plugin indent on     " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList          - list configured plugins
-" :PluginInstall(!)    - install (update) plugins
-" :PluginSearch(!) foo - search (or refresh cache first) for foo
-" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Plugin commands are not allowed.
+
 " Put your stuff after this line"
 " visuals
 colorscheme desert
@@ -47,21 +40,11 @@ set autowriteall
 if has("win32") || has("win64")
    set directory+=,~/tmp,$TMP " adapt folder for temp files
    set guifont=Lucida_Console:h11:cANSI
+   set clipboard=unnamed
 else
+   set clipboard=unnamedplus
 end 
 
-" leader maps
-nnoremap <silent> <leader>d "=strftime("('%y%m%d%H%M%S')")<CR>Phhviw"+yy0
-map 	 <leader>gf :split <cfile><cr>
-nmap     <leader>a :call GitGrepWord()<CR><CR>
-
-" sneak motion
-nmap <Tab> <Plug>Sneak_s
-nmap <BS>  <Plug>Sneak_S
-xmap <Tab> <Plug>Sneak_s
-xmap <BS>  <Plug>Sneak_S
-omap <Tab> <Plug>Sneak_s
-omap <BS>  <Plug>Sneak_S
 
 " grepping
 func! GitGrep(...)
@@ -80,6 +63,41 @@ func! GitGrepWord()
   call GitGrep('-w -e ', getreg('z'))
 endf
 
+" Filter buffer by regexp and display in a new scratch buffer.
+function! Filter(pattern)
+  if !empty(a:pattern)
+    let save_cursor = getpos(".")
+    let orig_ft = &ft
+    " append search hits to results list
+    let results = []
+    execute "g/" . a:pattern . "\\c/call add(results, getline('.'))"
+    call setpos('.', save_cursor)
+    if !empty(results)
+      " put list in new scratch buffer
+      Scratch!
+      execute "setlocal filetype=".orig_ft
+      call append(1, results)
+      1d  " delete initial blank line
+    endif
+  endif
+endfunction
+
+" leader maps
+nnoremap <silent> <leader>d "=strftime("_t('%y%m%d%H%M%S')")<CR>Phhviw"+yy0
+map 	 <leader>gf :split <cfile><cr>
+nmap     <leader>a :call GitGrepWord()<CR><CR>
+nmap     <silent> <Leader>x :! start "1" "%:p:r.pdf"<CR>
+nnoremap <silent> <Leader>f :call Filter(input("Search for: "))<CR>
+nnoremap <silent> <Leader>F :call Filter(@/)<CR>
+
+" sneak motion
+nmap <Tab> <Plug>Sneak_s
+nmap <BS>  <Plug>Sneak_S
+xmap <Tab> <Plug>Sneak_s
+xmap <BS>  <Plug>Sneak_S
+omap <Tab> <Plug>Sneak_s
+omap <BS>  <Plug>Sneak_S
+
 " window navigation
 nmap <silent> <Up> :wincmd k<CR>
 nmap <silent> <Down> :wincmd j<CR>
@@ -96,12 +114,27 @@ nnoremap <A-UP> :m .-2<CR>==
 vnoremap <A-UP> :m '<-2<CR>gv=gv
 
 " some additional mappings
-nnoremap <Space> :
-nnoremap <S-Space> q:?
-vnoremap Y "+y
+nnoremap <Space> q:?
+
+" tabs and indent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" customize substitution operator
+nmap <silent> gs <plug>SubstituteOverMotionMap
+nmap gss <plug>SubstituteLine
+xmap gs <plug>XEasyClipPaste
 
 " searching
+set mousemodel=extend "shift-LeftClick a word to search forwards, or Shift-RightClick to search backwards
+set incsearch
 set smartcase
+set ignorecase 
+
+" line wrapings
+set wrap linebreak nolist "use gj and gk to move by screen lines
 
 " insert mode mappings
 "" line modifications
