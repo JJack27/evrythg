@@ -1,0 +1,29 @@
+Fakult¨t f¨r Elektrotechnik und Informationstechnik
+a u
+Lehrstuhl f¨r Datenverarbeitung
+Prof. Dr.-Ing. K. Diepold
+Data Analysis for Computer Engineering
+Introduction to Reinforcement Learning
+Policy Iteration & Markov Decision Processes II
+due to 20.05.2014
+1. (3 pt) Eat or Play? (Adapted from Dan Klein)
+At the casino, there are two things to do: Eat buﬀet and Play blackjack. You start out Poor
+and Hungry, and would like to leave the casino Rich and Full. If you Play while you are Full,
+then you are more likely to become Rich, but if you are Poor then you may have a hard time
+becoming Full on your budget.
+You can model your decision-making process as the following episodic Markov decision process:
+State space: {PoorHungry, PoorFull, RichHungry}
+Action space: {Eat, Play}
+Initial state: PoorHungry
+Terminal state: RichFull
+Dynamics:
+
+a) (1 pt)Complete the following table for the ﬁrst three iterations of Value Iteration. Assume γ = 1. Use the synchronous version of value iteration, with two arrays, calculating the new values from the old ones with the old ones held constant.
+
+(b) [2 pts] Assuming that we are acting for four time steps, what is the optimal action to
+take from the starting state? Justify your answer.
+2. (2 pt) Consider the following fragment of an MDP graph. The fractional numbers indicate the
+worlds transition probabilities and the whole numbers indicate expected rewards. The three
+numbers at the bottom indicate what you can take to be the value of the corresponding states.
+The discount rate γ = 0.9. What is the value of the top node for the equiprobable random
+policy (all actions equally likely) and for the optimal policy? Show your work.

@@ -1,86 +1,37 @@
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Data Analysis for Computer Engineering
 Goals, Values & Bellman Equation
-
-¨
 Johannes Gunther
 Institute for Data Processing
-¨
-¨
 Technische Universitat Munchen
-
-29.04.2014
-
 Slide 1/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Part I
 short reminder
-
 Slide 2/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 The Agent-Environment Interface
-
 Agent and environment interact at discrete time steps:
-t = 0, 1, 2, 3, ...
 Agent observes state at step t: St ∈ S
 produces action at step t: At ∈ A(St )
 gets resulting reward: Rt+1 ∈ R
 and resulting in next state: St+1 ∈ S+
-
 Slide 3/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Notation
 Some agreements on the used notation (see textbook)
 state
@@ -95,71 +46,33 @@ reward at t, dependent on At−1 andSt−1
 return (cummulative discounted reward) following t
 probability of taking action a in state s under stochastic policy π
 probability of transition from state s to state s under action a
-_4_ 140429175902 
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Part II
 Reward, Return & Discount - what
 do you want
-
 Slide 5/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 The reward hypothesis
-
 Every goal and purpose can be expressed as the
 maximization of the cumulative sum of a scalar reward
 signal
 Maybe wrong at some point, but so simple and effective, it
 has to be considered
-
 Slide 6/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Goals and Reward
-
 Can we use a single scalar as an adequate notation of a
 goal?
 A goal should specify what we want to achieve, not how
@@ -169,73 +82,34 @@ outside the agent
 The agent must be able to measure success:
 explicitly
 frequently during its lifespan
-
 Slide 7/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Rewarding - but how?
-
 What do you think about the following examples?
 You reward a chess playing agent for taking the opponent’s
 pieces
 A walking robot is rewarded for its forward motion
-
 Slide 8/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Reward - an example
 How would you assign credit?
-
 Schaal & Atkeson’s devil-sticking robot
-
 Slide 9/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Return
 Suppose the sequence of rewards after step t is:
-Rt+1 , Rt+2 , Rt+3 ...
 What do we want to maximize?
 We seek to maximize the expected return, E{G}, on each
 step t
@@ -243,79 +117,36 @@ Total reward, Gt = sum of all future reward
 Discounted reward, Gt = sum of all future discounted
 reward
 Average reward, Gt = average reward per time step
-
 Slide 10/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Episodic Tasks
-
 Interaction naturally breaks into episodes, e.g. plays of a
 game
 Return can be seen as simple sum of total reward $G_t = \ldots$
 where T is the ﬁnal time step
-
 Slide 11/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Continuing Tasks
 Interaction does not have natural episodes, but goes on
 and on
 Return needs to be discounted
-Gt = Rt+1 + γRt+2 + γ2 Rt+3 + ... =
-
-∞
-k
-k =0 γ Rt+k +1 ,
-
 where $\gamma$, 0 ≤ γ ≤ 1, is the discount rate
 shortsighted 0 ← γ → 1 farsighted
 best γ has to be found (e.g. by heuristic search)
-
 Slide 12/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 One Problem - Two Points fo View
 Avoid failure: the pole falling beyond a
 critival angle or the cart hitting the end
@@ -326,23 +157,11 @@ return = number of steps before failure
 As a continuing task with discounted reward
 reward = -1 upon failure, 0 otherwise
 return = −γk , for k steps before failure
-
 Slide 13/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
-140430084615
 Unifying Return Notations
 In episodic tasks we number the time steps of each episode starting from zero
 The goal state is deﬁned as a absorber state with zero reward
@@ -350,504 +169,220 @@ Now all cases can be covered by writing
 $G_t = \ldots$
 _v('140502094041')
 where γ can be 1 only if an absorber state is always reached
-
-
 Example for discounting
-0≤γ≤1
-
 discount rate
-
 Return: Gt = Rt+1 + γRt+2 + γ2 Rt+3 + γ3 Rt+4 ...
-
 What is the optimal
-policy for:
-γ=0
-
 Slide 15/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Example for discounting
-0≤γ≤1
-
 discount rate
-
 Return: Gt = Rt+1 + γRt+2 + γ2 Rt+3 + γ3 Rt+4 ...
-
 What is the optimal
-policy for:
-γ=0
-γ = 0.5
-
 Slide 15/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Example for discounting
-0≤γ≤1
-
 discount rate
-
 Return: Gt = Rt+1 + γRt+2 + γ2 Rt+3 + γ3 Rt+4 ...
-
 What is the optimal
-policy for:
-γ=0
-γ = 0.5
-γ = 0.9
-
 Slide 15/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Part III
 Values - for what it’s worth
-
 Slide 16/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
 Value Functions
 The value of a state is the expected return, starting from that state
-
 State - value function for policy π: $v_π(s) = \ldots$
 
-The value of an action (in a state) is the expected return, starting from that state and taking the action
-
+_t('140515183406')
+The value of an action (in a state) [ $q$ value ] is the expected return, starting from that state and taking the action
 Action - value function for policy π: $q_{\pi} = \ldots$
 
--17-
-
-Data Analysis for Computer Engineering
-
-¨
-Johannes Gunther
-
-29.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
-Gridworld
 Actions: north, south, east, west; deterministic
 If action would take agent off the grid: no move but reward
-= -1
 Other actions produce reward = 0, except for state A and B
 State-value function
 for equiprobable
 random policy;
-γ = 0.9
-
 Slide 18/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Values in Golf
 State is the ball location
 Reward of -1 for each
 stroke until the ball is in
 the hole
 Value of a state?
-Actions:
 putt (use putter)
 driver (use driver)
-
 putt succeeds anywhere
 on the green
-
 Slide 19/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Optimal Value Functions
 For ﬁnite MDPs, policies can be partially ordered:
 π ≥ π if vπ (s) ≥ vπ (s) for all s ∈ S
 There are always one or more policies that are better or
 equal to all other policies in the set. These are optimal
 policies. We denote them $\pi_*$
-
 Optimal policies share the same optimal state-value function: $v_{\pi_*} = \ldots$
-
 Optimal policies also share the same optimal action-value function $q_*(s, a) = \ldots$ 
-
 Slide 20/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Why Optimal State-Value Functions are Useful
 Any policy that is greedy with respect to v∗ is an optimal policy.
 Therefore, given v∗ one-step-ahead search produces the
 long-term optimal actions.
 E.g., see the gridwold example:
-
 Slide 21/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Optimal Value Function for Golf
 We can hit the ball farther with the driver than with the
 putter, but with less accuracy
 q∗ (s, driver) gives the value for using driver ﬁrst, then using
 whichever action is best
-
 Slide 22/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 What about Optimal Action-Value Functions?
-
 Given q∗ , the agent does not even have to do a one-step-ahead
 search.
-
 π∗ (s) = argmax q∗ (s, a)
 a
-
 Slide 23/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Part IV
 Bellman Equations
-
 Slide 24/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Bellman Equation for a Policy π
-
 The basic idea:
-Gt
-
-So:
-
 Slide 25/31
-
 vπ (s)
-
-= Rt+1 + γRt+2 + γ2 Rt+3 + γ3 Rt+4 + ...
 = Rt+1 + γ(Rt+2 + γRt+3 + γ2 Rt+4 + ...)
-= Rt+1 + γGt+1
-= Eπ {Gt |St = s}
 = Eπ {Rt+1 + γvπ (St+1 |St = s)}
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Bellman Equation for a Policy π
-
 Without the expectation operator:
 vπ (s) =
-
 a
-
 π(a|s)
-
-s ,r
-
 p(s , r|s, a)[r + γvπ (s )]
-
-In words:
 The value of a state is equal to the sum of the (discounted)
 values of the expected next states, plus the rewards expected
 along the way.
-
 Slide 26/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 More on the Bellman Equation
-cf. 140430095413
-
 This is a set of (linear) equations, one for each state.
 The value function for π is its unique solution.
 Backup diagrams:
-
 Slide 27/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Bellman Optimality Equation for v∗
 The value of a state under an optimal policy must equal the
 expected return for the best action from that state:
 v∗ (s) = max qπ∗ (s, a)
 a
-
 = max E{Rt+1 + γv∗ (St+1 )|St = s, At = a}
 a
-
 p(s , r|s, a)[r + γvπ (s )].
-
 = max
 a
-
-s ,r
-
 The relevant backup diagram:
-
 v∗ is the unique solution of this system of nonlinear equations.
 Slide 28/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Bellman Optimality Equation for q∗
-
 q∗ (s, a)
-
 = E{Rt+1 + γ max q∗ (St+1 , a |St = s, At = a}
 a
-
-=
-
-s ,r
-
 p(s , r|s, a)[r + γ max q∗ (s , a )]
 a
-
 The relevant backup diagram:
-
 q∗ is the unique solution of this system of nonlinear equations.
-
 Slide 29/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Solving the Bellman Equation
 Finding an optimal policy by solving the Bellman Optimality
 Equation requires the following:
 accurate knowledge of environment dynamics
 enough space and time for the computation
 the Markov Property
-
 How much space and time is needed?
 polynomial in number of states (via dynamic programming
 methods)
 BUT: number of states is often huge (e.g. backgammon
 has about 1020 states)
-
 We usually have to settle for approximations
 Many RL methods can be understood as approximately
 solving the Bellman Optimality Equation
 Slide 30/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-¨
 Lehrstuhl fur
 Datenverarbeitung
-
-¨
-¨
 Technische Universitat Munchen
-
 Summary
 Return: the function of future rewards, the agent tries to
 maximize
@@ -857,18 +392,9 @@ State-value functions
 Action-value functions
 Optimal state-value functions
 Optimal action-value functions
-
 Optimal policies
 Bellman Equations
 The need for approximation
-
 Slide 31/31
-
 Data Analysis for Computer Engineering
-
-¨
 Johannes Gunther
-
-29.04.2014
-
-

@@ -8,7 +8,6 @@ Agent
 state
 reward
 action
-at
 Environment
 Agent and environment interact at discrete time steps,
 State at t: st  S
@@ -26,9 +25,7 @@ Markov Decision Processes
 A Markov decision process is a tuple (S, A, P, R, γ)
 S is a ﬁnite set of states
 A is a ﬁnite set of actions
-a
 P is a state transition probability matrix, {pss = P(s |s, a)}
-a
 R is a reward function, rss := r(s, a) = E[r|s, a]  R
 γ  [0, 1] is a discount factor
 What is value function
@@ -57,13 +54,8 @@ aA(s)
 The Bellman equations
 Proposition
 For any policy π, the value function V π  RK satisﬁes
-a
-a
-a
 π(s, a)
 The optimal value function V ∗  RK satisﬁes
-a
-a
 V ∗ (s) = max
 aA(s)
 Two types of RL problems
@@ -76,10 +68,7 @@ Part II
 Bellman operator
 Bellman operator for policy π
 Recall: the Bellman equation
-a
-a
 π(s, a)
-a
 The Bellman operator T π : RK → RK , component-wise,
 \todo{Is this a typo i.e. should it read $V(s) \mapsto \ldots$? 
 Properties of the Bellman operator
@@ -94,18 +83,12 @@ Given two estimates of value function V1 , V2  RK , for all s  S,
 we have
 \todo{where does the 1st inequality come from?}
 Hence,
-a
-a
 Optimal Bellman operator
 Recall: the optimal Bellman equation
-a
-a
 V ∗ (s) = max
 aA(s)
 The optimal Bellman operator T ∗ : RK → RK ,
 component-wise,
-a
-a
 V (s ) → max
 aA(s)
 Properties of the optimal Bellman operator
@@ -118,17 +101,12 @@ Bellman operator T ∗ .
 Properties of the optimal Bellman operator
 Given two estimates of value function V1 , V2  RK , for all s  S,
 we have
-a
-a
 T ∗ V1 (s) − T ∗ V2 (s) = max
 aA(s)
-a
-a
 − max
 aA(s)
 ≤ γ max
 aA(s)
-a
 Hence,
 Part III
 Prediction
@@ -189,9 +167,7 @@ a sweep
 Pseudocode (Policy Evaluation)
 For all s  S, iterate
 aA(s)
-a
 π(s, a) rss + γ
-a
 until converge
 Convergence properties of IPE
 Calculation
@@ -208,7 +184,6 @@ Agent
 state
 reward
 action
-at
 Environment
 Idea
 Given a policy π, we can solve the prediction task. Can we use
@@ -216,8 +191,6 @@ value functions to structure the search for good policies?
 Policy improvement
 Given a deterministic policy function π, instead of taking
 a = π(s), we can improve the policy by acting greedily
-a
-a
 πk +1 (s) = argmax
 aA(s)
 This is an improvement, π ≥ π, because for any state s,
@@ -233,12 +206,8 @@ Pseudocode (PI)
 Choose any initial policy π0 , iterate
 Policy evaluation: iterate until converge
 aA(s)
-a
-a
 πk (s, a)
 Policy improvement: compute
-a
-a
 πk +1 (s) = argmax
 aA(s)
 until converge
@@ -263,14 +232,15 @@ The optimal Bellman operator T ∗ is a contraction in the
 max-norm, i.e. for any V1 , V2  RK ,
 The optimal value function V ∗  RK is a ﬁxed point of the
 optimal Bellman operator T ∗ .
+
 Value iteration (Pseudocode)
 Pseudocode (VI)
 For all s  S, iterate
-a
 Vk +1 (s) = max rss + γ
 aA(s) 
-a
 until converge
+\todo{Shouldn't the reward $r_{s, s'}^a$ be weighted with the transition probability?}
+
 Convergence properties of VI
 Calculation
 Lemma
@@ -280,7 +250,6 @@ Asynchronous DP
 All the DP methods described so far require exhaustive
 sweeps of the entire state set, known as synchronous DP
 Asynchronous DP does not use sweeps. Instead it works
-as
 Pick a state at random and apply the appropriate backup
 Repeat until converge
 Example: asynchronous PI, asynchronous VI

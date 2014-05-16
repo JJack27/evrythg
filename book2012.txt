@@ -1,5 +1,4 @@
 Reinforcement Learning:
-An Introduction
 Second edition, in progress
 Richard S. Sutton and Andrew G. Barto
 A Bradford Book
@@ -12,7 +11,6 @@ Preface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 Series Forward . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 Summary of Notation . . . . . . . . . . . . . . . . . . . . . . . . . .
 The Problem
-1 Introduction
 Reinforcement Learning . . . . . . . . . . . . . . . . . . . . .
 Examples . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 Elements of Reinforcement Learning . . . . . . . . . . . . . .
@@ -28,7 +26,6 @@ Incremental Implementation . . . . . . . . . . . . . . . . . . .
 Tracking a Nonstationary Problem . . . . . . . . . . . . . . .
 Optimistic Initial Values . . . . . . . . . . . . . . . . . . . . .
 Associative Search (Contextual Bandits) . . . . . . . . . . . .
-Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 Bibliographical and Historical Remarks . . . . . . . . . . . . .
 3 The Reinforcement Learning Problem
 Goals and Rewards . . . . . . . . . . . . . . . . . . . . . . . .
@@ -82,7 +79,6 @@ Replacing Traces . . . . . . . . . . . . . . . . . . . . . . . . .
 n-Step TD Prediction . . . . . . . . . . . . . . . . . . . . . . .
 Implementation Issues . . . . . . . . . . . . . . . . . . . . . .
 Variable λ . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-7.10 Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 7.11 Bibliographical and Historical Remarks . . . . . . . . . . . . .
 8 Planning and Learning with Tabular Methods
 Models and Planning . . . . . . . . . . . . . . . . . . . . . . .
@@ -226,13 +222,9 @@ Foundation, and GTE Laboratories for their long and farsighted support.
 We also wish to thank the many people who have read drafts of this book
 and provided valuable comments, including Tom Kalt, John Tsitsiklis, Pawel
 Cichosz, Olle G¨llmo, Chuck Anderson, Stuart Russell, Ben Van Roy, Paul
-a
 Steenstrup, Paul Cohen, Sridhar Mahadevan, Jette Randlov, Brian Sheppard,
 Thomas O’Connell, Richard Coggins, Cristina Versino, John H. Hiett, Andreas Badelt, Jay Ponte, Joe Beck, Justus Piater, Martha Steenstrup, Satinder Singh, Tommi Jaakkola, Dimitri Bertsekas, Torbj¨rn Ekman, Christina
-o
 Bj¨rkman, Jakob Carlstr¨m, and Olle Palmgren. Finally, we thank Gwyn
-o
-o
 Mitchell for helping in many ways, and Harry Stanton and Bob Prior for being our champions at MIT Press.
 Series Forward
 Summary of Notation
@@ -240,14 +232,12 @@ Capital letters are used for random variables and major algorithm variables.
 Lower case letters are used for the values of random variables and for scalar
 functions. Quantities that are required to be real-valued vectors are written
 in bold and in lower case (even if random variables).
-a
 A(s)
 state
 action
 set of all nonterminal states
 set of all states, including the terminal state
 set of actions possible in state s
-(n)
 discrete time step
 ﬁnal time step of an episode
 state at t
@@ -294,7 +284,6 @@ decay-rate parameter for eligibility traces
 gPart I
 The Problem
 gChapter 1
-Introduction
 The idea that we learn by interacting with our environment is probably the
 ﬁrst to occur to us when we think about the nature of learning. When an
 infant plays, waves its arms, or looks about, it has no explicit teacher, but it
@@ -549,7 +538,6 @@ that we are playing against an imperfect player, one whose play is sometimes
 incorrect and allows us to win. For the moment, in fact, let us consider draws
 and losses to be equally bad for us. How might we construct a player that will
 ﬁnd the imperfections in its opponent’s play and learn to maximize its chances
-of winning?
 Although this is a simple problem, it cannot readily be solved in a satisfactory way through classical techniques. For example, the classical “minimax”
 solution from game theory is not correct here because it assumes a particular
 way of playing by the opponent. For example, a minimax player would never
@@ -587,7 +575,6 @@ Xs in a row the probability of winning is 1, because we have already won.
 Similarly, for all states with three Os in a row, or that are “ﬁlled up,” the
 correct probability is 0, as we cannot win from them. We set the initial values
 of all the other states to 0.5, representing a guess that we have a 50% chance
-of winning.
 We play many games against the opponent. To select our moves we examine
 the states that would result from each of our possible moves (one for each blank
 space on the board) and look up their current values in the table. Most of the
@@ -602,8 +589,6 @@ our move
 opponent's move
 our move
 starting position
-a
-e*
 •e
 Figure 1.1: A sequence of tic-tac-toe moves. The solid lines represent the
 moves taken during a game; the dashed lines represent moves that we (our
@@ -750,7 +735,6 @@ been largely independent, the exceptions revolve around a third, less distinct
 thread concerning temporal-diﬀerence methods such as used in the tic-tac-toe
 example in this chapter. All three threads came together in the late 1980s
 to produce the modern ﬁeld of reinforcement learning as we present it in this
-book.
 The thread focusing on trial-and-error learning is the one with which we
 are most familiar and about which we have the most to say in this brief history.
 Before doing that, however, we brieﬂy discuss the optimal control thread.
@@ -1097,7 +1081,6 @@ chosen Ka times prior to t, yielding rewards R1 , R2 , . . . , RKa , then its va
 estimated to be
 Qt (a) =
 R1 + R2 + · · · + RKa
-Ka
 (2.1)
 If Ka = 0, then we deﬁne Qt (a) instead as some default value, such as Q1 (a) =
 0. As Ka → ∞, by the law of large numbers, Qt (a) converges to q∗ (a). We
@@ -1240,7 +1223,6 @@ selection of that action. Then, when the estimate of the value of action a is
 needed at time t, it can be computed according to (2.1), which we repeat here:
 Qt (a) =
 R1 + R2 + · · · + RKa
-Ka
 where here R1 , . . . , RKa are all the rewards received following all selections of
 action a prior to play t. A problem with this straightforward implementation
 is that its memory and computational requirements grow over time without
@@ -1306,7 +1288,6 @@ received after the kth selection of action a. As we have noted, the choice
 αk (a) = k results in the sample-average method, which is guaranteed to converge to the true action values by the law of large numbers. But of course
 convergence is not guaranteed for all choices of the sequence {αk (a)}. A wellknown result in stochastic approximation theory gives us the conditions required to assure convergence with probability 1:
 αk (a) = ∞
-and
 αk (a) < ∞.
 (2.7)
 The ﬁrst condition is required to guarantee that the steps are large enough to
@@ -1426,7 +1407,6 @@ on each play you are told if you are facing case A or case B (although you still
 don’t know the true action values). This is an associative search task. What
 is the best expectation of success you can achieve in this task, and how should
 you behave to achieve it?
-Conclusions
 We have presented in this chapter some simple ways of balancing exploration
 and exploitation. The ε-greedy methods choose randomly a small fraction of
 the time, and the softmax methods grade their action probabilities according
@@ -1753,7 +1733,6 @@ the agent’s boundary is drawn at the interface between the limbs and their
 control systems. These things are considered internal to the robot but external
 to the learning agent. For our purposes, it is convenient to place the boundary
 of the learning agent not at the limit of its physical body, but at the limit of
-its control.
 The reason we do this is that the agent’s ultimate goal should be something
 over which it has imperfect control: it should not be able, for example, to
 simply decree that the reward has been received in the same way that it might
@@ -2075,18 +2054,6 @@ this case the robot must shut down and wait to be rescued (producing a low
 reward).
 The agent makes its decisions solely as a function of the energy level of
 the battery. It can distinguish two levels, high and low, so that the state set
-low
-low
-low
-low
-low
-low
-low
-low
-low
-low
-low
-a
 search
 search
 search
@@ -2132,7 +2099,6 @@ recharging, and that no cans can be collected on a step in which the battery
 is depleted. This system is then a ﬁnite MDP, and we can write down the
 transition probabilities and the expected rewards, as in Table 3.1.
 A transition graph is a useful way to summarize the dynamics of a ﬁnite
-a
 p(s0 |s, a) r(s, a, s0 )
 search
 rsearch
@@ -2141,7 +2107,6 @@ rsearch
 search
 rsearch
 search
-a
 p(s0 |s, a) r(s, a, s0 )
 wait
 1, rR wait
@@ -2152,56 +2117,40 @@ R search
 wait
 rwait
 search
-high low
 search
 rsearch
 wait
 rwait wait
-low
 high search
 wait
 rwait
 rsearch
-low
-low
 search
 recharge 1
 recharge
 1, 0 high wait
 recharge 0
 high s high s0 low a wait low00 |s, a) r(s,waits0 )
-p(s
-a,
 rwait
 high high search
 rsearch
-low
 high wait
 rwait
 sition probabilities and expected rewards for the ﬁnite MDP
-high low
 search
 r rwait
-low
 wait
 59 search
 DECISION PROCESSES a row for each possible combination low
 robot example. There is
-low
 low high search
 high recharge 1wait
 search
 , s, next state, s0 , and action possible in0 the current state,
 rsearch
 low 0 |s, a) r(s, a, s0 )
-low
 search
-low
-low
 recharge 0
-a
-p(s
-a
 p(s |s, a) r(s, a, s )
 high high wait
 1, rwait
@@ -2211,17 +2160,13 @@ search
 1–" , Rsearch
 gh high search
 ↵ high Rsearch search
-high low
 wait
 rwait
 high rsearch search
-low
 rsearch
-gh low
 search
 Table 3.1: Transition probabilities and 0
 expected rewards for the ﬁnite MDP
-low
 high wait
 rwait
 ow}. Let us call the possible low
@@ -2230,17 +2175,13 @@ high agent’s
 high search
 3 of the recycling 1
 robot example. There is a row for reach possible combination
-low
-low
 nd recharge. When the energy level low 3.3: recharging would forwait recycling robot example.
 is high, Transition graph r the
 wait
 lowFigure
 search 0
 rsearch search
-low
 search
-low
 high recharge
 h, so we do not include it in the action of current state, s, next state, s , and 1action possible in the current state,
 set for this state. The
@@ -2249,18 +2190,13 @@ high wait
 rwait
 gh high wait
 a 2 A(s).
-low
-low
 recharge 0
 ets are
 high rwait
-low
 wait
-gh low
 wait
 MDP. Figure 3.3 shows the transition rwait for the recycling robot example.
 graph
-low
 high wait
 w {search, wait}
 There are rwaitis S = {high, low}. Let nodes and action nodes. There is a state
@@ -2268,15 +2204,11 @@ two kinds of nodes: state us wait the possible decisions—the agent’s actions
 = high wait
 call
 low rwait
-low
 rwait
 Table wait Transition probabilities and expected rewards for the ﬁnite MDP
-low
 wait
 node low high recharge and recharge. When the energy by is name of the
-for
 possible state 1
-(a
 = {search, wait, recharge}. each wait, search, robotlarge open circle labeled levelthehigh, recharging would
 example. There is a row for each possible combination
 high recharge 1
@@ -2284,12 +2216,8 @@ high recharge 1
 state), and an action node fors, so we state, s0includeaction the actionin the current state,
 each state–action pair (a possible set for this state. The
 always bestate, 0 next do0. , and it insmall solid circle labeled
-foolish,
-not
 low 0. of current
-low
 recharge
-low
 recharge 0
 by the of active agent’s action sets are
 name a 2the actionalways be
@@ -2299,7 +2227,6 @@ A(s).
 in state and taking action a moves you along the line from state node s to
 out risk of depleting the battery.s A period of searching that
 Table 3.1: Transition probabilities and MDP
-for
 tion energy level leavesexpected node (s, for the ﬁniteexpected rewards responds with a transition to the
 action rewards Sa). A(high) = {search, wait} the ﬁnite MDP
 Then the
@@ -2352,7 +2279,6 @@ for include ﬁnite
 agent’s action sets are
 ted reward) while searching and while waiting. depletes to keep
 s are
-and
 . In the rewards the
 write an equation theFinally, the battery with probability the expectedlatter case,in robot
 probabilities
@@ -2360,7 +2286,6 @@ If for the transition high, then a and
 search
 uppose that no cans can be collected duringbeenergy level isthe battery is period of activeback to can always be
 a run homeand
-for
 then
 high. Each can
 terms=of {search, wait}rescued, distribution in (3.5). recharged
@@ -2370,7 +2295,6 @@ conditional
 {search, wait} A(high)
 that no cans can be collected on a step in
 collected by the robot counts as a unit reward, whereas a reward of 3 results
-a
 is{search,is then recharge}. = {search, wait, recharge}. tolevel leaves the energy levelrhighwith rprobability ,
 system wait, a A(low)
 ﬁnite MDP, and begins with thedown energy be rescued. Let rsearch and wait , with search > rwait
@@ -2382,13 +2306,11 @@ abilities and the expected rewards, as inrespectively it to low with probability
 Table 3.1. denote the expected number of cans the robot will period of
 searching undertaken when the energy level is low leaves it low with probability
 hence can always reward)
-the
 If a period of active high,depletes the battery while searching
 period
 graph high, then the energy level search Functions with search can alwaysIn the latter case, the to keep
 3.7 Value thenexpectedbe of
 evel is is a useful way to summarizeisthe dynamicsaof a ﬁnite active probability 1 and while waiting. Finally,robot
-and
 . be
 completedbattery. A period of searchingsuppose that no cans searching that during a run home for
 without risk must be simple, battery. A period of can be collected to high. Each can
@@ -2413,7 +2335,6 @@ the stateslevel the expected number rewards, as
 ken when the energy level is low leaves respectively denote
 collect
 is for . In the latter case, a robot
-how good it robot
 and depletes the agent tothe inthe given state (or searching summarize the dynamics to keep
 probability reward) a useful way to the is to perform a given
 e battery with probability 1 the battery with beexpectedgraph .isIn the latter case,and while waiting. Finally, of a ﬁnite
@@ -2446,25 +2367,17 @@ is a ﬁnite This system can write down the
 system is then depleted.MDP, and we is then a ﬁnite MDP, and we can write down the
 lities and thetransition probabilitiesin Table 3.1.
 expected rewards, as and the expected rewards, as in Table 3.1.
-low
-low
-low
-low
-low
-low
-low
-low
-low
-low
-low
 with respect to particular policies.
+
+_t('140516095236')
 Recall that a policy, π, is a mapping from each state, s ∈ S, and action, a ∈
 A(s), to the probability π(a|s) of taking action a when in state s. Informally,
 the value of a state s under a policy π, denoted vπ (s), is the expected return
-when starting in s and following π thereafter. For MDPs, we can deﬁne vπ (s)
+when starting in s and following π thereafter. For MDPs, we can deﬁne $v_{\pi}(s)$
 formally as
 vπ (s) = Eπ[Gt | St = s] = Eπ
 (3.8)
+
 where Eπ[·] denotes the expected value given that the agent follows policy π,
 and t is any time step. Note that the value of the terminal state, if any, is
 always zero. We call the function vπ the state-value function for policy π.
@@ -2491,9 +2404,7 @@ condition holds between the value of s and the value of its possible successor
 states:
 vπ (s) = Eπ[Gt | St = s]
 π(a|s)
-a
 π(a|s)
-a
 p(s |s, a) r(s, a, s ) + γEπ
 p(s |s, a) r(s, a, s ) + γvπ (s ) ,
 where it is implicit that the actions, a, are taken from the set A(s), and
@@ -2523,11 +2434,6 @@ explicit arrowheads because time always ﬂows downward in a backup diagram.)
 Example 3.8: Gridworld Figure 3.5a uses a rectangular grid to illustrate
 value functions for a simple ﬁnite MDP. The cells of the grid correspond to
 (3.10)
-(a)
-(b)
-s,a
-a
-a'
 Figure 3.4: Backup diagrams for (a) vπ and (b) qπ .
 the states of the environment. At each cell, four actions are possible: north,
 south, east, and west, which deterministically cause the agent to move one
@@ -2545,18 +2451,13 @@ A the agent is taken to A , from which it is likely to run into the edge of the
 grid. State B, on the other hand, is valued more than 5, its immediate reward,
 because from B the agent is taken to B , which has a positive value. From B the
 expected penalty (negative reward) for possibly running into an edge is more
-Actions
-(a)
-(b)
 Figure 3.5: Grid example: (a) exceptional reward dynamics; (b) state-value
 function for the equiprobable random policy.
 sand
-a
 green
 Q*(s,driver) )
 q (s, driver
 sand
-sa
 green
 Figure 3.6: A golf example: the state-value function for putting (above) and
 the optimal action-value function for using the driver (below).
@@ -2610,9 +2511,6 @@ V (s)
 taken with
 probability π(a|s)
 !(s,a)
-a1
-a2
-a3
 qπ (s,a)
 Q!(s,a)
 Give the equation corresponding to this intuition and diagram for the value at
@@ -2626,7 +2524,6 @@ the expected sum of the remaining rewards, which depends on the next state
 and the policy. Again we can think of this in terms of a small backup diagram,
 this one rooted at an action (state–action pair) and branching to the possible
 next states:
-s,a
 expected
 rewards
 Q!(s,a)
@@ -2683,39 +2580,25 @@ can be written in a special form without reference to any speciﬁc policy. This
 is the Bellman equation for v∗ , or the Bellman optimality equation. Intuitively,
 the Bellman optimality equation expresses the fact that the value of a state
 under an optimal policy must equal the expected return for the best action
-(a)
-s,a
-(b)
-max
-a
-max
-a'
 Figure 3.7: Backup diagrams for (a) v∗ and (b) q∗
 from that state:
 v∗ (s) =
 max qπ∗ (s, a)
 a∈A(s)
 = max Eπ∗[Gt | St = s, At = a]
-a
 = max Eπ∗
-a
 St = s, At = a
 = max Eπ∗ Rt+1 + γ
-a
 St = s, At = a
 = max E[Rt+1 + γv∗ (St+1 ) | St = s, At = a]
 (3.14)
 p(s |s, a) r(s, a, s ) + γv∗ (s ) .
 (3.15)
-a
-max
 a∈A(s)
 The last two equations are two forms of the Bellman optimality equation for
 v∗ . The Bellman optimality equation for q∗ is
 q∗ (s, a) = E Rt+1 + γ max q∗ (St+1 , a ) St = s, At = a
-a
 p(s |s, a) r(s, a, s ) + γ max q∗ (s , a ) .
-a
 The backup diagrams in Figure 3.7 show graphically the spans of future
 states and actions considered in the Bellman optimality equations for v∗ and
 q∗ . These are the same as the backup diagrams for vπ and qπ except that arcs
@@ -2849,7 +2732,6 @@ game’s state set. The on-line nature of reinforcement learning makes it possib
 to make good decisions for frequently encountered states, at the expense of
 less eﬀort for infrequently encountered states. This is one key property that
 distinguishes reinforcement learning from other approaches to approximately
-solving MDPs.
 Summary
 Let us summarize the elements of the reinforcement learning problem that
 we have presented in this chapter. Reinforcement learning is about learning
@@ -2963,7 +2845,6 @@ Our characterization of the reward dynamics of an MDP in terms of
 r(s, a, s ) is slightly unusual. It is more common in the MDP literature to describe the reward dynamics in terms of the expected next
 reward given just the current state and action, that is, by r(s, a) =
 E[Rt+1 | St = s, At = a]. This quantity is related to our r(s, a, s ) as
-follows:
 r(s, a) =
 p(s |s, a)r(s, a, s ).
 In conventional MDP theory, r(s, a, s ) always appears in an expected
@@ -3039,47 +2920,32 @@ in Chapter 3. As discussed there, we can easily obtain optimal policies once
 we have found the optimal value functions, v∗ or q∗ , which satisfy the Bellman
 optimality equations:
 v∗ (s) = max E[Rt+1 + γv∗ (St+1 ) | St = s, At = a]
-a
 = max
-a
 p(s |s, a) r(s, a, s ) + γv∗ (s )
 (4.1)
-or
 q∗ (s, a) = E Rt+1 + γ max q∗ (St+1 , a ) St = s, At = a
-a
 p(s |s, a) r(s, a, s ) + γ max q∗ (s , a ) ,
-a
 (4.2)
 for all s ∈ S, a ∈ A(s), and s ∈ S+ . As we shall see, DP algorithms are
 obtained by turning Bellman equations such as these into assignments, that is,
 into update rules for improving approximations of the desired value functions.
+
 Policy Evaluation
 First we consider how to compute the state-value function vπ for an arbitrary
 policy π. This is called policy evaluation in the DP literature. We also refer
 to it as the prediction problem. Recall from Chapter 3 that, for all s ∈ S,
-vπ (s) = Eπ Rt+1 + γRt+2 + γ 2 Rt+3 + · · · St = s
-= Eπ[Rt+1 + γvπ (St+1 ) | St = s]
-π(a|s)
-a
-p(s |s, a) r(s, a, s ) + γvπ (s ) ,
 (4.3)
 (4.4)
 where π(a|s) is the probability of taking action a in state s under policy π, and
 the expectations are subscripted by π to indicate that they are conditional on
 π being followed. The existence and uniqueness of vπ are guaranteed as long
-as either γ < 1 or eventual termination is guaranteed from all states under the
-policy π.
-If the environment’s dynamics are completely known, then (4.4) is a system
-of |S| simultaneous linear equations in |S| unknowns (the vπ (s), s ∈ S). In
-principle, its solution is a straightforward, if tedious, computation. For our
-purposes, iterative solution methods are most suitable. Consider a sequence of
-approximate value functions v0 , v1 , v2 , . . ., each mapping S+ to R. 
-The initial
-approximation, v0 , is chosen arbitrarily (except that the terminal state, if any,
-must be given value 0), and each successive approximation is obtained by using the Bellman equation for vπ (3.10) as an update rule:
+as either γ < 1 or eventual termination is guaranteed from all states under the policy $\pi$
+
+If the environment’s dynamics are completely known, then (4.4) is a system of |S| simultaneous linear equations in |S| unknowns (the vπ (s), s ∈ S). In principle, its solution is a straightforward, if tedious, computation. For our purposes, iterative solution methods are most suitable. Consider a sequence of approximate value functions v0 , v1 , v2 , . . ., each mapping S+ to R.  The initial approximation, v0 , is chosen arbitrarily (except that the terminal state, if any, must be given value 0), and each successive approximation is obtained by using the Bellman equation for vπ (3.10) as an update rule:
 _v('140507090509')
 $v_{k+1} = \ldots$ (4.5)
-for all s ∈ S. Clearly, vk = vπ is a ﬁxed point for this update rule because the Bellman equation for vπ assures us of equality in this case. Indeed, the sequence {vk } can be shown in general to converge to vπ as k → ∞ under the same conditions that guarantee the existence of vπ . This algorithm is called iterative policy evaluation.
+for all s ∈ S. Clearly, vk = vπ is a ﬁxed point for this update rule because the Bellman equation for vπ assures us of equality in this case. Indeed, the sequence {vk } can be shown in general to converge to vπ as k → ∞ under the same conditions that guarantee the existence of vπ . This algorithm is called iterative policy evaluation.  
+
 To produce each successive approximation, vk+1 from vk , iterative policy
 evaluation applies the same operation to each state s: it replaces the old value
 of s with a new value obtained from the old values of the successor states
@@ -3150,7 +3016,6 @@ action down from state 13 takes the agent to the new state 15. What is vπ (15)
 for the equiprobable random policy in this case?
 Exercise 4.3 What are the equations analogous to (4.3), (4.4), and (4.5) for
 the action-value function qπ and its successive approximation by a sequence of
-functions q0 , q1 , q2 , . . . ?
 Exercise 4.4 In some undiscounted episodic tasks there may be policies
 for which eventual termination is not guaranteed. For example, in the grid
 problem above it is possible to go back and forth between two states forever.
@@ -3177,9 +3042,7 @@ Vk for the
 Random Policy
 Greedy Policy
 random
-policy
 optimal
-policy
 Figure 4.2: Convergence of iterative policy evaluation on a small gridworld.
 The left column is the sequence of approximations of the state-value function
 for the random policy (all actions equal). The right column is the sequence
@@ -3222,11 +3085,8 @@ natural extension to consider changes at all states and to all possible actions,
 selecting at each state the action that appears best according to qπ (s, a). In
 other words, to consider the new greedy policy, π , given by
 π (s) = arg max qπ (s, a)
-a
 = arg max E[Rt+1 + γvπ (St+1 ) | St = s, At = a]
-a
 = arg max
-a
 (4.9)
 p(s |s, a) r(s, a, s ) + γvπ (s ) ,
 where arg maxa denotes the value of a at which the expression that follows is
@@ -3240,9 +3100,7 @@ original policy, is called policy improvement.
 Suppose the new greedy policy, π , is as good as, but not better than, the
 old policy π. Then vπ = vπ , and from (4.9) it follows that for all s ∈ S:
 vπ (s) = max E[Rt+1 + γvπ (St+1 ) | St = s, At = a]
-a
 = max
-a
 p(s |s, a) r(s, a, s ) + γvπ (s ) .
 But this is the same as the Bellman optimality equation (4.1), and therefore,
 vπ must be v∗ , and both π and π must be optimal policies. Policy improvement thus must give us a strictly better policy except when the original policy
@@ -3255,7 +3113,6 @@ particular, the policy improvement theorem carries through as stated for the
 stochastic case, under the natural deﬁnition:
 qπ (s, π (s)) =
 π (a|s)qπ (s, a).
-a
 In addition, if there are ties in policy improvement steps such as (4.9)—that
 is, if there are several actions at which the maximum is achieved—then in the
 stochastic case we need not select a single action from among them. Instead,
@@ -3349,18 +3206,11 @@ Exercise 4.6 How would policy iteration be deﬁned for action values? Give
 a complete algorithm for computing q∗ , analogous to Figure 4.3 for computing
 v∗ . Please pay special attention to this exercise, because the ideas involved
 will be used throughout the rest of the book.
-tio 0
-ca
 #Cars at first location
 #Cars at second location
-lo
 seco
-at
 rs at
-nd lo
 catio 0
-#Ca
-ar
 Figure 4.4: The sequence of policies found by policy iteration on Jack’s car
 rental problem, and the ﬁnal state-value function. The ﬁrst ﬁve diagrams show,
 for each number of cars at each location at the end of the day, the number
@@ -3372,6 +3222,7 @@ Exercise 4.7 Suppose you are restricted to considering only policies that are
 is at least ε/|A(s)|. Describe qualitatively the changes that would be required
 in each of the steps 3, 2, and 1, in that order, of the policy iteration algorithm
 for v∗ (Figure 4.3).
+
 Value Iteration
 One drawback to policy iteration is that each of its iterations involves policy
 evaluation, which may itself be a protracted iterative computation requiring
@@ -3384,14 +3235,16 @@ on the corresponding greedy policy.
 In fact, the policy evaluation step of policy iteration can be truncated in
 several ways without losing the convergence guarantees of policy iteration.
 One important special case is when policy evaluation is stopped after just one
-sweep (one backup of each state). This algorithm is called value iteration. It
+sweep (one backup of each state). 
+
+_v('140514094507')
+This algorithm is called value iteration. It
 can be written as a particularly simple backup operation that combines the
 policy improvement and truncated policy evaluation steps:
-_v('140514094507')
 $v_{k+1} = \ldots$ (4.10)
-p(s |s, a) r(s, a, s ) + γvk (s ) ,
-for all s ∈ S. For arbitrary v0 , the sequence {vk } can be shown to converge to
+For arbitrary v0 , the sequence {vk } can be shown to converge to
 v∗ under the same conditions that guarantee the existence of v∗ .
+
 Another way of understanding value iteration is by reference to the Bellman
 optimality equation (4.1). Note that value iteration is obtained simply by
 turning the Bellman optimality equation into an update rule. Also note how
@@ -3401,7 +3254,9 @@ way of seeing this close relationship is to compare the backup diagrams for
 these algorithms: Figure 3.4a shows the backup diagram for policy evaluation
 and Figure 3.7a shows the backup diagram for value iteration. These two are
 the natural backup operations for computing vπ and v∗ .
-Finally, let us consider how value iteration terminates. Like policy evaluation, value iteration formally requires an inﬁnite number of iterations to
+Finally, let us consider how value iteration terminates. Like policy evaluation, value iteration formally requires an inﬁnite number of iterations to converge exactly to v∗ . In practice, we stop once the value function changes
+by only a small amount in a sweep. Figure 4.5 gives a complete value iteration algorithm with this kind of termination condition.
+
 Initialize array v arbitrarily (e.g., v(s) = 0 for all s ∈ S+ )
 Repeat
 For each s ∈ S:
@@ -3413,9 +3268,7 @@ Output a deterministic policy, π, such that
 π(s) = arg maxa
 p(s |s, a) r(s, a, s ) + γv(s )
 Figure 4.5: Value iteration.
-converge exactly to v∗ . In practice, we stop once the value function changes
-by only a small amount in a sweep. Figure 4.5 gives a complete value iteration
-algorithm with this kind of termination condition.
+
 Value iteration eﬀectively combines, in each of its sweeps, one sweep of
 policy evaluation and one sweep of policy improvement. Faster convergence is
 often achieved by interposing multiple policy evaluation sweeps between each
@@ -3446,7 +3299,6 @@ sweep 2
 sweep 3
 Capital
 Final
-policy
 (stake)
 Capital
 Figure 4.6: The solution to the gambler’s problem for ph = 0.4. The upper
@@ -3558,7 +3410,6 @@ longer to be greedy. In the long run, however, these two processes interact to
 ﬁnd a single joint solution: the optimal value function and an optimal policy.
 One might also think of the interaction between the evaluation and improvement processes in GPI in terms of two constraints or goals—for example,
 as two lines in two-dimensional space:
-(
 reedy
 Although the real geometry is much more complicated than this, the diagram
 suggests what happens in the real case. Each process drives the value function
@@ -3643,7 +3494,6 @@ It is not necessary to perform DP methods in complete sweeps through the
 state set. Asynchronous DP methods are in-place iterative methods that back
 up states in an arbitrary order, perhaps stochastically determined and using
 out-of-date information. Many of these methods can be viewed as ﬁne-grained
-forms of GPI.
 Finally, we note one last special property of DP methods. All of them
 update estimates of the values of states based on estimates of the values of
 successor states. That is, they update estimates on the basis of other estimates.
@@ -3800,17 +3650,9 @@ obviously, the player should always hit. Thus, the player makes decisions on
 the basis of three variables: his current sum (12–21), the dealer’s one showing
 card (ace–10), and whether or not he holds a usable ace. This makes for a
 After 10,000 episodes
-No
 usable
-ace
-De
-ale
-yer
 Usable
-ace
 After 500,000 episodes
-ow
-Pla
 Figure 5.2: Approximate state-value functions for the blackjack policy that
 sticks only on 20 or 21, computed by Monte Carlo policy evaluation.
 total of 200 states.
@@ -3964,14 +3806,11 @@ value function q, the corresponding greedy policy is the one that, for each
 s ∈ S, deterministically chooses an action with maximal action-value:
 π(s) = arg max q(s, a).
 (5.1)
-a
 Policy improvement then can be done by constructing each πk+1 as the greedy
 policy with respect to qπk . The policy improvement theorem (Section 4.2) then
 applies to πk and πk+1 because, for all s ∈ S,
 qπk (s, πk+1 (s)) = qπk (s, arg max qπk (s, a))
-a
 = max qπk (s, a)
-a
 ≥ qπk (s, πk (s))
 = vπk (s).
 As we discussed in the previous chapter, the theorem assures us that each πk+1
@@ -4033,47 +3872,25 @@ the value function for that policy, and that in turn would cause the policy to
 change. Stability is achieved only when both the policy and the value function are optimal. Convergence to this optimal ﬁxed point seems inevitable as
 the changes to the action-value function decrease over time, but has not yet
 been formally proved. In our opinion, this is one of the most fundamental
-De
-ale
-No
 Usable
 usable
-ace
-ace
 Player sum
 Dealer showing
-ow
 Dealer showing
 er s
 Player sum
 Player sum
-No
 Usable
 usable
-ace
-ace
 Play
-ace
-Dee
-Da
-aee
-how
-ow
 Play
-er
 Usable
 Dealer showing
 er s
-ale
-ow
 Play
-De
 Figure 5.5: The optimalSTICK and state-value function for blackjack, found by
-policy
-No
 Monte Carlo ES (Figure 5.4). The state-value function shown was computed
 usable
-ace
 from the action-value functionHIT
 found by Monte Carlo ES.
 open theoretical questions in reinforcement learning (for a partial solution, see
@@ -4128,17 +3945,12 @@ That any ε-greedy policy with respect to qπ is an improvement over any
 because for any s ∈ S:
 qπ (s, π (s)) =
 π (a|s)qπ (s, a)
-a
 |A(s)|
-a
-a
 |A(s)|
 qπ (s, a) + (1 − ε) max qπ (s, a)
 qπ (s, a) + (1 − ε)
 (5.2)
-a
 π(a|s) −
-a
 |A(s)|
 qπ (s, a)
 (the sum is a weighted average with nonnegative weights summing to 1, and
@@ -4148,7 +3960,6 @@ qπ (s, a) +
 π(a|s)qπ (s, a)
 |A(s)| a
 |A(s)| a
-a
 = vπ (s).
 Thus, by the policy improvement theorem, π ≥ π (i.e., vπ (s) ≥ vπ (s), for all
 s ∈ S). We now prove that equality can hold only when both π and π are
@@ -4165,28 +3976,20 @@ q∗ denote the optimal value functions for the new environment. Then a policy
 π is optimal among ε-soft policies if and only if vπ = v∗ . From the deﬁnition
 of v∗ we know that it is the unique solution to
 v∗ (s) = (1 − ε) max q∗ (s, a) +
-a
 = (1 − ε) max
-a
 |A(s)|
 |A(s)|
-a
 q∗ (s, a)
 p(s |s, a) r(s, a, s ) + γv∗ (s )
-a
 p(s |s, a) r(s, a, s ) + γv∗ (s ) .
 When equality holds and the ε-soft policy π is no longer improved, then we
 also know, from (5.2), that
 vπ (s) = (1 − ε) max qπ (s, a) +
-a
 = (1 − ε) max
-a
 |A(s)|
 qπ (s, a)
-a
 p(s |s, a) r(s, a, s ) + γvπ (s )
 |A(s)|
-a
 p(s |s, a) r(s, a, s ) + γvπ (s ) .
 However, this equation is the same as the previous one, except for the substitution of vπ for v∗ . Since v∗ is the unique solution, it must be that vπ = v∗ .
 In essence, we have shown in the last few pages that policy iteration works
@@ -4376,7 +4179,6 @@ also have a simple incremental update rule. In addition to keeping track of Vn ,
 we must maintain for each state the cumulative sum Cn of the weights given
 to the ﬁrst n returns. The update rule for Vn is
 (5.5)
-and
 where C0 = 0.
 Exercise 5.6 Modify the algorithm for ﬁrst-visit MC policy evaluation (Figure 5.1) to use the incremental implementation for sample averages described
 in Section 2.5.
@@ -4923,7 +4725,6 @@ Q-Learning: Oﬀ-Policy TD Control
 One of the most important breakthroughs in reinforcement learning was the development of an oﬀ-policy TD control algorithm known as Q-learning (Watkins,
 1989). Its simplest form, one-step Q-learning, is deﬁned by
 Q(St , At ) ← Q(St , At ) + α Rt+1 + γ max Q(St+1 , a) − Q(St , At ) . (6.6)
-a
 In this case, the learned action-value function, Q, directly approximates q∗ ,
 the optimal action-value function, independent of the policy being followed.
 This dramatically simpliﬁes the analysis of the algorithm and enabled early
@@ -4958,7 +4759,6 @@ optimal path
 T h e
 Sarsa
 Reward
-per
 epsiode
 Q-learning
 Episodes
@@ -4989,7 +4789,6 @@ policy. That is, consider the algorithm otherwise like Q-learning except with
 the update rule
 Q(St , At ) ← Q(St , At ) + α Rt+1 + γ E[Q(St+1 , At+1 ) | St+1 ] − Q(St , At )
 ← Q(St , At ) + α Rt+1 + γ
-a
 π(a|St+1 )Q(St+1 , a) − Q(St , At ) .
 Is this new method an on-policy or oﬀ-policy method? What is the backup
 diagram for this algorithm? Given the same amount of experience, would
@@ -5127,8 +4926,6 @@ name R-learning was probably meant to be the alphabetic successor to
 Q-learning, but we prefer to think of it as a reference to the learning of
 relative values. The access-control queuing example was suggested by
 the work of Carlstr¨m and Nordstr¨m (1997).
-o
-o
 gChapter 7
 Eligibility Traces
 Eligibility traces are one of the basic mechanisms of reinforcement learning.
@@ -5197,28 +4994,23 @@ between are the n-step backups, based on n steps of real rewards and the
 estimated value of the nth next state, all appropriately discounted.
 return, in one-step backups the target is the ﬁrst reward plus the discounted
 estimated value of the next state:
-(1)
 Gt = Rt+1 + γV (St+1 ).
 This makes sense because γV (St+1 ) takes the place of the remaining terms
 γRt+2 + γ 2 Rt+3 + · · · + γ T −t−1 RT , as we discussed in the previous chapter. Our
 point now is that this idea makes just as much sense after two steps as it does
 after one. The two-step target is
-(2)
 Gt = Rt+1 + γRt+2 + γ 2 V (St+2 ),
 where now γ 2 V (St+2 ) takes the place of the terms γ 2 Rt+3 + γ 3 Rt+4 + · · · +
 γ T −t−1 RT . In general, the n-step target is
-(n)
 = Rt+1 + γRt+2 + γ 2 + · · · + γ n−1 Rt+n + γ n V (St+n ).
 (7.1)
 This quantity is sometimes called the “corrected n-step truncated return”
 because it is a return truncated after n steps and then approximately corrected
 for the truncation by adding the estimated value of the nth next state. That
-(n)
 terminology is descriptive but a bit long. We instead refer to Gt simply as
 the n-step return at time t.
 Of course, if the episode ends in less than n steps, then the truncation
 in an n-step return occurs at the episode’s end, resulting in the conventional
-(n)
 (T −t)
 complete return. In other words, if T − t < n, then Gt = Gt
 the last n n-step returns of any episode are always complete returns, and an
@@ -5232,7 +5024,6 @@ the same value as the complete return.
 An n-step backup is deﬁned to be a backup toward the n-step return. In
 the tabular, state-value case, the increment to Vt (St ) (the estimated value of
 vπ (St ) at time t), due to an n-step backup of St , is deﬁned by
-(n)
 ∆Vt (St ) = α Gt − Vt (St ) ,
 where α is a positive step-size parameter, as usual. Of course, the increments
 to the estimated values of the other states are ∆Vt (s) = 0, for all s = St .
@@ -5251,7 +5042,6 @@ certain way over the current value function as an approximation to the true
 value function. For any function v : S → R, the expected value of the n-step
 return using v is guaranteed to be a better estimate of vπ than v is, in a worststate sense. That is, the worst error under the new estimate is guaranteed to
 be less than or equal to γ n times the worst error under v:
-(n)
 max Eπ Gt
 St = s − vπ (s)
 ≤ γ n max |v(s) − vπ (s)| .
@@ -5343,7 +5133,6 @@ proportional to λn−1 , where 0 ≤ λ ≤ 1 (Figure 7.3). A normalization fac
 of 1 − λ ensures that the weights sum to 1. The resulting backup is toward a
 return, called the λ-return, deﬁned by
 = (1 − λ)
-(n)
 Figure 7.4 illustrates this weighting sequence. The one-step return is given
 the largest weight, 1 − λ; the two-step return is given the next largest weight,
 (1 − λ)λ; the three-step return is given the weight (1 − λ)λ2 ; and so on. The
@@ -5351,7 +5140,6 @@ weight fades by λ with each additional step. After a terminal state has been
 reached, all subsequent n-step returns are equal to Gt . If we want, we can
 separate these terms from the main sum, yielding
 = (1 − λ)
-(n)
 (7.3)
 This equation makes it clearer what happens when λ = 1. In this case the
 main sum goes to zero, and the remaining term reduces to the conventional
@@ -5368,7 +5156,6 @@ actual, final return
 Time
 Figure 7.4: Weighting given in the λ-return to each of the n-step returns.
 the previous chapter. On the other hand, if λ = 0, then the λ-return reduces
-(1)
 to Gt , the one-step return. Thus, for λ = 0, backing up according to the
 λ-return is the same as the one-step TD method, TD(0).
 We deﬁne the λ-return algorithm as the algorithm that performs backups
@@ -5482,11 +5269,7 @@ corresponding to St . Thus the TD(λ) update (7.7) reduces to the simple TD
 rule (6.2), which we henceforth call TD(0). In terms of Figure 7.8, TD(0) is
 the case in which only the one state preceding the current one is changed by
 g7.3. THE BACKWARD VIEW OF TD(λ)
-et
-e
-e
 T ime
-e
 Figure 7.8: The backward or mechanistic view. Each update depends on the
 current TD error combined with traces of past events.
 the TD error. For larger values of λ, but still λ < 1, more of the preceding
@@ -5548,7 +5331,6 @@ Examine the ﬁrst column inside the brackets—all the Rt+1 ’s with their wei
 sum to 1. Thus we can pull out the ﬁrst column and get an unweighted term
 of Rt+1 . A similar trick pulls out the second column in brackets, starting from
 the second row, which sums to γλRt+2 . Repeating this for each column, we
-get
 ∆V λ (St ) = −Vt (St )
 + (γλ)0 [Rt+1 + γVt (St+1 ) − γλVt (St+1 )]
 + (γλ)1 [Rt+2 + γVt (St+2 ) − γλVt (St+2 )]
@@ -5598,7 +5380,6 @@ when done online, perhaps there’s a slightly diﬀerent TD method that would
 maintain the equivalence even in the on-line case. One idea is to deﬁne the
 TD error instead as δt = Rt+1 + γVt (St+1 ) − Vt−1 (St ) and the n-step return as
 g7.5. SARSA(λ)
-(n)
 Rt = Rt+1 + · · · + γ n−1 Rt+n + γ n Vt+n−1 (St+n ). Show that in this case the
 modiﬁed TD(λ) algorithm would then achieve exactly
 ∆Vt (St ) = α Gλ − Vt−1 (St ) ,
@@ -5624,7 +5405,6 @@ Qt+1 (s, a) = Qt (s, a) + αδt Zt (s, a),
 for all s, a
 where
 δt = Rt+1 + γQt (St+1 , At+1 ) − Qt (St , At )
-and
 Zt (s, a) =
 γλZt−1 (s, a) + 1 if s = St and a = At ;
 γλZt−1 (s, a)
@@ -5634,7 +5414,6 @@ Figure 7.10 shows the backup diagram for Sarsa(λ). Notice the similarity to
 the diagram of the TD(λ) algorithm (Figure 7.3). The ﬁrst backup looks ahead
 one full step, to the next state–action pair, the second looks ahead two steps,
 Sarsa(λ)
-a
 (1−λ) λ
 (1−λ) λ2
 Figure 7.10: Sarsa(λ)’s backup diagram.
@@ -5710,7 +5489,6 @@ suppose the ﬁrst action, At+1 , is exploratory. Watkins’s Q(λ) would still 
 the one-step update of Qt (St , At ) toward Rt+1 +γ maxa Qt (St+1 , a). In general,
 if At+n is the ﬁrst exploratory action, then the longest backup is toward
 Rt+1 + γRt+2 + · · · + γ n−1 Rt+n + γ n max Qt (St+n , a),
-a
 where we assume oﬀ-line updating. The backup diagram in Figure 7.13 illustrates the forward view of Watkins’s Q(λ), showing all the component backups.
 The mechanistic or backward view of Watkins’s Q(λ) is also very simple.
 Eligibility traces are used just as in Sarsa(λ), except that they are set to zero
@@ -5719,7 +5497,6 @@ best thought of as occurring in two steps. First, the traces for all state–act
 pairs are either decayed by γλ or, if an exploratory action was taken, set to 0.
 g7.6. Q(λ)
 Watkins's Q(")
-a
 (1!") "
 (1!") "
 non-greedy
@@ -5738,7 +5515,6 @@ Qt+1 (s, a) = Qt (s, a) + αδt Zt (s, a),
 ∀s ∈ S, a ∈ A(s)
 where
 δt = Rt+1 + γ max Qt (St+1 , a ) − Qt (St , At ).
-a
 Figure 7.14 shows the complete algorithm in pseudocode.
 Unfortunately, cutting oﬀ traces every time an exploratory action is taken
 loses much of the advantage of using eligibility traces. If exploratory actions
@@ -5828,11 +5604,6 @@ the wrong way many times before going right, making it even more likely
 that the wrong action will have the larger trace. Eventually, all of this will be
 corrected, but learning is signiﬁcantly slowed. With replacing traces, on the
 other hand, this problem never occurs. No matter how many times the wrong
-wrong
-wrong
-wrong
-wrong
-wrong
 Figure 7.18: A simple task that causes problems for control methods using
 accumulating traces.
 action is taken, its eligibility trace is always less than that for the right action
@@ -5843,7 +5614,6 @@ related to the every-visit MC algorithm, so replace-trace TD(1) is related to
 the ﬁrst-visit MC algorithm. In particular, the oﬀ-line version of replace-trace
 TD(1) is formally identical to ﬁrst-visit MC (Singh and Sutton, 1996). How,
 or even whether, these methods and results extend to the discounted case is
-unknown.
 There are several possible ways to generalize replacing eligibility traces for
 use in control methods. Obviously, when a state is revisited and a new action
 is selected, the trace for that action should be reset to 1. But what of the
@@ -5914,14 +5684,11 @@ known better is encountered. Some of these ideas were explored formally by
 Sutton and Singh (1994).
 The eligibility trace equation above is the backward view of variable λs.
 The corresponding forward view is a more general deﬁnition of the λ-return:
-(n)
 Gt (1 − λt+n )
 (k−t)
-(1
 Exercise 7.10 Prove that the forward and backward views of oﬀ-line TD(λ)
 remain equivalent under their new deﬁnitions with variable λ given in this
 section. Follow the example of the proof in Section 7.4.
-Conclusions
 Eligibility traces in conjunction with TD errors provide an eﬃcient, incremental way of shifting and choosing between Monte Carlo and TD methods. Traces
 can be used without TD errors to achieve a similar eﬀect, but only awkwardly.
 A method such as TD(λ) enables this to be done from partial experiences and
@@ -6045,7 +5812,6 @@ use the term to refer to any computational process that takes a model as
 input and produces or improves a policy for interacting with the modeled
 environment:
 planning
-policy
 model
 Within artiﬁcial intelligence, there are two distinct approaches to planning according to our deﬁnition. In state-space planning, which includes the approach
 we take in this book, planning is viewed primarily as a search through the state
@@ -6070,7 +5836,6 @@ simulated
 experience
 backups
 values
-policy
 Dynamic programming methods clearly ﬁt this structure: they make sweeps
 through the space of states, generating for each state the distribution of possible transitions. Each distribution is then used to compute a backed-up value
 and update the state’s estimated value. In this chapter we argue that various other state-space planning methods also ﬁt this structure, with individual
@@ -6172,7 +5937,6 @@ experience
 model
 learning
 search
-control
 Model
 Environment
 Figure 8.3: The general Dyna Architecture
@@ -6234,7 +5998,6 @@ agent is a nonplanning agent, utilizing only direct reinforcement learning (ones
 despite the fact that the parameter values (α and ε) were optimized for it. The
 actions
 Steps
-per
 episode
 0 planning steps
 (direct RL only)
@@ -6459,7 +6222,6 @@ a single backup could inﬂuence a great many other states. It is not apparent
 Dyna-Q
 Backups
 optimal
-solution
 prioritized
 sweeping
 Gridworld size (#states)
@@ -6509,31 +6271,17 @@ Sample backups
 (one-step TD)
 Full backups
 (DP)
-a
 Vπ (s)
-a
 policy evaluation
 TD(0)
-max
-a
 V* (s)
 value iteration
-s,a
-s,a
 Qπ(a,s)
-a'
-a'
 Q-policy evaluation
 Sarsa
-s,a
-s,a
 Q*(a,s)
-max
-max
-a'
 Q-value iteration
 Figure 8.12: The one-step backups.
-a'
 Q-learning
 But are they? Full backups certainly yield a better estimate because they are
 uncorrupted by sampling error, but they also require more computation, and
@@ -6546,12 +6294,10 @@ of estimated state-transition probabilities, p(s |s, a), and expected rewards,
 r(s, a, s ). The full backup for a state–action pair, s, a, is:
 Q(s, a) ←
 p(s |s, a) r(s, a, s ) + γ max Q(s , a ) .
-a
 (8.1)
 The corresponding sample backup for s, a, given a sample next state, S , is
 the Q-learning-like update:
 Q(s, a) ← Q(s, a) + α r(s, a, S ) + γ max Q(S , a ) − Q(s, a) ,
-a
 (8.2)
 where α is the usual positive step-size parameter and the model’s expected
 value of the reward, r(s, a, S ) is used in place of the sample reward that is
@@ -6580,7 +6326,6 @@ in value
 estimate
 b=2 (branching factor)
 Number of max Q( s ! , a ! ) computations
-a!
 Figure 8.13: Comparison of eﬃciency of full and sample backups.
 then sample backups are always preferable because they at least make some
 improvement in the value estimate with fewer than b backups. In a large problem with many state–action pairs, we are often in the latter situation. With
@@ -6677,25 +6422,15 @@ exhaustively compute vπ (s0 ), the true value of the start state under the gree
 policy, π , given the current action-value function Q, as an indication of how
 well the agent would do on a new episode on which it acted greedily (all the
 while assuming the model is correct).
-on-policy
-uniform
 Value of
 start state
 under
 greedy
-policy
-uniform
-on-policy
-uniform
-on-policy
 Computation time, in full backups
-on-policy
-uniform
 Value of
 start state
 under
 greedy
-policy
 Computation time, in full backups
 Figure 8.14: Relative eﬃciency of backups distributed uniformly across the
 state space versus focused on simulated on-policy trajectories. Results are for
@@ -6869,7 +6604,6 @@ Goodwin and Sin, 1984), where they are used to make the same kind of
 distinction. The term system identiﬁcation is used in adaptive control
 for what we call model-learning (e.g., Goodwin and Sin, 1984; Ljung
 and S¨derstrom, 1983; Young, 1984). The Dyna architecture is due to
-o
 Sutton (1990), and the results in these sections are based on results
 reported there.
 Prioritized sweeping was developed simultaneously and independently
@@ -6945,7 +6679,6 @@ methods are examples of the desired input–output behavior of the function
 they are trying to approximate. We use these methods for value prediction
 simply by passing to them the s → v of each backup as a training example. We
 then interpret the approximate function they produce as an estimated value
-function.
 Viewing each backup as a conventional training example in this way enables
 us to use any of a wide range of existing function approximation methods for
 value prediction. In principle, we can use any method for supervised learning
@@ -7266,7 +6999,6 @@ learned was aﬀected only slightly by the width of the features. Receptive
 ﬁeld shape tends to have a strong eﬀect on generalization but little eﬀect on
 asymptotic solution quality.
 desired
-function
 #Examples
 approximation
 feature
@@ -7340,7 +7072,6 @@ consistent pseudo-random collapsing of a large tiling into a much smaller set
 of tiles. Hashing produces tiles consisting of noncontiguous, disjoint regions
 randomly spread throughout the state space, but that still form an exhaustive
 tiling. For example, one tile might consist of the four subtiles shown below:
-one
 tile
 Through hashing, memory requirements are often reduced by large factors with
 little loss of performance. This is possible because high resolution is needed
@@ -7447,7 +7178,6 @@ For example, the backward view of the action-value method analogous to
 TD(λ) is
 where
 δt = Rt+1 + γ q (St+1 , At+1 , wt ) − q (St , At , wt ),
-and
 wt q (St , At , wt ),
 with z0 = 0. We call this method gradient-descent Sarsa(λ), particularly
 when it is elaborated to form a full control method. For a constant policy,
@@ -7480,7 +7210,6 @@ FA ← set of features present in S, A
 Repeat (for each step of episode):
 For all i ∈ FA :
 (accumulating traces)
-or zi ← 1
 (replacing traces)
 Take action A, observe reward, R, and next state, S
 (Note that from here and below, S and A denote the new state and action)
@@ -7552,33 +7281,12 @@ and zero throttle (0). The car moves according to a simpliﬁed physics. Its
 Goal
 Step 428
 Episode 12
-Ve
-P os
-i ti o
-P os
-l oc
-l oc
-i ti o n
-Ve
 Episode 104
 Episode 1000
-i ti o n
-P os
-i ti o n
-l oc
-l oc
-P os
-Ve
-l oc
-Ve
-P os
-i ti o n
-Ve
 Episode 9000
 Figure 9.10: The mountain–car task (upper left panel) and the cost-to-go
 function (− maxa q (s, a)) learned during one run.
 position, pt , and velocity, pt , are updated by
-pt+1 = bound[pt + pt+1 ]
 pt+1 = bound[pt + 0.001At − 0.0025 cos(3pt )],
 where the bound operation enforces −1.2 ≤ pt+1 ≤ 0.5 and −0.07 ≤ pt+1 ≤
 0.07. When pt+1 reached the left bound, pt+1 was reset to zero. When it
@@ -7833,12 +7541,9 @@ Actor–critic methods are the natural extension of the idea of reinforcement
 comparison methods (Section 2.8) to TD learning and to the full reinforcement
 learning problem. Typically, the critic is a state-value function. After each
 action selection, the critic evaluates the new state to determine whether things
-Policy
-Actor
 error
 state
 Value
-Function
 action
 reward
 Environment
@@ -7854,7 +7559,6 @@ the Gibbs softmax method:
 πt (a|s) = Pr{At = a | St = s} =
 eh(a|s)
 h(b|s)
-be
 where the h(a|s) are the values at time t of the modiﬁable policy parameters
 of the actor, indicating the tendency to select (preference for) each action a
 when in each state s. Then the strengthening or weakening described above
@@ -7959,14 +7663,9 @@ unknown. The task is to decide on each step whether to accept or reject the
 next customer, on the basis of his priority and the number of free servers, so
 as to maximize long-term reward without discounting. Figure 11.3 shows the
 solution found by R-learning for this task with n = 10, h = 0.5, and p = 0.06.
-Priority
 Number of free servers
-priority 8
-priority 4
 Value of
 best action
-priority 2
-priority 1
 Number of free servers
 Figure 11.3: The policy and value function found by R-learning on the accesscontrol queuing task after 2 million steps. The drop on the right of the graph is
 probably due to insuﬃcient data; many of these states were never experienced.
@@ -8037,7 +7736,6 @@ backgammon positions is enormous, far more than the number of memory elements on
 moves possible from each position is also large. For a typical dice roll there
 might be 20 diﬀerent ways of playing. In considering future moves, such as
 predicted probability
-of winning, V t
 TD error, V t+1! V t
 hidden units (40-80)
 backgammon position (198 input units)
@@ -8427,11 +8125,8 @@ that the system has over 1022 states. This large state set rules out classical d
 could be backed up every microsecond it would still require over 1000 years to
 complete just one sweep through the state space.
 hall
-buttons
-dropoff
 request
 elevator
-going up
 request
 (down)
 age of
@@ -8487,7 +8182,6 @@ After this discrete-event transition, the semi-Markov Q-learning backup for a
 tabular action-value function, Q, would be:
 Q(S, A) ← Q(S, A) + α
 e−β(τ −t1 ) Rτ dτ + e−β(t2 −t1 ) min Q(S , a) − Q(S, A) .
-a
 Note how e−β(t2 −t1 ) acts as a variable discount factor that depends on the
 amount of time between events. This method is due to Bradtke and Duﬀ
 (1995).
@@ -8572,7 +8266,6 @@ Dispatcher
 Dispatcher
 Average 60
 waiting
-and
 system
 times
 Dispatcher
@@ -8674,8 +8367,6 @@ calls are dynamically reassigned channels within a cell.
 200 calls/hour
 Traffic
 350 calls/hour
-Nonuniform
-% Blocking
 Figure 15.10: Performance of FA, BDCL, and RL channel allocation methods
 for diﬀerent mean call arrival rates.
 Figure 15.10 shows the blocking probabilities of these methods for mean
@@ -9084,7 +8775,6 @@ or one-step models. We are able to plan and learn at a variety of levels and
 response to new situations or new information. Considerable reinforcement
 learning research has been directed at capturing such abilities (e.g., Watkins,
 1989; Dayan and Hinton, 1993; Singh, 1992a, 1992b; Ring, 1994, Kaelbling,
-1993b; Sutton, 1995).
 Researchers have also explored ways of using the structure of particular
 tasks to advantage. For example, many problems have state representations
 that are naturally lists of variables, like the readings of multiple sensors or actions that are lists of component actions. The independence or near independence of some variables from others can sometimes be exploited to obtain more
@@ -9122,7 +8812,6 @@ Anderson, J. A., Silverstein, J. W., Ritz, S. A., Jones, R. S. (1977). Distincti
 applications of a neural model. Psychological Review, 84:413–451.
 Andreae, J. H. (1963). STELLA: A scheme for a learning machine. In
 Proceedings of the 2nd IFAC Congress, Basle, pp. 497–502. Butterworths,
-London.
 Andreae, J. H. (1969a). A learning machine with monologue. International
 Journal of Man–Machine Studies, 1:1–20.
 Andreae, J. H. (1969b). Learning machines—a uniﬁed view. In A. R. Meetham
@@ -9198,7 +8887,6 @@ Bellman, R. E., Dreyfus, S. E. (1959). Functional approximations and dynamic pro
 Bellman, R. E., Kalaba, R., Kotkin, B. (1973). Polynomial approximation—A
 new computational technique in dynamic programming: Allocation processes. Mathematical Computation, 17:155–161.
 Berry, D. A., Fristedt, B. (1985).
-London.
 Bandit Problems.
 Chapman and Hall,
 Bertsekas, D. P. (1982). Distributed dynamic programming. IEEE Transactions on Automatic Control, 27:610–616.
@@ -9214,7 +8902,6 @@ Athena Scientiﬁc, Belmont, MA.
 Neural Dynamic Programming.
 Biermann, A. W., Fairﬁeld, J. R. C., Beres, T. R. (1982). Signature table systems and learning. IEEE Transactions on Systems, Man, and Cybernetics,
 Bishop, C. M. (1995). Neural Networks for Pattern Recognition. Clarendon,
-Oxford.
 Booker, L. B. (1982). Intelligent Behavior as an Adaptation to the Task
 Environment. Ph.D. thesis, University of Michigan, Ann Arbor.
 Boone, G. (1997). Minimum-time control of the acrobot. In 1997 International Conference on Robotics and Automation, pp. 3281–3287. IEEE
@@ -9259,8 +8946,6 @@ Campbell, D. T. (1960). Blind variation and selective survival as a general
 strategy in knowledge-processes. In M. C. Yovits and S. Cameron (eds.),
 Self-Organizing Systems, pp. 205–231. Pergamon, New York.
 Carlstr¨m, J., Nordstr¨m, E. (1997). Control of self-similar ATM call traﬃc
-o
-o
 by reinforcement learning. In Proceedings of the International Workshop
 on Applications of Neural Networks to Telecommunications 3, pp. 54–62.
 Erlbaum, Hillsdale, NJ.
@@ -9268,7 +8953,6 @@ Chapman, D., Kaelbling, L. P. (1991). Input generalization in delayed reinforcem
 pp. 726–731. Morgan Kaufmann, San Mateo, CA.
 Chow, C.-S., Tsitsiklis, J. N. (1991). An optimal one-way multigrid algorithm
 for discrete-time stochastic control. IEEE Transactions on Automatic
-Control, 36:898–914.
 Chrisman, L. (1992). Reinforcement learning with perceptual aliasing: The
 perceptual distinctions approach. In Proceedings of the Tenth National
 Conference on Artiﬁcial Intelligence, pp. 183–188. AAAI/MIT Press, Menlo
@@ -9291,7 +8975,6 @@ behavior. Adaptive Behavior, 2(3):247–275.
 Connell, J. (1989). A colony architecture for an artiﬁcial creature. Technical
 Report AI-TR-1151. MIT Artiﬁcial Intelligence Laboratory, Cambridge,
 Connell, J., Mahadevan, S. (1993).
-Boston.
 Robot Learning.
 Kluwer Academic,
 Craik, K. J. W. (1943). The Nature of Explanation. Cambridge University
@@ -9343,7 +9026,6 @@ Review, 57:94–107.
 Farley, B. G., Clark, W. A. (1954). Simulation of self-organizing systems by
 digital computer. IRE Transactions on Information Theory, 4:76–84.
 Feldbaum, A. A. (1965). Optimal Control Systems. Academic Press, New
-York.
 Friston, K. J., Tononi, G., Reeke, G. N., Sporns, O., Edelman, G. M. (1994).
 Value-dependent selection in the brain: Simulation in a synthetic neural
 model. Neuroscience, 59:229–243.
@@ -9354,7 +9036,6 @@ Psychological Review, 63:218–227.
 Gallant, S. I. (1993). Neural Network Learning and Expert Systems. MIT
 Press, Cambridge, MA.
 G¨llmo, O., Asplund, L. (1995). Reinforcement learning by construction
-a
 of hypothetical targets. In J. Alspector, R. Goodman, and T. X. Brown
 (eds.), Proceedings of the International Workshop on Applications of Neural
 Networks to Telecommunications 2, pp. 300–307. Erlbaum, Hillsdale, NJ.
@@ -9365,7 +9046,6 @@ Plenum Press, New York.
 Gittins, J. C., Jones, D. M. (1974). A dynamic allocation index for the
 sequential design of experiments. In J. Gani, K. Sarkadi, and I. Vincze
 (eds.), Progress in Statistics, pp. 241–266. North-Holland, Amsterdam–
-London.
 Goldberg, D. E. (1989). Genetic Algorithms in Search, Optimization, and
 Machine Learning. Addison-Wesley, Reading, MA.
 Goldstein, H. (1957). Classical Mechanics. Addison-Wesley, Reading, MA.
@@ -9398,7 +9078,6 @@ of the 1996 Conference, pp. 473–479. MIT Press, Cambridge, MA.
 Holland, J. H. (1975). Adaptation in Natural and Artiﬁcial Systems. University of Michigan Press, Ann Arbor.
 Holland, J. H. (1976). Adaptation. In R. Rosen and F. M. Snell (eds.),
 Progress in Theoretical Biology, vol. 4, pp. 263–293. Academic Press, New
-York.
 Holland, J. H. (1986). Escaping brittleness: The possibility of general-purpose
 learning algorithms applied to rule-based systems. In R. S. Michalski,
 J. G. Carbonell, and T. M. Mitchell (eds.), Machine Learning: An Artiﬁcial
@@ -9424,7 +9103,6 @@ Kaelbling, L. P., Littman, M. L., Moore, A. W. (1996). Reinforcement learning: A
 Kakutani, S. (1945). Markov processes and the Dirichlet problem. Proceedings
 of the Japan Academy, 21:227–233.
 Kalos, M. H., Whitlock, P. A. (1986). Monte Carlo Methods. Wiley, New
-York.
 Kanerva, P. (1988). Sparse Distributed Memory. MIT Press, Cambridge, MA.
 Kanerva, P. (1993). Sparse distributed memory and related models. In
 M. H. Hassoun (ed.), Associative Neural Memories: Theory and Implementation, pp. 50–76. Oxford University Press, New York.
@@ -9656,7 +9334,6 @@ eligibility traces. Machine Learning, 22:123–158.
 Sivarajan, K. N., McEliece, R. J., Ketchum, J. W. (1990). Dynamic channel
 assignment in cellular radio. In Proceedings of the 40th Vehicular Technology Conference, pp. 631–637.
 Skinner, B. F. (1938). The Behavior of Organisms. Appleton-Century, New
-York.
 Sofge, D. A., White, D. A. (1992). Applied learning: Optimal control for
 manufacturing. In D. A. White and D. A. Sofge (eds.), Handbook of
 Intelligent Control: Neural, Fuzzy, and Adaptive Approaches, pp. 259–281.
@@ -9750,7 +9427,6 @@ Tsitsiklis, J. N. and Van Roy, B. (1996). Feature-based methods for large
 scale dynamic programming. Machine Learning, 22:59–94.
 Tsitsiklis, J. N., Van Roy, B. (1997). An analysis of temporal-diﬀerence
 learning with function approximation. IEEE Transactions on Automatic
-Control, 42:674–690.
 Tsitsiklis, J. N., Van Roy, B. (1999). Average cost temporal-diﬀerence learning. Automatica, 35:1799–1808. Also: Technical Report LIDS-P-2390.
 Laboratory for Information and Decision Systems, Massachusetts Institute
 of Technology, Cambridge, MA, 1997.
