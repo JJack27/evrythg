@@ -1,42 +1,3 @@
-﻿>>>>>>>>>>>>>>>>>>>>>> smkfossp.djvu >>>>>>>>>>>>>>>>>>>>>> 
-Alan V. Oppenheim, Series Editor
-ANDREWS AND HUNT Digital Image Restomtion
-BRIGHAM The Fast Fourier Tmnsform
-BRIGHAM The Fast Fourier Ttansform and Its Applications
-BURDIC Underwater Acoustic System Analysis, Q/E
-CASTLEMAN Digital Image Processing
-CowAN AND GRANT Adaptive Filters
-CROCHIERE AND RABINER Multimte Digital Signal Processing
-DUDGEON AND MERSEREAU Multidimensional Digital Signal Processing
-HAMMING Digital Filters, 3/13
-HAYKIN, E11 Advances in Spectrum Analysis and Array Processing, Vols. I $5 II
-HAYKIN, ED. Array Signal Processing
-J AYANT AND NOLL Digital Coding of Waveforms
-JOHNSON AND DUDGEON Array Signal Processing: Concepts and Techniques
-KAY Fundamentals of Statistical Signal Processing: Estimation Theory
-KAY Modern Spectral Estimation
-KINO Acoustic Waves: Devices, Imaging, and Analog Signal Processing
-LEA, ED. Trends in Speech Recognition
-LIM Two-Dimensional Signal and Image Processing
-LIM, ED. Speech Enhancement
-LIM AND OP PLNl-LLIM, EDS. Advanced Topics in Signal Processing
-MARPLE Digital Spectral Analysis with Applications
-MCCLELLAN AND RADER Number Theory in Digital Signal Processing
-MENDEL Lessons in Digital Estimation Theory
-OPPENHEIM, ED. Applications of Digital Signal Processing
-OPPENHEIM AND NAWAB, EDS. Symbolic and Knowledge-Based Signal Processing
-OPPENHEIM, WILLSKY, WITH YOUNG Signals and Systems
-OPPJDNHJDIM AND SCHAFER Digital Signal Processing
-OPPENHEIM AND SOHAFER Discrete- Time Signal Processing
-QUACKENBUSH ET AL. Objective Measures of Speech Quality
-RABINER AND GOLD Theory and Applications of Digital Signal Processing
-RABINER AND SOHAFER Digital Processing q’ Speech Signals
-ROBINSON AND TREITEL Geophysical Signal Analysis
-STEARNS AND DAVID Signal Processing Algorithms
-STEARNS AND HUSH Digital Signal Analysis, 2/12
-TRIBOLET Seismic Applications of Homomorphic Signal Processing
-VAIDYANATHAN Multimte Systems and Filter Banks
-WIDROW AND STEARNS Adaptive Signal Processing
 Fundamentals of
 Statistical Signal Processing:
 Estimation Theory
@@ -231,7 +192,6 @@ University of Rhode Island
 Kingston» R1 02881 . Biomedicine
 4. Image analysis
 6. Communications
-. Control
 8. Seismology,
 and all share the common problem of needing to estimate the values of a group of pa-
 rameters. We brieﬁy describe the ﬁrst three of these systems. In radar we are interested
@@ -326,7 +286,6 @@ is interesting that in this example a human interpreter can easily discern the s
 vowel. The real problem then is to design a machine that is able to do the same. In
 the radar/ sonar problem a human interpreter would be unable to determine the target
 position from the received waveforms, so that the machine acts as an indispensable
-tool.
 In all these systems we are faced with the problem of extracting values of parameters
 based on continuous-time waveforms. Due to the use of digital computers to sample
 and store t e continuous-time wave orm, we have the equivalent problem of extracting
@@ -358,7 +317,6 @@ reflections due to the different densities of oil and rock layers [Justice 1985]
 Finally, the multitude of applications stemming from analysis of data from physical
 experiments, economics, etc., should also be mentioned [Box and Jenkins 1970, Holm
 and Hovem 1979, Schuster 1898, Taylor 1986].
-Mwlol; 9)
 Figure 1.5 Dependence of PDF on unknown parameter
 1.2 The Mathematical Estimation Problem
 In determining good estimators the ﬁrst step is to mathematicall model the data.
@@ -655,7 +613,6 @@ each other,
 w A ‘$1
 ¢l4 fgo>
 (DA 
-l ‘so;
 11(9)
 11(9)
 n increases
@@ -700,7 +657,6 @@ Differentiating the MSE with respect to a yields
 dmse(A) 2002
 T = N +2(a—1)A2
 which upon setting to zero and solving yields the optimum value
-llopt _ 
 Li; T2611 lfklllat, unfortunately, the optimal value of a depends upon the unknown param-
 . _ e estimator 1S therefore not realizable. In retrospect the estimator depends
 upon A since the bias term in (2.6) is a function of A. It would seem that an criterion
@@ -1415,7 +1371,6 @@ l<<a>~>>l
 lell
 h' h grees with the results in Example 3-6- A Sllglltly more compllcated example
 w ic a Q
-follows.
 C—1(0,2
 loin-l IOIP‘
 Example 3.11 - Random DC Level in WGN
@@ -1546,7 +1501,6 @@ integer.) With this formulation we can apply (3.14) in evaluatin the CRLB.
 a H2
 ‘%1 (ash; T0152
 V3.I'(7A'0) Z
-n=no
 "MfA ds(t) 2
 a2
 . T _ n A Assuming that A is small enough to approximate the Sum by an
@@ -1692,7 +1646,6 @@ F k_12 p.l:1,2,...,pwehavefrom(3-34)
 =  1A*<1r>2e“’“2"f('“+m*11111112 PL” m“ )1
 A2U) exp["j27l'f(k ‘i’ [)1 df'
 Noting that
-no
 * 1 exp[_7'2ﬂf(k+l)1df = / A<;)e""["2"f(k+lndf
 e 1 . : i 1 ex [j21rf(l—k)ldf
 / a‘ “2""”“"“"f /1 114w p
@@ -1708,7 +1661,6 @@ exp[j21rf(k ' [)1 df
 0. 1s term 1s zero since
 thatis,if f_1{%}:{ gm] gig
 then
-= O forn>O.
 Therefore,
 1110111. = $114k - l1?»
 = ~25 l Aw’) exp(]21rfk)df
@@ -1724,7 +1676,6 @@ vai-(&[k]) 3  [n;;],, k = 1,2,...,p
 var(¢;§) 3 2,‘? (3.45)
 As an illustration, if p = 1,
 var(a[1]) Z N330]
-Mo] = 
 so that
 varwill) 2 — (1 - ‘fun
 indicating that it is easier to estimate the ﬁlter parameter when |a[1]| is closer to one
@@ -1764,7 +1715,6 @@ Hence, the CRLB cannot be applied to this problem.
 Show that the CRLB for A is
 (duo)?
 var(A) Z / Ldu
-—-co PW)
 Evaluate this for the Laplacian PDF
 PWlOl) = if’ exp Qﬂg-Hl)
 and compare the result to the Gaussian case.
@@ -1824,7 +1774,6 @@ var(A|A = A0)
 Hence, ca?‘ —> Ag as N —> oo for the given realization A = A0. Next ﬁnd the
 variance of chi as N —-> oo by determining var(A2), where A ~ N (0, aft), and
 compare it to the CRLB. Explain why crfl cannot be estimated without error even
-for N --> oo.
 3.15 Independent bivariate Gaussian samples {x[0],x[1],...,x[N — 1]} are observed.
 Each observation is a 2 >< 1 vector which is distributed as x[n] ~ N (0, C) and
 Find the CRLB for the correlation coeﬁicient p. Hint: Use (3.32).
@@ -1986,9 +1935,10 @@ Since det[C(0)] depends on all the elements of C(9)
 "< acm) aak l
 where 8det[C(9)]/3C(9) is an N >< N matrix with [i,j] element
 3det[C(9)]/3{C(0)],~j and the identity
-P(1; 9) =
-(30.4)
-as been used Now by t e e n1t1on o t Ae determ1nant b z aiak Z 2mm _ UL(0)L)[C—1(0)L] (arm _ [Mann
+
+[ _to('140517191424') ]
+
+has been used Now by t e e n1t1on o t Ae determ1nant b z aiak Z 2mm _ UL(0)L)[C—1(0)L] (arm _ [Mann
 d@tlC(9)l = [Cwlli-[Mlr ‘ i ,
  J J  a =  w] — mum.) [KTWWL-j (ﬁlﬁﬁll)
 where M is the N >< N cofaictor matrix and j can take on any value from 1 to N. Thus, i} ' m‘ F‘
@@ -2221,12 +2171,8 @@ eek to determine an em irical relationshi between
 In many experimental situations we s
 Figure 4.2 we present the results of a experiment
 a pair o varia es. For instance, in
-l lo lllljllll 
 Voltage
 ;' 9 <- Measured voltage, 1Q")
-o
-o
-o
 ‘fm Hypothesized relationship, s(t)
 Time, t
 t0 i1 f2 ta tN_1
@@ -2394,7 +2340,6 @@ where D is an N >< N invertible matrix. The matrix D acts as a whitening transfo
 w en app 1e to w since
 E [(Dw)(1>w>'-'>1
 As a consequence, if we transform our eneralized model
-to
 the noise will be whitened since w’ = Dw ~ A/(g I) and the usual lineal, model win
 result. The MVU estimator of 0 is, from (4.9),
 é = (H’TH’)"H’Tx'
@@ -2423,7 +2368,6 @@ ization of C“ as DTD. We no
 estimator is expressed as
 (Eli
 z N21‘ dnﬂn] (4.21)
-' form
 . _ 7) the data are ﬁrst prewhitened t0 _
 where d" =[D1]n/1TDTD1. according to (4 2 , _ . ht d ' The preyvhitenlng
 aQ/[a] and then “averagetlisﬁusing grtellllliltizrlire; tiiHYEIEIiECZSIEf tie noises at each obsep
@@ -2755,7 +2699,6 @@ conditional
 expectation
 E(a:ly) = f” Immune
 operation
-—oo
 : [co $13k?  dx é = MVU estimator
 _°° p y (I ) Figure 5.2 RBLS argument for MVU estimator
 = E(a:) + -“—”’—o - Ea»- <55)
@@ -2820,7 +2763,6 @@ issatisﬁe . ovaiae a asu c f
 and we refer the reader to the discussions in lKendau an uer l
 the concePt of comPleteness 1S Pmvlded by the next two examp e )
 f v’('r)w(Ag — T) d1" ¢ 0
-—oo
 Gaussian pulse, w(A1 -— r)
 Gaussian pulse, 1U(Ag — r)
 Choose i/(r) to make
@@ -2867,15 +2809,12 @@ so that the condition reduces to
 ~ilmiilw-~miiiéai  i‘  ' i“
 / v(T) dT = 0 for all A.
 , ﬁn_i2kslalﬁilnkkkfillklumiluiawp.s,..,..‘_‘__
-—co
 I v(T)p(T; A1) dT = 0 f v(T)p(T', Ag) dT = 0
-—oo
 (a) Integral equals zero (b) Integral equals zero
 Figure 5.4 Completeness condition for sufficient statistic (not satisﬁed) )
 The nonzero function v(T) = sin 21rT will satisfy this condition as illustrated in Fig-
 ure 5.4. Hence a solution is
 v(T) = g(T) — h(T) = sin 21rT
-or
 h(T) = T — sin 21rT.
 As a result, the estimator A
 nd is unbiased for A. Having found at least
@@ -3058,7 +2997,6 @@ m] = A + wit] n = 0, 1, . . . , N - 1 en we nee ‘my ﬁnd a“ 1* d““°“
 where wln] is WGN with variance a2 and the unknown parameters are A and a2, we E(g(T)) = 0
 le to ﬁnd a sufficient statistic of dimension assuming that T is a complete sufficient st ' ‘
 at1st1c. We illustrate this appmeeh b
-y con-
 can use the results of the previous examp
 2. Letting the unknown vector parameter be 0 = tinuing Example 5,10,
 previous example, we have as our sufficient statistic
@@ -3264,7 +3202,6 @@ In this form we see how, in principle, the PDF of the sufficient statistic can b
 based on the factorization since
 Again using the factorization
 pew) = To; v) f 9mm = To, 9)h(1<)6(T(x) - To) dx
-gmx) = Tm f h<x><§<T<x> - To) d»
 P(T(X) = TM) = y(T(x) = To; 6) f h(x)6(T(x) - To) dx.
 The latter step is possible because the integral is zero except over the surface in RN
 for which T(x) = To. Over this surface g is a constant. Using this in (5A.2) produces
@@ -3288,14 +3225,12 @@ h(x) ’
 we have
 var(6) = E [(9 - 5(9)?)
 = E [(9 -é
-of]
 (;_
 = EK ‘ — (9)21 + 2BR (M; - 0)] + E[(6 - 0y].
 Appendix 5B
 The cross-term in the above expression, E [(6 — 6)(6 - 6)], is 119w Shawn to be zero We
 know that 6 is solely a function of T. Thus, the ex ectat'o f th -t ' ‘
 respect to the joint PDF of T and 6 or p l n o e cross erm 1S with
-Proof of
 Rao-BlackWell-Lehmann-Scheffe
 Theorem (Scalar Parameter) >
 and also
@@ -3311,7 +3246,6 @@ By the deﬁnition of a sufficient statistic, p(x|T(x); 6) does not depend on 6 
 on x and T(x). Therefore, after the integration is performed over x, the result will be
 solely a function of T and therefore of x only. A
 To prove (2), that 6 is unbiased, we use (5B.1) and the fact that 6 is a function of
-T only.
 Eu?) ff 9(X)1>(XlT(X);6)dxp(T(X);6)dT
 f 9e) f p<xtr<x>¢1>p<rr<x>w> d1" dx
 = [6(x)p(x; 6) dx
@@ -3439,7 +3373,6 @@ subject to the unbiased constraint, which from (6.2) and (6.4) becomes
 ganEl-Tlnl) = 6
 Zans[n]6 = 6
 Zanshi] = 1
-or
 aTs=1
 where S = (s[0] s[1] . . . s[N — 1]]T. The solution to this minimization problem is derived
 in Appendix 6A as
@@ -3531,7 +3464,6 @@ of a general linear model. In the present context the general linear model does 
 assume Gaussian noise. We refer to the data as having the general linear model form.
 The following theorem is termed the Gauss-Markov theorem.
 Theorem 6.1 (Gauss-Markov Theorem) If the data are of the general linear model
-form
 x = H0 + W (6.18)
 where H is a known N >< p matrix, 0 is a p>< 1 vector of parameters to be estimated, and
 w is aN >< 1 noise vector with zero mean and covariance C (the PDF of w is otherwise
@@ -3841,7 +3773,6 @@ or in combined form C‘; z E  _  _ EwenTl
 _ _ where
 hi1 o é - 12(9) = (HTc-IHyIHTc-‘(Ho + w) - E((§)
 hi a,‘- = ]_ z (HTC-IED-IHTC-lw.
-hT o
 h; 0 c9 = E[(HTC*‘H)“‘HTC"‘wwTC"H(HTC“H)“].
 Letting e,- denote the vector of all zeros except in the ith place, we have the constraint Since the covariance matrix of w is C’ we have
 “mam” 0,; = (HTC"H)"‘HTC“CC"‘H(HTC‘1H)"
@@ -3985,7 +3916,6 @@ Where u = — m‘, z2[n], and therefore,
 g(u)=_5+ Urbz-
 Linearizing about a0 =  = A + A?’ we have
 9W) z 9W0) +  (u — a0)
-or but)
 It now follows that the asymptotic mean is
 E(A) = A
 so that A is asymptotically unbiased. Additionally, the asymptotic variance becomes,
@@ -4155,7 +4085,6 @@ to be known. We saw in Chapter 5 that no single sufficient statistic exists for 
 problem. The sufficient statistics were
 T1(x) = ZIZI[TLlCOS(2TI'fQTL)
 T2(x) :r[n] sin(21rf0n). (7.12)
-o
 The MLE is found by maximizing p(x; qS) or
 p(x; ¢) = (EmTﬁ exp w?” "=0 (a:[n] - Acos(21rfOn + w)’
 Or, equivalently, by minimizing
@@ -4214,7 +4143,6 @@ than the CRLB. Only at higher SNRs is the CRLB attained. Hence, the required
 data record length for the asymptotic results to apply also depends on the SNR. To
 Mean
 Log-likelihood function
-soj
 Phase, ¢
 SNR (dB)
 Figure 7.3 Actual vs. asymptotic mean for phase estimator (a) High SNR (10 dB)
@@ -4307,7 +4235,6 @@ and (7.21) and (7.22) are entirely equi
 (x; a) with respect to a equal to zero yields
 (7.22) over a. Setting the derivative of pT
 Aﬁ(1:[n]—lnd)% = 0
-or
 67 = exp(:f:).
 But i: is just the MLE of A, so that
 d = exp(A) = exp(0).
@@ -4425,7 +4352,6 @@ zero of the derivative function. To do so the derivative is taken and set equal 
 yielding
 3lnp(x; 9)
 Then, the methods attempt to solve this equation iteratively. Let
-yo) = 
 and assume that we have an initial guess for the solution to (7.26). Call this guess 90.
 Then, if g(9) is approximately linear near 9O, we can approximate it by
 9(9) z 9W0) + @-
@@ -4677,7 +4603,6 @@ ih-[n] = cos 27ff¢n + w,- (7.51)
 where w,-[n] is WGN with variance 0,2, then the problem would be decoupled. It is easily
 shown that due to the independence assumption the PDF would factor into the PDF
 for each data set. Consequently, the MLE of f,- could be obtained from a minimization
-of
 J(f,’)=Z(y,~[n]—cos21rf,-n)2 i=1,2,...,p.
 The original p-dimensional minimization has been reduced to p separate one-dimensional
 minimizations, in general, an easier problem. The new data set {g1 [n], g2 [n], . . . , y?
@@ -4699,7 +4624,6 @@ where in the previous example M = p and the elements of y, are given by (7.51).
 The function g is a many-to-one transformation. We wish to ﬁnd the MLE of 0 by
 maximizing ln p,(x; 9). Finding this too difficult, we instead maximize ln py(y; 9). Since
 y is unavailable, we replace the log-likelihood function by its conditional expectation
-or
 Ellllllnpl/(yigll = l1I1Py(y;0)p(y|x;0) dy. (7.55)
 Finally, since we need to know 0 to determine p(y|x;0) and hence the expected log-
 likelihood function, we use the current guess. Letting 0;, denote the kth guess of the
@@ -4751,7 +4675,6 @@ i 1 1(1) 6Pzz(f) _
 The second derivative is given by (3D.7) in Appendix 3D, so that the Newton- Raphson
 or scoring method may be implemented using the asymptotic likelihood function. This
 leads to simpler iterative procedures and is commonly used in practice. An example
-follows.
 Example 7.14 - Gaussian Moving Average Process
 A common WSS random process has the ACF
 The PSD is easily shown to be
@@ -4786,7 +4709,6 @@ PDF of the MLE is given by A/(O, I"1(0)), where I'1(0) is given in Section 3.11.
 for the problem statements and notation.
 Example 7.15 - Range Estimation (Example 3.13)
 From (3.36) the PDF is seen to be
-no-l
 P(X¥Tl0) = H
 V21ra2 exp i
 ¢m exp l“
@@ -4795,17 +4717,13 @@ In this case the continuous parameter To
 has been discretized as no = TO/A.
 likelihood function simpliﬁes to
 The "i
-Pb‘; no)
-Tlo-kM
 202 _ (—2r[n]s[n — no] + s2[n — n0])
 exp [-
 or, equivalently, by minimizing
 Z (—2r[n]s[n — no] + s2[n — 120]).
-Tl==Tlo
 But g [n-no] =2
 [n] and is not a function of no. Hence, the MLE 0f 
 no is found by maximizing
-Z r[n]s[n — no].
 (7.62) 
 By the invariance principle, since R
 (cA/2)fi@. Note that the MLE of the
@@ -4866,9 +4784,7 @@ Z win] exm-nwron)
 (v.66)
 over f. Then, from (7.64)
 (Q)
-Ho
 a:[n] sin 21rf0n
-o
 and thus ﬁnally we have
 z  cos 21rf0n
 Z w[n1exp<—121rf0n>
@@ -4966,7 +4882,6 @@ var(02) = 7V" + W .
 Plot the variances versus N to determine the better estimator.
 7 5 A formal deﬁnition of the consistency of an estimator is given as follows. An
 estimator 0 is consistent if, given any 6 > 0,
-N-voo
 Prove that the sample mean is a consistent estimator for the problem of estimating
 a DC level A in white Gaussian noise of known variance. Hint: Use Chebychev’s
 inequality.
@@ -4985,7 +4900,6 @@ probabilities
 7.10 If the data set
 is observed, where s[n] is known and w[n] is WGN with known variance a2, ﬁnd
 the MLE of A. Determine the PDF of the MLE and whether or not the asymptotlC
-PDF holds.
 7.12 In this problem we prove that if an efficient estimator exists, the maximum like-
 lihood method will produce it. Assuming a scalar parameter, if an efficient esti-
 mator exists, then we have
@@ -5369,8 +5283,6 @@ ail ZE=Z$=1
 so that
 EGIIX; 0k) = ; + (7 (X — Z m)
 c, ail l
-of p
-or
 E(yl-lx;0k)=c,-+a—g(x—zci) i=1,2,...,p
 where c,~ is computed using 0k. Note that E(y,»|x; 0k) can be thought of as an estimate
 of the yi [n] data set since, letting $3 = E(y,-|x; 0k),
@@ -5634,7 +5546,6 @@ Letting s = 01h1 + 02b2, we have
 In matrix form this is
 (X “' H9)Tb1
 (x — H0)Tb2 = O.
-o
 Combining the two equations yields
 (x—H6)T[ b1 h; 1:07‘
 (x - H0)TH = 0T. (3.20)
@@ -5981,7 +5892,6 @@ s0 70 8o 9o 100
 Current sample, N
 °~°° r- -—r —T —1 —r r- —1- a
 Current sample, N
-o:
 0 10 20 30 40 50 s0 70 80 9o 100
 Current sample, N
 Figure 8.9 Sequential least squares for DC level in white Gaussian
@@ -6305,7 +6215,6 @@ derivatives or for the presence of Gn. The linearization method is termed the Ga
 Newton method and can easily be generalized to the vector parameter case as
 (at = a + <HT<@t>H<@.>>" 1mm (x - w.» (s-sa
 where
-[mo]. = 
 In Example 8.14 the Gauss method is illustrated. Both the Newton-Raphson and
 the Gauss methods can have convergence problems. It has been argued that neither
 method is reliable enough to use without safeguards. The interested reader should
@@ -6339,7 +6248,6 @@ nately, this approach produces a nonlinear LS problem (see Problem 8.28 for the 
 solution). (The reader should note that hd[n] plays the role of the “data,” and h[n]
 that of the “signal” model. Also, the “noise” in the data is attributable to modeling
 error whose statistical characterization is unknown.) As an example, if
-mo]
 the“ _ blOK-alll)" n z 0
 and
 J = E (hdlﬂl — bl0](—al1])")2
@@ -6381,7 +6289,6 @@ and as expected is not causal (due to the zero phase frequency response assumpti
 To ensure causality we delay the impulse response by no samples and then set the
 resultant impulse response equal to zero for n < 0. Next, to approximate the desired
 impulse response using the LS Prony method we assume that N samples are available
-or
 _ sin 21rfc(n —- no)
 1r(n — no)
 For a cutoff frequency of fc = 0.1 and a delay of no = 25 samples, the desired impulse
@@ -6436,10 +6343,8 @@ for n < 0. Consequently, we have that
 htnezalsiziaia
 for n > O and hence is anticausal. Thus,
 Z—‘{<#B<Z>B"Il} = a’b[n]*h[—nl
-= O forn>q.
 Continuing, we have
 A(z“1)
-for n > q.
 Z-*{A<z>1>.,<z>} = 2-1 {U2B(Z)B(z—1)}
 Finally, a difference equation for the ACF can be written as
 Zalklnmln » k1= 0 for n > q (8.63)
@@ -6754,7 +6659,6 @@ nonlinear optimization and ﬁnd the LSE analytically?
 In this problem we derive the equations that must be optimized to ﬁnd the true
 LSE [Scharf 1991]. It is assumed that p = q+ 1. First, show that the signal model
 can be written as
-mo]
 all] glﬁl 0 Mo]
 ylq + ll ylq] all] bk]
 where
@@ -6894,7 +6798,6 @@ will require the maximization of a very nonlinear function of c. Although this c
 be implemented using a grid search, the method of moments provides a much simpler
 estimator. Note that
 Ewan = f” mm [<1 - @>¢.<w[n1>+ agent] dun]
-—oo
 where
 = (1 — 5):)? + ca; (9.1)
 since the mean of zrln] is zero. This theoretical equation relates the unknown param-
@@ -6949,7 +6852,6 @@ _ _ /\exp(-—/\z[n]) z[n] > 0
 pew. i) - { 0 M < 0_
 We wish to estimate the parameter /\, where /\ > 0. The ﬁrst moment is >
 l), =  = / :r[n]/\exp(——/\z[n])dz[n]
-o
 § wsexm-od:
 Solving for A
 and substituting the natural estimator result in the method of moments estimator
@@ -6985,7 +6887,6 @@ p; = E(:r2[n]) = (1 — 6):)? + ca;
 p4 = E(z4[n]) = 3(1— Q01‘ + 360';
 p6 = E(z6[n]) = 15(1— do? + 15603.
 Although nonlinear, these equations may be solved by letting [Rider 1961]
-u = o’? + o’;
 v = crfcrg. (9.12)
 Then it can be shown by direct substitution that
 Once u is found, v can be determined. Then, of and a; are obtained by solving (9.12)
@@ -7700,7 +7601,6 @@ concentrated since there is less uncertainty about y. To verify this, note from 
 that
 = var(y)(1— p2) (19-18)
 where ( )
-_ cov z,y
 p — var(z)var(y) (1019)
 is the correlation coeﬁicient satisfying |p| g 1. From our previous discussions we also
 realize that  is the MMSE estimator of y after observing z, so that from (10.16)
@@ -7921,7 +7821,6 @@ A second concern is the choice of the prior PDF. If no prior knowledge is availa
 as we assume in classical estimation, then we do not want to apply a Bayesian estimator
 based on a highly concentrated prior PDF. Again considering the same example, if A
 is deterministic but we apply the Bayesian estimator anyway, we see that
-of, oz/N
 of, + az/N 01+ a2/NuA
 There is a bias and it is towards iiA. To alleviate this bias we would need to specify a
 prior PDF that is nearly ﬁat, or for this example, by letting of, —> oo. Otherwise, as
@@ -8646,7 +8545,6 @@ so that 3
 P = Pr{eTMg1egc2}
 A 2exp( 2) u
 = 1—exp 
-or
 eTMgle = 2ln <1 P)
 describes the error ellipse for a probability P. The error vector will lie within this ellipse
 with probability P. An example is shown in Figure 11.7b for 0g = 1, az/N = 1 / 2 so
@@ -8906,7 +8804,6 @@ loo Ah(t — T) ﬁ s(mA)6(T — mA) dT
 2 s(nA)6(t—nA) Z Sa(TlA)6(f— VIA) z A i smmhu _mA)
 so that the output samples are
 so(nA) = i: Ah(nA — mA)s(mA)
-m=-oo
 or letting s,,[n] = so(nA), h[n] = Ah(nA), and s[n] = s(nA), this becomes
 (b) Conversion to sampled data system 50h] = Z: hln _ 
 Z Slnlm - "Al E 50mm: — "M The continuous-time output signal is obtained by passing the signal
@@ -9020,7 +8917,6 @@ Bmse(0A) = 01,0; 0,,,0;;0,, - 01,0; 0.,
 or ﬁnally
 Bmse(é) = C99 — C9¢C;:1C$9. (12.8)
 Again this is identical to that obtained by substituting (10.25) into (11.12). Anexample
-follows.
 Example 12.1 - DC Level in WGN with Uniform Prior PDF
 Consider the introductory example in Chapter 10. The data model is
 where A ~ U[—AO, A0], w[n] is WGN with variance a2, and A and w[n] are independent.
@@ -9330,7 +9226,6 @@ and the error vector :E[1] = z[1] — :E[110] represents the new information tha
 contributes to the estimation of A. As such, it is called the innovation. The projection
 of A along this error vector is the desired correction
 E(Ai[1])a":[1]
-" Bow '
 If we let K[1] = E(A:i:[1])/E(i2[1]), we have for the LMMSE estimator
 A]1] = A]0] + K]1](@]1] - @]1|o]).
 To evaluate a“:[1|O] we note that z[1] = A + w[l]. Hence, from the additive property
@@ -9404,7 +9299,6 @@ Figure 12.6 Sequential linear minimum mean square estimator
 or (12.27) when the noise covariance matrix Cw is diagonal. To deﬁne the equations
 we let 6[n] be the LMMSE estimator based on {:n[0],z[1], . . . ,z[n]}, and M[n] be the
 corresponding minimum MSE matrix (just the sequential version of (12.28) or (12.29))
-or
 Mp1] = E ](o - émmo - émf].
 Also, we partition the (n + 1) x p observation matrix as
 Then, the sequential LMMSE estimator becomes (see Appendix 12A)
@@ -9579,11 +9473,9 @@ equations arises in the smoothing problem in which s[n] is
 to be estimated based on  . .,z[—1],z[()],a:[1], . .  or z[k] for all k. In this case the
 smoothing estimator takes the form
 §[n] = Z akzUc]
-k=—oo
 and by letting h[k] = an-k we have the convolution sum
 where h[k] is the impulse response of an inﬁnite two-sided time invariant ﬁlter. The
 Wiener-Hopf equations become
-k=—oo
 — oo < l < oo (12.61)
 (see Problem 12.17). The difference from the ﬁltering case is that now the equations
 must be satisﬁed for all l, and there is no constraint that h[k] must be causal. Hence,
@@ -9867,7 +9759,6 @@ We next find the gain factor K,- Using (12.37), we have
 El6i(-'l3]7'l] — i]n|n —1])]
 Evaluating the denominator
 E ](.r[n] - filnhl - 11f]
-to
 a
 = hT[n]M]n — 1]h[n] + of,
 E in-(nini - ninin - 11)] = E [an — tin —1l)(wln1 - ninin ~ 11)]
@@ -10017,7 +9908,6 @@ Cslmﬂll = E Kslml - E($lml))($l"l - E($l"l))l
 = amwwzof + i i ak+'E(u[m —— k]u[n — 
 E(u[m — k]u[n - 1]) = 05W — (n —- m + k)]
 EM“ — km" ‘ ll) ={ iiu otheriwisl: + k
-Thus, for m Z n
 cshn, n] : am+n+2a2 + 0,2 aZk-Q-n-m
 am+n+2og +U12Lam—n Z a2k 
 0-1 1 1 w a r 1 1* I “T 1
@@ -10149,7 +10039,6 @@ E [(A"'+1(s[-1] - us) + i: A'=Bu[m - k1)
 A’"*‘C,A"+‘T + Z Z AkBE(u[m - 111%) - l])BTA'T.
 E(u[m~k]uT[n—-l]) = Q6[l—(n—m+k)]
 0 otherwise.
-Thus, for m Z n
 C,[m, n] = A'"+1c.A"+1’ + Z AkBQBTA"""*'“T (13.15)
 and for m < n
 The covariance matrix for s[n] is
@@ -10859,7 +10748,6 @@ a l w 0.0
 $ l E -0.2-i
 ___ Sample number, n g Sample number, n
 é l a
-g To
 U a
 50-0 l——v #—r—1—r -r “T” r-a 41-4-1 1-1 i r r—r—1—-1 v 1
 Sample number, n Sample number, n
@@ -10883,7 +10771,6 @@ Figure 13.21 Typical track of vehicle moving in given direction at
 constant speed
 The measurements are noisy observations of the range and bearing
 ﬂ[n] = arctan 
-or
 3m] = 0011+ w5[n]. (13.77)
 In general terms the observation equation of (13.77) is
 where h is the function
@@ -10991,7 +10878,6 @@ Noise corrupted and true r,[n]
 Figure 13.24 True and observed vehicle tracks
 Minimum MSE for 1-y[n] Minimum MSE for 1'1 [n] Kalman estimate and true ry[n]
 5R /True track
-o "~
 _5_) Extended Kalman/
 ﬁlter estimate
 Kalman estimate and true r,
@@ -11020,7 +10906,6 @@ steady-state process?
 13.4 For a scalar Gauss-Markov process derive a covariance propagation equation, i.e.,
 a formula relating c,[m, n] to c,[n, n] for m Z n. To do so ﬁrst show that
 c,[m, n] = am‘ var(s[n])
-for m Z n.
 13.5 Verify (13.17) and (13.18) for the covariance matrix propagation of a vector Gauss-
 Markov process.
 13.6 Show that the mean of a vector Gauss-Markov process in general will grow with
@@ -11448,7 +11333,6 @@ The error e,- = 9, — 9,- has zero mean and variance
 var(e,-) = Bmse(9,») = [C99 — CQIC; C16] it. .
 e. Comments
 If x, 9 are jointly Gaussian, this is identical to the MMSE and MAP estima-
-tors.
 f. Reference: Chapter 12
 The reader may observe that we have omitted a summary of the Kalman ﬁlter. This is
 because it is a particular implementation of the MMSE estimator and so is contained
@@ -11585,7 +11469,6 @@ will be forced to reevaluate our data model or else obtain more data. For exampl
 might suppose that A[n] = A or even A[n] = A + Bn, reducing the dimensionality of
 the problem. This may result in bias errors due to modeling inaccuracies, but at least
 Signal processing F_
-known
 Yes LMMSE
 estimator
 ' Dimensionality Yes
@@ -11594,19 +11477,15 @@ a problem
 approach
 Prior
 knowledge
-No
 Compute mean
-of
 posterior PDF
 Maximize
 posterior PDF
-No
 MMSE estimator
 Prior
 , Bayesian
 i knowledge
 approach New data model No
-or
 take more data
 MAP estimator
 Classical
@@ -11635,7 +11514,6 @@ If the search proves to be futile, then suboptimal estimators should be investig
 exist
 First two
 noise moments
-known
 Evaluate Yes
 Evaluate
 method of Moments
@@ -11715,7 +11593,6 @@ To obtain S (F ) we shift the complex envelope spectrum up to F = F0 and also, a
 ﬁrst “ﬂipping it around” in F and conjugating it, down to F = —F0 . Taking the
 inverse Fourier transform of (15.1) produces
 s(t) = §(t) exp(j21rF0t) + [§(t) exp(j21rF0t)]"
-or
 s(t) = 2Re  exp(j21rF0t)]. (15.2)
 Alternatively, if we let §(t) = sR(t) + js1(t), where R and I refer to the real and
 imaginary parts of the complex envelope, we have
@@ -11941,7 +11818,6 @@ covariance matrix of (v v]T is
 a?
 For a 2 >< 1_complex random vector i = [i1 iﬂT = (v1 +jv1 v2 + jvﬂT with i, 111118-
 pendent of i=1, as we have assumed, the real covariance matrix of [v1 v1 v; v2]T is
-of O O O
 l 0 of 0 0
 2 0 0 a; 0
 0 0 0 a;
@@ -11996,7 +11872,6 @@ Cl€1§(Cx) = ﬁdetzwi).
 Note that det(C,-,) is real and positive since C; is Hermitian and positive deﬁnite.
 As an example, for n = 2 and independent 51,52 we have C; = A, and from
 (15.18) and (15.19)
-o _
 so that
 det(C,) = det2 
 With these results we can rewrite the real multivariate Gaussian PDF of
@@ -12188,7 +12063,6 @@ and thus
 Pa”) =2(Puu(fl+jPu,,(f)). (1536)
 The reader at this point may reco ' ' -
 gnize that the same relationships (15 33) and (15 34
-occu f ' - . .' ' l
 r or a process and its Hilbert transform or the real and imaginary parts of a
 bandpass noise process. Thus, the complex envelope or the analytic signal of a WSS
 Gaussian random process is a complex WSS Gaussian random process (see Problem
@@ -12404,7 +12278,6 @@ the use of Lagrangian multipliers. To extend the use of real Lagrangian multipli
 the complex case we let B = BR + 1B1, a = a); +ja1, and b = b); +jb1. Then the
 constraint equation Ba = b is equivalent to
 (BR + 131K312 +181) = bR + 1'51
-or
 BRaR — BIaI = b);
 B1612 + BRaI = b1-
 Since there are two sets of r constraints, we can let the Lagrangian be
@@ -12465,7 +12338,6 @@ var(;i) = E ()2 - 15(2)?)
 which is actually the sum of the variances for each component of the estimator. <>
 15.7 Classical Estimation with Complex Data
 We will restrict our discussion to complex data vectors that have the complex Gaussian
-PDF or
 p(i; 9) =   eXP l-(i _ I](9))HC;1(9)(3~{ "  '
 The parameter vector 9 is to be estimated based on the complex data i =  it[1] . . .
 i‘[N — 1]]T and may have components that are real and/or complex. Many of the
@@ -12533,7 +12405,6 @@ which is an efficient estimator and has minimum variance
 var(0f,) = (01-11-  .
 Note that the variance does not decrease to zero with N , and hence 03 is not consistent.
 The reader may wish to review the results of Problem 3.14 in explaining why this is
-so. <>
 When the parameter to be estimated is complex, we can sometimes determine if an
 efﬁcient estimator exists more easily than by expressing the parameter as a real vector
 parameter and using (15.53). We now examine this special case. First, consider the
@@ -12639,7 +12510,6 @@ this leads to l
 + (i - 11(s))”<1;1(:)a‘§flc;*(:)(i - 11(1))
 + 1 Re [(i ~ 11(s))”c.-l(s)a—§,‘§) (15.11)
 which when set equal to zero can sometimes be used to ﬁnd the MLE. An example
-follows.
 Example 15.10 - Phase of a Complex Sinusoid in CWGN
 Consider the data
 iln] = Aexp L1'(21rf@n+¢)] +1191] 11 =0,1,...,N - 1
@@ -12664,11 +12534,9 @@ X116) = Z i161 exm-jwrfon)
 denote the Fourier transform of the data
 1m l@XP(J'¢)X'(f6)l = 0
 1m Kcosaﬁ +1‘ sin ¢)(Re(X (m) - jIm(X( 10)») = o
-or
 Sin¢Re(X(fo)) = ¢OS¢III1(X(f6))-
 The MLE follows as )
 4i = arctan [ ]
-o
 which may be compared to the results in Example 7.6. <>
 15.8 Bayesian Estimation
 glhe usuall Bayesian estimators, the MMSIE and MAP estimators, extend naturally to
@@ -12701,7 +12569,6 @@ and the covariances are
 C5; = E [(H9 + w —- Hp,)(H9 + w — HMQH]
 = HE [(9 — 116KB — 119F111” + E0111”)
 C05 = E [(9 * IMXHB ‘i’ ‘l’ - HﬂelHl
-= CsoHH
 since 9 and w are independent and hence uncorrelated. Finally, we should verify that
 11,9 are jointly complex Gaussian. Because 9, w are independent, they are also jointly
 complex Gaussian. Due to the linear transformation
@@ -13024,7 +12891,6 @@ depending upon the interference-to-noise ratio (P/az) as well as the separation 
 angles between the signal and the interference (eH i). Note that if e” i = 0, we Wlll have
 a conventional beamformer because then 210p, = e/ M . This i5 beCallse the lnterferelme
 Interference cancellation (dB)
-‘S o
 4o so so 10o 120 14o
 Interference arrival angle (degrees)
 Figure 15.6 Response of adaptive beamformer to interference ’
@@ -13251,7 +13117,6 @@ Now, to show that E + j F is the inverse of C;
 (A+BA"B)“BA'1
 (A+BA-‘B)—1
 and thus
-Qo-u
 Using these relations, we have
 Cecg‘ (A + 11am: +11")
 AE — BF +j(BE + AF)
@@ -13370,7 +13235,6 @@ awgo 1 4 q 1
 Only the last two terms will be nonzero after differentation with respect to d);
 and setting c5 = 0. Hence,
 34¢i(@)
-or
 5x51525314) = E(i4il)E(i2i§) + 35253593453)-
 . The conditional PDF of a complex Gaussian PDF is also complex Gaussian with
 mean and covariance given by (15.61) and (15.62).
@@ -13401,7 +13265,6 @@ at
 The last step follows from 050;‘ = I, so that
 _ tr (Cfl  
 ) - (i- nus»
--C;‘<o% +
 (5)
 951(5)
 3951(5)
@@ -13514,7 +13377,6 @@ A square n X n matrix is orihogonanf
 For a matrix to be orthogonal the columns (and rows) must be orthonormal or if
  A=[a1 a;  an]
 where a,~ denotes the ith column, the conditions
-of " "
 “iraﬁii 
 must be satisﬁed. An important example of an orthogonal matrix arises in modeling of
 data by a sum of harmonically related sinusoids or by a discrete Fourier series. As an
@@ -13567,7 +13429,6 @@ where it is assumed that A is n X n, B is n X m, C is m X m and D is m X n and t
 t e indicate inverses exis . special case known as W00dbury’s identityﬁresults for B
 an n X 1 column vector u, C a scalar of unit , and D a 1 X n row vector uT. Then,
 ( +uu ) 1+uTA-1u
-
 Partitioned matrices may be manipulated according to the usual rules of matrix
 algebra, considering each submatrix as an element. For multilication of partitioned
 matrices the submatrices which are multiplied together must be conformable. As an
@@ -13575,7 +13436,6 @@ illustration, for 2 X 2 partitioned matrices
 $A B = \ldots $
 The transposition of a artitioned matrix is formed b trans osin the submatrices of
 the matrix an applying T to each submatrix. For a 2 X 2 partitioned matrix
-
 The extension of these properties to arbitrary partitioning is straightforward. Pi-
 termiriation of the inverses and determinants of partitioned matrices is facilitated by
 emp oying t e o owing ormu as. et A e a square n X n matrix partitioned as
@@ -13615,7 +13475,6 @@ vTvj = 51,-’ and the eigenv ues are real. If, furthermore, the matrix is posit
 (positive semideﬁnite), then the eigenvalues are ositive (nonnegative . For a positive
 semi e ni e matrix e ran is e ual to the number of nonzero ei envalues.
 The deﬁning relation of (A1.3) can also be written as
-or
 AV = VA (A1.4)
 where
 A = diag(A1, A2, . . . , A");
@@ -13697,7 +13556,6 @@ un1t circle, Pr,(z) and P,y(z) become the auto-PSD, P“(f) = P,,(exp[_7'21rf]),
 5717334951), Pndf) = P¢y(8Xp[j21rf]), or explicitly
 P1¢(f)= 2 rn[klexp(—j21rfk) (A1.8)
 P,y(f) = Z rwpt] exp(—j21rfk). (A1.9)
-k=—oo
 It also follows from the deﬁnition of the cross-P the r0 erty ry, = rxyl-k]
 t at
 The aut D describes the distribution in fre uenc of the ower of z n and as such
@@ -13718,7 +13576,6 @@ For a linear shift invariant LSI system with im ulse response hln and with a
 WSS random process in ut, various relationships between the correlations and spectral
 density functions of the input process zln] and output rocess n hold. The correlation
 relationships are
-m=—oo l=-oo
 where ~k denotes convolution. Denoti the s stem function b H z) = Zfzwo hlnlz”,
 the followin re ' nshi s f r the PSDs follow from these correlation proper 1es.
 Py,(z) H(1/z)'P,,,(z)
@@ -13731,7 +13588,6 @@ PMf) = lH(f)i2P:.-z(f)'
 For the special case of a white noise input process the output PSD becomes
 Pym = lH(f)|”v’ (A110)
 since P“( f ) = a2. This will form the basis of the time series models to be described
-shortly.
 A1.2.3 Gaussian Random Process
 A Gaussian random process is one for which an sam les :0 no z n1], ..
 _]0ll‘lt y istributed accor mg to a multivariate Gaussian PDF. If the samp es are a en
@@ -13815,7 +13671,6 @@ Papoulis, A., Probability, Random Variables, and Stochastic Processes, McGraw-Hi
 Appendix 2
 Glossary of Symbols and
 Abbreviations
-Symbols
 (Boldface characters denote vectors or matrices. All others are scalars.)
 * complex conjugate
 a‘ convolution
@@ -13875,7 +13730,6 @@ P(XI9)
 Ufa» bl
 var(z)
 var(:c|6)
-norm of z
 vector of all ones
 probability density function of z
 probability density function of x with 6 as a parameter
@@ -14259,7 +14113,6 @@ Likelihood function:
 deﬁnition, 29
 modiﬁed, 175, 185
 Linear minimum mean square error estima-
-tor:
 deﬁnition, 380-82, 389
 properties, 390
 sequential, 393, 398, 415-18

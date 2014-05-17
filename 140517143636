@@ -1,0 +1,10 @@
+Exponential Models
+Definition. A Exponential Model is a statistical model {X, F, Pθ ; θ ∈ Θ} with random variable X
+[ _v('140509222738') ]
+[ a vector valued version version is $f_{x^{(1:N)}}(x^{(1:N)}) = h(x^{(1:N)}) \exp(a(\theta)^T t(x^{(1:N)}) - b(\theta)$  _cf('140517152601') ]
+h(x) exp(a(θ)t(x))dx for normalization.
+Then the respective Fisher Information can be directly obtained by
+[ _v('140509222832') ]
+For the special case that fX (x; θ) can be arranged such that E [t(X )] = θ, the unbiased estimator
+T : x → t(x).  (4.17)
+can directly be obtained. Otherwise, t(x) at least provides a Sufficient Statistic for estimating θ.

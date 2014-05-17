@@ -1,3 +1,3 @@
-First consider U , known as the score function, and its expectation. Because for all θ, fX (x; θ)dx, we have, fX (x; θ)dx.  Since we can change the order of diﬀerentiation and integration by assumption, we get (x; θ)dx (x; θ) · fX (x; θ)dx
+First consider U , known as the score function, and its expectation. Because for all θ, fX (x; θ)dx, we have, fX (x; θ)dx.  Since we can change the order of differentiation and integration by assumption, we get (x; θ)dx (x; θ) · fX (x; θ)dx
 (x; θ) = E[U ] = 0.
 [ thus the expectation of the score function is zero ]

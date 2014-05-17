@@ -335,21 +335,10 @@ Properties of the Fisher Information:
  IF (θ) is based on the expectation of the negative mean curvature of log(L(X1 , . . . , XN ) with respect to
 the observation statistics X1 , . . . , XN .
  IF (θ) is a function of θ.
- IF (θ) is monotonically increasing with the number of independent observation statistics, i.e. given the
-Fisher Information IF (θ) for a single observation statistic (N = 1), then
-(N )
-IF (θ) = N · IF (θ).
-(4.14)
-Exponential Models
-Definition. A Exponential Model is a statistical model {X, F, Pθ ; θ ∈ Θ} with random variable X
-_v('140509222738')
-h(x) exp(a(θ)t(x))dx for normalization.
-Then the respective Fisher Information can be directly obtained by
-_v('140509222832')
-For the special case that fX (x; θ) can be arranged such that E [t(X )] = θ, the unbiased estimator
-T : x → t(x).
-(4.17)
-can directly be obtained. Otherwise, t(x) at least provides a Sufficient Statistic for estimating θ.
+[ _to('140517140839') ]
+
+[ _to('140517143636') ]
+
 Given an Exponential Model it can be shown that the Unbiased Estimator T : x → t(x) is a UMVU Estimator, and thus achieves the Cramer-Rao Lower Bound.
 Mean Estimation Example
 We consider the estimation of the unknown mean value θ = µ of a random variable X ∼ N (µ, σ 2 ) based

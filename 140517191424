@@ -1,0 +1,3 @@
+Trace of a product
+The trace of a product can be rewritten as the sum of entry-wise products of elements:
+$\operatorname{tr}(X^{\mathrm T}Y) = \operatorname{tr}(XY^{\mathrm T}) = \operatorname{tr}(Y^{\mathrm T}X) = \operatorname{tr}(YX^{\mathrm T}) = \sum_{i,j}X_{ij}Y_{ij}$

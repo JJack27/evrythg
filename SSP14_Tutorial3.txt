@@ -59,7 +59,11 @@ I(N) (θ)
 In the following, we investigate the CRB for the estimation of the channel gain h of the transmission
 system discussed in problem 2.1, i.e., of
 x (i) = hs(i) + n(i) .
-As the noise vectors n(1) , . . . , n(N) are assumed to be i.i.d. with n(i) ∼ N(0, C = σ2 I M ), the
+As the noise vectors n(1) , . . . , n(N) are assumed to be 
+
+[ _t('140517142608') ]
+i.i.d. with $n^{(i)} \sim N(0, C = \sigma^2 I_M)$, the
+
 statistics x (1) , . . . , x (N) are independent and Gaussian. In addition, the regularity conditions on
 L(x (1) , . . . , x (N) ; θ) are satisﬁed. The ML estimator hML for h derived in problem 2.1b) is used.
 Is the ML estimator hML unbiased?
@@ -98,8 +102,10 @@ Hint: Start with
 and use the deﬁnition of the score function g (x; θ).
 θ(x) be an unbiased estimator for θ. Use the result from sub-problem a) to
 b) Let t(x, θ) = ˆ
-determine E g (x; θ)ˆT (x) . Note that ˆ
-θ(x) is not a function of θ.
+determine E g (x; θ)ˆT (x) . 
+
+Note that ˆ θ(x) is not a function of θ.
+
 Show that E [g (x; θ)] = 0.
 d) The covariance matrix of the score function is called Fisher information matrix IF (θ). Let
 t(x, θ) = g (x; θ) and determine IF (θ) using the results from a) and c).

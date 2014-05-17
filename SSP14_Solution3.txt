@@ -166,34 +166,8 @@ independently Gaussian distributed with common covariance matrix Cx = C = σ2 I 
 means hs(i) .
 c) As the statistics x (1) , . . . , x (N) are independent and Gaussian with x (i) ∼ N(hs(i) , σ2 I M ), the
 joint PDF is given as
-(i)
-(i) T (i)
-(i) 
-exp
-fx (1) ,...,x (N) (x(1) , . . . , x(N) ; θ) =
-(x
-(x
-det 2πσ2 I M 2
- 1 N (i)
-= exp − 2
-(x − θs(i) )T (x(i) − θs(i) ) − log(2πσ2 ) 2 
-(1)
-= h(x , . . . , x(N) ) exp a(θ)T t(x(1) , . . . , x(N) ) − b(θ) ,
-where
-h(x(1) , . . . , x(N) ) = exp − 2
-a(θ)T t(x(1) , . . . , x(N) ) = −
-x(i),T x(i)  ,
-−θT x(i) s(i) − s(i) x(i),T θ
-s(i) x(i) ,
-b(θ) =
-log(2πσ2 ) +
+[ _t('140517152601') ]
 In order to construct an unbiased estimator, we choose
-a(θ) = 2
-t(x(1) , . . . , x(N) ) =
-s(i),2
-(i) (i)
-(i),2
-θT θs(i),2 .
 3. Fisher Information Matrix and Cram´er–Rao Bound
 with E t(x (1) , . . . , x (N) ) = θ, cf. sub-problem a). Therefore, we have an exponential model where
 a(θ) has a non-vanishing continous derivative on Θ and the regularity conditions are satsified. This
@@ -213,64 +187,19 @@ F (θ) has to be symmetric and due to E t(x , . . . , x
 ∂ E t(x (1) , . . . , x (N) )
 Remark: Without taking into account that the Gaussian distribution is an exponential model, the
 Fisher information matrix can be determined by considering
-( (x (1) , . . . , x (N) ; h))
-(i)
-(i)
-− log det(2πCx ) −
-(x (i) − hs(i) )T C−1
-x (x − hs )
-1 (i)
-(i) T (i)
-(i) 
-(x
-(x
-g(x (1) , . . . , x (N) ; h) =
-∂ 1 (i)
-(x − hs(i) )T (x (i) − hs(i) )
-s(i) (x (i) − hs(i) ).
+
+[ _cf('140517142608') ]
+
 For the Fisher information matrix, this results in
-(1)
-(N)
-I(N)
-; h) gT (x (1) , . . . , x (N) ; h)
-F (h) = E g(x , . . . , x
-s(i) (x (i) − hs(i) )
-s( j) (x ( j) − hs( j) )T 
-s(i) x (i)
-s( j) x ( j),T  − E  4
-s(i) x (i)
-hT s( j),2 
-(
-(
-(
-(i),2
-(i),2
-s( j) x ( j),T  − 4
-hT s( j),2
-s(i) x (i)
-hs(i),2
-hs(i),2
-hT s( j),2 +
-hs(i),2
-hT s( j),2
-3. Fisher Information Matrix and Cram´er–Rao Bound
-s(i) x (i)
-s(i) x (i)
-s( j) x ( j)  =
-( j) ( j),T 
-s(i),2 s( j),2 hhT .
-E s(i) x (i) x (i),T s( j)
-(i),2
-(i) (i),T
-s(i) E x (i) s( j) E x ( j),T
-(i),2
-T (i)
-(i),2 (i)
-s(i),2 hhT s( j),2 .
+[ after splitting the sums into two ]
+[ forgetting the expectation over deterministic values]
+[ ... ]
+
+
 we finally obtain
 I(N)
 F (h)
-s(i),2 σ2 I M
+s(i),2 σ2 I M`
 s(i),4 hhT +
 s(i),2 s( j),2 hhT −
 s(i),2 I M .
