@@ -4,18 +4,10 @@ Problem 3.1
 Scalar Estimation
 A scalar parameter θ is estimated by an estimator ˆ (1) , . . . , x (N) ) based on N statistics x (1) , . . . , x (N)
 θ(x
-(1)
-(N)
 with the joint PDF fx (1) ,...,x (N) (x , . . . , x ; θ). Note that ˆ (1) , . . . , x (N) ) is a random variable as it
 θ(x
-(1)
-(N)
 depends on the statistics x , . . . , x . The score function is deﬁned as
 g (x , . . . , x
-(1)
-(N)
-(1)
-(N)
 ∂ (x (1) , . . . , x (N) ; θ) ∂ log L(x , . . . , x ; θ)
 where L(x (1) , . . . , x (N) ; θ) is the likelihood function. Assuming that L(x (1) , . . . , x (N) ; θ) satisﬁes the
 regularity conditions (here for L(x; θ))
@@ -24,22 +16,18 @@ regularity conditions (here for L(x; θ))
 L(x; θ)
 L(x; θ) dx,
 the variance of the score function
-(N)
 Var g (x (1) , . . . , x (N) ; θ) = IF (θ)
-(N)
 is the Fisher information IF (θ) and serves as a metric for the information on θ contained in the N
 statistics x (1) , . . . , x (N) . If the estimator is unbiased, the inverse of the Fisher information gives the
 Cram´ r–Rao bound (CRB) on the variance of the estimator ˆ (1) , . . . , x (N) ).
-e
 θ(x
+
 a) Assuming that L(x (1) , . . . , x (N) ; θ) satisﬁes the regularity conditions, show that N i.i.d. statistics
 x (1) , . . . , x (N) carry N times as much information about θ as one statistic x (1) . This means that for N
 i.i.d. statistics
-(N)
-(1)
 IF (θ) = NIF (θ),
-(i)
 where IF (θ) is the Fisher information of i statistics.
+
 b) Consider N i.i.d. statistics x (1) , . . . , x (N) , where x (i) is
 1) uniformly distributed on the interval [0, θ] with unknown θ ∈ (0, ∞), i.e., x (i) ∼ U(0, θ),
 2) Gaussian with unknown mean θ ∈ (−∞, ∞) and known variance σ2 , i.e., x (i) ∼ N(θ, σ2 ),
@@ -49,22 +37,13 @@ Determine, if applicable, the CRB and the Fisher information for an unbiased est
 parameter θ using N i.i.d. statistics x (1) , . . . , x (N) for each distribution. Justify your answer.
 c Associate Institute for Signal Processing
 Technische Universit¨ t M¨ nchen
-a u
 Statistical Signal Processing
 Problem 3.2
 Multivariate Estimation I
 θ(x
 A parameter θ ∈ R M is estimated using an estimator ˆ (1) , . . . , x (N) ) ∈ R M based on N statistics
-(1)
-(N)
-(1)
-(N)
 x , . . . , x with the joint PDF fx (1) ,...,x (N) (x , . . . , x ; θ). The score function is deﬁned as
 g (x , . . . , x
-(1)
-(N)
-(1)
-(N)
 ∂ (x (1) , . . . , x (N) ; θ) ∂ log L(x , . . . , x ; θ)
 where L(x (1) , . . . , x (N) ; θ) is the likelihood function. Assuming that L(x (1) , . . . , x (N) ; θ) satisﬁes the
 regularity conditions (cf. problem 3.1), the covariance matrix of the score function
@@ -83,7 +62,6 @@ x (i) = hs(i) + n(i) .
 As the noise vectors n(1) , . . . , n(N) are assumed to be i.i.d. with n(i) ∼ N(0, C = σ2 I M ), the
 statistics x (1) , . . . , x (N) are independent and Gaussian. In addition, the regularity conditions on
 L(x (1) , . . . , x (N) ; θ) are satisﬁed. The ML estimator hML for h derived in problem 2.1b) is used.
-a)
 Is the ML estimator hML unbiased?
 Why does
 I(N) (h) = N I(1) (h)
@@ -94,7 +72,6 @@ d) Determine a lower bound on the variance of the m-th entry in hML , i.e., the 
 of the m-th channel gain.
 c Associate Institute for Signal Processing
 Technische Universit¨ t M¨ nchen
-a u
 Statistical Signal Processing
 Problem 3.3
 Advanced: Multivariate Estimation II
@@ -137,9 +114,7 @@ statistics x (1) , . . . , x (N) , every ML estimator is asymptotically unbiased
 lim E θML (x (1) , . . . , x (N) ) = θ,
 and asymptotically eﬃcient, i.e.,
 N θML (x (1) , . . . , x (N) ) − θ
-(1)
 ∼ N 0, IF (θ)
 Why does not every practical implementation of an estimator use the ML principle?
 c Associate Institute for Signal Processing
 Technische Universit¨ t M¨ nchen
-a u

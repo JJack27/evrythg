@@ -1,7 +1,7 @@
 Economics 520, Fall 2006
-Lecture Note 14: Cram´r-Rao Bound
+Lecture Note 14: Cramer-Rao Bound
 Another important result that helps us in the search for a minimum variance unbiased
-estimator is the Cram´r–Rao bound:
+estimator is the Cramer–Rao bound:
 Result 1 (Cramer–Rao bound)
 Let X be a random variable with pdf/pmf fX (x; θ), and that we can interchange integration
 and diﬀerentiation in the following sense:
@@ -16,10 +16,7 @@ coeﬃcient is less than or equal to one in absolute value:
 [Cov(S, U )]2 ≤ V (S) · V (U ).
 Now let us take S = W and U = ∂ ∂θ f (X; θ). 
 
-_t('140515214623')
-First consider U , known as the score function, and its expectation. Because for all θ, fX (x; θ)dx, we have, fX (x; θ)dx.  Since we can change the order of diﬀerentiation and integration by assumption, we get (x; θ)dx (x; θ) · fX (x; θ)dx
-(x; θ) = E[U ] = 0.
-[ thus the expectation of the score function is zero ]
+[ _to('140515214623') ]
 
 Therefore the covariance of U and S is the expectation of the product of S and U :
 (x; θ)fX (x; θ)dx =
@@ -28,12 +25,12 @@ W f (x; θ)dx =
 1 ≤ V (W ) · V (U ),
 V (W ) ≥ 1/V (U ) = 1/E[U 2 ].
 Of course ﬁnding a lower bound for the variance is not so hard. Zero is a lower bound
-that applies with no conditions attached. The interest in the Cram´r–Rao bound stems
+that applies with no conditions attached. The interest in the Cramer–Rao bound stems
 largely from the fact that in many cases the bound can actually be reached; there are often
 estimators with variance equal to the bound.
 Example
 Suppose X has an exponential distribution with mean µ. Consider the estimator µ = X.
-2 . To calculate the Cram´r–Rao bound, consider
+2 . To calculate the Cramer–Rao bound, consider
 This estimator is unbiased with variance µ
 the log of the density:
 − ln(µ) − x/µ.
@@ -43,9 +40,9 @@ Clearly this has expectation zero (this is a good sign that the regularity condi
 satisﬁed. If it did not hold either your algebra is wrong or one of the regularity conditions
 is not satisﬁed. See some of the examples below.) The variance is
 E(X − µ)2 /µ4 = 1/µ2 ,
-and the Cram´r–Rao bound is µ2 . This is the variance of the unbiased estimator µ suggested,
+and the Cramer–Rao bound is µ2 . This is the variance of the unbiased estimator µ suggested,
 so that estimator is the minimum variance unbiased estimator. 2
-A corollary of the Cram´r–Rao bound is the following result for N iid random variables.
+A corollary of the Cramer–Rao bound is the following result for N iid random variables.
 Result 2 Let X1 , . . . , XN be iid random variable with common pdf/pmf fX (x; θ), and let
 W be an unbiased estimator for θ. Then
 V (W ) ≥
@@ -58,10 +55,10 @@ ln fX (x; µ) = − ln(2πσ 2 ) − 2 (x − µ)2 .
 The score function is
 ln fX (x; µ) = 2 (x − µ).
 Again the score clearly has expectation zero, and the variance is σ 2 /σ 4 = 1/σ 2 , and therefore
-the Cram´r–Rao bound for the single observation case is σ 2 , and the Cram´r–Rao bound
+the Cramer–Rao bound for the single observation case is σ 2 , and the Cramer–Rao bound
 for the N observation case is σ 2 /N . 2
 Example
-Finally let us consider an example where the Cram´r–Rao bound does not apply. Recall
+Finally let us consider an example where the Cramer–Rao bound does not apply. Recall
 that in the proof we have to be able to reverse the order of integration and diﬀerentiation.
 That does not work if the argument of the function enters in the bounds of the integral.
 Suppose X has a uniform distribution on the interval from zero to θ, X ∼ U [0, θ]. The log
@@ -70,11 +67,11 @@ ln fX (x; θ) = − ln θ.
 The derivative is
 ln fX (x; θ) = −1/θ.
 Note that this clearly does not have expectation zero, which is a property we used in the
-proof of the Cram´r–Rao bound. Nevertheless, let us ignore this and proceed with the
-calculation. The expectation of the square is 1/θ2 , and the Cram´r–Rao bound is equal to
+proof of the Cramer–Rao bound. Nevertheless, let us ignore this and proceed with the
+calculation. The expectation of the square is 1/θ2 , and the Cramer–Rao bound is equal to
 2 . Now consider the estimator 2X. It clearly is unbiased. Its variance is θ 2 · 4/12 = θ 2 /3,
-lower than the Cram´r–Rao bound, which does not apply in this case. 2
-A diﬀerent characterization of the Cram´r-Rao bound is in terms of the second derivative
+lower than the Cramer–Rao bound, which does not apply in this case. 2
+A diﬀerent characterization of the Cramer-Rao bound is in terms of the second derivative
 of the log of the density function:
 Result 3 (Cramer–Rao bound)
 Let X be a random variable with pdf/pmf fX (x; θ), and let W be an unbiased estimator for
@@ -103,7 +100,7 @@ and thus, assuming we can change the order of diﬀerentiation and integration, 
 fX (x; θ)dx
 (x; θ) + E
 (x; θ)2 .
-Now back to the interpretation of the Cram´r-Rao bound. The Cram´r–Rao bound gives
+Now back to the interpretation of the Cramer-Rao bound. The Cramer–Rao bound gives
 a lower bound for the variance of unbiased estimators. In some sense this is helpful only
 if we can ﬁnd an unbiased estimator with variance equal to this bound. If that is the
 case we know this is the minimum variance unbiased estimator. If not, there are two
@@ -118,12 +115,12 @@ be written as
 W = W (X) = W (0) + (W (1) − W (0) · X = α + β · X.
 Its expectation is for any α and β equal to
 There are no α and β that make this equal to θ, and so there is no unbiased estimator for
-θ, let alone one that achieves the Cram´r–Rao bound. 2
+θ, let alone one that achieves the Cramer–Rao bound. 2
 Example
 X1 and X2 are independent binomial random variable with parameters 1 and θ:
 fX1 ,X2 (x1 , x2 |θ) = ( θ)x1 +x2 · (1 − θ)2−x1 −x2 .
 From the form of the density we can tell that X1 + X2 is a suﬃcient statistic. What is the
-Cram´r–Rao bound? The log of the density is
+Cramer–Rao bound? The log of the density is
 ln fX1 ,X2 (x1 , x2 |θ) = (x1 + x2 ) · ln θ + (2 − x1 − x2 ) · ln(1 − θ).
 The derivative, or the score function, is
 (x1 , x2 |θ) = (x1 + x2 ) · ln θ − (2 − x1 − x2 ) ·
@@ -144,10 +141,10 @@ W = a · (X1 − X2 ) + X1 · X2 .
 Next, use Rao–Blackwell to make the estimator a function of the suﬃcient statistic X1 +X2 .
 (check this for X1 + X2 = 0, X1 + X2 = 1, and for X1 + X2 = 2), and
 implying that we must have
-This estimator has mean θ and variance θ(1 − θ), which is strictly higher than the Cram´r–
+This estimator has mean θ and variance θ(1 − θ), which is strictly higher than the Cramer–
 Rao bound. Nevertheless, it is the minimum variance unbiased estimator. 2
 Now let us investigate when we have an unbiased estimator with variance equal to the
-Cram´r–Rao bound. In that case we must have, in the notation of the proof of the CR
+Cramer–Rao bound. In that case we must have, in the notation of the proof of the CR
 bound, that the correlation of the score U and the estimator W is equal to one in absolute
 value. Hence it must be the case that the score is a linear function of W , with coeﬃcients
 possibly depending on θ:
@@ -156,8 +153,8 @@ Because W is unbiased, or E[W ] = θ, it must be that b(θ) = −a(θ) · θ, an
 be able to write the score function as
 (X; θ) = a(θ) · (W (X) − θ).
 It turns out that this is both suﬃcient and necessary for the existence of an unbiased
-estimator with variance equal to the Cram´r–Rao bound.
-Result 4 An unbiased estimator with variance equal to the Cram´r–Rao bound exists if
+estimator with variance equal to the Cramer–Rao bound.
+Result 4 An unbiased estimator with variance equal to the Cramer–Rao bound exists if
 and only if the score function can be written as
 (X; θ) = a(θ) · (W (X) − θ),
 for some function W (X). The minimum variance unbiased estimator is then equal to the

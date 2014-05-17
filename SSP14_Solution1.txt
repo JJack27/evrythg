@@ -74,8 +74,7 @@ _v('140502180716')
 i.e., if any linear combination of its components results in an univariate Gaussian random variable with the respective mean and variance.
 
 Some remarks on Gaussian random vectors, where we assume that all covariance matrices have full rank:
-[ the probality density function is given as ]
-_v('140502185534')
+[ _to('140517113010') ]
 
 
 • A vector x of independent Gaussian random variables xi is jointly Gaussian.

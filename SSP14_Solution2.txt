@@ -166,10 +166,9 @@ The gradient of a function f : RN → R is
 For f = aT z =
 an zn , we have
 
-The differential [ the jacobian ] of a [ vector valued ] function f : RN → R M is
+[ _to('140517115012') ]
 
-_v('140503201539')
-A product rule: the differential of [ an (standard) inner product ] 
+[ _to('140517115215') ]
 
 For f = zT Az we can identify u = Az and v = z and therefore
 Now it is straight forward to see that

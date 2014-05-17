@@ -226,8 +226,9 @@ exp −
 (x −µ )2
 (xi − µi )σi (xi − µi )
 fXi (xi ).
-\todo{Are independent variables uncorrlated}
-Important special case: Uncorrelated Gaussian random variables are always stochastic independent!
+
+[ _to('140517120303') ]
+
 Correlation between the random variables X1 , . . . , Xn leads to a non-diagonal covariance matrix C. Since
 C is in general Positive Semidefinite (PSD), X ∼ N (µ, C) can be transformed to Y ∼ N (0, I), by
 the linear transformation

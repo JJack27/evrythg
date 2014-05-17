@@ -1,0 +1,8 @@
+Fisher’s Information Inequality
+An universal lower bound for the variance of an estimator can be introduced, if the following [ regularity ] conditions are
+fullfilled:
+[ _v('140510091627') ] [ (4.1) - (4.3) ]
+Definition. Consequently, we define the Score Function as
+$\operatorname{g}(x; \theta) = \ldots$
+[ _v('140509215904') ] (4.4)
+[ _cf('140515214623') ]

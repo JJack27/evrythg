@@ -1,4 +1,4 @@
-3. Fisher Information Matrix and Cram´er–Rao Bound
+3. Fisher Information Matrix and Cramer–Rao Bound
 Problem 3.1
 Scalar Estimation
 a) As the N statistics x (1) , . . . , x (N) are i.i.d., it follows that
@@ -30,10 +30,11 @@ differentiable for all θ ∈ Θ as, cf. lecture notes Section 3.4 Introductory 
 Thus, the regularity conditions for the derivation of the CRB are not satisfied
 \todo{Is that because it is not continuous at $\theta = 0$}
 and the CRB does not apply. In fact, we cannot define a score function with zero mean as log L(x(1) ; θ) and its derivative is not defined for all θ ∈ Θ.  Let us consider what would happen if we calculate the Fisher information for those θ for which it exists ignoring the fact that the regularity conditions are not satisfied. We would obtian that the Fisher information is zero, as ∂θ∂ log L(x(1) ; θ) is a constant with respect to x ∈ X and that the corresponding CRB would be undefined.
+
 \todo{Why is the derivative with respect to x important?}
-[ rather note that 4.3 is not fullfilled cf. 140510091627 ]
-Remark: Nevertheless, it can be shown that the estimator
-max{x (1) , . . . , x (N) }
+[ rather note that 4.3 is not fullfilled [ cf_('140510091627') ] ]
+
+Remark: Nevertheless, it can be shown that the estimator max{x (1) , . . . , x (N) }
 actually is a UMVU estimator using the Lehmann-Scheff´e theorem (beyond scope of this course).
 2) As the Gaussian distribution is an exponential model where a(θ) has a non-vanishing continous
 derivativeon Θ, the regularity conditions are satisfied. As the N statistics are i.i.d. with x (i) ∼ N(θ, σ2 )
