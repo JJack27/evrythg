@@ -1,0 +1,11 @@
+Standard form LP
+Consider an LP in standard form,
+
+subject to
+which has inequality constraint functions fi (x) = −xi , i = 1, . . . , n. To form
+the Lagrangian we introduce multipliers λi for the n inequality constraints and
+multipliers νi for the equality constraints, and obtain
+L(x, λ, ν) = c x −
+λi xi + ν T (Ax − b) = −bT ν + (c + AT ν − λ)T x.
+The dual function is
+g(λ, ν) = inf L(x, λ, ν) = −bT ν + inf (c + AT ν − λ)T x,
