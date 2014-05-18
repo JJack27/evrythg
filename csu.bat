@@ -11,4 +11,4 @@ set PATH=%PATH%;C:\Users\Murad\Desktop\portableApps\MiniCapPortable;C:\Users\Mur
 :R147032
 set PATH=%PATH%;C:\Users\mchl\Downloads\portableApps\MiniCap;C:\Users\mchl\Downloads\portableApps\JPEGView64;C:\Users\mchl\Downloads\portableApps\SumatraPDF-2.3;
 :NEXT echo System info:
-cmd
+ipython

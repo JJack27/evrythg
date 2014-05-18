@@ -139,20 +139,6 @@ def _f(s):
 
 global _s
 _so = lambda s, l: _f(_s)
-_so.__doc__="Display Image \n fn: Image"
-ip.define_magic('so', _so)
-
-
-ip = get_ipython()
-def _f(s):
-    """
-    Insert a cell below
-    s: SList
-    """   
-    ip.set_next_input(str(s.nlstr))
-
-global _s
-_so = lambda s, l: _f(_s)
 _so.__doc__="A wrapper to register _f as line magic"
 ip.define_magic('so', _so)
 

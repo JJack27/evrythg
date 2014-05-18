@@ -19,6 +19,8 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'svermeulen/vim-easyclip'
 Bundle 'mtth/scratch.vim'
+Bundle 'jeetsukumaran/vim-buffergator'
+Bundle 'dahu/vim-fanfingtastic'
 filetype plugin indent on     " required
 
 " Put your stuff after this line"
@@ -82,11 +84,12 @@ function! Filter(pattern)
   endif
 endfunction
 
+" Abbreviations
+iab <expr> _to strftime("[ _to('%y%m%d%H%M%S') ]")
 " leader maps
-nnoremap <silent> <leader>d "=strftime("[ _to('%y%m%d%H%M%S') ]")<CR>Phhviw"+yy0
-map 	 <silent> <leader>gf :split <cfile><cr>
+nmap 	 <silent> <leader>gf :split <cfile><cr>
 nmap     <silent> <leader>a :call GitGrepWord()<CR><CR>
-nmap     <silent> <Leader>x :! start "1" "%:p:r.pdf"<CR>
+nmap     <silent> <Leader>x :! start "1" "%:p:r.pdf"<CR><CR>
 nnoremap <silent> <Leader>f :call Filter(input("Search for: "))<CR>
 nnoremap <silent> <Leader>F :call Filter(@/)<CR>
 
