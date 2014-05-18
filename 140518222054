@@ -1,0 +1,4 @@
+Definition
+The transfer function of a continuous-time linear system (A, B, C, D) is the ratio
+$G(s) = C(sI − A)^{−1} B + D
+between the Laplace transform $Y(s)$ of output and the Laplace transform $U(s)$ of the input signals for the initial state x0 = 0

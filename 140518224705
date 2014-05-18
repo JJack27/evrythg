@@ -1,0 +1,8 @@
+Poles and Zeros
+Rewrite the transfer function as the ratio of polynomials (m < n)
+[ _v('140518224801') ]
+The roots pi of D(s) are called the poles of the linear system G(s)
+The roots zi of N(s) are called the zeros of G(s)
+G(s) is often written in zero/pole/gain form
+[ _v('140518224739') ]
+In MATLAB use ZPK to transform to zero/pole/gain form

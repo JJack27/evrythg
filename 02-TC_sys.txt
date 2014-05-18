@@ -278,17 +278,9 @@ Automatic Control 1
 Academic year 2010-2011
 Lecture: Continuous-time linear systems
 Linear ordinary differential equations
-Other state-space realization methods
-The following state-space realization is called controllable canonical form
-_v('140504220319')
-−a0 −a1 −a2 ... −an−1
-The following state-space realization is called observable canonical form 2
- −an−2 0 1 ... 0 0 
- −a
-−a1
-−a0
-We will see later in the course that the pair (A, B) is completely reachable.
-We will see later in the course that the pair (A, B) is completely observable.
+
+[ _to('140518222334') ]
+
 Prof. Alberto Bemporad (University of Trento)
 Automatic Control 1
 Academic year 2010-2011
@@ -867,11 +859,9 @@ Differential equations of order n
 By setting x1 (t) y(t), x2 (t) ˙(t), . . . , xn (t) yn−1 (t), this is equivalent to the system of n ﬁrst-order equations
 Example:
 Lecture: Continuous-time linear systems
-Linear ordinary differential equations
-nth -order linear ODE with input
-One can verify by inspection that the given nth -order ODE is equivalent to the following 1st -order linear system of ODEs:
-The operation of transforming a nth -order ODE into a linear system of 1st -order ODEs is called state-space realization. There are inﬁnitely many realizations.
-_v('140504215652')
+
+[ _to('140518222542') ]
+
 Lecture: Continuous-time linear systems
 Linear ordinary differential equations
 Examples of state-space realizations
@@ -905,17 +895,10 @@ Academic year 2010-2011
 Lecture: Continuous-time linear systems
 Linear ordinary differential equations
 Other state-space realization methods
-The following state-space realization is called controllable canonical form
-_v('140504220319')
-−a0 −a1 −a2 ... −an−1
-The following state-space realization is called observable canonical form 2
- −an−2 0 1 ... 0 0 
- −a
-−a1
-−a0
-We will see later in the course that the pair (A, B) is completely reachable.
-We will see later in the course that the pair (A, B) is completely observable.
+
+[ _to('140518223340') ]
 Prof. Alberto Bemporad (University of Trento)
+
 Automatic Control 1
 Academic year 2010-2011
 Lecture: Continuous-time linear systems

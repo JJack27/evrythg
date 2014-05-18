@@ -1,0 +1,11 @@
+Other state-space realization methods
+The following state-space realization is called controllable canonical form
+_v('140504220319')
+−a0 −a1 −a2 ... −an−1
+The following state-space realization is called observable canonical form 2
+ −an−2 0 1 ... 0 0 
+ −a
+−a1
+−a0
+We will see later in the course that the pair (A, B) is completely reachable.
+We will see later in the course that the pair (A, B) is completely observable.

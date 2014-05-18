@@ -1,0 +1,7 @@
+Linear ordinary differential equations
+nth -order linear  ODE with input
+[ _v('140504215652') ]
+[ by setting [ _v('140518223843') ] ]
+One can verify by inspection that the given nth -order ODE is equivalent to the following 1st -order linear system of ODEs:
+[ _v('140518223618') ]
+The operation of transforming a nth -order ODE into a linear system of 1st -order ODEs is called state-space realization. There are inﬁnitely many realizations.

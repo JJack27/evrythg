@@ -1,0 +1,3 @@
+Transfer functions and linear ODEs
+Consider the nth -order differential equation with input
+For initial conditions y(0) = ˙(0) = y(n−1) (0), we obtain immediately the transfer function from u to y
