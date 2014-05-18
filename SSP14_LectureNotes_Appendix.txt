@@ -127,10 +127,9 @@ Fig. A.3: Uniform PDF: fX (x) =
 1 ,a≤x≤b
 b−a
 Examples (Cont’d)
-fX (x; µ, σ)
-Fig. A.4: Gaussian PDF: fX (x) =
-e−
-(x−µ)2
+
+[ _to('140518093427') ]
+
 Examples (Cont’d)
 fX (x; λ)
 Fig. A.5: Exponential PDF: fX (x) = λ e−λx ,

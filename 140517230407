@@ -1,0 +1,5 @@
+The state trajectory is the natural response
+_v('140504233114')
+where $v_i$ =eigenvector of A, $\lambda_i$ eigenvalue of A, $\alpha = $
+The evolution of the system depends on the eigenvalues λi of A, called modes of the system (sometimes we also refer to eλi t as the i-th mode)
+A mode λi is called excited if αi = 0

@@ -1,138 +1,71 @@
 Statistical Signal Processing
-
 SS 2014
-
-1
-
 4. Bayesian Estimation
-
 Problem 4.1
-
 Variance of a Gaussian Random Variable
+Consider a scalar Gaussian random variable x|θ ∼ N(µ, σ2 = θ−1 ) with known mean µ and unknown inverse of the variance θ. Prior knowledge on θ is given by prior PDF fθ (θ). In contrast to MaximumLikelihood estimation, Bayesian estimation considers prior statistical knowledge on the parameter θ to be estimated.  
 
-Consider a scalar Gaussian random variable x|θ ∼ N(µ, σ2 = θ−1 ) with known mean µ and unknown
-inverse of the variance θ. Prior knowledge on θ is given by prior PDF fθ (θ). In contrast to MaximumLikelihood estimation, Bayesian estimation considers prior statistical knowledge on the parameter θ
-to be estimated.
-a) What are advantages of modeling the unknown parameter θ as a random variable? Are there
-potential disadvantages as well?
-A prior PDF fθ (θ) is called a conjugate prior with respect to fx|θ (x|θ) if the posterior PDF fθ|x (θ|x)
-has the same structure as the prior PDF fθ (θ). For conjugate priors, the posterior PDF can be
-obtained in closed form. If θ parametrizes the inverse of the variance, the conjugate prior with
+a) What are advantages of modeling the unknown parameter θ as a random variable? Are there potential disadvantages as well?
+
+A prior PDF fθ (θ) is called a conjugate prior with respect to fx|θ (x|θ) if the posterior PDF fθ|x (θ|x) has the same structure as the prior PDF fθ (θ). For conjugate priors, the posterior PDF can be obtained in closed form. If θ parametrizes the inverse of the variance, the conjugate prior with
 respect to a Gaussian likelihood is given by the Gamma distribution.
 In the following, we assume the prior PDF θ ∼ Γ(α, β) with α, β > 0. In addition, we assume an estimation of θ based on N i.i.d. statistics x1 , . . . , xN with the conditional joint PDF
-N
 fx1 ,...,xN |θ (x1 , . . . , xN |θ) = i=1 fx|θ (xi |θ).
+
 b) State Bayes’ rule for the posterior PDF fθ|x1 ,...,xN (θ|x1 , . . . , xN ).
+
 c) Determine the posterior PDF fθ|x1 ,...,xN (θ|x1 , . . . , xN ).
-Hint: The PDF fa (a) of a Gamma distribution a ∼ Γ(α, β) is given as
-fa (a; α, β) = βα
 
-1 α−1 −βa
-a e
-Γ(α)
+[ _to('140518092524') ]
 
-for a ≥ 0 and α, β > 0.
-
-ˆ
 d) Determine the Bayes estimator θCM = E[θ|x1 , . . . , xN ]. Compare the result to the Maximum2
 Likelihood estimator σML for the variance σ2 of a Gaussian distribution with known mean µ
-ˆ
 as derived in problem 2.1f). Discuss the behavior of the estimated variance/precision for N
 approaching zero or inﬁnity.
-Hint: For a ∼ Γ(α, β), it follows that E [a] = α/β.
+
+[ _to('140518095609') ]
 
 c Associate Institute for Signal Processing
 Technische Universit¨ t M¨ nchen
-a u
-
 Statistical Signal Processing
-
 Problem 4.2
-
 SS 2014
-
-2
-
 Mean of a Gaussian Random Variable
-
 Consider an estimator for the expected value of the random variable x given θ with x|θ ∼ N(θ, Cx|θ ).
 The parameter to be estimated is therefore E[x|θ ] = θ. The statistical knowledge on θ is given by
 the prior distribution θ ∼ N(mθ , Cθ ). We assume N i.i.d. statistics x1 , . . . , xN with the conditional
-N
 joint PDF fx1 ,...,xN |θ (x1 , . . . , xN |θ) = i=1 fx|θ (xi |θ).
 a) State Bayes’ rule for the posterior PDF fθ|x1 ,...,xN (θ|x1 , . . . , xN ).
-b)
-
 Determine the posterior PDF fθ|x1 ,...,xN (θ|x1 , . . . , xN ).
-
 Hint: Compare the result to the structure of a Gaussian PDF.
-c)
-
-ˆ
 Determine the Bayes estimator θCM = E[θ|x1 , . . . , xN ] using the result from c).
-
 Hint: ( A−1 + B−1 )−1 = A(A + B)−1 B = B( A + B)−1 A.
-ˆ
-d)
 Determine the Bayes estimator θCM = E[θ|x1 , . . . , xN ] from the posterior PDF
 fθ|x1 ,...,xN (θ|x1 , . . . , xN ) for scalar random variables. Give an interpretation on how the prior knowledge
 on θ is combined with the empirical information obtained from the observations x1 , . . . , xN .
-
 c Associate Institute for Signal Processing
 Technische Universit¨ t M¨ nchen
-a u
-
 Statistical Signal Processing
-
 Problem 4.3
-
 SS 2014
-
-3
-
 Gaussian Transmission Model
-
 Consider the transmission model given as
-x = Hθ + n,
 where x ∈ R M is the receive symbol, H ∈ R M×L is the known channel matrix, θ ∈ RL is the random
 transmit symbol, and n ∈ R M is additive Gaussian noise with n ∼ N(0, Cn ). The covariance matrix
 Cn of the noise is assumed to be known. Prior knowledge on the random transmit symbol θ is
 given by the prior PDF fθ (θ). It is assumed that fθ (θ) is Gaussian, i.e., θ ∼ N(µθ , Cθ ). The random
 variables θ and n are assumed to be independent.
-a)
-
 Determine the posterior PDF fθ|x (θ|x).
-
 Hint: If two random variables a ∼ N(µa , Ca ) and b ∼ N(µb , Cb ) are jointly Gaussian
 with expected value µ[aT bT ]T = [µT µT ]T and covariance matrix
-a a
-C=
-
 Ca Cab
 Cba Cb
-
-,
-
 the conditional PDF fb|a (b|a) of b given a is again Gaussian with the conditional mean
 Eb|a [b|a] = E b + Cba C−1 (a − E [a])
-a
 and the conditional covariance matrix
 Cb|a = Cb − Cba C−1 Cab .
-a
-
-b)
-
-ˆ
 Determine the Bayes estimator θCM = E[θ|x].
-
 c) Let y = Hθ be the random mean of x with realization y = Hθ. Show that the Bayes estimator
-ˆ
-ˆ
-ˆ
 yCM = E[y |x] of the mean y is given as yCM = HθCM .
-
 c Associate Institute for Signal Processing
 Technische Universit¨ t M¨ nchen
-a u
-
-

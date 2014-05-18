@@ -69,11 +69,11 @@ Technische Universit¨ t M¨ nchen
 a u
 Statistical Signal Processing
 A. Multivariate Gaussian Distributions
-A random vector x = [x1 , . . . , xN ]T  RN×1 with expected value $\mu_x \operatorname{E}[x]$ and covariance matrix $C_x = \ldots$ is said to be (jointly) Gaussian, or multivariate normal, if
-_v('140502180716')
-i.e., if any linear combination of its components results in an univariate Gaussian random variable with the respective mean and variance.
+
+[ _to('140518111121') ]
 
 Some remarks on Gaussian random vectors, where we assume that all covariance matrices have full rank:
+
 [ _to('140517113010') ]
 
 
@@ -86,18 +86,10 @@ fy (y) is constructed by multiplying fx (y) by two in the ﬁrst and third quadr
 marginal distributions of y1 and y2 are Gaussian as, for example,
 due to the symmetry of fx (y).
 
-Any affine transformation $y = Ax + b$ of a a jointly Gaussian random vector x, where A and b are deterministic, is jointly Gaussian (calculate the characteristic function of aT y ). It follows that 
-_v('140502182946')
-[ i.e the expected value and covariance matrix are given as ]
+[ _to('140518111204') ]
 
 • Any non-empty subset J of a jointly Gaussian random vector x is jointly Gaussian (choose appropriate selection matrix A and b = 0).
 
-If a jointly Gaussian vector random $x$ is partitioned into x = [xa xb]T 
-The random variable xa |xb = b is jointly Gaussian (advanced: factorize the joint PDF of x into the marginal PDF of xb and a second factor by exploiting properties of the inverse of a block matrix).
-The conditional PDF of $xa |xb = b is determined by the conditional mean
-_v('140502194115')
-and the conditional covariance matrix
-_v('140502194158')
-which is the Schur complement of Cxb in Cx.
+[ _to('140518111033') ]
 
 Finally, we have that the conditional random variable xa |xb = b is distributed according to

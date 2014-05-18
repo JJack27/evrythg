@@ -1,0 +1,3 @@
+Bayes’ rule for the posterior PDF fθ|x1 ,...,xN (θ|x1 , . . . , xN ) is given as
+[ _v('140518091016') ]
+where we denote the posterior PDF by $\pi^{(N)}(\theta)$ for notational convenience.
