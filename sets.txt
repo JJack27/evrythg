@@ -1,0 +1,260 @@
+Convex Optimization — Boyd & Vandenberghe
+2. Convex sets
+• aﬃne and convex sets
+• some important examples
+• operations that preserve convexity
+• generalized inequalities
+• separating and supporting hyperplanes
+• dual cones and generalized inequalities
+2–1
+Aﬃne set
+line through x1, x2: all points
+x = θx1 + (1 − θ)x2
+(θ ∈ R)
+θ = 1.2
+θ=1
+θ = 0.6
+θ=0
+θ = −0.2
+aﬃne set: contains the line through any two distinct points in the set
+example: solution set of linear equations {x | Ax = b}
+(conversely, every aﬃne set can be expressed as solution set of system of
+linear equations)
+Convex sets
+2–2
+Convex set
+line segment between x1 and x2: all points
+x = θx1 + (1 − θ)x2
+with 0 ≤ θ ≤ 1
+convex set: contains line segment between any two points in the set
+x1, x2 ∈ C,
+0≤θ≤1
+θx1 + (1 − θ)x2 ∈ C
+examples (one convex, two nonconvex sets)
+Convex sets
+2–3
+Convex combination and convex hull
+convex combination of x1,. . . , xk : any point x of the form
+x = θ1 x1 + θ2 x2 + · · · + θk xk
+with θ1 + · · · + θk = 1, θi ≥ 0
+convex hull conv S: set of all convex combinations of points in S
+Convex sets
+2–4
+Convex cone
+conic (nonnegative) combination of x1 and x2: any point of the form
+x = θ1 x1 + θ2 x2
+with θ1 ≥ 0, θ2 ≥ 0
+convex cone: set that contains all conic combinations of points in the set
+Convex sets
+2–5
+Hyperplanes and halfspaces
+hyperplane: set of the form {x | aT x = b} (a = 0)
+aT x = b
+halfspace: set of the form {x | aT x ≤ b} (a = 0)
+aT x ≥ b
+aT x ≤ b
+• a is the normal vector
+• hyperplanes are aﬃne and convex; halfspaces are convex
+Convex sets
+2–6
+Euclidean balls and ellipsoids
+(Euclidean) ball with center xc and radius r:
+B(xc, r) = {x | x − xc
+≤ 1}
+ellipsoid: set of the form
+{x | (x − xc)T P −1(x − xc) ≤ 1}
+with P ∈ Sn (i.e., P symmetric positive deﬁnite)
+other representation: {xc + Au | u
+Convex sets
+≤ 1} with A square and nonsingular
+2–7
+Norm balls and norm cones
+norm: a function
+that satisﬁes
+• x ≥ 0; x = 0 if and only if x = 0
+notation:
+is general (unspeciﬁed) norm;
+is particular norm
+norm ball with center xc and radius r: {x | x − xc ≤ r}
+norm cone: {(x, t) | x ≤ t}
+Euclidean norm cone is called secondorder cone
+x2 −1 −1
+norm balls and cones are convex
+Convex sets
+2–8
+Polyhedra
+solution set of ﬁnitely many linear inequalities and equalities
+(A ∈ Rm×n, C ∈ Rp×n,
+is componentwise inequality)
+polyhedron is intersection of ﬁnite number of halfspaces and hyperplanes
+Convex sets
+2–9
+Positive semideﬁnite cone
+notation:
+• Sn is set of symmetric n × n matrices
+0}: positive semideﬁnite n × n matrices
+z T Xz ≥ 0 for all z
+Sn is a convex cone
+• Sn = {X ∈ Sn | X ≻ 0}: positive deﬁnite n × n matrices
+example:
+Convex sets
+−1 0
+2–10
+Operations that preserve convexity
+practical methods for establishing convexity of a set C
+1. apply deﬁnition
+x1, x2 ∈ C,
+0≤θ≤1
+θx1 + (1 − θ)x2 ∈ C
+2. show that C is obtained from simple convex sets (hyperplanes,
+halfspaces, norm balls, . . . ) by operations that preserve convexity
+intersection
+aﬃne functions
+perspective function
+linear-fractional functions
+Convex sets
+2–11
+Intersection
+the intersection of (any number of) convex sets is convex
+example:
+S = {x ∈ Rm | |p(t)| ≤ 1 for |t| ≤ π/3}
+where p(t) = x1 cos t + x2 cos 2t + · · · + xm cos mt
+for m = 2:
+p(t)
+−1
+−1
+Convex sets
+π/3
+2π/3
+−2
+−2
+−1
+2–12
+Aﬃne function
+suppose f : Rn → Rm is aﬃne (f (x) = Ax + b with A ∈ Rm×n, b ∈ Rm)
+• the image of a convex set under f is convex
+S ⊆ Rn convex
+f (S) = {f (x) | x ∈ S} convex
+• the inverse image f −1(C) of a convex set under f is convex
+C ⊆ Rm convex
+f −1(C) = {x ∈ Rn | f (x) ∈ C} convex
+examples
+• scaling, translation, projection
+• solution set of linear matrix inequality {x | x1A1 + · · · + xmAm
+(with Ai, B ∈ Sp)
+• hyperbolic cone {x | xT P x ≤ (cT x)2, cT x ≥ 0} (with P ∈ Sn )
+Convex sets
+2–13
+Perspective and linear-fractional function
+perspective function P : Rn+1 → Rn:
+P (x, t) = x/t,
+dom P = {(x, t) | t > 0}
+images and inverse images of convex sets under perspective are convex
+linear-fractional function f : Rn → Rm:
+Ax + b
+f (x) = T
+dom f = {x | cT x + d > 0}
+images and inverse images of convex sets under linear-fractional functions
+are convex
+Convex sets
+2–14
+example of a linear-fractional function
+f (x) =
+x1 + x2 + 1
+−1
+−1
+Convex sets
+−1
+−1
+f (C)
+2–15
+Generalized inequalities
+a convex cone K ⊆ Rn is a proper cone if
+• K is closed (contains its boundary)
+• K is solid (has nonempty interior)
+• K is pointed (contains no line)
+examples
+• nonnegative orthant K = Rn = {x ∈ Rn | xi ≥ 0, i = 1, . . . , n}
+• positive semideﬁnite cone K = Sn
+• nonnegative polynomials on [0, 1]:
+K = {x ∈ Rn | x1 + x2t + x3t2 + · · · + xntn−1 ≥ 0 for t ∈ [0, 1]}
+Convex sets
+2–16
+generalized inequality deﬁned by a proper cone K:
+y − x ∈ int K
+examples
+• componentwise inequality (K = Rn )
+xi ≤ yi ,
+i = 1, . . . , n
+• matrix inequality (K = Sn )
+Y − X positive semideﬁnite
+these two types are so common that we drop the subscript in
+properties: many properties of
+Convex sets
+are similar to ≤ on R, e.g.,
+2–17
+Minimum and minimal elements
+is not in general a linear ordering : we can have x
+y and y
+x ∈ S is the minimum element of S with respect to
+example (K = R2 )
+x1 is the minimum element of S1
+x2 is a minimal element of S2
+Convex sets
+x ∈ S is a minimal element of S with respect to
+2–18
+Separating hyperplane theorem
+if C and D are nonempty disjoint convex sets, there exist a = 0, b s.t.
+aT x ≤ b for x ∈ C,
+aT x ≥ b for x ∈ D
+aT x ≥ b
+aT x ≤ b
+the hyperplane {x | aT x = b} separates C and D
+strict separation requires additional assumptions (e.g., C is closed, D is a
+singleton)
+Convex sets
+2–19
+Supporting hyperplane theorem
+supporting hyperplane to set C at boundary point x0:
+{x | aT x = aT x0}
+where a = 0 and aT x ≤ aT x0 for all x ∈ C
+supporting hyperplane theorem: if C is convex, then there exists a
+supporting hyperplane at every boundary point of C
+Convex sets
+2–20
+Dual cones and generalized inequalities
+dual cone of a cone K:
+K ∗ = {y | y T x ≥ 0 for all x ∈ K}
+examples
+• K = {(x, t) | x
+≤ t}: K ∗ = {(x, t) | x
+• K = {(x, t) | x
+≤ t}: K ∗ = {(x, t) | x
+ﬁrst three examples are self-dual cones
+dual cones of proper cones are proper, hence deﬁne generalized inequalities:
+Convex sets
+y T x ≥ 0 for all x
+2–21
+Minimum and minimal elements via dual inequalities
+minimum element w.r.t.
+x is minimum element of S iﬀ for all
+λ ≻K ∗ 0, x is the unique minimizer
+of λT z over S
+minimal element w.r.t.
+• if x minimizes λT z over S for some λ ≻K ∗ 0, then x is minimal
+• if x is a minimal element of a convex set S, then there exists a nonzero
+λ K ∗ 0 such that x minimizes λT z over S
+Convex sets
+2–22
+optimal production frontier
+• diﬀerent production methods use diﬀerent amounts of resources x ∈ Rn
+• production set P : resource vectors x for all possible production methods
+• eﬃcient (Pareto optimal) methods correspond to resource vectors x
+that are minimal w.r.t. Rn
+fuel
+example (n = 2)
+x1, x2, x3 are eﬃcient; x4, x5 are not
+x2 x5 x4
+labor
+Convex sets
+2–23
