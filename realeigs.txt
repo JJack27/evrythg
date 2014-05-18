@@ -1,0 +1,308 @@
+Diﬀerential Equations
+LECTURE 32
+Systems With Real Eigenvalues
+1. Solutions to Systems of DEs
+Now that we have the required background, we can return our attention to homogeneous systems
+of ﬁrst order diﬀerential equations (i.e., there shouldn’t be any terms involving just the independent
+variable t). A two-dimensional linear system of diﬀerential equations has the form
+x = ax + by
+Suppose we’ve got our system written in matrix form,
+x = Ax.
+(32.1)
+How do we go about solving this equation? If A were a 1 × 1 matrix, i.e., a constant, and x
+were a vector with 1 component, the diﬀerential equation would be the separable equation
+x = ax.
+We know that this is solved by
+x(t) = ceat .
+We might think, then, that in the n × n case, instead of a we have some other constant in the
+exponential, and instead of the constant of integration c we have some constant vector η.
+So let’s guess that the form of a solution will be
+x(t) = ηert .
+(32.2)
+Plugging this guess into (32.1) gives
+rηert = Aηert
+(Aη − rη)ert = 0
+(A − rI)ηert = 0.
+As ert = 0, we end up with the requirement that
+(A − rI)η = 0.
+This should look familiar; it’s the condition for η to be an eigenvector of A with eigenvalue r.
+Thus, we conclude that for (32.2) to be a solution to (32.1), we must have η an eigenvalue of A
+with eigenvalue r.
+That tells us how to get some solutions to systems of diﬀerential equations: we ﬁnd the eigenvalues and vectors of the coeﬃcient matrix A, then form solutions using (32.2). But how do we
+form the general solution?
+Thinking back to the second/higher order linear case, what we need are enough linearly independent solutions to form a fundamental set. As we noticed last lecture, if we have all simple
+eigenvalues, then we’re ﬁne: the eigenvectors are all linearly independent, and so the solutions
+formed will be as well. Things will get more complicated when we have eigenvalues of higher
+multiplicity, but we can deal with that later.
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+So, we’ll ﬁnd the two fundamental solutions of the form (32.2), then take their linear combination to get our general solution.
+2. The Phase Plane
+We’re going to rely very heavily on qualitatively understanding what solutions to a linear
+system of diﬀerential equations look like; this will pay oﬀ when we move on to discussing systems
+of nonlinear equations. We know that the trivial solution x = 0 is always a solution to our
+homogeneous system x = Ax. x = 0 is an example of an equilibrium solution, i.e., it satisﬁes
+x = Ax = 0
+and is a constant solution. We’ll assume that our coeﬃcient matrix A is nonsingular; this implies
+that x = 0 is the only equilibrium solution.
+The question we want to ask is whether other solutions move towards or away from this constant
+solution as t → ±∞, so that we can understand the long term behavior of the system. This is
+no diﬀerent than what we did when we classiﬁed equilibrium solutions for ﬁrst order autonomous
+equations; all we’re doing is generalizing those ideas to systems of diﬀerential equations.
+When we drew our solution spaces then, we did so on a t − y plane. This was suitable at that
+point, but it would be very diﬃcult for us to draw now: to do something analogous, we would
+require three dimensions, since we would have to sketch both x1 and x2 versus t. Instead, what
+we will do is ”ignore” t and think of our solutions as trajectories on the x1 − x2 plane. Then our
+equilibrium solution is the origin. The x1 − x2 plane is called the phase plane. We’ll see examples
+of how to sketch trajectories of solutions on the phase plane as we learn how to solve systems of
+diﬀerential equations. Such a sketch of solutions is called the phase portrait of the system.
+3. Real, Distinct Eigenvalues
+Let’s get back to the matrix system (32.1). At this point, we know that if λ1 and λ2 are real
+and distinct eigenvalues of the 2 × 2 coeﬃcient matrix A associated with eigenvectors η (1) and η (2) ,
+respectively. We know that η (1) and η (2) are linearly independent, as λ1 and λ2 are simple. Thus
+the solutions obtained from them using (32.2) will also be linearly independent, and in fact will
+form a fundamental set of solutions. The general solution, then, is
+x(t) = c1 eλ1 t η (1) + c2 eλ2 t η (2) .
+So, if we have real and distinct eigenvalues, all that we have to do is ﬁnd the eigenvectors,
+form the general solution as above, and use any initial conditions that may exist. Let’s do some
+examples. We’ll also see how to sketch the phase portrait of the examples.
+Example 32.1. Solve the following initial value problem.
+−2 2
+x(0) =
+The ﬁrst thing we need to do is to ﬁnd the eigenvalues of the coeﬃcient matrix.
+0 = det(A − λI) =
+−2 − λ
+1−λ
+= λ2 + λ − 6
+= (λ − 2)(λ + 3)
+So the eigenvalues are λ1 = 2 and λ2 = −3. Next, we ﬁnd the eigenvectors.
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+(1) λ1 = 2
+(A − 2I)η = 0
+−4 2
+2 −1
+So we’ll want to ﬁnd solutions to the system
+−4η1 + 2η2 = 0
+2η1 − η2 = 0.
+Using either equation, we ﬁnd η2 = 2η1 , and so any eigenvector has the form
+2η1
+Choosing η1 = 1, we obtain a ﬁrst eigenvector
+η (1) =
+(2) λ2 = −3
+(A + 3I)η = 0
+So we’ll want to ﬁnd solutions to the system
+η1 + 2η2 = 0
+2η1 + 4η2 = 0.
+Using either equation, we ﬁnd η1 = −2η2 , and so any eigenvector has the form
+−2η2
+Choosing η2 = 1, we obtain a second eigenvector
+−2
+η (2) =
+Thus our general solution is
+x(t) = c1 e2t
+−2
++ c2 e−3t
+Now, we have our initial condition. Let’s use it to solve for c1 and c2 . The condition says
+= x(0) = c1
+−2
++ c2
+All that’s left is to write out this matrix equation as a system of equations and then solve.
+c1 − 2c2 = 5
+c1 = 1, c2 = −2
+2c1 + c2 = 0
+Thus the particular solution is
+x(t) = e2t
+−2
+− 2e−3t
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+Figure 32.1. Phase portrait of the saddle point in Example 32.1.
+Example 32.2. Sketch the phase portrait of the system from Example 32.1.
+In the last example, we saw that the eigenvalue/eigenvector pairs for the coeﬃcient matrix were
+λ1 = 2
+η (1) =
+λ2 = −3
+η (2) =
+−2
+The starting point for the phase portrait involves sketching solutions corresponding to the
+eigenvectors (i.e., with c1 or c2 = 0). We know that if x(t) is one of these solutions,
+x (t) = Aci eλi t η (i) = ci λi eλi t η (i) .
+This is just, for any t, a constant times the eigenvector, which indicates that lines in the direction
+of the eigenvector are these solutions to the system. These are called the eigensolutions of the
+system.
+Next, we need to consider the direction that these solutions move in. Let’s start with the ﬁrst
+eigensolution, which corresponds to the solution with c2 = 0. The ﬁrst eigenvalue is λ1 = 2 > 0.
+This indicates that this eigensolution will grow exponentially, as the exponential in the solution
+has a positive exponent. The second eigensolution corresponds to λ2 = −3 < 0, so the exponential
+in the appropriate solution is negative. Hence this solution will decay and move towards the origin.
+What does a typical trajectory do (i.e., a trajectory where both c1 , c2 = 0)? The general
+solution is
+x(t) = c1 e2t η (1) + c2 e−3t η (2) .
+Thus as t → ∞, this solution will limit to the positive eigensolution, as the component corresponding
+to the negative eigensolution will decay away. On the other hand, as t → −∞, the trajectory will
+asymptotically reach the negative eigensolution, as the positive eigensolution component will be
+tiny.
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+The end result is the phase portrait as in Figure 32.1. When the phase portrait looks like this
+(which happens whenever the eigenvalues have mixed signs), the equilibrium solution at the origin
+is classiﬁed as a saddle point and is unstable.
+Example 32.3. Solve the following initial value problem.
+x1 = 4x1 + x2
+x1 (0) = 6
+x2 = 3x1 + 2x2
+x2 (0) = 2
+Before we can solve anything, we need to convert this system into matrix form. Doing so
+converts the initial value problem to
+x(0) =
+To solve, the ﬁrst thing we need to do is to ﬁnd the eigenvalues of the coeﬃcient matrix.
+0 = det(A − λI) =
+4−λ
+2−λ
+= λ2 − 6λ + 5
+= (λ − 1)(λ − 5)
+So the eigenvalues are λ1 = 1 and λ2 = 5. Next, we ﬁnd the eigenvectors.
+(1) λ1 = 1
+(A − I)η = 0
+So we’ll want to ﬁnd solutions to the system
+3η1 + η2 = 0
+3η1 + η2 = 0.
+Using either equation, we ﬁnd η2 = −3η1 , and so any eigenvector has the form
+−3η1
+Choosing η1 = 1, we obtain a ﬁrst eigenvector
+−3
+η (1) =
+(2) λ2 = 5
+(A − 5I)η = 0
+−1 1
+3 −3
+So we’ll want to ﬁnd solutions to the system
+−η1 + η2 = 0
+3η1 − 3η2 = 0.
+Using either equation, we ﬁnd η1 = η2 , and so any eigenvector has the form
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+Figure 32.2. Phase portrait of the unstable node in Example 32.3.
+Choosing η2 = 1, we obtain a second eigenvector
+η (2) =
+Thus our general solution is
+x(t) = c1 et
++ c2 e5t
+−3
+Now, we have our initial condition. Let’s use it to solve for c1 and c2 . The condition says
+= x(0) = c1
++ c2
+−3
+All that’s left is to write out this matrix equation as a system of equations and then solve.
+c1 + c2 = 6
+c1 = 1, c2 = 5
+−3c1 + c2 = 2
+Thus the particular solution is
+x(t) = et
++ 5e5t
+−3
+Example 32.4. Sketch the phase portrait of the system from Example 32.3.
+In the last example, we saw that the eigenvalue/eigenvector pairs for the coeﬃcient matrix were
+λ1 = 1
+η (1) =
+−3
+λ2 = 5
+η (2) =
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+We begin by sketching the eigensolutions (again, these are the straight lines in the directions of the
+eigenvectors). Both of these trajectories move away from the origin, though, as the eigenvalues are
+both positive.
+Since |λ2 | > |λ1 |, we call the second eigensolution the fast eigensolution and the ﬁrst one the
+slow eigensolution. The terminology comes from the fact that the eigensolution corresponding to
+the eigenvalue with larger magnitude will either grow or decay more quickly than the other one.
+As both grow in forward time, asymptotically, as t → ∞, the fast eigensolution will dominate
+the typical trajectory, as it gets larger much more quickly than the slow eigensolution does. So,
+in forward time, other trajectories will get closer and closer to the eigensolution corresponding to
+η (2) . On the other hand, as t → −∞, the fast eigensolution will decay more quickly than the slow
+one, and so the eigensolution corresponding to η (1) will dominate in backwards time.
+Thus the phase portrait will look like Figure 32.2. Whenever we have two positive eigenvalues,
+every solution moves away from the origin. We call the equilibrium solution at the origin, in this
+case, a node and classify it as being unstable.
+Example 32.5. Solve the following initial value problem.
+x1 = −5x1 + x2
+x1 (0) = 2
+x2 = 2x1 − 4x2
+x2 (0) = −1
+First, we convert the system intro matrix form.
+−5 1
+2 −4
+x(0) =
+−1
+To solve, the ﬁrst thing we need to do is to ﬁnd the eigenvalues of the coeﬃcient matrix.
+−5 − λ
+−4 − λ
+0 = det(A − λI) =
+= λ2 + 9λ + 18
+= (λ + 3)(λ + 6)
+So the eigenvalues are λ1 = −3 and λ2 = −6. Next, we ﬁnd the eigenvectors.
+(1) λ1 = −3
+(A + 3I)η = 0
+−2 1
+2 −1
+So we’ll want to ﬁnd solutions to the system
+−2η1 + η2 = 0
+2η1 − η2 = 0.
+Using either equation, we ﬁnd η2 = 2η1 , and so any eigenvector has the form
+2η1
+Choosing η1 = 1, we obtain a ﬁrst eigenvector
+η (1) =
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+(2) λ2 = −6
+(A + 6I)η = 0
+So we’ll want to ﬁnd solutions to the system
+η1 + η2 = 0
+2η1 + 2η2 = 0.
+Using either equation, we ﬁnd η1 = −η2 , and so any eigenvector has the form
+−η2
+Choosing η2 = 1, we obtain a second eigenvector
+−1
+η (2) =
+Thus our general solution is
+x(t) = c1 e−3t
+−1
++ c2 e−6t
+Now, we have our initial condition. Let’s use it to solve for c1 and c2 . The condition says
+−1
+= x(0) = c1
+−1
++ c2
+All that’s left is to write out this matrix equation as a system of equations and then solve.
+c1 − c2 = 2
+2c1 + c2 = −1
+c1 = , c2 = −
+Thus the particular solution is
+−1
++ e−6t
+x(t) = e−3t
+Example 32.6. Sketch the phase portrait of the system from Example 32.5.
+In the last example, we saw that the eigenvalue/eigenvector pairs for the coeﬃcient matrix were
+λ1 = −3
+η (1) =
+λ2 = −6
+η (2) =
+−1
+We begin by sketching the eigensolutions. Both of these trajectories decay towards from the origin,
+though, as the eigenvalues are both negative.
+Since |λ2 | > |λ1 |, the second eigensolution is the fast eigensolution and the ﬁrst one the slow
+eigensolution.
+In the general solution, both exponentials are negative, and so every solution will decay and
+move towards the origin. Asymptotically, as t → ∞ and the trajectory gets closer and closer to
+the origin, the slow eigensolution will dominate the typical trajectory, as dies out less quickly than
+the fast eigensolution. So, in forward time, other trajectories will get closer and closer to the
+eigensolution corresponding to η (1) . On the other hand, as t → −∞, the fast eigensolution will
+Diﬀerential Equations
+Lecture 32: Systems With Real Eigenvalues
+Figure 32.3. Phase portrait of the stable node in Example 32.5.
+grow more quickly than the slow one, and so the eigensolution corresponding to η (2) will dominate
+in backwards time.
+Thus the phase portrait will look like Figure 32.3. Whenever we have two negative eigenvalues,
+every solution moves towards the origin. We call the equilibrium solution at the origin, in this case,
+a node and classify it as being asymptotically stable.

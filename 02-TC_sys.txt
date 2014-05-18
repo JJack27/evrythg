@@ -83,7 +83,6 @@ Examples
 x(t) = velocity
 x(t) = voltage
 x(t)
-x(t)
 Kirchhoff’s voltage law:
 Newton’s law:
 −RC˙(t) − x(t) = 0
@@ -107,8 +106,6 @@ Examples
 x(t) = velocity
 x(t) = voltage
 x(t)
-x(t)
-u(t)
 u(t)
 u(t) − RC˙(t) − x(t) = 0
 −βx(t) + u(t) = M˙(t)
@@ -191,7 +188,6 @@ Automatic Control 1
 Academic year 2010-2011
 Lecture: Continuous-time linear systems
 Linear algebra recalls
-Linear algebra recalls
 a11
  a21
 an1
@@ -214,10 +210,7 @@ Lecture: Continuous-time linear systems
 Linear algebra recalls
 The eigenvalues of A are the roots λ1 , . . . , λn of its characteristic polynomial
 An eigenvector of A is any vector such that for some i = 1, 2, . . . , n.
-Diagonalization of A:
-_v('140504214018')
-(not all matrices A are diagonalizable, see Jordan normal form)
-Lecture: Continuous-time linear systems
+
 Linear algebra recalls
 Linear algebra recall
 Example:
@@ -231,10 +224,7 @@ Conjugate of c: ¯ = a − jb
 Polar form: c = ρejθ , ρ ≥ 0, θ 
 Modulus or magnitude: [ ... ]$\rho$
 Angle or phase: ∠c = θ
-Complex exponential: $\exp(c) = ... $
-('140504222729')
-[ $| \exp(j b) = 1$ ]
-Lecture: Continuous-time linear systems
+
 Linear algebra recalls
 Lagrange’s formula
 For the continuous-time linear system ˙ = Ax + Bu with initial condition
@@ -251,22 +241,12 @@ Lecture: Continuous-time linear systems
 Linear algebra recalls
 Eigenvalues and modes
 Let u(t) ≡ 0 and assume A diagonalizable
-The state trajectory is the natural response
-_v('140504233114')
-where $v_i$ =eigenvector of A, $\lambda_i$ eigenvalue of A, $\alpha = $
-The evolution of the system depends on the eigenvalues λi of A, called modes of the system (sometimes we also refer to eλi t as the i-th mode)
-A mode λi is called excited if αi = 0
-Linear ordinary differential equations
+
 Differential equations of order n
 By setting x1 (t) y(t), x2 (t) ˙(t), . . . , xn (t) yn−1 (t), this is equivalent to the system of n ﬁrst-order equations
 Example:
 Lecture: Continuous-time linear systems
-Linear ordinary differential equations
-nth -order linear ODE with input
-One can verify by inspection that the given nth -order ODE is equivalent to the following 1st -order linear system of ODEs:
-The operation of transforming a nth -order ODE into a linear system of 1st -order ODEs is called state-space realization. There are inﬁnitely many realizations.
-_v('140504215652')
-Lecture: Continuous-time linear systems
+
 Linear ordinary differential equations
 Examples of state-space realizations
 Example 1
@@ -381,7 +361,6 @@ $x_r$ is called equilibrium state, $u_r$ equilibrium input
 The deﬁnition generalizes to time-varying nonlinear systems
 Lecture: Continuous-time linear systems
 Stability
-Stability
 Consider the nonlinear system
 and let xr an equilibrium state, f (xr , ur ) = 0
 Definition
@@ -403,7 +382,6 @@ asymptotically stable
 unstable if a < 0
 Lecture: Continuous-time linear systems
 Stability of continuous-time linear systems
-Stability of continuous-time linear systems
 Since the natural response of ˙ = Ax + Bu is x(t) = eAt x0 , the stability properties
 depend only on A. We can therefore talk about system stability of a linear system
 (A, B, C, D)
@@ -417,7 +395,6 @@ Algebraic multiplicity of λi = number of coincident roots λi of det(λI − A)
 Geometric multiplicity of λi = number of linearly independent eigenvectors vi , Avi = λi vi
 The stability properties of a linear system only depend on the real part of the eigenvalues of matrix A
 Lecture: Continuous-time linear systems
-Stability of continuous-time linear systems
 Stability of continuous-time linear systems
 The natural response is x(t) = eAt x0 (eAt
 If matrix A is diagonalizable , A = TΛT
@@ -570,7 +547,6 @@ Lecture: Continuous-time linear systems
 Linearization
 Example: Pendulum
 Look for equilibrium states:
-u(t) = mg
 u(t) = mg
 Prof. Alberto Bemporad (University of Trento)
 Automatic Control 1
@@ -717,7 +693,6 @@ Examples
 x(t) = velocity
 x(t) = voltage
 x(t)
-x(t)
 Kirchhoff’s voltage law:
 Newton’s law:
 −RC˙(t) − x(t) = 0
@@ -741,8 +716,6 @@ Examples
 x(t) = velocity
 x(t) = voltage
 x(t)
-x(t)
-u(t)
 u(t)
 u(t) − RC˙(t) − x(t) = 0
 −βx(t) + u(t) = M˙(t)
@@ -824,7 +797,6 @@ Automatic Control 1
  u(t)
 Academic year 2010-2011
 Lecture: Continuous-time linear systems
-Linear algebra recalls
 Linear algebra recalls
 a11
  a21
@@ -1015,7 +987,6 @@ $x_r$ is called equilibrium state, $u_r$ equilibrium input
 The deﬁnition generalizes to time-varying nonlinear systems
 Lecture: Continuous-time linear systems
 Stability
-Stability
 Consider the nonlinear system
 and let xr an equilibrium state, f (xr , ur ) = 0
 Definition
@@ -1037,7 +1008,6 @@ asymptotically stable
 unstable if a < 0
 Lecture: Continuous-time linear systems
 Stability of continuous-time linear systems
-Stability of continuous-time linear systems
 Since the natural response of ˙ = Ax + Bu is x(t) = eAt x0 , the stability properties
 depend only on A. We can therefore talk about system stability of a linear system
 (A, B, C, D)
@@ -1051,10 +1021,6 @@ unstable if ∃ i such that ℜλi > 0
 Algebraic multiplicity of λi = number of coincident roots λi of det(λI − A). 
 Geometric multiplicity of λi = number of linearly independent eigenvectors vi , Avi = λi vi
 
-The stability properties of a linear system only depend on the real part of the eigenvalues of matrix A
-
-Lecture: Continuous-time linear systems
-Stability of continuous-time linear systems
 Stability of continuous-time linear systems
 The natural response is x(t) = eAt x0 (eAt
 If matrix A is diagonalizable , A = TΛT
@@ -1207,7 +1173,6 @@ Lecture: Continuous-time linear systems
 Linearization
 Example: Pendulum
 Look for equilibrium states:
-u(t) = mg
 u(t) = mg
 Prof. Alberto Bemporad (University of Trento)
 Automatic Control 1
