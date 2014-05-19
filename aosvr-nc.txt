@@ -1,0 +1,739 @@
+LETTER
+
+Communicated by John Platt
+Accurate On-line Support Vector Regression
+Junshui Ma
+junshuima@yahoo.com
+Aureon Biosciences Corp., 28 Wells St., Yonkers, NY 10701, U.S.A.
+James Theiler
+jt@lanl.gov
+Simon Perkins
+s.perkins@lanl.gov
+NIS-2, Los Alamos National Laboratory, Los Alamos, NM 87545, U.S.A.
+Batch implementations of support vector regression (SVR) are inef cient
+when used in an on-line setting because they must be retrained from
+scratch every time the training set is modi ed. Following an incremental support vector classi cation algorithm introduced by Cauwenberghs
+and Poggio (2001), we have developed an accurate on-line support vector regression (AOSVR) that ef ciently updates a trained SVR function
+whenever a sample is added to or removed from the training set. The
+updated SVR function is identical to that produced by a batch algorithm.
+Applications of AOSVR in both on-line and cross-validation scenarios are
+presented. In both scenarios, numerical experiments indicate that AOSVR
+is faster than batch SVR algorithms with both cold and warm start.
+1 Introduction
+Support vector regression (SVR) ts a continuous-valued function to data in
+a way that shares many of the advantages of support vector machine (SVM)
+classi cation. Most algorithms for SVR (Smola & Sch¨
+olkopf, 1998; Chang &
+Lin, 2002) require that training samples be delivered in a single batch. For
+applications such as on-line time-series prediction or leave-one-out crossvalidation, a new model is desired each time a new sample is added to
+(or removed from) the training set. Retraining from scratch for each new
+data point can be very expensive. Approximate on-line training algorithms
+have previously been proposed for SVMs (Syed, Liu, & Sung, 1999; Csato
+& Opper, 2001; Gentile, 2001; Graepel, Herbrich, & Williamson, 2001; Herbster, 2001; Li & Long, 1999; Kivinen, Smola, & Williamson, 2002; Ralaivola
+& d’Alche-Buc, 2001). We propose an accurate on-line support vector regression (AOSVR) algorithm that follows the approach of Cauwenberghs
+and Poggio (2001) for incremental SVM classi cation.
+Neural Computation 15, 2683–2703 (2003) ° 2003 Massachusetts Institute of Technology
+2684
+J. Ma, J. Theiler, and S. Perkins
+This article is organized as follows. The formulation of the SVR problem
+and the development of the Karush-Kuhn- Tucker (KKT) conditions that
+its solution must satisfy are presented in section 2. The incremental SVR
+algorithm is derived in section 3, and a decremental version is described
+in section 4. Two applications of the AOSVR algorithm are presented in
+section 5, along with a comparison to batch algorithms uing both cold start
+and warm start.
+2 Support Vector Regression and the Karush-Kuhn Tucker Conditions
+A more detailed version of the following presentation of SVR theory can be
+found in Smola and Scholkopf (1998).
+Given a training set T D f.xi ; yi /; i D 1 ¢ ¢ ¢ lg, where xi ²RN , and yi ²R, we
+construct a linear regression function,
+f .x/ D WT 8.x/ C b;
+(2.1)
+on a feature space F. Here, W is a vector in F, and 8(x) maps the input x
+to a vector in F. The W and b in equation 2.1 are obtained by solving an
+optimization problem:
+min P D
+W WCC
+.»i C »i¤ /
+s:t: yi ¡ .WT 8.x/ C b/ · " C »i
+(2.2)
+.WT 8.x/ C b/ ¡ yi · " C »i¤
+»i ; »i¤ ¸ 0; i D 1 ¢ ¢ ¢ l:
+The optimization criterion penalizes data points whose y-values differ from
+f (x) by more than ". The slack variables, » and » ¤ , correspond to the size of
+this excess deviation for positive and negative deviations, respectively, as
+shown in Figure 1.
+Introducing Lagrange multipliers ®; ® ¤ ; ´, and ´¤ , we can write the corresponding Lagrangian as
+LP D
+.»i C »i¤ / ¡
+.´i »i C ´i¤ »i¤ /
+s:t:
+®i ." C »i C yi ¡ WT 8.xi / ¡ b/
+®i¤ ." C »i¤ ¡ yi C WT 8.xi / C b/
+®i ; ®i¤ ; ´i ; ´¤ ¸ 0:
+Accurate On-line Support Vector Regression
+2685
+f(x)+e
+f(x)
+f(x)-e
+Figure 1: The "-insensitive loss function and the role of the slack variables » and
+» ¤.
+This in turn leads to the dual optimization problem:
+min D D
+®;®
+1 XX
+Qij .®i ¡ ®i¤ /.®j ¡ ®j¤ / C "
+.®i C ®i¤ /
+2 iD1 jD1
+yi .® i ¡ ®i¤ /
+s:t: 0 · ®i ; ®i¤ · C
+i D 1; : : : ; l;
+(2.3)
+.®i ¡ ®i¤ / D 0;
+where Qij D ©.xi /T ©.xj / D K.xi /; xj /. Here K.xi ; xj / is a kernel function
+(Smola & Sch¨
+olkopf, 1998). Given the solution of equation 2.3, the regression
+function (2.1) can be written as
+f .x/ D
+.®i ¡ ®i¤ /K.xi ; x/ C b:
+(2.4)
+2686
+The Lagrange formulation of equation 2.3 can be represented as
+LD D
+.®i ¡ ®i¤ /.®j ¡ ®j¤ / C "
+.®i C ®i¤ / ¡
+yi .®i ¡ ®i¤ /
+2 iD1
+.±i ®i C ±i¤ ®i¤ / C
+[ui .®i ¡ C/ C u¤ .®i¤ ¡ C/]
+.® i ¡ ®i¤ /;
+(2.5)
+where ±i.¤/ , u.¤/ , and are the Lagrange multipliers. Optimizing this Lai
+grangian leads to the Karush-Kuhn-Tucker (KKT) conditions:
+Qij .®j ¡ ®j¤ / C " ¡ yi C
+@®i
+Qij .®j ¡ ®j¤ / C " C yi ¡
+@ ®i
+±i.¤/ ¸ 0;
+u.¤/ ¸ 0;
+¡ ±i C u i D 0
+¡ ±i¤ C u¤ D 0
+(2.6)
+±i.¤/ ®i.¤/ D 0
+u.¤/ .®i.¤/ ¡ C/ D 0:
+Note that in equation 2.6 is equal to b in equations 2.1 and 2.4 at optimality
+(Chang & Lin, 2002).
+According to the KKT conditions 2.6, at most one of ®i and ®i¤ will be
+nonzero, and both are nonnegative. Therefore, we can de ne a coef cient
+difference µi as
+µi D ®i ¡ ®i¤ ;
+(2.7)
+and note that µi determines both ®i and ®i¤ .
+De ne a margin function h.xi / for the ith sample xi as
+h.xi / ´ f .xi / ¡ yi D
+Qij µj ¡ yi C b:
+(2.8)
+Combining equations 2.6, 2.7, and 2.8, we can obtain:
+h.xi / ¸ ";
+h.xi / D ";
+¡" · h.xi / · "
+> h.xi / D ¡";
+h.xi / · ¡";
+µi D ¡C
+¡C < µi < 0
+µi D 0
+0 < µi < C
+µi D C
+(2.9)
+2687
+There are ve conditions in equation 2.9, compared to the three conditions
+in support vector classi cation (see equation 2 in Cauwenberghs & Poggio,
+2001), but like the conditions in support vector classi cation, they can be
+identi ed with three subsets into which the samples in training set T can be
+classi ed. The difference is that two of the subsets (E and S) are themselves
+composed of two disconnected components, depending on the sign of the
+error f .xi / ¡ yi .
+The E Set: Error support vectors: E D fi j jµi j D Cg
+(2.10)
+The S Set: Margin support vectors: S D fi j 0 < jµi j < Cg
+(2.11)
+The R Set: Remaining samples: R D fi j µi D 0g:
+(2.12)
+3 Incremental Algorithm
+The incremental algorithm updates the trained SVR function whenever a
+new sample xc is added to the training set T. The basic idea is to change
+the coef cient µc corresponding to the new sample xc in a nite number of
+discrete steps until it meets the KKT conditions, while ensuring that the
+existing samples in T continue to satisfy the KKT conditions at each step.
+In this section, we rst derive the relation between the change of µc , or 1µc ,
+and the change of other coef cients under the KKT conditions, and then
+propose a method to determine the largest allowed 1µc for each step. A
+pseudocode description of this algorithm is provided in the appendix.
+3.1 Derivation of the Incremental Relations. Let xc be a new training
+sample that is added to T. We initially set µc D 0 and then gradually change
+(increase or decrease) the value of µc under the KKT conditions, equation 2.9.
+According to equations 2.6, 2.7, and 2.9, the incremental relation between
+1h.xi /; 1µi , and 1b is given by:
+1h.xi / D Qic 1µc C
+Qij 1µj C 1b:
+(3.1)
+From the equality condition in equation 2.3, we have
+µc C
+µi D 0:
+(3.2)
+Combining equations 2.9 through 2.12 and 3.1 and 3.2, we obtain:
+Qij 1µj C 1b D ¡Qic1µc where i 2 S
+1µj D ¡1µc :
+(3.3)
+2688
+If we de ne the index of the samples in the S set as
+(3.4)
+S D fs1 ; s2 ; : : : ; sls g;
+equation 3.3 can be represented in matrix form as
+Qs1 s1
+Qsls s1
+¢¢¢
+Qs1 sls 7 6
+: 76
+: 54
+Qsls sls
+1µs1
+1µsls
+7 D ¡6
+Qs1 c
+Qsls c
+7 1µc ;
+(3.5)
+that is,
+6 1µs1 7
+6 : 7 D ¯1µc
+4 : 5
+(3.6)
+where
+6 ¯s1 7
+6 Qs1 c 7
+¯ D 6 : 7 D ¡R 6 : 7 ;
+¯sls
+61 Qs1 s1 ¢ ¢ ¢
+where R D 6 :
+1 Qsls s1 ¢ ¢ ¢
+3¡1
+Qs1 sls 7
+(3.7)
+De ne a non-S, or N, set as N D E [ R D fn1 ; n2 ; : : : ; nln g: Combining
+equations 2.9 through 2.12, 3.1, and 3.6, we obtain
+1h.xn1 /
+6 1h.xn2 / 7
+7 D ° 1µc
+1h.xnln /
+(3.8)
+where,
+Qn1 c
+6 Qn2 c 7 61
+° D 6 : 7 C 6:
+4 : 5 4:
+Qnln c
+Qn1 s1
+Qn2 s1
+Qnln s1
+Qn1 sls
+Qn2 sls 7
+: 7 ¯:
+Qnln sls
+(3.9)
+2689
+In the special case when S set is empty, according to equations 3.1 and 3.2,
+equation 3.9 simpli es to 1h.xn / D 1b, for all n 2 E [ R.
+Given 1µc , we can update µi ; i 2 S and b according to equation 3.6 and
+update h.xi /; i 2 N according to equation 3.8. Moreover, equation 2.9 suggests that µi ; i 2 N, and h.xi /; i 2 S are constant if the S set stays unchanged.
+Therefore, the results presented in this section enable us to update all the µi
+and h.xi / given 1µc . In the next section, we address the question of how to
+nd an appropriate 1µc .
+3.2 AOSVR Bookkeeping Procedure. Equations 3.6 and 3.8 hold only
+when the samples in the S set do not change membership. Therefore, 1µc is
+chosen to be the largest value that either can maintain the S set unchanged
+or lead to the termination of the incremental algorithm.
+The rst step is to determine whether the change 1µc should be positive
+or negative. According to equation 2.9,
+sign.1µc / D sign.yc ¡ f .xc // D sign.¡h.xc //:
+(3.10)
+The next step is to determine a bound on 1µc imposed by each sample in
+the training set. To simplify exposition, we consider only the case 1µc > 0
+and remark that the case 1µc < 0 is similar.
+For the new sample xc , there are two cases:
+Case 1: h.xc / changes from h.xc / < ¡" to h.xc / D ¡", and the new
+sample xc is added to the S set, and the algorithm terminates.
+Case 2: If µc increases from µc < C to µc D C, the new sample xc is added
+to the E set, and the algorithml terminates.
+For each sample xi in the set S,
+Case 3: If µi changes from 0 < jµi j < C to jµi j D C, sample xi changes
+from the S set to the E set. If µi changes to µi D 0, sample xi changes
+from the S set to the R set.
+For each sample xi in the set E,
+Case 4: If h.xi / changes from jh.xi /j > " to jh.xi /j D ", xi is moved from
+the E set to the S set.
+For each sample xi in the set R,
+Case 5: If h.xi / changes from jh.xi /j < " to jh.xi /j D ", xi is moved from
+the R set to the S set.
+The bookkeeping procedure is to trace each sample in the training set
+T against these ve cases and determine the allowed 1µc for each sample
+according to equation 3.6 or 3.8. The nal 1µc is de ned as the one with
+minimum absolute value among all the possible 1µc .
+2690
+3.3 Ef ciently Updating the R Matrix. The matrix R that is used in
+equation 3.7,
+R D 6:
+(3.11)
+must be updated whenever the S set is changed. Following Cauwenberghs
+and Poggio (2001), we can ef ciently update R without explicitly computing
+the matrix inverse. When the kth sample xsk in the S set is removed from the
+S set, the new R can be obtained as follows:
+RI;k Rk;I
+; where
+Rk;k
+¢ ¢ ¢ k k C 2 ¢ ¢ ¢ Sls C 1]:
+Rnew D RI;I ¡
+I D [1
+(3.12)
+When a new sample is added to S set, the new R can be updated as follows:
+Rnew D 6
+µ ¶
+: 7 C 1 ¯ ¯T
+05 °i
+(3.13)
+where ¯ is de ned as
+6 Qs1 i 7
+¯ D ¡R 6 : 7 ;
+Qsls i
+and °i is de ned as
+°i D Qii C 6 : 7 ¯
+when the sample xi was moved from E set to R set. In contrast, when the
+sample xc is the sample added to S set, ¯ is can be obtained according to
+equation 3.7, and °i is the last element of ° de ned in equation 3.9.
+3.4 Initialization of the Incremental Algorithm. An initial SVR solution can be obtained from a batch SVR solution, and in most cases that is the
+most ef cient approach. But it is sometimes convenient to use AOSVR to
+2691
+produce a full solution from scratch. An ef cient starting point is the twosample solution. Given a training set T D f.x1 ; y1 /; .x2 ; y2 /g, with y1 ¸ y2 ,
+the solution of equation 2.3 is
+´´
+y1 ¡ y2 ¡ 2"
+µ1 D max 0; min C;
+2.K11 ¡ K12 /
+µ2 D ¡µ1
+b D .y1 D y2 /=2:
+(3.14)
+The sets E, S, and R are initialized from these two points based on equations 2.10 through 2.12. If the set S is nonempty, the matrix R can be initialized from equation 3.11. As long as S is empty, the matrix R will not be
+used.
+4 Decremental Algorithm
+The decremental (or “unlearning”) algorithm is employed when an existing
+sample is removed from the training set. If a sample xc is in the R set, then it
+does not contribute to the SVR solution, and removing it from the training
+set is trivial; no adjustments are needed. If, on the other hand, xc has a
+nonzero coef cient, then the idea is to gradually reduce the value of the
+coef cient to zero, while ensuring all the other samples in the training set
+continue to satisfy the KKT conditions.
+The decremental algorithm follows the incremental algorithm with a few
+small adjustments:
+² The direction of the change of µc is:
+sign.1µc / D sign. f .xc / ¡ yc / D sign.h.xc //:
+(4.1)
+² There is no case 1 because the removed xc need not satisfy KKT conditions.
+² The condition in case 2 becomes: µc changing from jµc j > 0 to µc D 0.
+5 Applications and Comparison with Batch Algorithms
+The accurate on-line SVR (AOSVR) learning algorithm produces exactly
+the same SVR as the conventional batch SVR learning algorithm and can
+be applied in all scenarios where batch SVR is currently employed. But for
+on-line time-series prediction and leave-one-out cross-validation (LOOCV),
+the AOSVR algorithm is particularly well suited. In this section, we demonstrate AOSVR for both of these applications and compare its performance to
+existing batch SVR algorithms. These comparisons are based on direct timing of runs using Matlab implementations; such timings should be treated
+with some caution, as they can be sensitive to details of implementation.
+2692
+5.1 AOSVR versus Batch SVR Algorithms with Warm Start. Most
+batch algorithms for SVR are implemented as “cold start.” This is appropriate when a t is desired to a batch of data that has not been seen before.
+However, in recent years, there has been a growing interest in “warm-start”
+algorithms that can save time by starting from an appropriate solution, and
+quite a few articles have addressed this issue in the generic context of numeric programming (Gondzio, 1998; Gondzio & Grothey, 2001; Yildirim &
+Wright, 2002; Fliege & Heseler, 2002). The warm-start algorithms are useful
+for incremental (or decremental) learning, because the solution with N ¡ 1
+(or N C 1) data points provides a natural starting point for nding the solution with N data points. In this sense, AOSVR is a kind of warm-start
+algorithm for the QP problem, equation 2.3, which is specially designed
+for the incremental or decremental scenario. This specialty allows AOSVR
+to achieve more ef ciency when handling SVR incremental or decremental
+learning, as demonstrated in our subsequent experiments.
+In the machine learning community, three algorithms for batch SVR training are widely recognized: Gunn (1998) solved SVR training as a generic
+QP optimization; we call this implementation QPSVMR; Shevade, Keerthi,
+Bhattacharyya, and Murthy (1999) proposed an algorithm specially designed for SVR training, and it is an improved version of the sequential minimal optimization for SVM regression (SMOR); and Chang and Lin (2001)
+proposed another algorithm specially designed for SVR training, which we
+call LibSVMR since it is implemented as part of the LibSVM software package. We implemented all these algorithms so that they can run in both a
+cold-start and a warm-start mode. SMOR and LibSVMR are implemented
+in Matlab, and both algorithms allow a straightforward warm-start realization. Because QPSVMR is based on a generic QP algorithm, it is much less
+ef cient than SMOR or LibSVMR. To make our subsequent experiments
+feasible, we had to implement the QPSVMR core in C (Smola, 1998). Smola
+essentially employs the interior point QP code of LOQO (Vanderbei, 1999).
+The warm start of QPSVMR directly adopts the warm-start method embedded in Smola’s (1998) implementation.
+5.2 On-line Time-Series Prediction. In recent years, the use of SVR for
+time-series prediction has attracted increased attention (Muller et al., 1997;
+Fern´ ndez, 1999; Tay & Cao, 2001). In an on-line scenario, one updates a
+model from incoming data and at the same time makes predictions based
+on that model. This arises, for instance, in market forecasting scenarios.
+Another potential application is the (near) real-time prediction of electron
+density around a satellite in the magnetosphere; high charge densities can
+damage satellite equipment (Friedel, Reeves, and Obara, 2002), and if times
+of high charge can be predicted, the most sensitive components can be
+turned off before they are damaged.
+In time-series prediction, the prediction origin, denoted O, is the time
+from which the prediction is generated. The time between the prediction
+2693
+origin and the predicted data point is the prediction horizon, which for
+simplicity we take as one time step.
+A typical on-line time-series prediction scenario can be represented as
+follows (Tashman, 2000):
+1. Given a time series fx.t/; t D 1; 2; 3; : : :g and prediction origin O,
+construct a set of training samples, AO;B , from the segment of time
+series fx.t/; t D 1; : : : ; Og as AO;B D f.X.t/; y.t//; t D B; : : : ; 0 ¡ 1g,
+where X.t/ D [x.t/; : : : ; x.t ¡ B C 1/]T ; y.t/ D x.t C 1/, and B is the
+embedding dimension of the training set AO;B .
+2. Train a predictor P.AO;B I X/ from the training set AO;B .
+3. Predict x.O C 1/ using x.O C 1/ D P.AO;B I X.O//.
+4. When x.0 C 1/ becomes available, update the prediction origin: O D
+O C 1. Then go to step 1 and repeat the procedure.
+Note that the training set AO;B keeps growing as O increases, so the
+training of the predictor in step 2 becomes increasingly expensive. Therefore, many SVR-based time-series predictions are implemented in a compromised way (Tay & Cao, 2001). After the predictor is obtained, it stays xed
+and is not updated as new data arrive. In contrast, an on-line prediction
+algorithm can take advantage of the fact that the training set is augmented
+one sample at a time and continues to update and improve the model as
+more data arrive.
+5.2.1 Experiments. Two experiments were performed to compare the
+AOSVR algorithm with the batch SVR algorithm. We were careful to use
+the same algorithm parameters for on-line and batch SVR, but since our
+purpose is to compare computational performance, we did not attempt to
+optimize these parameters for each data set. In these experiments, the kernel
+function is a gaussian radial basis function, exp.¡° kXi ¡Xj k2 /, where ° D 1;
+the regularization coef cient C and the insensitivity parameter " in equation
+2.1 are set to 10 and 0.1, respectively; the embedding dimension, B, of the
+training AO;B , is 5. Also, we scale all the time-series to [¡1,1].
+Three widely used benchmark time series are employed in both experiments: (1) the Santa Fe Institute Competition time series A (Weigend &
+Gershenfeld,1994), (2) the Mackey-Glass equation with ¿ D 17 (Mackey
+& Glass, 1977), and (3) the yearly average sunspot numbers recorded from
+1700 to 1995. Some basic information about these time series is listed in Table 1. The SV ratio is the number of support vectors divided by the number
+of training samples. This is based on a prediction of the last data point using
+all previous data for training. In general, a higher SV ratio suggests that the
+underlying problem is harder (Vapnik, 1998).
+The rst experiment demonstrates that using a xed predictor produces
+less accurate predictions than using a predictor that is updated as new data
+2694
+Table 1: Information Regarding Experimental Time Series.
+Number of Data Points
+SV Ratio
+1000
+1500
+4.52%
+1.54
+41.81
+Santa Fe Institute
+Mackey-Glass
+Yearly Sunspot
+become available. Two measurements are used to quantify the prediction
+performance: mean squared error (MSE) and mean absolute error (MAE).
+The predictors are initially trained on the rst half of the data in the time
+series. In the xed case, the same predictor is used to predict the second half
+of the time series. In the on-line case, the predictor is updated whenever a
+new data point is available. The performance measurements for both cases
+are calculated from the predicted and actual values of the second half of the
+data in the time series. As shown in Table 2, the on-line predictor outperforms the xed predictor in every case. We also note that the errors for the
+three time series in Table 2 coincide with the estimated prediction dif culty
+in Table 1 based on the SV ratio.
+The second experiment compares AOSVR with batch implementations
+using both cold start and warm start in the on-line prediction scenario.
+For each benchmark time series, an initial SVR predictor is trained on the
+rst two data points using the batch SVR algorithms. For AOSVR, we used
+equation 3.14. Afterward, both AOSVR and batch SVR algorithms are employed in the on-line prediction mode for the remaining data points in the
+time series. AOSVR and the batch SVR algorithms produce exactly the same
+prediction errors in this experiment, so the comparison is only of prediction speed. All six batch SVR algorithms are compared with AOSVR on the
+sunspot time series, and the experimental results are plotted in Figure 2. The
+x-axis of this plot is the number of data points to which the on-line prediction model is applied. Note that the core of QPSVMR is implemented in C.
+Because the cold start and warm start of LibSVMR clearly outperform those
+of both SMOR and QPSVMR, only the comparison between LibSVMR and
+AOSVR is carried out in our subsequent experiments. The experimental reTable 2: Performance Comparison for On-line and Fixed Predictors.
+On-line
+Fixed
+0.0072
+0.0588
+0.0034
+0.0506
+0.0263
+0.1204
+0.0097
+0.0665
+0.0036
+0.0522
+0.0369
+0.1365
+Time (in sec)
+2695
+SMOR (Cold Start)
+SMOR (Warm Start)
+QPSVMR (Cold Start)
+QPSVMR (Warm Start)
+LibSVMR (Cold Start)
+LibSVMR (Warm Start)
+AOSVR
+Number of Points
+Figure 2: Real-time prediction time of yearly sunspot time series.
+sults of both Santa Fe Institute and Mackey-Glass time series are presented
+in Figures 3 and 4, respectively.
+These experimental results demonstrate that AOSVR algorithm is generally much faster than the batch SVR algorithms when applied to on-line
+prediction. Comparison of Figures 2 and 4 furthermore suggests that more
+speed improvement is achieved on the sunspot data than on the MackeyGlass. We speculate that this is because the sunspot problem is “harder”
+than the Mackey-Glass (it has a higher support vector ratio) and that the
+performance of the AOSVR algorithm is less sensitive to problem dif culty.
+To test this hypothesis, we compared the performance of AOSVR to LibSVMR on a single data set (the sunspots) whose dif culty was adjusted by
+changing the value of ". A smaller " leads to a higher support vector ratio
+and a more dif cult problem. Both the AOSVR and LibSVMR algorithms
+were employed for on line prediction of the full time series. The overall
+prediction times are plotted against " in Figure 5. Where AOSVR performance varied by a factor of less than 10 over the range of ", the LibSVMR
+performance varied by a factor of about 100.
+5.2.2 Limited-Memory Version of the On-line Time-Series Prediction Scenario.
+One problem with on-line time-series prediction in general is that the longer
+the prediction goes on, the bigger the training set AO;B will become, and the
+2696
+Figure 3: Real-time prediction time of Santa Fe Institute time series.
+1200
+Figure 4: Real-time prediction time of Mackey-Glass time series.
+1400
+Overall Prediction Time
+0.05
+Overall Prediction Time
+2697
+0.15
+0.25
+0.35
+0.45
+Figure 5: Semilog and linear plots of prediction time of yearly sunspot time
+series.
+more SVs will be involved in SVR predictor. A complicated SVR predictor
+imposes both memory and computation stress on the prediction system.
+One way to deal with this problem is to impose a “forgetting” time W.
+When training set AO;B grows to this maximum W, then the decremental
+algorithm is used to remove the oldest sample before the next new sample
+is added to the training set.
+We note that this variant of the on-line prediction scenario is also potentially suitable for nonstationary time series, as it can be updated in real time
+to t the most recent behavior of the time series. More rigorous investigation
+in this direction will be a future effort.
+5.3 Leave-One-Out Cross-Validation. Cross-validation is a useful tool
+for assessing the generalization ability of a machine learning algorithm. The
+idea is to train on one subset of the data and then to test the accuracy of
+the predictor on a separate disjoint subset. In leave-one-out cross-validation
+(LOOCV), only a single sample is used for testing, and all the rest are used
+for training. Generally, this is repeated for every sample in the data set.
+When the batch SVR is employed, LOOCV can be very expensive, since a full
+retraining is done for each sample. One compromise approach is to estimate
+LOOCV with related but less expensive approximations, such as the xi-
+2698
+alpha bound (Joachims, 2000), and approximate span bound (Vapnik &
+Chapelle, 1999). Although Lee and Lin (2001) proposed a numerical solution
+to reduce the computation for directly implementing LOOCV, the amount of
+computation required is still considerable. Also, the accuracy of the LOOCV
+result obtained using this method can be potentially compromised because
+a different parameter set is employed in LOOCV and in the nal training.
+The decremental algorithm of AOSVR provides an ef cient implementation of LOOCV for SVR:
+1. Given a data set D, construct the SVR function f .x/ from the whole
+data set D using batch SVR learning algorithm.
+2. For each nonsupport vector xi in the data set D, calculate error ei
+corresponding to xi as: ei D yi ¡ f .xi /, where yi is the target value
+corresponding to xi .
+3. For each support vector xi involved in the SVR function f .x/,
+(a) Unlearn xi from the SVR function f .x/ using the decremental
+algorithm to obtain the SVR function fi .x/, which would be
+constructed from the data set Di D D=fxi g.
+(b) Calculate error ei corresponding to support vector xi as: ei D
+yi ¡ fi .xi /, where yi is the target value corresponding to xi .
+4. Knowing the error for each sample xi in D, it is possible to construct
+a variety of overall measures; a simple choice is the MSE,
+MSE LOOCV .D/ D
+1 X 2
+N i i
+(5.1)
+where N is the number of samples in data set D. Other choices of
+error metric, such as MAE, can be obtained by altering equation 5.1
+appropriately.
+5.3.1 Experiment. The algorithm parameters in this experiment are set
+the same as those in the experiments in section 5.1.1. Two famous regression
+data sets, the Auto-MPG and Boston Housing data sets, are chosen from the
+UCI Machine-Learning Repository. Some basic information on these data
+sets is listed in Table 3.
+Table 3: Information Regarding Experimental Regression Data Sets.
+Number of Attributes
+Auto-MPG
+Boston Housing
+Number of Samples
+41.07%
+36.36%
+2699
+LOOCV Time (second)
+LOOCV Time Comparison of Auto­ MPG Dataset
+# Samples in Training Set
+LOOCV Time Comparison of Boston Housing Dataset
+Figure 6: Semilog plots of LOOCV time of Auto-MPG and Boston Housing data
+set.
+The experimental results of both data sets are presented in Figure 6. The
+x-axis is the size of the training set, upon which the LOOCV is implemented.
+These plots show that AOSVR-based LOOCV is much faster than its LibSVMR counterpart.
+6 Conclusion
+We have developed and implemented an accurate on-line support vector
+regression (AOSVR) algorithm that permits ef cient retraining when a new
+sample is added to, or an existing sample is removed from, the training set.
+AOSVR is applied to on-line time-series prediction and to leave-one-out
+cross-validation, and the experimental results demonstrate that the AOSVR
+algorithm is more ef cient than conventional batch SVR in these scenarios.
+Moreover, AOSVR appears less sensitive than batch SVR to the dif culty of
+the underlying problem.
+After this manuscript was prepared, we were made aware of a similar online SVR algorithm, which was independently presented in Martin (2002).
+2700
+Appendix: Pseudocode for Incrementing AOSVR with a New Data
+Sample
+Inputs
+² Training set T D fxi ; yi /; i D 1; : : : ; lg
+² Coef cients fµi ; i D 1; : : : ; lg, and bias b
+² Partition of samples into sets S, E, and R
+² Matrix R de ned in equation 3.11
+² New sample .xc ; yc /
+Outputs
+² Updated coef cients fµi ; i D 1; : : : ; l C 1g and bias b.
+² Updated Matrix R
+² Updated partition of samples into sets S, E, and R
+AOSVR Incremental Algorithm
+² Initialize µc D 0
+² Compute f .xc / D
+i2E[S
+µi Qic C b
+² Compute h.xc / D f .xc / ¡ yc
+² I jh.xc /j · ", then assign xc to R, and terminate.
+² Let q D sign.¡h.xc // be the sign that 1µc will take
+² Do until the new sample xc meets the KKT condition
+— Update ¯; ° according to equations 3.7 and 3.9
+— Start bookkeeping procedure:
+Check the new sample xc ,
+—Lc1 D .¡h.xc / ¡ q"/=°c (Case 1)
+—Lc2 D qC ¡ µc (Case 2)
+Check each sample xi in the set S (Case 3)
+—If q¯i > 0 and C > µi ¸ 0; LS D .C ¡ µi /=¯i
+—If q¯i > 0 and 0 > µi ¸ ¡C; LS D ¡µi =¯i
+—If q¯i < 0 and C ¸ µi > 0; LS D ¡µi =¯i
+—If q¯i < 0 and 0 ¸ µi > ¡C; LS D .¡C ¡ µi /=¯i
+Check each sample xi in the set E (Case 4)
+—LE D .¡h.xi / ¡ sign.q¯i /"/=¯ i
+Check each sample xi in the set R (Case 5)
+—LR D .¡h.xi / ¡ sign.q¯i /"/=¯i
+2701
+Set 1µc D qmin.jLc1 j; jLc2 j; jLS j; jLE j jLR j/; where
+LS D fLS ; i 2 Sg; LE D fLE ; i 2 Eg; and LR D fLR ; i 2 Rg:
+Let Flag be the case number that determines 1µ:
+Let xl be the particular sample in T that determines 1µc :
+End Bookkeeping Procedure.
+Update µc ; b; and µi ; i 2 S according to equation 3.6
+Update h.xi /; i 2 E [ R according to equation 3.8
+Switch Flag
+(Flag=1):
+Add new sample xc to set S; update matrix R according
+to equation 3.13
+(Flag=2):
+Add new sample xc to set E
+(Flag=3):
+If µl D 0, move xl to set R; update R according to equation 3.12
+If jµl j D C, move xl to set E; update R according to
+equation 3.12
+(Flag=4):
+Move xl to set S; update R according to equation 3.13
+(Flag=5):
+— End Switch Flag
+— If Flag· 2, terminate; otherwise continue the Do-Loop.
+² Terminate incremental algorithm; ready for the next sample.
+Acknowledgments
+We thank Chih-Jen Lin in National University of Taiwan for useful suggestions on some implementation issues. We also thank the anonymous
+reviewers for pointing us to the work of Martin (2002) and for suggesting
+that we compare AOSVR to the warm-start variants of batch algorithms.
+This work is supported by the NASA project NRA-00-01-AISR-088 and by
+the Los Alamos Laboratory Directed Research and Development (LDRD)
+program.
+References
+Cauwenberghs, G., & Poggio, T. (2001). Incremental and decremental support
+vector machine learning. In T. K. Leen, T. G. Dietterich, & V. Tresp (Eds.),
+2702
+Advances in neural information processing systems, 13 (pp. 409–123). Cambridge,
+MA: MIT Press.
+Chang, C.-C., & Lin, C.-J. (2001). LIBSVM: a library for support vector machines.
+Software. Available on-line at: http://www.csie.ntu.edu.tw/»cjlin/libsvm.
+Chang, C.-C., & Lin, C.-J. (2002). Training º-support vector regression: Theory
+and algorithms. Neural Computation, 14, 1959–1977.
+Csato, L., & Opper, M. (2001).Sparse representation for gaussian process models.
+In T. K. Leen, T. G. Dietterich, & V. Tresp (Eds.), Advances in neural information
+processing systems, 13 (pp. 444–450). Cambridge, MA: MIT Press.
+Fern andez, R. (1999). Predicting time series with a local support vector regres´
+sion machine. In Advanced Course on Arti cial Intelligence (ACAI ’99). Available
+on-line at: http://www.iit.demokritos.gr/skel/eetn/acai99/.
+Fliege, J., & Heseler, A. (2002). Constructing approximations to the ef cient set of convex quadratic multiobjective problems. Dortmund, Germany:
+Fachbereich Mathematik, Universit at Dortmund. Available on-line at:
+http://www.optimization-online.org/DB HTML/2002/01/426.html.
+Friedel, R.H, Reeves, G. D., & Obara, T. (2002). Relativistic electron dynamics in
+the inner magnetosphere—a review. Journal of Atmosphericand Solar-Terrestrial
+Physics, 64, 265–282.
+Gentile, C. (2001). A new approximate maximal margin classi cation algorithm.
+Journal of Machine Learning Research, 2, 213–242.
+Gondzio, J., (1998). Warm start of the primal-dual method applied in the cutting
+plane scheme. Mathematical Programming, 83, 125–143.
+Gondzio, J., & Grothey, A. (2001). Reoptimization with the primal-dual interior
+point method. SIAM Journal on Optimization, 13, 842–864.
+Graepel, T., Herbrich, R., & Williamson, R. C. (2001). From margin to sparsity.
+processing systems, 13 (pp. 210–216). Cambridge, MA: MIT Press.
+Gunn, S. (1998). Matlab SVM toolbox. Software. Available on-line at: http://
+www.isis.ecs.soton.ac.uk/resources/svminfo/.
+Herbster, M. (2001). Learning additive models online with fast evaluating kernels. In D. P. Helmbold & B. Williamson (Eds.), Proceedings of the 14th Annual Conference on Computational Learning Theory (pp. 444–460). New York:
+Springer-Verlag.
+Joachims, T. (2000). Estimating the generalization performance of an SVM ef ciently. In P. Langley (Ed.), Proceedings of the Seventeenth International Conference on Machine Learning (pp. 431–438). San Mateo: Morgan Kaufmann.
+Kivinen, J., Smola, A. J., & Williamson, R. C. (2002).Online learning with kernels.
+In T. G. Dietterich, S. Becker, & Z. Ghahramani (Eds.), Advances in neural
+information processing systems, 14 (pp. 785–792). Cambridge, MA: MIT Press.
+Lee, J.-H., & Lin, C.-J. (2001). Automatic model selection for support vector machines
+(Tech. Rep.) Taipei, Taiwan: Department of Computer Science and Information Engineering, National Taiwan University.
+Li, Y., & Long, P. M. (1999). The relaxed online maximum margin algorithm. In
+S. A. Solla, T. K. Leen, & K.-R. Muller (Eds.), Advances in neural information
+processing systems, 12 (pp. 498–504). Cambridge, MA: MIT Press.
+2703
+Mackey, M. C., & Glass, L. (1977). Oscillation and chaos in physiological control
+systems. Science, 197, 287–289.
+Martin, M. (2002).On-line support vector machines for function approximation.(Tech.
+Rep. LSI-02-11-R).Catalunya, Spain: Software Department, Universitat Politecnica de Catalunya.
+Muller, K.-R., Smola, A. J., R¨ tsch, G., Sch¨
+olkopf, B., Kohlmorgen, J., & Vapnik,
+V. (1997). Predicting time series with support vector machines. In W. Gerstner
+(Ed.), Arti cial Neural Networks—ICANN ’97 (pp. 999–1004). Berlin: SpringerVerlag.
+Ralaivola, L., & d’Alche-Buc, F. (2001). Incremental support vector machine
+learning: A local approach. In G. Dorffner, H. Bischof, & K. Hornik (Eds.), Arti cial Neural Networks—ICANN 2001 (pp. 322–330) Berlin: Springer-Verlag.
+Shevade, S. K., Keerthi, S. S., Bhattacharyya, C., & Murthy, K. R. K. (1999).
+Improvements to SMO algorithm for SVM regression. (Tech. Rep. No. CD-99-16).
+Singapore: National University of Singapore.
+Smola A. (1998). Interior point optimizer for SVM pattern recognition. Software.
+Available on-line at: http://www.kernel-machines.org/code/prloqo.tar.gz.
+Smola, A. J., & Sch¨
+olkopf, B. (1998). A tutorial on support vector regression. (NeuroCOLT Tech. Rep. No. NC-TR-98-030). London: Royal Holloway College,
+University of London.
+Syed, N. A., Liu, H., & Sung, K. K. (1999). Incremental learning with support
+vector machines. In Proceedings of the Workshop on Support Vector Machines at
+the International Joint Conference on Arti cial Intelligence—IJCAI-99. San Mateo:
+Morgan Kaufmann.
+Tashman, L. J. (2000). Out-of-sample tests of forecasting accuracy: An analysis
+and review. International Journal of Forecasting, 16, 437–450.
+Tay, F. E. H., & Cao, L. (2001).Application of support vector machines in nancial
+time series forcasting. Omega, 29, 309–317.
+Vanderbei, R. J. (1999). LOQO: An interior point code for quadratic programming. Optimization Methods and Software, 11, 451–484.
+Vapnik, V. (1998). Statistical learning theory. New York: Wiley.
+Vapnik, V., & Chapelle, O. (1999). Bounds on error expectation for support vector
+machine. In A. Smola, P. Bartlett, B. Sch¨
+olkopf, & D. Schuurmans (Eds.),
+Advances in large margin classi ers (pp. 261–280). Cambridge, MA: MIT Press.
+Weigend, A. S., & Gershenfeld, N. A. (1994). Time-series prediction: Forecasting the
+future and understanding the past, Reading, MA: Addison-Wesley.
+Yildirim, E. A., & Wright, S. J. (2002). Warm-start strategies in interior-point
+methods for linear programming. SIAM Journal on Optimization, 12, 782–810.
+Received September 12, 2002; accepted May 1, 2003.

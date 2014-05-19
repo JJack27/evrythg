@@ -1,0 +1,1978 @@
+A Tutorial on Support Vector Regression∗
+Alex J. Smola† and Bernhard Scholkopf‡
+September 30, 2003
+Abstract
+As such, it is ﬁrmly grounded in the framework of statistical
+learning theory, or VC theory, which has been developed over
+the last three decades by Vapnik and Chervonenkis [1974],
+Vapnik [1982, 1995]. In a nutshell, VC theory characterizes
+properties of learning machines which enable them to generalize well to unseen data.
+In its present form, the SV machine was largely developed at AT&T Bell Laboratories by Vapnik and co-workers
+[Boser et al., 1992, Guyon et al., 1993, Cortes and Vapnik, 1995,
+Scholkopf et al., 1995, Scholkopf et al., 1996, Vapnik et al.,
+1997]. Due to this industrial context, SV research has up to
+date had a sound orientation towards real-world applications.
+Initial work focused on OCR (optical character recognition).
+Within a short period of time, SV classiﬁers became competitive with the best available systems for both OCR and object
+recognition tasks [Scholkopf et al., 1996, 1998a, Blanz et al.,
+1996, Scholkopf, 1997]. A comprehensive tutorial on SV clas¨
+siﬁers has been published by Burges [1998]. But also in regression and time series prediction applications, excellent performances were soon obtained [Muller et al., 1997, Drucker
+et al., 1997, Stitson et al., 1999, Mattera and Haykin, 1999]. A
+snapshot of the state of the art in SV learning was recently
+taken at the annual Neural Information Processing Systems conference [Scholkopf et al., 1999a]. SV learning has now evolved
+into an active area of research. Moreover, it is in the process
+of entering the standard methods toolbox of machine learning [Haykin, 1998, Cherkassky and Mulier, 1998, Hearst et al.,
+1998]. [Scholkopf and Smola, 2002] contains a more in-depth
+overview of SVM regression. Additionally, [Cristianini and
+Shawe-Taylor, 2000, Herbrich, 2002] provide further details on
+kernels in the context of classiﬁcation.
+In this tutorial we give an overview of the basic ideas underlying Support Vector (SV) machines for function estimation.
+Furthermore, we include a summary of currently used algorithms for training SV machines, covering both the quadratic
+(or convex) programming part and advanced methods for
+dealing with large datasets. Finally, we mention some modiﬁcations and extensions that have been applied to the standard
+SV algorithm, and discuss the aspect of regularization from a
+SV perspective.
+Introduction
+The purpose of this paper is twofold. It should serve as a selfcontained introduction to Support Vector regression for readers new to this rapidly developing ﬁeld of research. 1 On the
+other hand, it attempts to give an overview of recent developments in the ﬁeld.
+To this end, we decided to organize the essay as follows.
+We start by giving a brief overview of the basic techniques in
+sections 1, 2, and 3, plus a short summary with a number of
+ﬁgures and diagrams in section 4. Section 5 reviews current algorithmic techniques used for actually implementing SV machines. This may be of most interest for practitioners. The
+following section covers more advanced topics such as extensions of the basic SV algorithm, connections between SV machines and regularization and brieﬂy mentions methods for
+carrying out model selection. We conclude with a discussion
+of open questions and problems and current directions of SV
+research. Most of the results presented in this review paper already have been published elsewhere, but the comprehensive
+presentations and some details are new.
+1.2 The Basic Idea
+
+Suppose we are given training data ${(x_1 , y_1 ) \ldots (x_l, y_l)} \subs X × R$, where $\mathcal{X}$ denotes the space of the input patterns (e.g.  X = Rd ).
+
+These might be, for instance, exchange rates for
+some currency measured at subsequent days together with
+corresponding econometric indicators. In ε-SV regression
+[Vapnik, 1995], our goal is to ﬁnd a function f (x) that has at
+most ε deviation from the actually obtained targets yi for all
+the training data, and at the same time is as ﬂat as possible. In
+other words, we do not care about errors as long as they are
+less than ε, but will not accept any deviation larger than this.
+This may be important if you want to be sure not to lose more
+than ε money when dealing with exchange rates, for instance.
+For pedagogical reasons, we begin by describing the case of
+linear functions f , taking the form
+1.1 Historic Background
+The SV algorithm is a nonlinear generalization of the Generalized Portrait algorithm developed in Russia in the sixties 2
+[Vapnik and Lerner, 1963, Vapnik and Chervonenkis, 1964].
+An extended version of this paper is available as NeuroCOLT Technical Report TR-98-030.
+RSISE, Australian National University, Canberra, 0200, Australia;
+Alex.Smola@anu.edu.au
+Max-Planck-Institut fur biologische Kybernetik, 72076 Tubingen, Germany,
+Bernhard.Schoelkopf@tuebingen.mpg.de
+Our use of the term ’regression’ is somewhat lose in that it also includes
+cases of function estimation where one minimizes errors other than the mean
+square loss. This is done mainly for historical reasons [Vapnik et al., 1997].
+A similar approach, however using linear instead of quadratic programming, was taken at the same time in the USA, mainly by Mangasarian [1965,
+1968, 1969].
+f (x) = w, x + b with w ∈ X, b ∈ R
+1.3 Dual Problem and Quadratic Programms
+where · , · denotes the dot product in X. Flatness in the case
+of (1) means that one seeks a small w. One way to ensure this
+is to minimize the norm,3 i.e. w 2 = w, w . We can write
+this problem as a convex optimization problem:
+minimize
+subject to
+The key idea is to construct a Lagrange function from the objective function (it will be called the primal objective function
+in the rest of this article) and the corresponding constraints,
+by introducing a dual set of variables. It can be shown that
+this function has a saddle point with respect to the primal and
+dual variables at the solution. For details see e.g. [Mangasarian, 1969, McCormick, 1983, Vanderbei, 1997] and the explanations in section 5.2. We proceed as follows:
+yi − w, xi − b
+w, xi + b − yi
+The tacit assumption in (2) was that such a function f actually
+exists that approximates all pairs (xi , yi ) with ε precision, or
+in other words, that the convex optimization problem is feasible. Sometimes, however, this may not be the case, or we also
+may want to allow for some errors. Analogously to the “soft
+margin” loss function [Bennett and Mangasarian, 1992] which
+was adapted to SV machines by Cortes and Vapnik [1995], one
+can introduce slack variables ξi , ξi to cope with otherwise infeasible constraints of the optimization problem (2). Hence we
+arrive at the formulation stated in [Vapnik, 1995].
+(ηi ξi + ηi ξi ) (5)
+αi (ε + ξi − yi + w, xi + b)
+α∗ (ε + ξi + yi − w, xi − b)
+(∗)
+C − αi
+∂ξ(∗) L =
+− ηi
+Substituting (7), (8), and (9) into (5) yields the dual optimization problem.
+> − 1 P (α − α∗ )(α − α∗ ) x , x
+i,j=1
+maximize
+> −ε P (αi + α∗ ) + P yi (αi − α∗ )
+(10)
+(αi − α∗ ) = 0 and αi , α∗ ∈ [0, C]
+In deriving (10) we already eliminated the dual variables
+ηi , ηi through condition (9) which can be reformulated as
+ηi = C − αi . Eq. (8) can be rewritten as follows
+(ξi + ξi ) −
+Note that by αi , we refer to αi and α∗ .
+It follows from the saddle point condition that the partial derivatives of L with respect to the primal variables
+(w, b, ξi , ξi ) have to vanish for optimality.
+i=1 (αi − αi )
+∂w L = w − i=1 (αi − αi )xi = 0
+Fig. 1 depicts the situation graphically. Only the points outside the shaded region contribute to the cost insofar, as the
+deviations are penalized in a linear fashion. It turns out that
+Here L is the Lagrangian and ηi , ηi , αi , α∗ are Lagrange muli
+tipliers. Hence the dual variables in (5) have to satisfy positivity constraints, i.e.
+αi , ηi ≥ 0.
+The constant C > 0 determines the trade-off between the ﬂatness of f and the amount up to which deviations larger than
+ε are tolerated. This corresponds to dealing with a so called
+ε–insensitive loss function |ξ|ε described by
+if |ξ| ≤ ε
+|ξ| − ε otherwise.
+ε + ξi
+(ξi + ξi )
+< yi − w, xi − b
+ξi , ξi
+Figure 1: The soft margin loss setting for a linear SVM.
+(αi − α∗ )xi , thus f (x) =
+(αi − α∗ ) xi , x + b.
+(11)
+This is the so-called Support Vector expansion, i.e. w can be completely described as a linear combination of the training patterns xi . In a sense, the complexity of a function’s representation by SVs is independent of the dimensionality of the input
+space X, and depends only on the number of SVs.
+Moreover, note that the complete algorithm can be described in terms of dot products between the data. Even when
+evaluating f (x) we need not compute w explicitly. These observations will come in handy for the formulation of a nonlinear extension.
+in most cases the optimization problem (3) can be solved more
+easily in its dual formulation.4 Moreover, as we will see in
+Sec. 2, the dual formulation provides the key for extending
+SV machine to nonlinear functions. Hence we will use a standard dualization method utilizing Lagrange multipliers, as
+described in e.g. [Fletcher, 1989].
+See [Smola, 1998] for an overview over other ways of specifying ﬂatness of
+such functions.
+This is true as long as the dimensionality of w is much higher than the
+number of observations. If this is not the case, specialized methods can offer
+considerable computational savings [Lee and Mangasarian, 2001].
+1.4 Computing b
+(12)
+While this approach seems reasonable in the particular example above, it can easily become computationally infeasible
+for both polynomial features of higher order and higher dimensionality, as the number of different monomial features of
+degree p is d+p−1 , where d = dim(X). Typical values for
+OCR tasks (with good performance) [Scholkopf et al., 1995,
+Scholkopf et al., 1997, Vapnik, 1995] are p = 7, d = 28 · 28 =
+784, corresponding to approximately 3.7 · 10 16 features.
+(13)
+2.2 Implicit Mapping via Kernels
+So far we neglected the issue of computing b. The latter can be
+done by exploiting the so called Karush–Kuhn–Tucker (KKT)
+conditions [Karush, 1939, Kuhn and Tucker, 1951]. These state
+that at the point of the solution the product between dual variables and constraints has to vanish.
+(C − αi )ξi = 0
+(C − α∗ )ξi = 0.
+This allows us to make several useful conclusions. Firstly only
+samples (xi , yi ) with corresponding αi = C lie outside the
+ε–insensitive tube. Secondly αi αi = 0, i.e. there can never be
+a set of dual variables αi , α∗ which are both simultaneously
+nonzero. This allows us to conclude that
+ε − yi + w, xi + b ≥ 0
+ξi = 0
+ε − yi + w, xi + b ≤ 0
+αi < C (14)
+αi > 0
+Clearly this approach is not feasible and we have to ﬁnd a
+computationally cheaper way. The key observation [Boser
+et al., 1992] is that for the feature map of example 1 we have
+”E
+2 √
+= x, x 2 . (17)
+x2 , 2x1 x2 , x2 , x 1 , 2x 1 x 2 , x 2
+As noted in the previous section, the SV algorithm only depends on dot products between patterns xi . Hence it sufﬁces to know k(x, x ) := Φ(x), Φ(x ) rather than Φ explicitly
+which allows us to restate the SV optimization problem:
+(15)
+In conjunction with an analogous analysis on α∗ we have
+max {−ε + yi − w, xi |αi < C or α∗ > 0} ≤ b ≤
+(16)
+min {−ε + yi − w, xi |αi > 0 or α∗ < C}
+If some αi ∈ (0, C) the inequalities become equalities. See
+also [Keerthi et al., 2001] for further means of choosing b.
+Another way of computing b will be discussed in the context of interior point optimization (cf. Sec. 5). There b turns
+out to be a by-product of the optimization process. Further
+considerations shall be deferred to the corresponding section.
+See also [Keerthi et al., 1999] for further methods to compute
+the constant offset.
+A ﬁnal note has to be made regarding the sparsity of the SV
+expansion. From (12) it follows that only for |f (xi ) − yi | ≥ ε
+the Lagrange multipliers may be nonzero, or in other words,
+for all samples inside the ε–tube (i.e. the shaded region in
+Fig. 1) the αi , α∗ vanish: for |f (xi ) − yi | < ε the second faci
+tor in (12) is nonzero, hence αi , α∗ has to be zero such that
+the KKT conditions are satisﬁed. Therefore we have a sparse
+expansion of w in terms of xi (i.e. we do not need all xi to
+describe w). The examples that come with nonvanishing coefﬁcients are called Support Vectors.
+> − 1 P (α − α∗ )(α − α∗ )k(x , x )
+(18)
+Likewise the expansion of f (11) may be written as
+(αi − α∗ )Φ(xi ) and f (x) =
+(αi − α∗ )k(xi , x) + b.
+(19)
+The difference to the linear case is that w is no longer given
+explicitly. Also note that in the nonlinear setting, the optimization problem corresponds to ﬁnding the ﬂattest function
+in feature space, not in input space.
+2.3 Conditions for Kernels
+The question that arises now is, which functions k(x, x ) correspond to a dot product in some feature space F. The following
+theorem characterizes these functions (deﬁned on X).
+Kernels
+2.1 Nonlinearity by Preprocessing
+Theorem 2 (Mercer [1909]) Suppose k ∈ L∞ (X 2 ) such that the
+integral operator Tk : L2 (X) → L2 (X),
+k(·, x)f (x)dµ(x)
+(20)
+Tk f (·) :=
+The next step is to make the SV algorithm nonlinear. This,
+for instance, could be achieved by simply preprocessing the
+training patterns xi by a map Φ : X → F into some feature
+space F, as described in [Aizerman et al., 1964, Nilsson, 1965]
+and then applying the standard SV regression algorithm. Let
+us have a brief look at an example given in [Vapnik, 1995].
+is positive (here µ denotes a measure on X with µ(X) ﬁnite and
+supp(µ) = X). Let ψj ∈ L2 (X) be the eigenfunction of Tk associated with the eigenvalue λj = 0 and normalized such that
+ψj L2 = 1 and let ψj denote its complex conjugate. Then
+Example 1 (Quadratic features in R2 ) Consider the map Φ :
+R2 → R3 with Φ(x1 , x2 ) = x2 , 2x1 x2 , x2 . It is understood
+that the subscripts in this case refer to the components of x ∈ R2 .
+Training a linear SV machine on the preprocessed features would
+yield a quadratic function.
+1. (λj (T ))j ∈
+2. ψj ∈ L∞ (X) and supj ψj
+3. k(x, x ) =
+We will give a proof and some additional explanations to this
+theorem in section 7. It follows from interpolation theory
+[Micchelli, 1986] and the theory of regularization networks
+[Girosi et al., 1993]. For kernels of the dot–product type, i.e.
+k(x, x ) = k( x, x ), there exist sufﬁcient conditions for being
+admissible.
+λj ψj (x)ψj (x ) holds for almost all (x, x ),
+where the series converges absolutely and uniformly for almost
+all (x, x ).
+Less formally speaking this theorem means that if
+k(x, x )f (x)f (x )dxdx ≥ 0 for all f ∈ L2 (X)
+(21)
+Theorem 7 (Burges [1999]) Any kernel of dot–product type
+k(x, x ) = k( x, x ) has to satisfy
+holds we can write k(x, x ) as a dot product in some feature
+space. From this condition we can conclude some simple rules
+for compositions of kernels, which then also satisfy Mercer’s
+condition [Scholkopf et al., 1999a]. In the following we will
+call such functions k admissible SV kernels.
+k(ξ) ≥ 0, ∂ξ k(ξ) ≥ 0 and ∂ξ k(ξ) + ξ∂ξ k(ξ) ≥ 0
+for any ξ ≥ 0 in order to be an admissible SV kernel.
+Note that the conditions in theorem 7 are only necessary but
+not sufﬁcient. The rules stated above can be useful tools for
+practitioners both for checking whether a kernel is an admissible SV kernel and for actually constructing new kernels. The
+general case is given by the following theorem.
+Corollary 3 (Positive Linear Combinations of Kernels)
+Denote by k1 , k2 admissible SV kernels and c1 , c2 ≥ 0 then
+k(x, x ) := c1 k1 (x, x ) + c2 k2 (x, x )
+(22)
+is an admissible kernel. This follows directly from (21) by virtue of
+the linearity of integrals.
+Theorem 8 (Schoenberg [1942]) A kernel of dot–product type
+k(x, x ) = k( x, x ) deﬁned on an inﬁnite dimensional Hilbert
+space, with a power series expansion
+More generally, one can show that the set of admissible kernels forms a convex cone, closed in the topology of pointwise
+convergence Berg et al. [1984].
+k(t) =
+(27)
+an tn
+Corollary 4 (Integrals of Kernels) Let s(x, x ) be a symmetric
+function on X × X such that
+k(x, x ) :=
+s(x, z)s(x , z)dz
+(23)
+is admissible if and only if all an ≥ 0.
+A slightly weaker condition applies for ﬁnite dimensional
+spaces. For further details see [Berg et al., 1984, Smola et al.,
+2001].
+exists. Then k is an admissible SV kernel.
+This can be shown directly from (21) and (23) by rearranging the order of integration. We now state a necessary
+and sufﬁcient condition for translation invariant kernels, i.e.
+k(x, x ) := k(x − x ) as derived in [Smola et al., 1998c].
+2.4 Examples
+In [Scholkopf et al., 1998b] it has been shown, by explicitly
+computing the mapping, that homogeneous polynomial kernels k with p ∈ N and
+Theorem 5 (Products of Kernels) Denote by k1 and k2 admissible SV kernels then
+k(x, x ) := k1 (x, x )k2 (x, x )
+(26)
+k(x, x ) = x, x
+(28)
+are suitable SV kernels (cf. Poggio [1975]). From this observation one can conclude immediately [Boser et al., 1992, Vapnik,
+1995] that kernels of the type
+(29)
+k(x, x ) = x, x + c
+(24)
+is an admissible kernel.
+This can be seen by an application of the “expansion part” of Mercer’s theorem to the kernels k 1 and
+k2 and observing that each term in the double sum
+1 2 1
+i,j λi λj ψi (x)ψi (x )ψj (x)ψj (x ) gives rise to a positive coefﬁcient when checking (21).
+i.e. inhomogeneous polynomial kernels with p ∈ N, c ≥ 0
+are admissible, too: rewrite k as a sum of homogeneous kernels and apply corollary 3. Another kernel, that might seem
+appealing due to its resemblance to Neural Networks is the
+hyperbolic tangent kernel
+(30)
+k(x, x ) = tanh ϑ + φ x, x .
+Theorem 6 (Smola, Scholkopf, and Muller [1998c]) A trans¨
+lation invariant kernel k(x, x ) = k(x − x ) is an admissible SV
+kernels if and only if the Fourier transform
+e−i ω,x k(x)dx
+(25)
+F [k](ω) = (2π)− 2
+By applying theorem 8 one can check that this kernel does not
+actually satisfy Mercer’s condition [Ovari, 2000]. Curiously,
+the kernel has been successfully used in practice; cf. Scholkopf
+[1997] for a discussion of the reasons.
+is nonnegative.
+Translation invariant kernels k(x, x ) = k(x − x ) are quite
+widespread. It was shown in [Aizerman et al., 1964, Micchelli,
+1986, Boser et al., 1992] that
+k(x, x ) = e
+x−x 2
+2σ2
+leads to the regularized risk functional [Tikhonov and Arsenin, 1977, Morozov, 1984, Vapnik, 1982]
+Rreg [f ] := Remp [f ] +
+(31)
+1[− 1 , 1 ]
+(32)
+3.2 Maximum Likelihood and Density Models
+The standard setting in the SV case is, as already mentioned
+in section 1.2, the ε-insensitive loss
+B–splines of order 2n+1, deﬁned by the 2n+1 convolution of
+the unit inverval, are also admissible. We shall postpone further considerations to section 7 where the connection to regularization operators will be pointed out in more detail.
+c(x, y, f (x)) = |y − f (x)|ε .
+So far the SV algorithm for regression may seem rather
+strange and hardly related to other existing methods of function estimation (e.g. [Huber, 1981, Stone, 1985, H¨ rdle, 1990,
+Hastie and Tibshirani, 1990, Wahba, 1990]). However, once
+cast into a more standard mathematical notation, we will observe the connections to previous work. For the sake of simplicity we will, again, only consider the linear case, as extensions to the nonlinear one are straightforward by using the
+kernel method described in the previous chapter.
+3.1 The Risk Functional
+Let us for a moment go back to the case of section 1.2. There,
+we had some training data X := {(x1 , y1 ), . . . , (x , y )} ⊂ X×
+R. We will assume now, that this training set has been drawn
+iid (independent and identically distributed) from some probability distribution P (x, y). Our goal will be to ﬁnd a function
+f minimizing the expected risk (cf. [Vapnik, 1982])
+R[f ] = c(x, y, f (x))dP (x, y)
+(33)
+c(x, y, f (x)) = − log p(y − f (x)).
+c(xi , yi , f (xi )).
+(37)
+This can be seen as follows. The likelihood of an estimate
+(c(x, y, f (x)) denotes a cost function determining how we will
+penalize estimation errors) based on the empirical data X.
+Given that we do not know the distribution P (x, y) we can
+only use X for estimating a function f that minimizes R[f ]. A
+possible approximation consists in replacing the integration
+by the empirical estimate, to get the so called empirical risk
+functional
+Remp [f ] :=
+(36)
+It is straightforward to show that minimizing (35) with the
+particular loss function of (36) is equivalent to minimizing (3),
+the only difference being that C = 1/(λ ).
+Loss functions such like |y − f (x)|p with p > 1 may not
+be desirable, as the superlinear increase leads to a loss of the
+robustness properties of the estimator [Huber, 1981]: in those
+cases the derivative of the cost function grows without bound.
+For p < 1, on the other hand, c becomes nonconvex.
+For the case of c(x, y, f (x)) = (y − f (x))2 we recover the
+least mean squares ﬁt approach, which, unlike the standard
+SV loss function, leads to a matrix inversion instead of a
+quadratic programming problem.
+The question is which cost function should be used in (35).
+On the one hand we will want to avoid a very complicated
+function c as this may lead to difﬁcult optimization problems.
+On the other hand one should use that particular cost function
+that suits the problem best. Moreover, under the assumption
+that the samples were generated by an underlying functional
+dependency plus additive noise, i.e. y i = ftrue (xi ) + ξi with
+density p(ξ), then the optimal cost function in a maximum
+likelihood sense is
+Cost Functions
+(35)
+where λ > 0 is a so called regularization constant. Many algorithms like regularization networks [Girosi et al., 1993] or neural networks with weight decay networks [e.g. Bishop, 1995]
+minimize an expression similar to (35).
+is an admissible SV kernel. Moreover one can show [Smola,
+1996, Vapnik et al., 1997] that (1X denotes the indicator function on the set X and ⊗ the convolution operation)
+k(x, x ) = B2n+1 ( x − x ) with Bk :=
+Xf := {(x1 , f (x1 )), . . . , (x , f (x ))}
+(38)
+for additive noise and iid data is
+p(Xf |X) =
+p(f (xi )|(xi , yi )) =
+p(yi − f (xi )).
+Maximizing P (Xf |X) is equivalent
+− log P (Xf |X). By using (37) we get
+(34)
+− log P (Xf |X) =
+A ﬁrst attempt would be to ﬁnd the empirical risk minimizer
+f0 := argminf ∈H Remp [f ] for some function class H. However, if H is very rich, i.e. its “capacity” is very high, as for instance when dealing with few data in very high-dimensional
+spaces, this may not be a good idea, as it will lead to overﬁtting and thus bad generalization properties. Hence one
+should add a capacity control term, in the SV case w 2 , which
+(39)
+minimizing
+(40)
+However, the cost function resulting from this reasoning
+might be nonconvex. In this case one would have to ﬁnd a
+convex proxy in order to deal with the situation efﬁciently (i.e.
+to ﬁnd an efﬁcient implementation of the corresponding optimization problem).
+tedious notation. This yields
+If, on the other hand, we are given a speciﬁc cost function
+from a real world problem, one should try to ﬁnd as close a
+proxy to this cost function as possible, as it is the performance
+wrt. this particular cost function that matters ultimately.
+Table 1 contains an overview over some common density
+models and the corresponding loss functions as deﬁned by
+(37).
+The only requirement we will impose on c(x, y, f (x)) in the
+following is that for ﬁxed x and y we have convexity in f (x).
+This requirement is made, as we want to ensure the existence
+and uniqueness (for strict convexity) of a minimum of optimization problems [Fletcher, 1989].
+where
+yi (αi − α∗ ) − ε(αi + α∗ )
+T (ξi ) + T (ξi )
+(αi − α∗ )xi
+8 T (ξ) := c(ξ) − ξ∂ξ c(ξ)
+(αi − αi ) = 0
+< i=1
+≤ C∂ξ c(ξ)
+= inf{ξ | C∂ξ c ≥ α}
+≥ 0
+3.3 Solving the Equations
+(43)
+3.4 Examples
+For the sake of simplicity we will additionally assume c to be
+symmetric and to have (at most) two (for symmetry) discontinuities at ±ε, ε ≥ 0 in the ﬁrst derivative, and to be zero in
+the interval [−ε, ε]. All loss functions from table 1 belong to
+this class. Hence c will take on the following form.
+Let us consider the examples of table 1. We will show explicitly for two examples how (43) can be further simpliﬁed
+to bring it into a form that is practically useful. In the ε–
+insensitive case, i.e. c(ξ) = |ξ| we get
+T (ξ) = ξ − ξ · 1 = 0.
+c(x, y, f (x)) = c(|y − f (x)|ε )
+Morover one can conclude from ∂ξ c(ξ) = 1 that
+(41)
+ξ = inf{ξ | C ≥ α} = 0 and α ∈ [0, C] .
+T (ξ) =
+p − 1 1−p p
+ξ p − p−1 ξ p = −
+pσ p−1
+T (ξ) = −
+p−1
+σC − p−1 α p−1 .
+(47)
+In the second case (ξ ≥ σ) we have
+(˜(ξi ) + c(ξi ))
+< yi − w, xi − b ≤ ε + ξi
+w, xi + b − yi ≤ ε + ξi
+(46)
+and ξ = inf{ξ | Cσ 1−p ξ p−1 ≥ α} = σC − p−1 α p−1 and thus
+T (ξ) = ξ − σ
+(45)
+For the case of piecewise polynomial loss we have to distinguish two different cases: ξ ≤ σ and ξ > σ. In the ﬁrst case
+we get
+Note the similarity to Vapnik’s ε–insensitive loss. It is rather
+straightforward to extend this special choice to more general
+convex cost functions. For nonzero cost functions in the interval [−ε, ε] use an additional pair of slack variables. Moreover we might choose different cost functions ci , c∗ and dif˜ ˜i
+ferent values of εi , ε∗ for each sample. At the expense of adi
+ditional Lagrange multipliers in the dual formulation additional discontinuities also can be taken care of. Analogously
+to (3) we arrive at a convex minimization problem [Smola and
+Scholkopf, 1998a]. To simplify notation we will stick to the
+one of (3) and use C instead of normalizing by λ and .
+(44)
+(48)
+and ξ = inf{ξ | C ≥ α} = σ, which, in turn yields α ∈ [0, C].
+Combining both cases we have
+(42)
+α ∈ [0, C] and T (α) = −
+σC p−1 α p−1 .
+(49)
+Table 2 contains a summary of the various conditions on α and
+formulas for T (α) (strictly speaking T (ξ(α))) for different cost
+functions.5 Note that the maximum slope of c determines the
+region of feasibility of α, i.e. s := sup ξ∈R+ ∂ξ c(ξ) < ∞ leads
+to compact intervals [0, Cs] for α. This means that the inﬂuence of a single pattern is bounded, leading to robust estimators [Huber, 1972]. One can also observe experimentally that
+Again, by standard Lagrange multiplier techniques, exactly in
+the same manner as in the | · |ε case, one can compute the dual
+optimization problem (the main difference is that the slack
+variable terms c(ξi ) now have nonvanishing derivatives).
+We will omit the indices i and ∗ , where applicable to avoid
+ε–insensitive
+Laplacian
+Gaussian
+Huber’s robust loss
+Polynomial
+Piecewise polynomial
+loss function
+c(ξ) = |ξ|ε
+c(ξ) = |ξ|
+c(ξ) = 1 ξ 2
+(ξ)2 if |ξ| ≤ σ
+c(ξ) =
+|ξ| − σ otherwise
+c(ξ) = p |ξ|p
+(ξ)p if |ξ| ≤ σ
+|ξ| − σ p−1 otherwise
+density model
+p(ξ) = 2(1+ε) exp(−|ξ|ε )
+p(ξ) = 2 exp(−|ξ|)
+p(ξ) = √1 exp(− ξ2 )
+exp(− 2σ )
+if |ξ| ≤ σ
+p(ξ) ∝
+exp( 2 − |ξ|) otherwise
+p(ξ) = 2Γ(1/p) exp(−|ξ|p )
+exp(− pσξp−1 )
+exp(σ p−1 − |ξ|) otherwise
+Table 1: Common loss functions and corresponding density models
+ε–insensitive
+Huber’s
+Piecewise
+polynomial
+ε=0
+α ∈ [0, C]
+α ∈ [0, ∞)
+CT (α)
+− 1 C −1 α2
+− 1 σC −1 α2
+− p−1 C − p−1 α p−1
+− p−1 σC − p−1 α p−1
+Σ (x1)
+Σ (x2)
+output Σ Σi k (x,xi) + b
+weights
+dot product (Σ (x).Σ (xi)) = k (x,xi)
+Σ (xl )
+mapped vectors Σ (xi), Σ (x)
+Table 2: Terms of the convex optimization problem depending
+on the choice of the loss function.
+Σ (x)
+support vectors x1 ... xl
+test vector x
+the performance of a SV machine depends signiﬁcantly on the
+cost function used [Muller et al., 1997, Smola et al., 1998b].
+A cautionary remark is necessary regarding the use of cost
+functions other than the ε–insensitive one. Unless ε = 0 we
+will lose the advantage of a sparse decomposition. This may
+be acceptable in the case of few data, but will render the prediction step extremely slow otherwise. Hence one will have
+to trade off a potential loss in prediction accuracy with faster
+predictions. Note, however, that also a reduced set algorithm
+like in [Burges, 1996, Burges and Scholkopf, 1997, Scholkopf
+et al., 1999b] or sparse decomposition techniques [Smola and
+Scholkopf, 2000] could be applied to address this issue. In a
+Bayesian setting, Tipping [2000] has recently shown how an
+L2 cost function can be used without sacriﬁcing sparsity.
+Figure 2: Architecture of a regression machine constructed by
+the SV algorithm.
+similar to regression in a neural network, with the difference,
+that in the SV case the weights in the input layer are a subset
+of the training patterns.
+Figure 3 demonstrates how the SV algorithm chooses the
+ﬂattest function among those approximating the original data
+with a given precision. Although requiring ﬂatness only in
+feature space, one can observe that the functions also are very
+ﬂat in input space. This is due to the fact, that kernels can be
+associated with ﬂatness properties via regularization operators. This will be explained in more detail in section 7.
+Finally Fig. 4 shows the relation between approximation
+quality and sparsity of representation in the SV case. The
+lower the precision required for approximating the original
+data, the fewer SVs are needed to encode that. The non-SVs
+are redundant, i.e. even without these patterns in the training
+set, the SV machine would have constructed exactly the same
+function f . One might think that this could be an efﬁcient
+way of data compression, namely by storing only the support patterns, from which the estimate can be reconstructed
+completely. However, this simple analogy turns out to fail in
+the case of high-dimensional data, and even more drastically
+in the presence of noise. In [Vapnik et al., 1997] one can see
+that even for moderate approximation quality, the number of
+SVs can be considerably high, yielding rates worse than the
+Nyquist rate [Nyquist, 1928, Shannon, 1948].
+The Bigger Picture
+Before delving into algorithmic details of the implementation
+let us brieﬂy review the basic properties of the SV algorithm
+for regression as described so far. Figure 2 contains a graphical overview over the different steps in the regression stage.
+The input pattern (for which a prediction is to be made)
+is mapped into feature space by a map Φ. Then dot products are computed with the images of the training patterns
+under the map Φ. This corresponds to evaluating kernel functions k(xi , x). Finally the dot products are added up using
+the weights νi = αi − α∗ . This, plus the constant term b yields
+the ﬁnal prediction output. The process described here is very
+The table displays CT (α) instead of T (α) since the former can be plugged
+directly into the corresponding optimization equations.
+sinc x + 0.1
+sinc x - 0.1
+approximation
+sinc x + 0.2
+sinc x - 0.2
+sinc x + 0.5
+sinc x - 0.5
+-0.2
+-0.4
+-0.6
+-0.8
+Figure 3: Left to right: approximation of the function sinc x with precisions ε = 0.1, 0.2, and 0.5. The solid top and the bottom
+lines indicate the size of the ε–tube, the dotted line in between is the regression.
+Figure 4: Left to right: regression (solid line), datapoints (small dots) and SVs (big dots) for an approximation with ε = 0.1, 0.2,
+and 0.5. Note the decrease in the number of SVs.
+Optimization Algorithms
+proximations are close enough together, the second subalgorithm, which permits a quadratic objective and converges very rapidly from a good starting value, is used.
+Recently an interior point algorithm was added to the
+software suite.
+While there has been a large number of implementations of
+SV algorithms in the past years, we focus on a few algorithms
+which will be presented in greater detail. This selection is
+somewhat biased, as it contains these algorithms the authors
+are most familiar with. However, we think that this overview
+contains some of the most effective ones and will be useful for
+practitioners who would like to actually code a SV machine
+by themselves. But before doing so we will brieﬂy cover major optimization packages and strategies.
+CPLEX by CPLEX Optimization Inc. [1994] uses a primaldual logarithmic barrier algorithm [Megiddo, 1989] instead with predictor-corrector step (see eg. [Lustig et al.,
+1992, Mehrotra and Sun, 1992]).
+MINOS by the Stanford Optimization Laboratory [Murtagh
+and Saunders, 1983] uses a reduced gradient algorithm
+in conjunction with a quasi-Newton algorithm. The constraints are handled by an active set strategy. Feasibility
+is maintained throughout the process. On the active constraint manifold, a quasi–Newton approximation is used.
+5.1 Implementations
+Most commercially available packages for quadratic programming can also be used to train SV machines. These are usually
+numerically very stable general purpose codes, with special
+enhancements for large sparse systems. While the latter is a
+feature that is not needed at all in SV problems (there the dot
+product matrix is dense and huge) they still can be used with
+good success. 6
+MATLAB Until recently the matlab QP optimizer delivered
+only agreeable, although below average performance on
+classiﬁcation tasks and was not all too useful for regression tasks (for problems much larger than 100 samples)
+due to the fact that one is effectively dealing with an optimization problem of size 2 where at least half of the
+eigenvalues of the Hessian vanish. These problems seem
+to have been addressed in version 5.3 / R11. Matlab now
+uses interior point codes.
+OSL This package was written by [IBM Corporation, 1992].
+It uses a two phase algorithm. The ﬁrst step consists of
+solving a linear approximation of the QP problem by the
+simplex algorithm [Dantzig, 1962]. Next a related very
+simple QP problem is dealt with. When successive ap-
+LOQO by Vanderbei [1994] is another example of an interior
+point code. Section 5.3 discusses the underlying strategies in detail and shows how they can be adapted to SV
+algorithms.
+The high price tag usually is the major deterrent for not using them. Moreover one has to bear in mind that in SV regression, one may speed up the solution considerably by exploiting the fact that the quadratic form has a special
+structure or that there may exist rank degeneracies in the kernel matrix itself.
+Maximum Margin Perceptron by Kowalczyk [2000] is an algorithm speciﬁcally tailored to SVs. Unlike most other
+techniques it works directly in primal space and thus does
+not have to take the equality constraint on the Lagrange
+multipliers into account explicitly.
+the constraint qualiﬁcations of the strong duality theorem [Bazaraa et al., 1993, Theorem 6.2.4] are satisﬁed and
+it follows that gap vanishes at optimality. Thus the duality gap is a measure how close (in terms of the objective
+function) the current set of variables is to the solution.
+Iterative Free Set Methods The algorithm by Kaufman
+[Bunch et al., 1976, Bunch and Kaufman, 1977, 1980,
+Drucker et al., 1997, Kaufman, 1999], uses such a technique starting with all variables on the boundary and
+adding them as the Karush Kuhn Tucker conditions
+become more violated. This approach has the advantage
+of not having to compute the full dot product matrix
+from the beginning. Instead it is evaluated on the ﬂy,
+yielding a performance improvement in comparison
+to tackling the whole optimization problem at once.
+However, also other algorithms can be modiﬁed by
+subset selection techniques (see section 5.5) to address
+this problem.
+Karush–Kuhn–Tucker (KKT) conditions A set of primal and
+dual variables that is both feasible and satisﬁes the KKT
+conditions is the solution (i.e. constraint · dual variable =
+0). The sum of the violated KKT terms determines exactly
+the size of the duality gap (that is, we simply compute the
+constraint · Lagrangemultiplier part as done in (55)). This
+allows us to compute the latter quite easily.
+A simple intuition is that for violated constraints the dual
+variable could be increased arbitrarily, thus rendering the
+Lagrange function arbitrarily large. This, however, is in
+contradition to the saddlepoint property.
+5.3 Interior Point Algorithms
+5.2 Basic Notions
+In a nutshell the idea of an interior point algorithm is to compute the dual of the optimization problem (in our case the
+dual dual of Rreg [f ]) and solve both primal and dual simultaneously. This is done by only gradually enforcing the KKT
+conditions to iteratively ﬁnd a feasible solution and to use
+the duality gap between primal and dual objective function
+to determine the quality of the current set of variables. The
+special ﬂavour of algorithm we will describe is primal–dual
+path–following [Vanderbei, 1994].
+In order to avoid tedious notation we will consider the
+slightly more general problem and specialize the result to the
+SVM later. It is understood that unless stated otherwise, variables like α denote vectors and αi denotes its i–th component.
+Most algorithms rely on results from the duality theory in convex optimization. Although we already happened to mention
+some basic ideas in section 1.2 we will, for the sake of convenience, brieﬂy review without proof the core results. These
+are needed in particular to derive an interior point algorithm.
+For details and proofs see e.g. [Fletcher, 1989].
+Uniqueness Every convex constrained optimization problem
+has a unique minimum. If the problem is strictly convex
+then the solution is unique. This means that SVs are not
+plagued with the problem of local minima as Neural Networks are.7
+Lagrange Function The Lagrange function is given by the
+primal objective function minus the sum of all products
+between constraints and corresponding Lagrange multipliers (cf. e.g. [Fletcher, 1989, Bertsekas, 1995]). Optimization can be seen as minimzation of the Lagrangian
+wrt. the primal variables and simultaneous maximization
+wrt. the Lagrange multipliers, i.e. dual variables. It has a
+saddle point at the solution. Usually the Lagrange function is only a theoretical device to derive the dual objective function (cf. Sec. 1.2).
+q(α) + c, α
+Aα = b and l ≤ α ≤ u
+(50)
+with c, α, l, u ∈ Rn , A ∈ Rn·m , b ∈ Rm , the inequalities between vectors holding componentwise and q(α) being a convex function of α. Now we will add slack variables to get rid
+of all inequalities but the positivity constraints. This yields:
+Dual Objective Function It is derived by minimizing the Lagrange function with respect to the primal variables and
+subsequent elimination of the latter. Hence it can be written solely in terms of the dual variables.
+q(α)
+Aα = b, α − g = l, α + t = u,
+g, t ≥ 0, α free
+(51)
+The dual of (51) is
+∂q(α), α) + b, y + l, z − u, s
+c − (Ay) + s = z, s, z ≥ 0, y free
+(52)
+Moreover we get the KKT conditions, namely
+Duality Gap For both feasible primal and dual variables
+the primal objective function (of a convex minimization
+problem) is always greater or equal than the dual objective function. Since SVMs have only linear constraints
+(q(α) −
+∂q(α) +
+gi zi = 0 and si ti = 0 for all i ∈ [1 . . . n].
+(53)
+A necessary and sufﬁcient condition for the optimal solution
+is that the primal / dual variables satisfy both the feasibility conditions of (51) and (52) and the KKT conditions (53).
+We proceed to solve (51) – (53) iteratively. The details can be
+found in appendix A.
+For large and noisy problems (e.g. 100.000 patterns and more with a substantial fraction of nonbound Lagrange multipliers) it is impossible to solve the
+problem exactly: due to the size one has to use subset selection algorithms,
+hence joint optimization over the training set is impossible. However, unlike in
+Neural Networks, we can determine the closeness to the optimum. Note that
+this reasoning only holds for convex cost functions.
+5.4 Useful Tricks
+5.5 Subset Selection Algorithms
+Before proceeding to further algorithms for quadratic optimization let us brieﬂy mention some useful tricks that can
+be applied to all algorithms described subsequently and may
+have signiﬁcant impact despite their simplicity. They are in
+part derived from ideas of the interior-point approach.
+The convex programming algorithms described so far can
+be used directly on moderately sized (up to 3000) samples
+datasets without any further modiﬁcations. On large datasets,
+however, it is difﬁcult, due to memory and cpu limitations,
+to compute the dot product matrix k(xi , xj ) and keep it in
+memory. A simple calculation shows that for instance storing the dot product matrix of the NIST OCR database (60.000
+samples) at single precision would consume 0.7 GBytes. A
+Cholesky decomposition thereof, which would additionally
+require roughly the same amount of memory and 64 Teraﬂops
+(counting multiplies and adds separately), seems unrealistic,
+at least at current processor speeds.
+A ﬁrst solution, which was introduced in [Vapnik, 1982] relies on the observation that the solution can be reconstructed
+from the SVs alone. Hence, if we knew the SV set beforehand,
+and it ﬁtted into memory, then we could directly solve the reduced problem. The catch is that we do not know the SV set
+before solving the problem. The solution is to start with an
+arbitrary subset, a ﬁrst chunk that ﬁts into memory, train the
+SV algorithm on it, keep the SVs and ﬁll the chunk up with
+data the current estimator would make errors on (i.e. data lying outside the ε–tube of the current regression). Then retrain
+the system and keep on iterating until after training all KKT –
+conditions are satisﬁed.
+The basic chunking algorithm just postponed the underlying problem of dealing with large datasets whose dot–product
+matrix cannot be kept in memory: it will occur for larger training set sizes than originally, but it is not completely avoided.
+Hence the solution is [Osuna et al., 1997] to use only a subset
+of the variables as a working set and optimize the problem
+with respect to them while freezing the other variables. This
+method is described in detail in [Osuna et al., 1997, Joachims,
+1999, Saunders et al., 1998] for the case of pattern recognition.8
+An adaptation of these techniques to the case of regression
+with convex cost functions can be found in appendix B. The
+basic structure of the method is described by algorithm 1.
+Training with Different Regularization Parameters For several reasons (model selection, controlling the number of
+support vectors, etc.) it may happen that one has to train
+a SV machine with different regularization parameters C,
+but otherwise rather identical settings. If the parameters
+Cnew = τ Cold is not too different it is advantageous to
+use the rescaled values of the Lagrange multipliers (i.e.
+αi , α∗ ) as a starting point for the new optimization probi
+lem. Rescaling is necessary to satisfy the modiﬁed constraints. One gets
+αnew = τ αold and likewise bnew = τ bold .
+(54)
+Assuming that the (dominant) convex part q(α) of the
+primal objective is quadratic, the q scales with τ 2 where
+as the linear part scales with τ . However, since the linear term dominates the objective function, the rescaled
+values are still a better starting point than α = 0. In
+practice a speedup of approximately 95% of the overall
+training time can be observed when using the sequential minimization algorithm, cf. [Smola, 1998]. A similar
+reasoning can be applied when retraining with the same
+regularization parameter but different (yet similar) width
+parameters of the kernel function. See [Cristianini et al.,
+1998] for details thereon in a different context.
+Monitoring Convergence via the Feasibility Gap In
+case of both primal and dual feasible variables the
+following connection between primal and dual objective
+function holds:
+(gi zi + si ti )
+(55)
+Dual Obj. = Primal Obj. −
+This can be seen immediately by the construction of the
+Lagrange function. In Regression Estimation (with the
+ε–insensitive loss function) one obtains for i gi zi + si ti
++ max(0, f (xi ) − (yi + εi ))(C − α∗ )
+X 6 − min(0, f (xi ) − (yi + εi ))α∗
+4 + max(0, (yi − ε∗ ) − f (xi ))(C − αi ) 5 . (56)
+− min(0, (yi − ε∗ ) − f (xi ))αi
+Algorithm 1 Basic structure of a working set algorithm.
+Initialize αi , α∗ = 0
+Choose arbitrary working set S w
+repeat
+Compute coupling terms (linear and constant) for Sw (see
+Appendix B)
+Solve reduced optimization problem
+Choose new Sw from variables αi , α∗ not satisfying the
+KKT conditions
+until working set S w = ∅
+Thus convergence with respect to the point of the solution can be expressed in terms of the duality gap. An
+effective stopping rule is to require
+i g i z i + si t i
+(57)
+|Primal Objective| + 1
+5.6 Sequential Minimal Optimization
+for some precision ε tol . This condition is much in the
+spirit of primal dual interior point path following algorithms, where convergence is measured in terms of the
+number of signiﬁcant ﬁgures (which would be the decimal logarithm of (57)), a convention that will also be
+adopted in the subsequent parts of this exposition.
+Recently an algorithm — Sequential Minimal Optimization
+(SMO)— was proposed [Platt, 1999] that puts chunking to the
+A similar technique was employed by Bradley and Mangasarian [1998] in
+the context of linear programming in order to deal with large datasets.
+the problem to a case where linear programming techniques
+can be applied. This can be done in a straightforward fashion [Mangasarian, 1965, 1968, Weston et al., 1999, Smola et al.,
+1999] for both SV pattern recognition and regression. The key
+is to replace (35) by
+extreme by iteratively selecting subsets only of size 2 and optimizing the target function with respect to them. It has been
+reported to have good convergence properties and it is easily
+implemented. The key point is that for a working set of 2 the
+optimization subproblem can be solved analytically without
+explicitly invoking a quadratic optimizer.
+While readily derived for pattern recognition by Platt
+[1999], one simply has to mimick the original reasoning to
+obtain an extension to Regression Estimation. This is what
+will be done in Appendix C (the pseudocode can be found in
+[Smola and Scholkopf, 1998b]). The modiﬁcations consist of
+a pattern dependent regularization, convergence control via
+the number of signiﬁcant ﬁgures, and a modiﬁed system of
+equations to solve the optimization problem in two variables
+for regression analytically.
+Note that the reasoning only applies to SV regression with
+the ε insensitive loss function — for most other convex cost
+functions an explicit solution of the restricted quadratic programming problem is impossible. Yet, one could derive an
+analogous non-quadratic convex optimization problem for
+general cost functions but at the expense of having to solve
+it numerically.
+The exposition proceeds as follows: ﬁrst one has to derive
+the (modiﬁed) boundary conditions for the constrained 2 indices (i, j) subproblem in regression, next one can proceed to
+solve the optimization problem analytically, and ﬁnally one
+has to check, which part of the selection rules have to be modiﬁed to make the approach work for regression. Since most of
+the content is fairly technical it has been relegated to appendix
+The main difference in implementations of SMO for regression can be found in the way the constant offset b is determined [Keerthi et al., 1999] and which criterion is used to select a new set of variables. We present one such strategy in
+appendix C.3. However, since selection strategies are the focus of current research we recommend that readers interested
+in implementing the algorithm make sure they are aware of
+the most recent developments in this area.
+Finally, we note that just as we presently describe a generalization of SMO to regression estimation, other learning problems can also beneﬁt from the underlying ideas. Recently,
+a SMO algorithm for training novelty detection systems (i.e.
+one-class classiﬁcation) has been proposed [Scholkopf et al.,
+Rreg [f ] := Remp [f ] + λ α
+where α 1 denotes the 1 norm in coefﬁcient space. Hence
+one uses the SV kernel expansion (11)
+f (x) =
+αi k(xi , x) + b
+with a different way of controlling capacity by minimizing
+Rreg [f ] =
+c(xi , yi , f (xi )) + λ
+|αi |.
+(59)
+For the ε–insensitive loss function this leads to a linear programming problem. In the other cases, however, the problem
+still stays a quadratic or general convex one, and therefore
+may not yield the desired computational advantage. Therefore we will limit ourselves to the derivation of the linear programming problem in the case of | · |ε cost function. Reformulating (59) yields
+(αi + α∗ ) + C
+> yi − P (αj − α∗ )k(xj , xi ) − b
+(α − α∗ )k(xj , xi ) + b − yi
+> j=1 j
+αi , αi , ξi , ξi
+Unlike in the classical SV case, the transformation into its
+dual does not give any improvement in the structure of the
+optimization problem. Hence it is best to minimize Rreg [f ]
+directly, which can be achieved by a linear optimizer, e.g.
+[Dantzig, 1962, Lustig et al., 1990, Vanderbei, 1997].
+In [Weston et al., 1999] a similar variant of the linear SV approach is used to estimate densities on a line. One can show
+[Smola et al., 2000] that one may obtain bounds on the generalization error which exhibit even better rates (in terms of
+the entropy numbers) than the classical SV case [Williamson
+et al., 1998].
+Variations on a Theme
+6.2 Automatic Tuning of the Insensitivity Tube
+There exists a large number of algorithmic modiﬁcations of
+the SV algorithm, to make it suitable for speciﬁc settings (inverse problems, semiparametric settings), different ways of
+measuring capacity and reductions to linear programming
+(convex combinations) and different ways of controlling capacity. We will mention some of the more popular ones.
+6.1 Convex Combinations and
+(58)
+Besides standard model selection issues, i.e. how to specify the trade-off between empirical error and model capacity
+there also exists the problem of an optimal choice of a cost
+function. In particular, for the ε-insensitive cost function we
+still have the problem of choosing an adequate parameter ε in
+order to achieve good performance with the SV machine.
+Smola et al. [1998a] show the existence of a linear dependency between the noise level and the optimal ε-parameter
+for SV regression. However, this would require that we know
+something about the noise model. This knowledge is not
+1 –norms
+All the algorithms presented so far involved convex, and at
+best, quadratic programming. Yet one might think of reducing
+available in general. Therefore, albeit providing theoretical
+insight, this ﬁnding by itself is not particularly useful in practice. Moreover, if we really knew the noise model, we most
+likely would not choose the ε–insensitive cost function but the
+corresponding maximum likelihood loss function instead.
+There exists, however, a method to construct SV machines
+that automatically adjust ε and moreover also, at least asymptotically, have a predetermined fraction of sampling points as
+SVs [Scholkopf et al., 2000]. We modify (35) such that ε be¨
+comes a variable of the optimization problem, including an
+extra term in the primal objective function which attempts to
+minimize ε. In other words
+minimize Rν [f ] := Remp [f ] +
+Essentially, ν-SV regression improves upon ε-SV regression
+by allowing the tube width to adapt automatically to the data.
+What is kept ﬁxed up to this point, however, is the shape of the
+tube. One can, however, go one step further and use parametric tube models with non-constant width, leading to almost
+identical optimization problems [Scholkopf et al., 2000].
+Combining ν-SV regression with results on the asymptotical optimal choice of ε for a given noise model [Smola et al.,
+1998a] leads to a guideline how to adjust ν provided the class
+of noise models (e.g. Gaussian or Laplacian) is known.
+Remark 10 (Optimal Choice of ν) Denote by p a probability
+density with unit variance, ˛
+` y famliy of noise models gen˘ and by P a ´ ¯
+erated from p by P := p ˛p = σ p σ . Moreover assume that
+the data were drawn iid from p(x, y) = p(x)p(y − f (x)) with
+p(y − f (x)) continuous. Then under the assumption of uniform
+convergence, the asymptotically optimal value of ν is
+(60)
+for some ν > 0. Hence (42) becomes (again carrying out the
+usual transformation between λ, and C)
+minimize 1 w 2 + C
+(˜(ξi ) + c(ξi )) + νε
+(61)
+For polynomial noise models, i.e. densities of type exp(−|ξ| p )
+one may compute the corresponding (asymptotically) optimal
+values of ν. They are given in ﬁgure 5. For further details see
+[Scholkopf et al., 2000, Smola, 1998]; an experimental valida¨
+tion has been given by Chalimourda et al. [2000].
+Note that this holds for any convex loss functions with an ε–
+insensitive zone. For the sake of simplicity in the exposition,
+however, we will stick to the standard |·|ε loss function. Computing the dual of (61) yields
+p(t)dt
+ε := argminτ (p(−τ ) + p(τ ))−2 1 − −τ p(t)dt
+(63)
+ν =1−
+> + P yi (αi − α∗ )
+> i=1(αi − αi ) =
+(α + α∗ ) ≤
+> i=1 i
+αi , αi
+Optimal 
+Optimal  for unit variance
+[0, C]
+(62)
+Note that the optimization problem is thus very similar to the
+ε-SV one: the target function is even simpler (it is homogeneous), but there is an additional constraint. For information
+on how this affects the implementation, cf. [Chang and Lin,
+Besides having the advantage of being able to automatically
+determine ε, (62) also has another advantage. It can be used
+to pre–specify the number of SVs:
+Theorem 9 (Scholkopf et al. [2000])
+Polynomial degree p
+Figure 5: Optimal ν and ε for various degrees of polynomial
+additive noise.
+1. ν is an upper bound on the fraction of errors.
+We conclude this section by noting that ν-SV regression is related to the idea of trimmed estimators. One can show that
+the regression is not inﬂuenced if we perturb points lying outside the tube. Thus, the regression is essentially computed by
+discarding a certain fraction of outliers, speciﬁed by ν, and
+computing the regression estimate from the remaining points
+[Scholkopf et al., 2000].
+2. ν is a lower bound on the fraction of SVs.
+3. Suppose the data has been generated iid from a distribution
+p(x, y) = p(x)p(y|x) with a continuous conditional distribution p(y|x). With probability 1, asymptotically, ν equals the
+fraction of SVs and the fraction of errors.
+Regularization
+we get α = D−1 K(β − β ∗ ), with β, β ∗ being the solution of
+So far we were not concerned about the speciﬁc properties of
+the map Φ into feature space and used it only as a convenient
+trick to construct nonlinear regression functions. In some
+cases the map was just given implicitly by the kernel, hence
+the map itself and many of its properties have been neglected.
+A deeper understanding of the kernel map would also be useful to choose appropriate kernels for a speciﬁc task (e.g. by
+incorporating prior knowledge [Scholkopf et al., 1998a]). Fi¨
+nally the feature map seems to defy the curse of dimensionality [Bellman, 1961] by making problems seemingly easier yet
+reliable via a map into some even higher dimensional space.
+In this section we focus on the connections between SV
+methods and previous techniques like Regularization Networks [Girosi et al., 1993].9 In particular we will show that
+SV machines are essentially Regularization Networks (RN)
+with a clever choice of cost functions and that the kernels are
+Green’s function of the corresponding regularization operators. For a full exposition of the subject the reader is referred
+to [Smola et al., 1998c].
+(βi −
+= 0 and
+βi , βi
+(67)
+∈ [0, C].
+Comparing (10) with (67) leads to the question whether and
+under which condition the two methods might be equivalent
+and therefore also under which conditions regularization networks might lead to sparse decompositions, i.e. only a few
+of the expansion coefﬁcients αi in f would differ from zero.
+A sufﬁcient condition is D = K and thus KD−1 K = K (if K
+does not have full rank we only need that KD−1 K = K holds
+on the image of K):
+k(xi , xj ) = (P k)(xi , .) · (P k)(xj , .)
+(68)
+Our goal now is to solve the following two problems:
+1. Given a regularization operator P , ﬁnd a kernel k such
+that a SV machine using k will not only enforce ﬂatness
+in feature space, but also correspond to minimizing a regularized risk functional with P as regularizer.
+2. Given an SV kernel k, ﬁnd a regularization operator P
+such that a SV machine using this kernel can be viewed
+as a Regularization Network using P .
+These two problems can be solved by employing the concept
+of Green’s functions as described in [Girosi et al., 1993]. These
+functions were introduced for the purpose of solving differential equations. In our context it is sufﬁcient to know that the
+Green’s functions Gxi (x) of P ∗ P satisfy
+(P ∗ P Gxi )(x) = δxi (x).
+(69)
+Here, δxi (x) is the δ–distribution (not to be confused with the
+Kronecker symbol δij ) which has the property that f · δxi =
+f (xi ). The relationship between kernels and regularization
+operators is formalized in the following proposition:
+(65)
+Proposition 11 (Smola, Scholkopf, and Muller [1998b])
+Let P be a regularization operator, and G be the Green’s function of
+P ∗ P . Then G is a Mercer Kernel such that D = K. SV machines
+using G minimize risk functional (64) with P as regularization operator.
+and the ε–insensitive cost function, this leads to a quadratic
+programming problem similar to the one for SVs. Using
+Dij := (P k)(xi , .) · (P k)(xj , .)
+βi )
+7.2 Green’s Functions
+Here P denotes a regularization operator in the sense of
+[Tikhonov and Arsenin, 1977], i.e. P is a positive semideﬁnite
+operator mapping from the Hilbert space H of functions f under consideration to a dot product space D such that the expression P f ·P g is well deﬁned for f, g ∈ H. For instance by
+choosing a suitable operator that penalizes large variations of
+f one can reduce the well–known overﬁtting effect. Another
+possible setting also might be an operator P mapping from
+L2 (Rn ) into some Reproducing Kernel Hilbert Space (RKHS)
+[Aronszajn, 1950, Kimeldorf and Wahba, 1971, Saitoh, 1988,
+Scholkopf, 1997, Girosi, 1998].
+Using an expansion of f in terms of some symmetric function k(xi , xj ) (note here, that k need not fulﬁll Mercer’s condition and can be chosen arbitrarily since it is not used to deﬁne
+a regularization term),
+αi k(xi , x) + b,
+Unfortunately, this setting of the problem does not preserve
+sparsity in terms of the coefﬁcients, as a potentially sparse de∗
+composition in terms of βi and βi is spoiled by D −1 K, which
+is not in general diagonal.
+Let us brieﬂy review the basic concepts of RNs. As in (35)
+we minimize a regularized risk functional. However, rather
+than enforcing ﬂatness in feature space we try to optimize some
+smoothness criterion for the function in input space. Thus we
+(64)
+P f 2.
+− β) KD−1 K(β ∗ − β)
+(βi + βi )
+−(β ∗ − β) y − ε
+7.1 Regularization Networks
+(β ∗
+(66)
+In the following we will exploit this relationship in both ways:
+to compute Green’s functions for a given regularization operator P and to infer the regularizer, given a kernel k.
+Due to length constraints we will not deal with the connection between
+Gaussian Processes and SVMs. See Williams [1998] for an excellent overview.
+7.3 Translation Invariant Kernels
+1. Suppose we already knew the shape of the power spectrum Pow(ω) of the function we would like to estimate.
+In this case we choose k such that k matches the power
+spectrum [Smola, 1998].
+Let us now more speciﬁcally consider regularization operaˆ
+tors P that may be written as multiplications in Fourier space
+(2π)n/2
+f (ω)˜(ω)
+P (ω)
+2. If we happen to know very little about the given data a
+general smoothness assumption is a reasonable choice.
+Hence we might want to choose a Gaussian kernel. If
+computing time is important one might moreover consider kernels with compact support, e.g. using the B q –
+spline kernels (cf. (32)). This choice will cause many matrix elements kij = k(xi − xj ) to vanish.
+(70)
+with f (ω) denoting the Fourier transform of f (x), and P (ω) =
+P (−ω) real valued, nonnegative and converging to 0 for
+|ω| → ∞ and Ω := supp[P (ω)]. Small values of P (ω) correspond to a strong attenuation of the corresponding frequencies. Hence small values of P (ω) for large ω are desirable since
+high frequency components of f correspond to rapid changes
+in f . P (ω) describes the ﬁlter properties of P ∗ P . Note that
+no attenuation takes place for P (ω) = 0 as these frequencies
+have been excluded from the integration domain.
+For regularization operators deﬁned in Fourier Space by
+(70) one can show by exploiting P (ω) = P (−ω) = P (ω) that
+G(xi , x) =
+eiω(xi −x) P (ω)dω
+(71)
+(2π)n/2 Rn
+The usual scenario will be in between the two extreme cases
+and we will have some limited prior knowledge available. For
+more information on using prior knowledge for choosing kernels see [Scholkopf et al., 1998a].
+7.4 Capacity Control
+All the reasoning so far was based on the assumption that
+there exist ways to determine model parameters like the regularization constant λ or length scales σ of rbf–kernels. The
+model selection issue itself would easily double the length of
+this review and moreover it is an area of active and rapidly
+moving research. Therefore we limit ourselves to a presentation of the basic concepts and refer the interested reader to the
+original publications.
+It is important to keep in mind that there exist several fundamentally different approaches such as Minimum Description Length (cf. e.g. [Rissanen, 1978, Li and Vit´ nyi, 1993])
+which is based on the idea that the simplicity of an estimate,
+and therefore also its plausibility is based on the information
+(number of bits) needed to encode it such that it can be reconstructed.
+Bayesian estimation, on the other hand, considers the
+posterior probability of an estimate, given the observations
+X = {(x1 , y1 ), . . . (x , y )}, an observation noise model, and
+a prior probability distribution p(f ) over the space of estimates (parameters). It is given by Bayes Rule p(f |X)p(X) =
+p(X|f )p(f ). Since p(X) does not depend on f , one can maximize p(X|f )p(f ) to obtain the so-called MAP estimate.10 As a
+rule of thumb, to translate regularized risk functionals into
+Bayesian MAP estimation schemes, all one has to do is to
+consider exp(−Rreg [f ]) = p(f |X). For a more detailed discussion see e.g. [Kimeldorf and Wahba, 1970, MacKay, 1991,
+Neal, 1996, Rasmussen, 1996, Williams, 1998].
+A simple yet powerful way of model selection is cross validation. This is based on the idea that the expectation of the
+error on a subset of the training sample not used during training is identical to the expected error itself. There exist several
+strategies such as 10-fold crossvalidation, leave-one out error
+( -fold crossvalidation), bootstrap and derived algorithms to
+estimate the crossvalidation error itself. See e.g. [Stone, 1974,
+Wahba, 1980, Efron, 1982, Efron and Tibshirani, 1994, Wahba,
+1999, Jaakkola and Haussler, 1999] for further details.
+is a corresponding Green’s function satisfying translational
+invariance, i.e.
+G(xi , xj ) = G(xi − xj ) and G(ω) = P (ω).
+(72)
+This provides us with an efﬁcient tool for analyzing SV kernels and the types of capacity control they exhibit. In fact the
+above is a special case of Bochner’s theorem [Bochner, 1959]
+stating that the Fourier transform of a positive measure constitutes a positive Hilbert Schmidt kernel.
+Example 12 (Gaussian kernels)
+Following the exposition of [Yuille and Grzywacz, 1988] as described in [Girosi et al., 1993], one can see that for
+X σ 2m
+(Om f (x))2
+m!2m
+(73)
+with O2m = ∆m and O2m+1 = ∇∆m , ∆ being the Laplacian and
+∇ the Gradient operator, we get Gaussians kernels (31). Moreover,
+we can provide an equivalent representation of P in terms of its
+Fourier properties, i.e. P (ω) = e−
+constant.
+σ2 ω 2
+up to a multiplicative
+Training an SV machine with Gaussian RBF kernels
+[Scholkopf et al., 1997] corresponds to minimizing the speciﬁc
+cost function with a regularization operator of type (73). Recall that (73) means that all derivatives of f are penalized (we
+have a pseudodifferential operator) to obtain a very smooth
+estimate. This also explains the good performance of SV machines in this case, as it is by no means obvious that choosing a
+ﬂat function in some high dimensional space will correspond
+to a simple function in low dimensional space, as shown in
+[Smola et al., 1998c] for Dirichlet kernels.
+The question that arises now is which kernel to choose. Let
+us think about two extreme situations.
+Strictly speaking, in Bayesian estimation one is not so much concerned
+about the maximizer f of p(f |X) but rather about the posterior distribution
+Finally, one may also use uniform convergence bounds
+such as the ones introduced by Vapnik and Chervonenkis
+[1971]. The basic idea is that one may bound with probability
+1 − η (with η > 0) the expected risk R[f ] by Remp [f ] + Φ(F, η),
+where Φ is a conﬁdence term depending on the class of functions F. Several criteria for measuring the capacity of F exist,
+such as the VC-Dimension which, in pattern recognition problems, is given by the maximum number of points that can be
+separated by the function class in all possible ways, the Covering Number which is the number of elements from F that are
+needed to cover F with accuracy of at least ε, Entropy Numbers
+which are the functional inverse of Covering Numbers, and
+many more variants thereof. See e.g. [Vapnik, 1982, 1998, Devroye et al., 1996, Williamson et al., 1998, Shawe-Taylor et al.,
+1998].
+Applications The focus of this review was on methods and
+theory rather than on applications. This was done to limit
+the size of the exposition. State of the art, or even record
+performance was reported in [Muller et al., 1997, Drucker
+et al., 1997, Stitson et al., 1999, Mattera and Haykin, 1999].
+In many cases, it may be possible to achieve similar performance with neural network methods, however, only
+if many parameters are optimally tuned by hand, thus
+depending largely on the skill of the experimenter. Certainly, SV machines are not a “silver bullet.” However,
+as they have only few critical parameters (e.g. regularization and kernel width), state-of-the-art results can be
+achieved with relatively little effort.
+8.2 Open Issues
+Conclusion
+Due to the already quite large body of work done in the ﬁeld
+of SV research it is impossible to write a tutorial on SV regression which includes all contributions to this ﬁeld. This also
+would be quite out of the scope of a tutorial and rather be relegated to textbooks on the matter (see [Scholkopf and Smola,
+2002] for a comprehensive overview, [Scholkopf et al., 1999a]
+for a snapshot of the current state of the art, [Vapnik, 1998]
+for an overview on statistical learning theory, or [Cristianini
+and Shawe-Taylor, 2000] for an introductory textbook). Still
+the authors hope that this work provides a not overly biased
+view of the state of the art in SV regression research. We deliberately omitted (among others) the following topics.
+8.1 Missing Topics
+Mathematical Programming Starting from a completely different perspective algorithms have been developed that
+are similar in their ideas to SV machines. A good primer
+might be [Bradley et al., 1998]. Also see [Mangasarian,
+1965, 1969, Street and Mangasarian, 1995]. A comprehensive discussion of connections between mathematical
+programming and SV machines has been given by Bennett [1999].
+Density Estimation with SV machines [Weston et al., 1999,
+Vapnik, 1999]. There one makes use of the fact that the cumulative distribution function is monotonically increasing, and that its values can be predicted with variable
+conﬁdence which is adjusted by selecting different values of ε in the loss function.
+Dictionaries were originally introduced in the context of
+wavelets by Chen et al. [1999] to allow for a large class of
+basis functions to be considered simultaneously, e.g. kernels with different widths. In the standard SV case this is
+hardly possible except by deﬁning new kernels as linear
+combinations of differently scaled ones: choosing the regularization operator already determines the kernel completely [Kimeldorf and Wahba, 1971, Cox and O’Sullivan,
+1990, Scholkopf et al., 2000]. Hence one has to resort to
+linear programming [Weston et al., 1999].
+Being a very active ﬁeld there exist still a number of open issues that have to be addressed by future research. After that
+the algorithmic development seems to have found a more stable stage, one of the most important ones seems to be to ﬁnd
+tight error bounds derived from the speciﬁc properties of kernel functions. It will be of interest in this context, whether SV
+machines, or similar approaches stemming from a linear programming regularizer, will lead to more satisfactory results.
+Moreover some sort of “luckiness framework” [ShaweTaylor et al., 1998] for multiple model selection parameters,
+similar to multiple hyperparameters and automatic relevance
+detection in Bayesian statistics [MacKay, 1991, Bishop, 1995],
+will have to be devised to make SV machines less dependent
+on the skill of the experimenter.
+It is also worth while to exploit the bridge between regularization operators, Gaussian processes and priors (see e.g.
+[Williams, 1998]) to state Bayesian risk bounds for SV machines in order to compare the predictions with the ones from
+VC theory. Optimization techniques developed in the context
+of SV machines also could be used to deal with large datasets
+in the Gaussian process settings.
+Prior knowledge appears to be another important question in SV regression. Whilst invariances could be included
+in pattern recognition in a principled way via the virtual SV
+mechanism and restriction of the feature space [Burges and
+Scholkopf, 1997, Scholkopf et al., 1998a], it is still not clear
+how (probably) more subtle properties, as required for regression, could be dealt with efﬁciently.
+Reduced set methods also should be considered for speeding up prediction (and possibly also training) phase for large
+datasets [Burges and Scholkopf, 1997, Osuna and Girosi, 1999,
+Scholkopf et al., 1999b, Smola and Scholkopf, 2000]. This topic
+is of great importance as data mining applications require algorithms that are able to deal with databases that are often at
+least one order of magnitude larger (1 million samples) than
+the current practical size for SV regression.
+Many more aspects such as more data dependent generalization bounds, efﬁcient training algorithms, automatic kernel
+selection procedures, and many techniques that already have
+made their way into the standard neural networks toolkit, will
+have to be considered in the future.
+Readers who are tempted to embark upon a more detailed
+∆g, ∆t, ∆z, ∆s we get
+exploration of these topics, and to contribute their own ideas
+to this exciting ﬁeld, may ﬁnd it useful to consult the web page
+www.kernel-machines.org.
+Acknowledgements
+This work has been supported in part by a grant of the DFG
+(Ja 379/71, Sm 62/1). The authors thank Peter Bartlett, Chris
+Burges, Stefan Harmeling, Olvi Mangasarian, Klaus-Robert
+Muller, Vladimir Vapnik, Jason Weston, Robert Williamson,
+and Andreas Ziehe for helpful discussions and comments.
+A Solving the Interior-Point Equations
+gi zi = µ, si ti = µ for all i ∈ [1 . . . n].
+(74)
+Still it is rather difﬁcult to solve the nonlinear system of equations (51), (52), and (74) exactly. However we are not interested in obtaining the exact solution to the approximation (74). Instead, we seek a somewhat more feasible solution for a given µ, then decrease µ and repeat. This can be
+done by linearizing the above system and solving the resulting equations by a predictor–corrector approach until the duality gap is small enough. The advantage is that we will get
+approximately equal performance as by trying to solve the
+quadratic system directly, provided that the terms in ∆ 2 are
+small enough.
+A(α + ∆α)
+c + 1 ∂α q(α) + 1 ∂α q(α)∆α − (A(y + ∆y))
+(gi + ∆gi )(zi + ∆zi )
+(si + ∆si )(ti + ∆ti )
+(A∆y) + ∆z − ∆s
+− 2 ∂α q(α)∆α
+c − (Ay) + s − z
++ 1 ∂α q(α)
+−1
+t−1 s∆t + ∆s
+µt−1 − s − t−1 ∆t∆s
+g −1 z(ˆ − ∆α)
+t−1 s(∆α − τ )
+(75)
+τ − s−1 tγs
+Now we can formulate the reduced KKT–system (see [Vanderbei, 1994] for the quadratic case):
+σ − g −1 z ν − t−1 sˆ
+−H A
+(76)
+where H := 1 ∂α q(α) + g −1 z + t−1 s .
+The rationale behind (77) is to use the average of the satisfaction of the KKT conditions (74) as point of reference and then
+decrease µ rapidly if we are far enough away from the boundaries of the positive orthant, to which all variables (except y)
+are constrained to.
+Finally one has to come up with good initial values. Analogously to [Vanderbei, 1994] we choose a regularized version
+of (76) in order to determine the initial conditions. One solves
+− 1 ∂α q(α) + 1
+(78)
+Solving for the variables in ∆ we get
+b − Aα
+For the predictor–corrector method we proceed as follows. In
+the predictor step solve the system of (75) and (76) with µ = 0
+and all ∆–terms on the rhs set to 0, i.e. γz = z, γs = s. The
+values in ∆ are substituted back into the deﬁnitions for γz
+and γs and (75) and (76) are solved again in the corrector step.
+As the quadratic part in (76) is not affected by the predictor–
+corrector steps, we only need to invert the quadratic matrix
+once. This is done best by manually pivoting for the H part,
+as it is positive deﬁnite.
+Next the values in ∆ obtained by such an iteration step are
+used to update the corresponding values in α, s, t, z, . . .. To
+ensure that the variables meet the positivity constraints, the
+steplength ξ is chosen such that the variables move at most
+1 − ε of their initial distance to the boundaries of the positive
+orthant. Usually [Vanderbei, 1994] one sets ε = 0.05.
+Another heuristic is used for computing µ, the parameter
+determining how much the KKT–conditions should be enforced. Obviously it is our aim to reduce µ as fast as possible,
+however if we happen to choose it too small, the condition
+of the equations will worsen drastically. A setting that has
+proven to work robustly is
+ξ−1
+(77)
+ξ + 10
+Rather than trying to satisfy (53) directly we will solve a modiﬁed version thereof for some µ > 0 substituted on the rhs in
+the ﬁrst place and decrease µ while iterating.
+A.2 Iteration Strategies
+A.1 Path Following
+A∆α
+z −1 g(γz − ∆z)
+s−1 t(γs − ∆s)
+and subsequently restricts the solution to a feasible set
+x = max x, 100
+g = min (α − l, u)
+t = min (u − α, u)
+” (79)
++ 100 , u
+z = min Θ 1 ∂α q (α) + c − (Ay)
+s = min Θ − 1 ∂α q (α) − c + (Ay)
+where g −1 denotes the vector (1/g1 , . . . , 1/gn ), and t analogously. Moreover denote g −1 z and t−1 s the vector generated
+by the componentwise product of the two vectors. Solving for
+and Sf := {1, . . . , }\Sw the ﬁxed set. Writing (43) as an optimization problem only in terms of Sw yields
+8 1 P
+(αi − α∗ )(αj − α∗ ) xi , xj
+> −2
+i,j∈Sw
+(αi − αi ) yi −
+(αj − α∗ ) xi , xj
+i∈Sw
+> + P (−ε (αi + α∗ ) + C (T (αi ) + T (α∗ )))
+i∈S
+( P w
+(αi − αi ) = −
+(αi − αi )
+i∈Sf
+∈ [0, C]
+(83)
+Hence we only have to update the linear term by the coupling
+(αi − α∗ )
+(αj − α∗ ) xi , xj and
+with the ﬁxed set −
+(αi − αi ). It is easy to see
+the equality constraint by −
+Θ(.) denotes the Heavyside function, i.e. Θ(x) = 1 for x > 0
+and Θ(x) = 0 otherwise.
+A.3 Special considerations for SV regression
+The algorithm described so far can be applied to both SV pattern recognition and regression estimation. For the standard
+setting in pattern recognition we have
+q(α) =
+(80)
+αi αj yi yj k(xi , xj )
+i,j=0
+and consequently ∂αi q(α) = 0, ∂αi αj q(α) = yi yj k(xi , xj ),
+i.e. the Hessian is dense and the only thing we can do
+is compute its Cholesky factorization to compute (76). In
+the case of SV regression, however we have (with α :=
+(α1 , . . . , α , α∗ , . . . , α∗ ))
+(αi −α∗ )(αj −α∗ )k(xi , xj )+2C
+T (αi )+T (α∗)
+and therefore
+∂αi q(α)
+∂αi αj q(α)
+∂αi α∗ q(α)
+T (αi )
+dαi
+k(xi , xj ) + δij dα2 T (αi )
+−k(xi , xj )
+that maximizing (83) also decreases (43) by exactly the same
+amount. If we choose variables for which the KKT–conditions
+are not satisﬁed the overall objective function tends to decrease whilst still keeping all variables feasible. Finally it is
+bounded from below.
+Even though this does not prove convergence (unlike the
+statement in Osuna et al. [1997]) this algorithm proves very
+useful in practice. It is one of the few methods (besides [Kaufman, 1999, Platt, 1999]) that can deal with problems whose
+quadratic part does not completely ﬁt into memory. Still in
+practice one has to take special precautions to avoid stalling
+of convergence (recent results of Chang et al. [1999] indicate
+that under certain conditions a proof of convergence is possible). The crucial part is the one of Sw .
+(81)
+(82)
+and ∂α∗ α∗ q(α), ∂α∗ αj q(α) analogously. Hence we are deali j
+ing with a matrix of type M :=
+D, D are diagonal matrices. By applying an orthogonal transformation M can be inverted essentially by inverting an ×
+matrix instead of a 2 × 2 system. This is exactly the additional advantage one can gain from implementing the optimization algorithm directly instead of using a general purpose optimizer. One can show that for practical implementations [Smola et al., 1998b] one can solve optimization problems using nearly arbitrary convex cost functions as efﬁciently
+as the special case of ε–insensitive loss functions.
+Finally note that due to the fact that we are solving the primal and dual optimization problem simultaneously we are
+also computing parameters corresponding to the initial SV optimization problem. This observation is useful as it allows us
+to obtain the constant term b directly, namely by setting b = y.
+See [Smola, 1998] for details.
+B.2 A Note on Optimality
+For convenience the KKT conditions are repeated in a
+slightly modiﬁed form. Denote ϕ i the error made by the current estimate at sample xi , i.e.
+k(xi , xj )(αi − αi ) + b . (84)
+ϕi := yi − f (xi ) = yi −
+Rewriting the feasibility conditions (52) in terms of α yields
+2∂αi T (αi ) + ε − ϕi + si − zi
+2∂α∗ T (α∗ ) + ε + ϕi + s∗ − zi
+(85)
+for all i ∈ {1, . . . , m} with zi , zi , si , s∗ ≥ 0. A set of dual
+feasible variables z, s is given by
+B Solving the Subset Selection Problem
+B.1 Subset Optimization Problem
+max (2∂αi T (αi ) + ε − ϕi , 0)
+− min (2∂αi T (αi ) + ε − ϕi , 0)
+max `2∂α∗ T (α∗ ) + ε + ϕi , 0´
+− min 2∂α∗ T (α∗ ) + ε + ϕi , 0
+(86)
+Consequently the KKT conditions (53) can be translated into
+We will adapt the exposition of Joachims [1999] to the case of
+regression with convex cost functions. Without loss of generality we will assume ε = 0 and α ∈ [0, C] (the other situations
+can be treated as a special case). First we will extract a reduced
+optimization problem for the working set when all other variables are kept ﬁxed. Denote Sw ⊂ {1, . . . , } the working set
+αi zi = 0
+α∗ zi = 0
+(C − αi )si = 0
+(C − α∗ )s∗ = 0
+(87)
+All variables αi , α∗ violating some of the conditions of (87)
+may be selected for further optimization. In most cases, especially in the initial stage of the optimization algorithm, this set
+of patterns is much larger than any practical size of Sw . Unfortunately [Osuna et al., 1997] contains little information on
+how to select Sw . The heuristics presented here are an adaptation of [Joachims, 1999] to regression. See also [Lin, 2001] for
+details on optimization for SVR.
+C.2 Analytic Solution for Regression
+B.3 Selection Rules
+Next one has to solve the optimization problem analytically.
+We make use of (84) and substitute the values of φi into the
+reduced optimization problem (83). In particular we use
+yi −
+(αi − α∗ )Kij = ϕi + b +
+(αi − α∗ )Kij . (91)
+Similarly to a merit function approach [El-Bakry et al., 1996]
+the idea is to select those variables that violate (85) and (87)
+most, thus contribute most to the feasibility gap. Hence one
+deﬁnes a score variable ζi by
+:= gi zi + si ti
+(88)
+= αi zi + α∗ zi + (C − αi )si + (C − α∗ )s∗
+By construction, i ζi is the size of the feasibility gap (cf. (56)
+for the case of ε–insensitive loss). By decreasing this gap, one
+approaches the the solution (upper bounded by the primal
+objective and lower bounded by the dual objective function).
+Hence, the selection rule is to choose those patterns for which
+ζi is largest. Some algorithms use
+or ζi
+max(0, γ)
+min(Ci , Cj + γ)
+max(0, −γ − Cj )
+min(Ci , −γ)
+max(0, γ − Cj )
+min(Ci , γ)
+max(0, −γ)
+min(Ci , −γ + Cj )
+Moreover with the auxiliary variables γ = αi − α∗ + αj − α∗
+and η := (Kii + Kjj − 2Kij ) one obtains the following constrained optimization problem in i (after eliminating j, ignoring terms independent of αj , α∗ and noting that this only
+holds for αi α∗ = αj α∗ = 0):
+− 2 (αi − α∗ )2 η − ε(αi + α∗ )(1 − s)
++(αi − α∗ )(φi − φj + η(αold − α∗ old ))
+α∗ Θ(zi )
+αi Θ(zi ) +
++(C − αi )Θ(si ) + (C − α∗ )Θ(si )
+Θ(αi )zi + Θ(α∗ )zi
++Θ(C − αi )si + Θ(C − α∗ )si .
+(89)
+(II)
+(III)
+(IV)
+[0, Cj ]
+αi , αj
+αi , α∗
+γ<0
+Consider the constrained optimization problem (83) for two
+indices, say (i, j). Pattern dependent regularization means
+that Ci may be different for every pattern (possibly even different for αi and α∗ ). Since at most two variables may become
+nonzero at the same time and moreover we are dealing with a
+constrained optimization problem we may express everything
+in terms of just one variable. From the summation constraint
+we obtain
+(92)
+αold + η −1 (ϕi − ϕj )
+αold + η −1 (ϕi − ϕj − 2ε)
+α∗ − η −1 (ϕi − ϕj + 2ε)
+− η −1 (ϕi − ϕj )
+C.1 Pattern Dependent Regularization
+)+(αold −α∗
+The problem is that we do not know beforehand which of the
+four quadrants (I)-(IV) contains the solution. However, by
+considering the sign of γ we can distinguish two cases: for
+γ > 0 only (I)-(III) are possible, for γ < 0 the coefﬁcients satisfy one of the cases (II)-(IV). In case of γ = 0 only (II) and (III)
+have to be considered. See also the diagram below.
+C Solving the SMO Equations
+The unconstrained maximum of (92) with respect to αi or α∗
+can be found below.
+One can see that ζi = 0, ζi = 0, and ζi = 0 mutually imply
+each other. However, only ζi gives a measure for the contribution of the variable i to the size of the feasibility gap.
+Finally, note that heuristics like assigning sticky–ﬂags (cf.
+[Burges, 1998]) to variables at the boundaries, thus effectively
+solving smaller subproblems, or completely removing the corresponding patterns from the training set while accounting for
+their couplings [Joachims, 1999] can signiﬁcantly decrease the
+size of the problem one has to solve and thus result in a noticeable speedup. Also caching [Joachims, 1999, Kowalczyk,
+2000] of already computed entries of the dot product matrix
+may have a signiﬁcant impact on the performance.
+(αi −α∗ )+(αj −α∗ ) = (αold −α∗
+γ>0
+For γ > 0 it is best to start with quadrant (I), test whether the
+unconstrained solution hits one of the boundaries L, H and
+if so, probe the corresponding adjacent quadrant (II) or (III).
+γ < 0 can be dealt with analogously.
+Due to numerical instabilities, it may happen that η < 0. In
+that case η should be set to 0 and one has to solve (92) in a
+linear fashion directly.11
+) := γ (90)
+yields
+for regression. Exploiting
+This is taking account of the fact that there may
+be only four different pairs of nonzero variables:
+(αi , αj ), (α∗ , αj ), (αi , α∗ ), and (α∗ , α∗ ). For convenience
+deﬁne an auxiliary variables s such that s = 1 in the ﬁrst and
+the last case and s = −1 otherwise.
+Negative values of η are theoretically impossible since k satisﬁes Mercer’s
+condition: 0 ≤ Φ(x i ) − Φ(xj ) 2 = Kii + Kjj − 2Kij = η.
+C.3 Selection Rule for Regression
+The calculation of the primal objective function from the
+prediction errors is straightforward. One uses
+Finally, one has to pick indices (i, j) such that the objective
+function is maximized. Again, the reasoning of SMO [Platt,
+1999, sec. 12.2.2] for classiﬁcation will be mimicked. This
+means that a two loop approach is chosen to maximize the
+objective function. The outer loop iterates over all patterns
+violating the KKT conditions, ﬁrst only over those with Lagrange multipliers neither on the upper nor lower boundary,
+and once all of them are satisﬁed, over all patterns violating
+the KKT conditions, to ensure self consistency on the complete
+dataset.12 This solves the problem of choosing i.
+Now for j: To make a large step towards the minimum, one
+looks for large steps in α i . As it is computationally expensive to compute η for all possible pairs (i, j) one chooses the
+heuristic to maximize the absolute value of the numerator in
+the expressions for α i and α∗ , i.e. |ϕi − ϕj | and |ϕi − ϕj ± 2ε|.
+The index j corresponding to the maximum absolute value is
+chosen for this purpose.
+If this heuristic happens to fail, in other words if little
+progress is made by this choice, all other indices j are looked
+at (this is what is called “second choice hierarcy” in [Platt,
+1999]) in the following way:
+(αi − α∗ )(αj − α∗ )kij = −
+(αi − α∗ )(ϕi + yi − b), (93)
+i.e. the deﬁnition of ϕi to avoid the matrix–vector multiplication with the dot product matrix.
+References
+M. A. Aizerman, E. M. Braverman, and L. I. Rozono´ r. Theoe
+retical foundations of the potential function method in pattern recognition learning. Automation and Remote Control,
+25:821–837, 1964.
+N. Aronszajn. Theory of reproducing kernels. Transactions of
+the American Mathematical Society, 68:337–404, 1950.
+M.S. Bazaraa, H.D. Sherali, and C.M. Shetty. Nonlinear Programming: Theory and Algorithms. Wiley, 2nd edition, 1993.
+R. E. Bellman. Adaptive Control Processes. Princeton University
+Press, Princeton, NJ, 1961.
+1. All indices j corresponding to non–bound examples are
+looked at, searching for an example to make progress on.
+K. Bennett. Combining support vector and mathematical
+programming methods for induction. In B. Scholkopf,
+C. J. C. Burges, and A. J. Smola, editors, Advances in Kernel Methods—SV Learning, pages 307–326, Cambridge, MA,
+1999. MIT Press.
+2. In the case that the ﬁrst heuristic was unsuccessful, all
+other samples are analyzed until an example is found
+where progress can be made.
+K. P. Bennett and O. L. Mangasarian. Robust linear programming discrimination of two linearly inseparable sets. Optimization Methods and Software, 1:23–34, 1992.
+3. If both previous steps fail proceed to the next i.
+For a more detailed discussion see [Platt, 1999]. Unlike interior point algorithms SMO does not automatically provide a
+value for b. However this can be chosen like in section 1.4 by
+having a close look at the Lagrange multipliers αi obtained.
+C. Berg, J. P. R. Christensen, and P. Ressel. Harmonic Analysis
+on Semigroups. Springer, New York, 1984.
+D. P. Bertsekas. Nonlinear Programming. Athena Scientiﬁc, Belmont, MA, 1995.
+C.4 Stopping Criteria
+C. M. Bishop. Neural Networks for Pattern Recognition. Clarendon Press, Oxford, 1995.
+By essentially minimizing a constrained primal optimization problem one cannot ensure that the dual
+objective function increases with every iteration
+Nevertheless one knows that the minimum
+step.13
+value of the objective function lies in the interval
+primal objectivei ] for all steps i, hence also
+[dual objectivei ,h
+V. Blanz, B. Scholkopf, H. Bulthoff, C. Burges, V. Vapnik, and
+T. Vetter. Comparison of view-based object recognition algorithms using realistic 3D models. In C. von der Malsburg, W. von Seelen, J. C. Vorbruggen, and B. Sendhoff, ed¨
+itors, Artiﬁcial Neural Networks ICANN’96, pages 251–256,
+Berlin, 1996. Springer Lecture Notes in Computer Science,
+Vol. 1112.
+in the interval (maxj≤i dual objectivej ), primal objectivei .
+One uses the latter to determine the quality of the current
+solution.
+S. Bochner. Lectures on Fourier integral. Princeton Univ. Press,
+Princeton, New Jersey, 1959.
+It is sometimes useful, especially when dealing with noisy data, to iterate
+over the complete KKT violating dataset already before complete self consistency on the subset has been achieved. Otherwise much computational resources are spent on making subsets self consistent that are not globally self
+consistent. This is the reason why in the pseudo code a global loop is initiated
+already when only less than 10% of the non bound variables changed.
+It is still an open question how a subset selection optimization algorithm
+could be devised that decreases both primal and dual objective function at the
+same time. The problem is that this usually involves a number of dual variables
+of the order of the sample size, which makes this attempt unpractical.
+B. E. Boser, I. M. Guyon, and V. N. Vapnik. A training algorithm for optimal margin classiﬁers. In D. Haussler, editor,
+Proceedings of the Annual Conference on Computational Learning Theory, pages 144–152, Pittsburgh, PA, July 1992. ACM
+Press.
+P. S. Bradley, U. M. Fayyad, and O. L. Mangasarian. Data mining: Overview and optimization opportunities. Technical
+Report 98-01, University of Wisconsin, Computer Sciences
+Department, Madison, January 1998. INFORMS Journal on
+Computing, to appear.
+V. Cherkassky and F. Mulier. Learning from Data. John Wiley
+and Sons, New York, 1998.
+P. S. Bradley and O. L. Mangasarian.
+Feature selection via concave minimization and support vector machines. In J. Shavlik, editor, Proceedings of the International Conference on Machine Learning, pages 82–90, San
+Francisco, California, 1998. Morgan Kaufmann Publishers.
+ftp://ftp.cs.wisc.edu/math-prog/tech-reports/98-03.ps.Z.
+D. Cox and F. O’Sullivan. Asymptotic analysis of penalized
+likelihood and related estimators. Annals of Statistics, 18:
+1676–1695, 1990.
+C. Cortes and V. Vapnik. Support vector networks. Machine
+Learning, 20:273–297, 1995.
+CPLEX Optimization Inc. Using the CPLEX callable library.
+Manual, 1994.
+N. Cristianini and J. Shawe-Taylor. An Introduction to Support
+Vector Machines. Cambridge University Press, Cambridge,
+UK, 2000.
+J. R. Bunch and L. Kaufman. Some stable methods for calculating inertia and solving symmetric linear systems. Mathematics of Computation, 31:163–179, 1977.
+J. R. Bunch and L. Kaufman. A computational method for the
+indeﬁnite quadratic programming problem. Linear Algebra
+and Its Applications, pages 341–370, December 1980.
+Nello Cristianini, Colin Campbell, and John Shawe-Taylor.
+Multiplicative updatings for support vector learning. NeuroCOLT Technical Report NC-TR-98-016, Royal Holloway
+College, 1998.
+J. R. Bunch, L. Kaufman, and B. Parlett. Decomposition of a
+symmetric matrix. Numerische Mathematik, 27:95–109, 1976.
+G B Dantzig. Linear Programming and Extensions. Princeton
+Univ. Press, Princeton, NJ, 1962.
+C. J. C. Burges. Simpliﬁed support vector decision rules. In
+L. Saitta, editor, Proceedings of the International Conference on
+Machine Learning, pages 71–77, San Mateo, CA, 1996. Morgan Kaufmann Publishers.
+L. Devroye, L. Gyorﬁ, and G. Lugosi. A Probabilistic Theory of
+Pattern Recognition. Number 31 in Applications of mathematics. Springer, New York, 1996.
+H. Drucker, C. J. C. Burges, L. Kaufman, A. Smola, and V. Vapnik. Support vector regression machines. In M. C. Mozer,
+M. I. Jordan, and T. Petsche, editors, Advances in Neural Information Processing Systems 9, pages 155–161, Cambridge,
+MA, 1997. MIT Press.
+C. J. C. Burges. A tutorial on support vector machines for
+pattern recognition. Data Mining and Knowledge Discovery, 2
+(2):121–167, 1998.
+C. J. C. Burges. Geometry and invariance in kernel based
+methods. In B. Scholkopf, C. J. C. Burges, and A. J. Smola,
+editors, Advances in Kernel Methods—Support Vector Learning, pages 89–116, Cambridge, MA, 1999. MIT Press.
+B. Efron. The jacknife, the bootstrap, and other resampling
+plans. SIAM, Philadelphia, 1982.
+B. Efron and R. J. Tibshirani. An Introduction to the Bootstrap.
+Chapman and Hall, New York, 1994.
+C. J. C. Burges and B. Scholkopf. Improving the accuracy and
+speed of support vector learning machines. In M. C. Mozer,
+M. I. Jordan, and T. Petsche, editors, Advances in Neural Information Processing Systems 9, pages 375–381, Cambridge,
+A. El-Bakry, R. Tapia, R. Tsuchiya, and Y. Zhang. On the formulation and theory of the Newton interior-point method
+for nonlinear programming. J. Optimization Theory and Applications, 89:507–541, 1996.
+A. Chalimourda, B. Scholkopf, and A. J. Smola. Choosing ν
+in support vector regression with different noise models—
+theory and experiments. In Proceedings IEEE-INNS-ENNS
+International Joint Conference on Neural Networks (IJCNN
+2000), Como, Italy, 2000.
+R. Fletcher. Practical Methods of Optimization. John Wiley and
+Sons, New York, 1989.
+F. Girosi. An equivalence between sparse approximation and
+support vector machines. Neural Computation, 10(6):1455–
+1480, 1998.
+C.-C. Chang, C.-W. Hsu, and C.-J. Lin. The analysis of decomposition methods for support vector machines. In Proceeding of IJCAI99, SVM workshop, 1999.
+F. Girosi, M. Jones, and T. Poggio. Priors, stabilizers and basis functions: From regularization to radial, tensor and additive splines. A.I. Memo No. 1430, Artiﬁcial Intelligence
+Laboratory, Massachusetts Institute of Technology, 1993.
+C.C. Chang and C.J. Lin. Training ν-support vector classiﬁers: Theory and algorithms. Neural Computation, 13(9):
+2119–2147, 2001.
+I. Guyon, B. Boser, and V. Vapnik. Automatic capacity tuning
+of very large VC-dimension classiﬁers. In S. J. Hanson, J. D.
+Cowan, and C. L. Giles, editors, Advances in Neural Information Processing Systems 5, pages 147–155. Morgan Kaufmann
+Publishers, 1993.
+S. Chen, D. Donoho, and M. Saunders. Atomic decomposition
+by basis pursuit. Siam Journal of Scientiﬁc Computing, 20(1):
+33–61, 1999.
+W. H¨ rdle. Applied nonparametric regression, volume 19 of
+Econometric Society Monographs. Cambridge University
+Press, 1990.
+A. Kowalczyk. Maximal margin perceptron. In A. J. Smola,
+P. L. Bartlett, B. Scholkopf, and D. Schuurmans, editors, Ad¨
+vances in Large Margin Classiﬁers, pages 75–113, Cambridge,
+MA, 2000. MIT Press.
+T. J. Hastie and R. J. Tibshirani. Generalized Additive Models,
+volume 43 of Monographs on Statistics and Applied Probability.
+Chapman and Hall, London, 1990.
+H. W. Kuhn and A. W. Tucker. Nonlinear programming. In
+Proc. 2nd Berkeley Symposium on Mathematical Statistics and
+Probabilistics, pages 481–492, Berkeley, 1951. University of
+California Press.
+S. Haykin. Neural Networks : A Comprehensive Foundation.
+Macmillan, New York, 1998. 2nd edition.
+M. A. Hearst, B. Scholkopf, S. Dumais, E. Osuna, and J. Platt.
+Trends and controversies—support vector machines. IEEE
+Intelligent Systems, 13:18–28, 1998.
+Y.J. Lee and O.L. Mangasarian. SSVM: A smooth support vector machine for classiﬁcation. Computational optimization and
+Applications, 20(1):5–22, 2001.
+R. Herbrich. Learning Kernel Classiﬁers: Theory and Algorithms.
+MIT Press, 2002.
+M. Li and P. Vit´ nyi. An introduction to Kolmogorov Complexa
+ity and its applications. Texts and Monographs in Computer
+Science. Springer, New York, 1993.
+P. J. Huber. Robust statistics: a review. Annals of Statistics, 43:
+1041, 1972.
+C.J. Lin. On the convergence of the decomposition method
+for support vector machines. IEEE Transactions on Neural
+Networks, 12(6):1288–1298, 2001.
+P. J. Huber. Robust Statistics. John Wiley and Sons, New York,
+1981.
+I. J. Lustig, R. E. Marsten, and D. F. Shanno. On implementing Mehrotra’s predictor-corrector interior point method
+for linear programming. Princeton Technical Report SOR
+90-03., Dept. of Civil Engineering and Operations Research,
+Princeton University, 1990.
+IBM Corporation. IBM optimization subroutine library guide
+and reference. IBM Systems Journal, 31, 1992. SC23-0519.
+T. S. Jaakkola and D. Haussler. Probabilistic kernel regression
+models. In Proceedings of the 1999 Conference on AI and Statistics, 1999.
+for linear programming. SIAM Journal on Optimization, 2
+(3):435–449, 1992.
+T. Joachims. Making large-scale SVM learning practical. In
+B. Scholkopf, C. J. C. Burges, and A. J. Smola, editors,
+Advances in Kernel Methods—Support Vector Learning, pages
+169–184, Cambridge, MA, 1999. MIT Press.
+D. J. C. MacKay. Bayesian Methods for Adaptive Models. PhD
+thesis, Computation and Neural Systems, California Institute of Technology, Pasadena, CA, 1991.
+W. Karush. Minima of functions of several variables with
+inequalities as side constraints. Master’s thesis, Dept. of
+Mathematics, Univ. of Chicago, 1939.
+O. L. Mangasarian. Linear and nonlinear separation of patterns by linear programming. Operations Research, 13:444–
+452, 1965.
+L. Kaufman. Solving the quadratic programming problem
+arising in support vector classiﬁcation. In B. Scholkopf,
+C. J. C. Burges, and A. J. Smola, editors, Advances in Kernel Methods—Support Vector Learning, pages 147–168, Cambridge, MA, 1999. MIT Press.
+O. L. Mangasarian. Multi-surface method of pattern separation. IEEE Transactions on Information Theory, IT-14:801–807,
+1968.
+S. S. Keerthi, S. K. Shevade, C. Bhattacharyya, and K. R. K.
+Murthy. Improvements to Platt’s SMO algorithm for SVM
+classiﬁer design. Technical Report CD-99-14, Dept. of Mechanical and Production Engineering, Natl. Univ. Singapore, Singapore, 1999.
+O. L. Mangasarian. Nonlinear Programming. McGraw-Hill,
+New York, 1969.
+S.S. Keerthi, S.K. Shevade, C. Bhattacharyya, and K.R.K.
+Murty. Improvements to platt’s SMO algorithm for SVM
+classiﬁer design. Neural Computation, 13:637–649, 2001.
+D. Mattera and S. Haykin. Support vector machines for dynamic reconstruction of a chaotic system. In B. Scholkopf,
+C. J. C. Burges, and A. J. Smola, editors, Advances in Kernel Methods—Support Vector Learning, pages 211–242, Cambridge, MA, 1999. MIT Press.
+G. S. Kimeldorf and G. Wahba. A correspondence between
+Bayesian estimation on stochastic processes and smoothing by splines. Annals of Mathematical Statistics, 41:495–502,
+1970.
+G. P. McCormick. Nonlinear Programming: Theory, Algorithms,
+and Applications. John Wiley and Sons, New York, 1983.
+N. Megiddo. Progressin Mathematical Programming, chapter
+Pathways to the optimal set in linear programming, pages
+131–158. Springer, New York, NY, 1989.
+G. S. Kimeldorf and G. Wahba. Some results on Tchebychefﬁan spline functions. J. Math. Anal. Applic., 33:82–95, 1971.
+S. Mehrotra and J. Sun. On the implementation of a (primaldual) interior point method. SIAM Journal on Optimization,
+2(4):575–601, 1992.
+J. Rissanen. Modeling by shortest data description. Automatica, 14:465–471, 1978.
+S. Saitoh. Theory of Reproducing Kernels and its Applications.
+Longman Scientiﬁc & Technical, Harlow, England, 1988.
+J. Mercer. Functions of positive and negative type and their
+connection with the theory of integral equations. Philosophical Transactions of the Royal Society, London, A 209:415–446,
+1909.
+C. A. Micchelli. Algebraic aspects of interpolation. Proceedings
+of Symposia in Applied Mathematics, 36:81–102, 1986.
+C. Saunders, M. O. Stitson, J. Weston, L. Bottou, B. Scholkopf,
+and A. Smola. Support vector machine—reference manual.
+Technical Report CSD-TR-98-03, Department of Computer
+Science, Royal Holloway, University of London, Egham,
+UK, 1998. SVM available at http://svm.dcs.rhbnc.ac.uk/.
+V. A. Morozov. Methods for Solving Incorrectly Posed Problems.
+Springer, 1984.
+I. Schoenberg. Positive deﬁnite functions on spheres. Duke
+Math. J., 9:96–108, 1942.
+K.-R. Muller, A. Smola, G. R¨ tsch, B. Scholkopf, J. Kohlmor¨
+gen, and V. Vapnik. Predicting time series with support vector machines. In W. Gerstner, A. Germond, M. Hasler, and
+J.-D. Nicoud, editors, Artiﬁcial Neural Networks ICANN’97,
+pages 999–1004, Berlin, 1997. Springer Lecture Notes in
+Computer Science, Vol. 1327.
+B. Scholkopf. Support Vector Learning. R. Oldenbourg Ver¨
+lag, Munchen, 1997. Doktorarbeit, TU Berlin. Download:
+http://www.kernel-machines.org.
+B. Scholkopf, C. Burges, and V. Vapnik. Extracting support
+data for a given task. In U. M. Fayyad and R. Uthurusamy,
+editors, Proceedings, First International Conference on Knowledge Discovery & Data Mining, Menlo Park, 1995. AAAI
+B. A. Murtagh and M. A. Saunders. MINOS 5.1 user’s
+guide. Technical Report SOL 83-20R, Stanford University,
+CA, USA, 1983. Revised 1987.
+B. Scholkopf, C. Burges, and V. Vapnik. Incorporating invari¨
+ances in support vector learning machines. In C. von der
+Malsburg, W. von Seelen, J. C. Vorbruggen, and B. Sendhoff,
+editors, Artiﬁcial Neural Networks ICANN’96, pages 47–52,
+R. Neal. Bayesian Learning in Neural Networks. Springer, 1996.
+N. J. Nilsson. Learning machines: Foundations of Trainable Pattern Classifying Systems. McGraw-Hill, 1965.
+H. Nyquist. Certain topics in telegraph transmission theory.
+Trans. A.I.E.E., pages 617–644, 1928.
+B. Scholkopf, C. J. C. Burges, and A. J. Smola, editors. Advances
+in Kernel Methods—Support Vector Learning. MIT Press, Cambridge, MA, 1999a.
+E. Osuna, R. Freund, and F. Girosi. An improved training algorithm for support vector machines. In J. Principe, L. Gile,
+N. Morgan, and E. Wilson, editors, Neural Networks for Signal Processing VII—Proceedings of the 1997 IEEE Workshop,
+pages 276–285, New York, 1997. IEEE.
+B. Scholkopf, R. Herbrich, A. J. Smola, and R. C. Williamson.
+A generalized representer theorem. Technical Report 200081, NeuroCOLT, 2000. To appear in Proceedings of the Annual
+Conference on Learning Theory 2001.
+E. Osuna and F. Girosi. Reducing the run-time complexity in
+support vector regression. In B. Scholkopf, C. J. C. Burges,
+and A. J. Smola, editors, Advances in Kernel Methods—
+Support Vector Learning, pages 271–284, Cambridge, MA,
+B. Scholkopf, S. Mika, C. Burges, P. Knirsch, K.-R. Muller,
+G. R¨ tsch, and A. Smola. Input space vs. feature space
+in kernel-based methods. IEEE Transactions on Neural Networks, 10(5):1000–1017, 1999b.
+Z. Ovari. Kernels, eigenvalues and support vector machines.
+Honours thesis, Australian National University, Canberra,
+2000.
+B. Scholkopf, J. Platt, J. Shawe-Taylor, A. J. Smola, and R. C.
+Williamson. Estimating the support of a high-dimensional
+distribution. Neural Computation, 13(7), 2001.
+J. Platt.
+Fast training of support vector machines using sequential minimal optimization. In B. Scholkopf,
+C. J. C. Burges, and A. J. Smola, editors, Advances in Kernel Methods—Support Vector Learning, pages 185–208, Cambridge, MA, 1999. MIT Press.
+B. Scholkopf, P. Simard, A. Smola, and V. Vapnik. Prior knowl¨
+edge in support vector kernels. In M. I. Jordan, M. J. Kearns,
+and S. A. Solla, editors, Advances in Neural Information Processing Systems 10, pages 640–646, Cambridge, MA, 1998a.
+MIT Press.
+T. Poggio. On optimal nonlinear associative recall. Biological
+Cybernetics, 19:201–209, 1975.
+B. Scholkopf, A. Smola, and K.-R. Muller. Nonlinear compo¨
+nent analysis as a kernel eigenvalue problem. Neural Computation, 10:1299–1319, 1998b.
+C. Rasmussen. Evaluation of Gaussian Processes and Other
+Methods for Non-Linear Regression. PhD thesis, Department of Computer Science, University of Toronto, 1996.
+ftp://ftp.cs.toronto.edu/pub/carl/thesis.ps.gz.
+B. Scholkopf, A. Smola, R. C. Williamson, and P. L. Bartlett.
+New support vector algorithms. Neural Computation, 12:
+1207–1245, 2000.
+B. Scholkopf and A. J. Smola. Learning with Kernels. MIT Press,
+2002.
+A. J. Smola and B. Scholkopf. Sparse greedy matrix approxi¨
+mation for machine learning. In P. Langley, editor, Proceedings of the International Conference on Machine Learning, pages
+911–918, San Francisco, 2000. Morgan Kaufmann Publishers.
+B. Scholkopf, K. Sung, C. Burges, F. Girosi, P. Niyogi, T. Pog¨
+gio, and V. Vapnik. Comparing support vector machines
+with Gaussian kernels to radial basis function classiﬁers.
+IEEE Transactions on Signal Processing, 45:2758–2765, 1997.
+M. Stitson, A. Gammerman, V. Vapnik, V. Vovk, C. Watkins,
+and J. Weston. Support vector regression with ANOVA decomposition kernels. In B. Scholkopf, C. J. C. Burges, and
+A. J. Smola, editors, Advances in Kernel Methods—Support
+Vector Learning, pages 285–292, Cambridge, MA, 1999. MIT
+C. E. Shannon. A mathematical theory of communication. Bell
+System Technical Journal, 27:379–423, 623–656, 1948.
+John Shawe-Taylor, Peter L. Bartlett, Robert C. Williamson,
+and Martin Anthony. Structural risk minimization over
+data-dependent hierarchies. IEEE Transactions on Information Theory, 44(5):1926–1940, 1998.
+C. J. Stone. Additive regression and other nonparametric
+models. Annals of Statistics, 13:689–705, 1985.
+A. Smola, N. Murata, B. Scholkopf, and K.-R. Muller. Asymp¨
+totically optimal choice of ε-loss for support vector machines. In L. Niklasson, M. Bod´ n, and T. Ziemke, editors,
+Proceedings of the International Conference on Artiﬁcial Neural
+Networks, Perspectives in Neural Computing, pages 105–
+110, Berlin, 1998a. Springer.
+M. Stone. Cross-validatory choice and assessment of statistical predictors(with discussion). Journal of the Royal Statistical
+Society, B36:111–147, 1974.
+W. N. Street and O. L. Mangasarian. Improved generalization
+via tolerant training. Technical Report MP-TR-95-11, University of Wisconsin, Madison, 1995.
+A. Smola, B. Scholkopf, and K.-R. Muller. The connection be¨
+tween regularization operators and support vector kernels.
+Neural Networks, 11:637–649, 1998b.
+Andrey N. Tikhonov and Vasiliy Y. Arsenin. Solution of Illposed problems. V. H. Winston and Sons, 1977.
+A. Smola, B. Scholkopf, and K.-R. Muller. General cost func¨
+tions for support vector regression. In T. Downs, M. Frean,
+and M. Gallagher, editors, Proc. of the Ninth Australian Conf.
+on Neural Networks, pages 79–83, Brisbane, Australia, 1998c.
+University of Queensland.
+Micheal E. Tipping. The relevance vector machine. In S. A.
+Solla, T. K. Leen, and K.-R. Muller, editors, Advances in Neu¨
+ral Information Processing Systems 12, pages 652–658, Cambridge, MA, 2000. MIT Press.
+A. Smola, B. Scholkopf, and G. R¨ tsch. Linear programs for
+automatic accuracy control in regression. In Ninth International Conference on Artiﬁcial Neural Networks, Conference
+Publications No. 470, pages 575–580, London, 1999. IEE.
+R. J. Vanderbei. LOQO: An interior point code for quadratic
+programming. TR SOR-94-15, Statistics and Operations Research, Princeton Univ., NJ, 1994.
+A. J. Smola. Regression estimation with support vector
+learning machines. Diplomarbeit, Technische Universit¨ t
+Munchen, 1996.
+R. J. Vanderbei.
+LOQO user’s manual—version 3.10.
+Technical Report SOR-97-08, Princeton University, Statistics and Operations Research, 1997. Code available at
+http://www.princeton.edu/˜rvdb/.
+A. J. Smola. Learning with Kernels. PhD thesis, Technische Universit¨ t Berlin, 1998. GMD Research Series No. 25.
+V. Vapnik. The Nature of Statistical Learning Theory. Springer,
+New York, 1995.
+A. J. Smola, A. Elisseeff, B. Scholkopf, and R. C. Williamson.
+Entropy numbers for convex combinations and MLPs. In
+A. J. Smola, P. L. Bartlett, B. Scholkopf, and D. Schuurmans,
+editors, Advances in Large Margin Classiﬁers, pages 369–387,
+Cambridge, MA, 2000. MIT Press.
+V. Vapnik. Statistical Learning Theory. John Wiley and Sons,
+New York, 1998.
+V. Vapnik. Three remarks on the support vector method of
+function estimation. In B. Scholkopf, C. J. C. Burges, and
+Vector Learning, pages 25–42, Cambridge, MA, 1999. MIT
+´ a
+A. J. Smola, Z. L. Ov´ ri, and R. C. Williamson. Regularization
+with dot-product kernels. In T. K. Leen, T. G. Dietterich, and
+V. Tresp, editors, Advances in Neural Information Processing
+Systems 13, pages 308–314. MIT Press, 2001.
+V. Vapnik and A. Chervonenkis. A note on one class of perceptrons. Automation and Remote Control, 25, 1964.
+A. J. Smola and B. Scholkopf. On a kernel-based method for
+pattern recognition, regression, approximation and operator inversion. Algorithmica, 22:211–231, 1998a.
+V. Vapnik and A. Chervonenkis. Theory of Pattern Recognition
+[in Russian]. Nauka, Moscow, 1974. (German Translation:
+W. Wapnik & A. Tscherwonenkis, Theorie der Zeichenerkennung, Akademie-Verlag, Berlin, 1979).
+A. J. Smola and B. Scholkopf. A tutorial on support vector
+regression. NeuroCOLT Technical Report NC-TR-98-030,
+Royal Holloway College, University of London, UK, 1998b.
+V. Vapnik, S. Golowich, and A. Smola. Support vector method
+for function approximation, regression estimation, and signal processing. In M. C. Mozer, M. I. Jordan, and T. Petsche,
+editors, Advances in Neural Information Processing Systems 9,
+pages 281–287, Cambridge, MA, 1997. MIT Press.
+V. Vapnik and A. Lerner. Pattern recognition using generalized portrait method. Automation and Remote Control, 24:
+774–780, 1963.
+V. N. Vapnik. Estimation of Dependences Based on Empirical Data.
+Springer, Berlin, 1982.
+V. N. Vapnik and A. Y. Chervonenkis. On the uniform convergence of relative frequencies of events to their probabilities.
+Theory of Probability and its Applications, 16(2):264–281, 1971.
+G. Wahba. Spline bases, regularization, and generalized crossvalidation for solving approximation problems with large
+quantities of noisy data. In J. Ward and E. Cheney, editors,
+Proceedings of the International Conference on Approximation
+theory in honour of George Lorenz, pages 8–10, Austin, TX,
+1980. Academic Press.
+G. Wahba. Spline Models for Observational Data, volume 59 of
+CBMS-NSF Regional Conference Series in Applied Mathematics.
+SIAM, Philadelphia, 1990.
+G. Wahba. Support vector machines, reproducing kernel
+Hilbert spaces and the randomized GACV. In B. Scholkopf,
+C. J. C. Burges, and A. J. Smola, editors, Advances in Kernel
+Methods—Support Vector Learning, pages 69–88, Cambridge,
+MA, 1999. MIT Press.
+J. Weston, A. Gammerman, M. Stitson, V. Vapnik, V. Vovk,
+and C. Watkins. Support vector density estimation. In
+293–306, Cambridge, MA, 1999. MIT Press.
+C. K. I. Williams. Prediction with Gaussian processes: From
+linear regression to linear prediction and beyond. In M. I.
+Jordan, editor, Learning and Inference in Graphical Models,
+pages 599–621. Kluwer Academic, 1998.
+R. C. Williamson, A. J. Smola, and B. Scholkopf. Gen¨
+eralization performance of regularization networks and
+support vector machines via entropy numbers of compact operators.
+Technical Report 19, NeuroCOLT,
+http://www.neurocolt.com, 1998. Accepted for publication
+in IEEE Transactions on Information Theory.
+A. Yuille and N. Grzywacz. The motion coherence theory. In
+Proceedings of the International Conference on Computer Vision,
+pages 344–354, Washington, D.C., December 1988. IEEE
+Computer Society Press.

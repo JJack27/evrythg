@@ -1,0 +1,953 @@
+Proceedings of the 2007 IEEE International Symposium on
+Computational Intelligence in Robotics and Automation
+Jacksonville, FL, USA, June 20-23, 2007
+
+ThAT1.3
+
+Local Online Support Vector Regression for Learning Control
+Younggeun Choi, Shin-Young Cheong, and Nicolas Schweighofer
+learning control problems, which require very short sampling
+time. Thus, because of this limitation, only batch SVR has
+been used in robotics [4] [5] [6]. On-line learning however,
+because it allows learning as soon as a new data becomes
+available, has the potential to considerably speed up learning
+compared to batch learning, which learns only after collecting
+data after one task trial. Therefore, robotics learning control
+could considerably benefit from a fast online SVR method.
+Here, we propose a new Local online SVR for Learning
+control, or LoSVR, that allows real-time learning problem in
+low-level robot control. As LoSVR uses only local data
+points near the operation point, it dramatically decrease the
+training time compared to SVR. Further, because in learning
+control problems, the local data near the operating point are
+more important than distant data [10], learning performance
+is minimally degraded compared to SVR.
+In the following, we introduce online SVR and discuss
+similarities and differences with other machine learning
+algorithms for learning control. Next, we describe how we
+incorporate LoSVR in feed-forward learning controller, and
+detail the implementation of local windowing. We then
+demonstrate the feasibility and merits of our approach both in
+simulation, in the control of a two-joint arm, and
+experimentally in the control of a one-link real robot.
+
+Abstract—Support vector regression (SVR) is a class of
+machine learning technique that has been successfully applied
+to low-level learning control in robotics. Because of the large
+amount of computation required by SVR, however, most studies
+have used a batch mode. Although a recently developed online
+form of SVR shows faster learning performance than batch
+SVR, the amount of computation required by online SVR
+prevent its use in real-time robot learning control, which
+requires short sampling time. Here, we present a novel method,
+Local online SVR for Learning control, or LoSVR, that extends
+online SVR with a windowing method. We demonstrate the
+performance of LoSVR in learning the inverse dynamics of both
+a simulated two-joint robot and a real one-link robot arm. Our
+results show that, in both cases, LoSVR can learn the inverse
+dynamics on-line faster and with a better accuracy than batch
+SVR.
+
+I. INTRODUCTION
+
+SUPPORT Vector Machine (SVM) is a relatively new
+machine learning technique in the framework of
+structural risk minimization, exhibits excellent performance
+in some hard classification problems [1], [2]. Because SVM
+simultaneously minimizes classification error and models
+complexity by maximizing the classification margin, it does
+not suffer from overfitting, and has good generalization
+ability. Another attractive property of SVM, compared to
+other machine learning techniques like neural networks, is
+that it has very few free parameters. Since the introduction of
+SVR, the regression version SVM, [3], the robotics
+community has started to adopt this methodology [4] [5] [6].
+However, in spite of solid theoretic background and potential
+applicability, SVR has not enjoyed widespread adoption
+because of the large amount of computation required. Unlike
+neural nets, which can be updated on-line, SVR training is
+slow because it is basically a batch method: the support
+vectors are determined from all the data points using an
+optimization theory [7]. To solve this limitation, an online
+SVR has recently been introduced [8] [9]. Although online
+SVR outperformed batch SVR in a number of time series
+problems [9], it is not fast enough to be applied to real-time
+
+II. ONLINE SUPPORT VECTOR REGRESSION
+A. SVR Formulation
+Suppose we have
+
+set
+
+of
+
+training
+
+samples
+
+n
+
+following constructs a linear regression function
+
+y = wT ϕ ( x) + b
+
+(1)
+
+Here, ϕ ( x ) transforms the input w into a new feature
+space. w is a weight vector in a feature space. In order to
+obtain w and b in equation (1) for regression, we should solve
+an optimization problem
+
+min P =
+w ,b
+
+l
+1 T
+w w + C ∑ (ξi + ξi* )
+2
+i =1
+
+s.t. yi − ( wT ϕ ( x) + b) ≤ ε + ξi
+
+Manuscript received Jan 31, 2007.
+Younggeun Choi is with the Department of Computer Science, Los
+Angeles, CA 90089 USA (corresponding author to provide phone:
+323-442-1270; fax: 323-442-1515; e-mail: younggch@usc.edu).
+Shin-Young Cheong is with the Department of Electrical Engineering,
+University of Southern California, Los Angeles, CA 90089 USA (e-mail:
+sycheong@usc.edu).
+Nicolas Schweighofer is with the Biokinesiology Department and the
+Department of Computer Science, University of Southern California, Los
+Angeles, CA 90089 USA (e-mail: schweigh@ usc.edu)..
+
+1-4244-0790-7/07/$20.00 ©2007 IEEE.
+
+a
+
+{xi , y } where xi ∈ R , yi ∈ R . For an integer i , the
+l
+i i =1
+
+( w ϕ ( x) + b) − yi ≤ ε + ξ
+T
+
+(2)
+
+*
+i
+
+ξi , ξi* ≥ 0, i = 1...l
+where C denotes a regularization parameter by which the
+designer can determine how much an error of estimation is
+penalized relative to the punishment of large weights.
+13
+
+ThAT1.3
+(*)
+
+The ξ i
+
+can change the memberships of the data points. The
+procedure for adding one new vector is
+1. Set the coefficient β c = 0 of the new sample xc.
+
+represents the distance from the approximation to
+
+the actual sample decreased by the allowed error ε.
+By dual theory and Lagrangian multipliers, we can
+reformulate equation (2) as
+l
+
+1
+Qij (α i − α i* )(α j − α *j )
+∑∑
+2 i =1 j =1
+
+min D =
+w ,b
+
+l
+
+l
+
+i =1
+
+i =1
+
+3. If g c <= 0,
+*
+
+increase β c , updating g i , β i in S and g i , g i in E, R until
+
++ ε ∑ (α i + α i* ) − ∑ yi (α i − α i* )
+s.t. 0 ≤ α i , α i* ≤ C
+l
+
+∑ (α
+i =1
+
+where
+
+*
+
+2. If g c > 0 and g c >0, xc is added to R and exit.
+
+l
+
+i
+
+Qij
+
+one of the following conditions holds:
+- g c = 0: add xc to S, update the matrix Q-1 and exit;
+
+(3)
+
+i = 1,..., l ,
+
+- βc = C: add xc to E and exit;
+- One vector in S,E, E* or R may migrate:
+Update set membership and update Q-1 matrix
+
+− α i* ) = 0
+is
+
+the
+
+*
+
+positive-definite
+
+kernel
+
+Else if g c <= 0
+
+matrix
+
+*
+
+decrease β c , updating β c in S and g i , g i in E, R until
+
+Qij = K ( xi , x j ) , which may be linear, polynomial, radial
+basis function and others that satisfy Mercer’s condition [11].
+*
+
+one of the following conditions holds:
+*
+
+- g c = 0: add xc to S, update the matrix Q-1 and exit;
+
+*
+
+Given the solution α i , α i for equation (3), the regression
+
+- β c = -C: add xc to E* and exit;
+
+equation (1) can be rewritten as
+
+- One vector in S,E,E* or R may migrate:
+update set membership and update Q-1 matrix
+End if
+4. Return to 3
+
+l
+
+y = ∑ (α − α * )K ( xi , x) + b
+
+(4)
+
+i =1
+
+B. Online SVR basic
+With Lagrangian formulation of equation (3) and the
+Karush-Kuhn-Tucker (KKT) conditions, we can divide the
+whole training samples into the following sets: margin
+support vectors S, error support vectors E, error star support
+vectors E* and remaining vectors R
+
+2ε < g i ,
+
+gi* < 0,
+
+gi = 2ε ,
+
+gi* = 0,
+
+0 < g i < 2ε , 0 < gi* < 2ε ,
+0 = gi ,
+
+gi* = 2ε ,
+
+gi < 0,
+
+gi* > 2ε ,
+
+βi = −C ,
+
+The Q-1 matrix is recursively updated similarly to online
+recursive estimation of the covariance of sparsified Gaussian
+processes [12]. The procedure for removing one vector is
+similar to the above adding one vector. These two actions are
+used for LoSVR whenever we need to add or remove a new
+data point from or to a local window set of LoSVR training. A
+more detailed description of online SVR can be found in [8],
+[9].
+
+i ∈ E*
+
+− C < βi < 0, i ∈ S
+
+βi = 0,
+
+i∈R
+
+C. Comparison with Other Machine Learning Methods
+First, SVR has a solid theoretical foundation in the form of
+the Structural Minimization Principle [11] compared with a
+neural network approaches, which have some difficulties in
+how to determine their structures. Second, there are only two
+parameters to set for online SVR: the regularization
+coefficient C, and the error tolerance ε. The regularization
+coefficient C compromises between the approximation error
+and the generalization error. When C increases, the
+approximation error using the training data becomes smaller.
+At the same time, the generalization error tends to increase.
+The error tolerance determines the accuracy for the regression
+model. The fact that there are only two parameters to set has
+an advantage over neural network and locally weighted
+learning. As in equation (4), online SVR can use kernel
+method to transform the input space into the feature space.
+This is similar to the neural network and locally weighted
+learning.
+While neural network incrementally updates the weight
+vectors with error back propagation, normal SVR searches
+
+(5)
+
+0 < βi < C , i ∈ S
+
+βi = C ,
+
+i∈E
+
+where
+
+β i = (α i − α i* )
+gi = y − yi + ε
+
+(6)
+
+g = 2ε − gi
+*
+i
+
+There are two basic actions, adding one new vector and
+removing one vector in online SVR. For adding one new
+vector, as the new sample xc is available, we can classify the
+new sample into one of the above five cases according to the
+value of g c . If it is classified into the R set, it means that the
+current regression model can predict the new sample
+correctly, so parameters do not have to be updated and the
+regression model is maintained. However, if it is classified
+into the E set, it will change the parameters like g i , β i , and it
+14
+
+ThAT1.3
+
+LoSVR
+(Feedforward
+Controller )
+
+yd +
+−
+
+uff
++
++
+
+Feedback
+Controller ufb
+
+ufb+uff
+
+y
+
+Plant
+
+target
+
+y
+
+q2f
+q1f
+o
+
+Fig. 1. Control Scheme with LoSVR for learning of the inverse
+dynamics of the plant.
+
+x
+
+q1s
+q2s
+
+for the support vectors over all the data points with
+optimization theory. This causes the large computational load
+and makes the SVR method slower compared with other
+methods. Even online SVR needs much more computation
+than neural network if the number of data points increases.
+
+Fig. 2. Two-joint arm for numerical simulation study. Task is to reach
+from origin to target. Start position vector of joint space is (q1s,q2s), and
+final position vector of joint space at target is (q1f,q2f)
+
+III. LEARNING CONTROL WITH ONLINE SVR
+
+A. Learning Control Scheme
+Our control scheme for learning the inverse dynamics of a
+robot arm is described in figure 1. A composite controller
+combines a feed-forward controller and a classical PD
+feedback controller. A trajectory generator (TG) generates a
+smooth desired trajectory (such as minimum jerk) based on
+start position, target position, and movement time. The
+LoSVR controller is a feed-forward controller that learns how
+to predict the feed-forward control signal uff from the desired
+motion after learning, that is, LoSVR learns the inverse
+dynamics model. The traditional function of the feedback
+controller is to follow the reference trajectory, to deal with
+plant uncertainty, and to obtain good disturbance suppression.
+In our control scheme, the feedback controller is also used as
+an exploration function to acquire data points near the desired
+state. Moreover, feedback error is not directly used to update
+the weight vector, as in feedback error learning [13]. We train
+the LoSVR with real input control signal (uff+ufb) and the real
+current state. Training of LoSVR is performed at each
+sampling time step with new incoming data (q, uff+ufb). More
+local points near the LoSVR facilitate LoSVR to learn
+feed-forward control signal uff with respect to the desired
+motion qd. As the function of exploration, the feedback
+control signal ufb thrusts the robot arm from the current
+motion state q toward qd and LoSVR tries to compute the
+optimal uff for qd based on the cloud of these most recent
+explored data points, which are the data points of local
+window. Recursively with the feeback function and
+feed-forward LoSVR, the robot arm would converge to the
+desired trajectory in online learning.
+B. Local online SVR (LoSVR)
+In low-level motor control of a real robot, if the training
+15
+
+time of learning algorithm at each time step is longer than the
+sampling time of a real robot, the robot cannot compute the
+optimal control signal using the most recent data points. To
+reduce the training time of LoSVR without degrading
+learning performance, a local windowing method is
+introduced that trains LoSVR with only local data points.
+This method stems from the idea that local data points near
+desired data affect regression more than distant data points
+[10].
+LoSVR maintains a set of local windowed data points using
+the two basic actions of online SVR, adding one new vector,
+and removing one vector as described in section II. The
+procedure of learning control using LoSVR with local
+window is
+Learning control with LoSVR:
+Given:
+L (window size)
+C (number of sample in window)
+qdinW (most distant qd from current qd in window set)
+qdoutW (closest qd from current qd not in window set)
+qdinWprev(qdin of previous sampling time step)
+dinW (distance from qdinW to current qd)
+doutW(distance from qdoutW to current qd)
+1. Generate current qd
+2. If start of new trial
+Add closest points from current qd up to L
+3. If doutW ≥ dinW && qdinW != qdinWprev
+Add data point of qdoutW to window set
+Remove data point of qdinW from window set
+4. Predict uff from current LoSVR
+5. Measure qnew
+6. Actuate with (uff+ufb)new
+7. If exist, remove (qold, (uff+ufb)old) of qd
+8. Add (qnew, (uff+ufb)new) of qd to window set.
+9. If practice time is over
+Exit
+Else
+Go to 1
+
+ThAT1.3
+
+(a)
+
+(b)
+
+4
+
+1
+
+joint 1 angle [rad]
+
+1.4
+1.2
+1
+0.8
+
+0.5
+
+0
+
+0.6
+
+3.5
+3
+2.5
+2
+1.5
+
+0.4
+
+1
+
+-0.5
+
+0.2
+0
+
+joint 2 desired trajectory
+PD controller
+Local Online SVR
+
+4.5
+
+joint 2 angle [rad]
+
+1.6
+
+5
+
+joint 1 desired trajectory
+PD controller
+Local Online SVR
+
+endeffector desired trajectory
+PD controller
+Local Online SVR
+
+1.8
+
+y [m]
+
+(c)
+
+1.5
+
+2
+
+0
+
+0.5
+
+1
+
+0.5
+
+0
+
+1.5
+
+1
+
+2
+
+3
+
+4
+
+5
+
+0
+
+6
+
+0
+
+1
+
+time [second]
+
+x [m]
+
+2
+
+3
+
+4
+
+5
+
+6
+
+time [second]
+
+Fig. 3. Desired trajectory, trajectories with only low gain PD (Kp = 0.3, Kd= 0.3), LoSVR after five trials: (a) endeffector trajectory in xy planar space; (b)
+trajectory of joint 1; (c) trajectory of joint 2
+
+Each desired point qd maintains only one most recent real
+data point (q, uff+ufb) in the memory. Local windowing builds
+up a regression model with at most L real data points of the
+closest desired points to the current desired state. The
+distance between the desired points can be defined in two
+ways by index difference of two desired points, or by
+Euclidean distance of two desired points. In our
+implementation, we used the index difference to simplify the
+algorithm. In the beginning of first trial when the number of
+data points is smaller than L, the regression model uses all
+data points.
+Each desired point maintains one data point (q, (uff+ufb)) at
+qd where q is the real state and (uff+ufb) is the control signal in
+case of the desired state input qd. Local window set maintains
+at most L data points if available. As LoSVR learns the
+inverse dynamics model, the one data point maintained by the
+desired point will converge to its own desired point, uff
+converges to the output of the exact inverse dynamics, and ufb
+will saturate near at zero if learning is successful. Therefore,
+LoSVR rebuilds new regression model with only L most
+recent and closest local data points only before the desired
+point is queried. This is similar to lazy learning method such
+
+as locally weighted learning [10]. The difference is that
+LoSVR does not maintain all data points but only most
+learned data point per desired point.
+IV. RESULTS
+
+A. Numerical Simulation
+For a numerical evaluation of the proposed learning
+controller, we simulated the control of a planar two-joint arm.
+The state vector has six components with joint angle, angular
+velocity, and angular acceleration for two joints. The task for
+the two-joint arm to learn is to reach a target point via
+minimum jerk trajectory in given movement time. Both links
+of the arm are 1 meter long with 0.8 kg of link l1 and 0.3 kg of
+link l2. The LoSVR, feed-forward controller in figure 1 learns
+the inverse dynamics of the two-joint arm while trying the
+reaching task.
+The parameters used are: low PD gains (Kp = 0.3, Kd= 0.3),
+window size (L=20), sampling time (0.03 sec), regularization
+coefficient (C=1000), error tolerance (0.0001) and Gaussian
+kernel function (σ =10). The simulation was performed in a
+3.4 GHz Pentium 4 PC with 1 G memory on SUSE 10 Linux
+
+(a)
+
+(b)
+
+2.5
+
+window size 2
+window size 8
+window size 20
+window size 100
+batch mode
+
+2
+
+0.5
+
+0.4
+
+nMSE
+
+nMSE
+
+1.5
+
+0.3
+
+1
+
+0.2
+0.5
+
+0
+
+0.1
+
+0
+
+5
+
+10
+
+0
+
+15
+
+window 2
+
+window 8
+
+window 20 window 50 window 100 batch mode
+
+Window size and batch or online
+
+trial
+
+Fig. 4. Learning Result: (a) Learning curves for four different window sizes with LoSVR and batch SVR in trial; (b) nMSEs after saturation; nMSE:
+
+16
+
+ThAT1.3
+
+2
+8
+20
+50
+100
+sec : second
+
+Robot
+
+Sub-controller
+Motor
+drive
+
+Motor /
+encoder
+
+Encoder
+drive
+
+Main Controller
+
+Current (PC, SUSE Linux 10)
+Command
+
+LoSVR
+algorithm
+
+CAN
+controller
+Sensor
+data
+
+Fig. 5. System structure of real robot (AMTEC POWERCUBE PW90);
+CAN: Controller Area Network
+
+OS that controls our real robot in the next section at the same
+system, and the LoSVR algorithm is compiled by GNU gcc.
+Figure 3 compares the arm trajectories with the PD feedback
+controller only and with LoSVR after five learning trials.
+While the PD controller only has very large tracking errors
+that lead to a final point far from the target point, the proposed
+controller achieved excellent tracking performance only after
+five trials. In this test, the training time at each time step never
+went above sampling time (0.03 sec).
+Secondly, we analyzed the effect of local window size on
+the learning performance. Five learning curves for four
+different window sizes and batch mode are given in figure 4a.
+Normalized Mean Squared Error (nMSE) measures the
+learning performance for each trial (200 sampling points).
+Table 1 shows the training time information for different
+window sizes and batch mode. As shown in table 1, window
+size 50 and 100 cannot be applied in the real-time learning
+control that requires a sampling time less than 0.03 sec
+because the training time is much longer than the given
+sampling time (0.03 sec). We analyzed the performance of
+LoSVRs with different window size in terms of learning
+speed and learning accuracy. Learning speed is how fast in
+trial number the learning curve converges to the saturated
+nMSE value, and learning accuracy means how close the
+saturated nMSE is to zero. In figure 4a, the learning speed
+was not significantly degraded as the window size increased.
+While the trajectory of the smallest window size 2 did not
+converge to the desired trajectory, the others showed fast
+learning speed (5 to 10 trials to saturate)
+Figure 4b demonstrates the learning accuracy obtained
+with five different window sizes and with the batch mode. A
+window size of 20 time steps exhibited the most accurate
+learning even though the difference from window size 8 is
+small. This result implies that, in our learning control problem,
+learning with smaller data set can perform better than with
+larger data set. However, as in the case of window size 2,
+learning control could be unstable with too small data set.
+
+B. Experiment with a Real Robot
+The proposed approach was tested on a real robot, AMTEC
+POWERCUBE PW90. Figure 5 illustrates schematic diagram
+of our test bed. The input current was controlled based on
+LoSVR; preliminary study showed that a local window size
+20 gave good results for 0.02 sec sampling time. Figure 6
+shows the trajectory obtained with LoSVR after six trials and
+the trajectory by with only the low PD gain controller (Kp =
+17
+
+2.5
+
+joint 2 desired trajectory
+PD controller
+Local Online SVR
+
+2
+
+1.5
+
+Angle [rad]
+
+Window size
+
+TABLE I
+TRAINING TIME IN EACH TIME STEP
+Max Training
+Mean Training
+Standard
+Time
+Time
+Deviation
+(sec)
+(sec)
+of Training Time
+0.00350
+0.00067
+0.00030
+0.00933
+0.00291
+0.00076
+0.02702
+0.01014
+0.00315
+0.35676
+0.08444
+0.03027
+0.52597
+2.09710
+0.21683
+
+1
+
+0.5
+
+0
+0
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+3.5
+
+4
+
+time [second]
+
+Fig. 6. Learning result for real robot: Desired trajectory, trajectory with
+only low gain PD controller, and trajectory with LoSVR after six trials.
+
+0.8, Kd= 0.5). Although learning was not as accurate as in the
+simulation study, principally due to the noise in velocity and
+acceleration estimation, our approach outperformed the batch
+mode and showed fast learning speed.
+V. CONCLUSION
+In this paper, we proposed a new Local online SVR
+(LoSVR) using local windowing method that reduces the
+computational load of the online SVR. Numerical simulations
+demonstrated that our approach could be applied successfully
+to the low-level motor learning control. These simulation
+results demonstrate rapid learning of the inverse dynamics
+and convergence of the tracking error with new LoSVR with
+only local data points. Moreover, there exists optimal window
+size that learns with accuracy and speed without causing the
+computational load problem. An Experiment with real robot
+proved that LoSVR with local windowing has high potential
+for application in low-level motor learning control.
+In tests with different window sizes, LoSVR with the
+chosen window size showed better learning accuracy than
+LoSVR with larger window size that is impossible to be
+applied in our real robot due to long training time. From the
+learning accuracy test, we could observe that learning with
+smaller data set could perform better than with larger data set.
+This result supports LoSVR not only for reducing the
+computational time but also for learning performance in term
+of accuracy. In comparison test with batch mode, LoSVR
+
+ThAT1.3
+
+outperformed batch mode SVR in learning speed and learning
+accuracy.
+This result could be related with the tolerance error and the
+kernel function [11]. For example, the Gaussian kernel might
+not transform the input space into the feature space well
+enough to make a linear regression model (4) with more data
+points in our experiment. Overall, we can conclude that
+online SVR with only local data points can perform with
+better learning accuracy and show reasonable learning speed.
+Comparison of LoSVR versus batch mode shows that
+LoSVR outperforms batch mode in both learning speed and
+learning accuracy. One possible explanation for this result is
+that the batch mode did not train SVR as soon as the new data
+point arrives and so the controller could not excite the plant to
+explore near the desired trajectory especially in the case of
+low PD gains. Another drawback of batch mode is that in the
+beginning of each trial, it has to train SVR with all the data
+points at once. After several trials, batch mode has to train a
+large data set, which requires long computational time.
+In future work, we plan to perform a sensitivity analysis to
+test learning ability for a wide range of PD gains together
+with a stability analysis. Furthermore, an important fact in our
+study is that LoSVR maintains only the most recent data point
+for each preplanned desired point and retrains SVR for the
+data points in the window set. Therefore, we can predict a
+poor generalization ability to other tasks. Thus, in future work,
+we will investigate how to combine LoSVR with algorithms
+that have good generalization ability.
+
+REFERENCES
+[1]
+
+Drucker, H., Wu, D. and Vapnik, V, “Support vector machines for span
+categorization,” IEEE Trans. Neural Networks 10 1999, 1048–1054.
+[2] Joachims, “Text categorization with support vector machines: Learning
+with many relevant features,” in Proc. of the European Conference on
+Machine Learning, 137–142, Berlin: Springer 1998.
+[3] A.J. Smola and B. Scholkopf. “A tutorial on support vector
+regression.,” Technical Report NC2-TR-1998-030, Royal
+Holloway,University of London, 1998.
+[4] B. J. de Kruif and T. J. A. d. Vries, “On using a support vector machine
+in learning feed-forward control,” in Proc. of IEEE/ASME Int. Conf.
+Advanced Intelligent Mechatronics, Como, Italy, 2001, pp. 272–277.
+[5] D. Bi, F. Li, S. K. Tso, G. L. Wang, “Friction Modeling and
+Compensation for Haptic Display-based on Support Vector Machine,”
+IEEE Trans. on Industrial Electronics, April 2004, 51(2): 491-500.
+[6] R. Pelossof, A. Miller, P. Allen and T. Jebara. "An SVM Learning
+Approach to Robotic Grasping" Proc. of the IEEE International
+Conference on robotics and Automation, May 2004.
+[7] J. Platt, “Fast training of support vector machines using sequential
+minimal optimization,” in Advances in Kernel Methods – Support
+Vector Learning (B.Scholkopf, C. Burges, and A. J. Smola, eds.), MIT
+Press, 185-208, 1999.
+[8] M. Martin, “On-line support vector machines for function
+approximation,” Tech. Rep. LSI-02-11-R, Software Department,
+Universitat Politecnica de Catalunya, Catalunya, Spain, 2002.
+[9] J. Ma, J. Theiler, S. Perkins, “Accurate online support vector
+regression,” Neural Computation 2003, 15, pp.2683–2703.
+[10] C. G. Atkeson, A. W. Moore, and S. Schaal, “Locally weighted
+learning,” Artificial Intelligence Review, vol. 11, pp. 11-73, 1997.
+[11] V. Vapnik, Statistical Learning Theory. New York: Wiley, 1998.
+
+18
+
+[12] L. Csato and M. Opper, “Sparse Representation for Gaussian Process
+Models,” in Ads. Neural Information Processing Systems (NIPS’2000),
+vol. 13, 2001
+[13] M. Kawato, “Feedback-error-learning neural network for supervised
+motor learning,” Advanced neural computers (E. Eckmiller Ed.)
+Elsevier, Amsterdam, pp. 365–372,1990
+
+

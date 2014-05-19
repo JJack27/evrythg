@@ -32,6 +32,7 @@ SVR = set(SVR,      'C',                    10, ...
 TrainingSetX = rand(20,1);
 TrainingSetY = sin(TrainingSetX*pi*2);
 
+
 % Training
 SVR = Train(SVR, TrainingSetX,TrainingSetY);
 
@@ -48,6 +49,13 @@ disp('Some results:');
 disp(['f(0)=' num2str(PredictedY(1)) '     y(0)=' num2str(TestSetY(1)) '     margin=' num2str(Errors(1))]);
 disp(['f(1)=' num2str(PredictedY(2)) '     y(1)=' num2str(TestSetY(2)) '     margin=' num2str(Errors(2))]);
 disp(' ');
+
+%{
+figure
+plot(TrainingSetX, TrainingSetY, 'ob')
+hold all
+scatter(TestSetX, TestSetY, 'or')
+%}
 
 % Forget first 4 samples
 SVR = Forget(SVR, 1:4);

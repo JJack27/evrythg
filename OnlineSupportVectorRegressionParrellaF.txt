@@ -1,0 +1,1650 @@
+Online Support Vector Regression
+Francesco Parrella
+A Thesis presented for the degree of
+Information Science
+Department of Information Science
+University of Genoa
+Italy
+June 2007
+Online Support Vector Machines for Regression
+Submitted for the degree of Information Science
+May 2007
+Abstract
+Many approaches for obtaining systems with intelligent behavior are based on components that learn automatically from previous experience. The development of
+these learning techniques is the objective of the area of research known as machine
+learning. During the last decade, researchers have produced numerous and outstanding advances in this area, boosted by the successful application of machine
+learning techniques. This thesis presents one of this techniques, an online version of
+the algorithm for training the support vector machine for regression and also how
+it has been extended in order to be more ﬂexible for the hyper parameter estimation. Furthermore the algorithm has been compared with a batch implementation
+and tested in a real application at the Department of Information, Systematics and
+Telematics in Genoa.
+Declaration
+The work in this thesis is based on research carried out at the Department of Information, Systematics and Telematics, Italy. No part of this thesis has been submitted
+elsewhere for any other degree or qualiﬁcation and it all my own work unless referenced to the contrary in the text.
+Copyright c
+2007 by FRANCESCO PARRELLA.
+“The copyright of this thesis rests with the author. No quotations from it should be
+published without the author’s prior written consent and information derived from
+it should be acknowledged”.
+Acknowledgements
+I would like to thank all people who helped me in a way or in another to have the
+skills necessary to complete this thesis. In alphabetic order, they are: Alessandra,
+Andrea, Anna, Anna Maria, Antonio, Barbara, Daniela, Debora, Emanuele, Enrico,
+Francesco, Giacomo, Giorgia, Giorgio, Ilaria, Katia, Lara, Livio, Lorena, Marianna,
+Marco, Marina, Matteo, Mil, Nicola, Paolo, Pellegrino, Roald, Salvatore, Stefania,
+Simona, Simone, Valentina, Vera.
+Contents
+Declaration
+Acknowledgements
+1 Online Support Vector Machines for Regression
+2 Learning
+What is learning . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+The learning process . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Machine learning . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+The machine learning process . . . . . . . . . . . . . . . . . . . . . .
+2.4.1
+Supervised learning . . . . . . . . . . . . . . . . . . . . . . . .
+2.4.2
+Unsupervised learning . . . . . . . . . . . . . . . . . . . . . .
+2.4.3
+Semi-Supervised learning . . . . . . . . . . . . . . . . . . . . .
+2.4.4
+Reinforcement learning . . . . . . . . . . . . . . . . . . . . . . 10
+3 Support Vector Machines
+Main Concepts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+A concrete example . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+A more detailed analysis . . . . . . . . . . . . . . . . . . . . . . . . . 14
+Nonlinear separable data . . . . . . . . . . . . . . . . . . . . . . . . . 16
+More generic Support Vector Machines . . . . . . . . . . . . . . . . . 17
+SVR - Support Vector Machines for Regression . . . . . . . . . . . . . 20
+How the SVR Works . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+The practical case . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+4 KKT Conditions, Incremental Learning and Samples Moving
+Problem Description . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+Optimizing the problem . . . . . . . . . . . . . . . . . . . . . . . . . 28
+Another optimization problem . . . . . . . . . . . . . . . . . . . . . . 31
+KKT conditions deﬁnition . . . . . . . . . . . . . . . . . . . . . . . . 35
+Support, Error and Remaining Sets . . . . . . . . . . . . . . . . . . . 35
+Adding a new sample . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+Empty SupportSet . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+Samples Moving . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+From Support to Error Set . . . . . . . . . . . . . . . . . . . . . . . . 42
+4.10 From Support to Remaining Set . . . . . . . . . . . . . . . . . . . . . 43
+4.11 From Error to Support Set . . . . . . . . . . . . . . . . . . . . . . . . 44
+4.12 From Remaining to Support Set . . . . . . . . . . . . . . . . . . . . . 45
+4.13 How the algorithm works . . . . . . . . . . . . . . . . . . . . . . . . . 46
+4.14 Stabilization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+4.14.1 Invalid Support Samples . . . . . . . . . . . . . . . . . . . . . 47
+4.14.2 Invalid Error Samples . . . . . . . . . . . . . . . . . . . . . . . 48
+4.14.3 Invalid Remaining Samples . . . . . . . . . . . . . . . . . . . . 48
+5 The Algorithm
+The Learning Algotirithm . . . . . . . . . . . . . . . . . . . . . . . . 49
+5.1.1
+5.1.2
+New Sample Training Pseudo-code . . . . . . . . . . . . . . . 50
+5.1.3
+Formula Equations . . . . . . . . . . . . . . . . . . . . . . . . 52
+5.1.4
+Find Least Variations . . . . . . . . . . . . . . . . . . . . . . . 54
+5.1.5
+Input and Output . . . . . . . . . . . . . . . . . . . . . . . . . 49
+Update of the R Matrix . . . . . . . . . . . . . . . . . . . . . 58
+The Unlearning Algorithm . . . . . . . . . . . . . . . . . . . . . . . . 59
+5.2.1
+Input and Output . . . . . . . . . . . . . . . . . . . . . . . . . 59
+5.2.2
+Sample Forgetting Pseudo-code . . . . . . . . . . . . . . . . . 61
+5.2.3
+Find Least Variations . . . . . . . . . . . . . . . . . . . . . . . 63
+Stabilization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+6 Complexity Analysis
+Time Complexity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+Space complexity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+Considerations
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+7 Tests
+Samples Number and Iterations Count . . . . . . . . . . . . . . . . . 68
+OnlineSVR and LibSVM . . . . . . . . . . . . . . . . . . . . . . . . . 69
+Stabilization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 71
+7.3.1
+7.3.2
+Stabilizing Epsilon . . . . . . . . . . . . . . . . . . . . . . . . 73
+7.3.3
+Stabilizing C . . . . . . . . . . . . . . . . . . . . . . . . . . . 72
+Stabilizing KernelParam . . . . . . . . . . . . . . . . . . . . . 74
+Robot arm test . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+7.4.1
+The training scheme . . . . . . . . . . . . . . . . . . . . . . . 75
+7.4.2
+Results obtained . . . . . . . . . . . . . . . . . . . . . . . . . 77
+8 Conclusions
+Analysis of the work done . . . . . . . . . . . . . . . . . . . . . . . . 81
+Future development . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82
+A Software Developed
+A.1 Matlab Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . 83
+A.2 C++ Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . 84
+A.3 Command Line Interface . . . . . . . . . . . . . . . . . . . . . . . . . 84
+A.4 Windows Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . 84
+A.5 OnlineSVR Web Site . . . . . . . . . . . . . . . . . . . . . . . . . . . 85
+B Parameters Estimation
+B.1 C Estimation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 86
+B.2 Epsilon Estimation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 88
+B.3 KernelParam Estimation . . . . . . . . . . . . . . . . . . . . . . . . . 90
+Bibliography
+viii
+C.1 Incremental Support Vector Machines . . . . . . . . . . . . . . . . . . 92
+C.2 Support Vector Machines . . . . . . . . . . . . . . . . . . . . . . . . . 92
+C.3 Other . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 93
+Chapter 1
+Online Support Vector Machines
+for Regression
+The ﬁeld of machine learning is expanding in the last years, and many new technologies are growing using these principles. Among the various existing algorithms,
+one of the most recognized is the so-called support vector machine for classiﬁcation
+(SVM) and regression (SVR), which permit the creation of systems which, after
+training from a series of examples, can successfully predict the output at an unseen
+location performing an operation known as induction.
+One of the drawbacks of this algorithm is that it works in batch mode only. In
+this form, learning is carried out starting from all the examples and adding a new
+example means reprogramming the whole system from the beginning.
+The algorithm, which I have studied and implemented, is an online version of support vector machine for regression, in other words it is possible to add and delete
+elements in the machine without restarting the training from the beginning.
+My implementation has also been compared to libsvm, one of the batch implementations of SVM, which is one of the most frequently used libraries in research [8].
+The work elaborated on this thesis can be broken down into ﬁve parts:
+Chapter 1. Online Support Vector Machines for Regression
+• The study of the algorithm, beginning from the papers of some researchers,
+from the mathematical point of view as well as its implementation, correcting
+some inexact formulas.
+• The implementation of the algorithm is in prototypical form in Matlab as well
+as an eﬃcient version in C++
+• Test of the performance and the results of the online version in comparison to
+that of batch version.
+• Practical case testing the algorithm in practice for the prediction of the applied
+voltages needed to compensate the gravity load of the arm of a robot (with
+three degrees of liberty).
+• Improving the algorithm with the creation of a stabilizing technique which
+correct the errors approximation due to the ﬁnite precision ﬂoating point operations of the computers. This also permits to extend the functionality of the
+algorithm.
+This thesis describes the most part of the actual work. Other information as well as
+the software developed and the documentation are available at http://onlinesvr.altervista.org.
+The thesis is organized as follow:
+• Chapter 2 : introduction to the notion of learning machines, the biological motivations and the possible applications. It will also be presented the principal
+types of machine learning.
+• Chapter 3 : here are explained, very informally, how the SVM algorithm works,
+which are its characteristics and its potential.
+• Chapter 4 : this chapter represents the heart of the theoretical part of the
+algorithm. Demonstrations and the mathematical principles of SVR will be
+shown. The stabilization problem and resolution will also be addressed.
+• Chapters 5 : this is the algorithmic part of the thesis, in which the pseudo-code
+of the algorithm is shown and furthermore some implementation techniques
+to be the algorithm more eﬃcient will be explained.
+• Chapter 6 : here complexity analysis is presented. Be it from the time point
+of view as well as the one of space. We will also indicate some techniques
+implemented to reduce its complexity.
+• Chapter 7 : here we will compare the libsvm batch implementation with onlinesvr. We will also show the eﬃciency of stabilization (a technique which
+extends the functionally of SVR) and the description of the experiment carried
+out at Lira-Lab on the mechanical arm.
+• Chapter 8 : conclusions and future work.
+• Appendix A: contains a brief description to all the the software developed.
+Recommended to all those who wish to try out this algorithm.
+• Appendix B : are recommendations formulated from many researchers on how
+to ﬁnd the correct parameters values.
+Chapters 2-3 are only an introduction to the topic, and are recommended for those
+not fully acquainted to kernel methods and SVM in particular. Chapters 4 is directed
+towards those whom wish to understand deeply the mathematical aspect behind the
+algorithm. The technical part is recommended only for the brave reader! Chapters
+5-6 contain the pseudo-code of the algorithm, the choice of implementation as well
+as its analysis; this part is recommended only who wish to study the algorithm.
+Chapter 7, the one for the test, has been written for whomever has the desire to use
+the algorithm for practical cases, as a matter of fact it contains the speed comparison
+with libsvm. And last but not last is the conclusion (chapter 8) that contains the
+summary of the work done.
+Chapter 2
+Learning
+In this chapter we explain the learning basis, from the biological point of view to
+the mathematical one and we will give a brief deﬁnition on learning types.
+What is learning
+Nowadays, the meaning of ”learning” has many deﬁnitions. The purpose of this ﬁrst
+chapter is try to explain the deﬁnition of learning used in this thesis and in machine
+learning. First of all, we will start with the biological deﬁnition:
+Figure 2.1: What is learning?
+Learning is the process of acquiring knowledge, skills, attitudes, or values, through
+study, experience, or teaching, which causes a change of behavior that is persistent,
+measurable, and speciﬁed or allows an individual to formulate a new mental construction or revise a prior mental one (conceptual knowledge such as attitudes or
+2.2. The learning process
+values). It is a process that depends on experience and leads to long-term changes in
+behavior potential. Behavior potential describes the possible behavior that an individual may have (not actual behavior) in a given situation in order to achieve a goal.
+But potential is not enough; if individual learning is not periodically reinforced, it
+becomes shallower and shallower, and eventually will be lost. [12]
+This deﬁnition is the one that we use in everyday life and one that we have known
+since we were children.
+The learning process
+The most basic learning process is imitation, one’s personal repetition of an observed
+process, such as a smile. Thus an imitation will take one’s time (attention to the
+details), space (a location for learning), skills (or practice), and other resources (for
+example, a protected area). Through copying, most infants learn how to hunt (i.e.,
+direct one’s attention), feed and perform most basic tasks necessary for survival.
+Bloom’s Taxonomy divides the learning process into a six-level hierarchy, where
+knowledge is the lowest order of cognition and evaluation the highest:
+Figure 2.2: Bloom’s Taxonomy
+• Knowledge is the memory of previously-learnt materials such as facts, terms,
+basic concepts and answers.
+2.3. Machine learning
+• Comprehension is the understanding of facts and ideas by organization,
+comparison, translation, interpretation, and description.
+• Application is the use of new knowledge to solve problems.
+• Analysis is the examination and division of information into parts by identifying motives or causes. A person can analyze by making inferences and
+ﬁnding evidence to support generalizations.
+• Synthesis is the compilation of information in a new way by combining elements into patterns or proposing alternative solutions.
+• Evaluation is the presentation and defense of opinions by making judgments
+about information, validity of ideas or quality of work based on a set of criteria.
+Machine learning
+Starting from ”biological learning”, many studies have tried to reproduce and simulate the human learning techniques for machines, developing a new area of science
+called machine learning. But why do we want to try to teach computers how to
+learn? In actual fact, a pc can do the same job which that in a normal person
+would take years. Moreover, pc’s seem able to do all we need. Unfortunately, many
+problems cannot be solved using common programming techniques. One example
+would be characters recognition. People can easily distinguish alphabet characters,
+to make words and give them a meaning. Instead a computer see characters such as
+a sequence of 0 and 1, without semantic understanding.
+Figure 2.3: How machines see characters
+2.4. The machine learning process
+With machine learning, after a training phase, it is possible to associate each
+character to a meaning, and therefore distinguish one from another.
+Other problems that require machine learning are virus detection, the DNA sequence
+analysis, voice recognition, and many others.
+Figure 2.4: Machine learning applications: virus detection and speech recognition
+Actually, all the computational learning techniques developed, reach only the
+ﬁrst three levels of Bloom’s Taxonomy, but research is growing fast...
+The machine learning process
+Learning algorithms developed up until now, can be divided into these categories:
+• Supervised learning
+• Unsupervised learning
+• Semi-supervised learning
+• Reinforcement learning
+Supervised learning
+Supervised learning is a machine learning technique for creating a function from
+training data. The training data consist of pairs of input objects (typically vectors),
+and desired outputs. The output of the function can be a continuous value (as in
+regression), or can predict a class label of the input object (for classiﬁcation). The
+task of the supervised learner is to predict the value of the function for any valid
+input point after having seen a ﬁnite number of training examples.
+The main algorithms of supervised learning are: neural networks, nearest neighbor algorithm, decision tree learning, and support vector machines, the algorithm
+analyzed in this thesis.
+Figure 2.5: Supervised learning algorithms: a decision tree, a neural network and a
+support vector machine
+Unsupervised learning
+Unsupervised learning is literally learning without supervisors; only input data without output data (answer) are given. The goal of unsupervised learning depends on
+situations and the unsupervised learning problem is sometimes not mathematically
+well-deﬁned. For example, data clustering aimed at grouping similar data. In data
+clustering, how to measure the aﬃnity between data samples needs to be predetermined. However, there is no objective criterion that can quantitatively evaluate the
+validity of the aﬃnity measure; often it is subjectively determined.
+Figure 2.6: Unsupervised algorithm example: clustering
+Semi-Supervised learning
+Semi-supervised learning is a type of machine learning technique which makes use
+of both unlabeled and labeled data for training - typically a small amount of labeled
+data with a large amount of unlabeled data. Many researchers of machine learning
+have found that unlabeled data, when used in conjunction with a small amount
+of labeled data, can produce considerable improvement in learning accuracy. The
+acquisition of labeled data for a learning problem often requires a skilled human
+agent to manually classify training examples. The cost associated with the labeling
+process thus may render a fully labeled training set infeasible, whereas acquisition of
+unlabeled data is relatively inexpensive. In such situations, semi-supervised learning
+can be of great practical value.
+One example of a semi-supervised learning technique is co-training, in which two or
+possibly more learners are each trained on a set of examples, but with each learner
+using a diﬀerent, and ideally independent, set of features for each example.
+Figure 2.7: Semi-supervised learning example
+Reinforcement learning
+Reinforcement learning refers to a class of problems in machine learning which postulate an agent exploring an environment in which the agent perceives its current
+state and takes actions. The environment, in return, provides a reward (which can
+be positive or negative). Reinforcement learning algorithms attempt to ﬁnd a policy
+for maximizing cumulative reward for the agent over the course of the problem.
+The principal algorithms are temporal diﬀerence learning and actor critic reinforcement learning.
+Figure 2.8: Reinforced learning example
+Chapter 3
+Support Vector Machines
+Main Concepts
+Support Vector Machines (SVM), mentioned in previous chapter, form part of Supervised Learning, a branch of statistical learning which part from a series of examples that create a ”decision-maker” system which tries to predict new values. This
+technique can be subdivided into two distinct parts:
+• Learning: consists of training SVM with examples at its disposition
+• Prediction: where new samples are inserted in which the result is not known.
+Results produced are the more probable respect to those examples used in the
+learning phase
+Each example can be written as a pair (input, output) where input is the data set
+and output makes up how they should be catalogued.
+Figure 3.1: SVM high-level view
+Mathematically, examples can be regarded as a pair (x, y) where x is a vector of
+real numbers and output can be a boolean value (like as yes/no, 1/-1, true/false),
+3.2. A concrete example
+or a real number. In the ﬁrst case, we speak of a problem of classiﬁcation, in the
+latter of a problem of regression. Moreover, the results of learning can be compared
+to a real function in which the pairs (x, y) are points in the space where the SVM
+generates the function which interpolates, to the best of its capability these series
+of points.
+Figure 3.2: From a conceptual to a mathematical view
+For conventional purposes, the group of examples that make up the SVM is
+called Training Set, where as the group which contains the examples used in the
+prediction is called Test Set. This name derives from the fact that generally, error
+is calculated based on the total results in the test and this in turn measures the
+quality of the system.
+A concrete example
+To better understand the function of the SVM, and some of the common errors that
+must be kept in mind, we present here an example of a real case which can be utilized
+for understanding purposes. Try to think of yourself as a stockbroker, who wants to
+construct an instrument which would allow him to judge the best stokes, a way to
+predict which to buy and which to avoid altogether. The ﬁrst thing we must do is
+understand what the input and output mean to us. In our case input corresponds
+to the information we have on the stocks, like the rate of growth in the last year,
+the quantity of sales, the quotes on that speciﬁc stock and the market for the same.
+To better understand our case, consider that information is extracted from the rate
+of growth and the quantity sold. Our output. instead, will have a boolean value
+(yes/no) which indicates whether the stock is good or a bad investment. In order to
+make our SVM work we need to look to all the information. In the following case,
+suppose we know the value of these ﬁgurative companies: Zoogle, Ciat, Carmalat
+and Karmacotto.
+Figure 3.3: Information about stokes.
+We are informed that up until now Zoogle and Ciat have been trading well
+whereas Carmalat and Karmacotto have not had much success. We therefore have
+all the information we need to make the SVM work. The results obtained are as
+Figure 3.4: The yellow line shows the result of the training
+The line corresponds to the results of the learning phase, or rather, how SVM has
+used up all the data until now. All the stocks that have positive results are plotted
+above the line, those shown below, have negative results and are considered not a
+3.3. A more detailed analysis
+good investment. For example, if we want to ﬁnd the value of the stock ”eBiscott”
+we just have a look at its position in the chart to get a good idea:
+Figure 3.5: Evaluation of a new stock after the training
+Because of the fact that it is positioned above the yellow line, the SVM considers
+it a good stock. This procedure can be applied to all the stocks in which we’d like
+to evaluate the performance.
+A more detailed analysis
+The observer may ask himself ”why is the line exactly there where it is,why isn’t it
+a little higher or lower?”. In theory, all these are possible solutions:
+Figure 3.6: Other possible SVM solutions
+Questions like these ﬁnd their answer in the way the SVM calculates its results.
+Exact function is the one that minimizes the errors. In order to make this possible,
+the solution is the most distant among the examples used. The distance between
+solution and examples is called margin. In our case, it can be represented as:
+Figure 3.7: Margin evaluation
+Suppose that the possible outputs are 1 and -1, they are shown on those two
+green lines as follows:
+w·x+b=1
+(3.1)
+w · x + b = −1
+The value x is the input, $2/w$ is the distance between the two categories (the margin)
+and we seek to maximize it is equivalent to minimize its norm:
+s.t. yi (wT · xi + b) ≥ 1 i = 1...l
+(3.2)
+This type of problems is called the Quadratic Optimization Problem. The solution
+to this important mathematical problem brings us to the conclusion that the result
+of the learning step: the yellow line can calculated by the linear combination from
+the elements of the Training Set, and the prediction of f(x) in the new sample x is
+shown like this:
+yi αi (x · xi ) + b)
+f (x) = sign(
+(3.3)
+Where l is the number of elements in the Training Set, α and b make up the parameters that the SVM uses in order to construct an optimal solution (shown by the
+yellow line).
+3.4. Nonlinear separable data
+Nonlinear separable data
+In the former example, the data were linearly separable or, in other words, it exists
+a line that divides correctly the samples into two sets. In reality this does not always
+happen. For example, let us suppose that added to our list of 4 stocks is the Coyota
+Figure 3.8: Coyota is not a good stock, but is placed near some good stocks. Now
+is no more possible to divide the stocks using a single line
+If Coyota isn’t a good stock we would not be able to ﬁnd a line to divide it.
+This is a typical problem which is not linearly separable. In order to use the SVM
+in these cases we need to manipulate the errors so that they become tolerable to
+the SVM. If ξ is the maximum error permitted in an element, we can increase the
+Quadratic Programming Problem by adding to it the possibility of errors:
+(3.4)
+s.t. yi (wt · xi + b) ≥ 1 − ξ, ξi ≥ 0 i = 1...l
+ξ and C are parameters which deﬁne the limit of maximal tolerance. Finding the
+right value is very complicated and there is a vast literature on how to choose the
+best ones. Generally, the most used technique is to ﬁnd them by trial and error. In
+the appendix however, are some recommendations on how to select them.
+3.5. More generic Support Vector Machines
+More generic Support Vector Machines
+Up to now, we have only paralleled the SVM to a line which divides the input space
+in two parts. This would solve all the problems that have a solution, represented
+by a simple line or, generally, by a hyperplane that is dimensionally equal to the
+number of components which is made up each example in the Training Set. Many
+other problems require more elaborate and complex solutions. For example, in the
+case of the Coyota stock, we can visualize the probable solution like this:
+Figure 3.9: A solution at the Coyota problem
+But how can one obtain diﬀerent functions from a line? How can we introduce
+new functions without change the SVM completely? To ﬁnd out the solution to this
+problem we must analyze the formula of the solution of the SVM problem:
+(3.5)
+Each sample is multiplied by the value of the examples trained. If, on the other
+hand, instead of a simple multiplication other more complicated operations come
+into play the end result changes. If we substitute (x · xi ) in the expression with
+another function, called Kernel Function, that allows growth of the SVM solution,
+which starts invading other space, and this ”other space” is called the Features
+Space. This allows us to change the information from one linear space to another
+one. This permits us to better classify the examples.
+Figure 3.10: From linear to features space
+When the results of the SVM expand into an other space is not linear anymore,
+it becomes much more complex, a not linear function.
+Figure 3.11: From features space back to linear space
+This characteristic of the SVM increases its usability but, at the same time,
+causes new problems. Now, other parameters have been added to the equation: the
+value of C, the type of kernel to use and optionally, the kernel parameters. For
+example, one of the most used kernels is the gaussian kernel, which permits us to
+ﬁnd solutions to problems such us this one:
+Figure 3.12: A diﬃcult problem solved using a gaussian kernel
+This kernel, however, requires as its parameter σ, which, if wrongly chosen could
+also make wrong classiﬁcations, like provided by this example:
+Figure 3.13: An example of a bad parameters setting
+It is also possible to invent personalized kernel functions, speciﬁc for the type of
+problems we wish to solve. The characteristics which this function must have are as
+follow [5]:
+• must accept as its parameters (x, xi ) (as well as other eventual parameters of
+the kernel)
+• must be deﬁned semi positive
+3.6. SVR - Support Vector Machines for Regression
+In any case many kernel functions are often utilized, one has only to read a few of
+the many articles written on this topic. Anyway, whatever the problem you wish
+to solve, one needs to realize the abundance of parameters which can be utilized.
+Each one must be set correctly or the products will result in non satisfactory and
+insuﬃcient.
+SVR - Support Vector Machines for Regression
+Up to now, support vector machines have been concerned with classiﬁcation, or
+about the problem of dividing the elements into diﬀerent types. Sometimes, however
+it is a lot more useful to have values that are less rigid with more possible results.
+After the realization of SVM’s which are used to classify, other machines where
+devised to resolve the problem of regression, where the solution generated is a real
+number. The construction of an instrument which could see the success of a stock,
+in a way to better understand when it is the most convenient time to sell or to buy
+more, so to maximize your gain. Let’s image that after having utilized the SVM for
+viewing which stocks are good and which ones bad, we decide that the Zoogle stock
+is the one that seems to be the most probably trustworthy. Now, we must decide
+when is the right moment to buy or sell the stock. Every good broker knows that
+the stock market has four main phases: growth, expansion, slowdown and decline
+which change unexpectedly in a continuous cycle. To be able to come out with
+maximal gain, ideally, one should buy stock when its in its declining phase (at its
+lowest value) and sell it in turn in its expansion phase (at its highest value).
+Figure 3.14: Stock market phases
+It is obviously not possible to know when its the best moment to buy or sell
+stocks, however being that each stock behaves in a cyclical manner, it is therefore a
+little predictable because they behave in a oscillating manner. The examples used
+in the training (dates, quotations of the stock on those date) can be extracted from
+many websites that have as a function to analyze the ﬁnancial market. Here’s an
+example:
+Figure 3.15: Stock quotations example
+The blue points represents the best moments to buy (in the declining phase)
+while the red points represents the best moment to sell (in the expansion phase)
+once the SVM is working it is possible to predict how the stock will act in the
+following days. Once you have the prediction its easy to tell when the best moments
+to buy and sell are. Obviously the solution obtained isn’t a mirror of reality because
+3.7. How the SVR Works
+the deﬁnitive value of a stock is given from the brokers choices. However, it is a
+useful tool to use as support in the stock brokers choices.
+How the SVR Works
+The SVR uses the same principles as the SVM for classiﬁcation, with only a few
+minor diﬀerences. First of all, because output is a real number it becomes very
+diﬃcult to predict the information at hand, which has inﬁnite possibilities. In the
+case of regression, a margin of tolerance is set in approximation to the SVM which
+would have already requested from the problem. For example, in the case of our
+stocks, and because they are all expressed in euro’s, there will be a leeway of 0.01
+in order to be able consider the eurocent. But besides this fact, there is also a
+more complicated reason, the algorithm is more complicated therefore to be taken
+in consideration. However, the main idea is always the same: to minimize error,
+individualizing the hyperplane which maximizes the margin, keeping in mind that
+part of the error is tolerated.
+Figure 3.16: The error function
+The ﬁgure shows how the error of SVR is calculated. Up until the threshold ,
+the error is considered 0, after the error it becomes calculated as ”error-epsilon”.
+The solution to the problem is another, from one line it becomes a ”tube”, tolerant
+to errors.
+Figure 3.17: The SVR tube
+Coming back to the mathematical point of view, the quadratic optimization
+problem becomes:
+ yi − (wT · φ(x) + b) ≤
+(3.6)
+ (wT · φ(x) + b) − y ≤
+
+Where $\Phi(x)$ is the kernel function seen previously, $w$ is the margin and the couple $(x_i, y_i)$ the Training Set. Other than this, as in classiﬁcation, we can add a bound
+in order to set the tolerance on errors number that can be committed:
+w, b 2
+(ξi + ξi∗ )
+ yi − (wT · φ(x) + b) ≤ + ξi
+(wT · φ(x) + b) − yi ≤ + ξi∗
+ ξ , ξ ∗ ≥ 0, i = 1..l
+(3.7)
+The principle is similar respect to SVM and, once trained, the SVR will generate
+predictions using the following formula:
+f (x) ≡
+θi φ(x, xi ) + b
+(3.8)
+3.8. The practical case
+The practical case
+Let us go back to the practical case. In this case, our motive is to ﬁnd the probable
+door for a useful stock in the future. Let’s suppose that our Training Set is made
+up of pairs (day, market quotes) which correspond to this plot:
+Figure 3.18: The stock quotations
+To make the SVR work, let’s make the tolerance margin at 0.01 over the ﬁnal
+result. We could also choose the gaussian kernel, which would permit a certain ﬂexibility in the solution. The C parameter, on the other hand, is chosen experimentally
+over information that give us the best solution. The result of this would be:
+Figure 3.19: The SVR prediction
+The yellow line corresponds to prevision of the SVR in the following days. In
+the experiment, our motive about all, is gain: buying when stock is at its lowest
+and selling when is at its highest give us the best proﬁt:
+Figure 3.20: When buy and sell the stocks
+The two points made evident the days in which it is advised to buy and sell
+from the information we have. Naturally, as in the previous example, this is only an
+estimation, it doesn’t guarantee us that the results are 100% correct. For example,
+combining the SVM and the SVR, we can create a ”little broker” who has the
+knowledge to decide whether a particular stock will be a good or bad investment,
+and based upon certain predictions, when to sell and buy the stock.
+Figure 3.21: A virtual stock broker build using SVM and SVR
+Chapter 4
+KKT Conditions, Incremental
+Learning and Samples Moving
+This is the mathematical and most complex part of the thesis. Here you can ﬁnd
+how you can build the online version of support vector machines algorithm starting
+from its deﬁnition.
+Problem Description
+The main purpose of support vector machines is to ﬁnd a function f (x) that has
+deviated away from all the training data. At the same time, this function should
+be as ﬂat as possible, to prevent overﬁtting. We can write this problem as a convex
+optimization problem [5] [1]:
+ y − (wT · φ(x ) + b) ≤
+ i
+(4.1)
+ (wT · φ(x ) + b) − y ≤
+The model presented is correct only if we assume that the problem is feasible. If we
+want to allow some errors we should introduce some slack-variables that enlarge the
+4.1. Problem Description
+tolerance of the machine:
+ yi − (wT · φ(xi ) + b) ≤ + ξi
+(4.2)
+(wT · φ(xi ) + b) − yi ≤ + ξi∗
+ξi , ξi∗ ≥ 0, i = 1..l
+The constant C determines the trade-oﬀ between the ﬂatness of the function and the
+amount of larger deviations of tolerance. Because this is a minimization problem,
+we can set all the constraints ≥ 0:
+min P =
+ −yi + (wT · φ(xi ) + b) + + ξi ≥ 0
+y − (wT · φ(xi ) + b) + + ξi∗ ≥ 0
+(4.3)
+4.2. Optimizing the problem
+Optimizing the problem
+From the minimization problem, we can calculate a Lagrange function which includes
+all the constraints, introducing some Lagrange multipliers:
+(ξi + ξi∗ ) +
+(ηi ξi + ηi ξi∗ ) +
+αi ( + ξi + yi − wT · φ(xi ) − b) +
+(4.4)
+αi ( + ξi∗ − yi + wT · φ(xi ) + b)
+αi , αi , ηi , ηi ≥ 0, i = 1..l
+(The constraints are inserted with minus signs because inequalities are in the form
+The partial derivatives of the Lagrangian considering the variables (w, b, ξ, ξ ∗ ) have
+to vanish for optimality:
+(αi − αi ) = 0
+φ(xi )(αi −
+αi )
+= C − ηi − αi = 0
+∂ξi
+φ(xi )(αi − αi )
+ηi = C − αi , αi ∈ [0, C]
+(4.5)
+∂ηi
+ξi = 0
+ξi∗ = 0
+Substituting the new deﬁnitions of w, η, η ∗ in the Lagrangian:
+φ(xi )(αi − αi ) · φ(xj )(αj − αj ) +
+i=1 j=1
+((C − αi )ξi + (C − αi )ξi∗ ) +
+(4.6)
+(φ(xi ) · φ(xj )(αj −
+αi (−yi + (
++ b) + + ξi ) +
+(φ(xi ) · φ(xj )(αj − αj )) + b) + + ξi∗ )
+αi (yi − (
+That can also be written:
+φ(xi ) · φ(xj )(αi − αi )(αj − αj ) +
+(C − αi )ξi
+(C − αi )ξi∗ +
+φ(xi ) · φ(xj ) αi (αj − αj ) +
+(4.7)
+αi yi +
+αi yi
+αi +
+αi ξi∗
+αi ξi
+Some monomials can be merged together forming:
+yi (αi − αi ) +
+(αi + αi ) +
+(Cξi − αi ξi + αi ξi ) +
+(Cξi∗ − αi ξi∗ + αi ξi∗ )
+(4.8)
+And deleting some unnecessary parts:
+(4.9)
+Finally also the C parameter can be deleted, using the derivative constraints
+ξi = 0 ,
+we obtain:
+(4.10)
+(4.11)
+(αi + αi )
+To increase the reading facility, kernel function can be deﬁned as:
+K(xi , xj ) = φ(xi ) · φ(xj ) = Qij
+(4.12)
+The matrix Q contains the values of kernel function and it is called kernel matrix.
+It is useful to save kernel function values in this way for computational reasons.
+In the next paragraph will be shown how, combining the results found until now,
+we can arrive to the deﬁnition of KKT conditions.
+4.3. Another optimization problem
+Another optimization problem
+After many math passages, minimizing α, α∗ values, there is another dual optimization problem to solve:
+min D =
+Qij (αi − αi )(αj − αj ) +
+(4.13)
+ αi , α∗ ∈ [0, C], i = 1..l
+As before, we can compute another Lagrange function that includes all the constraints, introducing other Lagrange multipliers:
+(δi αi + δi αi ) +
+[ui (αi − C) + u∗ (αi − C)] +
+(αi − αi )
+δi , δi , ui , u∗ , ζ ≥ 0, i = 1..l
+(4.14)
+Computing partial derivatives of the Lagrangian:
+∂αi
+Qij (αj − αj ) + − yi − δi + ui + ζ = 0
+Qij (αj − αj ) + + yi − δi + ui − ζ = 0
+(4.15)
+In order to increase readability, we can replace ζ with b:
+(4.16)
+Like exposed above, this is an optimization problem with a convex domain. The
+suﬃcient conditions for a point to be an optimum are (Kuhn-Tucker Theorem):
+Qij (αj − αj ) + b − yi + − δi + ui ) = 0
+αi ∈ [0, C], αi (
+∈ [0, C],
+Qij (αj − αj ) − b + yi + − δi + u∗ ) = 0
+(−
+δi ≥ 0,
+δi αi = 0
+ui ≥ 0,
+ui (αi − C) = 0
+u∗ ≥ 0,
+u∗ (αi − C) = 0
+(4.17)
+Function estimated can be written as:
+Qij (αj − αj ) + b
+f (xi ) =
+(4.18)
+And margin function is deﬁned as:
+h(xi ) ≡ f (xi ) + b − yi
+(4.19)
+And replacing it in the system of equalities:
+αi ∈ [0, C], αi (h(xi ) + − δi + ui ) = 0
+αi ∈ [0, C], αi (−h(xi ) + − δi + ui ) = 0
+(4.20)
+All we need to ﬁnd is the relation of h(x) and
+at the changing of α:
+αi = 0
+=⇒ αi > 0,
+ui = 0 =⇒
+=⇒ h(xi ) + − δi = 0 =⇒
+=⇒ h(xi ) = − + δi =⇒
+=⇒ h(xi ) ∈ [− , 0]
+u∗ = 0 =⇒
+=⇒ −h(xi ) + − δi = 0 =⇒
+=⇒ h(xi ) = + − δi =⇒
+=⇒ h(xi ) ∈ [0, + ]
+0 < αi < C
+=⇒ αi = 0,
+δi = 0,
+=⇒ h(xi ) + = 0 =⇒
+=⇒ h(xi ) = −
+(4.21)
+=⇒ h(xi ) − = 0 =⇒
+=⇒ h(xi ) = +
+αi = C
+ui ≥ 0 =⇒
+=⇒ h(xi ) + + ui = 0 =⇒
+=⇒ h(xi ) = − − ui =⇒
+=⇒ h(xi ) ≤ −
+u∗ ≥ 0 =⇒
+=⇒ −h(xi ) + + u∗ = 0 =⇒
+=⇒ h(xi ) = + + u∗ =⇒
+=⇒ h(xi ) ≥ +
+4.4. KKT conditions deﬁnition
+KKT conditions deﬁnition
+For simplicity, θ can be deﬁned as the diﬀerence between α and α∗ :
+θi ≡ αi − αi
+(4.22)
+Inequalities can be rewritten as a system of conditions, called Karush-Kuhn-Tucker
+(KKT) Conditions [6]:
+ h(xi ) ≥ +
+ h(x ) = +
+h(xi ) ∈ [− , + ]
+ h(x ) = −
+ h(x ) ≤ −
+θi = −C
+θi ∈ [−C, 0]
+θi = 0
+(4.23)
+θi ∈ [0, C]
+θi = +C
+The Online Support Vector Regression algorithm main purpose is to verify these
+conditions after that a new sample is added.
+Support, Error and Remaining Sets
+Now, using these conditions the samples can be divided into three sets:
+Support Set
+S = {i| (θi ∈ [0, +C] ∧ h(xi ) = − ) ∨
+(θi ∈ [−C, 0] ∧ h(xi ) = + )}
+Error Set
+E = {i| (θi = −C ∧ h(xi ) ≥ + ) ∨
+(4.24)
+(θi = +C ∧ h(xi ) ≤ − )}
+Remaining Set
+R = {i| θi = 0 ∧ |h(xi )| ≤ }
+The goal is to ﬁnd a way to add a new sample to one of the three sets maintaining
+KKT conditions consistent.
+4.6. Adding a new sample
+Adding a new sample
+The margin function can be deﬁned as:
+h(xi ) = f (xi ) + b − yi =
+Qij θj + b − yi
+(4.25)
+Adding a new sample c, the margin function changes to:
+Qij θj + Qic θc + b − yi
+h(xi ) =
+(4.26)
+The variation of the margin can be easily computed:
+∆θi = θi − θi
+(4.27)
+∆h(xi ) =
+Qij ∆θj + Qic ∆θc + ∆b
+The sum of the weights is zero, and this property can be used:
+(4.28)
+∆θi = −∆θc
+∆θi + ∆θc = 0 =⇒
+For the properties of the three sets, only support set samples can change θj , so only
+they contribute to the new solution:
+Qij ∆θj + ∆b = −Qic ∆θc
+where i ∈ SupportSet
+(4.29)
+Deﬁning the support set as a list of elements:
+S = {s1 , s2 , · · · , sls }
+(4.30)
+The equations above can
+ 1 Qs1 s1
+1 Qsls s1
+be rewritten in an equivalent matrix form:
+· · · Qs1 sls   ∆θs1 
+ = −  s1 c  ∆θc
+It’s interesting to discover the values of
+ ∆θs1 
+the variations of θ and b:
+−1 
+  Qs1 c 
+· · · Qs1 sls
+For simplicity, matrix R and the vector β can be deﬁned as:
+−1
+ 1 Qs1 s1 · · · Qs1 sls 
+1 Qsls s1 · · · Qsls sls
+ Qs1 c 
+ βs1 
+(4.31)
+(4.32)
+(4.33)
+(4.34)
+The solution can be rewritten as follow. Updating the θi values, the support set
+samples will be consistent. The h values for support samples don’t need updates,
+because they are always | |.
+ ∆θs1
+ = β∆θc =  s1
+(4.35)
+For error and remaining samples, the situation is opposite. They do not change the
+value, but they change h. Not Support Set is deﬁned as:
+N = E ∪ R = {n1 , n2 , · · · , nln }
+(4.36)
+4.7. Empty SupportSet
+And rewriting the variation of the h formula in a matrix notation:
+∆Qn1 c
+∆h(xn1 )
+ 1 Qn1 s1 · · · Qn1 sls   ∆θs1 
+∆h(xnln )
+1 Qnln s1 · · · Qnln sls
+(4.37)
+Replacing the variations of θ and b with the results obtained in the equation (4.13):
+ 1 Qn1 s1 · · · Qn1 sls 
+(4.38)
+Now, γ can be deﬁned as:
+  1 Q
+· · · Qn1 sls
+n1 s1
+And rewriting the formula with new notations:
+(4.39)
+(4.40)
+In this way, ∆θi and ∆b values can be updated by computing β, and ∆(xi ) values
+can be updated by computing γ.
+Empty SupportSet
+In the special case that SupportSet is empty, values should be updated diﬀerently.
+∆θc is no more distributed in the SupportSet, now empty, but it is fully added to b:
+∆h(xi ) = ∆b, i = 1..l
+(4.41)
+4.8. Samples Moving
+Samples Moving
+Up until now, we deﬁned a way to update all three sets values of ∆θc maintaining
+the KKT conditions consistent.
+Now, the problem is to identify the right value of ∆θc in all possible situations that
+can happen.
+A simple representation of support set, error set and remaining set in relation to
+h(x) as follows:
+In this image, each circle corresponds to a sample. The red circles are error samples, the yellow-ones are support samples and the green-ones are remaining samples.
+When you try to add a new sample, there can be two diﬀerent possibilities (blue
+circle is the new sample):
+The ﬁrst possibility is that the new sample error is less than . This is the easiest
+case: the sample can be added to the remaining samples set without changes of
+other samples.
+Otherwise, when the error is bigger than
+the situation is more complicated:
+In this situation θc or h(xc ) value of the new sample changes until it reaches the
+support or the error set.
+Notice that the arrow represents the sample movements of θi or h(xi ) components.
+The problem is that these variations inﬂuence other samples:
+At the end of the updating procedure, if variation is too big, some samples could
+change their θi and h(xi ) values and exit from their set.
+So before move new sample to support or error set, we should move all samples that
+change their set with less variation.
+Another important element that should be considered is that not all the samples
+are moving in the same direction as the new sample:
+4.9. From Support to Error Set
+The direction of a sample is determined by the sign of βi for support samples and
+by the sign of γi for error and remaining samples.
+Following, are the possible moves from the set.
+From Support to Error Set
+When a sample goes from support to error set, his θi from 0 < |θi | < C becomes
+= C and |h(xi )| from = becomes > .
+For support samples, the updating formula is:
+∆θi = βi ∆θc
+4.10. From Support to Remaining Set
+The relative variation required is:
+∆θc = ∆θi /βi
+∆θc = (C − θi )/βi or (−C − θi )/βi
+In this case:
+4.10
+From Support to Remaining Set
+When a sample goes from support to remaining set, his θi from 0 < |θi | < C becomes
+= 0 and |h(xi )| from = becomes < .
+∆θc = −θi /βi
+4.11. From Error to Support Set
+4.11
+From Error to Support Set
+When a sample goes from error to support set, his |h(xi )| from > becomes = .
+For error samples, the updating formula is:
+∆h(xi ) = γi ∆θc
+∆θc = ∆h(xi )/γi
+∆θc = (− − h(xi ))/γi or ( − h(xi ))/γi
+4.12. From Remaining to Support Set
+4.12
+From Remaining to Support Set
+When a sample goes from remaining to support set, his |h(xi )| from <
+becomes
+4.13. How the algorithm works
+4.13
+How the algorithm works
+Before a new sample is added, all the samples that requires a less variation are
+moved. In every iteration, h(xc ) and θc value of the new sample change.
+When the value of |h(xc )| is = , the sample is added to the support set.
+Before that this happens, |θc | value becomes = C and the sample is added to the
+error set.
+From these considerations, we can be build an incremental algorithm that, starting
+from an already deﬁnite situation, can add an element to the training set. In the
+next chapter we will expose the complete algorithm.
+This chapter shows that before we add a new sample, there can be other moves
+of other samples from one set to another in order to maintain KKT conditions veriﬁed.
+4.14. Stabilization
+4.14
+Stabilization
+Unfortunately, this algorithm produces a big number of instability errors due to an
+enormous number of ﬂoating-point operations.
+So it often happens that a sample exit from its set and does no more verify KKT
+conditions.
+To avoid this problem, there has been ideated a way to correct these samples and
+move back to its original sets.
+The basic idea is to use the same principles applied in normal algorithm and extend
+them with new possible moves permitted only when a sample exit from its set.
+In the next paragraphs are listed all the possible variations.
+4.14.1
+Invalid Support Samples
+A support sample becomes invalid when its |θi | becomes > C. In this case the
+sample, is neither a support sample, neither an error sample.
+Note that if KKT conditions aren’t violated, this part of the algorithm isn’t used.
+4.14.2
+Invalid Error Samples
+An error sample becomes invalid when its |h(xi )| becomes < .
+In this case the sample, is neither an error sample, neither a remaining sample,
+because |θi | = C.
+4.14.3
+Invalid Remaining Samples
+A remaining sample becomes invalid when its |h(xi )| becomes > .
+In this case the sample, is neither a remaining sample, neither an error sample,
+because θi = 0.
+Chapter 5
+The Algorithm
+This chapter ﬁnally shows the Online Support Regression Algorithm.
+This is the heart of the thesis. For better understanding, I have listed all the
+equations needed by the algorithm.
+The Learning Algotirithm
+Input and Output
+After long math proofs and analysis the algorithm is ﬁnally shown. It’s in a pseudocode format. The input requested from an Online Support Vector Regression is the
+following:
+IN P U T S
+1. TrainingSet {xi , yi , i = 1..l}
+2. Wheights θi , i = 1..l
+3. Bias b
+4. TrainingSet partition into SuppotSet(S) , ErrorSet(E)
+and RemainingSet(R)
+5. Params: , C, KernelType and KernelParams
+6. R Matrix
+7. New Sample c = (xc , yc )
+5.1. The Learning Algotirithm
+At the beginning of a training, the TrainingSet, Coeﬃcients, SupportSet, ErrorSet, RemainingSet and R Matrix are empty, the Bias is set to 0.
+Notice that all these values should be stored somewhere to train new values. In
+normal support vector regression training, only the TrainingSet, Weights and Bias
+are necessary.
+1. New TrainingSet {xi , yi , i = 1..l + 1}
+2. New Coefficients θi , i = 1..l + 1
+3. New Bias b
+4. New TrainingSet partition
+5. New R Matrix
+The output contains all the values given in input updated.
+New Sample Training Pseudo-code
+This is the pseudo-code of the training of a new sample.
+NEW TRAINING ALGORITHM
+Add (xc , yc ) at the TrainingSet
+Set θc = 0
+Compute f (xc ) and h(xc )
+If (|h(xc )| < )
+Add NewSample to the RemainingSet and Exit
+Compute h(xi ), i = 1..l
+continues...
+NEW TRAINING ALGORITHM (CONTINUATION)
+While (NewSample is not added into a set)
+Update the values β and γ
+Find Least Variations(Lc1 , Lc2 , Ls , Le , Lr )
+Find Min Variation ∆θc = min(Lc1 , Lc2 , Ls , Le , Lr )
+Let Flag the case number that determinates ∆θc
+(Lc1 = 1, Lc2 = 2, Ls = 3, Le = 4, Lr = 5)
+Let xl the sample that determines ∆θc
+Update θc , θi , i = 1..l and b
+Update h(xi ), i ∈ E ∪ R
+Switch Flag
+6.8.1
+(Flag = 1)
+6.8.1.1
+Add NewSample to SupportSet
+6.8.1.2
+Add NewSample to R Matrix
+6.8.1.3
+Exit
+6.8.2
+(Flag = 2)
+6.8.2.1
+Add NewSample to ErrorSet
+6.8.2.2
+6.8.3
+6.8.3.1
+(Flag = 3)
+If (θl = 0)
+6.8.3.1.1
+Move Sample l from Support to RemainingSet
+6.8.3.1.2
+Remove Sample l from R Matrix
+Else [θl = |C|]
+6.8.3.2.1
+Move Sample l from Support to ErrorSet
+6.8.3.2.2
+6.8.4
+(Flag = 4)
+6.8.4.1
+Move Sample l from Error to Support
+6.8.4.2
+Add Sample l to R Matrix
+6.8.5
+(Flag = 5)
+6.8.5.1
+Move Sample l from Remaining to SupportSet
+6.8.5.2
+At the beginning, Online SVR tries to check if the new sample can be inserted in
+the RemainingSet. This is the best case, because it is fast and does not increase the
+complexity of the machine.
+If this does not happen, it starts a cycle that ﬁnishes only when the new sample is
+added to Support or Error set (cases 1 and 2).
+At each iteration, a sample migrates from one set to another. Each migration passes
+through SupportSet, so that at every iteration the R matrix (that is correlated
+to support samples) changes. Because this is a common and the most expensive
+operation, in the next sections it will be explained a method to eﬃciently update
+the R Matrix.
+Formula Equations
+In this section are reported the equations used in the algorithm.
+For more details, please see the previous chapter.
+At the beginning of the algorithm, computes f and h (the margin function):
+f (xc ) =
+(θi Qic ) + b
+(5.1)
+h(xc ) = f (xc ) − yc
+(5.2)
+At each iteration, β and γ, are useful for least variations calculus:
+(5.3)
+(5.4)
+When the least variation is found, it is possible to update θc , θi | i ∈ S, b and
+h(xi )| i ∈ E ∪ R:
+θi = θi + ∆θi
+(5.5)
+(5.6)
+∆θs1 
+(5.7)
+h(xi ) = h(xi ) + ∆h(xi )
+(5.8)
+(5.9)
+(5.10)
+Find Least Variations
+Combining the considerations listed in previous chapters, we can write down the
+conditions for the moving of the samples.
+Before analyzing all the possible moves, it’s necessary to deﬁne the direction in
+which it is moving. For learning, it’s the opposite direction of Hc , because we want
+to reduce this value until it reaches | |:
+Direction = sign(−Hc )
+(5.11)
+Now it’s possible to deﬁne the moving steps. The ﬁrst variation considered is that
+new sample reaches | | and consequently the SupportSet.
+Variation value is:
+LC1 VARIATION
+If ((θc > 0) ∨ (θc = 0 ∧ Hc < 0))
+LC1 = (−Hc − )/γc
+Else
+LC1 = (−Hc + )/γc
+The second variation measures the distance of new sample from error set.
+LC2 VARIATION
+If (Direction > 0)
+LC2 = −θc + C
+LC2 = −θc − C
+The third variation measures the distance of each Support sample to Error or RemainingSet.
+The Sample’s direction depends on the direction of new sample and by the value of
+βi . If it is negative, the sample goes in the opposite direction.
+Notice that the index i in β is not referred to the position in the vector but to the
+position inside the SupportSet.
+Variation values are:
+LS VARIATIONS
+ForEach i ∈ SupportSet
+If (Direction ∗ βi > 0)
+Else [Direction ∗ βi < 0]
+If (Hi > 0) [Hi = ]
+If (Hi > 0) [Hi = − ]
+If (θi < −C)
+LSi = (−θi − C)/βi
+LSi = Direction*Inf
+ElseIf (θi <= 0)
+LSi = −θi /βi
+Else [θi > 0]
+Else [Hi = − ]
+Else [Hi = ]
+If (θi < 0)
+ElseIf (θi <= C)
+LSi = (−θi + C)/βi
+Else [θi > +C]
+The fourth variation measures the distance of each error sample to SupportSet.
+The samples’s direction depends on the direction of the new sample and by the value
+of γi . If it is negative, the sample goes in the opposite direction.
+Notice that the index i in γ is not referred to the position in the vector but to the
+position in the ErrorSet.
+LE VARIATIONS
+ForEach i ∈ ErrorSet
+If (Direction*γi > 0)
+Else [Direction*γi < 0]
+If (θi > 0) [θi = C]
+If (Hi < − )
+If (Hi > − )
+LEi = (−Hi − )/γi
+LEi = Direction*Inf
+Else [θi − = C]
+If (Hi < )
+If (Hi > )
+LEi = (−Hi + )/γi
+The last variation measures the distance of each remaining sample to SupportSet.
+position in the RemainingSet.
+LR VARIATIONS
+LRi = (−Hi − )/γi
+ElseIf (Hi < + )
+LRi = (−Hi + )/γi
+LRi = Direction*Inf
+If (Hi > + )
+ElseIf (Hi > − )
+It’s easy to notice that not all the conditions seem probable, but for instability
+problems on ﬂoating points operations, in practice, these are all used.
+In the next chapters we will be shown how to take advantage of these enlarged
+Update of the R Matrix
+As seen in the chapter 4, R Matrix is deﬁned as:
+1 Qs1 s1
+Qs1 sls
+(5.12)
+In the algorithm above, we see that it is very ineﬃcient at each iteration to rebuild
+the matrix, due to the high complexity of the matrix inversion (about O(n2 log(n))).
+To avoid this problem, we have developed a method, speciﬁc for this type of matrix
+that is more eﬃcient (about O(s2 ), where s is the number of SupportSet samples).
+Now, we can add or remove a sample from R Matrix with this method [1].
+Add First Sample To R
+The ﬁrst sample should be updated in this way:
+−Q11 1
+(5.13)
+Add Other Samples To R
+The other samples are more expensive to update because of its computation time:
+.  1
+ +   βT 1
+RN EW = 
+(5.14)
+ γi
+0 
+0 ··· 0 0
+If the new sample is added to the SupportSet, γi is deﬁnite as:
+γi = QCC +
+1 QCS1 · · · QCSls
+(5.15)
+5.2. The Unlearning Algorithm
+Otherwise, if the new sample is moved from Error or RemainingSet to SupportSet,
+one should recompute also β and γi as follows:
+ Qis1
+Qisls
+γi = Qii +
+1 QiS1 · · · QiSls
+(5.16)
+(5.17)
+Remove a Sample From R
+The remove procedure delete the line and the column of the erased sample and
+update the others:
+I = [1 · · · (i − 1) (i + 1) · · · (ls + 1)]
+RI,i Ri,I
+RN EW = RI,I −
+Ri,i
+(5.18)
+The Unlearning Algorithm
+This section will show the unlearning algorithm. It is very similar to learning, so
+only the diﬀerences between the two algorithms will be discussed.
+The learning and unlearning algorithms are very similar to each other.
+The ﬁrst is a cycle where the hc value of the new sample decreases until it does not
+reach its set. The second is a cycle where the θc value decreases until it doesn’t
+become 0.
+The input required by in the unlearning version of the algorithm is:
+IN P U T
+5. Params: , C, KernelType and KernelParam
+7. Sample to Remove Index (c)
+It is easy to notice that the input is the same of the learning algorithm, except for
+the fact that the sample should be removed
+The outputs are the values given in input updated.
+Sample Forgetting Pseudo-code
+This is the pseudo-code for forgetting a sample.
+FORGETTING ALGORITHM
+If (c ∈ RemainingSet)
+Remove Sample from RemainingSet
+Remove Sample from TrainingSet
+If (c ∈ SupportSet)
+Remove Sample from SupportSet
+If (c ∈ ErrortSet)
+Remove Sample from ErrorSet
+FORGETTING ALGORITHM (CONTINUATION)
+While (Sample c is not removed)
+Find Least Variations (Lc , Ls , Le , Lr )
+Find Min Variation ∆θc = min(Lc , Ls , Le , Lr )
+(Lc = 1, Ls = 2, Le = 3, Lr = 4)
+5.8.1
+5.8.1.1
+5.8.2
+5.8.2.1
+Remove Sample from TrainingSet and Exit
+5.8.2.1.1
+5.8.2.1.2
+5.8.2.2.1
+5.8.2.2.2
+5.8.3
+5.8.3.1
+5.8.3.2
+5.8.4
+5.8.4.1
+5.8.4.2
+At the beginning, Online SVR check the set of the sample. If it’s in the RemainingSet, it is easy to remove.
+Otherwise it should be removed from its sample and start a cycle that end only
+when the θc values becomes equal to 0.
+During the unlearning process, the direction depends on the θc value, because we
+want that it becomes 0.
+Variation = sign(−θc )
+(5.19)
+In unlearning algorithm there aren’t LC1 and LC2 variations. They are replaced by
+a new distance, LC , that measures the diﬀerence of θc from 0.
+LC VARIATION
+The variations of Support, Error and RemainingSet are always the same, the only
+diﬀerence is the Direction and this depends on θc .
+5.3. Stabilization
+Stabilization is a technique ideated to correct the errors generated by ﬂoating point
+operations (that have ﬁnite precision) and after it has been extended in order to
+permit online parameters estimation.
+It’s made up by two parts:
+1. samples correction: when a sample is outside its set can be corrected moving
+it in the right one
+2. stabilization procedure: can be invoked after a training and it checks that all
+the samples are in the right set. If this doesn’t happen, each wrong sample is
+forgotten and trained again. This is the stabilization procedure:
+STABILIZATION PROCEDURE
+For each sample s in TrainingSet
+If s doesn’t verify KKT conditions
+1.1.1
+Forget s
+1.1.2
+Train s
+Sample correction is inserted into the learning/unlearning algorithm. Otherwise the
+stabilize procedure is a function that can be called anytime, for two main purposes:
+1. be sure that all the elements are in the right sample, in order to avoid precision
+errors
+2. change one or more parameters and stabilize the SVR. When a parameter
+changes, many samples automatically exit from their set. Using this procedure
+is not necessary train the machine from the beginning, but it’s suﬃcient to
+stabilize the samples.
+Chapter 6
+Complexity Analysis
+This chapter lists the complexity measure of the OnlineSVR training algorithm. The
+complexity is deﬁned in terms of time and space, based on the number of trained
+elements.
+Time Complexity
+Now the time complexity of the algorithm will be formally deﬁnite. Like every
+good complexity analysis, we compute the value of the complexity in the worst case
+(O(f (x))).
+In the table shown below, on the right is visible the complexity of each instruction.
+COM P LEXIT Y
+O(c)
+Set Oc = 0
+O(n)O(kernel)
+O(n2 )O(kernel)
+6.1. Time Complexity
+O(n ∗ 5)
+O(n ∗ lS )O(kernel)
+Find Least Variations (Lc1 , Lc2 , Ls , Le , Lr )
+O(n)
+Find Min Variation ∆Oc = min(Lc1 , Lc2 , Ls , Le , Lr )
+Let Flag the case that determinates ∆Oc
+Let xl the sample that determines ∆Oc
+Update Oc , Oi , i = 1..l and b
+O(ls )
+O(lS )O(kernel)
+If (Ol = 0)
+Move Sample l from S to E
+O(lS )
+Else [Ol = |C|]
+Move Sample l from E to S
+Move Sample l from R to S
+6.2. Space complexity
+Space complexity
+Space complexity is very easy to compute:
+SPACE COMPLEXITY
+2. Wheights Oi , i = 1..l
+5. R Matrix
+6. β and γ
+7. KernelMatrix (Optional)
+O(n2 )
+It is easy to see that the algorithm does not seem very eﬃcient.
+In fact, if we consider the worst case, to add a new sample we need:
+O(5n) ∗ O(n ∗ ls ) ∗ O(kernel)
+that becomes:
+O(n3 ) ∗ O(kernel)
+when all the training samples are support samples.
+The complexity of the kernel operations can easily be avoided by saving all the kernel
+values in a matrix. This reduce time complexity, yet adds to the space complexity
+the factor O(n2 ). Other considerations can be done: the complexity O(n3 ) can seem
+to high compared to other support vector for regression algorithms, but, in practice,
+this does not happen. In the average case, the algorithm has complexity O(c ∗ n2 ),
+as shown in the test section.
+The speed of learning depends mostly on the number of support vectors, that can
+inﬂuence signiﬁcatively performances.
+Chapter 7
+Tests
+In this chapter are shown the results of the test computed using Online Support
+Vector Regression algorithm.
+Samples Number and Iterations Count
+In the following test we compare the number of samples trained versus the number
+of iterations.
+The TrainingSet is extracted from the AutoMPG database that is contained in the
+UCI Machine Learning Repository [11].
+The training parameters used are: =0.1, C=1, KernelType=RadialBasisFunction,
+KernelParam=10.
+7.2. OnlineSVR and LibSVM
+Figure 7.1: Samples trained compared with iteration count
+In the test their relation seems be linear. After a number of samples trained,
+SVR should begin to predict the samples correctly, so the number of iterations
+decrease. By using bad parameters, the machine doesn’t learn, and the iteration
+count probably will be higher.
+OnlineSVR and LibSVM
+Another important test is the speed: if the online algorithm is too slow, is it would
+be preferred to do a batch training for each time. So, we have compared the Online
+Support Vector Regression Algorithm with one of the more used support vector
+software: LibSVM.
+The TrainingSet is extracted from the AutoMPG database; the training parameters
+used are: =0.1, C=1, KernelType=RadialBasisFunction, KernelParam=10.
+Figure 7.2: OnlineSVR and LibSVM compared in a batch training
+LibSVM appears faster than Online Support Vector Regression algorithm. But
+the OnlineSVR’s main purpose is to optimize the speed of a new sample trained,
+not the total speed of the training.
+So, we can compare the exact time to add a new sample using the two methods:
+Figure 7.3: OnlineSVR and LibSVM compared in an online training
+7.3. Stabilization
+We can see that OnlineSVR is quicker than LibSVM in incremental learning.
+One of the more interesting characteristics of OnlineSVR is stabilization. It corrects
+ﬂoating-point errors, but has another important application: if a parameter changes,
+with stabilization it is possible to stabilize the SVR without restarting the training.
+Is it faster to restart the training or use stabilization algorithm? To answer to this
+question, we prepared a test where, starting from a trained OnlineSVR, we changed
+all the parameters and compared the results.
+The table shows the parameters of the SVR used during the stabilization test.
+Training
+KernelType
+KernelParam
+Default
+0.01
+Increasing C
+Decreasing C
+Increasing
+Decreasing
+0.0001
+Increasing KernelParam
+Decreasing KernelParam
+Table 7.1: Training parameters of the stabilization test
+Stabilizing C
+The C parameter inﬂuences Support and ErrorSet. From these results, it seems that
+it should be used with an increment of speed. When used in an application, it could
+be changed to avoid overﬁtting and underﬁtting.
+Figure 7.4: Stabilization and new learning time when C is increased
+Figure 7.5: Stabilization and new learning time when C is decreased
+Stabilizing Epsilon
+is more critical than C because it inﬂuences all the samples. In fact, the number
+of iterations needed is higher and, sometimes the algorithm speed is lower than if
+we were to restart the training.
+Figure 7.6: Stabilization and new learning time when
+is increased
+Figure 7.7: Stabilization and new learning time when
+is decreased
+Stabilizing KernelParam
+Figure 7.8: Stabilization and new learning time when kernel param is increased
+Figure 7.9: Stabilization and new learning time when kernel param is decreased
+It’s easy to see that stabilization seems more eﬃcient than starting the training
+from the beginning. However, even if stabilization works better when there are little
+variations, so that the samples don’t change a lot.
+Another interesting thing is that stabilization works even if we change the kernel
+type.
+This means that it is possible build a SVR that in the beginning has a linear kernel,
+and later can be converted in a RBF that oﬀers a more ﬂexible solution.
+7.4. Robot arm test
+Robot arm test
+We have given importance to the capacity of learning online over a practical case.
+In Genoa, there is a robot named James at D.I.S.T. which is at the moment made
+up by a head and an arm:
+Figure 7.10: The James robot
+The arm has seven degrees of freedom, approximately as in humans. At the
+moment, the arm is controlled by microprocessor based cards that give the right
+impulse for the motors to be able to move this arm in the desired direction. The
+idea of this experiment is to dynamically train the OnlineSVR in order to simulate
+the controller. In practice, given the desired position we wish to reach, certain
+voltages are tried out in order to complete the necessary movement of an arm.
+Because every SVR is only able to predict one result at a time, we need one for each
+motor in the arm. In this test we have experimented with three degrees of freedom,
+and therefore we have used three motors.
+The training scheme
+Training is performed with the micro-cotroller enabled: for a certain period of time
+the SVR registers the voltage needed to generate each motor movement. Once the
+SVR is ﬁnally trained, the micro-controller is substituted by the SVR and it will
+generates the new tension values.
+This experiment has many risks: if the SVR doesn’t learn the function well enough,
+it sends out incorrect voltages and this in turn could cause damage to the robot
+due to any wrong movements. For this reason we have, ﬁrst substitute the microcontroller, simulated the training with an input already collected from the robot, to
+make sure the results were satisfactory.
+Here are a summary scheme:
+Figure 7.11: The training scheme
+Every SVR is separated from the others and generates an independent result.
+Input data (x, y, z) correspond to the three angles for the arm movement that each
+motor of the arm should compute. The voltages (output) range from -12V to 12V
+with an acceptable margin of error of about 1V. We have chosen to use the gaussian
+kernel and the study of the correct parameters has been determined upon through
+cross validation.
+Results obtained
+To measure the training worth we have observed the mean and standard deviation
+of the error. If the algorithm learns then with time mean and the standard deviation
+should decrease signiﬁcantly.
+Figure 7.12: The ﬁrst graph shows the error of a sample before learning, the second
+one the mean error and the third one the standard deviation
+The ﬁrst is a graph of the errors committed by SVR before that it trains the
+sample. It should decrease gradually when the machine learn something.
+The graph of the mean shows, how, with the augmentation of the number of elements
+used, the mean error (calculated on a TestSet prepared separately), decreases with
+time, up to its stabilization. After a certain point, even if we add new examples,
+the result does not change signiﬁcantly.
+The standard deviation shows, instead, when the error deviates from the mean. A
+high value implies that the training did not go as planned, because the machine is
+not reliable and could make big mistakes. If the value is low, however we can be
+assured that whichever mistake it makes will not cost us more than the mean error
+itself. In many cases, this number is more important than the mean of the error.
+Here are the result obtained from the ﬁrst motor:
+Figure 7.13: Motor Arm 1 results
+The second motor:
+Figure 7.14: Motor Arm 2 results
+And the third motor:
+Figure 7.15: Motor Arm 3 results
+Unfortunately the machine seems not to learn very well. This is noted in the
+observation of the graphs and can be because of many factors:
+1. The most important is surely that of variance; where the error is too high,
+there is no minimum amount of reliance on the error made. However, after
+descending minimally, after 30 elements it stabilizes.
+2. Even the mean error remains high, even if the medium is of 0.5 which is half the
+amount of error permitted, unfortunately there are many little things which
+cause an error of 2.5-3 volts, errors which could cause serious damages to the
+3. If the training doesn’t improve the results, retrain it with 30 elements or 1000
+brings us to many similar errors.
+Figure 7.16: The results are not as good as we would
+After a more accurate analysis of the problem we realized that the input data
+were somewhat suspicious. For example two positions of the robot seemed identical:
+Figure 7.17: Noisy problem: these two arm positions for the robot are the same.
+This surely is the main problem. The data suﬀers of a noise level that is larger
+than our tolerance and this determines the incapability to ﬁnd a good solution to
+the problem.
+Chapter 8
+Conclusions
+Analysis of the work done
+In this thesis the online version of support vector machine for regression algorithm
+has been analyzed. This algorithm has been viewed from an theoretical an implementation point of view. It has been compared with one of the most frequently
+used libraries of batch SVM. Thanks to the diﬀerent implementations in Matlab
+and C++ it has been possible to construct, a simple version to give a better understanding to those researcher who want to study in depth this algorithm and an
+eﬃcient version which allows the development of real applications.
+The online version is more eﬃcient than the batch when used for incremental learning, which can do the ”unlearning”.
+All errors found in the article [1] have been corrected in this thesis and, thanks to the
+stabilization technique, it is possible to change dynamically the SVR parameters,
+like , C and the kernel type.
+A few other problems remain, related to, from the quadratic complexity of the algorithm, which does not permit an increment of the number of samples trained without
+a great loss of performance.
+8.2. Future development
+Future development
+This algorithm has been completed and is current functioning. One of the possible
+further developments could be that of search functional heuristics which would permit us to choose what are the best examples to use for training, in order to render
+the operations of learning and unlearning more eﬃcient.
+Also, many algorithms already exists for online learning, few can have also the unlearning feature. This permits the opportunity to create new techniques purposely
+studied to make use of this useful operation, which, up until now, have been left in
+a dark a little.
+Thanks to the stabilization, it is possible to dynamically change the parameters so
+that other than the only advancement of a machine which can learn new input, it
+would also be able to automatically determinate which wold be the best parameters
+during the training phase.
+Appendix A
+Software Developed
+Matlab Implementation
+This is the prototype of the algorithm. It is not very eﬃcient, but it is useful for
+testing and it has some special features, like the plot of the results; it can also build
+a video of a the training procedure.
+It is available for Linux and Windows.
+A.2. C++ Implementation
+C++ Implementation
+This is the eﬃcient implementation of the algorithm. It has two levels of execution,
+one is to increment speed, the other reduce the memory utilized. Also, included are
+“cross validation” and “leave one out” for parameters estimation.
+Command Line Interface
+It is based on C++ implementation and is very useful used with script languages.
+Available for Windows and Linux.
+Windows Interface
+It is very useful for manual estimation of the parameters. It also plots the errors of
+the training and test sets.
+A.5. OnlineSVR Web Site
+OnlineSVR Web Site
+It contains all the documentation of the algorithm and the code produced. It is
+available on http://onlinesvr.altervista.org.
+Appendix B
+Parameters Estimation
+In this appendix are reported the citations written by many researchers. They
+suggest how to estimate the parameters, a big problem in real applications.
+C Estimation
+”However, it is critical here, as in any regularization scheme, that a proper value
+is chosen for C, the penalty factor. If it is too large, we have a high penalty for
+nonseparable points and we may store many support vectors and overﬁt. If it is too
+small, we may have underﬁtting.”
+Alpaydin (2004)
+”...the coeﬃcient C aﬀects the trade-oﬀ between complexity and proportion of nonseparable samples and must be selected by the user.”
+Cherkassky and Mulier (1998)
+”Selecting parameter C equal to the range of output values [6]. This is a reasonable
+proposal, but it does not take into account possible eﬀect of outliers in the training
+data.” ”Our empirical results suggest that with optimal choice of , the value of
+regularization parameter C has negligible eﬀect on the generalization performance
+(as long as C is larger than a certain threshold analytically determined from the
+training data).”
+B.1. C Estimation
+Cherkassky and Ma (2002b)
+”In the support-vector networks algorithm one can control the trade-oﬀ between
+complexity of decision rule and frequency of error by changing the parameter C,...”
+Cortes and Vapnik
+”There are a number of learning parameters that can be utilized in constructing
+SV machines for regression. The two most relevant are the insensitivity zone e and
+the penalty parameter C, which determines the trade-oﬀ between the training error
+and VC dimension of the model. Both parameters are chosen by the user.”
+Kecman (2001)
+The parameter C controls the trade oﬀ between errors of the SVM on training
+data and margin maximization (C = [inﬁnity] leads to hard margin SVM).
+Rychetsky (2001)
+”The parameter C controls the trade-oﬀ between the margin and the size of the
+slack variables.”
+Shawe-Taylor and Cristianini (2004)
+”[Tuning the parameter C] In practice the parameter C is varied through a wide
+range of values and the optimal performance assessed using a separate validation
+set or a technique known as cross-validation for verifying performance using only a
+training set.”
+”...the parameter C has no intuitive meaning.”
+”The factor C in is a parameter that allows one to trade oﬀ training error vs.
+model complexity. A small value for C will increase the number of training errors,
+B.2. Epsilon Estimation
+while a large C will lead to a behavior similar to that of a hard-margin SVM.”
+Joachims (2002)
+”In this paper a method based on the characteristics of the kernel, the range of
+output values and the size of the e-insensitive zone, is proposed.”
+Jordaan
+”Let us suppose that the output values are in the range [0, B]. [...] a value of
+C about equal to B can be considered to be a robust choice.”
+Mattera and Haykin (1999)
+”Support Vector Machines use a regularization parameter C to regulate the trade-oﬀ
+between the complexity of the model and the empirical risk of the model. Most of
+the techniques available for determining the optimal value of C are very time consuming. For industrial applications of the SVM method, there is a need for a fast
+and robust method to estimate C. In this paper a method based on the characteristics of the kernel, the range of output values and the size of the e-insensitive zone,
+is proposed.”
+Jordaan (2002)
+Epsilon Estimation
+”Smola and Kwok proposed asymptotically optimal e - values proportional to noise
+variance, in agreement with general sources on SVM. The main practical drawback
+of such proposals is that they do not reﬂect sample size. Intuitively, the value of e
+should be smaller for larger sample size than for small sample size (with same noise
+level).” ”Optimal setting of e requires the knowledge of noise level. The noise variance can be estimated directly from training data, i.e. by ﬁtting very ﬂexible (highvariance) estimator to the data. Alternatively, one can ﬁrst apply least-modulus
+regression to the data, in order to estimate noise level.” ”Similarly, Mattera and
+Haykin propose to choose e - value so that the percentage of SVs in the SVM re-
+gression model is around 50% of the number of samples. However, one can easily
+show examples when optimal generalization performance is achieved with the number of SVs larger or smaller than 50%.” ”Smola and Kwok proposed asymptotically
+optimal e - values proportional to noise variance, in agreement with general sources
+on SVM The main practical drawback of such proposals is that they do not reﬂect
+sample size. Intuitively, the value of e should be smaller for larger sample size than
+for small sample size (with same noise level).”
+Cherkassky and Ma
+”For an SVM the value of e in the e-insensitive loss function should also be selected.
+has an eﬀect on the smoothness of the SVM’s response and it aﬀects the
+number of support vectors, so both the complexity and the generalization capability
+of the network depend on its value. There is also some connection between observation noise in the training data and the value of . Fixing the parameter
+can be
+useful if the desired accuracy of the approximation can be speciﬁed in advance.”
+Horvth (2003)
+SV machines for regression. The two most relevant are the insensitivity zone
+[...] Both parameters are chosen by the user. [...] An increase in means a reduction
+in requirements for the accuracy of approximation. It also decreases the number of
+SVs, leading to data compression.”
+”Under the assumption of asymptotically unbiased estimators we show that there
+exists a nontrivial choice of the insensitivity parameter in Vapniks e-insensitive loss
+function which scales linearly with the input noise of the training data. This ﬁnding
+is backed by experimental results.”
+Smola Optimal Choice of e-Loss for Support Vector Machines
+”The value of epsilon determines the level of accuracy of the approximated function.
+B.3. KernelParam Estimation
+It relies entirely on the target values in the training set. If epsilon is larger than
+the range of the target values we cannot expect a good result. If epsilon is zero, we
+can expect overﬁtting. Epsilon must therefore be chosen to reﬂect the data in some
+way. Choosing epsilon to be a certain accuracy does of course only guarantee that
+accuracy on the training set; often to achieve a certain accuracy overall, we need to
+choose a slightly smaller epsilon.”
+”Parameter
+controls the width of the e-insensitive zone, used to ﬁt the train-
+ing data. The value of e can aﬀect the number of support vectors used to construct
+the regression function. The bigger e, the fewer support vectors are selected. On
+the other hand, bigger e-values results in more ﬂat estimates. Hence, both C and
+e-values aﬀect model complexity (but in a diﬀerent way).”
+”A robust compromise can be to impose the condition that the percentage of Support Vectors be equal to 50%. A larger value of can be utilized (especially for very
+large and/or noisy training sets)...”
+Mattera and Haykin, 1999
+”the optimal value of
+scales linearly with σ.”
+Learning with Kernels
+KernelParam Estimation
+”For classiﬁcation problems, the optimal σ can be computed on the basis of Fisher
+discrimination. And for regression problems, based on scale space theory, we demonstrate the existence of a certain range of σ, within which the generalization performance is stable. An appropriate σ within the range can be achieved via dynamic
+evaluation. In addition, the lower bound of iterating step size of σ is given.”
+Wang, et al., 2003.
+Bibliography
+Incremental Support Vector Machines
+[1] Accurate Online Support Vector Regression,
+Ma, Theiler, Perkins, Article, 2003
+T his is the article where I started my research.
+[2] Incremental and Decremental Support Vector Machine Learning,
+Cauwenbergh, Poggio, Article, 2001
+S tart point of all incremental support vector algorithms.
+[3] Incremental Support Vector Learning: Analysis, Implementation and Applications,
+Laskov, Gehl, Krauger, Muller, Article, 2001
+Article rich of demostrations about incremental classiﬁcation. It includes also some
+implementation tricks for an eﬃcient implementation.
+[4] Online SVM Learning: from Classiﬁcation to Data Description and Back,
+Tax, Laskov, Article, 2003
+U seful to understand how the algorithm converge.
+[5] A tutorial on support vector regression,
+Smola, Schoelkopf, Article, 1998
+S tart point for support vector regression.
+C.3. Other
+[6] Support Vector Machines,
+Taylor and Cristianini, Book, 2000
+T heory and concepts abot support vector machines.
+[7] Support Vector Machines for Classiﬁcation and Regression,
+Gunn, Article, 1998
+C omplete article about support vector machines: contains theory, examples and the
+matlab code of the implemenetation.
+[8] LubSVM - A Library for Support Vector Machines,
+Chang and Lin, Web Site, 2006
+http://www.csie.ntu.edu.tw/ cjlin/libsvm/
+[9] Support Vector Machines,
+Grudic, Article, 2004
+I ntroduction to support vector machines.
+[10] Support Vector Machines,
+Maniezzo, Article, 2004
+Other
+[11] UCI Machine Learning Repository,
+Various authors, Web Site, 2004
+http://www.ics.uci.edu/ mlearn/MLRepository.html
+[12] Wikipedia,
+Various authors, Online Repository, 1998
+http://en.wikipedia.org/wiki/Learning
+[13] SVM Parameters,
+http://www.svms.org/parameters/
