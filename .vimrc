@@ -6,24 +6,23 @@ filetype off                  " required
 set rtp+=~/vimfiles/bundle/vundle/
 let path='~/vimfiles/bundle'
 call vundle#rc(path)
-
 " let Vundle manage Vundle, required
-Plugin 'gmarik/vundle'
+Bundle 'dahu/vim-fanfingtastic'
+Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'justinmk/vim-sneak'
+Bundle 'mtth/scratch.vim'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'svermeulen/vim-easyclip'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'svermeulen/vim-easyclip'
-Bundle 'mtth/scratch.vim'
-Bundle 'jeetsukumaran/vim-buffergator'
-Bundle 'dahu/vim-fanfingtastic'
+Plugin 'gmarik/vundle'
+
 filetype plugin indent on     " required
 
-" Put your stuff after this line"
 " visuals
 colorscheme desert
 set guioptions-=m  "remove menu bar
@@ -40,18 +39,23 @@ set autowriteall
 
 " OS depending stuff
 if has("win32") || has("win64")
-   set directory+=,~/tmp,$TMP " adapt folder for temp files
-   set guifont=Lucida_Console:h11:cANSI
-   set clipboard=unnamed
+	set directory+=,~/tmp,$TMP " adapt folder for temp files
+	set guifont=Lucida_Console:h11:cANSI
+	set clipboard=unnamed
 else
-   set clipboard=unnamedplus
+	set clipboard=unnamedplus
+	"tmux-runner
+	let g:VtrStripLeadingWhitespace = 0
+	let g:VtrClearEmptyLines = 0
+	let g:VtrAppendNewline = 1"" 
+	let g:VtrUseVtrMaps = 1
 end 
 
 
 " grepping
 func! GitGrep(...)
   let save = &grepprg
-  set grepprg=git\ grep\ -i\ -n\ --break\ --untracked\ --context\ 3\ --all-match"\ $*
+  set grepprg=git\ grep\ -i\ -n\ --break\ --untracked\ --context\ 1\ --all-match"\ $*
   let s = 'grep'
   for i in a:000
     let s = s . ' ' . i
