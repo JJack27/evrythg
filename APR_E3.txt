@@ -13,7 +13,7 @@ b) Choose a reference model Gm (s) with time constant $T$ = 0.1 and stable zero.
 [ For a time a first order system $G(s) = \frac{a (s + b)}{s + c}$ the time constant is $T = 0$ ]
 
 c) Derive the update formula for Kp using the MIT rule.
-_cf('140514182657')
+[ _cf('140514182657') ]
 
 d) Sketch a block diagram for the adaptation of Kp .
 

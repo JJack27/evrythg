@@ -1,0 +1,3 @@
+Example 2.20. If the involved Hilbert spaces are Euclidean spaces, i.e. H = Rn , E = Rm , F = Rl , the chain rule results in
+[ _v('140519080715') ] (49)
+J(g ◦ f )|x0 = Jg|f (x0 ) · Jf |x0 , where Jf denotes the Jacobi matrix of f .

@@ -3,7 +3,6 @@ L4: Model Reference Adaptive Systems
 Dr.-Ing. Stefan Sosnowski
 Institute for Information-Oriented Control
 Technische Universit¨t M¨nchen
-a
 APR Lecture, summer semester 2014
 www.itr.ei.tum.de
 Midterm Exam
@@ -22,8 +21,6 @@ Content
 4. Model Reference Adaptive systems
 5. Autotuning, Gain Scheduling
 6. Practical Issues and Implementation, Applications
-MIT-Rule
-Lyapunov
 Model Reference Adaptive Systems
 Model Output ym
 Model
@@ -39,16 +36,10 @@ MIT-Rule: Gradient decent
 Lyapunov stability
 Given: y(t) = Gθ (p)u(t),
 ym (t) = Gm (p)uc (t)
-MIT-Rule
-Lyapunov
-MIT-Rule
-Original version of Model Reference Adaptive Control (MRAC)
-developed at MIT
-MIT Rule: Use gradient descent method for parameter adaptation
-One adjustable controller parameter θ
-e = y − ym
-_v('140514182657')
-adaption gain $\gamma$
+Original version of Model Reference Adaptive Control (MRAC) developed at MIT
+
+[ _to('140519081929') ] 
+
 MIT Rule Example 1/7
 Given: stable SISO system
 y(t) = kG(p)(u(t))
@@ -65,19 +56,14 @@ G(s)
 u(t)
 ym (t) = Gm (p)(uc (t)) = k0 G(p)(uc (t))
 where k0 is a given constant gain.
-MIT-Rule
-Lyapunov
 MIT Rule Example 2/7
 If k were known:
-y(t) = kG(p)(u(t))
 ym (t) = k0 G(p)(uc (t))
 Solution with a simple proportional controller:
 u(t) = θuc (t),
 Then:
 y(t) = kG(p)(θuc (t)) = kG(p)(
-MIT-Rule
 uc (t)) = ym (t)
-Lyapunov
 MIT Rule Example 3/7
 Adaptation of θ:
 Error between real and model outputs:
@@ -87,32 +73,24 @@ Jacobian as measure for e(t, θ):
 J(t, θ) = |e(t, θ)|2
 Time derivative (chain rule):
 Negative time derivative:
-MIT-Rule
-Lyapunov
 MIT Rule Example 4/7
 Sensitivity derivative:
-e=
 [kG(p)θ(t)uc (t)] = kG(p)uc (t)
 = k0 G(p)uc (t) = ym (t)
 Adaptation law:
-2e
 e = −2γ
 ym (t)e(t, θ)
 with arbitrary γ > 0, since γ = 2γ
 with arbitrary γ > 0
 θ = −γym (t)e(t, θ)
 Remark: J(·) = |e(·)|
-MIT-Rule
 θ = −γym (t)sgn(e(t, θ))
-Lyapunov
 MIT Rule Block diagram
 [ In equations _cf('140515094820') ]
 MIT Rule Example 5/7
 Transfer function: G(s) =
 Parameters: k = 1 (process), k0 = 2 (desired)
 Reference: uc (t) sinusoidal function
-MIT-Rule
-Lyapunov
 MIT Rule Example 6/7
 _cf('140515093900')
 Transfer function
@@ -124,23 +102,18 @@ Characteristic polynomial
 _cf('140515095935')
 Stable zeros if and only if and
 \todo{How would you calculate these?}
-
 With any choice of γ > 0 ⇒ stability loss for suﬃciently large
 magnitudes of uc !
-MIT-Rule
-Lyapunov
 MIT Rule Example 7/7
 Transfer function: G(s) = s2 +a1s+a2
 Parameters: k = a1 = a2 = k0 = 1, γ = 0.1
 Reference: uc (t) square wave with amplitudes (a) = 0.1, (b) = 1,
 (c) = 3.5
-
 Normalized MIT Rule
 Rewrite: θ = γΦe(t, θ) with $\varphi := \frac{\partial e} {\partial \theta}$ 
 [ note the different versions of phi between book and slides ]
 Modiﬁcation to make adaptation independent of signal level:
 with small constant $\alpha$ to avoid problems for Φ → 0
-
 MIT Rule Summary
 Adaptation law based on the gradient descent for minimizing the
 error e = y − ym
@@ -150,8 +123,6 @@ Choice of adaption gain is critical and depends on the signal level
 γΦe
 No guarantee that adaptive system based on the MIT rule will be
 stable!
-MIT-Rule
-Lyapunov
 Aleksandr Mikhailovich Lyapunov
 Working ﬁelds:
 diﬀerential equations
@@ -161,8 +132,6 @@ probability theory
 Most famous for stability
 theory of a dynamical
 system
-MIT-Rule
-Lyapunov
 Stability
 The solution x(t) = 0 of the system
 x(t) = f (x, t),
@@ -173,9 +142,6 @@ is stable if for any ε > 0 there exists a number δ(ε) > 0 such that
 Uniformly stable: δ(ε, t0 ) can be chosen independently on t0
 Uniformly asymptotically stable: uniformly stable and ∀x(t0 )
 ||x(t, t0 )|| → 0
-MIT-Rule
-as
-Lyapunov
 Simple Example
 Stability of x = 0 of system
 x(t) = −ax(t)
@@ -185,19 +151,14 @@ a≥0
 |e−a(t−t0 ) | ≤ 1 for t ≥ t0
 |x(t, t0 )| ≤ 1|x(t0 )| ≤ δ for t ≥ t0
 Conclusion: uniform stability for δ = ε
-a>0
 |e−a(t−t0 ) | → 0 for t → ∞
 |x(t, t0 )| → 0 for t → ∞
 Conclusion: uniform asymptotic stability
-MIT-Rule
-Lyapunov
 Class κ functions
 A continuous function α : [0, c(→ [0, ∞) is said to belong to class
 it is strictly increasing
 α(0) = 0
 It belongs to class κ∞ , if c = ∞ and α(r) → ∞ as r → ∞
-MIT-Rule
-Lyapunov
 Positive deﬁnite and semideﬁnite functions
 A continuously diﬀerentiable function V : Rn → R is called
 positive deﬁnite in a region U ⊂ Rn containing the origin if
@@ -207,15 +168,10 @@ x ∈ U and x = 0
 A function is called positive semideﬁnite if Condition 2 is replaced
 by V (x) ≥ 0.
 A positive deﬁnite function has level curves that enclose the origin.
-MIT-Rule
-Lyapunov
-Positive deﬁnite and semideﬁnite functions
 Velocity vector dx/dt = f (x) always points toward the
 interior of the level curves
 Solution that starts inside a given level curve can never pass
 to the outside of the same level curve
-MIT-Rule
-Lyapunov
 Lyapunov’s Theorem
 Let x = 0 be a stationary point of x = f (x, t). Let V (t, x) be a
 continuously diﬀerentiable function such that
@@ -225,8 +181,6 @@ f (x, t) ≤ −α3 (||x||)
 for t ≥ 0, α1 (·) and α2 (·) ∈ κ
 if α3 (·) ≥ 0, then x = 0 is uniformly stable
 if α3 (·) ∈ κ, then x = 0 is uniformly asymptotically stable
-MIT-Rule
-Lyapunov
 Remarks on Lyapunov’s Theory
 V is positive deﬁnite: α1 (||x||) ≤ V (t, x) means
 V (t, x(t)) ≤ C
@@ -240,10 +194,7 @@ V (t0 , x(t0 )) ≤ α2 (δ) = C
 Negative Lie derivative: V (t, x) ≤ 0 means
 V (t, x(t)) is not increasing along the trajectories and
 converges (to a non negative number).
-||x(t0 || ≤ δ
 ||x(t)|| ≤ α1 (α2 (δ)) = ε
-MIT-Rule
-Lyapunov
 Lyapunov Equation
 Stability of the solution x = 0 of the system
 x(t) = Ax(t)
@@ -251,28 +202,19 @@ Consider the Lyapunov function
 V (t, x) = xT P x
 Note that with a positive deﬁnite P = P T > 0
 α1 (||x||) ≡ λmin {P }||x||2 ≤ V (t, x) ≤ λmax {P }||x||2 ≡ α2 (||x||)
-
 Computing derivative along the trajectories we have
 _cf('140515164953')
-
 V = xT (AT P + P A)x = −xT Qx ≡ −α3 (||x||)
 provided the Lyapunov equation
 is solved with P = P T > 0
-
 Simple Example continued
 Lyapunov equation for stability of solution x = 0 of system
-x(t) = −ax(t)
 _m('140515110414')
 AT P + P A = −Q(−a)T P + P (−a) = −Q
 \todo{Isn't the $-Q$ factor wrong?}
-
 (2a)P = Q
 For any Q > 0 the solution
-2a
 is positive if and only if
-a>0
-MIT-Rule
-Lyapunov
 Invariance Principle
 LaSalle’s Theorem
 Let Ω ⊂ D be a compact set that is positively invariant with respect
@@ -284,8 +226,6 @@ largest invariant set in E.
 Then, every solution starting in Ω approaches M as t → ∞.
 ⇒ Valid only for time-invariant systems!
 ⇒ Asymptotic stability for negative semideﬁnite V
-MIT-Rule
-Lyapunov
 Barbalat’s Lemma
 If g is a real function of a real variable t, deﬁned and uniformly
 continuous for t ≥ 0, and if the limit of the integral
@@ -296,9 +236,7 @@ Remarks:
 g(t) is uniformly continous ⇐ g(t) is bounded
 g(t) and g(t) are bounded,
 g (s)ds
-MIT-Rule
 < 0 ⇒ lim g(t) = 0
-Lyapunov
 Boundedness and Convergence Set
 Theorem: Consider a system x = f (t, x) where f (x, t) is
 piecewise continuous in t and locally Lipschitz in x ∈ D, and
@@ -312,27 +250,18 @@ Take: r : ||x|| ≤ r ∈ D and deﬁne ρ = min {W1 (x)}
 Then, for any x(t0 ) ∈ W2 (x) ≤ ρ:
 x(t) is bounded for all t ≥ t0 .
 W (x(t)) → 0 as t → ∞
-MIT-Rule
-Lyapunov
 Stability Analysis
 Function candidate: V
 V positive
 deﬁnite
-yes
 V negative
 semideﬁnite
 Invariance
 Principle
-yes
-yes
-V negative
-deﬁnite
 Timeinvariant
 Barbalat’s
 Lemma
 asymptotically stable
-MIT-Rule
-Lyapunov
 Example 1/5
 The system dynamics and the model to match are
 y(t) = −ay(t) + bu(t),
@@ -347,23 +276,14 @@ V (x) =
 e2 +
 (bθ2 + a − am )2 (bθ1 − bm )2
 where x(t) = [e(t), bθ2 (t) + a − am , bθ1 (t) − bm ]T
-MIT-Rule
-Lyapunov
 Example 2/5
 Time derivative of
-V (x) =
-e2 +
-(bθ2 + a − am )2 (bθ1 − bm )2
 bθ2 + a − am ˙
 V = ee +
 = e (−am e − (bθ2 + a − am )y + (bθ1 − bm )uc ) +
-bθ2 + a − am ˙
-bθ2 + a − am ˙
 θ2 − γye0 +
 = −am e2 +
 θ1 + γuc e0
-MIT-Rule
-Lyapunov
 Example 3/5
 Choice of adaptation laws
 θ1 = −γuc e,
@@ -377,30 +297,18 @@ x(t) = [e(t), bθ2 (t) + a − am , bθ1 (t) − bm ]T is bounded
 W (x(t)) → 0
 e(t) → 0
 Remark: No guarantee for parameter convergence
-MIT-Rule
-Lyapunov
 Example: Lyapunov vs MIT
 Update law for both:
 θ = γΦe
 Lyapunov: Φ =
-MIT-Rule
 −uc (t)
-y(t)
-Lyapunov
-am
 p+am
-−uc (t)
-y(t)
 Example 4/5
 Process: G(s) =
-MIT-Rule
 Model: Gm (s) =
-Lyapunov
 Example 5/5
 Parameter convergence
 Dotted: MIT Rule for comparison
-MIT-Rule
-Lyapunov
 General Case 1/2
 Given a continuous time system and the target dynamics
 Consider the controller and the error signals
@@ -411,9 +319,7 @@ e = Ax + Bu − Am xm − Bm uc
 = Am e + (A − Am − BL)x + (BM − Bm )uc
 = Am e + Ψ(θ − θ0 )
 Consider a Lyapunov function candidate
-MIT-Rule
 e P e + (θ − θ0 )T (θ − θ0 )
-Lyapunov
 General Case 2/2
 Time derivative of V =
 eT P e + γ (θ − θ0 )T (θ − θ0 ) :
@@ -424,8 +330,6 @@ and choose the update law as
 then
 V = − eT (t)Qe(t)
 and we conclude that e(t) → 0.
-MIT-Rule
-Lyapunov
 References
 Gianluca Antonelli et al. Experimental validation of a new adaptive control scheme for quadrotors MAVs.
 In: 2013 IEEE/RSJ International Conference on Intelligent Robots and Systems. IEEE, Nov. 2013,

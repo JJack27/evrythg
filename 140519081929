@@ -1,0 +1,5 @@
+MIT Rule: Use gradient descent method for parameter adaptation
+One adjustable controller parameter θ
+e = y − ym
+[ _v('140514182657') ]
+adaption gain $\gamma$

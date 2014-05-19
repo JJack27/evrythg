@@ -1,0 +1,10 @@
+Steady-state solution and DC gain
+Let A asymptotically stable. Natural response vanishes asymptotically
+Assume constant u(t) ≡ ur . What is the asymptotic value xr = limt→∞ x(t) ?
+Impose 0 = ˙r (t) = Axr + Bur and get xr = −A−1 Bur
+The corresponding steady-state output yr = Cxr + Dur is
+[ _v('140518225746') ]
+DC gain
+Cf. final value theorem:
+[ u_r is constant $\iff$ U(s) = \frac{u_r}{s} ] 
+G(0) is called the DC gain of the system

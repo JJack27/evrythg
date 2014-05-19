@@ -1,0 +1,3 @@
+2.3 The Gradient
+Deﬁnition 2.15. Let H be a ﬁnite dimensional Hilbert space and let f : H → R be differentiable in x0 ∈ H. According to the Riesz representation theorem there exists a unique g(x0 ) ∈ H such that Df (x0 ) · v = v, g(x0 ) for all v ∈ H. g(x0 ) is called the gradient of f in x0 and is denoted by
+(32)

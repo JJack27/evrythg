@@ -3022,9 +3022,10 @@ we should change the policy to deterministically choose an action a = π(s).
 We know how good it is to follow the current policy from s—that is vπ (s)—but
 would it be better or worse to change to the new policy? One way to answer
 this question is to consider selecting a in s and thereafter following the existing
-policy, π. The value of this way of behaving is
-qπ (s, a) = Eπ[Rt+1 + γvπ (St+1 ) | St = s, At = a]
-(4.6)
+policy, π.
+
+[ _to('140519163932') ] 
+
 p(s |s, a) r(s, a, s ) + γvπ (s ) .
 The key criterion is whether this is greater than or less than vπ (s). If it is
 greater—that is, if it is better to select a once in s and thereafter follow π

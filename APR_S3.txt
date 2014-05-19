@@ -19,6 +19,7 @@ MIT rule yields the update rule for the parameter Kp as
 = −γe
 First, let us evaluate
 [ the partial derivative ]
+
 \todo{Is the derivative of the denumerator (the term after the - )correct? To my mind there is a factor of $K_p$ too much}
 
 In the above expression of ∂Kp , we can replace the second part of the fraction for Uc (s) from the closed-loop transfer function G(s)
@@ -74,7 +75,9 @@ where e is replaced with the previously obtained expression of error dynamics [ 
 Setting
 θx = −sgn(λ)exp
 θr = −sgn(λ)er
+
 \todo{So are we free to choose $\dot{\tilde{\theta}}_x$, $\dot{\tilde{\theta}}_y$}
+
 and V (e, θx , θr ) is negative semi-deﬁnite (V ≤ 0),
 [ $a_m < 0$ ! ]
 since it is independent of θx and θr , and thus Lyapunov stable.

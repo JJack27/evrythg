@@ -1,1 +1,7 @@
-$\langle x, y\rangle = \overline{\langle y, x \rangle}$
+Deﬁnition 2.1 (Hilbert space). A finite dimensional vector space H over K (which is either R or C) endowed with an inner product that fulﬁlls
+$\langle x, y\rangle = \overline{\langle y, x \rangle}$ (conjugate symmetry)
+(linearity in the ﬁrst argument)
+x, x > 0 for all x = 0
+(10)
+(positive deﬁniteness)
+for all x, y, z ∈ H is called a ﬁnite dimensional Hilbert space.
