@@ -57,6 +57,8 @@ docs/_build/
 
 # Swap, Autosave etc.
 *.swp
+*.m~
+*.asv
 
 # Latex
 *.aux
@@ -92,7 +94,7 @@ pythontex*
 # CVX
 cvx/*
 
-# Optimization in communications engineering lab
+# Optimization in Communications Engineering Lab
 oicel/
 
 # pictures
@@ -103,5 +105,7 @@ oicel/
 # Dropbox
 *in\ Konflikt\ stehende\ Kopie*
 
+# SVR
+OnlineSVRMatlab2006bCode/Iterations.txt
 # notebooks
 *.ipynb
