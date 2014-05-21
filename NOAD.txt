@@ -147,6 +147,7 @@ readily shown in Theorem 2.9 that ϕv is differentiable as well. Note, that the 
 round does not hold in general, i.e. differentiability of ϕv does not imply differentiability
 
 [ _to('140519080010') ]
+\todo{Is the $\cdot$ correct, as far as I understand $D f(x_0)$ may be in general a linear map such as $\operatorname{tr}$?}
 
 Example 2.8. Given the Hilbert spaces H, F = R2 and the function f : H → F deﬁned
 (23)
