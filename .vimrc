@@ -93,10 +93,11 @@ iab <expr> _to strftime("[ _to('%y%m%d%H%M%S') ]")
 " leader maps
 nmap 	 <silent> <leader>gf :split <cfile><cr>
 nmap     <silent> <leader>a :call GitGrepWord()<CR><CR>
-nmap     <silent> <Leader>x :! start "1" "%:p:r.pdf"<CR><CR>
+smap     <silent> <Leader>x :! start "1" "%:p:r.pdf"<CR><CR>
 nnoremap <silent> <Leader>f :call Filter(input("Search for: "))<CR>
 nnoremap <silent> <Leader>F :call Filter(@/)<CR>
-
+nmap     <silent> <Leader>s <plug>SubstituteOverMotionMap
+"
 " sneak motion
 nmap <Tab> <Plug>Sneak_s
 nmap <BS>  <Plug>Sneak_S
@@ -128,11 +129,6 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
-
-" customize substitution operator
-nmap <silent> gs <plug>SubstituteOverMotionMap
-nmap gss <plug>SubstituteLine
-xmap gs <plug>XEasyClipPaste
 
 " searching
 set mousemodel=extend "shift-LeftClick a word to search forwards, or Shift-RightClick to search backwards

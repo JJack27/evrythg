@@ -73,3 +73,12 @@ def uop(seq, idfun=None):
        seen[marker] = 1
        result.append(item)
    return result
+
+
+def wrapper(func, *args, **kwargs):
+    """
+    Wrap function (handling keyword arguments)
+    """
+    def wrapped():
+        return func(*args, **kwargs)
+    return wrapped

@@ -115,7 +115,7 @@ class _m(object):
 _v = lambda t: Image(filename='%s.png' %t)                              
 _v.__doc__="Display Image \n fn: Image"
 
-def _s(fn):
+def _l(fn):
     """
     Include file content and format as latex
     fn: Filename
@@ -127,7 +127,7 @@ def _p(fn):
     """
     Put text into clipboard
     """
-    system('clip < %s' %(fn))
+
 
 ip = get_ipython()
 def _f(s):
@@ -141,5 +141,6 @@ global _s
 _so = lambda s, l: _f(_s)
 _so.__doc__="A wrapper to register _f as line magic"
 ip.define_magic('so', _so)
+
 
 
