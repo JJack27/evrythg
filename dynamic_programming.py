@@ -3,42 +3,18 @@
 
 
 execfile('gridworld.py')
-
-
-
-def wrapper(func, *args, **kwargs):
-    """
-    Wrap function (handling keyword arguments)
-    """
-    def wrapped():
-        return func(*args, **kwargs)
-    return wrapped
-
-
-
 from numpy import set_printoptions
 from numpy.linalg import norm
 from numpy import sum
 from numpy import argmax
 from timeit import timeit
-from matplotlib.pyplot import arrow
 from numpy import float
-
-
-
-get_ipython().magic(u'matplotlib')
-
-
 
 # Convergence criterion
 converged = lambda V, _V:  norm(V - _V) < 1e-1
 
-
-
 # Update value function
 _v = lambda s, a, S, V: P(s, a, S) * (R(s, a, S) + 1. * V[idx(S)])
-
-
 
 def S_(s, a):
 	"""
@@ -49,8 +25,6 @@ def S_(s, a):
 	else:
 		return s
 
-
-
 def PU(V, PI):
     """
     Policy update
@@ -60,7 +34,6 @@ def PU(V, PI):
         PI[s_[0], s_[1], argmax(array([_v(s_, a, S_(s_, a), V) for a in A]))] = 1;
     print 'Running policy update'
     return PI
-
 
 
 def P_E(PI, V):
@@ -78,8 +51,6 @@ def P_E(PI, V):
     print 'Policy evaluation converged after %d iterations' %i
     return _V
 
-
-
 def SPI():
     """
     Synchronous policy iteration
@@ -92,8 +63,6 @@ def SPI():
         PI = PI_.copy()
         V = P_E(PI, V)
     return V, PI
-
-
 
 def SVI():
     """
@@ -112,27 +81,6 @@ def SVI():
     print 'Value iteration converged after %d iterations' %i
     return V
 
-
-
-
-set_printoptions(precision = 3)
-print 'Policy iteration takes %s [sec]' %timeit(SPI, number=1)
-
-
-
-
-set_printoptions(precision = 3)
-print 'Value iteration takes %s [sec]' %timeit(SVI, number=1)
-
-
-
-PI = SPI()[1]
-
-
-
-
-
-
 def vp(PI):
     """
     Visualize policy
@@ -142,14 +90,14 @@ def vp(PI):
         x, y = s_
         i = argmax(PI[x, y])
         P[x, y] = i+10
-        #arrow(float(x), float(y), -0.9 * float(A[i][0]), -0.9 *float(A[i][1]),head_width = 0.05, head_length = 0.1, length_includes_head = True)
     imshow(P, interpolation='nearest')
 
 
-
+get_ipython().magic(u'matplotlib')
+set_printoptions(precision = 3)
+print 'Policy iteration takes %s [sec]' %timeit(SPI, number=1)
+set_printoptions(precision = 3)
+print 'Value iteration takes %s [sec]' %timeit(SVI, number=1)
+PI = SPI()[1]
 vp(PI)
-
-
-
-
 

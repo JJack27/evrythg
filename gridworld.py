@@ -88,19 +88,19 @@ def pi(s):
     """
     Move right if possible
     """
-    if P(s, RIGHT, s + RIGHT) > 0: return RIGHT
+    if P(s, A_['RIGHT'], s + A_['RIGHT']) > 0: return A_['RIGHT']
     else: return(random_action(s))
 
-if False:
-	close('all')
-	figure()
-	title('Random policy')
-	imshow(sd(random_action), interpolation='nearest')
-	cb = colorbar()
-	cb.set_clim(0, 0.3)
-	figure()
-	title('Move right if possible')
-	imshow(sd(pi), interpolation='nearest')
-	cb = colorbar()
-	cb.set_clim(0, 0.3)
+get_ipython().magic(u'matplotlib')
+close('all')
+figure()
+title('Random policy')
+imshow(sd(random_action), interpolation='nearest')
+cb = colorbar()
+cb.set_clim(0, 0.3)
+figure()
+title('Move right if possible')
+imshow(sd(pi), interpolation='nearest')
+cb = colorbar()
+cb.set_clim(0, 0.3)
 
