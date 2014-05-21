@@ -1,0 +1,9 @@
+The derivative
+Suppose f : X → F is differentiable at x0 ∈ X. Then we denote by ∂f (x0 ) the linear operator $A_{x_0} \in \mathcal{L(E, F)}$ uniquely determined by Proposition 2.1. This is called the derivative of f at x0 and will also be written
+$D_f(x_0)$ or f (x0 ) .
+Therefore ∂f (x0 ) ∈ L(E, F ), and
+f (x) − f (x0 ) − ∂f (x0 )(x − x0 )
+If f : X → F is differentiable at every point x ∈ X, we say f is differentiable
+and call the map2
+$\partial f: X \to \mathcal{L}(E, F}, \; x \mapsto \partial f(x)$
+the derivative of f .

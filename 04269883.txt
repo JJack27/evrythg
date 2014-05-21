@@ -1,11 +1,5 @@
-Proceedings of the 2007 IEEE International Symposium on
-Computational Intelligence in Robotics and Automation
-Jacksonville, FL, USA, June 20-23, 2007
+[ _to('140521210549') ]
 
-ThAT1.3
-
-Local Online Support Vector Regression for Learning Control
-Younggeun Choi, Shin-Young Cheong, and Nicolas Schweighofer
 learning control problems, which require very short sampling
 time. Thus, because of this limitation, only batch SVR has
 been used in robotics [4] [5] [6]. On-line learning however,
@@ -142,7 +136,7 @@ designer can determine how much an error of estimation is
 penalized relative to the punishment of large weights.
 13
 
-ThAT1.3
+ThAT1.3
 (*)
 
 The ξ i
@@ -352,7 +346,7 @@ regression model is maintained. However, if it is classified
 into the E set, it will change the parameters like g i , β i , and it
 14
 
-ThAT1.3
+ThAT1.3
 
 LoSVR
 (Feedforward
@@ -420,16 +414,12 @@ an exploration function to acquire data points near the desired
 state. Moreover, feedback error is not directly used to update
 the weight vector, as in feedback error learning [13]. We train
 the LoSVR with real input control signal (uff+ufb) and the real
-current state. Training of LoSVR is performed at each
-sampling time step with new incoming data (q, uff+ufb). More
-local points near the LoSVR facilitate LoSVR to learn
-feed-forward control signal uff with respect to the desired
-motion qd. As the function of exploration, the feedback
-control signal ufb thrusts the robot arm from the current
-motion state q toward qd and LoSVR tries to compute the
-optimal uff for qd based on the cloud of these most recent
-explored data points, which are the data points of local
-window. Recursively with the feeback function and
+current state. 
+Training of LoSVR is performed at each sampling time step with new incoming data (q, uff+ufb).
+
+More local points near the LoSVR facilitate LoSVR to learn feed-forward control signal $u_{ff}$ with respect to the desired motion $q_d$. As the function of exploration, the feedback control signal $u_{fb}$ thrusts the robot arm from the current motion state $q$ toward qd and LoSVR tries to compute the optimal uff for qd based on the cloud of these most recent explored data points, which are the data points of local window.
+
+Recursively with the feeback function and
 feed-forward LoSVR, the robot arm would converge to the
 desired trajectory in online learning.
 B. Local online SVR (LoSVR)
@@ -454,28 +444,35 @@ Learning control with LoSVR:
 Given:
 L (window size)
 C (number of sample in window)
+
 qdinW (most distant qd from current qd in window set)
+\todo{Shouldn't it be $\max\limits{q \in \mathcal{W}} d(q, q_d)$}
 qdoutW (closest qd from current qd not in window set)
+\todo{Shouldn't it be $\min\limits{q' \notin \mathcal{W}} d(q', q_d)$}
+
 qdinWprev(qdin of previous sampling time step)
 dinW (distance from qdinW to current qd)
 doutW(distance from qdoutW to current qd)
 1. Generate current qd
 2. If start of new trial
+\todo{What is a trial?}
 Add closest points from current qd up to L
 3. If doutW ≥ dinW && qdinW != qdinWprev
+\todo{Shouldn't it be $d_{\mathrm{outW}} \leq 
 Add data point of qdoutW to window set
 Remove data point of qdinW from window set
 4. Predict uff from current LoSVR
 5. Measure qnew
 6. Actuate with (uff+ufb)new
 7. If exist, remove (qold, (uff+ufb)old) of qd
+\todo{What does Exist mean? Distances smaller than some edge?}
 8. Add (qnew, (uff+ufb)new) of qd to window set.
 9. If practice time is over
 Exit
 Else
 Go to 1
 
-ThAT1.3
+ThAT1.3
 
 (a)
 
@@ -696,7 +693,7 @@ Fig. 4. Learning Result: (a) Learning curves for four different window sizes wit
 
 16
 
-ThAT1.3
+ThAT1.3
 
 2
 8
@@ -776,7 +773,7 @@ The proposed approach was tested on a real robot, AMTEC
 POWERCUBE PW90. Figure 5 illustrates schematic diagram
 of our test bed. The input current was controlled based on
 LoSVR; preliminary study showed that a local window size
-20 gave good results for 0.02 sec sampling time. Figure 6
+0 gave good results for 0.02 sec sampling time. Figure 6
 shows the trajectory obtained with LoSVR after six trials and
 the trajectory by with only the low PD gain controller (Kp =
 17
@@ -877,7 +874,7 @@ This result supports LoSVR not only for reducing the
 computational time but also for learning performance in term
 of accuracy. In comparison test with batch mode, LoSVR
 
-ThAT1.3
+ThAT1.3
 
 outperformed batch mode SVR in learning speed and learning
 accuracy.
@@ -935,14 +932,13 @@ Press, 185-208, 1999.
 [8] M. Martin, “On-line support vector machines for function
 approximation,” Tech. Rep. LSI-02-11-R, Software Department,
 Universitat Politecnica de Catalunya, Catalunya, Spain, 2002.
+[ _cf('140520074532') ] 
 [9] J. Ma, J. Theiler, S. Perkins, “Accurate online support vector
 regression,” Neural Computation 2003, 15, pp.2683–2703.
+[ _cf('140520074825') ] 
 [10] C. G. Atkeson, A. W. Moore, and S. Schaal, “Locally weighted
 learning,” Artificial Intelligence Review, vol. 11, pp. 11-73, 1997.
 [11] V. Vapnik, Statistical Learning Theory. New York: Wiley, 1998.
-
-18
-
 [12] L. Csato and M. Opper, “Sparse Representation for Gaussian Process
 Models,” in Ads. Neural Information Processing Systems (NIPS’2000),
 vol. 13, 2001
@@ -950,4 +946,6 @@ vol. 13, 2001
 motor learning,” Advanced neural computers (E. Eckmiller Ed.)
 Elsevier, Amsterdam, pp. 365–372,1990
 
-
+
+
+suggests to combine local online support vector regression with a convential $PD$  controller $U_{fb}for controll of an roboter arm.

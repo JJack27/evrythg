@@ -1,6 +1,7 @@
 A Tutorial on Support Vector Regression∗
-Alex J. Smola† and Bernhard Scholkopf‡
+Alex J. Smola and Bernhard Scholkopf
 September 30, 2003
+
 Abstract
 As such, it is ﬁrmly grounded in the framework of statistical
 learning theory, or VC theory, which has been developed over

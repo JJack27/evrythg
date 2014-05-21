@@ -1,0 +1,9 @@
+The gradient
+Suppose X is open in Rn and f : X → R is differentiable at x0 ∈ X. Then we also call the derivative ∂f (x0 ) the differential of f at x0 , and write it as5 df (x0 ).  The differential of f at x0 is therefore a (continuous) linear form on Rn . Using the Riesz representation theorem, there is a unique y ∈ Rn such that
+df (x0 )h = (h|y) = (y |h)
+[ 5 In Section VIII.3, we will clarify how this notation relates to the same notation in Remark VI.5.2 for the induced differential. ]
+This y ∈ Rn uniquely determined by f and x0 is called the gradient of f at x0 .
+We denote it by ∇f (x0 ) or grad f (x0 ). The differential and the gradient of f at x0
+are therefore linked by the fundamental relationship
+df (x0 )h = ∇f (x0 )|h
+Note that the differential df (x0 ) is a linear form on Rn , while the gradient ∇f (x0 ) is a vector in Rn .

@@ -1,0 +1,7 @@
+The Lagrange dual function
+We define the Lagrange dual function (or just dual function) g : Rm × Rp → R as
+the minimum value of the Lagrangian over x: for λ ∈ Rm , ν ∈ Rp ,
+[ _v('140520164730') ]
+When the Lagrangian is unbounded below in x, the dual function takes on the
+value −∞. Since the dual function is the pointwise infimum of a family of aﬃne
+functions of (λ, ν), it is concave, even when the problem (5.1) is not convex.

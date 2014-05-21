@@ -1,0 +1,4 @@
+Consider the linear program
+min cT x s.t. Ax = b, x ≥ 0,
+(4.1)
+where A = [ 1 2 1 0 ] , b = [ 3 ], and c = [ 1 −1 −1 1 ]T .

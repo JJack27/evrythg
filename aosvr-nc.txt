@@ -1,15 +1,4 @@
-LETTER
-
-Communicated by John Platt
-Accurate On-line Support Vector Regression
-Junshui Ma
-junshuima@yahoo.com
-Aureon Biosciences Corp., 28 Wells St., Yonkers, NY 10701, U.S.A.
-James Theiler
-jt@lanl.gov
-Simon Perkins
-s.perkins@lanl.gov
-NIS-2, Los Alamos National Laboratory, Los Alamos, NM 87545, U.S.A.
+[ _to('140520074825') ] 
 Batch implementations of support vector regression (SVR) are inef cient
 when used in an on-line setting because they must be retrained from
 scratch every time the training set is modi ed. Following an incremental support vector classi cation algorithm introduced by Cauwenberghs

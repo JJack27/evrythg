@@ -1,0 +1,13 @@
+The Lagrange [ Lagrangian ] dual problem
+For each pair (λ, ν) with λ 0, the Lagrange dual function gives us a lower bound
+on the optimal value p⋆ of the optimization problem (5.1). Thus we have a lower
+bound that depends on some parameters λ, ν. A natural question is: What is the
+best lower bound that can be obtained from the Lagrange dual function?
+This leads to the optimization problem
+maximize
+subject to
+g(λ, ν)
+λ 0.
+(5.16)
+This problem is called the Lagrange dual problem associated with the problem (5.1).
+In this context the original problem (5.1) is sometimes called the primal problem.

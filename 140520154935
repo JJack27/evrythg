@@ -1,0 +1,5 @@
+[ Relation between directional and general derivative ]
+2.5 Proposition Suppose f : X → F is differentiable at x0 ∈ X. Then Dv f (x0 ) exists for every v ∈ E \{0}, and Dv f (x0 ) = ∂f (x0 )v.
+Proof: For v ∈ E \{0}, it follows from Remark 2.2(a) that
+f (x0 + tv) = f (x0 ) + ∂f (x0 )(tv) + o( tv ) = f (x0 ) + t∂f (x0 )v + o(|t|)
+as t → 0. The theorem now follows from Remark IV.3.1(c).

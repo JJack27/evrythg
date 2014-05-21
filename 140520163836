@@ -1,0 +1,8 @@
+5.1.1 The Lagrange dual function
+The Lagrangian
+We consider an optimization problem in the standard form (4.1):
+[ _v('140520163959') ] (5.1)
+with variable $x \in \mathbb{R}^n$ . We assume its domain D = i=0 dom fi ∩ i=1 dom hi is nonempty, and denote the optimal value of (5.1) by p⋆ . We do not assume the problem (5.1) is convex.
+The basic idea in Lagrangian duality is to take the constraints in (5.1) into account by augmenting the objective function with a weighted sum of the constraint functions. We deﬁne the Lagrangian L : Rn × Rm × $\mathbb{R}^p$ → R associated with the problem (5.1) as
+[ _v('140520163969') ] 
+with dom L = D × Rm × Rp . We refer to λi as the Lagrange multiplier associated with the ith inequality constraint fi (x) ≤ 0; similarly we refer to νi as the Lagrange multiplier associated with the ith equality constraint hi (x) = 0. The vectors λ and ν are called the dual variables or Lagrange multiplier vectors associated with the problem (5.1).

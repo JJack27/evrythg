@@ -1,22 +1,9 @@
-Online Support Vector Regression
-Francesco Parrella
-A Thesis presented for the degree of
-Information Science
-Department of Information Science
-University of Genoa
-Italy
-June 2007
+[ _to('140522003148') ]
 Online Support Vector Machines for Regression
 Submitted for the degree of Information Science
 May 2007
 Abstract
-Many approaches for obtaining systems with intelligent behavior are based on components that learn automatically from previous experience. The development of
-these learning techniques is the objective of the area of research known as machine
-learning. During the last decade, researchers have produced numerous and outstanding advances in this area, boosted by the successful application of machine
-learning techniques. This thesis presents one of this techniques, an online version of
-the algorithm for training the support vector machine for regression and also how
-it has been extended in order to be more ﬂexible for the hyper parameter estimation. Furthermore the algorithm has been compared with a batch implementation
-and tested in a real application at the Department of Information, Systematics and
+Many approaches for obtaining systems with intelligent behavior are based on components that learn automatically from previous experience. The development of these learning techniques is the objective of the area of research known as machine learning. During the last decade, researchers have produced numerous and outstanding advances in this area, boosted by the successful application of machine learning techniques. This thesis presents one of this techniques, an online version of the algorithm for training the support vector machine for regression and also how it has been extended in order to be more ﬂexible for the hyper parameter estimation. Furthermore the algorithm has been compared with a batch implementation and tested in a real application at the Department of Information, Systematics and
 Telematics in Genoa.
 Declaration
 The work in this thesis is based on research carried out at the Department of Information, Systematics and Telematics, Italy. No part of this thesis has been submitted
@@ -1609,6 +1596,7 @@ Bibliography
 Incremental Support Vector Machines
 [1] Accurate Online Support Vector Regression,
 Ma, Theiler, Perkins, Article, 2003
+[ _cf('140520074825') ] 
 T his is the article where I started my research.
 [2] Incremental and Decremental Support Vector Machine Learning,
 Cauwenbergh, Poggio, Article, 2001

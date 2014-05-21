@@ -1,0 +1,11 @@
+Solution set of linear equations.
+The solution set of a system of linear
+equations, C = {x | Ax = b}, where A ∈ Rm×n and b ∈ Rm , is an affine set. To
+show this, suppose x1 , x2 ∈ C, i.e., Ax1 = b, Ax2 = b. Then for any θ, we have
+A(θx1 + (1 − θ)x2 )
+θAx1 + (1 − θ)Ax2
+θb + (1 − θ)b
+which shows that the affine combination θx1 + (1 − θ)x2 is also in C. The subspace
+associated with the affine set C is the nullspace of A.
+We also have a converse: every affine set can be expressed as the solution set of a
+system of linear equations.

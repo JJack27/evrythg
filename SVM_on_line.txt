@@ -1,0 +1,485 @@
+On-line Support Vector Machine Regression
+Mario Martin
+Software Department, Universitat Polit`cnica de Catalunya,
+Jordi Girona 1-3, Campus Nord, C6. 08034 Barcelona, Catalonia, Spain.
+Abstract
+This paper describes an on-line method for
+building ε-insensitive support vector machines for regression as described in (Vapnik, 1995). The method is an extension of
+the method developed by (Cauwenberghs &
+Poggio, 2000) for building incremental support vector machines for classiﬁcation. Machines obtained by using this approach are
+equivalent to the ones obtained by applying
+exact methods like quadratic programming,
+but they are obtained more quickly and allow
+the incremental addition of new points, removal of existing points and update of target
+values for existing data. This development
+opens the application of SVM regression to
+areas such as on-line prediction of temporal
+series or generalization of value functions in
+reinforcement learning.
+1. Introduction
+Support Vector Machines, from now on SVM, (Vapnik, 1995) have been one of the most developed topics in Machine Learning in the last decade. Some
+reasons that explain this success are their good theoretical properties in generalization and convergence
+– see(Cristianini & Shawe-Taylor, 2000) for a review.
+Another reason is their excellent performance in some
+hard problems –see for instance (Osuna et al., 1997;
+Dumais et al., 1998).
+Although SVMs are being used mainly for classiﬁcation tasks, they can also be used to approximate functions (what is called SVM regression). One problem
+that prevents a wider use of SVMs for function approximation is that, though their good theoretical approaches, they are not applicable on-line, that is, in
+cases where data is sequentially obtained and learning
+has to be done from the ﬁrst data.
+One paradigmatic example is the on-line prediction of
+temporal series. When new data arrive, learning has
+mmartin@lsi.upc.es
+to begin from scratch with the whole data set (or data
+has to be incorporated using “ad hoc” techniques that
+return approximate but not exact results).
+SVMs for regression have not been either suitable for
+problems where the target values of existing observations change quickly, for instance, in reinforcement
+learning (Sutton & Barto., 1998). In reinforcement
+learning, function approximation is needed to learn
+value functions, that is, functions that return for each
+state the future expected reward if the agent follows
+the current policy from that state. SVMs are not used
+to approximate value functions because these functions are continuously update as the agent learns and
+changes its policy. One time, the estimated future reinforcement from state s is y, but later (usually very
+soon) a new estimation returns another value for the
+same state. Using SVM regression in this case implies
+again learning from scratch.
+In order to allow the application of SVMs for regression to these areas, this paper describes the ﬁrst (at
+our best knowledge) exact on-line learning algorithm
+for SVM function approximation. The algorithm is
+based in three actions that allow respectively (1) incrementally add new data to the SVM, (2) remove data
+from the SVM, and (3) update target values for existing data in the SVM.
+The algorithm we propose is an extension of the work
+proposed in (Cauwenberghs & Poggio, 2000) for incremental SVM learning for classiﬁcation tasks, but now
+applied to function approximation. In brief, the key
+idea of the algorithm consists in ﬁnding the appropriate Kuhn-Tucker (KT) conditions for new or updated
+data by modifying its inﬂuence (β) in the regression
+function while maintaining consistence in the KT conditions for the rest of the data used for learning. This
+idea is fully explained throughout the paper.
+2. Reformulation
+Speciﬁcally, we propose in this paper a method for
+the on-line building of ε-insensitive support vector ma-
+chines for regression. The goal of this kind of machines
+is to ﬁnd a function that presents at most ε deviation
+from the target values (Vapnik, 1995) while being as
+“ﬂat” as possible. This version of SVM regression is
+appealing because not all vectors become support vectors, which is not the case in other approaches (Smola
+& Sch¨lkopf, 1998).
+SVMs for regression are usually solved by resorting to
+a standard dualization method using Lagrange multipliers. The dual formulation for ε-insensitive support
+vector regression is to ﬁnd values for α, α∗ that minimize the following quadratic objective function:
+(αi −
+αi )Qij (αj
+yi (αi − αi ) + ε
+(αi + αi )
+subject to the following constraints:
+Figure 1. Decomposition of D following KT conditions into
+margin support vectors S, error support vectors E, error
+support vectors star E ∗ and remaining vectors R. Cross
+marks represent vectors in the feature space. S vectors are
+exactly on the margin lines, R vectors are inside the ε-tube
+(grey zone), and E and E ∗ vectors are outside the ε-tube.
+Renaming (αi − αi ) to βi for simplicity, we have:
+0 ≤ αi , αi ≤ C
+(αi − αi ) = 0
+gi =
+where Q is the positive-deﬁnite kernel matrix Qij =
+K(xi , xj ), and ε > 0 is the maximum deviation allowed.
+Including in (1) a Lagrange multiplier for constraint (3), we get the following formulation:
+yi (αi −
+αi )
+(αi − αi )Qij (αj − αj ) −
+(αi + αi ) + b
+(αi − αi ) (4)
+with ﬁrst order conditions for W :
+∂αi
+Qij (αj − αj ) − yi + ε + b
+Qij (αj − αj ) + yi + ε − b =
+−gi + 2ε
+(αj − αj ) = 0
+Qij βj − yi + ε + b (8)
+Qij βj + yi + ε − b = −gi + 2ε (9)
+βj = 0 (10)
+2.1 Separation of Data
+The ﬁrst order conditions for W lead to the KuhnTucker (KT) conditions, that will allow the reformulation of SVM for regression by dividing the whole
+training data set D into the following sets: margin
+support vectors S (where gi = 0 or gi = 0), error
+support vectors E (where gi < 0), error star support
+vectors E ∗ (where gi < 0), and the remaining vectors
+R. Speciﬁcally, centering on gi , KT conditions are:
+2ε < gi
+gi = 2ε
+0 < gi < 2ε
+gi = 0
+gi < 0
+gi > 2ε
+βi = −C
+i ∈ E∗
+−C < βi < 0 i ∈ S
+βi = 0
+i∈R
+0 < βi < C
+i∈S
+βi = C
+i∈E
+Figure 1 shows the geometrical interpretation of these
+sets in the feature space. Note that j Qij βj + b − yi
+is the error of the target value for vector i. Thus gi
+and gi can be thought as thresholds for error in both
+sides of the ε-tube.
+The division of the data set into subsets and the characterization of β values for each subset, allow us to
+rewrite equations (8), (9) and (10), for all vectors
+i ∈ D, as follows:
+Qij βj + C
+Qij − C
+3.1.1 Modification of βc
+j∈E ∗
+j∈E
+carefully modiﬁed (incremented when gc < 0 or decre∗
+mented when gc < 0) until its gc , gc and βc values
+become consistent with a KT condition (that is, gc < 0
+and βc = C, or gc < 0 and βc = −C, or 0 < βc < C
+and gc = 0, or −C < βc < 0 and gc = 0).
+−yi + ε + b
+(11)
+gi = −gi + 2ε
+(12)
+βj + C|E| − C|E ∗ | = 0
+(13)
+3. On-line support vector regression
+In order to build exact on-line support vector machines
+for regression, we need to deﬁne three incremental actions:
+add one new vector: One new observation xc is
+added to the data set D with the target value yc .
+This operation should include the corresponding
+vector in the feature space with the “exact” βc
+value but without beginning from scratch.
+remove one vector: One existing observation xc in
+D with target value yc is removed from the data
+set. The resulting SVM should be the same that
+would be training from scratch a SVM with D −
+update one vector: One existing observation xc in
+D with target value yc changes the target value to
+yc . As in the previous cases the resulting machine
+should be the same that would be training from
+scratch a SVM with exact methods.
+In this section we will describe how these actions can
+be eﬃciently implemented. Addition and update actions will consist in ﬁnding a consistent KT condition
+for the vector being added or updated. Removal will
+be based on diminishing the inﬂuence of the vector being removed on the regression tube until it vanishes.
+3.1 Adding one new vector
+A new vector c is added by inspecting gc and gc . If
+both values are positive, c is added as an R vector because that means that the new vector lies inside the
+ε-tube (see KT conditions). When gc or gc are negative, the new vector is added by setting its initial inﬂuence on the regression (βc ) to 0. Then this value is
+Variations in the βc value of the new vector c, inﬂuence
+gi , gi and βi values of the other vectors in D, and
+thus, can force the transfer of some vectors from one
+set S, R, E or E ∗ to another set. This transfer means
+that gi , gi and βi values for vector i become no longer
+consistent with the KT conditions of the set where
+vector i is currently assigned, but become consistent
+with the KT conditions of another set.
+The modiﬁcation of βc must take into account these
+transfers between sets. This section describes how the
+modiﬁcation of βc inﬂuences gi , gi and βi values of
+the vectors in D while sets S, E, E and R remain constant. In the next section we describe how to deal with
+vector migrations between sets.
+From equations (11), (12), and (13) it is easy to calcu∗
+late the variation in gi , gi and βi when a new vector c
+with inﬂuence βc is added without migration of vectors
+between sets S, E, E ∗ and R:
+∆gi = Qic ∆βc +
+Qij ∆βj + ∆b
+(14)
+∆gi = −∆gi
+(15)
+∆βj = 0
+(16)
+Note that while one vector remains in E, E ∗ or R sets,
+its β value does not change.
+In particular, if margin support vectors must remain
+in S, then ∆gi ≡ 0 for i ∈ S. Thus, if we isolate ∆βc
+terms in equations (14) and (16) for vectors i ∈ S, we
+get:
+Qij ∆βj + ∆b = −Qic ∆βc
+(17)
+(18)
+That, assuming S = {S1 , S2 , · · · , Sl }, can be matricialy formulated as follows:
+∆βS1
+QS1 c
+1 QS1 ,S1
+1 QSl ,S1
+γi ∆βc
+QS1 ,Sl
+(20)
+ = −Q−1 · 
+(21)
+and thus,
+(22)
+(23)
+where
+ δ S1
+(24)
+and R = Q−1 .
+Equations (22) and (23) show how the variation in the
+βc value of a new vector c inﬂuences βi values of vectors
+i ∈ S. The δ values are named coeﬃcient sensitivities
+from (Cauwenberghs & Poggio, 2000). Note that β
+values for vectors not in S do not change while these
+vectors do not transfer to another set. Thus, we can
+extend equation (23) to all vectors in D by setting
+δi ≡ 0 for i ∈ S.
+Now, we can obtain for vectors i ∈ S how gi and gi
+change as βc changes. From equation (14), we replace
+∆βj and ∆b by their equivalence in equations (22)
+and (23).
+Qij ∆βj + ∆b =
+γi = Qic +
+Qij γj + γ
+∀i ∈ S
+(26)
+The γ values are named margin sensitivities and are
+deﬁned only for non margin support vectors because
+for i ∈ S, ∆gi = 0. As we have done with coeﬃcient
+sensitivities, if we extend equation (25) to all vectors
+in D, we must set γi ≡ 0 for i ∈ S.
+(25)
+From (19),
+Qij γj + γ ∆βc =
+where Q is deﬁned as:
+Qic +
+(19)
+Qij γj ∆βc + γ∆βc =
+Qic ∆βc +
+Equation (25) shows how gi changes as βc changes, but
+indirectly also shows how gi changes, because equa∗
+tion (15) states that ∆gi = −∆gi .
+Summarizing, equation (25) shows, for vectors not in
+S, how gi and gi values change as βc changes (note
+that their β value does not change). Equation (22)
+shows how βi for vectors i ∈ S change as βc changes
+(note that ∆gi and ∆gi is 0 for these vectors). Finally,
+equation (23) shows how b varies as βc changes.
+All these equations are valid while vectors do not migrate from set R, S, E or E ∗ to another one. But in
+some cases, in order to reach a consistent KT conditions for the new vector c, it could be necessary to
+change ﬁrst the membership of some vectors to these
+sets. Well, do not worry. Modify βc in the right direction (increment or decrement) until one migration
+is forced. Migrate the vector updating S, E, E ∗ and R
+sets adequately, and then continue the variation of βc .
+3.1.2 Migration of vectors between sets
+This section describes all possible diﬀerent kinds of
+migrations between sets S, E, E ∗ and R, and how they
+can be detected. One vector can migrate only from
+its current set to a neighbor set. Figure 1 shows the
+geometrical interpretation of each set and from it we
+can infer the following possible migrations.
+from E to S: One error support vector becomes a
+margin support vector. This migration can be
+detected when updating gi for i ∈ E following
+equation (25), gi (that was negative) becomes 0.
+The maximum variation in βc that does not imply migrations from E to S can be calculated as
+follows: The maximum ∆gi allowed for one vector
+i ∈ E is (0 − gi ), that is, from gi < 0 to gi = 0.
+−1
+From equation (25) we have, ∆βc = ∆gi γi .
+Thus, the maximum variation allowed without the
+migration of vector i from E to S can be equated
+as: (0 − gi )γi . Calculating this value for all vectors in E and selecting the minimum value, we
+obtain the maximum variation allowed in βc that
+does not force migration of vectors from E to S.
+from S to E: One margin support vector becomes
+an error support vector. This migration is detected when, updating βi for i ∈ S following equation (23), βi (that was 0 < βi < C) becomes C.
+Similarly to the previous case, from equation (23),
+∆βc = ∆βi δi . Thus, the maximum variation allowed without the migration of vector i from S to
+E can be formulated as: (C − βi )δi . Calculating
+this value for all vectors in S and selecting the
+minimum value, we obtain the maximum variation allowed in βc that does not force migration
+of vectors from S to E.
+from S to R: One margin support vector becomes a
+remainder vector. This happens when updating
+βi for i ∈ S following equation (23), βi (that was
+0 < βi < C or −C < βi < 0) turns into 0.
+The maximum variation allowed without the migration of vector i from S to R can be formulated
+as in the previous case as follows: (0 − βi )δi .
+Calculating this value for all vectors in S and selecting the minimum value, we obtain the maximum variation allowed in βc that does not force
+migration of vectors from S to R.
+from R to S: One remainder vector becomes a margin support vector. This case is detected when
+the update of gi or gi for i ∈ R (thus with gi > 0
+and gi > 0) causes that one value becomes 0.
+The maximum variation in βc that does not imply
+migrations from R to S is calculated by collect−1
+∗ −1
+ing (0 − gi )γi and (0 − gi )γi for all vectors in
+R and selecting the minimum value. This is the
+maximum variation allowed in βc that does not
+force migration of vectors from R to S.
+from S to E ∗ : One margin support vector becomes
+an error support vector. This case is detected
+when, in the update of βi for i ∈ S the value
+changes from −C < βi < 0 to −C.
+migrations from S to E ∗ is calculated by collecting
+(−C −βi )δi for all vectors in S and selecting the
+minimum value.
+from E ∗ to S: One error support vector becomes a
+margin support vector. This last case is detected
+when updating gi for vectors i ∈ E ∗ , the value
+for one vector becomes gi = 0.
+migrations from E ∗ to S is calculated by collecting
+(0 − gi )γi for all vectors in E ∗ and selecting the
+The only memory resources required in order to monitorize KT conditions fulﬁlled by vectors in D are: gi
+and gi for vectors i ∈ S, and βi for vectors i ∈ S. In
+addition, in order to eﬃciently update these variables
+we also need to maintain Qij for i, j ∈ S –needed in
+equation (26)–, and R –needed in equation (24).
+Note that each possible migration is from S or to S
+and thus, after any migration, S must be updated.
+This implies that, in addition to the update of gi and
+gi for vectors i ∈ S, and the update of βi for i ∈ βi ,
+also matrixes Qij for i, j ∈ S and R, must be updated.
+To update matrix Q is easy because it only consists in
+adding/removing the row and column with the kernel
+values of the margin support vector added/removed.
+But the eﬃcient update of matrix R is not obvious.
+In the following section we describe how to eﬃciently
+maintain matrix R.
+3.1.3 Updating R
+Matrix R is deﬁned in (24) as the inverse of Q, which
+at the same time, is deﬁned in (20). Note that we only
+need R for the update of β values, not Q. When one
+vector becomes a margin support vector (for instance
+due to a migration from another set) matrix Q should
+be updated and, thus, R should be updated too. The
+naive idea of maintaining Q and calculate its inverse to
+obtain R is expensive in memory and time resources.
+Instead of this, we will work on R directly.
+The updating procedure is an adaptation of the
+method proposed by (Cauwenberghs & Poggio, 2000)
+for classiﬁcation to the regression problem.
+On one hand, when we are adding one margin support
+vector c, matrix R is updated as follows:
+0 
+γS1
+1 
+(27)
+On the other hand, when margin support vector k is
+removed, matrix R is updated as follows:
+Rij := Rij − R−1 Rik Rkj
+∀j, i = k ∈ [0..l]
+3.2 Removing one vector
+Finally, to end the recursive deﬁnition of the R matrix
+updating, it remains to deﬁne the base case. When
+adding the ﬁrst margin support vector, the matrix is
+initialized as follows:
+1 Qcc
+This procedure always converges. The time cost to add
+one vector is linear in time with the number of vectors
+in D. The memory resources needed are quadratic in
+the number of vectors in S, because of matrix R.
+(28)
+where the index 0 refers to the b-term.
+R := Q−1 =
+a consistent KT condition. Increments in βc are done
+monitoring gi , gi and βi of the whole set of vectors D.
+When one vector i does no longer fulﬁll the KT conditions associated with the set where it was assigned,
+the vector is transferred to the appropriate set and
+variables are updated as necessary.
+(29)
+3.1.4 Procedure for adding one new vector
+Taking into account the considerations of the previous
+sections, the procedure for the incremental addition of
+one vector results as follows:
+1. Set βc to 0
+2. If gc > 0 and gc > 0 Then add c to R and exit
+3. If gc ≤ 0 Then
+Increment βc , updating β for i ∈ S and
+gi , gi for i ∈ S, until one of the following
+conditions holds:
+- gc = 0: add c to S, update R and exit
+- βc = C: add c to E and exit
+- one vector migrates from/to sets E, E ∗
+or R to/from S: update set memberships
+and update R matrix.
+Else {gc ≤ 0}
+Decrement βc , updating β for i ∈ S and
+- βc = −C: add c to E ∗ and exit
+4. Return to 3
+In this procedure, the inﬂuence on the regression of
+vector c to be added (βc ) is incremented until it reaches
+The procedure for removing one vector from D uses
+the same principles that the procedure for adding one
+new vector.
+One vector c can be safely removed from D only when
+it does not have any inﬂuence on the regression tube.
+This only happens when the vector lies inside the εtube, or in other words, when βc = 0.
+If βc is not 0, the value must be incremented or decremented (depending on the sign of βc ) until it reaches
+0. As in the case of adding one new vector, the modiﬁcation of βc can change the membership to E, E ∗ , R
+and S of some other vectors in D. Thus, the modiﬁcation of βc must be done carefully, keeping an eye
+on possible migrations of vectors between sets. The
+algorithm for the on-line removal of one vector is the
+following:
+1. If gc > 0 and gc > 0 Then remove
+c from R and exit
+2. If gc ≤ 0 Then
+- βc = 0: remove c from R and exit
+3. Return to 2
+As in the case of on-line addition of one vector, the
+procedure always converge. The time cost is linear in
+|D| while the memory cost is quadratic in |S|.
+2000-1011 project from CICyT, Spain.
+3.3 Updating target value for existing data
+References
+The obvious way to update the target value for one
+existing vector c in D consists in making good use
+of the previous actions. In order to update the pair
+< xc , yc > to < xc , y c > we can follow this procedure:
+Cauwenberghs, G., & Poggio, T. (2000). Incremental
+and decremental support vector machine learning.
+Fourteenth conference on Advances in Neural Infomation Processing Systems, NIPS (pp. 409–415).
+1. on-line removal of < xc , y c >
+2. on-line addition of < xc , y c >
+Equations (8) and (9) show that the update of the
+target value yc changes gc and gc . Thus, usually after
+an update, gc , gc and βc values are no longer consistent with KT conditions. Thus, an alternative way of
+updating the target value would consist in varying βc
+until this value becomes KT-consistent with gc and gc .
+We left as an exercise to the reader the implementation
+of this procedure.
+4. Conclusions
+In this paper, we have shown the ﬁrst on-line procedure for building ε-insensitive SVMs for regression. An
+implementation of this method for Matlab is available
+at http://www.lsi.upc.es/~mmartin/svmr.html.
+The aim of this paper is to open the door to SVM
+function approximation for applications that receive
+training data in an incremental way, for instance online prediction of temporal series, and to applications
+where the target for the training data changes very
+often, for instance reinforcement learning.
+In addition to the on-line property, the proposed
+method presents some interesting features when compared with other exact methods like QP. First, the
+memory resources needed are quadratic in the number
+of margin support vectors, not quadratic on the total
+number of vectors. Second, empirical tests of the algorithm on several regression sets show comparable (or
+better) speeds in convergence, which means that the
+on-line learning procedure presented here is adequate
+even when the on-line property is not strictly required.
+Acknowledgements
+I would thank in general to the people of the SVM
+seminar at the LSI department in the UPC for the enlightening discussions about SVM topics, but specially
+to Cecilio Angulo for his comments and interest in
+this paper. I would also thank to Gert Cauwenberghs
+for making the incremental SVMc program available.
+This work has been partially supported by the TIC
+Cristianini, N., & Shawe-Taylor, J. (2000). An introduction to support vector machines. Cambridge
+University Press.
+Dumais, S., Platt, J., Heckerman, D., & Sahami, M.
+(1998). Inductive learning algorithms and representations for text categorization. 7th International
+Conference on Information and Knowledge Management, ACM-CIKM98 (pp. 148–155).
+Osuna, E., Freund, R., & Girosi, F. (1997). Training support vector machines: an application to face
+detection. International Conference on Computer
+Vision and Pattern Recognition, CVPR97 (pp. 30–
+136).
+Smola, A., & Sch¨lkopf, B. (1998). A tutorial on supo
+port vector regression (Technical Report NC2-TR1998-030). NeuroCOLT2.
+Sutton, R., & Barto., A. (1998). Reinforcement learning. MIT Press.
+Vapnik, V. N. (1995). The nature of statistical learning
+theory. Heidelberg, DE: Springer Verlag.

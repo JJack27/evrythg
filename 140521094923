@@ -1,0 +1,6 @@
+Standard Forms of Polyhedral Sets
+Consider the following two standard [ primal and dual ] forms of polyhedral sets, where A ∈ Rm×n and b ∈ Rm :
+(Primal)
+(Dual)
+SP = {x ∈ Rn : Ax = b, x ≥ 0} ,
+SD = {x ∈ Rn : Ax ≤ b} .
