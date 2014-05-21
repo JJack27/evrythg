@@ -1,0 +1,33 @@
+Optimization in Communications Engineering
+WS 2013/14
+3. Extreme Points, Extreme Directions, and Polyhedral Sets
+Problem 3.1 
+[ _to('140521094923') ]
+a) Show that both standard forms are equivalent, i.e., show that each polyhedral set in primal
+standard form can be written as a polyhedron in dual standard form and vice versa.
+Transform the following polyhedral sets into primal and dual standard form:
+(i) S1 = {x ∈ Rn : Ax = 0},
+(ii) S2 = {x ∈ Rn : Ax ≤ 0, x ≥ 0},
+(iii) S3 = {x ∈ Rn : A1 x = b1 , A2 x ≥ b2 , c1 ≤ x ≤ c2 }.
+Problem 3.2 Extreme Points and Edges of Polyhedral Sets
+Consider the polyhedron S = {x ∈ R4 : Ax = b, x ≥ 0} with A = [ 1 2 1 0 ] and b = [ 2 ].
+0 1 1 1
+Find the extreme point xEP corresponding to x1 = 0 and x4 = 0.
+b) Find all directions of edges at xEP leading to further extreme points and determine those
+extreme points.
+Find the remaining extreme points.
+Problem 3.3 Extreme Points of Polyhedral Sets in Dual Standard Form
+Consider the polyhedra S = {x ∈ Rn : Ax ≤ b} and T = {[ x ] ∈ Rn+m : Ax + s = b, s ≥ 0},
+where A ∈ Rm×n and b ∈ Rm .
+a) What are the necessary and sufﬁcient conditions for x ∈ Rn to be an extreme point of S?
+State a necessary condition on the dimensions and the rank of A for the existence of an extreme
+point of S.
+b) Show that for any extreme point x ∈ S there is an extreme point [ x ] ∈ T for some s ≥ 0.
+How many elements of s must be zero at least?
+c Associate Institute for Signal Processing
+Technische Universit¨ t M¨ nchen
+Optimization in Communications Engineering
+c) Let A = [ 1 −1 ] and b = [ 1 ]. Determine the extreme points of T . Which of these extreme
+points correspond to an extreme point of the polyhedron S?
+d) Let A = 1 1 and b = 1 . Does S have any extreme points? How many extreme points
+does T have? How many extreme points does the polyhedron in primal standard form (cf. Problem 3.1) that corresponds to S have?

@@ -1,0 +1,160 @@
+Optimization in Communications Engineering
+
+WS 2013/14
+4. Linear Programming and the Simplex Method
+Solution
+Problem 4.1 Simplex Method
+Note that this is the same polyhedral set as given in Problem 3.2, and that x(1) is equal to the
+extreme point xEP , which corresponds to x2 = x3 = 0. Furthermore, we know that this polyhedron
+S = {x ∈ R4 : Ax = b, x ≥ 0} has four extreme points for the given A and b.
+From the index sets of the basic and nonbasic variables IB and IN , it follows that
+cB =
+cN =
+−1
+The vector cB B −1 N − cN is thus given by
+cB B −1 N − cN = 1 1
+− −1 −1 = 4 3 ≤ 0T .
+Since this vector is positive, x(1) is not the optimizer of the linear program. Therefore, we need
+to continue with the next step of the simplex algorithm. We see that j = 1 is the index that
+corresponds to the largest entry of cT B −1 N − cT .
+According to the results of a), we calculate
+y1 = B −1 N e1 =
+≤ 0,
+which means that we do not detect unboundedness at this point. (However, note that this does not
+mean that the problem is guaranteed to be bounded. We may detect that the problem is unbounded
+later.) Hence, we proceed and determine the next extreme point. Following the rules of the simplex
+method, we obtain
+B −1 b =
+λmax = min {1.5, 2} = 1.5
+ρ = 1.
+The (permuted) coordinates of the resulting extreme point are thus given by
+     (2) 
+ 
+−2
+−1 0.5 x(2) 
+ 2
+−y1
+=   + 1.5 ·   =   =  4  .
++ λmax
+ 1  1.5 x(2) 
+ 0
+c Associate Institute for Signal Processing
+Technische Universit¨ t M¨ nchen
+Optimization in Communications Engineering
+The extreme point x(2) is obtained after repermutation as
+ (2)   
+ (2)   
+x2  1.5
+x(2) =  (2)  =   .
+x3 
+Observe that x(2) = xEP (from Problem 3.2) is the extreme point corresponding to x1 = x3 = 0,
+which means that IB = {2, 4} and IN = {1, 3}.
+Determine B, N , cB , and cN :
+Check if x(2) is the optimizer:
+cT B −1 N − cT = −1 1
+0.5 0
+−0.5 1
+− 1 −1 = −2 1 ≤ 0T .
+We conclude that x(2) is not the optimizer and that j = 2 corresponds to the largest entry (and the
+only positive one) of the vector. Consequently,
+y2 = B −1 N e2 =
+which means that we do not detect that the problem is unbounded. Proceeding with the next step
+of the simplex method, we determine that
+λmax = min {3, 1} = 1
+The resulting extreme point x(3) is thus given by
+    (3) 
+−0.5
+−0.5 0 x(3) 
+0.5
+−y2
+    4 
+=  +1·
+ 0  = 0 = x(3) 
+0
+ 1 
+ρ = 2.
+x(3)
+ (3)   
+ (3)   
+x 
+=  2  =  .
+1
+Observe that x(3) = xEP (from Problem 3.2) corresponds to the extreme point where x1 = x4 = 0,
+meaning that IB = {2, 3} and IN = {1, 4}.
+We return to the ﬁrst main step of the simplex algorithm and check whether this extreme point is
+the optimizer or not:
+cT B −1 N − cT = −1 −1
+1 −1
+−1 2
+[ _to('140521092912') ] 
+Remark. As we know the extreme points of the polyhedron from Problem 3.2, we can quickly
+check that x(3) = xEP is indeed the optimizer by computing the objective value cT x for all 4
+extreme points:
+0
+1
+cT xEP = 1 −1 −1 1   = −1,
+cT xEP = 1 −1 −1 1   = −2,
+2
+1.5
+cT xEP = 1 −1 −1 1   = 5.
+Problem 4.2 Simplex Method – Degeneracy
+a) The equation Ax = b yields m = 2 binding constraints for x(1) . Therefore, the remaining
+n − m = 2 binding constraints for an extreme point must come from xi = 0, i ∈ {1, 2, 3, 4}.
+However, we see that x(1) contains 3 > n − m nonzero entries, which means that there are 3 more
+binding constraints. Consequently, x(1) is a degenerate vertex.
+Since x3 = 0, it follows that 3 ∈ IB . Hence, the possible index sets read as
+IN,1 = {2, 4},
+IN,2 = {1, 4},
+IN,3 = {1, 2}.
+IB,1 = {1, 3},
+IB,2 = {2, 3},
+IB,3 = {3, 4},
+From the given index sets IB and IN , it follows that
+The vector cT B −1 N − cT is thus given by
+cT B −1 N − cT = 4 1
+− −1 0 = 4 −2 ≤ 0T ,
+which means that x(1) is not the optimizer of the linear program. Therefore, we proceed with the
+next step of the simplex algorithm and determine that j = 1 is the index that corresponds to the
+largest entry of cT B −1 N − cT .
+According to the results of b), we calculate
+≤ 0.
+Since we do not detect unboundedness at this point, we go on and determine the next extreme
+point. Note that only the ﬁrst entry of y1 is positive, implying that
+ρ = 1,
+λmax =
+[B −1 b]1
+= 0.
+[y1 ]1
+Consequently, the coordinates of the resulting extreme point x(2) are given by
+ 1  2 x(2) 
+2
++λmax
+=  +0·  =   =  3  ⇔ x(2) =  2  =   = x(1) .
+ 1  0 x(2) 
+We observe that the extreme point does not change! However, the basic and nonbasic variables
+change. In particular, x2 is not a basic variable anymore. To understand this, observe that λmax was
+determined from the ﬁrst entry of y1 corresponding to the ﬁrst basic variable, which is x2 . This
+implies that x2 = 0 must be a binding constraint for the resulting extreme point x(2) and, as a
+consequence, x2 belongs to the set of nonbasic variables.
+On the other hand, x1 becomes a basic variable. That is because the nonzero entry in e1 corresponds
+to the ﬁrst nonbasic variable, which happens to be x1 . Hence, this binding constraint is released,
+meaning that x1 belongs to the set of basic variables (although x1 = 0, but recall that x(2) = x(1)
+is a degenerate vertex). From this, we conclude that IB = {1, 3} and IN = {2, 4}.
+− 4 0 = −4 2 ≤ 0T .
+We conclude that x(2) is not the optimizer and that j = 2 corresponds to the largest entry of the
+vector. Consequently,
+which means that we do not detect that the problem is unbounded. Only the second entry of y2 is
+positive so that
+[B −1 b]2
+⇒ λmax =
+ρ = 2, B −1 b =
+= 2.
+[y2 ]2
+     (3) 
+−1 0 x(3) 
+=  +2· =  = 3 
+ 0  0 x(3) 
+It follows that IB = {1, 4} and IN = {2, 3}.
+cT B −1 N − cT = −1 0
+Hence, we conclude that x(3) = 2 0 0 2
+− 4 1 = −6 −2 ≤ 0T .

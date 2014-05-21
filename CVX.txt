@@ -758,11 +758,7 @@ The function call lorentz(m) returns an unnamed variable (i.e., a pair consistin
 variable), constrained to lie in the Lorentz cone of length m. So the constraint in this speciﬁcation requires
 that the pair { A*x-b, y } lies in the appropriately-sized Lorentz cone.
 4.7 Dual variables
-When a disciplined convex program is solved, the associated dual problem is also solved. (In this context,
-the original problem is called the primal problem.) The optimal dual variables, each of which is associated
-with a constraint in the original problem, give valuable information about the original problem, such as the
-sensitivities with respect to perturbing the constraints (c.f. Convex Optimization, chapter 5). To get access
-to the optimal dual variables in CVX, you simply declare them, and associate them with the constraints.
+When a disciplined convex program is solved, the associated dual problem is also solved. (In this context, the original problem is called the primal problem.) The optimal dual variables, each of which is associated with a constraint in the original problem, give valuable information about the original problem, such as the sensitivities with respect to perturbing the constraints (c.f. Convex Optimization, chapter 5). To get access to the optimal dual variables in CVX, you simply declare them, and associate them with the constraints.
 Consider, for example, the LP
 minimize cT x
 subject to Ax

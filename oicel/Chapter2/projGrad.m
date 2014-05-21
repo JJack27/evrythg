@@ -1,5 +1,5 @@
 function [x, val] = projGrad(fun, grad, proj, x, N, method)
-if ~exist('method','var'); method = 'fixed'; end
+if ~exist('method','var'); method = 'fixed'; end % default parameter handling
 zeta = 1e-10;
 xOld = x;
 
