@@ -1,0 +1,541 @@
+Operations Research Models and Methods
+Paul A. Jensen and Jonathan F. Bard
+LP Methods.S4
+Interior Point Methods
+All forms of the simplex method reach the optimum by traversing a series of basic
+solutions. Since each basic solution represents an extreme point of the feasible region,
+the track followed by the algorithm moves around the boundary of the feasible region. In
+the worst case, it may be necessary to examine most if not all of the extreme points. This
+can be cripplingly inefficient given that the number of extreme points grows
+exponentially with n for m fixed.
+The running time of an algorithm as a function of the problem size is known as its
+computational complexity. In practice, the simplex methods works surprisingly well,
+exhibiting linear complexity; i.e., proportional to n + m. Researchers, however, have
+long tried to develop solution algorithms whose worst-case running times are polynomial
+functions of the problem size. The first success was attributed to the Russian
+mathematician, Khachian, who proposed the ellipsoid method which has a running time
+proportional to n6 (see Bertsimas and Tsitliklis (1997) for a full discussion of the
+approach). Though theoretically efficient, code developers were never able to realize an
+implementation that matched the performance of concurrent simplex codes.
+Just about the time when interest in the ellipsoid method was waning, a new
+technique to solve linear programs was proposed by Karmarkar (1984). His idea was to
+approach the optimal solution from the strict interior of the feasible region. This led to a
+series of interior point methods (IPMs) that combined the advantages of the simplex
+algorithm with the geometry of the ellipsoid algorithm. IPMs are of interest from a
+theoretical point of view because they have polynomial complexity, and from a practical
+point of view because they have produced solutions to many industrial problems that
+were hitherto intractable.
+There are at least three major types of IPMs: (1) the potential reduction algorithm
+which most closely embodies the constructs of Karmarkar, (2) the affine scaling
+algorithm which is perhaps the simplest to implement, and (3) path following algorithms
+which arguably combine excellent behavior in theory and practice. In this section, we
+highlight a member of the third category known as the primal-dual path following
+algorithm which has become the method of choice in large scale implementations.
+The primal-dual path following algorithm is an example of an IPM that operates
+simultaneously on the primal and dual linear programming problems. Consider the
+following example where the slack variables in the dual are denoted by the vector z to
+correspond to the notation in the literature.
+Interior Point Methods
+Primal model
+Dual model
+Maximize zP = 2x1 + 3x2
+subject to
+Minimize zD = 8π1 + 6π2
+2x1 + x2 + x3
+x1 + 2x2
+2π1 + π2 – z1
+π1 + 2π2
++ x4 = 6
+xj ≥ 0, j = 1, … , 4
+– z2
+– z3
+– z4 = 0
+zj ≥ 0, j = 1, … , 4
+Fig. 3 and 4 shown the progress of such an algorithm starting at point #1 which is seen to
+be in the interior of the feasible region. In general, the algorithm iteratively modifies the
+primal and dual solutions until the optimality conditions of primal feasibility, dual
+feasibility and complementary slackness are satisfied to a sufficient degree. This event is
+signaled when the duality gap, the difference between the primal and dual objective
+functions, is sufficiently small. For purposes of discussion, “interior of the feasible
+region” is taken to mean that the values of the primal and dual variables are always
+strictly greater than zero.
+#2 #3
+Figure 3. Path of the primal solution for the interior point algorithm
+#4 #3
+Figure 4. Path of the dual solution for the interior point algorithm
+The Primal and Dual Problems
+In developing the algorithm, we will work with the primal and dual
+problems as defined in Table 9. The primal problem is assumed to consist
+of m nonredundant equations in n variables, and is given in equality form.
+This means that the n dual variables are unrestricted in sign. The mdimensional vector of nonnegative slack variables, z, transforms the dual
+inequalities to equations.
+Table 9. Primal and dual problems for IPM
+(P) Maximize zP = cx
+Ax = b
+x≥0
+(D) Minimize zD = b
+A–z=c
+Basic Ideas
+The use of path following algorithms to solve linear programs is based on
+three ideas:
+the application of the Lagrange multiplier method of classical
+calculus to transform an equality constrained optimization problem
+into an unconstrained one;
+(ii)
+the transformation of an inequality constrained optimization
+problem into a sequence of unconstrained problems by
+incorporating the constraints in a logarithmic barrier function that
+imposes a growing penalty as the boundary (xj = 0, zj = 0 for all j)
+is approached;
+(iii)
+the solution of a set of nonlinear equations using Newton’s
+method, thereby arriving at a solution to the unconstrained
+optimization problem.
+When solving the sequence of unconstrained problems, as the strength of
+the barrier function is decreased, the optimum follows a well-defined path
+(hence the term “path following”) that ends at the optimal solution to the
+original problem. In subsequent sections, we outline the three components
+of the algorithm.
+The Lagrangian Approach
+A well known procedure for determining the minimum or maximum of a
+function subject to equality constraints is the Lagrange multiplier method.
+The details are given in Chapter 11, Nonlinear Programming Methods.
+For now, consider the general problem
+Maximize f(x)
+subject to gi(x) = 0, i = 1, … ,m
+where f(x) and gi(x) are scalar functions of the n-dimensional vector x.
+The Lagrangian for this problem is
+L(x, ) = f(x) – ∑ πigi(x)
+where the variables
+= (π1, 2, … ,πm) are the Lagrange multipliers.
+Necessary conditions for a stationary point (maximum or
+minimum) of the constrained optimization of f(x) are that the partial
+derivatives of the Lagrangian with respect to the components of x and
+zero; i.e.,
+= 0, j = 1, … ,n and
+∂πi
+= 0, i = 1, … ,m
+For linear constraints (aix – bi = 0), the conditions are sufficient for a
+maximum if the function f(x) is concave and sufficient for a minimum if
+f(x) is convex.
+The Barrier Approach
+For the primal-dual pair of LPs in Table 9, the only essential inequalities
+are the nonnegativity conditions. The idea of the barrier approach, as
+developed by Fiacco and McCormick (1968), is to start from a point in the
+strict interior of the inequalities (xj > 0, zj > 0 for all j) and construct a
+barrier that prevents any variable from reaching a boundary (e.g., xj = 0).
+Adding “log(xj)” to the objective function of the primal, for example, will
+cause the objective to decrease without bound as xj approaches 0. The
+difficulty with this idea is that if the constrained optimum is on the
+boundary (that is, one or more x* = 0, which is always the case in linear
+programming), then the barrier will prevent us from reaching it. To get
+around this difficulty, we use a barrier parameter µ that balances the
+contribution of the true objective function with that of the barrier term.
+The modified problems are given in Table 10.
+Table 10. Primal and dual barrier problems
+(P) Maximize BP(µ) = cx + µ∑log(xj)
+(D) Minimize BD(µ) = b – µ∑log(zj)
+The parameter µ is required to be positive and controls the
+magnitude of the barrier term. Because function log(x) takes on very large
+negative values as x approaches zero from above, as long as x remains
+positive the optimal solution to the barrier problems will be interior to the
+nonnegative orthants (xj > 0 and zj > 0 for all j). The barrier term is added
+to the objective function for a maximization problem and subtracted for a
+minimization problem. The new formulations have nonlinear objective
+functions with linear equality constraints, and can be solved with the
+Lagrangian technique for µ > 0 fixed. The solution to these problems will
+approach the solution to the original problem as µ approaches zero.
+Table 11 shows the development of the necessary optimal
+conditions for the barrier problems. These conditions are also sufficient
+because the primal Lagrangian is concave and the dual Lagrangian is
+convex. Note that the dual variables are the Lagrange multipliers of the
+primal, and the primal variables x are the Lagrange multipliers of the dual.
+Table 11. Necessary conditions for the barrier problems
+Lagrangian
+LP = cx + µ∑log(xj) – (Ax – b)
+LD = b – µ∑log(zj) – ( A – z – c)x
+cj – ∑aijπj +
++ xj = 0
+zjxj = µ, j = 1, … ,n
+(µ-complementary slackness)
+∑aijxj = bi, i = 1, … ,m
+∑aijxj = bi,
+(primal feasibility)
+i = 1, … ,m
+∑aijπj – zj = cj,
+j = 1, … ,n
+(dual feasibility)
+Thus the optimal conditions are nothing more than primal feasibility, dual
+feasibility, and complementary slackness satisfied to within a tolerance of
+µ. Theory tells us that when µ goes to zero we get the solution to the
+original problem; however, we can’t just set µ to zero because that would
+destroy the convergence properties of the algorithm.
+To facility the presentation, we define two n × n diagonal matrices
+containing the components of x and z, respectively; i.e.,
+X = diag{x1, x2, … ,xn}
+Z = diag{z1, z2, … ,zn}
+Also, let e = (1, 1, … , 1)T be a column vector of size n. Using this
+notation, the necessary and sufficient conditions derived in Table 11 for
+the simultaneous solution of both the primal and dual barrier problems can
+be written as
+Primal feasibility:Ax – b = 0 (m linear equations)
+Dual feasibility:AT
+– z – cT = 0 (n linear equations)
+µ-Complementary slackness: XZe – µe = 0 (n nonlinear equations)
+We must now solve this set of nonlinear equations for the variables (x, ,
+Stationary Solutions Using Newton's Method
+Newton's method is an iterative procedure for numerically solving a set of
+nonlinear equations. To motivate the discussion, consider the single
+variable problem of finding y to satisfy the nonlinear equation
+f(y) = 0
+where f is once continuously differentiable. Let y* be the unknown
+solution. At some point yk, one can calculate the functional value, f(yk),
+and the first derivative, f '(yk). Using the derivative as a first order
+approximation for how the function changes with y, we can predict the
+amount of change ∆ = yk+1 – yk required to bring the function to zero.
+This idea is illustrated in Fig. 5.
+f(y)
+f(y k )
+y k +1
+Figure 5. Newton's method for function of a single variable
+Taking the first order Taylor series expansion of f(y) around yk gives
+f(yk+1) ≈ f(yk) + ∆f '(yk)
+Setting the approximation of f(yk+1) to zero and solving for ∆ gives
+– f(yk)
+f '(yk)
+The point yk+1 = yk + ∆ is an approximate solution to the equation. It can
+be shown that if one starts at a point y0 sufficiently close to y*, the value
+of yk will approach y* as k à ∞.
+The method extends to multidimensional functions. Consider the
+general problem of finding the r-dimensional vector y that solves the set of
+r equations
+fi(y) = 0, i = 1, … ,r
+or f(y) = 0
+Let the unknown solution to the equations be y*. The n × n Jacobian
+matrix describes the first order variations of these functions with the
+components of y. The Jacobian at yk is
+ ∂y1
+ ∂y1
+∂f1
+∂y2
+∂f2
+All the partial derivatives are evaluated at yk. Now, taking the first order
+Taylor series expansion around the point yk, and setting it to zero gives
+f(yk) + J(yk)d = 0
+where d = yk+1 – yk is an n-dimensional vector whose components
+represent the change of position for the k+1st iteration. Solving for d leads
+d = – J(yk)–1f(yk)
+The point yk+1 = yk + d is an approximation for the solution to the set of
+equations. Once again, if one starts at an initial point y0 sufficiently close
+to y*, the value of yk will approach y* for large values of k.
+Newton's Method for Solving Barrier Problems
+We are now ready to use Newton’s method to solve the optimality
+conditions for the barrier problems given in Table 11 for a fixed value of
+µ. For y = (x, , z) and r = 2n+m, the corresponding equations and
+Jacobian are
+Ax – b = 0
+–z–c =0
+A
+J(y) =  0
+–I 
+XZe – µe = 0
+Assume that we have a starting point (x0, 0, z0) satisfying x0 > 0 and z0 >
+0, and denote by
+= b – Ax0
+= cT – AT( 0)T + z0
+the primal and dual residual vectors at this starting point. The optimality
+conditions can be written as
+J(y)d = – f(y)
+0
+–I  dπ
+µe – XZe
+where the (2n+m)-dimensional vector d ≡ (dx, dπ, dz)T in (7) is called the
+Newton direction. We must now solve for the individual components of
+In explicit form, the above system is
+Adx =
+A Td π – d z =
+Zdx + Xdz = µe – XZe
+
+[ _to('140522120705') ]
+
+From these results, we can see in part why it is necessary to remain
+in the interior of the feasible region. In particular, if either Z–1 or X–1
+does not exist the procedure breaks down.
+Once the Newton direction has been computed, dx is used as a
+search direction in the x-space and (dπ, dz) as a search direction in the (π,
+z)-space. That is, we move from the current point (x0, 0, z0) to a new
+point (x1,
+1, z1) by taking a step in the direction (d , d , d ). The step
+sizes, αP and αD, are chosen in the two spaces to preserve x > 0 and
+This requires a ratio test similar to that performed in the simplex
+algorithm. The simplest approach is to use
+> 0.
+αP = γ min 
+: (dx)j < 0
+(d )
+αD = γ min 
+: (dz)j < 0
+where γ is the step size factor that keeps us from actually touching the
+boundary. Typically, γ = 0.995. The notation (dx)j refers to the jth
+component of the vector dx. The new point is
+x1 = x0 + αPdx
+1= 0+α d
+z1 = z0 + αDdz
+which completes one iteration. Ordinarily, we would now resolve Eqs. (8)
+- (10) at (x1, 1, z1) to find a new Newton direction and hence a new
+point. Rather than iterating in this manner until the system converged for
+the current value of µ, it is much more efficient to reduce µ at every
+iteration. The primal-dual method itself suggests how to update µ.
+
+[ _to('140522124654') ]
+
+If we let α = min{αP, αD} then
+gap(α) = (z0 + αdz)T(x0 + αdx)
+(primal and dual
+and with a little algebra, it can be shown that gap(α) < gap(0) as long as
+gap(0)
+(11)
+In our computations we have used
+gap( k ) (z k )T xk
+which indicates that the value of µk is proportional to the duality gap.
+Termination occurs when the gap is sufficiently small, say, less than 10–8.
+Iterative Primal-Dual Interior Point Algorithm
+We now summarize the basic steps of the algorithm. The following inputs
+are assumed:
+(i) the data of the problem (A, b, c), where the m × n matrix A has full
+row rank;
+(ii) initial primal and dual feasible solutions x0 > 0, z0 > 0, 0;
+(iii) the optimality tolerance ε > 0 and the step size parameter γ ∈ (0, 1).
+Step 1 (Initialization) Start with some feasible point x0 > 0, z0 > 0, 0 and
+set the iteration counter k = 0.
+Step 2 (Optimality test) If (zk)Txk < ε stop; otherwise, go to Step 3.
+Step 3 (Compute Newton directions) let
+Xk = diagx1, x2, … ,xn
+Zk = diagz1, z2, … ,zn
+(zk)Txk
+Solve the following linear system equivalent to (7) to get dx, dπ, and dk.
+Adx = 0
+A Td π – d z = 0
+Note that
+= 0 and
+= 0 due to the feasibility of the initial point.
+Step 4 (Find step lengths) Let
+αP = γ min  k : (dx)j < 0
+j (dx)j
+αD = γ min  k : (dk)j < 0
+j (dz)j
+Step 5 (Update solution) Take a step in the Newton direction to get
+xk+1 = xk + αPdx
+k+1 = k + α d k
+zk+1 = zk + αDdk
+Put k ← k + 1 and go to Step 2.
+Implementation Issues
+From a theoretical point of view, it has been shown that for a slightly different
+choice of µk and the step length, the algorithm takes about
+n log(ε0/ε)
+iterations to reduce the duality gap from ε0 to ε in the worst case. The
+observed average behavior is closer to O(log(n)log(ε0/ε)). In fact, extensive
+testing indicates that IPMs are surprisingly insensitive to problem size.
+Convergence usually takes between 20 and 80 iterations. Most of the work is
+at Step 2 where the system of linear equations has to be solved. The most
+computationally intensive component of this step involves forming the matrix
+(AZ–1XAT) and then inverting it to get dπ as indicated in Eq. (8). This
+consumes about 90% of the overall effort. It should be mentioned that one
+iteration of an IPM is much more time consuming than one iteration of a
+simplex-type algorithm as measured by a pivot.
+Virtually all interior point methods, whether path following, affine
+scaling, or potential reduction, require the solution of a linear system similar
+to that in Step 2. Much research has gone into figuring out how to do this
+efficiently. In today’s codes, the matrix AZ–1XAT is never inverted
+explicitly; Cholesky factorization and back substitution are used to solve a
+series of related triangular linear systems. Specifically, this involves finding
+the lower triangular n × n matrix L such that AZ–1XAT = LLT and then
+solving
+where r is the right-hand side of Eq. (8). This can be done by first solving Lg
+= r for g and then solving LTdπ = g for dπ, both by simple substitution. This
+approach can be implemented in a highly efficient manner when AZ–1XAT is
+a large sparse matrix. Although the matrix changes from iteration to iteration,
+the pattern of zeros remains the same implying that the calculations can be
+streamed by eliminating almost all multiplications by zero.
+In the presentation of the path following algorithm, it was assumed
+that an initial feasible point was available. Surprisingly, this need not be the
+case for the primal-dual approach. The algorithm can be started at any interior
+point with the values of P and D in Step 2 set appropriately. Other IPMs,
+including the primal (only) path following method, require the equivalent of a
+phase 1 step to find a feasible point. Rather than explicitly solving a phase 1
+problem, though, they generally take a big-M approach that involves the
+introduction of one artificial variable, xn+1, in the primal problem.
+To conclude this section, we offer a few comments on the relative
+performance of simplex-based methods versus interior point methods.
+Although the determination of which is better depends on the problem and
+the particular instance, some qualitative insights are available. In
+particular, simplex methods tend to bog down when solving large,
+massively degenerate problems. Such problems typically arise in
+transportation and scheduling applications that have network models at
+their core. The accompanying formulations are often very sparse thus
+making them prime candidates for IPMs.
+When the formulations are dense, or in some cases when only a
+few columns are of the A matrix are dense, IPMs are not likely to perform
+well. Such problems give rise to dense Cholesky factors, L, which nullify
+the efficiencies associated with solving triangular systems. Dense
+problems, however, are not in general degenerate so simplex-type methods
+are the better choice.
+Example
+As an example, consider the problem that started this section. In general
+terms we repeat the primal and dual problems from Table 9.
+For the specific case of the example we have n = 4 and m = 2.
+2 1
+c = [2, 3, 0, 0], c = [ 2 , 3 , 0 , 0 ] , = 
+1 2
+ x1 
+ z1 
+ 2 , z =  z2  ,
+x 3 
+z3 
+ x4 
+z4 
+= [ 1,
+1 0
+, b =  6
+0 1
+For the initial solution we select the interior solutions shown in Table 121.
+The primal feasibility vector is P and the dual feasibility vector is D.
+Both are zero since the x and z are interior to their respective problems.
+The vector labeled “Comp. Slack.” is the µ-Complementary slackness
+vectore computed as
+XZe – µe.
+Since this vector is not zero, the solution is not optimum.
+Table 12. Initial solution for the example
+The tables in the section were constructed by the Interior Point demonstration in the Teach LP add-in.
+Current Solution
+2 Iter.:
+Feasibility Vectors
+Primal
+Dual
+1.4375
+Comp. Slack.
+1 -2.563
+2 -1.563
+3 -8.563
+4 -4.563
+We solve the set of equations in step 3 of the algorithm to find the
+direction vectors shown in Table 13. The first three columns refer to the
+directions: dπ, dz, and dx. The last two columns are the ratio vectors that
+determine the maximum flow change in the z and x vectors to remain
+interior to the region. We use γ = 0.8, so the example does not move too
+close to the boundaries of the region. This factor multiplies the minimum
+of each ratio to find the step size for the dual and primal variables. The
+cell labeled Z Step is the value of αD and the cell labeled X Step is αP.
+Table 13 The direction and ratio vectors for the initial solution
+Direction Vectors
+d(Pi)
+d(Z)
+1 -1.351
+2 -0.774
+Ratio Vectors
+Ratio(Z)
+Ratio(X)
+d(X)
+1 -3.477
+-2.9
+1 0.2286
+2 0.4457
+1 1.1505
+2 1.0346
+3 -1.351
+4 -0.774
+3 -0.903
+-1.12
+1.48
+4 2.5835
+3 5.5378
+4 2.6785
+1.0346
+2.6785
+Z Step 0.8277 X Step 2.1428
+Table 14 shows next solution obtained by multiplying dπ and dz by αD,
+and dx by αP and adding the change to the vectors , z and x. The primal
+and dual solutions remain interior and the gap is reduced.
+Table 14. The solution at the 2nd iteration
+1 1.4898
+1.1223
+2 1.9551
+3 3.0653
+0.8815 Iter.:
+1.3592
+6.3626
+0.3977
+1 -2E-15
+2 -2E-15
+0.8815 1.3592
+4E-16
+3E-16
+1 -1.274
+2 -0.775
+3 -2.304
+4 -0.418
+Table 15 shows the nine iterations necessary to obtain a gap of
+0.001. Observe that zP increases from its initial value while zD decreases
+from its initial value. The converge to the same value at the optimal. The
+optimal solution is at intersection of the two constraints, where the slack
+variables x3 and x4 are both zero. The interior method never really reaches
+the intersection, but it comes as close as desired.
+Table 15. The sequence of solutions
+Iteration
+8.845
+9.764
+10.419
+10.598
+10.651
+10.664
+10.666
+10.667
+1.4898
+1.8872
+3.0608
+3.2836
+3.3201
+3.3306
+3.3328
+3.3332
+Primal Solution
+1.9551
+1.9964
+1.4325
+1.3437
+1.337
+1.3341
+1.3335
+1.3334
+3.0653
+2.2292
+0.4458
+0.0892
+0.0227
+0.0046
+0.0009
+0.0002
+Dual Solution
+0.12
+0.0741
+0.029
+0.0058
+0.0012
+5E-05
+15.208
+11.761
+11.025
+10.744
+10.685
+10.67
+0.8815
+0.3964
+0.3111
+0.3276
+0.3328
+0.3332
+0.3333
+1.4317
+1.4228
+1.3538
+1.3371

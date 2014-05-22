@@ -3,7 +3,7 @@ from struct import unpack
 Parse Surfboard log files
 Hex \to Float
 """
-with open("2014_05_141_15_05_285.txt") as f:
+with open("2014_05_22_14_49_42.txt") as f:
     for l in f:
         v = [v.replace('0x', '').strip() for  v in l.split(',')]
         if len(v[-1]) < 4: continue

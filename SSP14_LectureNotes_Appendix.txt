@@ -11,11 +11,11 @@ a set of subsets of potential outputs/observations of an experiment,
  Probability Measure P:
 a function which maps each element of A ∈ F to the interval [0, 1].
 (A.1)
-Deﬁnition. A Sigma Algebra F is a set of subsets (events) of Ω with
+Definition. A Sigma Algebra F is a set of subsets (events) of Ω with
 (A.2)
 (A.3)
 (A.4)
-Deﬁnition. A Probability Measure P maps A ∈ F to P (A), the Probability of the Event A,
+Definition. A Probability Measure P maps A ∈ F to P (A), the Probability of the Event A,
 Nonnegativity :
 Normation :
 P (A) ≥ 0,
@@ -42,8 +42,8 @@ Conditional Probability and Stochastical Independence
 Conditional Probability
 The probability of an event changes when we are informed about the realization of another event within
 the same probability space.
-Deﬁnition. Given P (A) > 0 for A ∈ F, the Conditional Probability of B conditioned by A is
-deﬁned as
+Definition. Given P (A) > 0 for A ∈ F, the Conditional Probability of B conditioned by A is
+defined as
 P (B | A) = PA (B) =
 P (A ∩ B)
 P (A)
@@ -89,27 +89,27 @@ P (A ∩ B)
 P (A)
 (A.23)
 we obtain the following
-Deﬁnition. Given (Ω, F, P) is a probability space, then A, B ∈ F are Stochastically Independent
+Definition. Given (Ω, F, P) is a probability space, then A, B ∈ F are Stochastically Independent
 with respect to P, if
 P (A ∩ B) = P (A) P (B) .
 (A.24)
 Random Variables
-Deﬁnition. Given a probability space (Ω, F, P) and a measure space (Ω , F ), we call the mapping X :
+Definition. Given a probability space (Ω, F, P) and a measure space (Ω , F ), we call the mapping X :
 Ω → Ω a Random Variable, if and only if for each A ∈ F there exists an element A ∈ F, such that
 A = {ω ∈ Ω | X (ω) ∈ A } ∈ F or — in shorter notation — A = {X ∈ A } ∈ F.
 X (ω)
 Fig. A.2: Real-valued random variable: x : Ω → R
 Distribution of Real-Valued Random Variables
-Deﬁnition. Given a real-valued random variable X on (Ω, F, P), the function FX : R → [0, 1], with
+Definition. Given a real-valued random variable X on (Ω, F, P), the function FX : R → [0, 1], with
 FX (x) = P ({X ≤ x}) ,
-deﬁnes the Cumulative Distribution Function (CDF) of X .
+defines the Cumulative Distribution Function (CDF) of X .
 Properties of a CDF FX : R → [0, 1]:
  FX (x) is monotonically increasing.
  limh→0 FX (x + h) = FX (x),
  limx→−∞ FX (x) = 0,
 limx→∞ FX (x) = 1.
 (A.25)
-Deﬁnition. We call a random variable X Continuous if its CDF FX can be determined by means of
+Definition. We call a random variable X Continuous if its CDF FX can be determined by means of
 FX (x) =
 fX (ξ) dξ,
 (A.26)
@@ -134,7 +134,7 @@ Examples (Cont’d)
 fX (x; λ)
 Fig. A.5: Exponential PDF: fX (x) = λ e−λx ,
 Multidimensional Distributions
-Deﬁnition. Given a n-dimensional real-valued random variable (random vector) X = [X1 , . . . , Xn ]T on
+Definition. Given a n-dimensional real-valued random variable (random vector) X = [X1 , . . . , Xn ]T on
 the probability (Ω, F, P), then the Joint CDF FX1 ,...,Xn : Rn → [0, 1] is denoted as
 FX (x) = P ({X ≤ x}) = P ({X1 ≤ x1 , . . . , Xn ≤ xn }) .
 (A.28)
@@ -146,20 +146,20 @@ fX1 ,...,Xn (ξ1 , . . . , ξn ) dξn . . . dξ1
 (A.29)
 (A.30)
 Marginal Distribution
-Deﬁnition. Given a random variable [X , Y ], the Marginal Distribution of X can be obtained by
+Definition. Given a random variable [X , Y ], the Marginal Distribution of X can be obtained by
 FX (x) = lim FX ,Y (x, y) = FX ,Y (x, ∞).
 (A.31)
 FX ,Y (x, y)
 FX ,Y (x, ∞) = FX (x)
 (x, y)
 Conditional Distribution
-Deﬁnition. Given two jointly distributed random variables X and Y , then the Conditional CDF of X
+Definition. Given two jointly distributed random variables X and Y , then the Conditional CDF of X
 conditioned on {Y = y} is equal to FX |Y : R → [0, 1], with
 FX |Y (x|y) = P ({X ≤ x} | {Y = y}) ,
 if Y only takes discrete values.
 (A.32)
 If Y is a continuous random variable, the probability of {Y = y} is zero, and thus the Conditional
-CDF must be deﬁned alternatively as
+CDF must be defined alternatively as
 FX |Y (x|y) =
 assuming the existence of the PDFs and fY (y) > 0.
 fX ,Y (ξ, y)
@@ -173,17 +173,17 @@ fX ,Y (ξ, y) dξ = 1.
 (A.35)
 Mean and Covariance
 Mean Value of Random Variables
-Deﬁnition. The Mean Value (expectation value) of a continuous real-valued random variable X
+Definition. The Mean Value (expectation value) of a continuous real-valued random variable X
 xfX (x) dx.
 (A.36)
 Properties of the mean value:
 for all α, β ∈ R.
 (A.37)
 (A.38)
-Deﬁnition. The Variance of random variable X is
+Definition. The Variance of random variable X is
 σX = Var [X ] = E (X − E [X ])2 = E X 2 − E [X ]2 ,
 (A.39)
-Deﬁnition. The Covariance and Correlation of two random variables X and Y is
+Definition. The Covariance and Correlation of two random variables X and Y is
 cX ,Y = Cov [X , Y ] = E [(X − E [X ]) (Y − E [Y ])] = E [XY ] − E [X ] E [Y ] ,
 (A.40)
 (A.41)
@@ -194,10 +194,10 @@ Special Case. Var [αX + β] = α2 Var [X ].
 (A.42)
 (A.43)
 Correlation of Random Variables
-Deﬁnition. Random variables X and Y are Uncorrelated if
+Definition. Random variables X and Y are Uncorrelated if
 (A.44)
 otherwise we call X and Y Correlated.
-Deﬁnition. By normalization we obtain the Correlation Coefficient ρX ,Y ∈ [−1, 1]
+Definition. By normalization we obtain the Correlation Coefficient ρX ,Y ∈ [−1, 1]
 (A.45)
 Stochastic interrelations of random variables:
 Independent : FXY = FX FY
@@ -241,21 +241,21 @@ Fig. A.6: Joint PDF of the Uncorrelated bivariate standard normal distribution.
 Fig. A.7: Joint PDF of the Correlated bivariate standard normal distribution.
 B. Linear Algebra
 Vector Spaces
-Deﬁnition. A set S is a Vector Space, if for all x, y ∈ S
+Definition. A set S is a Vector Space, if for all x, y ∈ S
 (B.1)
 (B.2)
 In the following we consider the Real Vector Space of dimension N , i.e. S ≡ RN with α ∈ R.
-Deﬁnition. Column Vectors and Row Vectors are deﬁned by
+Definition. Column Vectors and Row Vectors are defined by
 (B.3)
-Deﬁnition. Vectors xk , k = 1, . . . , K are Linear Independent, if
+Definition. Vectors xk , k = 1, . . . , K are Linear Independent, if
 (B.4)
-Deﬁnition. The maximal number of linear independent vectors determines the Dimension of the vector
+Definition. The maximal number of linear independent vectors determines the Dimension of the vector
 space.
-Deﬁnition. K ≤ N linear independent basis vectors constitute (Span) a Vector Subspace U ⊂ S
+Definition. K ≤ N linear independent basis vectors constitute (Span) a Vector Subspace U ⊂ S
 U ≡ span [x1 , x2 , . . . , xK ] ≡
 Fig. B.1: Subspace U spanned by diﬀerent pairs of basis vectors
 (B.5)
-Deﬁnition. A vector space S is a Normed Vector Space, if any x ∈ S can be mapped to a scalar
+Definition. A vector space S is a Normed Vector Space, if any x ∈ S can be mapped to a scalar
 (Norm) x ∈ R0,+ , with the following properties:
 (B.6)
 Normed vector spaces are also Metric Vector Spaces, with the Metric
@@ -264,7 +264,7 @@ d(x, y) = x − y .
 A valid p-norm of S is
 e.g.:
 (B.8)
-Deﬁnition. A vector space S is a Inner Product Space, if any pair of vectors x, y ∈ S can be
+Definition. A vector space S is a Inner Product Space, if any pair of vectors x, y ∈ S can be
 mapped to a scalar (Inner Product) x, y ∈ R,1 with the following properties:
 (B.9)
 (B.10)
@@ -275,9 +275,9 @@ A valid inner product of the real vector space S is
 (B.13)
 1 This only holds for real vector spaces. For complex vector spaces, the inner product is a complex number x, y ∈ C, which requires the
 additional constraint x, y = y, x ∗ .
-Deﬁnition. Vectors x, y ∈ S are Orthogonal to each other, if
+Definition. Vectors x, y ∈ S are Orthogonal to each other, if
 (B.14)
-Deﬁnition. A set of Orthonormal vectors uk , which are mutually orthogonal with uk = 1 for all
+Definition. A set of Orthonormal vectors uk , which are mutually orthogonal with uk = 1 for all
 k = 1, . . . , K and which span a vector subspace U, is referred to as the Orthonormal System (ONS)
 of U.
 Properties of the ONS: ∀x ∈ U
@@ -297,7 +297,7 @@ matrix X = [x1 , x2 , x3 ] is obtained as:
 (B.21)
 (B.22)
 Matrix Operator
-Deﬁnition. A Matrix describes the Linear Mapping of vectors, A : S → S , x → Ax, with the
+Definition. A Matrix describes the Linear Mapping of vectors, A : S → S , x → Ax, with the
 following properties:
 A(x + y) = Ax + Ay, ∀x, y ∈ S
 A(αx) = αAx, ∀α ∈ R.
@@ -306,7 +306,7 @@ A(αx) = αAx, ∀α ∈ R.
 Transposition: The Transpose of a matrix AT is composed by changing columns and rows of A, i.e.
 _v('140514132659')
 where S ≡ RN and S ≡ RM .
-Deﬁnition. The Norm Of A Matrix is inherited by the norm of the respective vectors, e.g. the
+Definition. The Norm Of A Matrix is inherited by the norm of the respective vectors, e.g. the
 maximum norm • ∞ of A can be obtained by
 = max
 = max
@@ -319,7 +319,7 @@ with am,n = [A]m,n .
  [a1 , a2 , . . . , aN ] =
 (B.27)
 
-Deﬁnition. A matrix $A \in  \mathbb{R}^{M \times N}$  S → S is always associated with Four Fundamental Subspaces, which are
+Definition. A matrix $A \in  \mathbb{R}^{M \times N}$  S → S is always associated with Four Fundamental Subspaces, which are
 [Image Space, Null Space, 2nd Image Space, 2nd Null Space] 
 _v('140514134718') (B.28) (B.29) (B.30) (B.31)
 
@@ -346,9 +346,10 @@ U ⊥ = [uR+1 , . . . , uM ] (V ⊥ = [v R+1 , . . . , uN ]) which appear only i
 2 The SVD consists also of any A ∈ CM ×N .
 
 Projection Matrices
-Deﬁnition. The Orthogonal Projection of any x ∈ S onto a subspace U spanned by the ONS {u1 , u2 , . . . , uK } by the Projection Matrix P U .
+Definition. The Orthogonal Projection of any x ∈ S onto a subspace U spanned by the ONS {u1 , u2 , . . . , uK } by the Projection Matrix P U .
 Fig. B.2: Orthogonal Projection of x ∈ S onto U ⊂ S
 _v('140501165820') (B.37)
+
 Special projections:
  The orthogonal projection of any x ∈ S onto a subspace U spanned by a Non-Orthonormal basis
 {y 1 , y 2 , . . . , y K } can be obtained by

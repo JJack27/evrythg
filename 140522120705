@@ -1,0 +1,8 @@
+The first step is to find dπ. With some algebraic manipulation, left as an exercise, we get
+(AZ–1XAT)dπ = – b + µAZ–1e + AZ–1XδD
+dπ = (AZ–1XAT)–1(– b + µAZ–1e + AZ–1XδD)
+Note that Z–1 = diag{1/z1, 1/z2, … , 1 /zn} and is trivial to compute. Further
+multiplications and substitutions give
+d z = – δ D + A Td π
+dx = Z–1(µe – XZe – Xdz)
+(10)

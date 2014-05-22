@@ -1,0 +1,9 @@
+It is straightforward to show that the Newton step reduces the
+duality gap –– the difference between the dual and primal objective values
+at the current point. Assume that x0 is primal feasible and ( 0, z0) is dual
+feasible (Lustig et. al (1989) discuss the more general case). Let “gap(0)”
+denote the current duality gap.
+gap(0) = 0b – cx0
+= 0(Ax0) – ( 0A – z0)Tx0
+feasibility)
+= (z0)Tx0

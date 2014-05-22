@@ -76,7 +76,7 @@ Introduction to CVX
 A standard toolbox for solving convex optimization problems in Matlab is CVX [2], which is
 available for free from http://cvxr.com/cvx/. More specifically, CVX turns Matlab into
 an optimization modeling language for disciplined convex programming (DCP)—a methodology for constructing convex optimization problems proposed by Michael Grant, Stephen Boyd,
-and Yinyu Ye [3]. The toolbox consists of a limited set of construction rules, i.e., the DCP ruleset, for analyzing and eﬃciently solving important classes of convex optimization problems.
+and Yinyu Ye [3]. The toolbox consists of a limited set of construction rules, i.e., the DCP ruleset, for analyzing and efficiently solving important classes of convex optimization problems.
 For example, CVX is capable of dealing with linear programs (LPs), second-order cone programs (SOCPs), semidefinite programs (SDPs), and any other convex optimization programs
 that adhere to the DCP ruleset. These problems can rapidly and automatically be verified as
 convex and converted to a form that the standard CVX interior-point solvers SeDuMi [5] and
@@ -105,10 +105,8 @@ definition of the constraint set
 % reformulation and solution of the ...
 The newest version of CVX and the CVX users’ guide can be obtained from
 http://cvxr.com/cvx/download/.
-140426085205
 TASK 1.1
 Download and read the CVX users’ guide [2].
-140426102711
 TASK 1.2
 Install CVX in the folder for your Matlab simulations according to [2, Appendix A]:
 • Retrieve the latest version of CVX from http://cvxr.com/cvx/download/ and
@@ -129,7 +127,7 @@ over n parallel Gaussian channels. Each of these channels i ∈ {1, . . . , n} h
 and an output yi ∈ C. The output of the i-th channel can be expressed as
 yi = hi xi + ηi ,
 (1.1)
-where hi ∈ C denotes the complex-valued channel coeﬃcient and ηi ∼ NC (0, σi ) the circularly symmetric additive white Gaussian noise. Note that the channels are orthogonal, i.e.,
+where hi ∈ C denotes the complex-valued channel coefficient and ηi ∼ NC (0, σi ) the circularly symmetric additive white Gaussian noise. Note that the channels are orthogonal, i.e.,
 there is no interference between the channels.
 From information theory, it is known that the capacity of the i-th channel is equal to
 ci = log2 1 +
@@ -146,16 +144,15 @@ channels if the sum of the powers pi is limited. In other words, we want to solv
 optimization problem, where P > 0 is the available power budget for all channels:
 [ Change of basis in logarithm ]
 [ log(3)/log(2) - log2(3) ]
-140426090339
 PROGRAMMING TASK 1.3
-Implement an algorithm that takes the channel coeﬃcients h1 , . . . , hn , the noise variances
+Implement an algorithm that takes the channel coefficients h1 , . . . , hn , the noise variances
 σ1 , . . . , σn , and the available sum transmit power P as inputs and that uses CVX (with SDPT3
 as solver) to compute the optimal solution to problem (1.4).
 1 Deliverables (Matlab code file): waterfilling_cvx.m
 • Function definition:
 function [R,p,mu] = waterfilling_cvx(h,s,P)
 2 Input Specification:
-• h: vector of channel coeﬃcients h1 , . . . , hn
+• h: vector of channel coefficients h1 , . . . , hn
 • s: vector of noise variances σ1 , . . . , σn
 • P: available sum transmit power P
 3 Output Specification:
@@ -197,7 +194,6 @@ is, start with the assumtion k ⋆ = 1, calculate the corresponding w⋆ given b
 check the conditions in (1.7). If the conditions do not hold, check the next hypothesis. The
 solution to the considered problem is referred to as waterfilling with w⋆ as the water level. It
 is illustrated in Figure 1.1, which explains where the term waterfilling originates from.
-140426102822
 PROGRAMMING TASK 1.4
 σ1 , . . . , σn , and the available sum transmit power P as inputs and that computes the optimal
 waterfilling solution to problem (1.4) using the waterfilling algorithm.
@@ -208,8 +204,8 @@ function [R,p,mu] = waterfilling(h,s,P)
 • First, reorder γ1 , . . . , γn such that γ1 ≤ . . . ≤ γn and determine k ⋆ ∈ {1, . . . , n}.
 \todo{TASK 1.5}
 Measure and compare the execution times of your two functions waterfilling_cvx.m
-and waterfilling.m for diﬀerent input parameters. Which of the two solutions is more
-eﬃcient? Try to explain the results.
+and waterfilling.m for different input parameters. Which of the two solutions is more
+efficient? Try to explain the results.
 The Gaussian MIMO Point-to-Point Channel – Worst Case Noise Covariance
 For the next problem, we use a linear multiple-input multiple-output (MIMO) communication
 model, where the source S sends information over an n×m complex channel to the destination
@@ -234,7 +230,7 @@ Cη 0
 (1.12)
 where Cη
 0 expresses that Cη must be positive semidefinite. Note that this optimization
-problem is convex, i.e., the KKT conditions are suﬃcient.
+problem is convex, i.e., the KKT conditions are sufficient.
 For solving (1.12), it is advantageous to introduce the eigenvalue decomposition (EVD) of the
 noise covariance matrix as
 (1.13)
@@ -269,12 +265,10 @@ Rworst-case = min
 σi ≥0
 (1.17)
 to find the worst-case achievable rate Rworst-case .
-140426102933
 TASK 1.6
 Show that the objective function of problem (1.17) is convex.
 From this observation, it follows that the optimization problem is convex, i.e., we have the
 minimization of a convex objective function over a convex (polyhedral) constraint set.
-140426102938
 \todo{TASK 1.7}
 If you try using CVX to solve problem (1.17), it will not work. Think about the reason why
 CVX is not applicable in this case.
@@ -301,7 +295,6 @@ be found via a simple fixed point search, e.g., a bisection search or a Newton m
 2N + m ψi − m ψ 2
 bound for µ′ is µ′
 lower = 0 and an upper bound is given by µupper =
-140426103012
 PROGRAMMING TASK 1.8
 Implement an algorithm that takes the eigenvalues ψ1 , . . . , ψm of X and the maximal sum
 noise power N as inputs and that computes the optimal solution to problem (1.17) given
@@ -309,7 +302,7 @@ in (1.18).
 1 Deliverables (Matlab code file): worstcaseRate.m
 function [R,s,mu] = worstcaseRate(p,N)
 • N: maximum total noise power
-• p: vector of the eﬀective transmit powers ψ1 , . . . , ψn
+• p: vector of the effective transmit powers ψ1 , . . . , ψn
 • R: value of the worst-case sum rate Rworst-case
 • s: vector of minimizing noise variances σ1 , . . . , σm
 • You can use the Matlab function fzero.m to obtain the optimal value for µ′ .
@@ -334,31 +327,34 @@ Gradient-Based Algorithms
 In classical optimization theory, gradient methods are used to solve unconstrained minimization or maximization problems. The gradient of a cost function defines the direction of the
 steepest ascent. Moving along the gradient or the negative gradient leads to a local maximum
 or minimum. In a concave/convex1 optimization problem, the local maximum/minimum is
-unique and the acquired solution is the global optimum. Due to its almost intuitive understanding, its simple formulation, its numerical stability and eﬃcient computation, gradient methods
+unique and the acquired solution is the global optimum. Due to its almost intuitive understanding, its simple formulation, its numerical stability and efficient computation, gradient methods
 are among the most frequently used techniques for solving optimization problems.
 Given a constrained optimization problem, moving along the direction of steepest ascent/descent may however lead to a solution that lies outside the constrained set. To overcome this
 problem, in 1964 Goldstein and independently Levitin and Polyak in 1965, proposed a gradientprojection method, that provides an extension of standard gradient algorithms for constrained
-optimization problems. The projected-gradient method applies to optimization problems in the
+optimization problems.
+
+The projected-gradient method applies to optimization problems in the
 max f (X)
 (2.1)
-Given that f is a continuously diﬀerentiable function over a nonempty closed convex set C under a Lipschitz assumption on the gradient , _v('140502123932') (2.2)
+Given that f is a continuously differentiable function over a nonempty closed convex set C under a Lipschitz assumption on the gradient , _v('140502123932') (2.2)
 converges to a stationary point for a → ∞ when certain conditions on the stepsize(s) $s^{(a)}$ are fulfilled.
 In (2.2), the operator PC defines a projection of its argument to the convex set C, c.f.,
 (2.1). Again, if f is concave, X (∞) is the global maximizer of f .
 In the following, will will refer to both cases brieﬂy as convex optimization problems.
-_13_ 
+13 
 Chapter 2. Gradient-Based Algorithms
-('140501164409')
+
 TASK 2.1
 • Is the projection unique? Why (not)?
 [ only orthogonal projections are unique ]
-• How can the projection be formulated mathematically?  cf. ('140501165820')
+• How can the projection be formulated mathematically?  [ _cf('140501165820') ]
+
 The simple update rule (2.2) makes the gradient-projection method an attractive approach, if
-∇f and PC (·) can be calculated eﬃciently. Furthermore, if the speed of convergence is significant, additional eﬀorts may be necessary in order to optimize the stepsize parameter s(a) .
+∇f and PC (·) can be calculated efficiently. Furthermore, if the speed of convergence is significant, additional efforts may be necessary in order to optimize the stepsize parameter s(a) .
 In the first part of this chapter, we will apply the projected-gradient method to maximize the
 sum transmit data rate in a multi-point to point multiple-antenna system for a given sum power
 constraint. In the second part of this chapter, we will apply optimal and suboptimal stepsize
-control algorithms, that ensure convergence and balance the speed of convergence with additional computational eﬀorts.
+control algorithms, that ensure convergence and balance the speed of convergence with additional computational efforts.
 2.2 MIMO Multiple Access Channel
 In the MIMO Multiple Access Channel (MAC) model, a set of K transmitters simultaneously
 accesses a physical resource to transmit data to a single receiver.
@@ -541,7 +537,7 @@ and the sum power constraint can be formulated as
 k=1 i=1
 This problem closely resembles the waterfilling problem for which the solution is known from
 Chapter 1.
-Since this approach requires the computation of the eigenvalue decompositions of all covariance matrices Q′ , . . . , Q′ , the computational eﬀort is significantly higher in comparison to the
+Since this approach requires the computation of the eigenvalue decompositions of all covariance matrices Q′ , . . . , Q′ , the computational effort is significantly higher in comparison to the
 simple scaling that needed to be performed for projection of the precoder matrices. However,
 the covariance approach provides a higher speed of convergence than the precoder approach
 for most scenarios as we will see later on.
@@ -596,13 +592,13 @@ and use an arbitrary positive real number for the transmit power P .
 2.6 Step-Size Control Methods
 Step size control plays a crucial role in Gradient algorithms with respect to the algorithms’
 convergence behaviours. While until now we have set the step-size s(a) = 1, we can see from
-the invocation of plotObjValues.m with diﬀerent values for the transmit power P that this
+the invocation of plotObjValues.m with different values for the transmit power P that this
 does lead to suboptimal convergence behavior in most cases. We can notice that for some
 simulations the projected-gradient steps do not converge to the optimal solution at all. Instead,
 an oscillating behavior in the vicinity of some sub-optimal point is exhibited.
-A straight-forward attempt on addressing this issue could be to probe diﬀerent (fixed) step-size
+A straight-forward attempt on addressing this issue could be to probe different (fixed) step-size
 values successively and check for an improvement of the result and the optimality of the solution
-via the (suﬃcient) KKT conditions. While this "manual" step-size optimization is possible in
+via the (sufficient) KKT conditions. While this "manual" step-size optimization is possible in
 a oﬄine simulation, it is not suitable for the case that the gradient algorithm is implemented
 in a real world scenario, e.g., a mobile transmitter base station. For that reason, various step
 size control algorithms have become known in literature that assure convergence to the optimal
@@ -658,7 +654,7 @@ smax
 Figure 2.2: The Armijo rule for β = 2 exemplified for σ = 2 and σ =
 (coincidentally) both values of σ lead to the same Armijo step size.
 For s0 = smin ,
-The computational eﬀort to compute the exact line search is very high and makes this approach undesirable in practical systems. The Armijo rule is an inexact line search method for unconstrained optimization problems which has been extended to the case of the constrained
+The computational effort to compute the exact line search is very high and makes this approach undesirable in practical systems. The Armijo rule is an inexact line search method for unconstrained optimization problems which has been extended to the case of the constrained
 projected-gradient method [2]. 
 The generalized Armijo rule ensures convergence to the optimum solution even for the constrained case, if the step size is parametrized as
 (2.26)
@@ -705,11 +701,11 @@ The resulting approximated relations (2.28) and (2.29) then read as
 PROGRAMMING TASK 2.13
 Implement the Armijo step size control of s(a) for the projected gradient algorithm (method='armijo'. Use the Armijo parameter set β = 1/2 and σ = 0.2. As a heuristic (a) (0) for the initial step size, we choose s0 = 2s(a−1) . Choose s0 = 100 for the initial step size in the first iteration.
 PROGRAMMING TASK 2.14
-Update the plot function, to plot the results for the diﬀerent step size control methods.
+Update the plot function, to plot the results for the different step size control methods.
 TASK 2.15
-Plot the results for diﬀerent problem sizes, and diﬀerent parameters for the step-size control
+Plot the results for different problem sizes, and different parameters for the step-size control
 methods.
-• What are the advantages/disadvantages of the diﬀerent step-size control methods?
+• What are the advantages/disadvantages of the different step-size control methods?
 • How does the optimization with respect to the precoders compare with the optimization with respect to the covariance matrices?
 [1] M. S. Bazaraa, H. D. Sherali, and C. M. Shetty, Nonlinear Programming – Theory
 and Algorithms, John Wiley & Sons, 3rd ed., 2006.
@@ -730,7 +726,7 @@ Methods
 Within operations research and optimization, linear programming has the longest history – back
 to the 1940’s when Dantzig invented his simplex algorithm [3]. Yet it remains the most important class of continuous optimization problems. State-of-the-art large scale linear programming
 solvers are entirely based on interior point methods, initially proposed by Karmarker [6], which
-oﬀer both best theoretical and practical performance. This part focuses on three renowned
+offer both best theoretical and practical performance. This part focuses on three renowned
 methods: the primal barrier algorithm (Sec. 3.2.2), the primal-dual path following algorithm
 (Sec. 3.2.3), and the predictor-corrector algorithm (Sec. 3.2.4). A comprehensive survey and
 in-depth discussion of interior point methods for linear programming can be found in [9].
@@ -818,7 +814,7 @@ TASK 3.3
 Think about the following questions:
 • Why can we not choose a very small initial τ to directly calculate close to optimal
 primal variables?
-• What are eﬃcient ways to solve the linear system of equations in (3.6)?
+• What are efficient ways to solve the linear system of equations in (3.6)?
 PROGRAMMING TASK 3.4
 Write an IP algorithm based on the description in this section. Use (3.6) to calculate the
 search directions and (3.8) to calculate the step size α. Choose an appropriate β for the
@@ -854,23 +850,26 @@ For any feasible point (x, y, s), the duality gap is given by
 d = cT x − bT y ≥ 0.
 (3.12)
 The duality gap d vanishes at optimal points.
+
 TASK 3.5
 Find a formulation for the duality gap d(x, s) depending only on x and s. Use the primal
 and dual feasibility conditions.
+[ _cf('140522124654') ]
+
 Analogously to (3.4), we restate the (3.10) as a mapping
 F (x, y, s) = 0,
-We can calculate the search direction (∆xaﬀ , ∆y aﬀ , ∆z aﬀ ) as the solution to
+We can calculate the search direction (∆xaff , ∆y aff , ∆z aff ) as the solution to
 0 AT I
-∆xaﬀ
-0  ∆y aﬀ  = −rb 
+∆xaff
+0  ∆y aff  = −rb 
 A 0
 S 0 X
-∆saﬀ
+∆saff
 (3.13)
 (3.14)
 with the residuals rb = Ax − b, rc = AT y + s − c and rs = XS1. The matrix I denotes the
-identity matrix. The search direction based on (3.14) is called the aﬃne scaling direction. In
-general using the aﬃne search direction to find the optimum does not lead to good performance
+identity matrix. The search direction based on (3.14) is called the affine scaling direction. In
+general using the affine search direction to find the optimum does not lead to good performance
 since often only very small step lengths α ≪ 1 are possible.
 This issue is dealt with in the primal-dual IP algorithms by biasing the search toward the interior
 of the feasible set, keeping the components of x and s from getting too close to the boundary.
@@ -878,7 +877,7 @@ This centering is achieved by modifying the equation system in (3.10) resulting 
 system of equations:
 XS1 = τ 1,
 (3.15)
-The only diﬀerence is on the right hand side of the complementary equation with the addition
+The only difference is on the right hand side of the complementary equation with the addition
 of a parameter τ . Note that the equation system (3.15) is equivalent to (3.3), i.e., solutions to
 (3.15) lie on the central path.
 For the primal-dual IP algorithm we take Newton steps towards a point on the central path,
@@ -892,7 +891,7 @@ With τ = σµ, we calculate the search direction as a Newton step based on the 
 0  ∆y  =  −rb  .
 σµ1 − rs
 Note that the search direction can be decomposed into
-(∆x, ∆y, ∆z) = (∆xaﬀ , ∆y aﬀ , ∆z aﬀ ) + (∆xc , ∆y c , ∆z c ),
+(∆x, ∆y, ∆z) = (∆xaff , ∆y aff , ∆z aff ) + (∆xc , ∆y c , ∆z c ),
 where (∆xc , ∆y c , ∆z c ) is the centering direction which solves
 0  ∆y c  =  0  .
 σµ1
@@ -907,11 +906,14 @@ j:∆xj <0
 , min
 j:∆sj <0
 (3.21)
+
 TASK 3.6
 Based on the linear system of equations (3.17) we can derive a formulation D∆y = rD by
 substitution of ∆s and ∆x, where D is a positive definite matrix.
 • Find the expressions for D, rD and the substitutions of ∆s and ∆x.
 • What is the advantage of this reformulation? How can the new problem be solved?
+[ _cf('140522120705') ]
+
 PROGRAMMING TASK 3.7
 For our primal-dual IP algorithm we choose a constant centering parameter σ ∈ (0, 1). In
 each step calculate the duality measure µ, the search direction according to (3.17), with your
@@ -926,7 +928,7 @@ IPPrimalDual(c,A,b,sigma,zeta)
 • sigma: optional parameter defining the centering parameter σ (default: σ = 0.5 )
 3.2.4 Predictor-Corrector Method
 Another approach is the predictor-corrector method, which is also based on the equation system
-for the primal dual method in (3.15). There are two diﬀerences to the primal-dual approach in
+for the primal dual method in (3.15). There are two differences to the primal-dual approach in
 the previous section. First we choose the centering parameter σ dynamically and second we use
 second order information to calculate an additional correcting direction to make faster progress
 towards the optimal points on the central path. If we have estimates (x, y, s) of the primal
@@ -940,76 +942,72 @@ which can be reformulated to
 (3.23)
 We can see that there is a nonlinear term ∆X ⋆ ∆S ⋆ 1 on the right hand side, which does not
 appear when using the Newton method to calculate the search direction.
-The idea is now to calculate the actual search direction in two steps. First we calculate the aﬃne
-scaling direction (∆xaﬀ , ∆y aﬀ , ∆z aﬀ ) by solving (3.14). We use it to calculate a corrector
+The idea is now to calculate the actual search direction in two steps. First we calculate the affine
+scaling direction (∆xaff , ∆y aff , ∆z aff ) by solving (3.14). We use it to calculate a corrector
 component of the search direction by solving the system of equations
 (3.24)
 0  ∆y cor  = 
-−∆X aﬀ ∆S aﬀ 1
+−∆X aff ∆S aff 1
 Additionally, we compute the centering parameter
-µaﬀ
+µaff
 (3.25)
 with
-µaﬀ = d(x + αaﬀ ∆xaﬀ , s + αaﬀ ∆saﬀ )/n.
+µaff = d(x + αaff ∆xaff , s + αaff ∆saff )/n.
 (3.26)
-µaﬀ is the hypothetical value of µ that would result from a step in the aﬃne scaling direction
-and αaﬀ is the step size given by (3.21) calculated for the aﬃne scaling direction. The intuition
-behind this choice of σ is that, if we can do a large step in the aﬃne scaling direction before
+µaff is the hypothetical value of µ that would result from a step in the affine scaling direction
+and αaff is the step size given by (3.21) calculated for the affine scaling direction. The intuition
+behind this choice of σ is that, if we can do a large step in the affine scaling direction before
 hitting any constraint, we can choose a small centering parameter. On the other hand, if there
-is only a small improvement going in the aﬃne direction before hitting a constraint, we need a
+is only a small improvement going in the affine direction before hitting a constraint, we need a
 larger centering parameter.
 With the new centering parameter σ, we can calculate the centering component of the search
 direction by solving (3.19). Actually, the combined centering-corrector component can be
 calculated by solving
 (3.27)
 0  ∆y cc  = 
-aﬀ
+aff
 σµ1 − ∆X ∆S 1
 This gives us our search direction as
-(∆x, ∆y, ∆z) = (∆xaﬀ , ∆y aﬀ , ∆z aﬀ ) + (∆xcc , ∆y cc , ∆z cc ).
+(∆x, ∆y, ∆z) = (∆xaff , ∆y aff , ∆z aff ) + (∆xcc , ∆y cc , ∆z cc ).
 (3.28)
 As with the other IP algorithms, we update the estimates by moving along the search direction
 with a step size α according to (3.21) such that (x, s) > 0.
 PROGRAMMING TASK 3.8
 Write a predictor corrector IP algorithm for a linear program. In each iteration first solve
-(3.14) for the aﬃne scaling direction and then use it to calculate σ given by (3.25). With both
-σ and the aﬃne scaling direction calculate the combined centering-corrector component
+(3.14) for the affine scaling direction and then use it to calculate σ given by (3.25). With both
+σ and the affine scaling direction calculate the combined centering-corrector component
 by solving (3.27) to get the total search direction given by (3.28). Then update the current
 estimates with an appropriate step size α. The algorithm is terminated if the duality measure
 drops below a predefined accuracy threshold ζ.
 1 Deliverables (Matlab code file): IPPredictorCorrector.m
 IPPredictorCorrector(c,A,b,zeta)
 • For both of the linear equation systems (3.14) and (3.27) the left hand side is the
-same. You can use this fact together with the results in Task 3.6 to make the algorithm more eﬃcient.
+same. You can use this fact together with the results in Task 3.6 to make the algorithm more efficient.
 TASK 3.9
-• What are the advantages/disadvantages of the diﬀerent methods?
-• How do the diﬀerent algorithms compare with respect to complexity per iteration?
+• What are the advantages/disadvantages of the different methods?
+• How do the different algorithms compare with respect to complexity per iteration?
 3.3 Networks and Flows
 3.3.1 Graphical Representation of Networks
-We consider linear network ﬂow optimization problems, which are an important subclass of
-general linear programming problems. A network ﬂow problem is an optimization problem
-defined on a graph. A directed graph G = (N, A) is defined by a finite set of nodes N and a
-finite set of arcs A.2 Without loss of generality, we represent the node set by N = {1, . . . , |N |}
+
+We consider linear network ﬂow optimization problems, which are an important subclass of general linear programming problems. A network ﬂow problem is an optimization problem defined on a graph. A directed graph G = (N, A) is defined by a finite set of nodes $N$ and a
+finite set of arcs A.2 Without loss of generality, we represent the node set by $N = {1, . . . , |N |}$
 and each node by its index i ∈ N . Each arc connects two nodes in an ordered fashion, i.e., it
-leaves some node (tail) and enters another node (head).3 Each arc can therefore be represented
-by the triple (i, j, m), where i is its tail node, j is its head node, and m a unique index which
+leaves some node (tail) and enters another node (head).
+
+
+Each arc can therefore be represented by the triple (i, j, m), where i is its tail node, j is its head node, and m a unique index which
 enumerates all arcs. The index is necessary to allow for multiple arcs with the same tail and
 head nodes. Without loss of generality, we represent the arc set by the unique arc indices
-A = {1, . . . , |A|} and denote the arcs leaving (entering) i by O(i) ∈ A (I(i) ∈ A). We
-consider only connected graphs, i.e., graphs whose node sets can not be split into two disjoint
+$A = {1, . . . , |A|}$ and denote the arcs leaving (entering) i by O(i) ∈ A (I(i) ∈ A).
+
+We consider only connected graphs, i.e., graphs whose node sets can not be split into two disjoint
 sets such that no arc connects both parts. Figure 3.1 visualizes an example for a directed graph
 with all the corresponding definitions.
-A convenient description of the relations between nodes and arcs is given by the node-arc
-incidence matrix M ∈ R|N |×|A| . Its rows and columns correspond to the nodes and the arcs,
-respectively, according their respective index. Its elements are defined as
-1
-if m ∈ O(i),
+
+A convenient description of the relations between nodes and arcs is given by the node-arc incidence matrix $M \in \mathbb{R}^{N \times A}$. Its rows and columns correspond to the nodes and the arcs, respectively, according their respective index. Its elements are defined as 
 (3.29)
-[M ]i,m = −1 if m ∈ I(i),
-0
-otherwise.
-This means that in each column, corresponding to an arc, there is exactly one entry +1 and
-one entry −1, which reside in the rows corresponding to the arcs tail node and head node,
+This means that in each column, corresponding to an arc, there is exactly one entry +1 and one entry −1, which reside in the rows corresponding to the arcs tail node and head node [ -1 means leaving ]
+
 Nodes and arcs are sometimes also called vertices and edges, respectively.
 We assume that no arc leaves and enters the same node.
 6/2/7
@@ -1018,7 +1016,7 @@ We assume that no arc leaves and enters the same node.
 9/2/6
 11/1/9
 Figure 3.1: Example of a directed graph with nodes N = {1, . . . , 5} and arcs A = {1, . . . , 14}.
-The triple m/um /wm denotes the index, capacity, and cost coeﬃcient of each arc.
+The triple m/um /wm denotes the index, capacity, and cost coefficient of each arc.
 respectively. The incidence matrix M ∈ R5×14 of the example graph in Fig. 3.1 is given by
 +1 +1 −1
 0 −1
@@ -1034,39 +1032,33 @@ M =  0 −1
 (3.30)
 Note that for any connected graph the rank of the incidence matrix is |N | − 1. That is, it has
 exactly |N | − 1 linearly independent rows and columns.
+
 3.3.2 Linear Network Flow Problems
-Network ﬂow problems or transportation problems deal with optimally transporting one or multiple commodities through a capacitated network. In communication networks, the commodity
-is usually information organized in data streams or packets. The main diﬀerence between communication networks and transportation networks for real goods, e.g. oil, natural gas, electricity,
-etc., is that the destinations are interested not only in the amount of information, but in a particular piece of information from a particular source. This leads to multicommodity ﬂow problems
-in Sec. 3.3.3, where multiple diﬀerent information ﬂows share a common network. For this
-project, we consider the scenario with infinitely divisible commodities, which serves well as
+Network ﬂow problems or transportation problems deal with optimally transporting one or multiple commodities [ In economics, a commodity is a marketable item produced to satisfy wants or needs.[1] Economic commodities comprise goods and services ]
+through a capacitated network. In communication networks, the commodity is usually information organized in data streams or packets. The main difference between communication networks and transportation networks for real goods, e.g. oil, natural gas, electricity, etc., is that the destinations are interested not only in the amount of information, but in a particular piece of information from a particular source. This leads to multicommodity ﬂow problems in Sec. 3.3.3, where multiple different information ﬂows share a common network.
+
+For this project, we consider the scenario with infinitely divisible commodities, which serves well as
 an approximation for most data stream and packet networks.4
-The following definitions are the ingredients to define a simple network ﬂow problem: A supply
-and demand vector is a vector d ∈ R|N | that defines for each node i the available supply of the
-commodity (di > 0) or the demand of the commodity (di < 0). If di = 0, then node i neither
-has nor need any amount of the commodity. A ﬂow on a graph G = (N, A) is a vector x ∈ R|A|
-with nonnegative entries. xm quantifies the amount of the commodity that is transported on
-arc m from its tail to its head. The ﬂow conservation law (Kirchhoﬀ current law) states that
-Flow problems with indivisible or integer divisible commodities are combinatorial problems and often very
-diﬃcult to solve.
-the diﬀerence between the total outgoing ﬂow and the total incoming ﬂow must meet the net
-supply or demand at each node. It can be stated as follows:
-m∈O(i)
-xm = di ,
-m∈I(i)
-∀i ∈ N.
+
+The following definitions are the ingredients to define a simple network ﬂow problem: A supply and demand vector is a vector $d \in \mathbb{R}^N$  that defines for each node i the available supply of the commodity (di > 0) or the demand of the commodity (di < 0). If di = 0, then node i neither has nor need any amount of the commodity.
+
+A ﬂow on a graph G = (N, A) is a vector x ∈ R|A| with nonnegative entries. xm quantifies the amount of the commodity that is transported on
+arc m from its tail to its head. The ﬂow conservation law (Kirchhoff current law) states that the difference between the total outgoing ﬂow and the total incoming ﬂow must meet the net supply or demand at each node. It can be stated as follows:
 (3.31)
 In vector-matrix notation the ﬂow conservation law can be equivalently stated as
 (3.32)
+
+Flow problems with indivisible or integer divisible commodities are combinatorial problems and often very difficult to solve.
 The arc capacity vector on a graph is a nonnegative vector u ∈ R|A| that defines the maximum
 total ﬂow for each arc. Fig. 3.1 shows an example for an arc capacity assignment. The capacity
 constraint refers to the inequality
 (3.33)
 The cost vector is a vector w ∈ R|A| that assigns a cost per unit ﬂow on each arc. The total
 cost of a ﬂow x is the inner product wT x of the cost vector w with the ﬂow x.
+
 TASK 3.10
 Determine the number of linearly independent equality constraints in the ﬂow conservation
-law for a connected graph. Give a necessary and suﬃcient condition on the supply and
+law for a connected graph. Give a necessary and sufficient condition on the supply and
 demand vector d such that there exists a nonnegative ﬂow that satisfies the ﬂow conservation
 law.
 With those preliminaries, we can define the linear minimum cost ﬂow problem as the problem
@@ -1111,7 +1103,7 @@ capacity constraint is given by
 This constraint is often also referred to as coupling constraint.
 TASK 3.13
 Formulate the linear minimum cost multicommodity network ﬂow problem with the minimum number of inequality (|C||A| + |A|) and equality (|C||N | − |C| + |A|) constraints
-in primal standard form, see Sec. 3.2.1. The linear cost coeﬃcient vector for commodity c
+in primal standard form, see Sec. 3.2.1. The linear cost coefficient vector for commodity c
 is wc ∈ R|A| . Introduce slack variables as necessary. Visualize the block structure of the
 equality constraint matrix and find an upper bound on the number of nonzero elements in
 the matrix.
@@ -1148,7 +1140,7 @@ appropriate plot. Use P0 = 1000 for the signal power, N0 = 1 for the noise power
 dmax = 5 for the maximum link distance. The distance information is stored in the matrix
 IPWN(n).distance the rate weight vector is stored in IPWN(n).weight.
 [1] R. Ahuja, T. Magnanti, and J. Orlin, Networks Flows, Prentice Hall, 1993.
-[2] D. Bertsekas and R. Gallager, Data Networks, Prentice-Hall, Englewood Cliﬀs, NJ,
+[2] D. Bertsekas and R. Gallager, Data Networks, Prentice-Hall, Englewood Cliffs, NJ,
 2nd ed., 1992.
 [3] G. Dantzig, Maximization of a Linear Function of Variables Subject to Linear Inequalities,
 1947. [published in T.C. Koopmans (ed.), Activity Analysis of Production and Allocation,
@@ -1168,7 +1160,7 @@ Chapter 4
 Lagrangian Duality and Solution
 Methods for Dual Problems
 Duality theory is one of the most important tools in convex optimization. It provides an alternative formulation of the original optimization problem that is sometimes easier to solve or that
-provides interesting insights into the problem structure. The theory often seems diﬃcult to understand for beginners, because of the various, apparently self-evident results and possibilities
+provides interesting insights into the problem structure. The theory often seems difficult to understand for beginners, because of the various, apparently self-evident results and possibilities
 for geometric interpretations.
 There is an abstract approach to the dual formulation via the KKT-conditions and cone theory.
 However, here we will give another exposition that is taken from the book of Boyd and Vandenberghe [3], where the Lagrange function is understood to penalize constraint violations and
@@ -1240,17 +1232,17 @@ engineering to analyze layered network protocols [4]. It has been shown that, fo
 TCP/IP protocol can be viewed as the implementation of a dual optimization algorithm for a
 certain dual decomposition of a utility maximization problem. Such analysis provides a useful
 tool for the understanding of traditional network protocols, on the one hand, and it is a source
-of inspiration for new protocols, e. g. by using diﬀerent optimization algorithms, on the other
+of inspiration for new protocols, e. g. by using different optimization algorithms, on the other
 hand.
 In this project, we will develop the two mainstays of practical dual optimization, namely the
 subgradient and the cutting plane algorithms. In fact, these algorithms are general purpose
 tools and can be used for all convex optimization problems, not only those that arise from dual
-decomposition. They only require subdiﬀerentiability of the objective function and are, thus,
+decomposition. They only require subdifferentiability of the objective function and are, thus,
 applicable to the duals of convex optimization problems. This generality comes at the cost of
 relatively slower convergence compared to algorithms that use first or second order derivative
 information of the objective function, as for example the gradient method encountered in Chapter 2 or Newton-type methods. As such, they should only be used when necessary, i. e., when
-diﬀerentiability of the objective function is not guaranteed, hence their association with dual
-optimization problems, which have convex and non-diﬀerentiable objective functions.
+differentiability of the objective function is not guaranteed, hence their association with dual
+optimization problems, which have convex and non-differentiable objective functions.
 4.1 Network Flow Problem with Variable Arc Capacities
 We will illustrate the dual decomposition approach at the hand of the network ﬂow problem
 already encountered in Chapter 3. At that time, we used fixed arc capacities. However, in
@@ -1282,7 +1274,7 @@ and |A| the number of arcs, is the reduced node-arc-incidence matrix that has an
 position (i, j) if arc j enters node i, +1 if arc j leaves node i and 0 if arc j neither enters nor
 leaves node i.
 TASK 4.1
-What is the diﬀerence between (4.12) and the network ﬂow problems in Chapter 3.
+What is the difference between (4.12) and the network ﬂow problems in Chapter 3.
 4.2 Dual Decomposition
 We will use a partial dual decomposition technique for the capacity constraints only. To this
 end, we define a container for the remaining constraints such that the optimization problem
@@ -1317,7 +1309,7 @@ network protocols and the ﬂow parameters x and s are usually situated in the n
 the OSI model.
 The second term in (4.17) is commonly referred to as the physical layer subproblem, because
 the optimal arc capacities u correspond to physical layer parameters as for example transmit
-power covariance matrices or scheduling coeﬃcients.
+power covariance matrices or scheduling coefficients.
 The dual variables λ can be interpreted as link costs. From duality theory we know that λa > 0
 if the capacity constraint for link a is active. In this case, we say that there is demand of size
 λa for link a. The physical layer subproblem will allocate resources with a preference for links
@@ -1347,14 +1339,14 @@ sℓ , xℓ , uℓ ← primal recovery
 check convergence
 Algorithm 1: Dual Algorithm
 4.3 Subgradient Method
-The subgradient method is the non-diﬀerentiable analogue of the gradient descent algorithm.
+The subgradient method is the non-differentiable analogue of the gradient descent algorithm.
 Contrary to this latter method, the attribute descent does not figure in the name of the subgradient method, because (negative) subgradients do not necessarily point into directions of descent.
 There is a plethora of stepsize rules for the gradient algorithm that ensure a relatively fast, i. e.,
 linear, convergence. For the subgradient algorithm, there is no general scheme to choose good
-step sizes. Finally, for a continously diﬀerentiable function there is a simple convergence criterion: ∇f < ε. Such a criterion is not available and one usually aborts the subgradient
+step sizes. Finally, for a continously differentiable function there is a simple convergence criterion: ∇f < ε. Such a criterion is not available and one usually aborts the subgradient
 algorithm after a suitably large number of steps.
 Despite all these apparent drawbacks, the subgradient method enjoys the same popularity in
-dual optimization problems as does the gradient descent algorithm for diﬀerentiable problems.
+dual optimization problems as does the gradient descent algorithm for differentiable problems.
 A strong argument for subgradient methods is that they often allow for a semi-distributed solution, where the dual problem is solved distributed but dual variables need to be exchanged in
 every iteration, see for example [5].
 We denote by s⋆ , x⋆ and u⋆ the maximizing arguments in (4.17) for given dual variables λℓ .
@@ -1420,7 +1412,7 @@ function [x,u,lambda,util,D]
 • util: utility function value
 • D: dual function value over iterations
 4.4 Cutting Plane Method
-Kelley’s cutting plane method [6] uses an approach that is diﬀerent from most other optimization algorithms. Instead of using local derivative information to find another iterate of the dual
+Kelley’s cutting plane method [6] uses an approach that is different from most other optimization algorithms. Instead of using local derivative information to find another iterate of the dual
 variables in the vicinity of the current one, the cutting plane method constructs a global approximation of the dual function out of subgradients. In contrast to the subgradient algorithm, a
 convergence criterion is readily available.
 The subgradient inequality
@@ -1518,7 +1510,7 @@ subject to sc = cT xc ,
 c ∈ {1, . . . , m}
 (4.37)
 which looks similar to (4.13) except that s now has multiple components and there is a separate
-ﬂow-vector for each commodity. Furthermore, each commodity may have diﬀerent sources
+ﬂow-vector for each commodity. Furthermore, each commodity may have different sources
 and destinations, which is why there is one node-arc incidence matrix Mc for each commodity
 whith the respective source and destination rows deleted. The commodities are coupled via the
 capacity constraint and the objective function U . We choose a sum-separable utility function
@@ -1584,7 +1576,7 @@ where the equality is due to strong duality and the sequence (λℓ , µℓ ) ma
 by a subsequence. This means that we can infer the optimal function value from the iterates
 of dual function values. However, the dual variables do not contain information about the
 primal variables that achieve optimality. This would be a serious drawback if there were no
-eﬃcient methods to recover a primal solution, because in most practical cases it is of paramount
+efficient methods to recover a primal solution, because in most practical cases it is of paramount
 interest to know how optimality can be achieved and not what the optimal value is. For example,
 in power minimization with respect to quality of service constraints, one would like to know
 how to allocate powers. In rate-optimal scheduling one is primarily interested in knowing the
@@ -1665,7 +1657,7 @@ primal_recovery(X,U,S)
 • X: primal ﬂow variables over iterations
 • U: primal capacity variables over iterations
 • S: primal “s” values over iterations
-• alpha: coeﬃcients of the optimal convex combination
+• alpha: coefficients of the optimal convex combination
 • x: feasible ﬂow variables
 • u: feasible capacity variables
 If the cutting plane algorithm is used to solve (4.48), the primal recovery solution from (4.56)
@@ -1742,7 +1734,7 @@ We now recall that the subgradients are ξk = g(xk ) and ζk = h(xk ) and the du
 which we recognize as the primal recovery problem (4.56). In summary, the primal recovery
 for the cutting plane method at iteration ℓ is
 (4.82)
-where the coeﬃcients αk are the dual variables of the cutting plane master problem at iteration
+where the coefficients αk are the dual variables of the cutting plane master problem at iteration
 PROGRAMMING TASK 4.6
 Use the file primal_recovery_cuttingplane.m and complete the function
 primal_recovery_cuttingplane(X,U,S,alpha) that calculates the primal recovery for the multi-commodity ﬂow problem when the cutting plane algorithm is used.
@@ -1801,12 +1793,12 @@ Chapter 5
 Conic Optimization and SDPT3
 5.1 Introduction
 The great successes of linear programming – the general theory as well as the existence of
-eﬃcient interior-point solvers for linear programs (LPs) – motivated researchers to extend the
+efficient interior-point solvers for linear programs (LPs) – motivated researchers to extend the
 results and methods to the nonlinear case. The widest class of optimization problems to which
 the basic results of linear programming have been extended is the class of convex optimization
 problems [7]. For this purpose, a convex problem needs to be transformed into conic form, i.e.,
 into an optimization problem with linear objective and a constraint set that is the intersection
-of a closed convex cone and an aﬃne subspace. The two most famous conic programming
+of a closed convex cone and an affine subspace. The two most famous conic programming
 formulations are second-order cone programs (SOCPs), which are also referred to as conic
 quadratic programs (cf. [1, Chapter 3]), and semidefinite programs (SDPs). A comprehensive
 study and various applications of SOCPs and SDPs can for example be found in [1, 2]. Two
@@ -1833,13 +1825,13 @@ min c, x
 (5.1)
 Here, c, x denotes the inner product between the constant c and the optimization variable
 x. Note that if c, x ∈ Rn , then c, x = cT x. To analyze problem (5.1), the constraint set X
-usually has to be described with convex inequality constraints and aﬃne equality constraints.
-The traditional way is to provide a list of inequalities and aﬃne equations of the form
+usually has to be described with convex inequality constraints and affine equality constraints.
+The traditional way is to provide a list of inequalities and affine equations of the form
 gi (x) ≤ 0, ∀i ∈ {1, . . . , ℓ},
 aj , x − bj = 0, ∀j ∈ {1, . . . , m},
 where each of the ℓ functions gi : Rn → R is convex. This guarantees the convexity of X as
 the intersection of convex level sets is convex again. For conic optimization problems, a more
-elegant way to describe the feasible region consists of defining X as the intersection of an aﬃne
+elegant way to describe the feasible region consists of defining X as the intersection of an affine
 subspace and a proper cone. In fact, this is the basis for conic optimization.
 Definition. A set K ⊂ Rn is a cone if it is closed under positive scalar multiplication, i.e., if
 αx ∈ K, ∀α > 0.
@@ -1895,12 +1887,12 @@ An optimiza-
 (5.3)
 aj , x = bj , ∀j ∈ {1, . . . , m},
 is called a conic optimization (in standard form). Note that the convex constraint set X of a
-conic optimization problem is the intersection of a proper cone K and an aﬃne subspace that
+conic optimization problem is the intersection of a proper cone K and an affine subspace that
 is specified by the parameters aj and bj , j ∈ {1, . . . , m}.
 The probably best known conic form problems are linear programs (LPs). A linear program
 is an optimization problem with a linear objective function that is minimized (or maximized)
 over a polyhedral constraint set. In standard form, the polyhedral constraint set of the linear
-program is given as the intersection of the proper cone Rn and and aﬃne subspace specified
+program is given as the intersection of the proper cone Rn and and affine subspace specified
 by a system of linear equalities:
 x ≥ 0,
 (5.4)
@@ -1946,7 +1938,7 @@ ized logarithm can be defined as
 ψ(Q) = log det(Q).
 The generalized logarithm ψ for the proper cone K behaves like the ordinary logarithm along
 any ray in K. It has to satisfy several other properties like being concave and twice continuously
-diﬀerentiable which we do not elaborate on here. However, if ψ is a generalized logarithm for
+differentiable which we do not elaborate on here. However, if ψ is a generalized logarithm for
 K, then φ(x) = −ψ(x) is the logarithmic barrier function for the constraint x K 0.
 5.3 SDPT3
 SDPT3 is a software that is designed to solve semidefinite-quadratic-linear conic programming
@@ -1980,7 +1972,7 @@ associated with the vector of unrestricted variables.
 • ψ(xi ) denotes the generalized logarithm for second-order cones so that −ψ(xq ) is the
 corresponding barrier function.
 • νj , νi , and νk are given nonnegative parameters that specify how the log-barrier terms
-associated with the diﬀerent constraint cones contribute to the objective function.
+associated with the different constraint cones contribute to the objective function.
 In some cases, it is easier to set up SQLPs in SDPT3 with the dual form of (5.8):
 [νj log det(Zj ) + sj νj (1 − log νj )]
 [νi log ψ(zi ) + νi (1 − log νi )] +
@@ -2039,7 +2031,7 @@ purpose, we simplify the notation by combining all channel vectors in the matrix
 such that the received signal vector reads as
 (5.12)
 5.4.1 Power Optimization
-The goal is a power eﬃcient design of the precoder T that is quantified by the receivers’ quality
+The goal is a power efficient design of the precoder T that is quantified by the receivers’ quality
 of service (QoS) and the resources of the transmitter. Here, the users’ data rates are used as
 QoS measures. Expressed in terms of the mutual information, the achievable rates read as
 rk = log2 (1 + SINRk )
@@ -2065,14 +2057,14 @@ tr(T H T )
 Since rk is a bijective function of SINRk , (5.17) can equivalently be represented as a standard
 power minimization with SINR lower bounds γk = 2ρk − 1, k ∈ {1, . . . , K}, i.e., (cf. [10])
 (5.17)
-Note that this problem might be infeasible. For K > N and suﬃciently large ρk , it might be
+Note that this problem might be infeasible. For K > N and sufficiently large ρk , it might be
 impossible to satisfy all constraints simultaneously, even though infinite transmit power can be
 used. A simple test to check whether the positive rate targets are achievable is given in [5]: if
 0 < 2−ρk ≤ 1 for all k ∈ {1, . . . , K} and additionally
 2−ρk > K − rank{H},
 (5.18)
 then there exists a T ∈ CN ×K with finite power satisfying all rate constraints simultaneously.
-In what follows, the task is to solve this power minimization problem based on the powerful framework of conic optimization which allows for eﬃcient numerical solutions using standard optimization toolboxes, e.g., SDPT3 [9]. Specifically, the power optimization problem
+In what follows, the task is to solve this power minimization problem based on the powerful framework of conic optimization which allows for efficient numerical solutions using standard optimization toolboxes, e.g., SDPT3 [9]. Specifically, the power optimization problem
 in (5.17), which is nonconvex in this representation, will be formulated as a convex SOCP or
 SDP problem.
 5.4.2 Problem Reformulation
@@ -2115,7 +2107,7 @@ P , problem (5.19) is reformulated as a SOCP,
 Im{[HT ]k,k } = 0
 (5.24)
 (5.25)
-Thus, the problem is convex and moreover, it can eﬃciently be solved by either using CVX or
+Thus, the problem is convex and moreover, it can efficiently be solved by either using CVX or
 implementing this problem formulation into a standard SOCP solver as provided in SDPT3 [9].
 PROGRAMMING TASK 5.3
 Implement the feasibility test in (5.18) and the SOC formulation in (5.25) into a Matlab function that takes the channel matrix H, the vector of minimum rate targets ρ = [ρ1 , . . . , ρK ]T ,
@@ -2247,7 +2239,7 @@ This can equivalently be written as
 tr(eT X1 ej ) − tr(eT H1 Q1 H1 ej ) = tr(ej eT X1 ) − tr(H1 ej eT H1 Q1 ) = δi,j ,
 (5.34)
 where ei denotes the i-th canonical unit vector. Since ej eT and H1 ej eT H1 are not symmetric
-except for the case i = j, we need to formulate the equality constraints in a diﬀerent way. For
+except for the case i = j, we need to formulate the equality constraints in a different way. For
 this purpose, note that [X1 ]i,j = [X1 ]j,i and [H1 Q1 H1 ]i,j = [H1 Q1 H1 ]j,i . Consequently,
 we can equivalently express (5.33) as
 [X1 ]i,j + [X1 ]j,i − [H1 Q1 H1 ]i,j − [H1 Q1 H1 ]j,i = 2δi,j ,
@@ -2273,11 +2265,11 @@ function [Q1,Q2] = wsr_mimo_mac(H1,H2,P1,P2,w)
 • First, determine whether w1 > w2 , w1 < w2 , or w1 = w2 again.
 TASK 5.8
 Measure and compare the execution times of your two functions wsr_mimo_mac and
-wsr_mimo_mac_cvx for diﬀerent input parameters. Which of the two solutions is more
+wsr_mimo_mac_cvx for different input parameters. Which of the two solutions is more
 Note that if we solve problem (5.29) for given channels H1 , H2 , transmit powers P1 , P2 , and
 one particular weight vector, we obtain a point on the boundary of CMAC . Therefore, we can
 evaluate the boundary of the capacity region of the two-user MIMO MAC by solving WSR
-maximization problems over CMAC for diﬀerent weight vectors w ∈ R2 . In, particular, the
+maximization problems over CMAC for different weight vectors w ∈ R2 . In, particular, the
 boundary of CMAC can be determined with arbitrary precision by varying the ratio of the weights
 w2 from zero to infinity.
 PROGRAMMING TASK 5.9
@@ -2303,7 +2295,7 @@ not unique in general.
 TASK 5.10
 Let rk,max = maxℓ=1,...,L eT rℓ , k ∈ {1, 2}. Plot the capacity region CMAC of the twok
 user MIMO MAC as the convex hull of the rate vectors r1 , . . . , rL ,
-for diﬀerent input parameters.
+for different input parameters.
 r1,max
 r2,max
 [1] A. Ben-Tal and A. Nemirovski, Lectures on Modern Convex Optimization. Analysis,
@@ -2379,7 +2371,7 @@ vector x or for a pair of vectors (x, y), respectively.
 • R: R(x1 , . . . , xK , y1 , . . . , yK ) if y is provided, R(x1 , . . . , xK ) otherwise
 • You can use exist('y','var') to check whether y is provided.
 Figure 6.1: Schematic of the branch-reduce-and-bound method: feasible region (gray), branching (dashed), and reduction (dotted).
-• It suﬃces to implement R(x1 , . . . , xK , y1 , . . . , yK ) and to set y=x; if y is not provided.
+• It suffices to implement R(x1 , . . . , xK , y1 , . . . , yK ) and to set y=x; if y is not provided.
 Problem (6.3) can now be solved using a modified version of the branch-reduce-and-bound
 (BRB) algorithm from [3]. We first discuss the three main steps and summarize the algorithm
 afterwards.
@@ -2545,7 +2537,7 @@ at q = x.
 6.3 Zero-Forcing Solution
 A variation of problem (6.3) is the maximization of the sum rate under so-called zero-forcing
 constraints [1, 4], i.e., we enforce that the receiver applies linear receive filters in a way that no
-interference between streams of diﬀerent users is present after the filtering operation. The data
+interference between streams of different users is present after the filtering operation. The data
 transmission can then be described by
 (6.18)
 where vk is the receive filter for the data stream of user k. To cancel out interference for any
@@ -2567,7 +2559,7 @@ VK HK =  .  hk(1) . . . hk(|K|) = I|K|
 vk(|K|)
 which is fulfilled by
 (6.21)
-With this receive filters, the eﬀective channel of a user k ∈ K including the receive filters
+With this receive filters, the effective channel of a user k ∈ K including the receive filters
 is vk hk = 1, the variance of the filtered noise is σk = vk Im vk = vk vk , all inter-user
 interference is canceled, and the achievable rate is given by
 rk = log2 1 + qk · 1/σk .
@@ -2641,7 +2633,7 @@ Since the problem with zero-forcing constraints has a more restrictive constrain
 constraints. Moreover, it is clear that the suboptimal algorithm proposed for each of the problems must perform worse than the respective globally optimal solution. This behavior can be
 observed by plotting the average sum rate achieved with each of the algorithms.
 TASK 6.11
-Compare the four algorithms by calling plot_all. Zoom in to see the diﬀerent behavior
+Compare the four algorithms by calling plot_all. Zoom in to see the different behavior
 at low, intermediate, and high values of P .
 It is known that zero-forcing becomes optimal for very low power (where only one stream is
 transmitted in the optimal strategy) and very high power (where suppression of interference
@@ -2649,15 +2641,15 @@ becomes crucial), but a performance gap compared to the branch-reduce-and-bound 
 without zero-forcing should be observable at intermediate SNR.
 Since problem (6.24) is a discrete optimization problem, the greedy allocation finds the globally
 optimal set K at least in some cases while a suboptimal set is chosen in other cases. Therefore,
-the diﬀerence of the achieved rates Rexhaustive − Rgreedy is either zero or positive, yielding a
-positive diﬀerence on average.
+the difference of the achieved rates Rexhaustive − Rgreedy is either zero or positive, yielding a
+positive difference on average.
 Similar considerations are true for the comparison of the BRB solution and the gradient solution. Since the gradient-projection method converges to a local optimum, its achieved rate is
 equal to the globally optimal rate if the local optimum is also the global one, but it is lower
 if the local optimum is not the global one. However, it has to be taken into account that the
 BRB algorithm only finds an ǫ-optimal solution. Therefore, it might happen that the grandient
-method delivers a higher sum rate than the BRB algorithm, but in that case, the diﬀerence is
+method delivers a higher sum rate than the BRB algorithm, but in that case, the difference is
 never more than ǫ. Nevertheless, the gradient solution should be worse on average at least for
-suﬃciently small ǫ.
+sufficiently small ǫ.
 [1] G. Dimic and N. Sidiropoulos, On downlink beamforming with greedy user selection:
 performance analysis and a simple new algorithm, IEEE Transactions on Signal Processing, 53 (2005), pp. 3857–3868.
 [2] D. P. Palomar and Y. Jiang, MIMO Transceiver Design via Majorization Theory, Foundations and Trends® in Communications and Information Theory, 3 (2006), pp. 331–551.

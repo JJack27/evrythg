@@ -1,5 +1,4 @@
 [ _to('140521210549') ]
-
 learning control problems, which require very short sampling
 time. Thus, because of this limitation, only batch SVR has
 been used in robotics [4] [5] [6]. On-line learning however,
@@ -412,11 +411,11 @@ plant uncertainty, and to obtain good disturbance suppression.
 In our control scheme, the feedback controller is also used as
 an exploration function to acquire data points near the desired
 state. Moreover, feedback error is not directly used to update
-the weight vector, as in feedback error learning [13]. We train
-the LoSVR with real input control signal (uff+ufb) and the real
-current state. 
-Training of LoSVR is performed at each sampling time step with new incoming data (q, uff+ufb).
+the weight vector, as in feedback error learning [13]. 
 
+\todo{What exactly is input and output to the SVR? Assume that Online SVR is still a supervised method - thus it can't be $u_{\mathrm{ff}}$ because that is not known (?!) also for training samples}
+We train the LoSVR with real input control signal (uff+ufb) and the real current state. 
+Training of LoSVR is performed at each sampling time step with new incoming data (q, uff+ufb).  
 More local points near the LoSVR facilitate LoSVR to learn feed-forward control signal $u_{ff}$ with respect to the desired motion $q_d$. As the function of exploration, the feedback control signal $u_{fb}$ thrusts the robot arm from the current motion state $q$ toward qd and LoSVR tries to compute the optimal uff for qd based on the cloud of these most recent explored data points, which are the data points of local window.
 
 Recursively with the feeback function and

@@ -1,0 +1,439 @@
+Introduction to Interior Point Methods
+Dr. Abebe Geletu
+Ilmenau University of Technology
+Department of Simulation and Optimal Processes (SOP)
+
+TU Ilmenau
+These slides do not contain all the topics intended for discussion ..... Watch out errors are everywhere!
+In the meantime, I am happy to receive your suggestions, corrections and comments.
+But, ”I won’t leave any unﬁnished manuscripts” Harold Robbins - American author with 25 bestsellers.
+Topics
+Basic Principles of the Interior Point (Barrier) Methods
+Primal-Dual Interior Point methods
+Primal-Dual Interior Point methods for Linear and Quadratic
+Optimization
+Primal-Dual-Interior Point methods for Nonlinear Optimization
+Current Issues
+Conclusion
+References and Resources
+Basics of the Interior Point Method
+Consider
+(NLP)
+min f (x)
+s.t.
+gi (x) ≥ 0, i = 1, 2, . . . , m1 ;
+hj (x) = 0, j = 1, 2, . . . , m2 ;
+x ≥ 0,
+where f , gi , hj : Rn → R are at least once diﬀerentiable functions,
+xmin , xmax ∈ Rn are given vectors.
+Feasible set of NLP:
+F :=
+{x ∈ Rn | gi (x) ≥ 0, i = 1, . . . , m1 ;
+hj (x) = 0, j = 1, . . . , m2 ; x ≥ 0} .
+Basics of the Interior Point Method...
+Figure: Feasible set F
+Idea of the interior point method:
+• to iteratively approach the optimal solution from the interior of the
+feasible set
+Therefore (requirements for IPM):
+• the interior of the feasible set should not be empty
+• almost all iterates should remain in (the interior of the) feasible set
+Question:
+When is the interior of the feasible set non-empty?
+Answer:
+if there is x ∈ Rn such that
+gi (x) > 0, i = 1, . . . , m1 ; hj (x) = 0, j = 1, . . . , m2 ; x > 0.
+(ii) if the Mangasarian-Frmomovitz Constraint Qualiﬁcation (MFCQ)
+is satisﬁed at a feasible point x,
+then the interior of the feasible set of NLP is non-empty.
+What is MFCQ ?
+Let x ∈ F; i.e. x is a feasible point of NLP.
+Active constraints
+• An inequality constraint gi (x) is said to be active at x ∈ F if
+gi (x) = 0.
+• The set
+A(x) = {i ∈ {1, . . . , m1 } | gi (x) = 0}
+index set of active inequality constraints at x.
+(NLP) min{f (x) = x1 − x2 } s.t.
+g1 (x) = x1 + x2 + x3 + 3 ≥ 0,
+g2 (x) = 2x1 − 4x2 + x3 + 1 ≥ 0,
+g3 (x) = −5x1 + 3x2 + 2 ≥ 0,
+x1 ≥ 0, x2 ≥ 0, x3 ≥ 0.
+What is MFCQ ?...
+The vector x
+= (1, 1, 1) is feasible to the NLP and
+g2 (x) = 0 and g3 (x) = 0,
+the active index set is A(x) = {2, 3}.
+Mangasarian-Fromowitz Constraint Qualiﬁcation
+Let x ∈ F (feasible point of NLP). Them MFCQ is said to be satisﬁed
+at x if there is a vector d ∈ Rn , d = 0, such that (i)
+gi (x) > 0, i ∈ A(x), and
+(ii)
+h1 (x) = 0, d
+h2 (x) = . . . , d
+hm2 (x) = 0.
+Figure: A Mangasarian-Fromowitz Vector d
+• d forms an acute angle (< 900 ) with each
+gi (x), i ∈ A(x).
+An implications of the MFCQ:
+There is α such that
+• x + αd > 0.
+• g (x + αd) ≈ g (x) + αd
+gi (x) > 0, i = 1, . . . , m1 ,
+hj (x) = 0, j = 1, . . . , m2 .
+• hj (x + αd) ≈ hj (x) + αd
+⇒ x + αd is in the interior of the feasible set F.
+⇒ The interior of the feasible set is not empty.
+Example (continued...)
+• g2 (x) = (2, −4, 2) and g3 (x) = (−5, 3, 0).
+• for d = (−1, 0, 2) we have d
+g2 (x) > 0 and d
+• x = (1, 1, 1) +
+(−1, 0, 2) > 0.
+g3 (x) > 0; and
+MFCQ guarantees that the interior of F is not empty .
+Forcing iterates remain in the interior of F
+How to force almost all iterates remain in the interior of the feasible
+set F?
+Use barrier functions?
+A well-known barrier function is the logarithmic barrier function
+B(x, µ) = f (x) − µ
+log(gi (x)) +
+log(xl )
+where µ is known as barrier parameter.
+• The logarithmic terms log(gi (x)) and log(xl ) are deﬁned
+at points x for which gi (x) > 0 and xl > 0, l = 1, . . . , n .
+• Instead of the problem NLP, consider the parametric problem
+(NLP)µ
+min B(x, µ)
+• To ﬁnd an optimal solution xµ of (NLP)µ for a ﬁxed value of the
+barrier parameter µ.
+Lagrange function of (NLP)µ :
+Lµ (x, λ) = f (x) − µ
+λj hj (x).
+Necessary optimality (Karush-Kuhn-Tucker) condition:
+for a given µ, a vector xµ is a minimum point of (NLP)µ if there is a
+Lagrange parameter λµ such that, the pair (xµ , λµ ) satisﬁes:
+λ Lµ (x, λ)
+x Lµ (x, λ)
+⇒ Thus we need to solve the system
+−h(x) = 0
+f (x) − µ
+gi (x) +
+gi (x)
+λj hj (x) = 0
+• Commonly, this system is solved iteratively using the Newton Method.
+Newton method to solve the system of nonlinear equations
+Fµ (x, λ) = 0 for a ﬁxed µ, where
+Fµ (x, λ) =  f (x) − µ
+h(x)
+i=1 gi (x)
+j=1 λj
+m1 1
+l=1 xl el
+hj (x)
+Algorithm:
+Step 0: Choose (x0 , λ0 ).
+Step k: • Find (∆k , ∆k ) = d by solving the linear system
+JFµ (xk , λk )d = −Fµ (xk , λk )
+• Determine a step length αk
+• Set xk+1 = xk + αk ∆k and λk+1 = xk + αk ∆k
+STOP if convergence is achieved; otherwise CONTINUE.
++
+• For each give µ, the above algorithm can provide a minimal point
+xµ of the problem (NLP)µ .
+Question: What is the relation between the problem NLP and
+(NLP)µ ?
+Question: How to choose µ’s?
+Answer(a general strategy): choose a sequence {µk } of decreasing,
+suﬃciently small non-negative barrier parameter values
+• to obtain associated sequence {xµk } optimal solutions of (NLP)µk .
+Properties
+• The optimal solutions xµ lie in the interior of the feasible set of NLP.
+• The solutions xµk converge to a solution x ∗ of NLP; i.e.
+lim+ xµ = x ∗ .
+Drawbacks of the primal barrier interior
+Jh (x)
+H(x) − µ 
+JFµ (x, λ) = 
+g (x)
+i=1 i
++ Gi (x) −
+l=1 l
+el  +
+[Jh (x)] 
+,
+Hj (x)
+:=D(x)
+where, H(x) is the Hessian matrix of f (x), Jh (x) is the Jacobian matrix of h(x)
+= (h1 (x), h2 (x), . . . , hm2 (x)), Gi (x)
+is the Hessian matrix of gi (x), Hj (x) is the Hessian matrix of hj (x).
+Drawback: as the values of µ get closer to 0 the matrix D can
+become ill-conditioned .
+Example (continued):
+For our example we have
+4x1 + 2
+ 2x1 x2
+g1 (x)
+4x1 x3
+4x1 x2
+4x3 x2
+−8
+2x1 x2  +
+g2 (x) 4x
+4x3 + 2
+−8
+−8x3
+−8x3 
+where X = diag (x). For example, at the feasible interior point x
+large.
+−15
+g3 (x)
+D(x) =
+−15
+−2
+= (1, 2, 8) we have cond(D) ≈ 113.6392, which is
+0
+Note that:
+• the matrix g (x) [ g (x)] is of rank 1, so not invertible and has
+large condition number.
+• the expression g (x) gets larger as g (x) gets smaller, usually near to
+the boundary of the feasible region.
+Advise: Do not use the constraint function gi (x) ≥ 0, i = 1, . . . , m1
+directly with the logarithmic barrier function .
+Instead, introduce slack variables s = (s1 , s2 , . . . , sm1 ) for inequality
+constraints so that:
+gi (x) − si = 0, si ≥ 0, i = 1, . . . , m1 .
+(That is, we lift the problem into a higher dimension by adding new variables, so that we have to work with
+z = (x, s) ∈ Rn+m1 . Frequently, in higher dimensions, we may have a better point of view. )
+The Primal-Dual Interior Point Method
+This leads to the problem
+min f (x) − µ
+log (xl ) +
+(x,s)
+log (si )
+gi (x) − si = 0, i = 1, . . . , m1
+only with equality constraints and objective function with barrier
+terms on the variables.
+f (x) =
+x1 − x2
+− µ
+
+(log si + log xi )
+g1 (x) = x1 + x2 + x3 + 3 − s1 = 0,
+g2 (x) = 2x1 − 4x2 + x3 + 1 − s2 = 0,
+g3 (x) = −5x1 + 3x2 + 2 − s3 = 0.
+Primal-dual Interior Method for LOPs
+• Consider a standard linear optimization problem
+(LOP)
+min c x
+Ax = b,
+x ≥0
+where A is m × n matrix, b ∈ Rn .
+• The dual problem to LOP is:
+(LOP)D
+max b λ
+(λ,s)
+A λ + s = c.
+Here, s is slack variable.
+The Lagrange function of LOP:
+L(x, λ, s) = c x − λ (Ax − b) −
+si xi ,
+where:
+• λ = (λ1 , . . . , λm ) is a vector of Lagrange multipliers associated
+with the equality constraints Ax = b,and
+• s = (s1 , . . . , sn ) is a vector of Lagrange-multipliers associated with
+x ≥ 0; hence s ≥ 0.
+• Here, the Lagrange-multiplier vector s is same as the slack variable
+s in the dual problem (LOP)D .
+Primal-dual Interior Method for LOPs...
+• The optimality criteria for x ∗ to be a solution of the primal problem
+(P) and (λ∗ , s ∗ ) to be a solution of dual problem (D) is that
+(x ∗ , λ∗ , s ∗ ) should satisfy:
+c −A λ−s
+(x, s) ≥ 0 .
+X =
+,S = 
+ 
+1
+ 
+ , e = .
+.
+Primal-dual Interior Method ...
+Where is the relation with the interior point method?
+• The barrier function associated to LOP is
+log(xi )
+• The barrier problem will be
+Ax = b.
+• The Lagrange function of the barrier Problem
+Lµ (x, λ) = c x − λ (Ax − b) − µ
+log(xi ).
+• For a given µ, the pair (xµ , λµ ) is a solution of the primal problem
+NLPµ if it satisﬁes the optimality conditions:
+KKT Conditions
+x > 0.
+(10)
+c − A λ − µX −1 e = 0,
+= b,
+> 0.
+• Where : s = µX −1 e .
+c −A λ− s
+= 0,
+s = µX −1 e
+(x, s) > 0.
+• It follows (since xi = 0) that si =
+s1 x1
+s2 x 2
+> 0 ⇒ si xi = µ, i = 1, . . . , n.
+ 
+ 1
+ 
+ . = µ
+ .
+sn xn
+.
+
+
+
+⇒ XSe = µe.
+• Now, the optimality conditions, for the barrier problem NLPµ , given
+in (8) - (10) can be equivalently as:
+(11)
+A λ + s = c,
+(12)
+XSe = µe
+(13)
+(14)
+• Note that, this system is the same as the equations (4) - (7), except
+the perturbation XSe = µe and (x, s) > 0.
+• For a given µ, the system of nonlinear equations (11)-(14) provides
+a solution (xµ , λµ , sµ ).
+• xµ lies in interior of the feasible set of LOP, while the pair (λµ , sµ )
+lies in the interior of the feasible set of LOPD , due to XSe = µe and
+(x, s) > 0. Furthermore,
+• Furthermore, if
+x ∗ = lim+ xµ and (λ∗ , s ∗ ) = lim+ (λµ , sµ )
+the x ∗ is a minimum point of LOP, while (λ∗ , s ∗ ) is a maximum point
+of LOPD .
+• Therefore, any algorithm that solves the system of nonlinear
+equations (11)-(14) is known as a primal-dual interior point
+algorithm.
+• For a given µ, to determine the triple (xµ , λµ , sµ ),
+Ax − b
+(I ) solve the nonlinear system Fµ (x, λ, s) = A λ + s − c  = 0,
+XSe − σµe
+(II ) and guarantee always that (x, s) > 0.
+• The set of
+C = {(x(µ), λ(µ), s(µ)) | Fµ (x(µ), λ(µ), s(µ)) = 0, (x(µ), s(µ)) > 0}
+is known as the central path.
+(I) To solve the system
+Fµ (x, λ, s) = A λ + s − c  = 0
+use a Newton method.
+• For a given µ and feasible point (x, λ, s), determine
+d = (∆x, ∆λ, ∆s) by solving Jµ (x, λ, s)d = −Fµ (x, λ, s); i.e.,
+A 0 0
+∆x
+0 A
+I  ∆λ = − A λ + s − c 
+∆s
+X 0 S
+• Next iterate (x + , λ+ , s + ) = (x, λ, s) + α(∆x, ∆λ, ∆s).
+(15)
+II: Question
+How to guarantee that (xµ , sµ ) > 0?
+Answer
+We know that xi si = µ, i = 1, . . . , n. Hence,
+x s = x1 s1 + x2 s2 + . . . + xn sn = nµ ⇒
+Therefore, choose µ so that
+Importance of the central path
+(µ)s(µ)
+• Additionally, for (xµ , λ(µ), sµ ) ∈ C we have
+= µ.
+• Fast convergence of a PDIPM algorithm is achieved if iterates lie on the central path.
+• The parameter σ is known as a centering parameter. Thus, σ is chosen to force iterates remain closed to (or on) the
+central path.
+A primal-dual interior point algorithm (PDIPM):
+Step 0: • Give an initial point (x0 , λ0 , s0 ) with (x0 , s0 ) > 0.
+• Set k ← 0 and µ0 = 0n 0
+Repeat:
+• Choose σk ∈ (0, 1];
+• Solve the linear system (16) with µ = µk and σ = σk
+to obtain (∆xk , ∆λk , ∆sk );
+• Choose step-length αk ∈ (0, 1]
+• and set
+• xk+1 = xk + αk ∆xk
+• λk+1 = λk + αk ∆λk
+• sk+1 = sk + αk ∆sk .
+Until: Some termination criteria is satisﬁed.
+Questions:
+Q1: How to determine the step length αk ?
+Q2: How to choose the centering parameter σk ?
+Q3: What is a suitable termination criteria?
+Q4: How to solve the system of linear equations (16)?
+Some strategies for step-length selection:
+(a) Use αk = 1, k = 1, 2, . . .. But, generally, not advised.
+(b) Choose αk so that
+xk + αk ∆xk
+sk + αk ∆sk
+Compute the largest α that satisﬁes these condition
+xk,i
+| ∆xk,i < 0 , min
+αmax = min min
+−∆xk,i
+αx,max
+Then choose αk = min{1, ηk · αmax }. Typically ηk = 0.999.
+sk,i
+−∆sk,i
+| ∆sk,i < 0
+=αs,max
+(c) Diﬀerent step lengths for x and s may provide a better accuracy.
+So choose
+αk,x = min{1, ηk · αmax,x } and αk,s = min{1, ηk · αmax,s }
+Use the following update xk+1 = xk + αk,x ∆xk and
+(λk+1 , sk+1 ) = (λk , sk ) + αk,s (∆λk , ∆sk ).
+Some strategies for choice of centering parameter:
+(a) σ k = 0, k = 1, 2, . . . , - aﬃne-scaling approach;
+(b) σ k = 1, k = 1, 2, . . . ,
+(c) σ k ∈ [σmin , σmax ] = 1, k = 1, 2, . . . Commonly, σmin = 0.01 and
+σmax = 0.75 (path following method)
+(d) σ k = 1 − √n , k = 1, 2, . . . , (with αk = 1 - short-step
+path-following method)
+Some termination criteria:
+• Recall that, at a solution (x, s, λ) equation (12) should be satisﬁed
+c = A λ + s.
+This is equivalent to
+=λ A+s .
+Multiplying both sides by x, we obtain c x = λ
+Ax +s x.
+⇒ c x = b x + s x. Hence, s x = c x − b x.
+• Hence,
+s x =c x −b x
+s x is a measure of gap between the primal objective function c x
+and the dual objective function b λ.
+• The optimality condition LOP’s demands that: optimal solutions
+should satisfy c x = b x.
+• So the expression µ = s n x = c x−b x is known as a measure of
+the duality gap between LOP and LOPD .
+Termination
+The algorithm can be terminated at iteration step k if the duality gap
+µk =
+is suﬃciently small, say µk < ε.
+xk sk
+Solution strategies for the system of linear equations
+  
+b − Ax
+I  ∆λ = c − A λ − s 
+µe − XSe
+(16)
+• The eﬃciency of the primal-dual interior point methods is highly
+dependent on the algorithm used to solve this 2n + m linear system.
+• The choice of an algorithm depends on the structure and properties
+of the coeﬃcient matrix  0 A
+I .
+• Sometimes it may be helpful ﬁrst to eliminate ∆x and ∆s and solve for ∆λ from the reduced system
+−1
+∆λ = AX
+S c − µX
+λ + b − Ax,
+then to directly compute ∆s = c − A λ − s − A ∆λ and ∆x = X −1 (µe − XSe − S∆s).
+(17)

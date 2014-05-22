@@ -24,8 +24,8 @@ for test = 1:noTests
     c = s + A'*y;
     b = A*x;
     
-    [xh yh sh] = linprog_cvx(c,A,b);
-    %[xh yh sh] = IPPrimalDual(c,A,b,0.5,1e-6);
+    % [xh yh sh] = linprog_cvx(c,A,b);
+      [xh yh sh] = IPPrimalDual(c,A,b,0.5,1e-6);
     %[xh yh sh] = IPPredictorCorrector(c,A,b,1e-6);
     
     rd = A'*yh + sh - c;
