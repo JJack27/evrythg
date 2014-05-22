@@ -19,10 +19,12 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'inside/vim-grep-operator'
 Plugin 'gmarik/vundle'
 
 filetype plugin indent on     " required
 
+" Put your stuff after this line"
 " visuals
 colorscheme desert
 set guioptions-=m  "remove menu bar
@@ -32,7 +34,6 @@ set guioptions-=L  "remove left-hand scroll bar
 
 " selection
 set selection=inclusive
-
 " safe buffers automatically
 set autowriteall
 :au FocusLost * silent! wa
@@ -53,21 +54,7 @@ end
 
 
 " grepping
-func! GitGrep(...)
-  let save = &grepprg
-  set grepprg=git\ grep\ -i\ -n\ --break\ --untracked\ --context\ 1\ --all-match"\ $*
-  let s = 'grep'
-  for i in a:000
-    let s = s . ' ' . i
-  endfor
-  exe s
-  let &grepprg = save
-endfun
-
-func! GitGrepWord()
-  normal! "zyiw
-  call GitGrep('-w -e ', getreg('z'))
-endf
+set grepprg=git\ grep\ -i\ -F\ -n\ --break\ --untracked\ --all-match\ $*
 
 " Filter buffer by regexp and display in a new scratch buffer.
 function! Filter(pattern)
@@ -90,14 +77,19 @@ endfunction
 
 " Abbreviations
 iab <expr> _to strftime("[ _to('%y%m%d%H%M%S') ]")
+iab opn \operatorname{ }<Left><Left> 
+iab cal \mathcal{}<Left><Left> 
+ab  grp call GitGrep('-e ')<Left><Left>
 " leader maps
+noremap <silent> <F4> :let @+=expand("%:p:r")<CR>
 nmap 	 <silent> <leader>gf :split <cfile><cr>
-nmap     <silent> <leader>a :call GitGrepWord()<CR><CR>
-smap     <silent> <Leader>x :! start "1" "%:p:r.pdf"<CR><CR>
 nnoremap <silent> <Leader>f :call Filter(input("Search for: "))<CR>
 nnoremap <silent> <Leader>F :call Filter(@/)<CR>
 nmap     <silent> <Leader>s <plug>SubstituteOverMotionMap
-"
+nmap <leader>g <Plug>GrepOperatorOnCurrentDirectory
+vmap <leader>g <Plug>GrepOperatorOnCurrentDirectory
+nmap <leader><leader>g <Plug>GrepOperatorWithFilenamePrompt
+vmap <leader><leader>g <Plug>GrepOperatorWithFilenamePrompt
 " sneak motion
 nmap <Tab> <Plug>Sneak_s
 nmap <BS>  <Plug>Sneak_S

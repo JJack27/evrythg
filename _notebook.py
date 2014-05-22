@@ -1,7 +1,7 @@
 from sympy.printing import latex
 from os import system
 from IPython.core.display import Image 
-
+ip = get_ipython()
 class _latex:
     """
     Print a latex representation with special symbols replaced
@@ -120,16 +120,14 @@ def _l(fn):
     Include file content and format as latex
     fn: Filename
     """
-    ip = get_ipython()
     ip.set_next_input('%%%%latex \n%s' %_input(fn))
 
 def _p(fn):
     """
     Put text into clipboard
     """
+    system('clip < %s' %(fn))
 
-
-ip = get_ipython()
 def _f(s):
     """
     Insert a cell below
@@ -138,9 +136,8 @@ def _f(s):
     ip.set_next_input(str(s.nlstr))
 
 global _s
-_so = lambda s, l: _f(_s)
-_so.__doc__="A wrapper to register _f as line magic"
-ip.define_magic('so', _so)
+# insert shell output in cell below
+ip.define_magic('_so', lambda s, l: _f(_s))
 
 
 
