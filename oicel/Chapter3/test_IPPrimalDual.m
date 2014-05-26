@@ -4,11 +4,31 @@ zeta = 1e-2;
 err = zeros(noTests,1);
 
 ok = true;
+%{ 
+% A small scale testcase
+% A = [2, 1, 1, 0;
+%      1, 2, 0, 1];
+% b = [8, 6]';
+% c = [2, 3, 0, 0]';
+% [xh, yh, sh] = IPPrimalDual(c,A,b,0.5,0.001)
 
-for test = 1:noTests
+% [xh, yh, sh] = linprog_cvx(c,A,b);
+IPPrimal(c, A, b)
+% Another textbook example
+A = [1, 2]
+c = [3; -1]
+b = 2;
+% [xh, yh, sh] = linprog_cvx(c,A,b);
+% [xh, yh, sh] = IPPrimalDual(c,A,b,0.5,0.01);
+[xh, yh, sh] = IPPredictorCorrector(c,A,b,1e-4);
+%}
+
+for t = 1:noTests
+    fprintf('Test #%d: \n', t)
+    tic
+    
     m = 200;
     n = 400;
-    
     
     %optimal solutions
     x = rand(n,1);
@@ -24,23 +44,20 @@ for test = 1:noTests
     c = s + A'*y;
     b = A*x;
     
-    % [xh yh sh] = linprog_cvx(c,A,b);
-      [xh yh sh] = IPPrimalDual(c,A,b,0.5,1e-6);
-    %[xh yh sh] = IPPredictorCorrector(c,A,b,1e-6);
+    % different methods
+%      [xh, yh, sh] = linprog_cvx(c, A, b);
+%      [xh, yh, sh] = IPPrimalDual(c, A, b, 0.5, 0.001);
+     [xh, yh, sh] = IPPredictorCorrector(c, A, b, 1e-6);
     
-    rd = A'*yh + sh - c;
-    rp = A*xh - b;
-    rs = xh.*sh;
-    
-    err = max( [max(abs(rd)), max(abs(rp)), max(abs(rs))] );
-    
-    if err > zeta
+    [r_b, r_c, r_s] = residuals(c, A, b, x, s, y);
+    err(t) = max([max(abs(r_b)), max(abs(r_c)), max(abs(r_s))]);
+    if err(t) > zeta
         keyboard
         ok = false;
     end
-    
+    toc
 end
 
 if ok
-    display('OK')
+    display('All passed')
 end

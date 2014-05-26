@@ -288,6 +288,11 @@ the current value of µ, it is much more efficient to reduce µ at every
 iteration. The primal-dual method itself suggests how to update µ.
 
 [ _to('140522124654') ]
+It is straightforward to show that the Newton step reduces the duality gap –– the difference between the dual and primal objective values at the current point. Assume that x0 is primal feasible and ( 0, z0) is dual feasible (Lustig et. al (1989) discuss the more general case). Let “gap(0)” denote the current duality gap.
+gap(0) = 0b – cx0
+= 0(Ax0) – ( 0A – z0)Tx0
+feasibility)
+= (z0)Tx0
 
 If we let α = min{αP, αD} then
 gap(α) = (z0 + αdz)T(x0 + αdx)

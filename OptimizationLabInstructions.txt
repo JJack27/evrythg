@@ -830,16 +830,15 @@ function [x,y] = IPPrimal(c,A,b,beta,tau,zeta)
 • x,y: resulting estimates of the optimal primal and dual variables
 3.2.3 Primal-Dual Interior Point Algorithm
 In this section, we develop an approach for a primal-dual IP algorithm. Let us recap some
-results from duality theory. The dual problem to (3.1) is given by
+results from duality theory. 
+
+The dual problem to (3.1) is given by
 max bT y
 AT y + s = c, s ≥ 0
 (3.9)
 The KKT conditions for a primal-dual optimal solution (x, y, s) = (x⋆ , y ⋆ , s⋆ ) of both (3.1)
 and (3.9) are given by
-A y + s − c = 0,
-XS1 = 0,
-(3.10)
-(x, s) ≥ 0.
+[ _v('140525141239') ](3.10)
 X and S are diagonal matrices with the elements of x and s, respectively, as entries along the
 diagonals, and 1 is a vector of all ones.
 A point (x, y, s) is feasible if the primal and dual feasibility conditions are fulfilled, i.e.,
@@ -852,25 +851,19 @@ d = cT x − bT y ≥ 0.
 The duality gap d vanishes at optimal points.
 
 TASK 3.5
-Find a formulation for the duality gap d(x, s) depending only on x and s. Use the primal
-and dual feasibility conditions.
+Find a formulation for the duality gap d(x, s) depending only on x and s. Use the primal and dual feasibility conditions.
 [ _cf('140522124654') ]
 
+[ _to('140525220122') ]
 Analogously to (3.4), we restate the (3.10) as a mapping
 F (x, y, s) = 0,
-We can calculate the search direction (∆xaff , ∆y aff , ∆z aff ) as the solution to
-0 AT I
-∆xaff
-0  ∆y aff  = −rb 
-A 0
-S 0 X
-∆saff
 (3.13)
-(3.14)
+We can calculate the search direction (∆xaff , ∆y aff , ∆z aff ) as the solution to
+[ _v('140525141041') ] (3.14)
 with the residuals rb = Ax − b, rc = AT y + s − c and rs = XS1. The matrix I denotes the
 identity matrix. The search direction based on (3.14) is called the affine scaling direction. In
-general using the affine search direction to find the optimum does not lead to good performance
-since often only very small step lengths α ≪ 1 are possible.
+general using the affine search direction to find the optimum does not lead to good performance since often only very small step lengths α ≪ 1 are possible.
+
 This issue is dealt with in the primal-dual IP algorithms by biasing the search toward the interior
 of the feasible set, keeping the components of x and s from getting too close to the boundary.
 This centering is achieved by modifying the equation system in (3.10) resulting in the following
@@ -897,14 +890,12 @@ where (∆xc , ∆y c , ∆z c ) is the centering direction which solves
 σµ1
 (3.18)
 (3.19)
+
+[ _to('140525214330') ]
 The new estimates for the primal and dual variables are given by
 (3.20)
 (x, y, s) + α(∆x, ∆y, ∆s),
 where the step size α has to be chosen in a way such that (x, s) > 0. A possible choice is
-α = 0.99995 min min
-j:∆xj <0
-, min
-j:∆sj <0
 (3.21)
 
 TASK 3.6
@@ -940,8 +931,7 @@ which can be reformulated to
 0  ∆y ⋆  = 
 σµ1 − rs − ∆X ∆S 1
 (3.23)
-We can see that there is a nonlinear term ∆X ⋆ ∆S ⋆ 1 on the right hand side, which does not
-appear when using the Newton method to calculate the search direction.
+We can see that there is a nonlinear term ∆X ⋆ ∆S ⋆ 1 on the right hand side, which does not appear when using the Newton method to calculate the search direction. [ cf. (3.17) ]
 The idea is now to calculate the actual search direction in two steps. First we calculate the affine
 scaling direction (∆xaff , ∆y aff , ∆z aff ) by solving (3.14). We use it to calculate a corrector
 component of the search direction by solving the system of equations
@@ -949,17 +939,11 @@ component of the search direction by solving the system of equations
 0  ∆y cor  = 
 −∆X aff ∆S aff 1
 Additionally, we compute the centering parameter
-µaff
 (3.25)
 with
-µaff = d(x + αaff ∆xaff , s + αaff ∆saff )/n.
 (3.26)
-µaff is the hypothetical value of µ that would result from a step in the affine scaling direction
-and αaff is the step size given by (3.21) calculated for the affine scaling direction. The intuition
-behind this choice of σ is that, if we can do a large step in the affine scaling direction before
-hitting any constraint, we can choose a small centering parameter. On the other hand, if there
-is only a small improvement going in the affine direction before hitting a constraint, we need a
-larger centering parameter.
+µaff is the hypothetical value of µ that would result from a step in the affine scaling direction and αaff is the step size given by (3.21) calculated for the affine scaling direction. The intuition behind this choice of σ is that, if we can do a large step in the affine scaling direction before hitting any constraint, we can choose a small centering parameter. On the other hand, if there is only a small improvement going in the affine direction before hitting a constraint, we need a larger centering parameter.
+
 With the new centering parameter σ, we can calculate the centering component of the search
 direction by solving (3.19). Actually, the combined centering-corrector component can be
 calculated by solving

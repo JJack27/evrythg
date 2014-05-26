@@ -8400,7 +8400,16 @@ which is a concave quadratic function, with domain Rp . The lower bound property
 −(1/4)ν T AAT ν − bT ν ≤ inf{xT x | Ax = b}.
 
 [ _to('140517092151') ]
+Standard form LP [ linear program ]
+Consider an LP in standard form,
+(5.6)
+subject to
+which has inequality constraint functions fi (x) = −xi , i = 1, . . . , n. 
 
+To form the Lagrangian we introduce multipliers λi for the n inequality constraints and multipliers νi for the equality constraints, and obtain
+
+
+The dual function is
 which is easily determined analytically, since a linear function is bounded below
 only when it is identically zero. Thus, g(λ, ν) = −∞ except when c + AT ν − λ = 0,
 in which case it is −bT ν:

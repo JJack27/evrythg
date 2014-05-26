@@ -5,7 +5,8 @@ ok = true;
 clc
 
 for t = 1:T
-    fprintf('Iteration # %d\t', t)
+    fprintf('Test # %d\t', t)
+    tic
     m = 200;
     n = 400;
         
@@ -34,20 +35,18 @@ for t = 1:T
     
     sh = max(0,c - A'*yh);
     
-    rd = A'*yh + sh - c;
-    rp = A*xh - b; % residual in the primal equality constraint
-    rs = xh.*sh;
+    [r_p, r_d, r_s] = residuals(c, A, b, x, s, y);
     
-    err = max([max(abs(rd)),...
-        max(abs(rp)),...
-        max(abs(rs))] );
-    fprintf('max(err) = %f\n', err)
-    if err > zeta
+    err(t) = max([max(abs(r_d)),...
+        max(abs(r_p)),...
+        max(abs(r_s))] );
+    fprintf('max(err) = %f\n', err(t))
+    if err(t) > zeta
         fprintf('\t !!! Error exceeds %f !!!\n', zeta)
         % keyboard
         ok = false;
     end
-    err(t) = err;
+    toc
 end
 
 if ok
