@@ -1,12 +1,21 @@
-We give no guarantee for the correctness of these notes.
-Lecture Notes Nonconvex Optimization for Analyzing Big Data
+Note that these lecture notes are a work in progress and might contain errors.
+Lecture Notes
+Nonconvex Optimization for Analyzing
+Big Data
+Copyright by
 M. Kleinsteuber, M. Seibert
 Technische Universit¨t M¨nchen
-Nonconvex Optimization
-In order to illustrate the necessity of understanding nonconvex optimization algorithms, we will start by giving some data analysis examples where nonconvex optimization is employed.
+May 20, 2014
+M. Kleinsteuber, M. Seibert
+Lecture Notes - Nonconvex Optimization
+1 Introduction
+In order to illustrate the necessity of understanding nonconvex optimization algorithms,
+we will start by giving some data analysis examples where nonconvex optimization is
+employed.
 Example 1.1 (Principal component analysis (PCA)). In this model the data matrix X
 is given by X = L + N . L is low rank, N is Gaussian noise.
-Associated Optimization Problem: Given X, ﬁnd L, N via
+Associated Optimization Problem: Given X, find L, N via
+min X − L
 subject to
 rk(L) ≤ k.
 Solution: Find the singular value decomposition
@@ -18,71 +27,85 @@ matrix, S is sparse, i.e. only a few of the entries of S are unequal to zero, an
 Gaussian noise. In order to analyze the data X, depending on the application, it is
 either meaningful to recover the underlying low-rank structure L, or the sparse matrix
 Associated Optimization Problem:
+min S
 + λ rk(L)
-Here, the 0 -pseudo-norm is used. It is deﬁned as the number of non-zero elements in S,
+Here, the 0 -pseudo-norm is used. It is defined as the number of non-zero elements in S,
 i.e. S 0 := #{sij | sij = 0, i, j = 1, . . . , n} and λ > 0 is a parameter that weighs between
 the rank and the sparsity constraints.
 Example 1.3 (Sparse Coding). Data model: We assume that each sample xi of the
-data is a linear combination of at most k predeﬁned vectors, called atoms. This reads
+data is a linear combination of at most k predefined vectors, called atoms. This reads
 as xi = [d1 , . . . , dN ] · αi + ε with αi 0 ≤ k, and ε is Gaussian noise. Here, the matrix
 D := [d1 , . . . , dN ] consisting of atoms as its columns is called a dictionary.
-If the dictionary is known, the associated optimization problem for ﬁnding the sparse
-code is: Given xi ﬁnd its ”sparse code” α via solving
+If the dictionary is known, the associated optimization problem for finding the sparse
+code is: Given xi find its ”sparse code” α via solving
+min xi − Dα
 Alternatively, one can consider the problem:
+min α
+xi − Dα
 Observation: Given one data model, there is no ultimate corresponding optimization
 problem. Rather, there are a multitude of optimization problems to choose from and it
-is the ﬁrst task to pick the right one for the application at hand.
+is the first task to pick the right one for the application at hand.
 Note 1.4. There are many possibilities to choose a dictionary mentioned in the example
 of sparse coding. One example for natural images are wavelets. However, for other
 images like e.g. Computer Tomographies, such a dictionary might be suboptimal.
 Example 1.5 (Learning the dictionary D). Task: Given a class of signals x1 , . . . , xM ,
-ﬁnd a dictionary D that is able to represent all images belonging to this class. The
+find a dictionary D that is able to represent all images belonging to this class. The
 corresponding optimization problem is given by
+xi − Dαi
+D,α1 ,...,αM
 The problem with this optimization problem is that it is ill-posed, since without further
 constraints, the solutions αi may tend to zero, whereas the norm of D will tend to
-inﬁnity. This is called the scaling ambiguity. Therefore, in order to regularize the
+infinity. This is called the scaling ambiguity. Therefore, in order to regularize the
 problem, we demand that the columns of D all have unit norm, i.e. di = 1 for all
 i = 1, . . . , N . This means that the dictionary D belongs to the so called product of
 spheres, i.e. D ∈ Sn−1 × . . . × Sn−1 with Sn−1 := {x ∈ Rn | x 2 = 1}.
 Example 1.6 (Foley Sammon Discriminant Analysis). Given the between class variance
-SB (for completeness sake, it is deﬁned as SB := c ni (¯i − x)(¯i − x) ) and the within
+SB (for completeness sake, it is defined as SB := c ni (¯i − x)(¯i − x) ) and the within
 class variance SW (= i=1 j=1 (xij − xi )(xij − xi ) ), where c is the number of classes,
 ni is the number of samples in class i, xi is the center of class i, and x is the center of
 all data samples.
-The goal of the Foley Sammon Discriminant Analysis is to ﬁnd a subspace S such that
+The goal of the Foley Sammon Discriminant Analysis is to find a subspace S such that
 the between class variance is minimized with respect to the within class variance. In
-order to formulate this as an optimization problem, we ﬁrst need to deﬁne the projection
+order to formulate this as an optimization problem, we first need to define the projection
 onto a subset S. Let U = [u1 , . . . , uk ] be an orthonormal basis of S, then the coordinates
 of the projected vector are given by s = U x.
 Therefore, the we can formulate the optimization problem as
-tr(U SB U )
 tr(U SW U )
+tr(U SB U )
 subject to U U = Ik ,
 where Ik is the k × k identity matrix.
-There are much more examples in the ﬁeld data analysis where nonconvex optimization
+There are much more examples in the field data analysis where nonconvex optimization
 problems lead to effective solutions. Many of them deal with high dimensional data, and
 quite a few of them can be stated in the general form
 min f (x)
 subject to x ∈ M,
 where M is a set that reﬂects some smooth but not necessarily convex constraints.
-Examples 1.5 and 1.6 ﬁt into this general framework.
+Examples 1.5 and 1.6 fit into this general framework.
 The scope of this lecture is to provide general tools that allows to tackle such problems,
-where we consider that f is a smooth function and M deﬁnes a Riemannian manifold.
+where we consider that f is a smooth function and M defines a Riemannian manifold.
 Throughout the lecture, we will only consider local optimality criteria.
-2 Derivatives in ﬁnite dimensional Hilbert spaces
+2 Derivatives in finite dimensional Hilbert spaces
 
-[ _t('140508105357') ]
-
-for all x, y, z ∈ H is called a ﬁnite dimensional Hilbert space.
+[ _to('140526162445') ]
+Definition 2.1 (Hilbert space). A finite dimensional vector space H over K (which is
+either R or C) endowed with an inner product
+(10)
+that fulfills
+(conjugate symmetry)
+(linearity in the first argument)
+x, x > 0 for all x = 0
+(positive definiteness)
+for all x, y, z ∈ H is called a finite dimensional Hilbert space.
 Example 2.2.
-[ _to('140519075502') ]
-
-Inner products allow to deﬁne lengths and angles between vectors in H. For optimization purposes, we often face the problems
+• Rn with x, y = x y
+• Cn with x, y = y H x
+• Rm×n with A, B = tr(AB )
+Inner products allow to define lengths and angles between vectors in H. For optimization purposes, we often face the problems
 • What is a good direction to search for an optimal or at least improved solution?
-• How far should we go in this direction, or, otherwise spoken, what is a good length of the considered direction.
- M. Kleinsteuber, M. Seibert
+• How far should we go in this direction, or, otherwise spoken, what is a good length
+of the considered direction.
 It is thus evident that the scalar product plays an important role in answering these
-two questions. Now given some Hilbert space H, it might sometimes be beneﬁcial to
+two questions. Now given some Hilbert space H, it might sometimes be beneficial to
 choose another representations, say F , such that angles and lengths in H are preserved
 in the alternative representation F . More formally, we require the existence of a mapping
 φ : H → F that is linear and bijective and that respects inner products, i.e.
@@ -101,14 +124,27 @@ with the scalar product tr(AB ) (wich due to symmetry of A and B is northing els
 than tr(AB). The dimension of Sym(n) is N := n(n + 1)/2, so it is isomorphic (as a
 vector space) to RN . What would be an appropriate isomorphism and an appropriate
 scalar product in RN that turns it into an isometrically isomorphic Hilbertspace?
-Linear maps between ﬁnite dimensional Hilbert spaces. Let H and F be ﬁnite dimensional Hilbert spaces and let
-$\mathcall{L}(H, F ) := \dots$ (13)
-denote the set of all linear maps from H to F . Then L(H, F ) is also a ﬁnite dimensional vector space with dimension
-dim L(H, F ) = dim H · dim F.  (14)
-Since we need to compare different linear maps in the future, it is good to know that this vector space can be endowed with a norm in a natural way, namely the so-called induced norm
+Linear maps between finite dimensional Hilbert spaces. Let H and F be finite
+dimensional Hilbert spaces and let
+L(H, F ) := {L : H → F is linear}
+(13)
+denote the set of all linear maps from H to F . Then L(H, F ) is also a finite dimensional
+vector space with dimension
+dim L(H, F ) = dim H · dim F.
+(14)
+Since we need to compare different linear maps in the future, it is good to know that
+this vector space can be endowed with a norm in a natural way, namely the so-called
+induced norm
+, L ∈ L(H, F ).
 (15)
-If not explicitly mentioned otherwise, we will always endow L(H, F ) with this induced norm. We are now ready to deﬁne differentiability of a function between two Hilbertspaces.
-
+If not explicitly mentioned otherwise, we will always endow L(H, F ) with this induced norm. We are now ready to define differentiability of a function between two
+Hilbertspaces.
+Definition 2.5 (Differentiability). Let X ⊂ H be an open subset and x0 ∈ X . A
+function f : X → F is called differentiable in x0 if an Ax0 ∈ L(H, F ) exists with
+x→x0
+f (x) − f (x0 ) − Ax0 (x − x0 )
+x − x0
+(16)
 [ _to('140519075717') ]
 \todo{Does this hold true for vector valued functions? i.e. should there be a 0 vector on the right side. If so what is the product rule defined for matrix valued functions as well?}
 
@@ -120,6 +156,8 @@ x0 and rx0 (x0 ) = 0 such that
 f (x) = f (x0 ) + Ax0 (x − x0 ) + rx0 (x) · x − x0 .
 (17)
 • There exists an Ax0 ∈ L(H, F ) such that
+f (x) = f (x0 ) + Ax0 (x − x0 ) + o( x − x0 ).
+(18)
 2. If f is differentiable in x0 , then f is continuous in x0 .
 3. If f is differentiable in x0 , then Ax0 is unique.
 Proof-Sketch (of 3.) Assume that there exists another linear operator B that can be
@@ -127,41 +165,60 @@ used in (18). Subtract this newly obtained equation from (18) and divide by x �
 Given an arbitrary point y with y = 1 construct a sequence of points xn = x0 + n with
 n ∈ N\{0}. Together with the equation obtained above this yields limn→∞ (Ax0 −B)y = 0
 for all y as above. Therefore, we have Ax0 = B, i.e. the operator is unique.
-Deﬁnition 2.6. We say that $\operatorname{f}$ is differentiable in X if f is differentiable for all x0 ∈ X .
+Definition 2.6. We say that f is differentiable in X if f is differentiable for all x0 ∈ X .
 The mapping
-(19)
-is called the differential map of f . $\operatorname{D}f(x0)$ is called the derivative of f in x0 .
-The function f is smooth if Df is continuous, i.e. smooth is another word for continuously differentiable. We abbreviate this by writing f ∈ C 1 (X ).
-Recall: H, F are Hilbert spaces and X ⊂ H is an open subset with x0 ∈ X . Further, let f be a mapping from H to F . Then the derivative of f in x0 is denoted by Df (x0 ).
-It is a linear mapping Df (x0 ) : H → F . The differential map is deﬁned by
 Df : X → L(H, F )
+x0 → Df (x0 ) := Ax0
+(19)
+is called the differential map of f . Df (x0 ) is called the derivative of f in x0 .
+The function f is smooth if Df is continuous, i.e. smooth is another word for continuously
+differentiable. We abbreviate this by writing f ∈ C 1 (X ).
+Recall: H, F are Hilbert spaces and X ⊂ H is an open subset with x0 ∈ X . Further,
+let f be a mapping from H to F . Then the derivative of f in x0 is denoted by Df (x0 ).
+It is a linear mapping Df (x0 ) : H → F . The differential map is defined by
 x0 → Df (x0 ).
+(20)
 2.1 Directional Derivatives
-As before, we have two Hilbert spaces H, F with an open subset X ⊂ H and a mapping f : X → F . Furthermore, we have a direction $v \in H$. We then deﬁne the function
+Consider two (finite dimensional) Hilbert spaces H, F with an open subset X ⊂ H and a
+mapping f : X → F . Furthermore, let v ∈ H \{0} (which plays the role of a ”direction”).
+We then define the function
+ϕv : (−ε, ε) → F
 (21)
 [ $\phi_v$ is a function of $t$ ]
-where ε > 0 such that x0 + tv ⊂ X for all t ∈ (−ε, ε). If f is differentiable in x0 , it is
-readily shown in Theorem 2.9 that ϕv is differentiable as well. Note, that the other way
-round does not hold in general, i.e. differentiability of ϕv does not imply differentiability
-
-[ _to('140519080010') ]
-\todo{Is the $\cdot$ correct, as far as I understand $D f(x_0)$ may be in general a linear map such as $\operatorname{tr}$?}
-
-Example 2.8. Given the Hilbert spaces H, F = R2 and the function f : H → F deﬁned
+t → f (x0 + tv),
+where ε > 0 such that x0 + tv ⊂ X for all t ∈ (−ε, ε). We shall see in Theorem 2.9 that
+ϕv is differentiable if f is differentiable in x0 . However, differentiability of ϕv , even for
+all v ∈ H, does not imply differentiability of f in general.
+Definition 2.7 (Directional derivative). If ϕv is differentiable in 0, its derivative is
+called directional derivative of f in x0 in direction v. It is denoted by Dv f (x0 ). Thus
+Dv f (x0 ) :=
+ϕv (t) =
+f (x0 + tv) = lim
+t→0
+f (x0 + tv) − f (x0 )
+(22)
+Note that in that definition, not only the literal direction, but also the length of v
+plays a role, i.e. in general, we have Dv f (x0 ) = Dλv f (x0 ) for λ = 1.
+Example 2.8. Given the Hilbert spaces H, F = R2 and the function f : H → F defined
+x2 + 4y
 (23)
 f (x, y) =
+y2 + x
 Then the directional derivatives in (0, 0) in the directions v1 =
-and Dv2 f (0) =
 Dv1 f (0) =
 and v2 =
-
-[ _to('140516085502') ]
-
-This means the directional derivative in direction v is the same as applying the differentiable map to v.  
+and Dv2 f (0) =
+Theorem 2.9. If f is differentiable in x0 , then Dv f (x0 ) exists for all direction v ∈
+H \ {0} and
+Dv f (x0 ) = Df (x0 ) · v.
+(24)
+Thus, for a differentiable function f the directional derivative in direction v is the
+same as applying the differentiable map of f to v.
 Proof. Due to the differentiability of f we have
+f (x0 + tv) = f (x0 ) + Df (x0 ) · (tv) + o( tv )
+= f (x0 ) + tDf (x0 ) · v + o( tv )
 (25)
 Dividing by t yields
-f (x0 + tv) − f (x0 )
 o( tv )
 = Df (x0 ) · v +
 (26)
@@ -171,21 +228,25 @@ since limt→0
 (27)
 = 0. This is equal to the directional derivative Dv f (x0 ).
 As said before, the existence of directional derivatives, even if they exist for all directions, does not imply the differentiability of f at x0 . As an example, consider the
+function
+x2 y
+x4 +y 2
 for (x, y) = (0, 0)
 (28)
 0 for (x, y) = (0, 0)
-Here, all directional derivatives in (0, 0) exist, but f s not differentiable in (0, 0). It is
+Here, all directional derivatives in (0, 0) exist, but f is not differentiable in (0, 0). It is
 even worse: f is not even continuous in (0, 0).
 However, if we know (by some other arguments), that f is differentiable in x0 , we
 may use the directional derivatives to compute the derivative Df (x0 ). To that end, we
 employ an argument from Linear algebra.
 Theorem 2.10. If A : H → F is a linear map, then A is uniquely determined by the
-images A(vi ) of a basis {v1 , . . . vn } of H.
-It is thus suﬃcient to know what A is doing with an arbitrary basis of the base space
-H in order to know what it does with any other element v ∈ H. The proof is very easy
-and of course, the linearity of A plays the crucial role here. Let v = i λi vi the linear
-combination of v with respect to the basis above. Then
+images A(vi ) of a basis {v1 , . . . , vn } of H.
+It is thus suﬃcient to know how the linear mapping A transforms an arbitrary basis
+of the Hilbert space H in order to derive the mapping of an arbitrary point v ∈ H. The
+proof follows immediately. Let v = i λi vi the linear combination of v with respect to
+the basis above. Then
 A(v) = A
+λ i vi
 λi A(vi ).
 (29)
 In the case where H = Rn , F = Rm and the vi ’s are the standard basis vectors, this
@@ -196,138 +257,296 @@ Df (0)
 Therefore, we get the matrix representation of Df (0) as
 Df (0) =
 (30)
-_t('140516085523') 
-Deﬁnition 2.12 (Partial derivatives). 
-Let the Hilbert space be given by H = Rn . The directional derivatives with respect to the standard basis vectors ei = [0, . . . , 1, . . . , 0] are called partial derivatives. They are denoted by
-f (x) := Dei f (x).  (31)
+Definition 2.12 (Partial derivatives). Let the Hilbert space be given by H = Rn . The
+directional derivatives with respect to the standard basis vectors ei = [0, . . . , 1, . . . , 0]
+are called partial derivatives. They are denoted by
+f (x) := Dei f (x).
+∂xi
+(31)
 2.2 Riesz representation theorem
-Deﬁnition 2.13. The dual space of H is the set of all (continuous) linear maps from
-H to K denoted by L(H, K).
-Let αy : H → K, x → x, y , then αy ∈ L(H, K).
-Theorem 2.14 (Riesz). Let H be a ﬁnite dimensional Hilbert space. To each linear
-mapping f ∈ L(H, K) there exists a unique vector y ∈ H such that f = αy , i.e. f (x) =
+The Riesz representation theorem establishes an important relation between a Hilbert
+space and its so-called dual space. It is important for us to allow the coordinate free
+definition of a gradient.
+Definition 2.13. Let H be a Hilbert space over K. Then the set of all (continuous)
+linear maps from H to K denoted by L(H, K) is called the dual space of H.
+Since we always assume finite dimensionality of H, the linear maps are always continous. Let us now fix some vector y ∈ H. Using the inner product, we can define a linear
+map via
+(32)
+The result is now, that all linar maps L(H, K) can be uniquely written in such a form.
+Theorem 2.14 (Riesz). Let H be a finite dimensional Hilbert space. To each linear
+mapping f ∈ L(H, K) there exists a unique vector y ∈ H such that f = ϕy , i.e. f (x) =
 x, y for all x ∈ H.
-Sketch of proof. Consider the map T : H → L(H, K), y → ·, y . Then we have to show
-that T is linear, T is injective, and dim H = dim L(H, K).
-
-[ _to('140519073908') ]
-\todo{Is it correct that the gradient is one line of the Jacobi matrix?}
-
-[_to('140516085651')]
-
-Dependence of the Gradient on Different Scalar Products in Rn Let A ∈ Rn×n be
-a positive deﬁnite matrix, then x, y A := x Ay = x, Ay is a scalar product in Rn
-(all scalar products in Rn can be written in this way). For a smooth function f , the
-directional derivative is independent of the scalar product on H, but according to Riesz
-we have
+Proof. Consider the map T : H → L(H, K), y → ·, y . Then we have to show that T is
+linear, T is injective and surjective.
+The linearity of T is obvious. To show the injectivity recall from linear algebra that
+a function is injective if and only if its kernel is 0. The kernel of T is defined as
+ker(T ) = {y ∈ H : x, y ∀x ∈ H}.
+Assume that ϕy (x) = 0 for all x ∈ H. This also implies that ϕy (y) = 0 and by definition
+of the scalar product this implies y = 0. Thus, the mapping T is injective.
+For finite dimensional Hilbert spaces the mapping is surjective if the dimensions of H and
+L(H, K) are identical, i.e. dim H = dim L(H, K). We already know that dim L(H, K) =
+dim H · dim K = 1, and since dim K = 1 this concludes the proof.
+2.3 The Gradient
+In this section we learn a general notion of a gradient that depends on the scalar product.
+Definition 2.15. Let H be a finite dimensional Hilbert space and let f : H → R be
+differentiable in x0 ∈ H. According to the Riesz representation theorem there exists a
+unique g(x0 ) ∈ H such that
 Df (x0 ) · v = v, g(x0 )
-= v, gA (x0 )
-= v, AgA (x0 ) .
 (33)
-This equation holds true for all v ∈ Rn . Therefore, we have
-A−1 g(x0 ) = gA (x0 ).
+for all v ∈ H. The vector g(x0 ) is called the gradient of f in x0 and is denoted by
+f (x0 ) := g(x0 ).
+Note 2.16. The gradient depends on the choice of the inner product ·, · .
+Example 2.17. We obtain the standard definition of a gradient for a function f : Rn →
+R by choosing the standard inner product on Rn , namely a, b = a b. In this case, we
+have
+∂x1 f (x0 )
+f (x0 ) = 
+∂xn f (x0 )
+[ _v('140516085755') ]
+Dependence of the Gradient on Different Scalar Products in Rn Let A, B ∈ Rn×n
+be positive definite matrices, each of which defines an inner product via
+:= x Ay,
 (34)
-g(x0 ) = AgA (x0 )
-Thus, different scalar products result in different gradients.
-Steepest Descent Given a function f : H → R. In order to determine the direction of
-steepest descent in x0 ∈ H we ﬁnd the minimum of all directional derivatives, i.e.
-f (x0 + tv) = min Df (x0 ) · v = min
-f (x0 ), v .
+and the same for B. Notice, that all scalar products in Rn can be written in this way,
+i.e. by means of a suitable positive definite matrix. Let gA and gB denote the gradients
+corresponding to the respective inner product. Now, for a smooth function f : Rn → R,
+the directional derivative is independent of the scalar product on H, but according to
+Riesz’ Theorem we have
+Df (x0 ) · v = v, gA (x0 )
+= v, gB (x0 )
+= v AA−1 BgB (x0 ) = v, A−1 BgB (x0 )
 (35)
-Here, the ﬁrst equation holds for all differentiable functions, while the second equation
-holds according to Riesz’ representation theorem. To guarantee uniqueness, we restrict
-the norm of v to 1. Thus, the minimization problem is now given by min v =1 f (x0 ), v .
-By the Cauchy-Schwarz-Inequality we get the solution
-f (x0 )
+This equation holds true for all v ∈ Rn . Therefore, we have
+gA (x0 ) = A−1 BgB (x0 ).
 (36)
-Therefore, the direction of steepest descent is given by the negative gradient.
-Example 2.18. Let A, Y be (real) matrices. We are looking for a real upper triangular
-matrix X that solves the equation AX = Y . This problem is approximated by the
-f (X) = AX − Y 2 .
+This formula shows how gradients corresponding to different inner products in Rn are
+related.
+Gradient on subspaces We are often faced with the problem of computing the gradient
+of a function f : H → R that is actually the restriction of a function f : H → R from
+a Hilbert space H that contains H. As an example think of H as the set of all n × nmatrices and H as the set of all symmetric matrices. In that case, the gradient of f
+is just the orthogonal projection of the gradient of f . Formally, we have the following
+theorem.
+Theorem 2.18. Let H be a Hilbert space with inner product ·, · and let H ⊂ H be a
+vector subspace. Endowing H with the restriction of ·, · turns it into a Hilbert space.
 (37)
-The Hilbert space of real upper triangular matrices is deﬁned as
+be smooth. Then the restriction f of f to H is also smooth and for x0 ∈ H, we have
+f (x0 ) = Π( f (x0 )),
 (38)
+where Π is the orthogonal projection from H to H.
+Proof. Let v ∈ H. The directional derivative of f in x0 in direction v is given by
+Dv f (x0 ) =
+dt t=0 f (x0
+(39)
+f (x0 ), v .
+(40)
+Since v ∈ H, the equation h, v = Π(h), v holds true for all h ∈ H. Therefore,
+f (x0 ), v = Π( f (x0 )), v .
+(41)
+Due to the uniqueness of the gradient (Riesz representation theorem), it follows that
+f (x0 ) = Π( f (x0 )).
+Definition 2.19 (Projection). Given the Hilbert Space H. A mapping Π : H → H is
+called a projection operator if it is linear and satisfies the idempotency condition
+Π2 = Π.
+(42)
+Given the projection operator Π. In the following we will work with the image and
+the kernel of the function Π. They are defined as
+im(Π) := {v ∈ H : v = Π(x)},
+ker(Π) := {x ∈ H : Π(x) = 0}.
+(43)
+If we consider the mapping I − Π, we observe that this mapping is linear and fulfills
+(I − Π)2 = I − Π,
+(44)
+i.e. it is also a projection operator. Given an element y in the image of Π, we immediately
+see that Π(y) = y. This implies im(Π) = ker(I − Π) and vice versa im(I − Π) = ker(Π)
+which provides us with a unique separation of the Hilbert space
+H = im(Π) ⊕ ker(Π).
+(45)
+Definition 2.20 (Orthogonal Projection). Given a Hilbert space H endowed with an
+inner product ·, · . A projection operator Π : H → H is called orthogonal if its range
+im(Π) and its kernel ker(Π) are orthogonal subspaces, i.e.
+Π(x), y − Π(y) = x − Π(x), Π(y) = 0
+(46)
+for all x, y ∈ H.
+Proposition 2.21. A projection Π : H → H is orthogonal, if and only if the projection
+operator is self adjoint, i.e.
+x, Π(y) = Π(x), y
+(47)
+Proof. Follows immediately from Definition 2.20.
+Example 2.22. Given the Hilbert space of quadratic matrices H := Rn×n with the
+Frobenius inner product A, B F = tr(AB ). Any M ∈ H can be written as
+M = 2 (M + M ) + 1 (M − M ).
+(48)
+In the following we use the notation
+sym(M ) := 2 (M + M ),
+(49)
+skew(M ) := 1 (M − M ).
+Both these mappings are linear and idempotent and are therefore projection operators.
+Furthermore, we can show that
+sym(A), skew(B)
+= − sym(A), skew(B)
+(50)
+for all A, B ∈ Rn×n , which implies sym(A), skew(B) F = 0. Therefore, the orthogonal
+projection onto the symmetric matrices is given by sym(M ) whereas the mapping onto
+the orthogonal subspace, namely the skew symmetric matrices is given by skew(M ).
+Example 2.23. Given the Hilbert space H = Rn endowed with an arbitrary scalar
+product ·, · and let U ⊂ H be a k-dimensional vector subspace. Let {u1 . . . , uk } be an
+orthonormal basis. In order to find an orthogonal projection of a point x ∈ H onto U
+we have to solve the minimization problem
+λi ui 2 .
+min x −
+λi ∈R
+(51)
+It is readily checked that this problem is solved by λi = ui , x for i = 1, . . . , k, and
+therefore, the projection operator is defined as
+ui , x · ui .
+Π(x) =
+(52)
+For the concrete example of the standard scalar product x, y = x y, this yields
+Π(x) = UU x
+(53)
+with the matrix U := [u1 , . . . , uk ] ∈ Rn×k while the projection onto the orthogonal
+complement is given by
+Π⊥ (x) = (I − UU )x.
+(54)
+Example 2.24. Let A, Y be (real) matrices and suppose that we are looking for a
+real upper triangular matrix X that solves the equation AX = Y as good as possible.
+Formulated as an optimization problem, we aim at minimizing the function
+f (X) = AX − Y
+subject to X is upper triangular.
+(55)
+The Hilbert space of real upper triangular matrices is defined as
+H = {X ∈ Rn×n : xij = 0 for i > j}
+(56)
 with the inner product X1 , X2 = tr(X1 X2 ). In order to determine the gradient we
-ﬁrst compute the directional derivative
-DV f (X) =
+first compute the directional derivative
 f (X + tV )
+DV f (X) =
 tr (A(X + tV ) − Y ) (A(X + tV ) − Y )
+(57)
 = tr V 2(A AX − A Y )
 = V, 2(A AX − A Y ) .
-(39)
-aij →
-aij ,
 Here, the trace properties tr(A) = tr(A ) and tr(AB) = tr(BA) were used in order
 to obtain a representation of the directional derivative from which we can derive the
-gradient according to Deﬁnition 2.15. Since 2(A AX − A Y ) is not an element of the
-Hilbert space on which the function is deﬁned (i.e. it is not an upper triangular matrix),
-we have to project it onto H. This is necessary for the gradient to be uniquely deﬁned.
-In the case at hand, the projection of an arbitrary matrix on the set of upper triangular
-matrices is achieved by simply setting all entries below the diagonal to zero. We denote
-this operation with the operator upp which is deﬁned as
+gradient according to Definition 2.15 and Theorem 2.18.
+In the case at hand, the orthogonal projection of an arbitrary matrix onto the set of
+upper triangular matrices is achieved by simply setting all entries below the diagonal to
+zero. This operation is denoted by the operator upp defined as
+aij →
+aij ,
+for i ≤ j,
 otherwise
-(40)
-This projection is well deﬁned due to the fact that the entries of 2(A AX − A Y ) that
-are below the diagonal do not inﬂuence the scalar product with the upper triangular
-matrix V (i.e. V, Z = V, upp(Z) for an arbitrary matrix Z). In conclusion, the
-gradient of f is given by
+for i, j = 1, . . . , n.
+(58)
+Now using Theorem 2.18, the gradient of f is given by
 f (X) = 2 upp(A AX − A Y ).
-(41)
-Note 2.19. Generally, for a Hilbert space H with the open subspace U ⊂ H the scalar
-product of the elements v ∈ U and x ∈ H is deﬁned as
-v, x = v, ΠU (x) ,
-(42)
-where ΠU is the orthogonal projection onto U . Another example is the projection of an
-arbitrary matrix onto the the Hilbert space of symmetric matrices given by sym(B) :=
-2 (B + B ).
-2.4 The Chain and the Product Rule
-Recall : The chain rule for functions f, g : R → R is given by g(f (x)) = g (f (x))f (x),
-while the product rule is given by (g · f ) (x) = g (x) · f (x) + g(x) · f (x).
-Let H, E be Hilbert spaces, and let X ⊂ H be an open subset. Furthermore, we have
-the smooth function f, g : X → E. Then f + αg : X → E with α ∈ R is also smooth
-with the differential map D(f + αg) = Df + αDg.
+(59)
+2.4 Direction Steepest Descent
+Probably the easiest optimization method from a conceptual point of view is the steepest
+descent. In order to determine the direction of steepest descent of a function f : H → R
+in x0 ∈ H we find the minimum of all directional derivatives, i.e.
+f (x0 + tv) = min Df (x0 ) · v = min
+(60)
+Here, the first equation holds for all differentiable functions, while the second equation
+holds according to Riesz’ representation theorem. By the Cauchy-Schwarz-Inequality we
+get a solution
+v = − f (x0 ).
+(61)
+Thus, the negative gradient yields the direction of steepest descent.
+2.5 Gradient Descent Method
+The gradient descent method is an optimization method used to find the minimum of
+a differentiable function f : H → R. It is an iterative method that approximates the
+minimum by taking steps in direction of the negative gradient which, as we showed in
+the previous section, is the direction of steepest descent. For now, we will limit our
+discussion to quadratic functions of the form
+f (x) = 2 x Ax − b x,
+(62)
+with A = A ∈ Rn×n , b ∈ Rn . It is easily verified that for the standard scalar product
+the gradient of this function is given by f (x) = Ax − b. The iteration rule of the
+gradient descent method reads as
+x(i+1) = x(i) + α(i) d(i) ,
+(63)
+where d(i) = − f (x(i) ) is the search direction and α(i) is the step size, i.e. the length of
+the step that is taken in the direction of the negative gradient. The step length is the
+solution to the minimization problem
+α(i) := min f (x(i) + td(i) ).
+(64)
+In general, the solution to this problem has to be approximated. This will be discussed
+at a later point. For the quadratic function considered here there exists a closed form
+solution, namely
+( f (x(i) )) f (x(i) )
+(65)
+( f (x(i) )) A f (x(i) )
+In the following, we present the pseudo-code for the gradient descent algorithm.
+Algorithm 1: Gradient Descent Algorithm
+input : f (x), f (x), x(0) ∈ H, ε > 0, i = 0
+while
+f (x(i) ) > ε do
+Set d(i) ← − f (x(i) );
+α(i) ← mint∈R f (x(i) + td(i) );
+x(i+1) ← x(i) + α(i) d(i) ;
+i ← i + 1;
+output: x := x(i)
+2.6 The Chain and the Product Rule
+In terms of differentiating functions f, g : R → R, there are two calculation rules that
+are well known. The chain rule is given by g(f (x)) = g (f (x))f (x), while the product
+rule is given by (g · f ) (x) = g (x) · f (x) + g(x) · f (x).
+In this section we extend those rules to our setting. Let H, E be Hilbert spaces, and
+let X ⊂ H be an open subset. Furthermore, we have the smooth function f, g : X → E.
+Then f + αg : X → E with α ∈ R is also smooth with the differential map D(f + αg) =
 Proof. Due to the differentiability of f and g we have
-f (x) = f (x0 ) + Df (x0 )(x − x0 ) + r(x) x − x0 ,
-g(x) = g(x0 ) + Dg(x0 )(x − x0 ) + q(x) x − x0 .
-(43)
-Here, r(·) and q(·) are continuous functions with r(x0 ) = q(x0 ) = 0. The addition of
+f (x) = f (x0 ) + Df (x0 )(x − x0 ) + rx0 (x) x − x0 ,
+g(x) = g(x0 ) + Dg(x0 )(x − x0 ) + qx0 (x) x − x0 .
+(66)
+Here, r(·) and q(·) are continuous functions with rx0 (x0 ) = qx0 (x0 ) = 0. The addition of
 these two equations yields
-(f +αg)(x) = (f +αg)(x0 )+(Df (x0 ) + αDg(x0 )) (x−x0 )+(r(x) + q(x)) x−x0 . (44)
-Since s(x) := r(x) + αq(x) is continuous with s(x0 ) = 0, the desired result follows.
-The Chain Rule Given the Hilbert spaces H, E, F and the two open subsets X ⊂ H,
-Y ⊂ E. Furthermore, we have the smooth functions f : X → E with f (X ) ⊂ Y and
-g : Y → F . Therefore, the composition g ◦ f : X → F is also smooth (Note: (g ◦ f )(x) =
-g(f (x))) and its differential map is given by
+(f + αg)(x) = (f + αg)(x0 ) + (Df (x0 ) + αDg(x0 )) (x − x0 ) + (rx0 (x) + qx0 (x)) x − x0 .
+(67)
+Since sx0 (x) := rx0 (x) + αqx0 (x) is continuous with sx0 (x0 ) = 0, the desired result
+Theorem 2.25 (Chain Rule). Let H, E, F be Hilbert spaces and let X ⊂ H, Y ⊂ E be
+open subsets. Furthermore, let f : X → E with f (X ) ⊂ Y and g : Y → F be smooth.
+Then the composition g ◦ f : X → F is also smooth (Note: (g ◦ f )(x) = g(f (x))) and its
+differential map is given by
 D(g ◦ f )(x) = Dg(f (x)) ◦ Df (x).
-(45)
+(68)
 Proof. We have Dg(f (x0 )) ◦ Df (x0 ) ∈ L(X , F ) (which is the composition of the two
 linear maps Dg(f (x)) ∈ L(X , Y) and Df (x) ∈ L(Y, F )). Since both function f and g
-are smooth, by the deﬁnition of differentability we have
-f (x) = f (x0 ) + Df (x0 )(x − x0 ) + r(x0 ) x − x0 ,
-g(y) = g(y0 ) + Dg(y0 )(y − y0 ) + q(x0 ) y − y0 ,
-(46)
-with the continuous functions r : X → E and q : Y → F which have the property r(x0 ) =
-0 and q(y0 ) = 0. Furthermore, we deﬁne p : X → F by p(x0 ) = 0 and
-p(x) := Dg(f (x0 ))r(x) + q(f (x)) Df (x0 )
-+ r(x) ,
-(47)
-With this deﬁnition p is continuous in x0 and by setting y = f (x) (46) yield
-(g ◦ f )(x) = (g ◦ f )(x) + (Dg(f (x0 )) ◦ Df (x0 ))(x − x0 ) + p(x) x − x0 .
-(48)
+are smooth, by the definition of differentability we have
+g(y) = g(y0 ) + Dg(y0 )(y − y0 ) + qy0 (y) y − y0 ,
+(69)
+with the continuous functions r : X → E and q : Y → F which have the property
+rx0 (x0 ) = 0 and qy0 (y0 ) = 0. Furthermore, we define p : X → F by p(x0 ) = 0 and
++ rx0 (x) ,
+px0 (x) := Dg(f (x0 ))rx0 (x) + qy0 (f (x)) Df (x0 )
+x = x0 .
+(70)
+With this definition p is continuous in x0 and by setting y = f (x) (69) yields
+(g ◦ f )(x) = (g ◦ f )(x0 ) + (Dg(f (x0 )) ◦ Df (x0 ))(x − x0 ) + px0 (x) x − x0 .
+(71)
 This concludes the proof.
-
-[ _to('140519080633') ] 
-\todo{Is this equivalent to the Lie Derivative?}
-
-The Product Rule The product rule is a direct result of the chain rule. Given the
-Hilbert space H and the open subset X ⊂ H and two smooth function f, g : X → R.
-Then, (f · g) : X → R is also smooth with the derivative D(f · g) = g · Df + f · Dg.
-Proof. We ﬁrst deﬁne the two smooth functions
-(a, b) → a · b.
-(50)
+Example 2.26. If the involved Hilbert spaces are Euclidean spaces, i.e. H = Rn , E =
+Rm , F = Rl , the chain rule results in
+J(g ◦ f )|x0 = Jg|f (x0 ) · Jf |x0 ,
+(72)
+where Jf denotes the Jacobi matrix of f .
+The product rule is a direct result of the chain rule. Here, we give a general result for
+matrix products.
+Theorem 2.27 (Product Rule). Let H be a Hilbert space and let X ⊂ H be an open
+subset. Assume that we have two smooth matrix-valued functions from X such that the
+matrix-product of the values is defined, i.e.
+(73)
+(74)
+Then,
+x → f (x) · g(x)
+(75)
+is also smooth and its differential map is given by D(f ·g)(x) = g(x)·Df (x)+f (x)·Dg(x).
+Proof. We first define the two smooth functions
 x → (f (x), g(x)),
-Obviously, the equation f · g = m ◦ F holds. The derivatives of m and F are given by
-Dm(a, b) = [b a],
+(A, B) → A · B.
+(76)
+We now write the product as a composition of m and F and use the chain rule to proof
+the theorem. Obviously, the equation f · g = m ◦ F holds. The differential maps of m
+and F are given by
+Dm(A, B) = [B A],
 DF (x) =
 Df (x)
 Dg(x)
@@ -335,63 +554,98 @@ respectively. Applying the chain rule to m ◦ F yields
 D(f · g)(x) = D(m ◦ F )(x) = Dm(F (x)) · Df (x)
 = [g(x) f (x)] ·
 = g(x) · Df (x) + f (x) · Dg(x).
-(51)
-Example 2.21 (Directional Derivative of the Matrix Exponential). Consider the mapping
-(52)
-In order to ﬁnd the directional derivative D(inv(X)) · V, we use the fact that
+(77)
+Example 2.28 (Directional Derivative of the Matrix Exponential). Consider the mapping
+inv : Rn×n → Rn×n ,
+X → X−1 .
+(78)
+In order to find the directional derivative D(inv(X)) · V, we use the fact that
 inv(X) · X = In .
-(53)
+(79)
 Taking the derivative on both sides of this equation yields
 0 = D(inv(X) · X) · V
 = (D inv(X) · V) · X + inv(X) · V.
-(54)
+(80)
 Solving this equation provides the wanted directional derivative
 (D inv(X) · V) = −X−1 VX−1 .
-(55)
+(81)
 Alternative: (Using the Neumann series representation) For a matrix T ∈ Rn×n with
 the property that all its eigenvalues have an absolute value smaller than one, the equation
 Tk = (In − T)−1
-(56)
+(82)
 holds. This is the so-called the Neumann series which is a generalization of the geometric
 series ( ∞ q k = 1−q for |q| < 1). Next, note that (X + tV)−1 can be rewritten as
 (X + tV)−1 = X (In + tX−1 · V)
 = In − (−tX−1 · V)
-(57)
+−1
+(83)
+X−1 .
 Therefore, for all t such that the absolute values of the eigenvalues of −tX−1 V are
 smaller than one we can write (X + tV)−1 as the a Neumann series of the form
-(X + tV)
+(X + tV)−1 =
 (−tX−1 V)k X−1 .
-(58)
+(84)
 Deriving this series for t and setting t to zero yields
 D inv(X) · V =
 (X + tV)−1
-(59)
+(85)
 ktk−1 (−X−1 V)k X−1
+= −X−1 VX−1 .
 It should come as no surprise that this is the same result as the one obtained above.
-2.5 The Mean Value Theorem
+A little bit more tricky is the derivation of the differential map of the determinant.
+Example 2.29 (Determinant). Let f : Rn×n → R, f (X) = det(X). In order to compute the derivative of the determinant, we first assume that X is invertible. Using the
+calculation rules det(AB) = det(A) det(B) and det(tA) = tn det(A) we obtain
+det(X + tH) = det(X) det(In + tX −1 H) = det(X)tn det(t−1 In + X −1 H).
+(86)
+The last factor is the characteristic polynomial of X −1 H in t−1 , i.e.
+det(t−1 In + X −1 H) = a0 + a1 t−1 + · · · + an−1 t−n+1 + t−n ,
+(87)
+where it is well known that an−1 = tr(X −1 H). Hence
+dt t=0 det(X
++ tH) = det(X)
+dt t=0 t det(t In
++ X −1 H) = det(X) tr(X −1 H). (88)
+Now let the adjunct of X be the matrix with (i, j)-entry
+(adj(X))ij := (−1)i+j det(Xji ),
+(89)
+where Xji ∈ R(n−1)×(n−1) is the matrix obtained by deleting the j-th row and the i-th
+column of X. The identity det(X)X −1 = adj(X) yields
+D det(X)(H) = tr(adj(X)H).
+(90)
+This equation holds true for all X ∈ Rn×n , since the set of invertible matrices is open
+and dense and X → tr(adj(X)H) is continuous on Rn×n .
+Now X is a critical point of det if and only if D det(X)(H) = 0 for all H, which
+by the non-degeneracy of tr(AB) implies adj(X) = 0. This holds true if and only if
+rk X ≤ n − 2, which characterizes the critical points of det.
+2.7 The Mean Value Theorem
 The mean value theorem for real valued function says that given a continuously differentiable function f : R → R and a section [a, b], a, b ∈ R, there exists a ξ ∈ [a, b] such that
 f (ξ) = f (b)−f (a) , i.e. there exists a point in the interval [a, b] where the slope of the funcb−a
 tion is the same as the average slope in the interval. This can be expressed equivalently
 by |b−a|·f (ξ) = |f (b)−f (a)|. In order to transfer this theorem to general Hilbert spaces,
 we use a weaker version of this theorem, namely |f (b) − f (a)| ≤ supξ∈[a,b] f (ξ)|b − a|.
-Theorem 2.22. Let f : H ⊃ X → E be a smooth function. Then for all X, Y ∈ X such
+Theorem 2.30. Let f : H ⊃ X → E be a smooth function. Then for all X, Y ∈ X such
 that (X + t(Y − X)) ⊂ X for all t ∈ [0, 1] the inequality
 f (X) − f (Y)
-holds. Here, ·
 Df (X + t(Y − X))
-(60)
+H→E
+(91)
+0≤t≤1
+holds. Here, ·
 is the norm in E, ·
 is the norm in H, and ·
 is the induced
-Note 2.23. Simply put, this means that given a smooth function and to points X, Y,
+Note 2.31. Simply put, this means that given a smooth function and two points X, Y,
 the distance between the corresponding function values can not get arbitarily large.
 3 Local Extrema
-Let f : X → R be a smooth function. The point x0 ∈ X is a local extreme point if there
-exists an open neighborhood U(x0 ) ⊂ X such that
+Let f : X → R be a function. The point x0 ∈ X is a local extreme point if there exists
+an open neighborhood U(x0 ) ⊂ X such that
 • f (x) ≤ f (x0 ) for all x ∈ U(x0 ) (local maximum),
 • f (x) ≥ f (x0 ) for all x ∈ U(x0 ) (local minimum).
-In this case Df (x0 ) · v = 0 for all v ∈ H, or equivalently Df (x0 ) ≡ 0.
-Deﬁnition 3.1 (Critical Point). A point x0 that satisﬁes Df (x0 ) ≡ 0 is called a critical
+In this case where f is smooth in x0 , its differential map is zero, i.e. Df (x0 ) · v = 0 for
+all v ∈ H, or equivalently Df (x0 ) ≡ 0. This is easily shown by considering the function
+ϕv (t) = f (x0 + tv) which has a local extremum in 0, thus the directional derivative
+vanishes.
+Definition 3.1 (Critical Point). A point x0 that satisfies Df (x0 ) ≡ 0 is called a critical
 point. The corresponding value f (x0 ) is called critical value.
 It is important to note that a point where the derivative vanishes is not necessarily
 a local extremum but as for real valued functions can also be a saddle point. In this
@@ -399,26 +653,33 @@ lecture we will focus on function minimization. However, it should be noted that
 maximization problem can be equivalently stated as a minimization problem.
 Example 3.2. Let the set of all real n×n matrices be denoted by
 Sym(n) := {X ∈ Rn×n | X = X}.
-(61)
+(92)
 The goal is to determine the critical points of the smooth function
 f : Sym(n) → R,
-(62)
-In order to formally determine the critical points of this function, we ﬁrst calculate
+0 −I
+(93)
+In order to formally determine the critical points of this function, we first calculate
 the directional derivative
 Df (X) · V =
 tr (X + tV)
-(63)
+(X + tV)
+= 2 tr V
+(94)
 For X to be a critical point Df (X) · V has to be equal to zero for all V ∈ Sym(n).
-This is obviously fulﬁlled for V = 0. In order to ﬁnd other critical points, recall that
+This is obviously fulfilled for V = 0. In order to find other critical points, recall that
 tr(A B) is a scalar product on Rn×n and that the orthogonal decomposition of Rn×n
 with respect to this scalar product is given by Sym(n) ⊕ Skew(n). Here,
 Skew(n) := {X ∈ Rn×n | X = −X}
-(64)
+(95)
 denotes the skew-symmetric n×n matrices. As a result, Df (X) · V is equal to zero if and
 only if the matrix
 X is skew-symmetric. This means that all critical points
 are given by the set
-(65)
+−I 0
+X11 X12
+X12 X22
+(96)
+0 X12
 4 Second derivatives of real valued functions
 Let f : H ⊃ X → R be a smooth function. Then we already know that the derivative
 Df : H ⊃ X → L(H, R) is a linear mapping from H to R. The vector space F :=
@@ -429,71 +690,88 @@ applied to an element v ∈ H, i.e. D(Df )(x) · v ∈ L(H, R) (this operation i
 Finally, this operator can be applied to another element w ∈ H: (D(Df )(x) · v) · w ∈ R
 (this operation is linear in w). In the sake of simplicity we introduce the notation
 D2 f (x)[v, w] := (D(Df )(x) · v) · w.
-(66)
-Theorem 4.1. The second derivative D2 f (x) is linear in both components and the
-equation
+(97)
+Theorem 4.1. The second derivative D2 f (x) is linear in both components and the equation
 D2 f (x)[v, w] = D2 f (x)[w, v]
-(67)
+(98)
 holds, i.e. D2 f (x) is a symmetric bilinear form on H.
+The symmetric bilinear form D2 f (x) is sometimes referred to as the Hessian form of
+f at x.
 Example 4.2. H = Rn and let ei , ej be the i-th and j-th standard basis vector. Recall
 that Df (x) · ei = ∂xi f (x)Then
 D2 f (x)[ei , ej ] = (D(Df )(x)ei )ej = D
 f (x) ej
+∂2
 f (x) =
 f (x).
-(68)
-Recall the directional derivative is deﬁned as Df (x) · v = dt t=0 f (x + tv). In order to
-2 f (x)[v, w] we ﬁrst consider the special case where the second derivative is
-determine D
-applied to the same vector twice, i.e.
+∂xj ∂xi
+∂xi ∂xj
+(99)
+Computing the Hessian from. Recall the directional derivative is defined as Df (x)·v =
+dt t=0 f (x + tv). In order to determine D f (x)[v, w] we first consider the special case
+where the second derivative is applied to the same vector twice, i.e.
 D2 f (x)[v, v] = D(Df (x) · v) · v =
-f (x + tv) = 2
-(69)
-f (x + tv).
 (Df (x + tv)) · v
-Now, consider D2 f (x)[v + w, v + w]. By using the linearity in both arguments we obtain
+f (x + tv) = 2
+(100)
+f (x + tv).
+This result can be extended to the general form D2 f (x)[v, w] via the polarization identity.
+It reads as
 D2 f (x)[v, w] =
-D2 f (x)[v + w, v + w] − D2 f (x)[v, v] − D2 f (x)[w, w] ,
-(70)
-which in conjunction with (69) provides the result.
+D2 f (x)[v + w, v + w] − D2 f (x)[v, v] − D2 f (x)[w, w] .
+(101)
+Together with (100) this yields a practical way of computing the second derivative.
 Theorem 4.3 (Taylor Theorem). Let f : H ⊃ X → R be a smooth function and let
-v ∈ H fulﬁll the condition that the line x + tv ∈ H for all t ∈ [0, 1], then the function
+v ∈ H fulfill the condition that the line x + tv ∈ X for all t ∈ [0, 1], then the function
 can be expressed as
 f (x + v) = f (x) + Df (x) · v + 2 D2 f (x) · [v, v] + o( v 2 ).
-(71)
+(102)
 4.1 Suﬃcient conditions for local maxima and minima
-Deﬁnition 4.4. A point x0 is called
-1. positive deﬁnite if D2 f (x0 )[v, v] > 0 for all v ∈ H,
-2. negative deﬁnite if D2 f (x0 )[v, v] < 0 for all v ∈ H,
-3. indeﬁnite if there exist v1 , v2 ∈ H such that
-D2 f (x0 )[v1 , v1 ] > 0 and D2 f (x0 )[v2 , v2 ] < 0.
-Theorem 4.5. Let x0 ∈ X be a critical points. Then,
-1. if D2 f (x0 ) is positive deﬁnite, x0 is a local minimum,
-2. if D2 f (x0 ) is negative deﬁnite, x0 is a local maximum,
-3. if D2 f (x0 ) is indeﬁnite, x0 is not an extreme point.
-Example 4.6. f (x) = x4 , D2 f (0) = 0
-Proof of (3). If D2 f (x0 ) is indeﬁnite, then there exist v1 , v2 sucht that α := D2 f (x0 )[v1 , v1 ] >
+In the following we revisit some results from Linear Algebra.
+Definition 4.4. Let H be a finite dimensional real Hilbert space. A symmetric bilinear
+form b : H × H → R is called
+1. positive (semi-)definite if b(v, v) > 0 (b(v, v) ≥ 0) for all v ∈ H \ {0},
+2. negative (semi-)definite if b(v, v) < 0 (b(v, v) ≤ 0) for all v ∈ H \ {0},
+3. indefinite if it is neither positive nor negative definite.
+Remark 4.5. Let H be a finite dimensional real Hilbert space, and b : H × H → R
+be a symmetric bilinear form. Then b induces a linear operator B ∈ L(H, H) with
+Bx, y := b(x, y). The operator B is then called positive (resp. negative) (semi-)definite
+if b fulfills the repsective condition.
+With these definitions we are able to derive suﬃcient optimality conditions for real
+valued functions.
+Theorem 4.6. Let X be an open subset of Rn , and let x0 ∈ X be a critical point of
+f ∈ C 2 (X , R). Then the following statements hold:
+1. If D2 f (x0 ) is positive definite, then x0 is a local minimum.
+2. If D2 f (x0 ) is negative definite, then x0 is a local maximum.
+3. If D2 f (x0 ) is indefinite, then x0 is not an extreme point.
+Proof of (3). If D2 f (x0 ) is indefinite, then there exist v1 , v2 sucht that α := D2 f (x0 )[v1 , v1 ] >
 0 and β := D2 f (x0 )[v2 , v2 ] < 0. Consider the Taylor expansion
-f (x0 + tv1 ) = f (x0 ) + Df (x0 ) · (tv1 ) + 2 D2 f (x0 )[tv1 , tv1 ] + o(t2 v1 )
+f (x0 + tv1 ) = f (x0 ) + Df (x0 ) · (tv1 ) + 1 D2 f (x0 )[tv1 , tv1 ] + o(t2 v1 )
 = f (x0 ) +
 > f (x0 ) +
+t2 2
 2 D f (x0 )[v1 , v1 ]
 4 α + o(t v1 )
-+ o(t2 v1 )
-(72)
 (note that t2 α + o(t2 ) ⇒ α + o(t2 ) →(t→0)
 with a similar argument we get
 f (x0 + tv2 ) < f (x0 ) +
++ o(t2 v1 )
 α is positive and therefore
 + o(t2 v2 ).
-(73)
+(103)
+2 ),
+(104)
+Example 4.7. Given the function f : R → R, f (x) = x4 . Its first derivative is given
+by f (x) = 4x3 , and thus the only critical point is x = 0. The second derivative is
+given by f (x) = 12x2 , and thus f (0) = 0 which does not allow us to make any further
+conclusions about the nature of the critical point.
 5 Line search methods in Hilbert spaces
 In general, optimization methods often work in the same way. At each iterate a direction
 is determined in which to go in the next step. Then a line search method has to be applied
 in order to determine at which point of this direction the next iterate lies.
-The goal of this section is to ﬁnd an optimization procedure to minimize f : H → R.
+The goal of this section is to find an optimization procedure to minimize f : H → R.
 The basic idea is to initialize the optimization algorithm with x0 ∈ H and iteratively
-deﬁne xk+1 := xk + tk pk where tk ∈ R+ is a step size and pk ∈ H is a descent direction. A descent direction is an element of the Hilbert space that fulﬁlls the condition
+define xk+1 := xk + tk pk where tk ∈ R+ is a step size and pk ∈ H is a descent direction. A descent direction is an element of the Hilbert space that fulfills the condition
 pk , f (xk ) = Df (xk )pk < 0. A geometrical interpretation of this property is that a
 descent direction points in the opposite direction of the gradient respective to the inner
 product. (Recall that the gradient is the direction of steepest ascent.) An important
@@ -503,7 +781,7 @@ For now, we will focus on the process of choosing a step size rather than the ch
 of descent direction. The optimal step size would be the solution to the minimization
 problem
 min f (xk + tpk ).
-(74)
+(105)
 However, if the cost function f is too complex it becomes computationally infeasible
 to determine the solution to this problem. Therefore, line search methods are always a
 trade-off between accuracy, i.e. a substantial decrease of the cost function, and speed,
@@ -518,13 +796,13 @@ f (xk + tpk ) becomes too large.
 We can reduce the angle slightly by introducing the factor c ∈ (0, 1) to obtain f (xk ) +
 ct f (xk ), pk . Then all t that suﬃce the inequality f (xk +tpk ) < f (xk )+ct f (xk ), pk
 are acceptable. This is the so-called Armijo condition which can be used to design the
-backtracking algorithm 1 that determines an acceptable step length.
-Algorithm 1: Backtracking Algorithm
+backtracking algorithm 2 that determines an acceptable step length.
+Algorithm 2: Backtracking Algorithm
 input : t > 0 large enough, c ∈ (0, 1), and α ∈ (0, 1)
 while f (xk + tpk ) > f (xk ) + ct f (xk ), pk do
 Set t ← αt
 A problem with the Armijo condition is that it allows arbitrarilly small step sizes.
-For t small enough the Armijo condition is always fulﬁlled as long as pk is a descent
+For t small enough the Armijo condition is always fulfilled as long as pk is a descent
 direction. To avoid this problem, we introduce another condition on the curvature that
 avoids this problem, namely Df (xk + tk pk ) ≥ c2 Df (xk )pk (Note that Df (xk )pk < 0 and
 Df (xk + tk pk ) < 0). In order to avoid contradictions between the two conditions we
@@ -532,227 +810,275 @@ require 0 < c < c2 < 1. In combination with the Armijo condition we get
 f (xk + tpk ) < f (xk ) + ct
 f (xk ), pk
 Df (xk + tk pk ) ≥ c2 Df (xk )pk
-(75)
+(106)
 with 0 < c < c2 < 1. This are the so-called Wolfe conditions. Furthermore, the strong
 Wolfe conditions are given by
-(76)
 |Df (xk + tk pk )| ≤ c2 |Df (xk )pk |
+(107)
 (the absolute value of the slope is not too large positive)
 Theorem 5.1. Given the smooth cost function f : H → R, the current iterate xk ∈ H
-and a descent direction pk ∈ H. We deﬁne
+and a descent direction pk ∈ H. We define
 f (xk ) pk
-(77)
-Consider a line-search algorithm where tk satisﬁes the Wolfe conditions. Assume further
+(108)
+Consider a line-search algorithm where tk satisfies the Wolfe conditions. Assume further
 that f is bounded from below on an open supset X ⊂ H (i.e. f (x) > C for all x ∈ X )
 and that the sublevel set L := {x : f (x) ≤ f (x0 )} is contained in X . Then
+cos2 Θk
 f (xk )
-(78)
-Note 5.2. The theorem states that the inﬁnite sum over all k of cos2 Θk f (xk ) 2 is
+(109)
+k≥0
+Note 5.2. The theorem states that the infinite sum over all k of cos2 Θk f (xk ) 2 is
 bounded. Therefore, either cos2 Θk or
 f (xk ) 2 have to converge to zero. If we have
-limk→∞ cos2 Θk = 0, the search direction is orthogonal to the gradient, a situation that
+2 Θ = 0, the search direction is orthogonal to the gradient, a situation that
+limk→∞ cos k
 should be avoided as it does not provide a suﬃcient decrease in the cost function (for
 the choice pk = − f (xk ) we have cos Θk = 1 for all k). If we demand | cos2 Θk | > δ > 0
 for all k, i.e. | cos2 Θk | is bounded from below, the theorem implies that the norm of the
 gradient converges to zero, i.e. limk→∞ f (xk ) = 0.
 Unfortunatelly, this result does not guarantee convergence of the algorithm, as it does
 not enforce the convergence of xk to a single point, i.e. limk→∞ xk = x , since there
-could be a whole set of points that fulﬁll f (x) = 0. Nonetheless, if the local minimum
+could be a whole set of points that fulfill f (x) = 0. Nonetheless, if the local minimum
 x in the sublevel set L is unique and | cos Θk | > δ > 0, then the algorithm converges
 pointwise to that minimum, i.e. limk→∞ xk = x .
 6 Conjugate Gradient Methods
-The initial idea for the conjugate gradient (CG) method was to ﬁnd a solution to linear
+The initial idea for the conjugate gradient (CG) method was to find a solution to linear
 equations of the form Hx = d with the invertible matrix H ∈ Rn×n by minimizing the
 error term
-(79)
+Hx − b 2
+(110)
 with a descent method. This approach can be generalized to all smooth function based
 on the fact that functions can be quadratically approximated. In general, this approximation is accurate at a local minimum.
 6.1 Linear CG Method
-The problem in Equation (79) (with d = −b) can be expressed by the function
-(80)
-where H is a symmetric, positive deﬁnite matrix.
-Deﬁnition 6.1. The vectors u1 , . . . , un ∈ Rn are called H-conjugate if ui , Huj = 0
+The problem in Equation (110) (with d = −b) can be expressed by the function
+(111)
+where H is a symmetric, positive definite matrix.
+Definition 6.1. The vectors u1 , . . . , un ∈ Rn are called H-conjugate if ui , Huj = 0
 for all i = j. In other words, u1 , . . . , un are orthogonal with respect to the inner product
 ·, · H and form a basis of Rn .
 Let h0 , . . . , hn−1 be an H-conjugate bases and let x0 be given. Then any vector x ∈ Rn
 can be uniquely represented as
-(81)
+n−1
+x = x0 +
+(112)
 with appropriate scalars λj ∈ R, j = 0, . . . , n − 1. With this representation we can
 rewrite the function f as
 f (x) = f (x0 ) +
-(82)
+hj , Hhj λ2 + Hx0 + d, hj λj .
+(113)
 As a consequence, if the H-conjugate basis h0 , . . . , hn−1 were given, the original problem
-would decompose into n independent one-dimensional problems. Namely, in ﬁnding the
+would decompose into n independent one-dimensional problems. Namely, in finding the
 optimal λj . Since each problem is quadratic, the optimal values for λj can easily be
 determined. They are given by
-(83)
+Hx0 + d, hj
+(114)
 The optimal solution to the initial problem is therefore given by
-(84)
+(115)
 It is also possible to obtain to solution x via the iteration xi+1 = xi + λi hi .
 Proposition 6.2. The recursion xi+1 = xi + λi hi is equivalent to the recursion
+xi+1 = xi + λi hi ,
 λi = arg min f (xi + λi hi ).
-(85)
-Proof. Due to the deﬁnition of the recursion we have
-(86)
+(116)
+λ≥0
+Proof. Due to the definition of the recursion we have
+i−1
+xi = x 0 +
+(117)
 For i = 0, . . . , n, we will denote the gradient as gi := f (xi ) = Hxi + d. Since λj is
 computed as the exact solution for the minimization along the direction hj , we have
+gi+1 , hi =
 f (xi + λi hi + thi ) = 0
-(87)
+(118)
 Since we can rewrite the gradient as
-(88)
-and the vectors hj are H-conjugate, Equation (87) yields
+gi+1 = Hxi+1 + d = g0 +
+(119)
+and the vectors hj are H-conjugate, Equation (118) yields
+0 = g0 , hi + λi Hhi , hi
+g 0 , hi
+⇒ λi = −
+Hhi , hi
+(120)
 Consequently, both recursion generate the same sequence of iterates.
-(89)
-Algorithm 2: Linear Conjugate Gradient
-input : H ∈ Rn×n symmetric, positive deﬁnite; d ∈ Rn ; initial point x0 ∈ Rn
-1 Set h0 = −g0 = −(Hx0 + d), i = 0;
-2 Compute the step size
-λi = arg min f (xi + λi hi ) = −
-(90)
-(91)
-with the CG update parameter
-Set i ← i + 1 and go to 2.
-(92)
 Up until now, we assumed that the H-conjugate basis was given. However, in general,
 this is not the case. Therefore, the CG algorithm has to construct this basis “on the
 run”. This is done as follows
+Algorithm 3: Linear Conjugate Gradient
+input : H ∈ Rn×n symmetric, positive definite; d ∈ Rn ; initial point x0 ∈ Rn
+1 Set h0 = −g0 = −(Hx0 + d), i = 0;
+2 Compute the step size
+λi = arg min f (xi + λi hi ) = −
+g0 , hi
+(121)
+gi+1 = Hxi+1 + d,
+(122)
+hi+1 = −gi+1 + γi hi ,
+with the CG update parameter
+γi =
+Hhi , gi+1
+hi , Hhi
+(123)
+Set i ← i + 1 and go to 2.
 Theorem 6.3. The optimization problem
-(93)
+min Hx − b
 is solved in at most n steps.
+(124)
 Alternative formulas for the CG update parameter. Recall that the gradient at the
-(i+1)-st iterate is deﬁned as gi+1 = gi + λi Hhi . Therefore, the equation
-(94)
-holds, since gi+1 , hi = 0. This is the so called Hestenes-Stiefel (HS) update. Furthermore, we can use the deﬁnition of hi = −gi + γi−1 hi−1 and the fact that gi , hi−1 = 0
+(i+1)-st iterate is defined as gi+1 = gi + λi Hhi . Therefore, the equation
+gi+1 − gi , gi+1
+gi+1 − gi , hi
+gi , hi
+(125)
+holds, since gi+1 , hi = 0. This is the so called Hestenes-Stiefel (HS) update. Furthermore, we can use the definition of hi = −gi + γi−1 hi−1 and the fact that gi , hi−1 = 0
 to obtain
-(95)
+(126)
+gi 2
 which is the so called Polak-Ribi`re (PR) update.
 Lemma 6.4. In the case of a quadratic cost function the gradients at two subsequent
 iterates are orthogonal to each other, i.e.
-(96)
+gi+1 , gi = 0.
+(127)
 Proof. As we already discussed, the equation
-(97)
+0 = gi+1 , hi = gi , hi + λi Hhi , hi
+(128)
 holds. Hence, we have
-(98)
+λi = −
+(129)
 Furthermore, the equations
-(99)
-(100)
+gi , hi = gi , −gi + γi−1 hi−1 = − gi , gi
+hi , Hhi = −gi + γi−1 hi−1 , Hhi = − gi , Hhi
+(130)
+(131)
 hold. As a consequence, we obtain
-by inserting (98)-(100) which concludes the proof.
-(101)
+gi+1 , gi = gi + λi Hhi , gi = gi , gi −
+gi , gi
+gi , Hhi = 0
+gi , Hhi
+(132)
+by inserting (129)-(131) which concludes the proof.
 Due to Lemma 6.4, the CG update parameter can be expressed as
-(102)
+gi+1 2
+(133)
 This is the Fletcher-Reeves (FR) update. In the case of quadratic cost functions, all
 three mentioned formulations are equivalent.
-6.2 Nonlinear Conjugate Gradient Method
-At the beginning of this section, we mentioned that the CG method, although originally
-developed for quadratic cost functions, can be easily extended to general cost functions.
-The respective algorithm is given in the following.
-Algorithm 3: Nonlinear Conjugate Gradient
+Algorithm 4: Nonlinear Conjugate Gradient
 input : Smooth cost function f : X → R; initial point x0 ∈ X
 1 Set h0 = −g0 = − f (x0 ), i = 0;
 2 Compute the step size αi according to a line search procedure;
 3 Set
+xi+1 = xi + αi hi ,
+(134)
+gi+1 =
+(135)
 f (xi ),
-(103)
+(136)
 where γi is one of the following update parameters
-(104)
-(105)
-(106)
+gi+1 , gi+1
+γi R =
+(137)
+γi R
+(138)
+(139)
+6.2 Nonlinear Conjugate Gradient Method
+At the beginning of this section, we mentioned that the CG method, although originally
+developed for quadratic cost functions, can be easily extended to general cost functions.
+The respective algorithm is given in the following.
 Note 6.5. While in the quadratic case the different update formulas are equivalent, this
 is no longer the case for nonlinear functions. Here, the preferred formula is a matter of
 heuristics. A popular choice is
 γi = max 0, γi R .
-(107)
+(140)
 This update formula incorporates an automatic reset with a steepest descent direction.
 This is a tribute to the fact that, in contrast to the linear case, the iteration does not
 stop after n steps.
 7 Optimization on the sphere
-The n-sphere is deﬁned as
-(108)
+The n-sphere is defined as
+S n := {x ∈ Rn+1 : x = 1}.
+(141)
 In this section we will consider the problem of minimizing a function that is restricted
 to the sphere, i.e.
 minimize f : S n → R
-(109)
+(142)
 with the smooth function f .
 7.1 Line search on the sphere
 In Hilbert spaces, descent methods work in the following way. A search direction dk
 is determined according to a certain method, e.g. the negative gradient in case of the
 steepest descent method. Then the function is evaluated along this direction and a the
-step size tk that fulﬁlles certain conditions is determined via a line search procedure.
+step size tk that fulfilles certain conditions is determined via a line search procedure.
 This provides the next iterate
-(110)
+xk+1 = xk + tk dk .
+(143)
 However, the concept of straight lines does not directly transfer to the sphere, as the
 connecting line between two points does not lie in S n . On manifolds the concept of
 straight lines is expressed via geodesics. In the case of the sphere they are called great
 circles.
-Deﬁnition 7.1. For h = 0, x h = 0 the curve γ(x, h, ·) : R → S n
+Definition 7.1. For h = 0, x h = 0 the curve γ(x, h, ·) : R → S n
 γ(x, h, t) = x cos(t h 2 ) + h
 sin(t h 2 )
-(111)
-is a great circle on the sphere with γ(x, h, 0) = x. It fulﬁlls the conditions γ 2 = 1 and
+(144)
+is a great circle on the sphere with γ(x, h, 0) = x. It fulfills the conditions γ 2 = 1 and
 γ(0) = h. In general, geodesics are the connections between points with the shortest
 length.
-Note 7.2. The property γ(0) = h justiﬁes the wording: The great circle γ(x, h, t) origi˙
+Note 7.2. The property γ(0) = h justifies the wording: The great circle γ(x, h, t) origi˙
 nates from x in direction h.
 7.2 Search directions on the sphere
-In the deﬁnition of great circles we used the vector h with x h = 0 to determine in which
-direction the geodesic moves starting from x. A vector h that fulﬁlls this condition as
-above is tangent to the sphere. In the following, we give a more general deﬁnition.
-Deﬁnition 7.3. The tangent space is deﬁned as
-(112)
+In the definition of great circles we used the vector h with x h = 0 to determine in which
+direction the geodesic moves starting from x. A vector h that fulfills this condition as
+above is tangent to the sphere. In the following, we give a more general definition.
+Definition 7.3. The tangent space is defined as
 Tx S n := {γ(0) : γ is a curve on S n through x}.
+(145)
 (compare to velocities). The tangent space exhibits a vector space structure.
 Lemma 7.4. The tangent space to the n-sphere at point x is given by
+Tx S n = {h ∈ Rn+1 : h x = 0}.
 Proof. ⊂: Remember that for any curve γ on S n we have γ(t)
 both sides yields
 γ(t)
 = 2γ(t) γ(t)
-(113)
+(146)
 = 1 for all t. Deriving
 = 2x γ(0).
-(114)
+(147)
 Therefore, γ(0) is orthogonal to x for all curves γ with γ(0) = x.
-⊃: Consider the great circle γ(x, h, t) as deﬁned above. Then on the one hand we
-have
+⊃: Consider the great circle γ(x, h, t) as defined above. Then on the one hand we
 {γ(0) : γ is a great circle} = {h ∈ Rn+1 : x h = 0},
-(115)
+(148)
 while on the other hand, we have
-(116)
 {γ(0) : γ is an arbitrary curve} ⊃ {γ(0) : γ is a great circle}.
+(149)
 7.3 The Riemannian Gradient on the Sphere
 Given the smooth function f : S n → R. Let γ(t) be a curve in S n through x ∈ S n with
 γ(0) = x. We already know that the derivative of γ evaluated at zero is an element of
 the tangent space in x, i.e. γ(0) ∈ Tx S n . Examining the derivative of the function
 f ◦ γ(t) : (−ε, ε) → R
-(117)
+(150)
 which is given as
 we observe that
 curve γ(t).
 dt t=0 f (γ(t))
 f (γ(t)) = Df (γ(0)) · γ(0),
-(118)
+(151)
 is only dependent on γ(0) and γ(0)) and not on the whole
-Deﬁnition 7.5. Let γ be a curve in S n through x ∈ S n with γ(0) = x and h := γ(0) ∈
+Definition 7.5. Let γ be a curve in S n through x ∈ S n with γ(0) = x and h := γ(0) ∈
 Tx S n . Then Df (x) · h = dt t=0 f (γ(t)) is the directional derivative of f in direction h.
 Df (x) : Tx S n → R
-(119)
+(152)
 is a linear map. To see this we examine the extension of f to Rn . Given the function
-f : Rn → R with f |S n = f . Then by deﬁnition of the derivative Df (x) is linear in Rn
+f : Rn → R with f |S n = f . Then by definition of the derivative Df (x) is linear in Rn
 n ⊂ Rn . In the case that it is not possible to extend
 and thus so is its restriction to Tx S
 f to the surrounding space, it requires more work to show this property and we will not
 cover these cases here.
-Similar to Hilbert spaces, we require a scalar product in order to deﬁne the gradient.
+Similar to Hilbert spaces, we require a scalar product in order to define the gradient.
 It is important to note that while the manifold itself does not exhibit a vector space
-structure, the tangent space does. Therefore, we deﬁne the inner product on the tangent
+structure, the tangent space does. Therefore, we define the inner product on the tangent
 space, i.e.
-(120)
+(153)
 Commonly, a restriction of the standard inner product to the tangent space is chosen,
 i.e. h1 , h2 x = h1 h2 for all x ∈ S n , h1 , h2 ∈ Tx S n .
 Since Df (x) is a linear map, we can employ the Riesz representation theorem. Thus,
 there exists a unique g ∈ Tx S n such that
 = Df (x) · h.
-(121)
+(154)
 This element g is called the Riemannian gradient of f at x.
 Theorem 7.6. The Riemannian gradient of f : S n → R in x ∈ S n is equivalent to the
 projection of the Euclidean gradient of the extension f : Rn → R, f |S n = f onto Tx S n .
@@ -766,67 +1092,71 @@ according to some rule, e.g. the negative gradient in the case of steepest desce
 a step size tk is selected and according to this the iterate is updated along a geodesic
 via xk+1 = γ(xk , pk , tk ). This process is repeated until convergence.
 The step length is determined analogously to the way it is done in Hilbert spaces.
-Here, α fulﬁlls the Armijo condition if it satisﬁes
+Here, α fulfills the Armijo condition if it satisfies
 f (γ(xk , pk , α)) ≤ f (xk ) + c1 α
 f (γ(xk , pk , t)).
-(122)
+(155)
 It should be noted that due to the chain rule, we have dt t=0 f (γ(xk , pk , t)) = Df (x) · pk .
-A simply technique is using a backtracking strategy to obtain a step length that fulﬁlls
+A simply technique is using a backtracking strategy to obtain a step length that fulfills
 the Armijo condition.
 7.5 Parallel Transport
 The previous section gives a general outline of optimization methods on the sphere. If
-we go more into detail and recall the conjugate gradient method, we see that to ﬁnd the
+we go more into detail and recall the conjugate gradient method, we see that to find the
 next search direction this method requires the computation of the difference between two
-gradients and the inner products of vectors deﬁned for different iterates. While in Hilbert
+gradients and the inner products of vectors defined for different iterates. While in Hilbert
 spaces this does not pose any problems, it is not possible perform these operations on
 manifolds, as for example the inner product of two elements in different tangent spaces is
-not deﬁned. Therefore, we require a method to identify elements in Tx S n with elements
+not defined. Therefore, we require a method to identify elements in Tx S n with elements
 in Ty S n (x, y ∈ S n ).
 The naive idea is to choose a great circle that connects the points x and y and then
 “move” the tangent space without “rotation” along this path, i.e. maintaining the angle
 of the tangent space vectors to the speed vector of the great circle.
-Deﬁnition 7.7. Given the point x ∈ S n , the tangent vectors h, η ∈ Tx S n and the great
+Definition 7.7. Given the point x ∈ S n , the tangent vectors h, η ∈ Tx S n and the great
 circle γ(x, h, t). The parallel transport of η from Tx S n to Tγ(x,h,t) S n along γ is given by
+τ (η; γ(x, h, t)) = η −
 (x h
 2 sin(t
 h 2 ) + h(1 − cos(t h 2 ))) .
-(123)
-τ (η; γ(x, h, t)) = η −
+(156)
 8 Analysis Operator Learning
 The operator can be learned by minimizing a cost function
 Ω = arg min g(Ωs) + constraints
-(124)
+(157)
 One of these constraints needs to prevent learning identical or trivially linear dependent operator atoms ω i , i.e.
-(125)
+∀i = j
+ω i = ±ω j
+(158)
 Since we also require all of the operator atoms to have unit Euclidean length |ω i | = 1,
 for the scalar product of two operator atoms follows
+ω i ω j = ±1
+(159)
 if the two atoms are trivially linear dependent.
-(126)
 In order to force all operator items not to encode the same information, we therefore
 use a logarithmic barrier function that penalizes the scalar product of any two different
 atoms to approach ±1.
 − log(1 − (ω i ω j )2 )
 f (Ω) =
-(127)
+(160)
+i,j=1
 Here, ω i denotes the transposed of the i-th row of the operator, i.e. ω i := Ωi,: and
 Since we want to solve this optimization problem using a gradient method (more
-speciﬁcally the geometric conjugate gradient method on the sphere as introduced in the
-previous lecture), we ﬁrst need to ﬁnd the Euclidean gradient of this function term.
+specifically the geometric conjugate gradient method on the sphere as introduced in the
+previous lecture), we first need to find the Euclidean gradient of this function term.
 To employ the gradient computation methods introduced in this lecture, we need to
 reformulate the constraint function above to be a true function of Ω rather than its
 individual atoms ω i . This can be achieved by using the unit vectors ei ∈ Rk which have
 all zero elements and a one at index i, i.e.
 log(1 − (ei ΩΩ ej )2 )
 f (Ω) = −
-(128)
+(161)
 Note that we sum over all indices i and j and thus also include the elements on the
 diagonal of ΩΩ which account for the scalar products ω i ω i which are always equal
 to one. To exclude those obviously unwanted elements, we end up with the constraint
 log(1 − (ei (Ik − ΩΩ ) ej )2 )
-(129)
+(162)
 where Ik is the k-dimensional identity matrix.
 One way of getting the gradient is to compute the directional derivative for the entire
-function at once using dt t=0 f (Ω + tH). Alternatively, we can ﬁrst decompose our
+function at once using dt t=0 f (Ω + tH). Alternatively, we can first decompose our
 constraint function into a number of concatenated sub-functions by substitution. We
 can then compute the directional derivatives for each of them individually and reassemble
 our sub-results in the end to get to the gradient. This method can be useful for tackling
@@ -838,20 +1168,25 @@ we are going to omit the sum over all indices i, j within the next steps and ins
 when we reassemble the gradient in the end.
 We start by decomposing our constraint function
 f (Ω) = a(b(c(Ω)))
+(163)
 c(Ω) = ei (Ik − ΩΩ ) ej
 b(β) = β 2 ,
-(130)
 β = ei (Ik − ΩΩ ) ej
+α = β2
 a(α) = − log(1 − α),
 Now we compute the directional derivatives individually for each sub-function denoting
 the direction with latin capital letters
-D a(α)A =
-− log(1 − (α + tA))
 a(α), A ∈ R
+D a(α)A =
 b(β), B ∈ R
-c(Ω), C ∈ Rk×n
 D b(β)B =
+dt t=0
+− log(1 − (α + tA))
+1−α
 dt t=0 (β
++ tB)2
+= 2βB
+c(Ω), C ∈ Rk×n
 D c(Ω)C =
 dt t=0 ei
 (Ik − (Ω + tC)(Ω + tC) ) ej
@@ -863,6 +1198,7 @@ put together the directional derivative for our constraint function in the direc
 Df (Ω) C = k
 i,j=1 D a(b(c(Ω))) D b(c(Ω)) D c(Ω) C
 i,j=1 D a(α) D b(β) D c(Ω) C
+i,j=1 −
 2β tr (C (ej ei + ei ej ) Ω)
 i,j=1 tr (C (ej ei + ei ej ) Ω)
 Since both α and β are independent of the direction C, we get the gradient as
@@ -871,16 +1207,16 @@ i,j=1 (ej ei
 2ei (Ik − ΩΩ )ej
 1 − (ei (Ik − ΩΩ )ej )2
 8.1 Gradient Checking
-fH (X) = lim
 When debugging the implementation of a gradient method, it is important to be sure
 that the computed gradient is correct. Therefore, it is useful to numerically check if the
 gradient of the constraint or objective function was computed correctly. This can be
-done using the deﬁnition of the directional derivative
+done using the definition of the directional derivative
+fH (X) = lim
 f (X + tH) − f (X)
-(131)
+(164)
 So in order to check the correctness of the gradient for a function f (X), one can check
 f (X + t ei Hej ) − f (X − t ei Hej )
-(132)
+(165)
 The parameter t ∈ R should be chosen very small but several orders of magnitude larger
 than the machine precision for the chosen data type/platform. For instance something
 between 10−4 and 10−10 may be appropriate. The direction matrix H should be set to
@@ -890,13 +1226,13 @@ fH (X)(ij) ≈
 9 An outlook to optimization on manifolds
 In this chapter we will brieﬂy consider optimization on manifolds. The problem is given
 Minimize the function F : M → R
-(133)
+(166)
 where the set M is a manifold.
-Deﬁnition 9.1 (Manifold). A topological space X is called locally Euclidean if there
+Definition 9.1 (Manifold). A topological space X is called locally Euclidean if there
 is a non-negative number n such that every point in X has a neighborhood which is
 homeomorphic to Rn . A manifold is a locally Euclidean second countable Hausdorff
 space.
-This requires the deﬁnitions of topological space, homeomorphic mapping, second
+This requires the definitions of topological space, homeomorphic mapping, second
 countable, and Hausdorff space. (Which will not be given in this lecture.)
 Theorem 9.2 (Regular value theorem, part I). Let H, F be Hilbert spaces and let X ⊂ H
 be an open subset. Furthermore, let f : X → F be a smooth mapping. Then any point
@@ -905,12 +1241,13 @@ set f −1 (c) ⊂ X is a (dim(H) − dim(F ))-dimensional manifold. To be preci
 sub-manifold of H.
 Example 9.3. Given the smooth function
 f : Rn×n → Sym(n)
-(134)
-The group of orthogonal matrices is deﬁned as O(n) := {X X = In } = f −1 (In ). In
+A → A A.
+(167)
+The group of orthogonal matrices is defined as O(n) := {X X = In } = f −1 (In ). In
 order to show that O(n) is a manifold, it remains to show that In is a regular value of
 f . The directional derivative is given as
 Df (X) · V = X V + V X.
-(135)
+(168)
 If X ∈ O(n), this linear map is surjective (i.e. has full rank). In order to see this, let S be
 arbitrary in Sym(n). Then Df (X) maps the matrix V = 1 X S to S. Therefore, Df (X)
 is a surjective linear map. In conclusion, O(n) is a manifold of dimension n2 − n(n+1) =
@@ -922,98 +1259,101 @@ to (U, ϕ). If (V, ψ) is another chart around x, then by the chain rule we have
 (ψ ◦ α) (0) = (ψ ◦ ϕ−1 ◦ ϕ ◦ α) (0) = D(ψ ◦ ϕ−1 )
 ϕ(α(0))
 · (ϕ ◦ α) (0)
-(136)
-In the following, we give a deﬁnition for tangent vectors. It should be noted that this
-is just one of several possible ways to deﬁne a tangent vector.
-Deﬁnition 9.4. Two curves α, β through x are equivalent if they have the same speed
+(169)
+In the following, we give a definition for tangent vectors. It should be noted that this
+is just one of several possible ways to define a tangent vector.
+Definition 9.4. Two curves α, β through x are equivalent if they have the same speed
 vector with respect to one chart (and thus to all charts). This equivalence relation is
 denoted by
 α ∼x β ⇔ (ϕ ◦ α) (0) = (ϕ ◦ β) (0).
-(137)
-Deﬁnition 9.5. A tangent vector of M at x is deﬁned as an equivalence class of curves,
+(170)
+Definition 9.5. A tangent vector of M at x is defined as an equivalence class of curves,
 i.e.
-(138)
+(171)
 The tangent space at x is the set of all tangent vectors and is denoted by Tx M .
 The tangent space Tx M exhibits a vector space structure. To see this, consider the
 τx ([α]x ) := (ϕ ◦ α) (0).
-(139)
+(172)
 This is a bijective mapping.
 • Injectivity: trivial;
-• Surjectivity: Let v ∈ Rn be arbitrary. Deﬁne the curve α(t) := ϕ−1 (ϕ(x) + tv).
+• Surjectivity: Let v ∈ Rn be arbitrary. Define the curve α(t) := ϕ−1 (ϕ(x) + tv).
 The derivative of the composition of the chart with this curve yields (ϕ◦α) (0) = v.
 We obtain the vector space structure via
 ξ + η := (τx )−1 (τx (ξ) + τx (η)),
+(173)
 λ · ξ := (τx )−1 (λτx (ξ)),
-(140)
 with ξ, η ∈ Tx M and λ ∈ R. It remains to show that this is independent of the chosen
 chart.
 Theorem 9.6 (Regular value theorem, part II). The tangent space at x ∈ f −1 (c) is
 given by
 Tx M := ker(Df (x)).
-(141)
+(174)
 Example 9.7. Coming back to our example of orthogonal matrices. First, note that
 the dimension of the tangent space is the same as the dimension of the manifold (as
 Df (X) has full rank and n2 = n(n − 1)/2 + n(n + 1)/2), i.e. dim ker(Df (X)) = n(n−1) .
-To determine the tangent space we have to ﬁnd the kernel of Df (X), i.e. V with
-(142)
+To determine the tangent space we have to find the kernel of Df (X), i.e. V with
+X V + V X = 0.
+(175)
 This equation holds for V = XH, H = −H, so {XH : H = −H} ⊂ ker(Df (X)).
 Since we have dim{XH : H = −H} = n(n−1) = dim(ker Df (X)), the equality holds.
 9.1 Derivatives on manifolds
-Given the smooth function F : M → R. The tangential map in x ∈ M is deﬁned as
+Given the smooth function F : M → R. The tangential map in x ∈ M is defined as
 Tx F : Tx M → TF (x) R = R
-(143)
+(176)
 [α]x → Tx F ([α]x ) := [F ◦ α]F (x) .
-Once again, α is a curve through x ∈ M and a tangent vector is deﬁned as the equivalence
+Once again, α is a curve through x ∈ M and a tangent vector is defined as the equivalence
 class [α]x . In our case, we have
 DF (x) : Tx M → R,
 DF (x) · ξ =
-(144)
+(177)
 (F ◦ α)(t),
 where [α]x = ξ. This means that derivatives operate on the tangent space and not on the
 manifold. This is intuitively clear as the derivative is a linear mapping which requires
 an underlying vector space structure that is not provided by the manifold.
-Deﬁnition 9.8. Analogously, to the deﬁnition on Hilbert spaces, any point x ∈ M such
+Definition 9.8. Analogously, to the definition on Hilbert spaces, any point x ∈ M such
 that DF (x) ≡ 0 is called a critical point.
 A manifold with an inner product ·, ·
 is called a Riemannian manifold.
 at Tx M such that ·, ·
 varies smoothly in x
-Deﬁnition 9.9. The Riemannian gradient is the unique vector G(x) ∈ Tx M such that
+Definition 9.9. The Riemannian gradient is the unique vector G(x) ∈ Tx M such that
 DF (x) · η = G(x), η
+(178)
 for all η ∈ Tx M .
-(145)
 10 A Geometric Revisit to the Trace Quotient Problem
 The optimization problem
 tr(X AX)
 tr(X BX)
-(146)
-> k is the so-called trace quotient problem. One of its applications
+(179)
+X X=Ik
+with X ∈ Rn×k , n > k is the so-called trace quotient problem. One of its applications
 is in the Foley-Sammon Discriminant Analysis which was mentioned in the introduction
 of the lecture. We want to take a closer look at this problem. While the set St(k, n) :=
 {X ∈ Rn×k : X X = Ik } itself is a manifold (the so-called Stiefel manifold), we will
 investigate the optimization problem equivalently on another manifold. The Grassmann
-manifold (or Grassmannian). It is deﬁned as the set of orthogonal rank k projectors, i.e.
+manifold (or Grassmannian). It is defined as the set of orthogonal rank k projectors, i.e.
 Gr(k, n) := {P ∈ Rn×n : P2 = P, P = P, rk(P) = k}.
-(147)
+(180)
 It can be shown that any P ∈ Gr(k, n) can be written as P = UU with U ∈ St(k, n)
 and since the trace function is invariant to the rotation in its argument, we can rewrite
-Equation (146) as
+Equation (179) as
 tr(PA)
-(148)
+(181)
 P∈Gr(k,n) tr(PB)
 10.1 Geometry of the Grassmannian Manifold
-In equivalence to the deﬁnition above, we can say that the Grassmannian is the set of
+In equivalence to the definition above, we can say that the Grassmannian is the set of
 all k-dimensional subspaces in Rn . The tangent space in a point P is given as
 TP Gr(k, n) := {[P, Ω] : Ω ∈ Skew(n)}
-(149)
+(182)
 with the matrix commutator [A, B] := AB − BA. The canonical inner product for two
 tangent vectors ξ1 , ξ2 ∈ TP Gr(k, n) is given by
 ξ1 , ξ2 = tr(ξ1 ξ2 ).
-(150)
+(183)
 The projection onto the tangent space is given by the mapping
 ΠP (Z) = [P, [P, Z]].
-(151)
-The geodesic originating from a point P ∈ Gr(k, n) in direction ξ ∈ TP Gr(k, n) is deﬁned as the mapping
+(184)
+The geodesic originating from a point P ∈ Gr(k, n) in direction ξ ∈ TP Gr(k, n) is
+defined as the mapping
 γP,ξ : R → Gr(k, n)
 t → et[ξ,P] Pe−t[ξ,P] .
-(152)
+(185)
