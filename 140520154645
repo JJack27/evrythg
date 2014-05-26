@@ -1,9 +1,0 @@
-Directional derivatives
-Suppose f : X → F , x0 ∈ X and v ∈ E \ {0}. Because X is open, there is an
-ε > 0 such that x0 + tv ∈ X for |t| < ε. Therefore the function
-(−ε, ε) → F ,
-t → f (x0 + tv)
-is well deﬁned. When this function is differentiable at the point 0, we call its derivative the directional derivative of f at the point x0 in the direction $v$ and denote it by $D_v f(x0)$. Thus
-Dv f (x0 ) = lim
-t→0
-f (x0 + tv) − f (x0 )

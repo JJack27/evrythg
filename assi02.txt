@@ -1,0 +1,50 @@
+Fachgebiet UNIVERSITAT MUNCHEN
+TECHNISCHE
+Fakult¨t f¨r Elektrotechnik und Informationstechnik
+Geometrische Optimierung
+Fachgebiet f¨r Geometrische Optimierung und Maschinelles Lernen
+und Maschinelles Lernen
+Prof. Dr. Martin Kleinsteuber
+Non-convex Optimization for Analyzing Big Data
+Assignment #2, May 20, 2014
+Due date: 28.05.2014, 15:00
+Please hand in your solutions via the Moodle Forum. You can add your conclusions for the
+Matlab Tasks as comments in the Matlab ﬁles. For the other exercises deliver a PDF ﬁle
+either created using Latex or as a scan of your handwritten solution.
+Solutions can be handed in by groups of up to two people.
+
+Chain and Product rule
+Task 1: [5 Points]
+(a) Given the functions f : Rn → R, x → x x and g : Rn → Rn , z → Az, where A is a
+symmetric, positive deﬁnite n×n matrix. Use the chain rule to determine the directional
+derivative and the gradient of f ◦ g at a point x0 using the standard inner product.
+(b) Given the two functions f : skewn → Rn , X → X a and g : skewn → Rn , X → Xb,
+where skewn denotes the set skew-symmetric n × n matrices (i.e. all X ∈ Rn×n that
+fulﬁll X = −X) and a, b are vectors in Rn unequal to zero. Determine the gradient
+of the function h(X) : skewn → R deﬁned as
+h(X) = f (X) · g(X)
+in accordance to the standard matrix inner product.
+Gradient descent
+Task 2: [5 Points]
+(a) Given the matrix A ∈ Rn×n , det(A) = 0. The task is to ﬁnd the matrix X that solves
+AX = In , i.e. its inverse. This problem can be interpreted as the optimization problem
+X∈Rn×n
+AX − In
+Your task is to calculate the gradient of the function f (X) := AX − In
+create a Matlab script that solves this problem for
+2 3 0 1
+0 7 3 0
+A=
+1 3 1 1
+1 1 0 1
+and then
+by employing a steepest descent algorithm (Remember: The direction of steepest def
+scent at X is given by H = − f (X) .) with an adequate step size selection. A possible
+method is to start with step size α = 1 and then incrementally reduce α until the
+criterion
+f (X(k) + αH(k) ) ≤ f (X(k) ) + α · c · H(k) , X(k) F
+is met. Here, c is a constant between 0 and 1 (it tends to be closer to 1). The ﬁrst α
+that fulﬁlls this condition is denoted by α(k) and next iterate is then X(k) + α(k) H(k) .
+Terminate the algorithm if the Frobenius distance between two iterates X(k) and X(k+1)
+falls below a user determined threshold. Use the identity matrix as an initialization,
+i.e. X(0) = I4 .

@@ -1,7 +1,5 @@
 We give no guarantee for the correctness of these notes.
-Lecture Notes
-Nonconvex Optimization for Analyzing
-Big Data
+Lecture Notes Nonconvex Optimization for Analyzing Big Data
 M. Kleinsteuber, M. Seibert
 Technische Universit¨t M¨nchen
 Nonconvex Optimization
