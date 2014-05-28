@@ -92,12 +92,9 @@ accordingly for Yn−1 , . . . , Y1 , etc.
 a In
 The recursive updates can be obtained in two steps:
 a) Chapmann-Kolmogorov Equation and the Markov Condition,
-fXn |Y(n−1) (xn |y (n−1) ) =
-fXn |Xn−1 ,Y(n−1) (xn |xn−1 , y (n−1) ) fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1
-fXn |Xn−1 (xn |xn−1 ) fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1 .
-(9.11)
+[ _to('140528173606') ] (9.11)
 b) Bayes Rule
-\todo{So is $Y_n$ conditionaly independent of $Y_{(n-1)}$ given $X_n$?}
+[ from 2nd to 3rd we use that $Y_n$ is conditionaly independent of $Y_{(n-1)}$ given $X_n$ ]
 (9.12)
 Both steps together are equivalent (except some scaling constant) to2
 fXn |Y(n) (xn |y (n) ) ∝
@@ -154,27 +151,23 @@ the Measurement Noise. The random variables Wm , Wn , and Vk , V are stochastica
 for different indices m, n and k, , and Vm , Wn are stochastically independent for any m and n.
 Note. Eqs. (10.1)-(10.2) are a direct consequence of Eq. (9.19).
 1 For
-the sake of generality, we consider the case of a sequence of random vectors.
-Since a Gauß-Markov sequence is Gaussian, the MMSE optimal estimate is denoted by the Conditional
-Mean
-E Xn |Y(n) =
-xn fXn |Y(n) (xn |y (n) ) dxn ,
-(10.3)
+the sake of generality, we consider the case of a sequence of random vectors.  Since a Gauß-Markov sequence is Gaussian, the MMSE optimal estimate is denoted by the Conditional Mean
+E Xn |Y(n) = xn fXn |Y(n) (xn |y (n) ) dxn , (10.3)
 which can by derived from the Conditional PDF
-fXn |Y(n) (xn |y (n) ),
-(10.4)
+fXn |Y(n) (xn |y (n) ), (10.4)
 with again is uniquely characterized by first and second order moments
 µXn |Y(n) = E Xn |Y(n) ,
 C Xn |Y(n) = E
 Note.
 C Xn |Y(n) = E Xn − xn|n Xn − xn|n
-ables are Gaussian distributed.
+\todo{Derivation of this covariances}
+since all random variables are Gaussian distributed.
 | Y(n) = E
 The same holds for C Xn|n−1 .
 (10.5)
 Y(n) .
 (10.6)
-, since all random vari-
+
 Short Notations.
 - In the following xn|n and xn|n−1 are used as short notations for µXn |Y(n) and µXn |Y(n−1) :
 xn|n = E Xn |Y(n) ,
@@ -198,16 +191,14 @@ xn−1 fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1
 cond. expectation of xn−1
 = Gn µXn−1 |Y(n−1) ,
 and thus the State Prediction is given by
-xn|n−1 = Gn xn−1|n−1 .
+[ _c('140528175559') ]
 (10.7)
 The respective Conditional State Covariance Matrix of Xn is obtained as
-C Xn |Y(n−1) = E
-Gn (Xn−1 − xn−1|n−1 ) + Vn
-Gn (Xn−1 − xn−1|n−1 )
-Y(n−1)
-Y(n−1) +
-E (Vn ) (Vn )T Y(n−1) ,
-since Xn−1 − xn−1|n−1 and Vn are obviously stochastically independent.
+
+since Xn−1 − xn−1|n−1 and Vn are obviously stochastically independent 
+[ exploit _cf('140502183413') ]
+[ and $V_n$ is zero mean thus the cross terms finish ]
+.
 We consequently obtain
 C Xn |Y(n−1) = Gn C Xn−1 |Y(n−1) GT + C Vn ,
 C Xn|n−1 = Gn C Xn−1|n−1 GT + C Vn ,

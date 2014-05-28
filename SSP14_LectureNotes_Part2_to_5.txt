@@ -117,18 +117,19 @@ E (T (X ) − θ)2 = E E (T (X ) − θ)2 | θ
 (T(x) − θ)2 fX |θ (x|θ)dx fθ (θ; σ)dθ.
 E (T(X )−θ)2 |θ
 (6.3)
+
+[ _to('140528171726') ]
 Conditional Mean Estimator
 Theorem. The Conditional Mean Estimator (Bayes Estimator) TCM is MSE optimal,
-θfθ|X (θ|x)dθ,
 (6.4)
 i.e. TCM minimizes the Mean MSE cost criterion
-E E (T (X ) − θ)2 | θ
 (6.5)
 Note. We distinguish
- E [(T (X ) − θ)2 |θ], which corresponds to the MSE subject to the condition of the (unknown) deterministic outcome of the random variable θ,
- and E [(T (X ) − θ)2 ] = E [E [(T(X ) − θ)2 | θ]], which assumes θ to be a random variable, such that the
-expectation has to be taken over both random variables.
-(Bayes)
+E [(T (X ) − θ)2 |θ], which corresponds to the MSE subject to the condition of the (unknown) deterministic outcome of the random variable θ,
+and E [(T (X ) − θ)2 ] = E [E [(T(X ) − θ)2 | θ]], which assumes θ to be a random variable, such that the expectation has to be taken over both random variables.
+
+Proof [ Optimality of the conditional mean estimator ]
+
 Bernoulli Experiment (Cont’d)
 In Section 3.4, we found the Maximum Likelihood Estimate of the success probability of a Bernoulli Experiment as
 Then the Conditional Mean Estimator equals (cf. alternative solution in Section 3.4)
