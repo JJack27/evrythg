@@ -1,0 +1,409 @@
+[ _to('140527225322') ]
+Proceedings of the 1997 IEEE
+Intemational Conference on Robotics and Automation
+Albuquerque, New Mexico - April 1997
+Experiments in Nonlinear Adaptive Control
+E. Burdet, B. Sprenger, A. Codourey (e.burdet@ieee.org)
+Institute of Robotics, ETH-Zurich, Switzerland.
+
+Abstract
+In this paper, 2 control algorithms for learning and
+compensating for the dynamics of manipulators during
+the motion are presented and tested experimentally.
+It is shown that the Adaptive FeedForward Controller
+(AFFC) is well suitable for learning the parameters
+of the dynamic equation, even in presence of friction
+and noise. The resulting control performances are better than with measured parameters for any trajectory
+in the workspace. When the task consists of driving
+a repeated trajectory, an adaptive look-up-table MiYMory, introduced and analyzed in this paper, is however
+simpler t o implement and results in even better control
+performances.
+Figure 1: Photograph of the manipulator used to test the
+AFFC and MEMory controllers.
+Introduction
+With the emergence of fast and light manipulators,
+the dynamics of the manipulator have to be compensated for during the movements in order to increase
+the precision of the control. For about 10 years, many
+schemes have been proposed for learning the (nonlinear) dynamics of manipulators during the movements
+and compensatingfor it [l,2, 5, 8 , 9 , 11, 13, 16, 18, 201.
+The mathematical properties of these controllers have
+been extensively studied [19, 141. Despite this intense
+activity, only a few implementations have been performed, and to our knowledge there exist no industrial applications yet. Our aim is to contribute to a
+widespread use of nonlinear adaptive controllers by
+examining practical issues.
+There exist principally two kinds of adaptive control schemes: The parametric one, in which the parameters of a model of the inverse dynamics of the plant
+are adentijied, and the nonparametric one, in which
+the inverse dynamics are stored in a neural network
+or a look-up-table.
+Regarding the parametric schemes, the most o‘bvious model of the dynamics of robot manipulators is
+a dynamic equation, generally the rigid body model
+equation. Good control performances require precise
+values of its parameters. There are several ways for
+determining these parameters. They are generally calculated from the CAD map. If a higher precision
+is required, one normally disassembles the manipulator and measures the lengths, masses and moments
+0-7803-3612-7-4/97 $5.00 0 1997 IEEE
+of inertia of the different mechanical parts. Alternatively, these parameters can be identified in a noninvasive way: the robot is controlled using linear joint
+feedback controllers, and the error during motion is
+used to determine the correct value of these parameters. One can minimize the model error [13, 21, or
+the tracking error [8, 18, 161. The first method leads
+to a least-square approximation, resulting in computationally intensive calculations which must generally
+be performed off-line. In contrast, the second method
+requires only a few computations in addition to the
+calculation of the dynamics and can generally be performed on-line. This is very useful for parameters
+varying over time, in particular for friction.
+Witcomb et al. [20] compared experimentally different controllers [8, 18, 161 based on the gradient descent of the tracking error function. They showed that
+nonlinear controllers clearly out perform linear controllers, and adaptive nonlinear controllers out perform their nonadaptive counterparts. They also found
+that the simplest one, the Adaptive FeedForward Controller (AFFC) [16], has the best control performances.
+We verified these results in a preliminary experiment.
+Most manipulators used for assembly tasks or
+paletisation often repeat a single movement. The
+parametric methods cited above require the dynamic
+equation and must be applied on an “exciting” trajectory [3, 81. Nonparametric schemes, in which the
+dynamics can be identified along a repeated trajectory, may be simpler. It is therefore important to
+Y Iml
+x lml
+-0.1
+-0.05
+0.05
+me1.
+Figure 2: Comparison between the joint velocity obtained
+with the velocity sensor (dashed-dotted line) and by differentiating numerically the position measured by the encoder (continuous line).
+study them. Many such schemes have already been
+proposed. In some of them, the dynamics are stored
+in an artificial neural network [l, 12, 9, 111, in others
+in a look-up table [5]. We have shown by simulations
+that a look-up table approach is simpler to implement
+and more robust t o noise than the neural network approach [5].
+In this paper, we will investigate practical issues for
+the AFFC and the MEMory, a simple adaptive lookup table introduced in this paper. In section 2, we
+will complete the analysis of Withcomb by examining typical points critical for the practical use of the
+AFFC. We will i) Test the control performances after
+learning, on trajectories different than the trajectory
+used for learning ii) Examine if the AFFC is able to
+identify the friction (the friction is varying over time
+and difficult to identify) iii) Investigate experimentally
+the robustness to noise (most of the real plants have
+noise, but this is difficult to simulate realistically). In
+section 3, we will investigate the mathematical properties of MEMory and test experimentally its ability
+to identify a plant with friction, the resulting control
+performances and its robustness to noise. We will also
+examine how the MEMory and the AFFC can be combined.
+Testing Experimentally the AFFC
+Experimental Apparatus
+The manipulator used
+for the experiment is the planar parallel manipulator
+shown in figure 1. Each of the 6 limbs has a length of
+12 cm. This manipulator is driven by two direct drive
+DC-motors and can move with high speeds, inducing
+highly non-linear dynamical effects and coupling. The
+robot is controlled by a VME-68040 board enabling a
+sampling frequency of 333.3 Hz.
+The joint positions are measured by two optical encoders. If the velocities are differentiated from the encoder position, this causes a large noise (figures 2 and
+Figure 3: The trajectory used for identifying the dynamics.
+7). In most of our experiments, the joint velocities
+were therefore determined with velocity sensors using
+potentiometers and an analog differentiator [17]. In
+order to test the robustness to noise of the learning algorithm the velocities differentiated from the encoder
+position were used in some experiments.
+The AFF Controller The rigid body model equation of the manipulator is [17]
+with
+mi; - e1242 + 41
+$ (s124; - c1242) + 91
+mi: - C l Z i l +
+5 (mi: - C l Z i l )
++ $42
+sign(42)
+w = ( 1 2 m c , l z m , 3J+Jmot, l 2 m ~611, b i z ,
+b21,
+~zz)~.
+By measuring the motors’ torques using a velocity controller, it was verified [4]that the shape of real friction is well modelled by equation b i l i l bizsign(4i),
+I = 1 , 2 . However, the friction parameters b i j vary
+greatly, depending on the moment the measurement
+is performed.
+The Adaptive FeedForward Controller (AFFC) is
+characterized by the control law
+= q(qd,4dr i d ) 6+ D S +
+Qe’S,
++n e ,
+where e 3 qd - g is the error between the desired and
+actual joint position, D and A are two positive definite
+matrices, (Y > 0 and the learning rule
+Wnew
+E Wold
++Aw,
+NTs,
+with r a positive definite matrix composed of the
+learning factors. Strong mathematical properties of
+0.51
+th.I1
+Figure 4: Evolution of the position error
+Lrajel of joint
+-0.5'
+I .5
+the [ I
+1 during learning. The error curve for joint 2 is similar.
+this adaptive controller have been proved in [16]. We
+found in preliminary experiments that the control isnd
+learning performances are slightly better when the aterm is neglected and we therefore neglected it in jfurther experiments. We also showed analytically that
+for most manipulators (and in particular for our) this
+assumption does not modify the theoretical control
+performance significantly.
+Figure 5: Resulting torques after learning along the
+learning trajectory. Continuous line: learned feedforward
+torque, dashed dotted line: feedback torque, dots: total
+torque. The results are similar for the other joint.
+1 minute [4]. The learned parameters are of the
+same order as the measured one, but have different values.
+With the measured and learned dynamics, most
+of the feedback error is corrected by the feedforward prediction (figure 5 . The errors in position
+and velocity are slightly smaller with the learned
+parameters than with the measured ones (table
+1). This holds true for the learning trajectories
+and for arbitrary test trajectories. This also implies that the friction has been well identified.
+Learning Strategy The periodical trajectory used
+for learning is formed of six smoothly joined fifth order polynomials. The corresponding path is shown
+in figure 3. The maximal velocity is about 4.5 rad/s
+and the maximal acceleration is about 45 rad/s2. The
+mean condition number along this trajectory is relatively high [17]. Thus, this trajectory is likely to be
+favourable for the identification of the dynamics [:I].
+We use as matrix of learning factors
+E E . diag(y1,. . .,yg).
+In this equation, the yi > 0 are chosen so that all the
+w converge approximately at the same time, E E E I +
+~ 2 with ~1 > 0 decreasing exponentially and ~2 > 0 a
+small constant.
+Experiments The controller learns the parameters
+along the trajectory of figure 3, starting from w 33 0,
+i.e. without prior knowledge of their value. The control performances without and with noise are then
+tested along the learning trajectory and other trajectories. Finally, the learning speed is measured when
+only the varying parameters (i.e. the friction and the
+mass of the end effector) are learned.
+Results
+The position and velocity errors decrease to the
+minimal value in about 5 seconds (figure 4 . The
+8 weights converge to their true value in about
+The open-loop control (i.e. without the feedback)
+is good (figure 6). The open-loop performances
+are better with the learned than with the me&
+sured weights [4].
+The noise does not disturb learning. The position
+and velocity errors decrease as quickly as without
+noise. The identification of the parameters needs
+a longer time however. The resulting control is
+also good (figure 7).
+When only the friction is identified, the convergence time is about 2/3 of the time needed to
+learn the whole dynamics.
+Identifying the mass of the end effector only needs
+about 0.3 s (this time could probably still be reduced).
+MEMory: Storing the Dynamics
+Along a Repeated Trajectory
+error
+meas.
+par.
+learned
+Description and Properties
+If a manipulator is well controlled by a linear feedback controller, it approximately follows the desired
+trajectory. This means that the feedback torques approximately correspond to the manipulator dynamics.
+The idea of the MEMory controller is to store the feedback torque along a repeated trajectory, and use it as
+feedforward torque for the next run. Because the feedback torque corresponds to the manipulator dynamics,
+the new feedback contribution should be smaller.
+As feedback always incorporates a delay, it does not
+correspond exactly to the manipulator dynamics. In
+order to provide a better learning, only a part of this
+feedback signal is memorised at each step.
+Let us now describe the algorithm mathematically.
+We model the irreproducible part of the manipulator
+dynamics by a random noise term
+k +M
+N ( k ) , k = 1.. . K so that 3 M , x N ( m ) = 0 V k .
+m=k-M
+This means that M is chosen in order to cancel the
+high frequency disturbances of the torque function
+[15]. The total torque T is then given by
+Figure 6: Open-loop movement along a trajectory different than the learning trajectory. Continuous line: desired
+trajectory, dashed line: actual trajectory.
+T(k)= Tp(k) N ( k ) V k ,
+where ~ p ( l c ) k = 1 . . .K is the reproducible part of
+the torque.
+The control law for the i-th run is
+T(i)(k)
+where
+T$i(k)
++ r$&)
+~(d) ~ ~ ( kk= )1 . . . K
+is the torque function for the Cth run of the trajectory
+and k the discrete time index. From equations (6) and
+(7), it follows that
+1O 3
+? 02
+-&(k)
+$4 1
+=p ( k )
++N ( k )- $ i ( k )
+We define the learning rule as follows:
+g.02
+Vk 2 1 ,
+Figure 7: Resulting torques after learning along the learning trajectory, when the system was disturbed by noise.
+Continuous line: learned feedforward torque, points: total
+torque. The feedforward is in the middle of the noisy total
+torque curve. The results of the other joint are similar.
+~gi(k) 0 ,
+(10)
+where A , 0 5 X 5 1, is the learning factor. The sum
+in (10) smooths the feedback signal and eliminates the
+noise:
+Figure 9: Position and velocity functions of one joint for
+a movement performed open-loop (the other joint shows
+similar functions). Note that contrary to the corresponding figure of the' last section, the error increases slowly.
+This is due to the linear calculation of the feedforward
+Figure 8: Position error during learning with a noisy velocity signal.
+v(m)
+$A("
+N ( m )k-M
+compensator.
+z A ( r p ( k ) - r$A(t)) .
+The first equality results from equation (9), the second
+from equation ( 5 ) and the fact that rp(lc) and r&(k)
+are almost constant over the time interval [k- M , 1
+MI'. We note that a standard first or second order
+filter would induce a delay which may cause instability
+Mathematical Properties From equations (:lo)
+and (11) an iterative equation for the feedforward
+torque can be derived:
+By induction, we arrive at the result
+&IC)
+z XC(1-A ) j
+r p ( k ) = (1 - (1- A y )
+rp(/c).
+j =O
+(l3)
+It follows that
+rFF- r p ,
+i+oo
+(l4)
+i.e. the memorised torque converges to the reproducible part of the dynamics when the movement is repeated, and the feedback controller then corrects o ~ d y
+for the irreproducible part of the dynamics.
+along the same trajectories. We have also tested the
+robustness to noise using the numerically differentiated velocity.
+The algorithm is so trivial that the implementation was realised very quickly. The convergence of the
+error to its minimum value is as fast or faster than
+with AFFC. The resulting position and velocity errors were approximately two times smaller. We do not
+show many figures because they are similar to these
+for the AFFC. We only show, in figure 9, the astonishing open-loop performance, which proves that a better
+model of the inverse dynamics has been learned (compare figure 9 with figure 6). The learning is further
+not disturbed by the noise. In the presence of noise,
+the adaptation is slightly slower.
+Experiments and Results
+The above algorithm has been implemented with
+the same manipulator as in the preceding section and
+lThis assumption is obviously not verified in the isolated
+points where ~p is not continuous. At these points, the sum
+over the m points smooths the torque signal TP
+5411
+The Hybrid Controller
+Because the MEM controller provides better tracking than the AFF controller, there probably is a reproducible part of the dynamics which was identified by
+MEM but is not modelled in the rigid body equation.
+Is it yet possible to identify this part using a MEM
+after an AFFC has been used to learn the dynamics? Would it lead to better results compared with
+the MEM only? In the resulting hybrid controller,
+the feedforward compensator is composed of a model
+incorporating the rigid body equation and a look-uptable, and the feedback part is given by the feedback
+controller. At the beginning the manipulator is controlled uniquely by the feedback controller. Then the
+parameters of the rigid body model are learned along
+an exciting trajectory. Finally, for a repeated movement, the remaining reproducible dynamics are stored
+in the adaptive look-up-table.
+A similar hybrid controller was proposed and simulated in [8] using in the look-up-table part of the feedforward a first order filter instead of our noncausal
+”.
+.os‘
+analyzed in this paper, for learning and compensating
+for the dynamics along the repeated trajectory. It
+was shown here that this controller is robust to noise
+and results in an almost perfect compensation of the
+dynamics.
+We have recently extended the above methods to
+arbitrary manipulators [7], and successfully applied
+them to parallel 3 dof [15] and 6 dof [lo] manipulators. Together with the above results, this suggests
+that these algorithms are mature to be used in industrial applications.
+t!mI4
+Figure 10: Resulting torques after learning with the hybrid controller along the trajectory of figure 3. Continuous
+line: learned feedforwardtorque, dashed dotted line: feedback torque, points: total torque. The results are similar
+for the other joint.
+Acknowledgements Many thanks to M. Honegger,
+J. Luthiger, M. Nuttin, A. Schmid and an anonymous
+reviewer for their valuable contributions!
+References
+[l] J.S. Albur. D a t a storage in t h e cerebellar model articulation controller.
+J o s m d of Diaomisal Sgdrmi, Meclrwemcntr, clid Control, 1975.
+filter. Another adaptive controller using the dynamic
+equation and a look-up-table was proposed in [2].
+We implemented the above described hybrid controller. The results are:
+C.H. An, C.G.Atkeson, a n d J.M. Hollerbach. Model-Based Control of
+Moaipdotor. M I T Press, 1988.
+Robot
+[3] B. Armstrong. O n finding “exciting” trajectories for identification experi m e n t s involving systems with non-linear dynamics. In IBBB I n t r r n d i o n d
+Conference on Robotirr aad Adomation, pages 1131-1139, 1987.
+[4] E. B u r d e t a n d A. Codourey. Evolution of parametric a n d nonparametric
+nonlinear adaptive controllers. Roboticcl, 1997.
+The additional MEM is able to improve the control relatively to the learned rigid body model.
+This means that the reproducible part of the dynamics not modelled by the rigid body dynamic
+equation has been identified.
+The systematical errors have been eliminated
+(compare for example figure 5 at time 0.6 s with
+figure 10 at time 2.75 s).
+The remaining errors are of the same order of
+magnitude than when using MEMory only. The
+control performances are also similar.
+[ I E. B u r d e t a n d 3. Lnthiger. Three learning architectures t o improve robot
+control: a comparison. In 3rd Brmpcon Workshop on Leoming Robots, 8th
+B.ropraa Conference on Mochiar Lruming, 1995.
+11 E. B u r d e t , J . Luthiger, M. N u t t i n , G. Schweitzei, a n d H. VanBruasel.
+A comparison of adaptive a n d learning control schemes for trajectory
+control of robot manipulators. Technical report, I n s t i t u t fuer Robotik,
+ETH-Zuerich, 1995.
+[7] A. Codourey a n d E. B u r d e t . A body-oriented m e t h o d for finding a linear
+form of t h e d y n a m i c equation of f u l l y parallel robots. I n IBBB I d r m a l i o a o l
+Conference o n Robolics end A d o m d i o a , 1997.
+J.J. Craig.
+1988.
+Adaptive Control of M c c h o n i d Moniprtaton.
+Addison-Wesley,
+D.M. Gorinevrky. Modelling of direct m o t o r p o r g r a m learning i n faat
+human a r m motions. Biologicof Cybomctics, 69:219-228, 1993.
+M. Honegger, A. Codourey, a n d E. B u r d e t . Adaptive control of t h e
+Hexaglide, il 6 dof parallel manipulator. In IBBB Intemalional Conference o n
+Robotics and Awlemotion, 1997.
+M.I. Jordan, T. Flash, a n d Y. A m o n . A model of t h e learning of a r m t r a jectories from spatial deviations. Journal of Cogaitioc Newossieasc, 6(4):359376, 1994.
+Conclusions
+H. Kano a n d K. Takaysma. Learning control of robotic manipulators
+bared on neurological model CMAC. In f f t h I n l r m d i o n o l Federcllion o f Art o m d i e C011r.d Congress, pages ~ 8 4 7 3 1990.
+In this paper we studied practical issues critical
+for the application of nonlinear adaptive control in
+robotics. We performed experiments with a 2 dof planar parallel robot (with coupling and highly nonlinear
+dynamics).
+It was shown that the AFFC is robust to noise, is
+able to identify the friction and results in better control performances than when the parameters of the dynamic equation are measured. In addition the AFFC
+requires very few computations and is non-invasive.
+We therefore think that it is currently the most practical way to perform the dynamic calibration of robots.
+If the task consists of repeating a single movement,
+it is not necessary to derive the rigid body dynamic
+model and identify its parameters. It is simpler to use
+the adaptive look-up table MEMory, introduced and
+P.K. Khoala. Red-ttmc Control oad Idrnlificolion of Dimst-drive Manipulators.
+P h D thesis, Camegie-Mellon University, 1986.
+F.L. Lewis, C.T. Abdallah, a n d D.M. Dawaon. Control of Robot Maniprlatwr.
+Macmillan, 1993.
+L. Rey. Adaptive control of t h e DELTA-robot. Technical r e p o r t , I n s t i t u t
+d e Microtechnique, EPF-Lausanne, 1996.
+N. S a d s g h e n d R . Horowirr. Stability a n d mbuatnsas anolyoia of L s l a o a
+of adaptive controller for robotic manipulators. Inlsrmdiond Jorrnol of
+Robotics Research, 9(3):74-92, 1990.
+A. Schmid a n d M. Zaugg. Balancieren von invertiertem Einfach- u n d
+Doppelpendel m i t einem 2D-Deltaroboter. Technical r e p o r t , Inatitut fuer
+Robotik, ETH-Zuerich, 1995.
+1 8 3.-J.E. Slotine a n d W . Li. Adaptive manipulator control, a case study.
+In IBBB Inlcraalional Conference on Robotrrr end Artomation, 1987.
+1 9 J.-J.E. Slotine a n d W. Li. Applied Nonltnror Control. Prentice-Hall Interna11
+tional Editions, Inc., 1991.
+[ZO]
+L.L. Whitcomb, A.A. Rizzi, a n d D.E. Koditachek. Comparative experim e n t s with a n e w a d a p t i v e controller for robot a r m s . IBBB Tranrastionr on
+Robotic# and Artomation, 9(1):59-70, 1993.

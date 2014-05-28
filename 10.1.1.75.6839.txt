@@ -1,0 +1,990 @@
+[ _to('140527231602') ]
+Feedback error learning and nonlinear adaptive control
+Jun Nakanishia,b,*, Stefan Schaala,c,1
+Department of Humanoid Robotics and Computational Neuroscience, ATR Computational Neuroscience Laboratories,
+2-2 Hikaridai, Seika-cho, Soraku-gun, Kyoto 619-0288, Japan
+Computational Brain Project, ICORP, Japan Science and Technology Agency, Kyoto 619-0288, Japan
+Department of Computer Science and Neuroscience, University of Southern California, Los Angeles, CA 90089-2520, USA
+Received 26 August 2003; revised 13 May 2004; accepted 13 May 2004
+
+Abstract
+In this paper, we present our theoretical investigations of the technique of feedback error learning (FEL) from the viewpoint of adaptive
+control. We ﬁrst discuss the relationship between FEL and nonlinear adaptive control with adaptive feedback linearization, and show that
+FEL can be interpreted as a form of nonlinear adaptive control. Second, we present a Lyapunov analysis suggesting that the condition of
+strictly positive realness (SPR) associated with the tracking error dynamics is a sufﬁcient condition for asymptotic stability of the closed-loop
+dynamics. Speciﬁcally, for a class of second order SISO systems, we show that this condition reduces to KD . KP ; where KP and KD are
+positive position and velocity feedback gains, respectively. Moreover, we provide a ‘passivity’-based stability analysis which suggests that
+SPR of the tracking error dynamics is a necessary and sufﬁcient condition for asymptotic hyperstability. Thus, the condition KD . KP
+mentioned above is not only a sufﬁcient but also necessary condition to guarantee asymptotic hyperstability of FEL, i.e. the tracking error is
+bounded and asymptotically converges to zero. As a further point, we explore the adaptive control and FEL framework for feedforward
+control formulations, and derive an additional sufﬁcient condition for asymptotic stability in the sense of Lyapunov. Finally, we present
+numerical simulations to illustrate the stability properties of FEL obtained from our mathematical analysis.
+q 2004 Elsevier Ltd. All rights reserved.
+Keywords: Feedback error learning; Adaptive control; Feedback and feedforward control; Strictly positive realness; Lyapunov stability; Passivity
+1. Introduction
+This paper presents a reformulation and formal stability
+analysis of the feedback error learning (FEL) scheme (Gomi
+& Kawato, 1993; Kawato, 1987, 1990) for a class of nonlinear
+systems from a viewpoint of the adaptive control theory.
+Originally, FEL was proposed from a biological perspective
+to establish a computational model of the cerebellum for
+learning motor control with internal models in the central
+nervous system (CNS) (Kawato, 1987). The research
+presented here is inspired by our insight into the close
+relationship between FEL and adaptive control algorithms
+which we gained during our recent development of a new
+* Corresponding author. Address: Department of Humanoid Robotics and
+Computational Neuroscience, ATR Computational Neuroscience
+Laboratories, 2-2 Hikaridai, Seika-cho, Soraku-gun, Kyoto 619-0288,
+Japan. Tel.: þ 81-774-95-2408; fax: þ81-774-95-1236.
+E-mail addresses: jun@atr.jp (J. Nakanishi), sschaal@usc.edu
+(S. Schaal).
+Tel.: þ1-213-740-9418; fax: þ 1-213-740-5687.
+0893-6080/$ - see front matter q 2004 Elsevier Ltd. All rights reserved.
+doi:10.1016/j.neunet.2004.05.003
+adaptive control framework with advanced statistical learning (Nakanishi, Farrell, & Schaal, 2002, 2004).
+From a control theoretic viewpoint, FEL can be
+conceived of as an adaptive control technique (Doya,
+Kimura, & Miyamura, 2001; Miyamura & Kimura, 2002).
+Stability analyses of FEL for a class of linear systems and
+a two-link planar robot arm in a horizontal plane are
+presented by Miyamura and Kimura (2002) and Ushida
+and Kimura (2002), respectively. However, the plant
+dynamics considered in Miyamura and Kimura (2002) are
+conﬁned to a restricted class of linear systems (stable and
+stably invertible),2 and these studies do not address
+practical issues, e.g. as to how to select feedback gains
+to ensure the stability in FEL. In this paper, we present a
+more general treatment of the formulation and stability
+properties of FEL for a class of nonlinear systems. Fig. 1
+depicts the block diagram of the FEL scheme which was
+An extension to a non-invertible case is also discussed by Miyamura
+and Kimura (2002).
+1454
+J. Nakanishi, S. Schaal / Neural Networks 17 (2004) 1453–1465
+Fig. 1. Feedback error learning scheme originally proposed by Kawato
+(1990). (This diagram is taken from Kawato, 1990).
+originally proposed for inverse model learning with an
+adaptive feedforward component. This paper considers
+two different formulations—one with an adaptive state
+feedback controller (see Fig. 2) and one with an adaptive
+feedforward controller (see Fig. 3). In the adaptive
+feedback formulation, the actual state is used to compute
+basis functions of a function approximator for parameter
+update and cancellation of nonlinearities. On the other
+hand, in the adaptive feedforward formulation, the desired
+state is used instead of the actual state. We ﬁrst consider
+the formulation with the adaptive state feedback controller
+in Fig. 2 since it allows us to directly apply several
+theoretical results of the adaptive control framework (Choi
+& Farrell, 2000; Nakanishi et al., 2002, 2004; Sanner &
+Slotine, 1992). Subsequently, we investigate the formulation with the adaptive feedforward component in Fig. 3,
+which requires some additional treatment in the stability
+analysis. The adaptive feedforward controller, as
+developed in this paper, can be conceived of as a special
+case of the original FEL inverse model learning
+formulation, where the inverse model has a simpliﬁed
+parametrization. Note that a particular formulation of FEL
+was discussed by Gomi and Kawato (1992) as a
+computational model of the cerebellum for adaptive
+feedback control such as the vestibulo-ocular reﬂex
+(VOR) and opto-kinetic response (OKR). It can be
+considered as a combination of the feedback and
+feedforward formulations, where the desired state, its
+time derivative and the actual state are used as an input to
+the adaptive controller at the same time, and the adaptive
+controller will acquire both the inverse dynamics of the
+plant and a nonlinear PD feedback controller. The FEL
+formulations discussed in this paper slightly differ from
+this original work (Gomi & Kawato, 1992) in that the
+adaptive part will only learn unknown nonlinearities in the
+plant dynamics, and we treat the adaptive feedback and
+feedforward formulations separately.
+This paper is organized as follows: Section 2 presents
+the structure of the control system and function approximation of unknown nonlinearities in the plant dynamics as
+considered in this paper. In Section 3, we discuss the
+adaptive feedback formulation. In Section 3.1, we review
+the nonlinear adaptive control framework (Choi & Farrell,
+2000; Sanner & Slotine, 1992; Slotine & Li, 1991). In
+Sections 3.2 and 3.3, we discuss the relationship between
+nonlinear adaptive control and FEL in the adaptive state
+feedback formulation. Section 3.4 provides a Lyapunov
+stability analysis of adaptive control and FEL. In Section
+3.5, we provide a sufﬁcient condition on the choice of
+feedback gains to guarantee the stability of learning based
+on the Lyapunov stability analysis, which is associated
+with strictly positive realness (SPR) of the tracking error
+dynamics. Section 3.6 presents a ‘passivity’-based
+stability analysis, which suggests that SPR of the tracking
+error dynamics is not only a sufﬁcient but also a necessary
+condition for asymptotic hyperstability. To the best of our
+knowledge, no other previous work has explicitly
+addressed necessary conditions for the stability of nonlinear adaptive control. This missing treatment is largely
+due to the application of Lyapunov theory for stability
+analyses which can generally show only sufﬁciency at
+best. Section 4 considers the adaptive feedforward
+formulation. We derive an additional sufﬁcient
+condition to guarantee the stability of learning, which is
+associated with the characteristics of nonlinearities of the
+plant dynamics. Finally, in Section 5, we present
+numerical examples to illustrate the theoretical stability
+properties of FEL.
+Fig. 2. Nonlinear adaptive control and FEL with an adaptive state feedback controller for a class of nth order nonlinear SISO systems.
+J. Nakanishi, S. Schaal / Neural Networks 17 (2004) 1453–1465
+1455
+Fig. 3. Nonlinear adaptive control and FEL with an adaptive feedforward controller for a class of nth order nonlinear SISO systems.
+2. Problem setup
+2.1. Plant dynamics and function approximation
+The general structure of the control system of interest is a
+class of nonlinear MIMO systems of the form
+x ¼ fðxÞ þ GðxÞu
+ð1Þ
+z ¼ hðxÞ
+RBF neural networks (Sanner & Slotine, 1992). In this
+paper, we assume a perfect approximation where D ¼ 0;
+the case where D – 0 can be treated as in Nakanishi et al.
+(2002, 2004) by introducing an adaptation deadzone for
+parameter update.
+ð2Þ
+where x [ Rn is a state, z [ Rp is an output, u [ Rm is an
+input, f : Rn ! Rn ; G : Rn ! Rn£m are nonlinear functions,
+and h : Rn ! Rp denotes a mapping from the state to the
+output.
+For our initial mathematical development in this paper,
+we consider a simpliﬁed nth order SISO system of the form
+3. Adaptive feedback formulation
+This section considers the adaptive feedback formulation
+of nonlinear adaptive control and FEL as depicted in Fig. 2.
+We discuss the relationship between nonlinear adaptive
+control and FEL, and the stability properties of FEL with
+respect to the choice of feedback gains.
+3.1. Nonlinear adaptive control
+x1 ¼ x2
+ð3Þ
+xn21 ¼ xn
+xn ¼ f ðxÞ þ u
+where x ¼ x1 ; x ¼ ½x1 ; …; xn T [ Rn ; and u [ R: Note that
+a more general form of the plant dynamics including the
+gðxÞ term such as xn ¼ f ðxÞ þ gðxÞu can be treated by
+introducing the parameter projection algorithm as discussed
+by Nakanishi et al. (2004).
+Suppose that f ðxÞ can be represented in a linearly
+parametrized form as
+f ðxÞ ¼ f ðxÞu þ DðxÞ
+ð4Þ
+where f is the vector of nonlinear basis functions deﬁned
+by fðxÞ ¼ ½fT ; …; fT T ; u is the parameter vector deﬁned
+by u ¼ ½uT ; …; uT T ; and DðxÞ is the approximation error. If
+the structure of f is known, i.e. we know all the correct basis
+functions, D will be zero. If the structure of f is unknown,
+we can use a linearly parametrized function approximator
+such as locally linear models (Choi & Farrell; 2000;
+Nakanishi et al., 2002, 2004; Schaal & Atkeson, 1998) or
+In order to facilitate a coherent development of our
+research results, in this section we review a general
+formulation of nonlinear adaptive control (Choi & Farrell,
+2000; Sanner & Slotine, 1992; Slotine & Li, 1991) with the
+adaptive feedback controller as depicted in Fig. 2. The goal
+of adaptive control is to achieve asymptotic tracking to
+the desired trajectory under the presence of unknown
+parameters in the plant dynamics by adjusting them during
+operation from input – output data while guaranteeing
+stability of the closed-loop system.
+Consider a control law
+u ¼ uad þ uff 2 ufb U 2fðxÞ þ xðnÞ 2 Ke
+ð5Þ
+where
+uad ¼ 2fðxÞ;
+uff ¼ xðnÞ ;
+and ufb ¼ Ke:
+ð6Þ
+xðnÞ denotes the nth time derivative of x; K ¼ ½K1 ; K2 ; …; Kn 
+is the feedback P
+gain row vector chosen such that the
+polynomial sn þ n Ki si21 ¼ 0 has all roots in the left half
+i¼1
+of the complex number plane, and e ¼ ½e; e; …; eðnÞ T is the
+tracking error vector with e ¼ x 2 xd and xd ðtÞ denotes a
+desired trajectory that is smooth and also has a smooth nth
+1456
+order derivatives. f is the estimate of f deﬁned by
+fðxÞ ¼ fT ðxÞu
+ð7Þ
+where u is an estimate of u: The tracking error dynamics
+with the estimate of f can be expressed in the controllable
+canonical form of the state space representation as:
+e ¼ Ae þ bðf 2 fÞ ¼ Ae þ bð2fT uÞ
+A¼6
+···
+ð8Þ
+and b ¼ 6 7
+ð9Þ
+Notice the close relationship between the parameter
+update law of tracking error-based adaptive control (11) and
+that of FEL (14). In Section 3.3, we compare the properties
+of these two parameter update laws.
+In summary, the parameter update law for the tracking
+error-based adaptive control (11) and FEL (14) are given by
+Tracking error-based adaptation
+u ¼ GfðxÞce ¼ GfðxÞe1
+where u is the parameter error vector deﬁned as u ¼ u 2 u:
+Note that A is Hurwitz. Deﬁne the sliding surface
+ð15Þ
+where e1 ¼ ce ¼ L1 e þ L2 e þ · · · þ Ln eðnÞ :
+Feedback error earning
+ð10Þ
+where c ¼ ½L1 ; …; Ln  and Li . 0 is chosen such that
+ðA; b; cÞ is minimal (controllable and observable) and
+HðsÞ ¼ cðsI 2 AÞ21 b is strictly positive real (SPR)
+(see Appendix A for details). This ﬁltered tracking
+error will be used in the tracking error-based parameter
+update (Choi & Farrell, 2000) and the strictly positive
+real assumption will be necessary in the Lyapunov
+stability analysis.
+If we select the tracking error-based parameter adaptation law
+u ¼ GfðxÞe1
+ð14Þ
+3.3. Comparison of parameter update laws
+e1 ¼ ce
+derived as
+›f
+u¼G 2
+ð2ufb Þ ¼ GfðxÞufb :
+›u
+ð11Þ
+where G is a positive deﬁnite adaptation gain matrix, it is
+possible to prove the desirable stability properties of the
+adaptive controller as discussed in Section 3.4. Note that the
+actual state x is used to compute fðxÞ in the control law (5)
+and fðxÞ in the update law (11). As we will discuss in
+Section 4, in the adaptive feedforward formulation, the
+desired state xd is used instead of the actual state x:
+3.2. Feedback error learning
+u ¼ GfðxÞKe ¼ GfðxÞufb
+where ufb ¼ Ke ¼ K1 e þ K2 e þ · · · þ Kn eðnÞ :
+We can see that these two update laws are identical except
+for the difference in the driving signal to update the
+parameters. In the tracking error-based adaptive control
+the ﬁltered error e1 is used while in FEL the output of the
+feedback controller ufb is used. For example, for second order
+systems, these driving signals become e1 ¼ L1 e þ L2 e and
+ufb ¼ KP e þ KD e; where KP ¼ K1 ; KD ¼ K2 : In FEL, the
+driving signal to update the parameters depends on the choice
+of feedback gains. In contrast, in adaptive control, we
+have the additional freedom in selecting the parameters in
+c ¼ ½L1 ; …; Ln  to scale the tracking error and its derivatives.
+3.4. Lyapunov stability analysis
+We present Lyapunov stability analyses for the nonlinear
+adaptive controller and FEL. Consider the Lyapunov
+function
+By reformulating the results of Gomi and Kawato (1993)
+and Kawato (1990) in our notation, the parameter update
+law in FEL can be expressed as
+_^ ¼ G ›h ð2u Þ
+ð12Þ
+ð16Þ
+e Se þ uT G21 u:
+ð17Þ
+By the Lefschetz– Kalman –Yakubovich lemma (Tao &
+Ioannou, 1990), with the positive real assumption of ðA; b;
+cÞ; there exist real symmetric positive deﬁnite matrices S
+and L; a real vector q; and m . 0 such that
+AT S þ SA ¼ 2qqT 2 mL
+ð18Þ
+Sb ¼ cT :
+ð19Þ
+when the inverse plant dynamics is given in form of
+u ¼ hðx; x; uÞ ¼ 2f ðx; uÞ þ x
+ð13Þ
+for (3). In case of a linear parametrization (4), the parameter
+update law in the adaptive feedback formulation can be
+By inserting the error dynamics (8), the adaptation law (11)
+and the properties (18) and (19), the time derivative of V
+with can be calculated as
+Theorem 1 in Appendix A. The conditions in this theorem
+are:
+V ¼ ð_ T Se þ eT S_ Þ þ uT G21 u
+¼ eT ðAT S þ SAÞe þ uT G21 ðu 2 Gfe1 Þ
+¼ 2 eT ðqqT þ mLÞe # 2b1 eT e # 0
+ð20Þ
+b1 ¼
+l ðqqT þ mLÞ . 0
+2 min
+ð21Þ
+and lmin ð·Þ denotes the minimum eigenvalue of a matrix.
+Note that the term uT G21 ðu 2 Gfe1 Þ in (20) is cancelled
+out with the adaptation law (11) since
+_~ _^
+u ¼ u ¼ Gfe1 :
+ð22Þ
+This Lyapunov analysis implies that the tracking error, e;
+converges to zero with e [ L2 by Barbalat’s lemma, and the
+parameter error, u; is bounded with u [ L1 (Slotine & Li,
+1991). For asymptotic parameter error convergence to zero,
+fðxÞ needs to satisfy the so-called persistent excitation (PE)
+condition (Slotine & Li, 1991).
+3.5. Choice of feedback gains in FEL
+· · · 2Kn
+1. All eigenvalues of A have negative real parts: This
+condition holds since we choose KP and KD such that
+A is Hurwitz (KP . 0 and KD . 0).
+2. CB ¼ ðCBÞT . 0 : This condition also holds since
+cb ¼ ðcbÞT ¼ KD . 0:
+3. CAB þ ðCABÞT , 0 : A simple calculation yields
+cAb þ ðcAbÞT ¼ 2ðKP 2 KD Þ , 0:
+Thus, for second order SISO systems, the feedback gains
+must satisfy the condition
+KD . KP ; where KP . 0 and KD . 0
+and c ¼ ½K1 ; …; Kn :
+For the general nth order systems, the SPR condition is
+somewhat abstract and the criterion as to how we can
+choose the feedback gains Ki to satisfy the SPR condition
+for ðA; b; cÞ is not obvious. However, for the case of
+second order SISO systems with
+2KP 2KD
+ð24Þ
+and c ¼ ½KP ; KD ;
+it is possible to derive a condition for the choice of Ki to
+guarantee the stability of FEL in a very simple form using
+ð25Þ
+to guarantee the stability of FEL. Interestingly, this condition
+does not depend on the nonlinearity f ðxÞ: Table 1 lists several
+choices of feedback gains with the stability condition (25). It
+is important to note that there are cases in which certain
+choices of feedback gains do not guarantee the stability of
+FEL, typically when KD is small. Thus, care must be taken for
+selecting feedback gains in FEL to achieve stable learning as
+well as good tracking performance. In contrast, in the case of
+tracking error-based adaptive control, the corresponding
+stability condition is given by
+L1 2 L2 KD , 0;
+As discussed in Section 3.1 the parameter c ¼ ½L1 ; …;
+Ln  in (10) must be chosen to satisfy the strictly positive
+real (SPR) condition (see Appendix A). Given that
+FEL is equivalent to the tracking error-based adaptive
+controller for the plant dynamics (3), in order to ensure
+the stability of FEL, we need to choose the feedback
+gains Ki in FEL so that the SPR condition holds for the
+pair ðA; b; cÞ :
+b¼6 7
+ð23Þ
+1457
+ð26Þ
+KP . 0 and KD . 0:
+In this case, there is a large amount of freedom in scaling the
+tracking error and its time derivative by choosing c in (10).
+For example, with KP ¼ 5:0 and KD ¼ 1:0 (case 1 in Table 1),
+we can still choose L1 ¼ 0:1 and L2 ¼ 1:0 to guarantee
+stability.
+3.6. Passivity-based stability analysis
+The notion of passivity and output-dissipativity has been
+used as a means of advanced stability analysis of nonlinear
+systems motivated by the concept of energy conservation
+and dissipation in network theory (Arimoto, 1996). In brief,
+a passive system does not generate energy, and a dissipative
+system loses energy. Mathematical deﬁnitions of passivity
+and output-dissipativity for dynamical systems are given in
+Appendix B. For linear systems, equivalence between
+passivity and positive realness (PR), and output-dissipativity and SPR are demonstrated by Arimoto and Naniwa
+(2000, 2001). Applications of passivity-based stability
+Table 1
+Choice of PD gains and FEL stability
+Gains
+KD . KP holds?
+Stability
+Case
+10.0
+100.0
+20.0
+Not guaranteed
+Guaranteed
+1458
+where the following identity was exploited
+1 d ~T 21 ~
+_~ ~
+ðu G uÞ ¼ uT G21 u ¼ uT fðxÞe1 ¼ vT yð¼ vyÞ:
+2 dt
+ð32Þ
+Now we can apply Theorem 3 in Appendix B (Arimoto,
+1996) to conclude that SPR of the tracking error dynamics
+is a necessary and sufﬁcient condition for asymptotic
+hyperstability of learning adaptive control and FEL, i.e.
+kek is bounded and e ! 0 as t ! 1; Therefore, the conditions
+on the choice of c and K (25) for FEL
+Fig. 4. Closed-loop dynamics of the learning adaptive control system in
+terms of a negative feedback connection of a passive nonlinear dynamical
+system (parameter update law) and a linear system (tracking
+error dynamics) to apply Theorem 3 in Appendix B (Arimoto, 1996) (see
+Fig. B1).
+analysis to nonlinear mechanical systems such as robot arms
+are presented by Arimoto (1996).
+In Section 3.4, we presented a Lyapunov analysis which
+suggests that SPR of the tracking error dynamics (8) and
+(10) is a sufﬁcient condition for asymptotic stability of the
+learning adaptive controller and FEL. In the following, we
+show that SPR of the tracking error dynamics is a necessary
+and sufﬁcient condition for asymptotic hyperstability, i.e.
+the tracking error e is bounded and e ! 0 as t ! 1; by
+applying Theorem 3 described in Appendix B (Arimoto,
+1996) (see Appendix B for details of the deﬁnition of
+asymptotic hyperstability).
+The closed-loop dynamics of the learning adaptive
+control system considered in this paper can be formulated
+as a negative feedback connection of a passive nonlinear
+error dynamics) as depicted in Fig. 4 where
+Linear system: Tracking error dynamics deﬁned by (8)
+and (10):
+e ¼ Ae þ bu
+KD . KP ;
+where KP . 0 and KD . 0
+and (26) for the tracking error-based adaptive controller
+KP . 0 and KD . 0;
+which are derived from SPR of the tracking error dynamics
+for a class of second order SISO systems, are necessary
+as well as sufﬁcient for the learning system to be
+asymptotically hyperstable.
+4. Adaptive feedforward formulation
+Recall that in the adaptive feedback formulation in Fig. 2
+discussed above, the actual state x is used to compute fðxÞ in
+the control law (5) and fðxÞ in the update laws (15) and
+(16). We explore the theoretical analysis of the adaptive
+feedforward formulation in which the desired state xd is
+used instead such as fðxd Þ and fðxd Þ as illustrated in Fig. 3.
+This formulation is identical to the original FEL model for
+our simpliﬁed plant in (3). We derive a condition to ensure
+the stability of learning for the adaptive feedforward
+formulation, which is more conservative than that of the
+adaptive feedback case.
+ð27Þ
+4.1. Control law
+y ¼ ce
+ð28Þ
+where y ¼ e1 ; u ¼ 2fT ðxÞu ¼ 2v: Note that in FEL,
+c ¼ K:
+Nonlinear system: Parameter update law in (11):
+The control law in the adaptive feedforward formulation
+is given by
+u ¼ uff 2 ufb U 2fðxd Þ þ xðnÞ 2 Ke
+u ¼ u ¼ GfðxÞy
+ð29Þ
+v ¼ fT ðxÞu
+ð30Þ
+uff ¼ xðnÞ 2 fðxd Þ
+ð33Þ
+ð34Þ
+where y ¼ e1 :
+Note that the input – output pair {y; v} of the nonlinear
+system deﬁned in (29) and (30) satisﬁes passivity since
+Note that K is chosen such that A in (23) is Hurwitz. As
+mentioned above, the desired state xd is used for f instead of
+the actual state x:
+4.2. Parameter update law
+v T y dt ¼
+1 ~T
+u ðtÞG21 uðtÞ 2 uT ðt0 ÞG21 uðt0 Þ
+$ 2 uT ðt0 ÞG21 uðt0 Þ ¼ 2g2
+ð31Þ
+The parameter update laws for the tracking error-based
+adaptive control and FEL in the adaptive feedforward
+formulation are given by
+u ¼ Gfðxd Þce ¼ Gfðxd Þe1
+ð35Þ
+In the derivation above, the mean value theorem (Khalil,
+1996)
+f ðxÞ 2 f ðxd Þ ¼ ð7f ðzÞÞT ðx 2 xd Þ ¼ ð7f ðzÞÞT e ¼ eT ð7f ðzÞÞ
+ð43Þ
+where e1 ¼ ce ¼ L1 e þ L2 e þ · · · þ Ln e :
+ðnÞ
+u ¼ Gfðxd ÞKe ¼ Gfðxd Þufb
+1459
+ð36Þ
+is used, where z is the vector on the line segment Lðx; xd Þ
+joining x and xd (when x and xd are distinct) deﬁned by
+Lðx; xd Þ ¼ {zlz ¼ ax þ ð1 2 aÞxd ; 0 , a , 1}:
+4.3. Lyapunov stability analysis
+The Lyapunov analysis (39) implies that if b1 2 b2 . 0;
+then V # 0: Thus, in the adaptive feedforward formulation,
+we need to choose K and c such that b1 2 b2 . 0 in
+addition to the SPR condition for ðA; b; cÞ: To illustrate this
+more closely, let us examine this condition for ﬁrst and
+second order systems:
+First order systems: The Lyapunov function (38) reduces
+In the adaptive feedforward formulation, the error
+dynamics can be written as
+e ¼ Ae þ bðf ðxÞ 2 fðxd ÞÞ
+¼ Ae þ bðf ðxd Þ 2 fðxd Þ þ f ðxÞ 2 f ðxd ÞÞ
+¼ Ae þ bð2fT ðxd Þu þ f ðxÞ 2 f ðxd ÞÞ
+ð37Þ
+where e1 ¼ ce and ðA; b; cÞ are deﬁned in (9) and (10). K is
+chosen such that A is Hurwitz, c is chosen such that ðA; b; cÞ
+is minimal (controllable and observable), and
+HðsÞ ¼ cðsI 2 AÞ21 b is SPR. Note that in (37) there is, in
+comparison to (8), an additional term f ðxÞ 2 f ðxd Þ which
+drives the tracking error.
+Consider the same Lyapunov function as in (17)
+V ¼ eT Se þ uT G21 u:
+ð38Þ
+By the Lefschetz – Kalman – Yakubovich lemma
+(Tao & Ioannou, 1990), with the positive real assumption
+of ðA; b; cÞ; the time derivative of V with error dynamics
+(37) can be calculated as
+¼ 2 eT ðqqT þ mLÞe þ eT ð7f ðzÞcÞe
+ð39Þ
+ð40Þ
+ð41Þ
+and b2 is the upper bound of b2
+b2 ¼ L1 ð7f Þ1 þ · · · þ Ln ð7f Þn
+where A ¼ 2KðK . 0Þ; b ¼ 1; c ¼ L . 0 and S ¼ L: The
+time derivative of V becomes
+V ¼ 2KLe2 þ ðf ðxÞ 2 f ðxd ÞÞLe
+¼ 2LðK 2 f 0 ðzÞÞe2 # 2LðK 2 f 0 Þe2
+ð46Þ
+Thus, if K is selected such K . where K . 0; then
+stability is guaranteed where f 0 denotes the upper bound of
+the gradient of f assuming that it is known.
+Second order systems: b1 and b2 in (40) and (42) can be
+calculated as
+b1 ¼ min{L1 KP ; 2L1 þ L2 KD }
+ð47Þ
+b2 ¼ L1 ð7f Þ1 þ L2 ð7f Þ2
+ð48Þ
+ð49Þ
+b2 ¼ KP ð7f Þ1 þ KD ð7f Þ2
+ð50Þ
+in addition to the SPR condition (25).
+In summary, in the adaptive feedforward formulation,
+an additional condition
+b1 2 b2 . 0
+b2 ¼ lmax ð7f ðzÞcÞ ¼ c7f ðzÞ
+¼ L1 7f ðzÞ1 þ · · · þ Ln 7f ðzÞn
+ð45Þ
+b1 ¼ min{KP ; 2KP þ KD }
+1 2 1 ~T 21 ~
+Le þ u G u
+Thus, in tracking error-based adaptive control, K and c
+should be selected such that b1 2 b2 . 0 in addition to the
+SPR condition (26). For FEL with L1 ¼ KP and L2 ¼ KD ;
+this condition becomes
+¼ 2 eT ðqqT þ mLÞe þ ðf ðxÞ 2 f ðxd ÞÞce
+# 2ðb1 2 b2 ÞeT e # 2ðb1 2 b2 ÞeT e
+ð44Þ
+ð42Þ
+assuming that the upper bound of ð7f Þi ; denoted by ð7f Þi ; is
+known. lmin ð·Þ and lmax ð·Þ denote the minimum
+and maximum eigenvalues of a matrix, respectively.
+ð51Þ
+needs to be satisﬁed to guarantee the stability, where b1 and
+b2 are deﬁned in (40) and (42), respectively, in addition to
+the SPR condition with respect to the tracking error
+dynamics characterized by ðA; b; cÞ: In contrast to the
+adaptive feedback formulation, the stability condition for
+the adaptive feedforward case depends not only the choice
+of the parameters K and c but also on the intrinsic
+characteristics of the plant dynamics which appears as b2
+in the Lyapunov analysis in (39). However, in practice such
+1460
+feedforward formulation. As an example, we use a massdamper-spring system for plant dynamics
+m€ þ d_ þ kx ¼ u
+ð52Þ
+where m ¼ 1 is assumed to be known, but we suppose that d
+and k are unknown.
+5.1. Adaptive feedback formulation
+The FEL and tracking error-based adaptive control
+algorithms in the adaptive feedback formulation depicted
+in Fig. 2 are implemented as follows. First, we rewrite the
+system dynamics as
+x ¼ f ðx; xÞ þ u ¼ 2d_ 2 kx þ u
+ð53Þ
+and use the linear model for f ðx; xÞ as
+f ðxÞ ¼ xT u
+ð54Þ
+where x ¼ ½x; x : Then, we design a feedback linearizing
+controller with an estimate of f
+u ¼ 2fðxÞ þ xd 2 Ke ¼ 2fðxÞ þ xd 2 ðKP e þ KD eÞ:
+ð55Þ
+In the simulations, the parameters d ¼ k ¼ 2 and
+G ¼ 2:0I: are chosen, and we use xd ðtÞ ¼ sinð2ptÞ as the
+desired trajectory. Initial conditions are set to xð0Þ ¼ 0 and
+Fig. 5. FEL simulation in the adaptive feedback formulation for the case 1
+where KP ¼ 5:0 and KD ¼ 1:0: The result shows that the tracking error and
+the estimated parameters do not converge as the choice of feedback gains do
+not guarantee the stability of FEL.
+prior information on the upper bound of the gradient of f is
+not available when f is unknown. Thus, when f is unknown,
+feedback gains should be carefully chosen based on an
+initial guess/estimate of the characteristics of the nonlinearities in the plant dynamics. Since b1 increases if K
+increases, choosing feedback gains sufﬁciently large would
+sufﬁce for ﬁrst and second order plant dynamics.3 As we
+gain information about f through learning, we may be able
+to ﬁne tune the feedback gains. The difference between the
+adaptive feedback formulation and the adaptive feedforward
+formulation becomes signiﬁcant when the plant dynamics is
+unstable, as the numerical simulations in Section 5 will
+demonstrate.
+5. Numerical simulations
+We illustrate the stability properties of FEL in numerical
+simulations. In Section 5.1, we ﬁrst present simulation
+results on the adaptive feedback formulation. Then,
+in Section 5.2, we consider the case of the adaptive
+Note that this strategy only applies to the ﬁrst and second order plant
+dynamics. For n . 2; simply choosing large feedback gains may not satisfy
+the Hurwitz condition for A:
+Fig. 6. FEL simulation in the adaptive feedback formulation for the case 2
+where KP ¼ 5:0 and KD ¼ 3:0: The result shows the convergence of
+tracking error to zero as well as the estimated parameters to
+u ¼ ½2k; 2dT ¼ ½22; 22T as the choice of feedback gains ensures the
+stability of FEL.
+1461
+uð0Þ ¼ 0: The dynamics and parameter update laws are
+integrated using the adaptive step-size Runge-Kutta algorithm in Matlab. In the following ﬁgures, we plot the actual
+trajectory x as a solid line and the desired trajectory xd as a
+dotted line in the top of each ﬁgure, the tracking error e in the
+middle of each ﬁgure, and the estimated parameters u at the
+bottom of each ﬁgure.
+Feedback error learning. Fig. 5 shows the simulation
+result for the case 1 in Table 1 with FEL using KP ¼ 5:0 and
+KD ¼ 1:0: This choice of feedback gains does not satisfy the
+condition KD . KP (25), which implies that the stability of
+FEL is not guaranteed. The simulation result illustrates that
+the tracking error and the parameter error do not converge.
+In contrast, Fig. 6 shows the result for the case 2 in Table 1
+where KP ¼ 5:0 and KD ¼ 3:0: This choice satisﬁes the
+condition (25) ensuring the stability of FEL. The result in
+Fig. 6 demonstrates the convergence of the tracking error to
+zero as well as the convergence of the parameters to the
+desired values u ¼ ½2k; 2dT ¼ ½22; 22T :
+Adaptive control. Consider the case 1 presented above
+where KP ¼ 5:0 and KD ¼ 1:0: This choice does not
+guarantee the stability for FEL since the condition (25)
+does not hold. However, in the tracking error-based adaptive
+control, we have the freedom to choose the parameters of
+the ﬁltered error (10) to guarantee stability independent
+of the feedback gains. Fig. 7 shows the result of the
+tracking error-based adaptation with the additional choice of
+L1 ¼ 0:1 and L2 ¼ 1:0: This choice satisﬁes the condition to
+guarantee stability, L1 2 L2 KD , 0 in (26). The simulation
+result illustrate that the tracking error converges to zero and
+the estimated parameter converges to the desired values
+u ¼ ½2k; 2dT ¼ ½22; 22T :
+Unstable plant dynamics learning with FEL. Consider the
+case of learning unstable plant dynamics where d ¼ k ¼ 22
+using FEL with the adaptive feedback controller. The
+feedback gains KP ¼ 5:0 and KD ¼ 3:0 are used (case 2 in
+Table 1), which satisfy the condition (25) to ensure stability.
+The simulation result shown in Fig. 8 suggests that stable
+learning and asymptotic tracking can be achieved in the
+adaptive feedback formulation as long as the condition (25) is
+satisﬁed even if the original plant dynamics are unstable.
+However, simulations of unstable plant dynamics learning
+with FEL in the adaptive feedforward formulation presented
+in Section 5.2 will illustrate that the same choice KP ¼ 5:0
+and KD ¼ 3:0 yields instability since this choice not satisfy
+the condition (51) for the case where d ¼ k ¼ 22:
+Fig. 7. Adaptive control simulation in the adaptive feedback formulation for
+the case 2 where KP ¼ 5:0 and KD ¼ 1:0: Although this choice of PD gains
+does not guarantee the stability for FEL, an additional choice of L1 ¼ 0:1
+and L2 ¼ 1:0 ensures stability. The result demonstrates the convergence of
+the tracking error to zero and that of the estimated parameters to
+Fig. 8. FEL simulation of learning unstable dynamics in the adaptive
+feedback formulation for the case 2 where KP ¼ 5:0 and KD ¼ 3:0: The
+result demonstrates the convergence of the tracking error to zero as well as
+the estimated parameters to u ¼ ½2k; 2dT ¼ ½2; 2T :
+1462
+Fig. 9. FEL simulation in the adaptive feedforward formulation for the case
+1 where KP ¼ 5:0 and KD ¼ 1:0: The result shows that the tracking error
+and the estimated parameters do not converge as the choice of feedback
+gains do not guarantee the stability of FEL.
+Fig. 10. FEL simulation in the adaptive feedforward formulation for the
+case 2 where KP ¼ 5:0 and KD ¼ 3:0: The result demonstrates the
+convergence of tracking error to zero as well as the estimated parameters
+to u ¼ ½2k; 2dT ¼ ½22; 22T :
+5.2. Adaptive feedforward formulation
+In the adaptive feedforward formulation, we use the
+desired state xd to compute the basis functions of
+the function approximator. The control law is formulated as
+u ¼ 2fðxd Þ þ xd 2 Ke ¼ 2fðxd Þ þ xd 2 ðKP e þ KD eÞ:
+ð56Þ
+We use the same parameters and desired trajectory which
+were used in the adaptive feedback case above.
+Feedback error learning. Fig. 9 shows the simulation
+result for the case 1 in Table 1 with FEL where KP ¼ 5:0
+and KD ¼ 1:0: This choice of feedback gains does not
+satisfy the SPR condition KD . KP (25), which implies that
+the stability of FEL is not guaranteed. The simulation result
+illustrates that the tracking error and the parameter error do
+not converge. In contrast, Fig. 10 shows the result for the
+case 2 in Table 1 where KP ¼ 5:0 and KD ¼ 3:0: This choice
+satisﬁes both the SPR condition (25) and the additional
+condition (51) for the adaptive feedforward formulation
+to ensure stability. The result in Fig. 10 demonstrates
+the convergence of the tracking error to zero as well as the
+convergence of the parameter to the desired values where
+using FEL with the adaptive feedforward controller. Fig. 11
+exhibits the case of instability in learning with KP ¼ 5:0 and
+KD ¼ 3:0 (case 2 in Table 1) since this choice does not satisfy
+condition (51). However, it can be stabilized with the choice
+of different feedback gains KP ¼ 20:0 and KD ¼ 10:0 which
+satisfy the condition (51) as well as the SPR condition as the
+simulation result in Fig. 12 demonstrates.
+6. Conclusions
+This paper presented a theoretical treatment of feedback
+error learning from a nonlinear adaptive control viewpoint
+for a class of nth order nonlinear systems. First, we
+considered the adaptive control and FEL algorithms in an
+adaptive feedback formulation. We showed that FEL can be
+viewed as a form of tracking error-based adaptive control. A
+Lyapunov analysis suggests that SPR is a sufﬁcient
+condition to guarantee asymptotic stability of adaptive
+control and FEL. Speciﬁcally, for a class of second order
+SISO systems, we derived that this condition simpliﬁes to
+KD . KP to guarantee asymptotic stability of FEL, where
+KP and KD are positive constants. A passivity-based stability
+analysis showed that SPR of the error dynamics is
+Fig. 11. FEL simulation of unstable dynamics learning in the adaptive
+feedforward formulation for the case 2 where KP ¼ 5:0 and KD ¼ 3:0: The
+simulation result shows that learning goes unstable learning as KP and KD
+do not satisfy the condition (51).
+a necessary and sufﬁcient condition for asymptotic hyperstability, i.e. the tracking error is bounded and asymptotically converges to zero. This result indicates that the
+condition in FEL, KD . KP ; is not only a sufﬁcient but also
+necessary condition for asymptotic convergence of the
+tracking error. To the best of our knowledge, this is the ﬁrst
+time that SPR of the tracking error dynamics is explicitly
+shown to be a necessary condition for the stability in a
+nonlinear adaptive control framework in terms of asymptotic hyperstability.
+Second, we considered the adaptive feedforward formulation of the adaptive control and FEL. This is closer to the
+original formulation of FEL which only employs desired
+states in the feedforward model, e.g. similar to a computed
+torque controller. It turns out that the adaptive feedforward
+formulation imposes a much tighter condition for the choice
+of the feedback gains associated with the property of the
+plant dynamics to guarantee the stability of learning. Thus,
+care must be taken in the choice of feedback gains for FEL,
+especially in the adaptive feedforward formulation. In
+Ushida and Kimura (2002), similar theoretical studies of
+FEL including time delay are presented for a speciﬁc class
+of plant dynamics such as a robot arm. One of the
+differences between our work and Ushida and Kimura’s
+(2002) is that we explicitly address the problem of how to
+select feedback gains to ensure stability of FEL. In contrast,
+1463
+Fig. 12. FEL simulation of unstable dynamics learning in the adaptive
+feedforward formulation with a large choice of feedback gains where KP ¼
+20:0 and KD ¼ 10:0: This choice satisﬁes the condition (51) in addition to
+the SPR condition to guarantee the stability. The simulation result
+demonstrates the convergence of tracking error to zero as well as the
+estimated parameters to u ¼ ½2k; 2dT ¼ ½2; 2T :
+the study by Ushida and Kimura (2002) only mentions that
+feedback gains need to be selected such that the tracking
+error dynamics with respect to the non-adaptive control
+system using all the correct parameters in the plant
+dynamics are stable. In practice, analysis of the tracking
+error dynamics by Ushida and Kimura (2002) is not likely to
+be straightforward since the tracking error dynamics are
+highly nonlinear and rather complicated even without time
+delay. In contrast, in this paper, the tracking error dynamics
+of the non-adaptive system are linear, and we provide more
+explicit condition for the choice of feedback gains to
+guarantee stability.
+Numerical results demonstrate the signiﬁcant difference
+in the stability property between the adaptive feedback
+formulation and the adaptive feedforward formulation,
+particularly when learning of unstable plant dynamics is
+considered. As a straightforward extension to more general
+plant dynamics with gðxÞ – 1 in (3) for the adaptive
+feedback formulation, the Lyapunov stability results remain
+the same by introducing the parameter projection method as
+discussed by Nakanishi et al. (2004). For the adaptive
+feedforward formulation with gðxÞ – 1; it can be shown that
+the upper bound of the control input u needs to be
+1464
+considered to guarantee stability. In our future work, we will
+address a generalization of our work to a class of nonlinear
+MIMO systems and an inverse dynamics representation.
+We believe that the theoretical results presented in this
+paper can be beneﬁcial for the growing number of studies on
+motor learning and control in humans and humanoid robots
+in interdisciplinary ﬁelds such as robotics and computational neuroscience. In robotics, the ideas presented in this
+paper can be applied to design theoretically principled
+algorithms for motor learning such as biomimetic oculomotor control in humanoid robots (Shibata & Schaal, 2001).
+In computational neuroscience, we hope that the mathematical developments in this paper could help gaining further
+insights into the theoretical principles of human motor
+learning such as impedance learning in unstable force ﬁelds
+(Burdet, Osu, Franklin, Milner, & Kawato, 2001).
+addition, Gðs 2 e Þ is positive real for some e . 0; then GðsÞ
+is said to be strictly positive real.
+Acknowledgements
+Theorem 1. (Tao & Ioannou, 1990). In (A3), let n ¼ 1 and
+m ¼ 1 or n ¼ 2 and m ¼ 1 and let ðA; B; CÞ be minimal,
+D ¼ 0 and B – 0; then HðsÞ is a strictly positive and real
+matrix if and only if the following conditions hold
+We are deeply grateful to Professor Suguru Arimoto at
+Ritsumeikan University for valuable discussions and clariﬁcations on the passivity-based stability analysis. We would
+like to thank Dr Mitsuo Kawato at ATR, Dr Kenji Doya at
+ATR and Okinawa Institute of Science and Technology, and
+Professor Chris Atkeson at Carnegie Mellon University, for
+helpful discussions and comments. This work was supported
+in part by National Science Foundation grants ECS-0325383,
+IIS-0312802, IIS-0082995, ECS-0326095, ANI-0224419, a
+NASA grant AC#98-516, an AFOSR grant on Intelligent
+Control, the ERATO Kawato Dynamic Brain Project funded
+by the Japan Science and Technology Agency, and the ATR
+Computational Neuroscience Laboratories.
+Appendix A. Lefschetz –Kalman – Yakubovich lemma
+and positive real transfer function
+Note that the scalar positive real transfer function GðsÞ is
+stable, minimum-phase and of relative degree not exceeding
+one (Kaufman, Bar-Kana & Sobel, 1993). In addition, any
+scalar transfer function of a relative degree higher than one
+is not positive real (Khalil, 1996).
+Consider the following linear time-invariant system
+x ¼ Ax þ Bu
+AT P þ PA ¼ 2qqT 2 mL
+pﬃﬃﬃﬃﬃ
+Pb 2 cT ¼ ð2dÞq
+ðA1Þ
+ðA2Þ
+exist if and only if hðsÞ ¼ cðsI 2 AÞ21 b þ d is a strictly
+positive real matrix and m is sufﬁciently small.
+Deﬁnition 1. Positive real transfer function (page 509 in
+Krstic, Kanellakopoulos, & Kokotovic, 1995). A rational
+transfer function GðsÞ is said to be positive real if GðsÞ is real
+for all real s; and Re{GðsÞ} $ 0 for all Re{s} $ 0: If, in
+ðA3Þ
+where x [ Rn ; u [ Rm and y [ Rm : HðsÞ ¼ CðsI 2 AÞ21
+B þ D is the transfer matrix of the system above.
+The following theorem states the necessary and sufﬁcient
+condition of strictly positive real system matrices for a
+special case of the dynamical system given by (A3) (Tao &
+Ioannou, 1990).
+1. All eigenvalues of A have negative real parts
+2. CB ¼ ðCBÞT . 0
+3. CAB þ ðCABÞT , 0
+Appendix B. Passivity, output-dissipativity, and
+asymptotic hyperstability
+Deﬁnition 2. Passivity (Arimoto & Naniwa, 2000). If for
+any initial state xð0Þ and any t . 0 the input –output pair
+{u; y} of the objective system satisﬁes
+Lemma 1. Lefschetz – Kalman – Yakubovich lemma (Tao
+& Ioannou, 1990). Given m . 0; a matrix A such that
+detðsI 2 AÞ has only zeros in the open left half plane, a real
+vector b such that ðA; bÞ is completely controllable, a real
+vector c; a scalar d; and an arbitrary real symmetric
+positive deﬁnite matrix L; then a real vector q and a real
+matrix P ¼ PT . 0 satisfying
+y ¼ Cx þ Du
+yT ðtÞuðtÞdt $ 2g2
+ðB1Þ
+with g2 . 0 dependent on only the initial state xð0Þ and
+vanishing at xð0Þ ¼ 0; then the pair {u; y}; concerning the
+system is said to satisfy passivity.
+Deﬁnition 3. Output-dissipativity (Arimoto & Naniwa,
+2000). If the input –output pair {u; y}; of the objective
+system satisﬁes
+yT ðtÞuðtÞdt $ 2g2 þ
+g 2 ðt
+kyðtÞk2 dt
+ðB2Þ
+with some positive constant g2 that does not depend on xð0Þ;
+and a constant g2 . 0 that depends on only the initial state
+xð0Þ and vanishes when xð0Þ ¼ 0; then the pair of the system
+satisﬁes output-dissipativity.
+Consider the negative feedback connection of the
+following linear dynamical system (B3) with a passive
+1465
+References
+Fig. B1. A negative feedback connection of a linear system and a passive
+(hyperstable) nonlinear system. (This diagram is a revised version of Fig.
+B2 in Arimoto (1996) through personal communication with Prof.
+Arimoto.)
+nonlinear system as depicted in Fig. B1:
+ðB3Þ
+where dimðuÞ ¼ dimðyÞ ¼ m: FðsÞ ¼ CðsI 2 AÞ B þ D is
+the transfer matrix of the system above.
+Deﬁnition 4. Hyperstablity and asymptotic hyperstablity
+(Arimoto, 1996). If the linear part can be expressed by (B3)
+and, for any output vðtÞ of the nonlinear part satisfying
+passivity such that
+vT ðtÞyðtÞdt $ 2g2
+ðB4Þ
+where g0 is a constant dependent only on the state of the
+nonlinear part at t ¼ t0 ; the solution to the ﬁrst equation
+(B3) satisﬁes
+kxðtÞk # K{kxðt0 Þk þ g0 }
+ðB5Þ
+with some constant K . 0; then the overall system of
+Fig. B1 is said to be hyperstable. Further, if the overall
+system is hyperstable and, for any bounded output vðtÞ
+satisfying (B4), xðtÞ ! 0 as t ! 1; then it is said to be
+Theorem 2. Theorem B4 in Arimoto (1996). Assume that
+{A; B}; and {C; A}; of the linear system (B3) are
+controllable and observable, respectively, and both B and
+C are of full rank. Then a necessary and sufﬁcient condition
+for the overall system of Fig. B1 to be hyperstable is that the
+transfer function FðsÞ of the linear part is positive real.
+Theorem 3. Theorem B5 in Arimoto (1996). Under that
+same assumptions on the linear part, a necessary and
+sufﬁcient condition for the overall system of Fig. B1 to be
+asymptotically hyperstable is that FðsÞ is strictly positive
+real.
+Proofs of the sufﬁciency of Theorems 2 and 3 are
+presented by Arimoto (1996). The necessity part was proven
+by Arimoto, but it is unpublished (S. Arimoto, personal
+communication, 2003).
+Arimoto, S. (1996). Control theory of non-linear mechanical systems—A
+passivity-based and circuit-theoretic approach. Oxford University
+Press.
+Arimoto, S., & Naniwa, T. (2000). Equivalence relations between
+learnability, output-dissipativity, and strict positive realness. International Journal of Control, 73(10), 824 –831.
+Arimoto, S., & Naniwa, T. (2001). Corrections and further comments to
+equivalence relations between learnability, output-dissipativity, and
+strict positive realness. International Journal of Control, 74(4),
+1481–1482.
+Burdet, E., Osu, R., Franklin, D., Milner, T., & Kawato, M. (2001). The
+central nervous system stabilizes unstable dynamics by learning
+optimal impedance. Nature, 414(6862), 446– 449.
+Choi, J. Y., & Farrell, J. A. (2000). Nonlinear adaptive control using
+networks of piecewise linear approximators. IEEE Transactions on
+Neural Networks, 11(2), 390 –401.
+Doya, K., Kimura, K., & Miyamura, A. (2001). Motor control: Neural
+models and systems theory. International Journal of Applied Mathematics and Computer Science, 11(1), 77–104.
+Gomi, H., & Kawato, M. (1992). A computational model of four regions of
+the cerebellum based on feedback-error-learning. Biological Cybernetics, 68, 95 –103.
+Gomi, H., & Kawato, M. (1993). Neural network control for a closedloop system using feedback-error-learning. Neural Networks, 6,
+933– 946.
+Kaufman, H., Bar-Kana, I., & Sobel, K. (1993). Direct adaptive control
+algorithm. Berlin: Springer.
+Kawato, M. (1987). A hierarchical neural-network model for control and
+learning of voluntary movement. Biological Cybernetics, 57, 169–185.
+Kawato, M. (1990). Feedback-error-learning neural network for supervised
+motor learning. In E. Eckmiller (Ed.), Advanced neural computers (pp.
+365– 372). Amsterdam: Elsevier.
+Khalil, H. K. (1996). Nonlinear systems (2nd ed.). Englewood Cliffs, NJ:
+Prentice Hall.
+Krstic, M., Kanellakopoulos, I., & Kokotovic, P. (1995). Nonlinear and
+adaptive control design. New York: Wiley.
+Miyamura, A., & Kimura, H. (2002). Stability of feedback error learning
+scheme. Systems and Control Letters, 45(4), 303–316.
+Nakanishi, J., Farrell, J. A., & Schaal, S (2002). A locally weighted learning
+composite adaptive controller with structure adaptation. In Proceedings
+of the IEEE/RSJ International Conference on Intelligent Robots and
+Systems (pp. 882 –889). Lausanne, Switzerland.
+Nakanishi, J., Farrell, J. A., & Schaal, S (2004). Learning composite
+adaptive control for a class of nonlinear systems. In Proceedings of the
+IEEE International Conference on Robotics and Automation (pp.
+2647–2652). New Orleans, LA, USA.
+Sanner, R., & Slotine, J.-J. E. (1992). Gaussian networks for direct adaptive
+control. IEEE Transactions on Neural Networks, 3(6), 837–863.
+Schaal, S., & Atkeson, C. G. (1998). Constructive incremental learning
+from only local information. Neural Computation, 10(8), 2047–2084.
+Shibata, T., & Schaal, S. (2001). Biomimetic gaze stabilization on
+feedback-error-learning with nonparametric regression networks.
+Neural Networks, 14(2), 201 –216.
+Slotine, J.-J. E., & Li, W. (1991). Applied nonlinear control. Englewood
+Cliffs, NJ: Prentice Hall.
+Tao, G., & Ioannou, P. A. (1990). Necessary and sufﬁcient conditions for
+strictly positive real matrices. IEE Proceedings G, Circuits, Devices
+and Systems, 137(5), 360–366.
+Ushida, S., & Kimura, H (2002). Adaptive control of nonlinear system with
+time delay based on the feedback error learning model. In SICE Annual
+Conference, Society of Instrument and Control Engineers, Japan (pp.
+2685–2690).

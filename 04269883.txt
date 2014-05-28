@@ -1,4 +1,10 @@
 [ _to('140521210549') ]
+Proceedings of the 2007 IEEE International Symposium on
+Computational Intelligence in Robotics and Automation
+Jacksonville, FL, USA, June 20-23, 2007
+Local Online Support Vector Regression for Learning Control
+Younggeun Choi, Shin-Young Cheong, and Nicolas Schweighofer
+
 learning control problems, which require very short sampling
 time. Thus, because of this limitation, only batch SVR has
 been used in robotics [4] [5] [6]. On-line learning however,
@@ -24,7 +30,8 @@ demonstrate the feasibility and merits of our approach both in
 simulation, in the control of a two-joint arm, and
 experimentally in the control of a one-link real robot.
 
-Abstract—Support vector regression (SVR) is a class of
+Abstract
+Support vector regression (SVR) is a class of
 machine learning technique that has been successfully applied
 to low-level learning control in robotics. Because of the large
 amount of computation required by SVR, however, most studies

@@ -12,11 +12,17 @@ figure
 i = D(:,2) == 4;
 t = D(i, 1);
 a_x = D(i, 3);
-%{
 figure
 title(sprintf('Timing problems \n(i.e  at t ~ 240[s])'))
-plot(t, a_x)
-%}
+plot(t, a_x, 'o')
+j = D(:,2) == 5;
+t = D(j, 1);
+a_y = D(j, 3);
+hold all
+plot(t, a_y, 'o')
+%%
+figure
+zoom xon
 %% Filtering, interpolation for constant sampling rate etc.
 [t, i] = unique(t);
 k = t(1) : 0.1 : t(end);
