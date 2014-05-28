@@ -8,19 +8,21 @@ let path='~/vimfiles/bundle'
 call vundle#rc(path)
 " let Vundle manage Vundle, required
 Bundle 'dahu/vim-fanfingtastic'
+Bundle 'inside/vim-grep-operator'
 Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'justinmk/vim-sneak'
 Bundle 'mtth/scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'svermeulen/vim-easyclip'
+Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'inside/vim-grep-operator'
 Plugin 'gmarik/vundle'
+
 
 filetype plugin indent on     " required
 
@@ -81,7 +83,6 @@ iab opn \operatorname{ }<Left><Left>
 iab cal \mathcal{}<Left><Left> 
 ab  grp call GitGrep('-e ')<Left><Left>
 " leader maps
-noremap <silent> <F4> :let @+=expand("%:p:r")<CR>
 nmap 	 <silent> <leader>gf :split <cfile><cr>
 nnoremap <silent> <Leader>f :call Filter(input("Search for: "))<CR>
 nnoremap <silent> <Leader>F :call Filter(@/)<CR>
@@ -90,6 +91,11 @@ nmap <leader>g <Plug>GrepOperatorOnCurrentDirectory
 vmap <leader>g <Plug>GrepOperatorOnCurrentDirectory
 nmap <leader><leader>g <Plug>GrepOperatorWithFilenamePrompt
 vmap <leader><leader>g <Plug>GrepOperatorWithFilenamePrompt
+
+" Other mappings
+noremap <silent> <F4> :let @+=expand("%:p:r")<CR>
+nnoremap <Space> q:?
+
 " sneak motion
 nmap <Tab> <Plug>Sneak_s
 nmap <BS>  <Plug>Sneak_S
@@ -104,7 +110,6 @@ nmap <silent> <Down> :wincmd j<CR>
 nmap <silent> <Left> :wincmd h<CR>
 nmap <silent> <Right> :wincmd l<CR>
 
-
 " commands to move lines
 inoremap <A-DOWN> <Esc>:m .+1<CR>==gi
 nnoremap <A-DOWN> :m .+1<CR>==
@@ -112,9 +117,6 @@ vnoremap <A-DOWN> :m '>+1<CR>gv=gv
 inoremap <A-UP> <Esc>:m .-2<CR>==gi
 nnoremap <A-UP> :m .-2<CR>==
 vnoremap <A-UP> :m '<-2<CR>gv=gv
-
-" some additional mappings
-nnoremap <Space> q:?
 
 " tabs and indent
 set smartindent

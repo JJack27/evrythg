@@ -107,5 +107,7 @@ oicel/
 
 # SVR
 OnlineSVRMatlab2006bCode/Iterations.txt
+
 # notebooks
 *.ipynb
+*.html
