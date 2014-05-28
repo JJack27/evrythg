@@ -6,7 +6,7 @@ Copyright by
 M. Kleinsteuber, M. Seibert
 Technische Universit¨t M¨nchen
 May 20, 2014
-M. Kleinsteuber, M. Seibert
+M. Kleinsteuber, M. Seibert
 Lecture Notes - Nonconvex Optimization
 1 Introduction
 In order to illustrate the necessity of understanding nonconvex optimization algorithms,
@@ -281,6 +281,7 @@ linear, T is injective and surjective.
 The linearity of T is obvious. To show the injectivity recall from linear algebra that
 a function is injective if and only if its kernel is 0. The kernel of T is defined as
 ker(T ) = {y ∈ H : x, y ∀x ∈ H}.
+[ \todo{Isn't there a 0 missing?} ]
 Assume that ϕy (x) = 0 for all x ∈ H. This also implies that ϕy (y) = 0 and by definition
 of the scalar product this implies y = 0. Thus, the mapping T is injective.
 For finite dimensional Hilbert spaces the mapping is surjective if the dimensions of H and
@@ -569,17 +570,16 @@ Taking the derivative on both sides of this equation yields
 Solving this equation provides the wanted directional derivative
 (D inv(X) · V) = −X−1 VX−1 .
 (81)
-Alternative: (Using the Neumann series representation) For a matrix T ∈ Rn×n with
-the property that all its eigenvalues have an absolute value smaller than one, the equation
-Tk = (In − T)−1
-(82)
+
+Alternative: (Using the Neumann series representation) For a matrix T ∈ Rn×n with the property that all its eigenvalues have an absolute value smaller than one, the equation
+Tk = (In − T)−1 (82)
 holds. This is the so-called the Neumann series which is a generalization of the geometric
-series ( ∞ q k = 1−q for |q| < 1). Next, note that (X + tV)−1 can be rewritten as
-(X + tV)−1 = X (In + tX−1 · V)
-= In − (−tX−1 · V)
-−1
+series ( ∞ q k = 1−q for |q| < 1).
+
+Next, note that (X + tV)−1 can be rewritten as
+[ $(A B)^{-1} = B^{-1} A{-1}$ Inverse of a matrix product ]
 (83)
-X−1 .
+
 Therefore, for all t such that the absolute values of the eigenvalues of −tX−1 V are
 smaller than one we can write (X + tV)−1 as the a Neumann series of the form
 (X + tV)−1 =

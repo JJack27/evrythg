@@ -5300,8 +5300,11 @@ x cos(xz)
 for (x, y, z) ∈ R3 .
 The derivative of a real-valued function of several real variables has an important geometric interpretation, which we prepare for next.
 158
-Let E be a normed vector space on K. We call E := L(E, K) the (continuous)
-dual space of E. The elements of E are the continuous linear forms on E.
+
+[ _to('140526163426') ]
+The Riesz representation theorem
+Let E be a normed vector space on K. We call E := L(E, K) the (continuous) dual space of E. The elements of E are the continuous linear forms on E.
+
 2.13 Remarks (a) By convention, we give E the operator norm on L(E, K), that
 f := sup |f (x)| for f ∈ E .
 Then Corollary 1.2 guarantees that E := (E , · ) is a Banach space. We also
@@ -5330,10 +5333,9 @@ determines a unique y ∈ E such that f = fy .
 4 From Theorem 1.6 we know that every linear form on a finite-dimensional Hilbert space
 is continuous. Moreover, Corollary 1.5 guarantees that every finite-dimensional inner product
 space is a Hilbert space.
-2.14 Theorem (Riesz representation theorem) Suppose E, (·|·) is a finitedimensional Hilbert space. Then, for every f ∈ E , there is a unique y ∈ E such
-that f (x) = (x|y) for all x ∈ E. Therefore
-T: E→E ,
-y → (·|y)
+
+[ _to('140526163521') ]
+2.14 Theorem (Riesz representation theorem) Suppose E, (·|·) is a finitedimensional Hilbert space. Then, for every f ∈ E , there is a unique y ∈ E such that f (x) = (x|y) for all x ∈ E. Therefore T: E→E , y → (·|y)
 is a bijective conjugate linear isometry.
 Proof From Remark 2.13(c), we know that T : E → E is a conjugate linear
 isometry. In particular, T is injective. Letting n := dim(E), it follows from
@@ -5342,6 +5344,7 @@ E = L(E, K) ∼ K1×n ∼ Kn ,
 and thus dim(E ) = dim(E). The rank formula of linear algebra, namely,
 dim ker(T ) + dim im(T ) = dim E
 (see, for example, [Gab96, ????? D.5.4]), now implies the surjectivity of T .
+
 2.15 Remarks
 (a) With the notation of Theorem 2.14, we set
 [· | ·] : E × E → K ,
