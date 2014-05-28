@@ -145,6 +145,7 @@ fX1 ,...,Xn (ξ1 , . . . , ξn ) dξn . . . dξ1
 ∂ n FX (x1 , . . . , xn )
 (A.29)
 (A.30)
+
 Marginal Distribution
 Definition. Given a random variable [X , Y ], the Marginal Distribution of X can be obtained by
 FX (x) = lim FX ,Y (x, y) = FX ,Y (x, ∞).
@@ -165,10 +166,13 @@ assuming the existence of the PDFs and fY (y) > 0.
 fX ,Y (ξ, y)
 fY (y)
 (A.33)
-Important Relations
-Marginalization
+
+[ _to('140528140450') ]
+Important Relations [ Operations on probality densities ]
+Marginalization [ of a joint probability distribution ]
 Theorem of total probability
-Normalization
+Normalization [ marginalization of a conditional probality distribution ]
+
 fX ,Y (ξ, y) dξ = 1.
 (A.35)
 Mean and Covariance

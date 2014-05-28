@@ -689,3 +689,5 @@ Signal Processing Series, 1993.
 Prentice Hall, 1991.
  F. A. Dietrich and W. Utschick. Pilot assisted channel estimation based on second order statistics. IEEE
 Transactions on Signal Processing, 53(3):1178–1193, 2005.
+
+_gt('SSP14_LectureNotes_Part6.txt')

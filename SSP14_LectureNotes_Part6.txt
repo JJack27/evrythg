@@ -1,0 +1,715 @@
+Part VI Estimation of Random Sequences
+9. Random Sequences
+In the following, we study Sequences of Random Variables Xn : Ω → Xn , n ∈ N, with a probability
+space (Ω, F, P) and a measurement space (State Space) X ⊇ Xn , which are uniquely defined by the
+distribution functions
+FXi1 ,...,Xin (xi1 , . . . , xin ) = P (Xi1 ≤ xi1 , . . . , Xin ≤ xin ) ,
+(9.1)
+for all i1 , . . . , in ∈ N and for all n ∈ N.
+Given the existence of probability density functions of the corresponding distribution functions, the random
+sequences can be defined alternatively by means of
+fXi1 ,...,Xin (xi1 , . . . , xin ),
+(9.2)
+Note. The definitions of the mean, variance, auto-correlation, and cross-correlation function of random
+sequences directly follow from the definitions of single random variables.
+9.1
+Conditional Stochastical Independence
+For the subsequent definition of Markov Sequences we introduce the Conditional Stochastical
+Independence of random variables.
+Definition. Given Y , the random variables X and Z are conditionally stochastically independent, if
+fZ |Y ,X (z | y, x) = fZ |Y (z | y),
+(9.3)
+and fY ,X (y, x) > 0.
+Alternatively, following the definition of stochastical independence, the Conditional Stochastical
+Independence of Z and X given Y equals to
+fZ ,X |Y (z, x | y) = fZ |Y (z | y)fX |Y (x | y),
+(9.4)
+respectively. As a short notation for conditional stochastical independence, we use
+(9.5)
+9.2
+Markov Sequences
+Definition. A Markov Sequence (Process) is a random sequence Xn : Ω → Xn , n ∈ N, with a
+probability space (Ω, F, P) and a state space X ⊇ Xn , where for any Ascending Sequence of indices
+ni ∈ N and k > 2 the following Conditional Stochastical Independence holds:
+(Xn1 , . . . , Xnk−2 ) → Xnk−1 → Xnk ,
+(9.6)
+which equals to
+fXnk |Xnk−1 ,...,Xn1 (xnk |xnk−1 , . . . , xn1 ) = fXnk |Xnk−1 (xnk |xnk−1 ),
+and fXnk−1 ,...,Xn1 (xnk−1 , . . . , xn1 ) > 0.
+Definition. The conditional fXnk |Xnk−1 (xnk |xnk−1 ) defines the State-Transition Density.
+(9.7)
+As a consequence of this Markov Property we obtain for the joint PDF of the first n elements
+fX1 ,...,Xn (x1 , . . . , xn ) = (9.8)
+
+where
+- the first line follows from the Multiplication Rule
+P (A ∩ B ∩ C) = P (A|B ∩ C) P (B|C) P (C).
+- and the second line follows from the Stochastical Independence between Xn and Xn−2 given an event related to Xn−1 .
+Fig. 9.1: The joint PDF fX1 ,...,Xn (x1 , . . . , xn ) obviously results from a chain State-Transition Densities starting with the PDF of the random variable X1 .
+9.3
+Chapman-Kolmogorov Equation
+Given a Markov sequence Xn : Ω → Xn and fXn (xn ) > 0 for all n ∈ N, the (m + )-step state-transition
+density starting from Xn depends on the m-step (from Xn ) and -step (from Xn+m ) state-transition density
+according to the Chapman-Kolmogorov Equation:
+|Xn (xn+m+
+|Xn+m (xn+m+
+|xn+m ) fXn+m |Xn (xn+m |xn ) dxn+m .
+(9.9)
+The Chapman-Kolmogorov Equations (9.9) can be derived
+- by marginalization of fXn+m+ ,Xn+m |Xn (xn+m+ , xn+m |xn )
+- and further taking into account the Markov condition of Xn , i.e.
+|Xn+m ,Xn (xn+m+
+(9.10)
+Example.
+We consider the 2-step state-transition density based on two 1-step state-transition densities:
+fXn+2 |Xn (xn+2 |xn ) =
+fXn+2 ,Xn+1 |Xn (xn+2 , ξ|xn ) dξ
+Marginalization
+fXn+2 |Xn+1 ,Xn (xn+2 |ξ, xn )fXn+1 |Xn (ξ|xn ) dξ
+Conditional PDF × Prior PDF
+fXn+2 |Xn+1 (xn+2 |ξ) fXn+1 |Xn (ξ|xn ) dξ.
+fXn+1 |Xn (xn+1 |xn )
+Markov Property
+xn+1 ∈ X
+fXn+2 |Xn+1 (xn+2 |xn+1 )
+xn+2
+Fig. 9.2: State-Transitions from {Xn = xn } to {Xn+2 = xn+2 }.
+The General Case.
+fXm |Xm−1 (xm |xm−1 )
+fX2 |X1 (x2 |x1 )
+fXm+1 |Xm (xm+1 |xm )
+fX3 |X2 (x3 |x2 )
+fXm+1 |X1 (xm+1 |x1 )
+Fig. 9.3: Illustration of (9.9) (m-step state-transition density) for n = 1.
+xm+1
+9.4
+Estimation of Markov Sequences
+The Chapman-Kolmogorov Equation is the key element of
+A recursive computation of the conditional PDFs of a Markov sequence Xn
+conditioned on observations of Y(n) thereof, this is Yn and Yn−1 , . . . , Y1 .a
+the following, the short notation Y(n) will be used instead of Yn , . . . , Y1 . The same holds
+accordingly for Yn−1 , . . . , Y1 , etc.
+a In
+The recursive updates can be obtained in two steps:
+a) Chapmann-Kolmogorov Equation and the Markov Condition,
+fXn |Y(n−1) (xn |y (n−1) ) =
+fXn |Xn−1 ,Y(n−1) (xn |xn−1 , y (n−1) ) fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1
+fXn |Xn−1 (xn |xn−1 ) fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1 .
+(9.11)
+b) Bayes Rule
+\todo{So is $Y_n$ conditionaly independent of $Y_{(n-1)}$ given $X_n$?}
+(9.12)
+Both steps together are equivalent (except some scaling constant) to2
+fXn |Y(n) (xn |y (n) ) ∝
+fYn |Xn (y n |xn )
+(9.13)
+denominator of Eq. (9.12) does not depend on the random variable Xn to be estimated and is implicitely given as the normalization
+constant fYn |Y(n−1) (y n |y (n−1) ) = X fYn |Xn (y n |xn ) fXn |Y(n−1) (xn |y (n−1) ) dxn .
+2 The
+Note.
+In essence there are two conditional PDFs and one state-transition PDF which form the basis for the
+recursive computation of the conditional PDFs of the state variables:
+desired conditional PDF in the nth step
+fXn |Y(n) (xn |y (n) )
+likelihood of the new observation
+fXn |Xn−1 (xn |xn−1 )
+state-transition PDF
+fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1 .
+conditional PDF from the (n−1)th-step before
+The principal idea of a variety of estimation methods for Tracking
+Of State Variables is to exploit the recursive computation of the
+conditional PDFs for the recursive estimation of the characteristical
+parameters of the distributions, cf. Chapter 10 and 12.
+(9.14)
+fXn−1 |Y(n−1) (xn−1 |y (n−1) )
+← fXn |Xn−1 (xn |xn−1 )
+← fYn |Xn (y n |xn )
+fXn |Y(n−1) (xn |y (n−1) )
+Fig. 9.4: The recursive structure of the computation of the conditional PDFs.
+
+9.5 Gauß-Markov Sequences
+Definition. Gauß-Markov Sequences are Gaussian sequences which fulfill the Markov condition, i.  e. any essemble of random variables of the sequence is jointly Gaussian distributed and the state-transition probability density functions3 are fully described by conditional means and covariances and the observation of the last recent random variable of the sequence. Since for jointly Gaussian variables the conditional mean of a random variable is a linear function of the others, µn|n−1 = E [Xn |Xn−1 ] = ρn xn−1 , we obtain
+(9.15)
+(9.16)
+(9.17)
+(9.18)
+[ _cf('140528142647') ]
+Alternatively,4 the Gauß-Markov Sequence Xn−2 → Xn−1 → Xn is fully described by
+(9.19)
+with ρn = cXn ,Xn−1 σXn−1 and wn ∼ N(0, σXn |Xn−1 ).
+W.l.o.g. the further considerations are presented for the case of continuous random variables.
+W.l.o.g. we assume zero mean random variables, i.e. E [Xn ] = 0, ∀n ∈ N ∪ {0}.
+
+10. Kalman Filter
+In the following, we study the problem of estimating the stochastic path of a Gauß-Markov sequence Xn
+based on linear observations Yn , Yn−1 , . . . of the random state variables,1
+Xn = Gn Xn−1 + Vn ,
+(10.1)
+(10.2)
+with
+Vn ∼ N(0, C Vn ),
+Wn ∼ N(0, C Wn ).
+In the context of Kalman Filtering we call the random variables Vn and Wn the Process Noise and
+the Measurement Noise. The random variables Wm , Wn , and Vk , V are stochastically independent
+for different indices m, n and k, , and Vm , Wn are stochastically independent for any m and n.
+Note. Eqs. (10.1)-(10.2) are a direct consequence of Eq. (9.19).
+1 For
+the sake of generality, we consider the case of a sequence of random vectors.
+Since a Gauß-Markov sequence is Gaussian, the MMSE optimal estimate is denoted by the Conditional
+Mean
+E Xn |Y(n) =
+xn fXn |Y(n) (xn |y (n) ) dxn ,
+(10.3)
+which can by derived from the Conditional PDF
+fXn |Y(n) (xn |y (n) ),
+(10.4)
+with again is uniquely characterized by first and second order moments
+µXn |Y(n) = E Xn |Y(n) ,
+C Xn |Y(n) = E
+Note.
+C Xn |Y(n) = E Xn − xn|n Xn − xn|n
+ables are Gaussian distributed.
+| Y(n) = E
+The same holds for C Xn|n−1 .
+(10.5)
+Y(n) .
+(10.6)
+, since all random vari-
+Short Notations.
+- In the following xn|n and xn|n−1 are used as short notations for µXn |Y(n) and µXn |Y(n−1) :
+xn|n = E Xn |Y(n) ,
+xn|n−1 = E Xn |Y(n−1) .
+- The same holds for C Xn|n and C Xn|n−1 which are short notations for
+C Xn|n = E
+C Xn|n−1 = E
+Xn − xn|n−1
+| Y(n) ,
+| Y(n−1) .
+10.1
+Recursive Computation of Conditional Means and Covariances
+a) Exploiting the Chapman-Kolmogorov Equation (9.11) and the Linear State Space Model
+in Eq. (10.1) we obtain
+µXn |Y(n−1) =
+xn fXn |Y(n−1) (xn |y (n−1) ) dxn
+xn fXn |Xn−1 (xn |xn−1 ) fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn dxn−1
+xn fXn |Xn−1 (xn |xn−1 ) dxn fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1
+cond. expectation of xn (refer to 10.1)
+xn−1 fXn−1 |Y(n−1) (xn−1 |y (n−1) ) dxn−1
+cond. expectation of xn−1
+= Gn µXn−1 |Y(n−1) ,
+and thus the State Prediction is given by
+xn|n−1 = Gn xn−1|n−1 .
+(10.7)
+The respective Conditional State Covariance Matrix of Xn is obtained as
+C Xn |Y(n−1) = E
+Gn (Xn−1 − xn−1|n−1 ) + Vn
+Gn (Xn−1 − xn−1|n−1 )
+Y(n−1)
+Y(n−1) +
+E (Vn ) (Vn )T Y(n−1) ,
+since Xn−1 − xn−1|n−1 and Vn are obviously stochastically independent.
+We consequently obtain
+C Xn |Y(n−1) = Gn C Xn−1 |Y(n−1) GT + C Vn ,
+C Xn|n−1 = Gn C Xn−1|n−1 GT + C Vn ,
+respectively.
+(10.8)
+b) Since both sides of the Bayes Rule in (9.12) are Gaussian PDFs, a comparison of the exponents,2
+log fXn |Y(n) (xn |y (n) ) ∝ log fYn |Xn (y n |xn ) + log fXn |Y(n−1) (xn |y (n−1) ) ,
+and taking into account the Linear Observation Model in Eq. (10.2) results in
+xn|n = xn|n−1 + K n y n − H n xn|n−1 ,
+C Xn|n = C Xn|n−1 − K n H n C Xn|n−1 ,
+(10.9)
+(10.10)
+with the Kalman Gain Matrix
+K n = C Xn|n−1 H T H n C Xn|n−1 H T + C Wn
+2 Note,
+that we are not using (9.13).
+−1
+(10.11)
+From a comparison of the exponents of both sides of (9.12) we obtain
+(xn − µXn |Y(n) )T C −1|Y(n) (xn − µXn |Y(n) ) ∝
+(y n − µYn |Xn )T C −1|Xn (y n − µYn |Xn ) + (xn − µXn |Y(n−1) )T C −1|Y(n−1) (xn − µXn |Y(n−1) ) =
+(y n −
+refer to 10.2
+H n xn )T C −1|Xn (y n
+− H n xn ) + (xn − µXn |Y(n−1) )T C −1|Y(n−1) (xn − µXn |Y(n−1) ),
+which equals
+xT C −1|Y(n) xn − 2xT C −1|Y(n) µXn |Y(n) + · · · ∝
+xT C −1|Y(n−1) + H T C −1|Xn H n xn − 2xT H T C −1|Xn y n + C −1|Y(n−1) µXn |Y(n−1) + . . . ,
+and by comparing the respective terms we obtain
+C Xn |Y(n) =
+C −1|Y(n−1)
+H T C −1|Xn H n
+µXn |Y(n) = C Xn |Y(n) H T C −1|Xn y n + C −1|Y(n−1) µXn |Y(n−1) .
+(10.12)
+(10.13)
+Finally, the Matrix Inversion Lemma3 yields
+C Xn |Y(n) = C −1|Y(n−1) + H T C −1|Xn H n
+(10.14)
+C −1 |Y
+(n−1)
+(∗)
+−1
+= C Xn |Y(n−1) − C Xn |Y(n−1) H T C Yn |Xn +H n C Xn |Y(n−1) H T 
+H n C Xn |Y(n−1) ,
+Kalman Gain: K n
+µXn |Y(n) =
+H T C −1|Xn y n + C −1|Y(n−1) µXn |Y(n−1)
+= C Xn |Y(n−1) − K n H n C Xn |Y(n−1)
+= C Xn |Y(n−1) H T C −1|Xn y n + µXn |Y(n−1) − K n H n C Xn |Y(n−1) H T C −1|Xn y n − K n H n µXn |Y(n−1)
+= K n C Yn |Y(n−1) C −1|Xn y n + µXn |Y(n−1) − K n H n C Xn |Y(n−1) H T C −1|Xn y n − K n H n µXn |Y(n−1)
+= µXn |Y(n−1) + K n C Yn |Y(n−1) − H n C Xn |Y(n−1) H T C −1|Xn y n − K n H n µXn |Y(n−1)
+C Yn |Xn (refer to (∗))
+= µXn |Y(n−1) + K n y n − H n µXn |Y(n−1) .
+3 (A
++ BCD)−1 = A−1 − A−1 B C −1 + DA−1 B
+(10.15)
+DA−1 .
+xn−1|n−1
+C Xn−1|n−1
+xn|n−1 = Gn xn−1|n−1
+C Xn|n−1 = Gn C Xn−1|n−1 GT + C Vn
+C Yn|n−1 = H n C Xn|n−1 H n + C Wn
+K n = C Xn|n−1 H T C −1
+n Yn|n−1
+← observation y n drawn from Yn
+xn|n = xn|n−1 + K n y n − H n xn|n−1
+C Xn|n = C Xn|n−1 − K n H n C Xn|n−1
+Fig. 10.1: The recursive State Tracking procedure. In many applications the system parameter matrices
+Gn , H n , C Vn , C Wn are assumed to be constant and we instead consider G, H and C V , C W .
+10.2
+Discussion
+Innovation Sequence.
+The sequence of random variables ∆Yn = Yn − Yn|n−1 in Eq. (10.9) forms an i.i.d. random sequence
+which can be constructed by a bijective linear transform of the random observation sequence Yn ,
+∆Yn = Yn − Yn|n−1
+= Yn − E Yn |Y(n−1)
+= Yn − E H n Xn + Wn |Y(n−1)
+= Yn − H n E Xn |Y(n−1)
+linear in Y(n−1)
+= Yn − H n xn|n−1 ,
+(10.16)
+and thus fulfills the requirements of an Innovation Sequence according to the observations Yn .
+An Innovation Sequence consists of i.i.d. elements and is a bijective linear function of the observations.
+Predictor-Corrector-Step.
+Since the innovation variable is stochastically independent of previous observations of Y(n−1) , Eq. (10.9)
+can be interpreted as the sum of two stochastically independent contributions for the state estimate xn|n .
+Another interpretation is to consider the state estimate xn|n as the accumulative contribution of a Preˆ
+dictor Step and a Corrector Step:
+correction step: E[Xn |∆Yn ]
+xn|n−1
+estimation step: E[Xn |Y(n−1) ]
+K n y n − H n xn|n−1 .
+innovation: ∆Yn
+(10.17)
+Kalman Gain Matrix.
+The Kalman Gain Matrix K n in Eq. (10.9) represents the Linear Predictor for the state variable
+Xn based on the single innovation variable Yn − H n xn|n−1 .
+K n = E Xn ∆Yn E ∆Yn ∆Yn
+= E Xn (Yn − H n xn|n−1 )T E (Yn − H n xn|n−1 )(Yn − H n xn|n−1 )T
+= E Xn (H n Xn − H n xn|n−1 )T E (Yn − H n xn|n−1 )(Yn − H n xn|n−1 )T
+= E Xn (Xn − xn|n−1 )T H T C −1
+T −1
+= E (Xn − xn|n−1 )(Xn − xn|n−1 )T H T C −1
+n Yn|n−1 = C Xn|n−1 H n C Yn|n−1 .
+(10.18)
+The single steps of the derivation:
+from the 1st to 2nd line by the definition of the innovation sequence,
+from the 2nd to 3rd line by the stochastic independence between Xn and Wn ,
+from the 3rd to 4th line by the definition of the conditional covariance of the observation variable,
+and from the 4th to 5th line by the orthogonality principle and the definition of the conditional covariance
+of the state variable.
+Innovation Covariance Matrix.
+The Innovation Covariance Matrix is derived according to the definition of covariance matrices as
+C ∆Yn|n−1 = E
+Yn − H n xn|n−1
+H n Xn + Wn − H n xn|n−1
+H n (Xn − xn|n−1 ) + Wn
+= H n C Xn|n−1 H T + C Wn .
+| Y(n−1)
+(10.19)
+Note. C Yn|n−1 = C ∆Yn|n−1 , since the random variable ∆Yn|n−1 is zero mean:
+E ∆Yn | Y(n−1) = E Yn − Yn|n−1 | Y(n−1) = E Yn | Y(n−1) − Yn|n−1 = 0.
+Predicted State Covariance Matrix.
+The covariance matrix of the predicted state Xn|n−1 or the Prediction Error Covariance Matrix
+can be derived by
+Gn Xn−1 + Vn − Gn xn−1|n−1
+= Gn C Xn−1|n−1 GT + C Vn .
+(10.20)
+Filtered State Covariance Matrix.
+The resulting Filtered State Covariance Matrix is analogously given by
+Xn − xn|n−1 − K n ∆Yn
+Y(n)
+= C Xn|n−1 + K n C Yn|n−1 K T − 2K n E ∆Yn (Xn − xn|n−1 )T
+= C Xn|n−1 + K n C Yn|n−1 K T − 2K n H n E (Xn − xn|n−1 )(Xn − xn|n−1 )T
+= C Xn|n−1 + K n C Yn|n−1 K T − 2K n H n C Xn|n−1
+= C Xn|n−1 + K n C Yn|n−1 C −1 H n C Xn|n−1 − 2K n H n C Xn|n−1
+Yn|n−1
+= C Xn|n−1 − K n H n C Xn|n−1 .
+(10.21)
+11. Two Examples
+11.1
+Unknown Parameter Estimation
+The Kalman Filter approach can be applied for the recursive estimation of a deterministic unknown parameter x, by viewing the parameter as a non-changing state variable Xn = Xn−1 , where only the state
+observations Yn = H n Xn + Wn appear as a random sequence.
+For the sake of simplicity, we further assume univariate random variables, which leads to a state space
+formulation as
+Xn = Xn−1
+(11.1)
+i.i.d. Wn ∼ N(0, σWn ).
+(11.2)
+The respective update rules of the Kalman Filter are
+xn|n−1 = xn−1|n−1
+(11.3)
+σXn|n−1 = σXn−1|n−1
+(11.4)
+σYn|n−1 = h2 σXn|n−1 + σWn
+(11.5)
+σXn|n−1
+σYn|n−1
+xn|n = xn|n−1 + kn (yn − hn xn|n−1 )
+σXn|n = σXn|n−1 − kn hn σXn|n−1 .
+which can be derived from the general recursive state tracking procedure of the Kalman Filter.
+For the numerical analysis, we assume
+- x = 1 for the parameter to be estimated,
+- the initial conditions x1 = 0 and σX1|1 = 1,
+- and the parameters σWn ≡ 0.01, hn = sin (πn/100) for all n = 1, . . . , 100.
+(11.6)
+(11.7)
+(11.8)
+0.0 1
+10+0
+10−2
+Fig. 11.1: Stochastic paths xn|n of the estimation of a constant parameter x = 1 for 10 uniformly chosen
+noise sequences Wn and Yn = sin (πn/100) + Wn , ∀n = 1, . . . , 100, based on the Kalman Filter.
+11.2
+Tracking Example
+The discretization of a stochastically excited dynamical system1
+i.i.d. Vn ∼ N(0, σVn ),
+(11.9)
+with an equidistant sampling intervall of T , yields the discrete linear system2
+Xn = Xn−1 + T Xn−1
+Xn = Xn−1 + T Vn .
+(11.10)
+(11.11)
+When applying a Kalman Filter for tracking the state space variable Xn , based on observations
+i.i.d. Wn ∼ N(0, σWn ),
+(11.12)
+and taking into account Eqs. (10.1)-(10.2), we obtain
+Xn = Gn Xn−1 +
+(11.13)
+(11.14)
+with Xn = [Xn Xn ]T and
+1 Eq.
+(11.9) denotes a Stochastical Differential Equation (SDE).
+discretization is based on Xn − Xn−1 = T Xn−1 and Xn − Xn−1 = T Xn−1 .
+(11.15)
+150
+−5
+−10
+Fig. 11.2: Estimation of the trajetory xn|n , n = 1, . . . , 50, of one single stochastic path from the SDE
+Xn = Xn−1 + Xn−1 and Xn = Xn−1 + Vn−1 for the initial conditions x0 = 100 and x0 = 0. The Kalman
+Filter is based on observations Yn = Xn + Wn and initial conditions x0|0 = 0 and C 0|0 = I. The parameter
+T = 1.
+12. Particle Filter
+The Kalman Filter is a powerful linear approach for estimating the states of a random sequence,
+otherwise it only shows optimum performance for Gauss-Markov Sequences, this is if there is a linear
+relation between states of the sequence and if there is an additional Gaussian distortion at most.
+For the general state-space model,
+Xn = gn (Xn−1 , Vn ),
+Yn = hn (Xn , Wn ),
+(12.1)
+(12.2)
+where gn and hn are nonlinear functions and Vn and Wn are non-Gaussian distributed random variables,
+alternative techniques beyond the Kalman Filter are required.
+The general approach is to substitute the linear Kalman Filter by Suboptimum Nonlinear Filters.
+The three most well known nonlinear alternatives to the Kalman Filter are
+- the Extended Kalman Filter,
+- the Unscented Kalman Filter,
+- and the Particle Filter.
+a) The Extended Kalman Filter is typically applied to state-space models like
+Xn = gn (Xn−1 ) + Vn ,
+Yn = hn (Xn ) + Wn ,
+(12.3)
+(12.4)
+where Vn and Wn are or are assumed to be Gaussian distributed random variables.
+The recursive estimation of the state-space variables in a standard Kalman Filter type fashion
+is based on a linear approximation of the nonlinear functions gn−1 and hn in (12.3) and (12.4). The
+approximation must be performed in each step of the recursive estimation process. Obviously, the
+Extended Kalman Filter in general cannot achieve optimal performance.
+b) In contrast the so-called Unscented Kalman Filter approximates the desired conditional PDF
+fXn |Y(n) (xn |y (n) ) by a Gaussian PDF of the original recursive computation process.
+The recursive estimation process again resembles the standard Kalman Filter process, but replacing
+the estimation of the conditional state covariance matrix in each step by a weighted sample covariance
+matrix of the non-linear transformed samples of the state-space variables.
+c) Whereas the Extended Kalman Filter and the Unscented Kalman Filter strongly depend
+on the validity of the Gaussian assumption, the Particle Filter approach completely breaks with
+these requirements. It is purely based on the core of all estimation approaches, this is the recursive
+computation of the posterior conditional PDF:
+(12.5)
+It remains the task to compute the integral of the recursive update of the posterior conditional PDF!
+12.1
+Monte Carlo Integration
+Since the integration of (9.13) is in general impossible, the respective integral is solved via Monte Carlo
+Integration. Monte Carlo Integration means to replace an integral by its sample mean:
+g(ξ)fX (ξ) dξ
+IN =
+g(xi ),
+(12.6)
+where the samples xi , i = 1, . . . , N , are drawn according to the PDF fX (x), i.e. xi ∼ fX (x).
+Theorem.
+If the samples xi are stochastically independent the approximation IN is an unbiased estimate of I with
+lim IN → I,
+(12.7)
+N (IN − I) ∼ N(0, σ 2 ),
+with σ 2 = Var [g(X )].
+The proof is based on the law of large numbers and the fact that I = E [g(X )].
+(12.8)
+Importance Sampling.
+Assume – as usual in the Particle Filter framework – instead of using the PDF fX (x) for drawing
+samples we use an Importance Density qX (x) with qX (x) > 0 if fX (x) > 0 for all x.1 In this case, the
+correct Monte Carlo Integration can be still guaranteed by appropriate weights for the samples:
+fX (ξ)
+g(ξ)fX (ξ) dξ =
+g(ξ)
+qX (ξ) dξ
+qX (ξ)
+fX (xi )
+g(x )
+qX (xi )
+(12.9)
+where the samples xi , i = 1, . . . , N , are drawn according to the PDF qX (x), i.e.
+I ≈ IN =
+with wi =
+1 This
+wi g(xi ),
+(12.10)
+and xi ∼ qX (x).
+might be motivated by serveral arguments, e.g. drawing samples from qX (x) might be simpler than drawing samples from fX (x).
+Importance Sampling if
+fX (ξ) dξ = 1.
+If fX (x) fulfills the properties of a PDF except a normalization constant, the Importance Density
+results in
+(12.11)
+with normalized weights
+The Monte Carlo Integral IN can be interpreted as the true expected value of g(X ) with respect
+to the approximate PDF2
+2 E [g(X )]
+wi δ(ξ − xi ) dξ =
+wi δ(x − xi) ≈ fX (x).
+g(ξ)δ(ξ − xi ) dξ =
+wi g(xi ).
+(12.12)
+12.2
+Sequential Importance Sampling
+We now apply the Importance Sampling to the Posterior Conditional PDF fXn |Y(n) (xn |y (n) ).
+Due to the recursive computation we obtain a Sequential Importance Sampling rule:
+First, we again consider the Importance Density and the Posterior Conditional PDF for the
+construction of the Importance Weights in a slightly different version:
+fXn ,X(n−1) |Y(n) (xi , xi
+(n−1) |y (n) )
+qXn ,X(n−1) |Y(n) (xi , xi
+(12.13)
+We then expand the nominator by
+fXn ,X(n−1) |Y(n) (xn , x(n−1) | y (n) )
+∝ fYn |Xn ,X(n−1) ,Y(n−1) (. . . )fXn ,X(n−1) |Y(n−1) (. . . )
+fYn |Xn ,X(n−1) ,Y(n−1) (. . . ) fXn |X(n−1) ,Y(n−1) (. . . ) fX(n−1) |Y(n−1) (. . . )
+Markov property!
+∝ fYn |Xn (y n | xn )fXn |Xn−1 (xn | xn−1 )fX(n−1) |Y(n−1) (x(n−1) | y (n−1) ),
+(12.14)
+and approximate the denominator as3
+qXn ,X(n−1) |Y(n) (xn , x(n−1) | y (n) )
+qXn |X(n−1) ,Y(n) (xn | x(n−1) , y (n) ) qX(n−1) |Y(n−1) (x(n−1) | y (n−1) )
+= qXn |Xn−1 ,Yn (xn | xn−1 , y n )qX(n−1) |Y(n−1) (x(n−1) | y (n−1) ).
+(12.15)
+Consequently, the weights are obtained by
+fYn |Xn (y n | xi )fXn |Xn−1 (xi | xi )fX(n−1) |Y(n−1) (xi
+n−1
+(n−1) | y (n−1) )
+qXn |Xn−1 ,Yn (xi | xi , y n )qX(n−1) |Y(n−1) (xi
+3 It
+(12.16)
+is an approximation, since it does not equal with the correct expansion of the Importance Density. The correct expansion following the
+Bayes Rule would read qXn ,X(n−1) |Y(n) (xn , x(n−1) | y (n) ) = qXn |X(n−1) ,Y(n) (xn | x(n−1) , y (n) )qX(n−1) |Y(n) (x(n−1) | y (n) ). In other words, the
+defined version neglects the information from the latest observation y n .
+Finally, taking into account the definition in (12.13) the weights of the Particles (samples) xi in the
+nth step are given by
+wn−1
+fYn |Xn (y n | xi )fXn |Xn−1 (xi | xi )
+qXn |Xn−1 ,Yn (xi | xn−1 , y n )
+∀i = 1, . . . , N,
+(12.17)
+where the particles xi are drawn from the conditional PDF qXn |Xn−1 ,Yn (xn | xi , y n ).
+Given the particles xi
+n−1 with respect to qXn |Xn−1 ,Yn (xn | xn−1 , y n ) in the latest step of the recursion
+process, and given an observation y n with respect to the state-space model, e.g. as for instance
+(12.18)
+(12.19)
+where Vn and Wn are random variables with any PDF fVn (v) and fWn (w), the weights of the Importance
+Sampling are updated according to (12.17) with
+fYn |Xn (y n | xi ) = fWn (y n − hn (xi ))
+fXn |Xn−1 (xi | xi ) = fVn (xi − gn (xi )).
+(12.20)
+(12.21)
+12.3
+Degeneracy Problem and Resampling
+Degeneracy.
+It has been shown that using an Importance Density with
+qXn |Xn−1 ,Yn (. . . )qXn−1 |Y(n−1) (. . . ) = fXn ,Xn−1 |Y(n) (. . . )
+leads to a monotonic increase of the variance of the weights over the number of iterations n. This in
+turn leads to the Degeneracy Effect which means that after a number of recursive steps all but one
+particle have vanishing normalized Importance Weights.
+Degeneracy is typically detected by a threshold test. If
+i=1 (wn )
+(12.22)
+is smaller than a certain threshold wthr , a resampling process must be performed.
+It is the purpose of the Resampling Step to eliminate particles with small weights and to replicate
+particles with strong weights. Replication means that when drawing new Particles those xi with
+strong weights might have more than one follower in the next recursive step.
+Resampling Step.
+Particles are randomly drawn (with replacement) from the finite set of particles XN = {x1 , . . . , xN }, where
+the probability of each particle is equal to its current Importance Weight, i.e. P ({xn }) = wn .
+Using an alternative formulation of the Resampling Step by means of the respective PMF4 we obtain
+∀j = 1, . . . , N :
+xj ∼ pXn (xj )
+pXn (xn ) =
+wn δ(xn − xi ).
+(12.23)
+The PMF pXn (xn ) obviously corresponds to the approximated posterior conditional PDF
+fXn |Y(n) (xn | y (n) ) ≈ pXn (xn ).
+(12.24)
+See (12.11) and (12.12).5
+After the Resampling Step the Importance Weights are uniformly set to wn = N −1 . Thereby the
+phenomenon of degeneracy is broken.
+4 Probability
+Mass Function.
+following (12.11) and (12.12) leads to fXn ,Xn−1 |Y(n) (xn , xn−1 | y (n) ) ≈
+marginalization step finally yields (12.24).
+5 Directly
+wn δ(xn − xi )δ(xn−1 − xi ), then a subsequent
+12.4
+Importance Density
+Optimal Importance Density.
+So far we did not discuss the choice of the Importance Density qXn |Xn−1 ,Yn (. . . ), which is of course
+essential for the performance of the Particle Filter. It has been shown that the optimal choice which
+minimizes the variance of the Importance Weights is equal to the true posterior conditional PDF, i.e.
+qXn |Xn−1 ,Yn (xn | xi , y n ) = fXn |Xn−1 ,Yn (xn | xi , y n )
+fYn |Xn ,Xn−1 (y n | xn , xi )fXn |Xn−1 (xn | xi )
+fYn |Xn−1 (y n | xi )
+(12.25)
+fYn |Xn−1 (y n | xi ) =
+fYn |Xn (y n | ξ)fXn |Xn−1 (ξ | xi ) dξ.
+(12.26)
+Applying the Optimal Importance Density in (12.17) results in the Optimal Sequential Importance Sampling given by
+wn = wn−1 × fYn |Xn−1 (y n | xi ),
+˜ opt,i
+∀i = 1, . . . , N.
+(12.27)
+Suboptimal Importance Density.
+Since in general (12.25) and (12.26) are hard to compute in real-world application, the Optimal Importance Density can be only applied in special cases.6
+Otherwise, the most popular Suboptimal Importance Density ist given by
+qXn |Xn−1 ,Yn (xn | xi , y n ) = fXn |Xn−1 (xn | xi ).
+(12.28)
+Applying this suboptimal version of the Importance Density in (12.17) results in the Suboptimal
+Sequential Importance Sampling given by
+wn = wn−1 × fYn |Xn (y n | xi ),
+(12.29)
+It has been observed that the Suboptimal Sequential Importance Sampling works quite well,
+except for the case where the Transitional PDF fXn |Xn−1 (xn | xi ) has a broader spread than the
+likelihood function fYn |Xn (y n | xn ). For the latter a rapid degeneracy of the weights has been observed.
+There is huge room for further suboptimal techniques...
+6 One
+of this special cases is again the Additive Gaussian Model. The linearity assumption is not required for the Particle Filtering.
+13. Tracking the Trajectory of a Moving Object
+In the following, we consider the State-Space Models given as
+Xn+1 = g(Xn ) + Vn ,
+Yn = h(Xn ) + Wn ,
+(13.1)
+(13.2)
+where for simplicity additive noise is assumed. Xn and Yn are state space and measurements vectors. The
+functions g( · ) and h( · ) are in general non-linear. vk and wk are not necessarily Gaussian distributed.
+In the following, we will estimate the results of this state-space model using a Kalman Filter (KF) and
+using a simple Particle Filter (PF) with Sequential Importance Re-sampling (SIR).
+13.1
+Linear Model
+We consider a two-dimensional version of the example in Section 11.2, i.e.
+i.i.d. Vn ∼ N(0, C V ).
+(13.3)
+The discretization of the Stochastical Differential Equation (13.3) yields
+Xn+1 = GXn + Vn ,
+(13.4)
+(13.5)
+ 0
+ 0
+0 T 
+1 0 
+and H =
+The state space vector and the observation vector are
+X1,n
+ X2,n 
+ ∈ R4
+ X1,n 
+X2,n
+1 0 0 0
+0 1 0 0
+and Yn ∈ R2 .
+(13.6)
+(13.7)
+The X1,n and X2,n represent the random variables for a position on the (x1 ,x2 )–plane and X1,n and X2,n
+represent the random variables for the respective velocities along the x1 and x2 direction. The Y1,n and
+Y2,n denote noisy observations of X1,n and X2,n .
+The Vn and Wn are assumed to be Gaussian distributed with
+Vn ∼ N (0, CV ) and Wn ∼ N (0, CW ),
+(13.8)
+0 0 0
+0 0 0 
+0 50 0 
+0 0 50
+and CW =
+0.1 0
+0 0.1
+(13.9)
+Note. For the Particle Filter the number of particles is set to N = 100 and resampling is applied if
+The wn are the particle weights at time-step n.
+≤ 50.
+(13.10)
+KF: xn|n−1
+−7
+−6
+−4
+−3
+Fig. 13.1: Tracking of an exemplary random trajectory in the (x1 ,x2 )–plane based on Kalman (KF) and
+Particle Filtering (PF) applied to observations y n from a Linear System Model with initial
+condition x0 = [1, 0, 0, 0]T , T = 0.02 and n = 1 . . . 50.
+13.2
+Nonlinear Model
+The nonlinear model differs from the model in Section 13.1 by a modification of the first row of Eq. (13.4),
+i.e. we replace X1,n+1 = X1,n + T X1,n by
+X1,n+1 = sin(X1,n ) + T X1,n .
+(13.11)
+Additionally, the measurement noise covariance matrix is changed to
+0.025
+(13.12)
+Note. For the Particle Filter the number of particles is again set to N = 100 and resampling is
+applied if
+(13.13)
+For comparison we use the Kalman Filter with the linearization (Jacobi matrix) of g(xn ) at the initial
+condition x0 as konstant matrix G, i.e.
+∂[g(x)]k
+x=x0
+(13.14)
+KFlin : xn|n−1
+KFlin : xn|n
+−0.5
+Fig. 13.2: Tracking of an exemplary random trajectory in the (x1 ,x2 )–plane based on Kalman (KF) and
+Particle Filtering (PF) applied to observations y n from a Nonlinear System Model with initial
+References
+• D. J. C. MacKay. Information Theory, Inference, and Learning Algorithms, Cambridge University Press.
+• B. Hajek. An Exploration of Random Processes for Engineers. Lecture Notes at University of Illinois,
+Urbana-Champaign. URL: http://www.freetechbooks.com.
+• G. R. Grimmett, D. R. Stirzaker. Probability and Random Processes, Oxford University Press.
+(↑advanced reader!)
+• P. M. Djuri´ et al. ”Particle Filtering: A review of the theory and how it can be used for solving problems
+in wireless communications”, IEEE Signal Processing Magazine, p. 19–38, September 2003.
+• B. Ristic, S. Arulampalam, and N. Gordon. Beyond the Kalman Filter, Artech House, 2004.
+• D. Simon. Optimal State Estimation, Wiley, 2006. (↑advanced reader!)

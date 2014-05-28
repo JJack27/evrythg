@@ -3,7 +3,6 @@ Alireza Karimi
 Laboratoire d’Automatique, MEC2 397,
 email: alireza.karimi@epﬂ.ch
 (Introduction)
-Estimation Theory
 Course Objective
 Extract information from noisy signals
 Parameter Estimation Problem : Given a set of measured data
@@ -12,8 +11,6 @@ which depends on an unknown parameter vector θ, determine an estimator
 where g is some function.
 Applications : Image processing, communications, biomedicine, system
 identiﬁcation, state estimation in control, etc.
-(Introduction)
-Estimation Theory
 Some Examples
 Range estimation : We transmit a pulse that is reﬂected by the aircraft.
 An echo is received after τ second. Range θ is estimated from the equation
@@ -27,8 +24,6 @@ DC level in noise : Consider a set of data {x[0], x[1], . . . , x[N − 1]} that
 can be modeled as :
 where w [n] is some zero mean noise process. A can be estimated using the
 measured data set.
-(Introduction)
-Estimation Theory
 Outline
 Classical estimation (θ deterministic)
 Minimum Variance Unbiased Estimator (MVU)
@@ -41,12 +36,9 @@ Minimum Mean Square Error Estimator (MMSE)
 Maximum A Posteriori Estimator (MAP)
 Linear MMSE Estimator
 Kalman Filter
-(Introduction)
-Estimation Theory
 References
 Main reference :
 Fundamentals of Statistical Signal Processing
-Estimation Theory
 by Steven M. KAY, Prentice-Hall, 1993 (available in Library de La
 Fontaine, RLC). We cover Chapters 1 to 14, skipping Chapter 5 and
 Chapter 9.
@@ -55,11 +47,8 @@ Lessons in Estimation Theory for Signal Processing, Communications
 and Control. By Jerry M. Mendel, Prentice-Hall, 1995.
 Probability, Random Processes and Estimation Theory for Engineers.
 By Henry Stark and John W. Woods, Prentice-Hall, 1986.
-(Introduction)
-Estimation Theory
 Review of Probability and Random Variables
 (Probability and Random Variables)
-Estimation Theory
 Random Variables
 Random Variable : A rule X (·) that assigns to every element of a sample
 space Ω a real value is called a RV. So X is not really a variable that varies
@@ -71,8 +60,6 @@ We can deﬁne a random variable X such that
 X (HH) = 1, X (HT ) = 1.1, X (TH) = 1.6, X (TT ) = 1.8
 Random variable X assigns to each event (e.g. E = {HT , TH} ⊂ Ω) a
 subset of the real line (in this case B = {1.1, 1.6}).
-(Probability and Random Variables)
-Estimation Theory
 Probability Distribution Function
 For any element ζ in Ω, the event {ζ|X (ζ) ≤ x} is an important event.
 The probability of this event
@@ -86,8 +73,6 @@ For the same experiment (throwing a coin twice) we could deﬁne
 another random variable that would lead to a diﬀerent PX (x).
 In most of engineering problems the sample space is a subset of the
 real line so X (ζ) = ζ and PX (x) is a continuous function of x.
-(Probability and Random Variables)
-Estimation Theory
 Probability Density Function (PDF)
 The Probability Density Function, if it exists, is given by :
 dPX (x)
@@ -103,8 +88,6 @@ p(x)dx = P(∞) − P(−∞) = 1
 Pr [{ζ|X (ζ) ≤ x}] = Pr [X ≤ x] = P(x) =
 p(α)d α
 p(x)dx
-(Probability and Random Variables)
-Estimation Theory
 Gaussian Probability Density Function
 A random variable is distributed according to a Gaussian or normal
 distribution if the PDF is given by :
@@ -119,36 +102,26 @@ variability.
 Remark : Gaussian distribution is important because according to the
 Central Limit Theorem the sum of N independent RVs has a PDF that
 converges to a Gaussian distribution when N goes to inﬁnity.
-(Probability and Random Variables)
-Estimation Theory
 Some other common PDF
 b−a
 a<x <b
 otherwise
 Uniform (b > a) :
-p(x) =
 Exponential (µ > 0) :
-p(x) =
 exp(−x/µ)u(x)
 Rayleigh (σ > 0) :
-p(x) =
 exp( 2 )u(x)
 Chi-square χ2 :
-p(x) =
 where Γ(z) =
 x n/2−1 exp(− x )
 2n Γ(n/2)
 t z−1 e −t dt and u(x) is the unit step function.
-(Probability and Random Variables)
-Estimation Theory
 Joint, Marginal and Conditional PDF
 Joint PDF : Consider two random variables X and Y then :
 Pr [x1 < X ≤ x2 and y1 < Y ≤ y2 ] =
 p(x, y )dxdy
 Marginal PDF :
 p(x, y )dy
-p(x) =
-and
 p(y ) =
 p(x, y )dx
 Conditional PDF : p(x|y ) is deﬁned as the PDF of X conditioned on
@@ -159,26 +132,17 @@ p(x, y )
 p(x|y ) =
 p(x, y ) = p(x|y )p(y ) = p(y |x)p(x)
 p(y )
-(Probability and Random Variables)
-Estimation Theory
 Independent Random Variables
 Two RVs X and Y are independent if and only if :
 p(x, y ) = p(x)p(y )
 A direct conclusion is that :
-p(x|y ) =
 p(x)p(y )
-p(x, y )
 = p(x)
-p(y )
-p(y )
-and
 p(y |x) = p(y )
 which means conditioning does not change the PDF.
 Remark : For a joint Gaussian pdf the contours of constant density is an
 ellipse centered at (µx , µy ). For independent X and Y the major (or
 minor) axis is parallel to x or y axis.
-(Probability and Random Variables)
-Estimation Theory
 Expected Value of a Random Variable
 The expected value, if it exists, of a random variable X with PDF p(x) is
 deﬁned by :
@@ -192,9 +156,7 @@ E (Y ) =
 Conditional expectation : The conditional expectation of X given that a
 speciﬁc value of Y has occurred is :
 E (X |Y ) =
-(Probability and Random Variables)
 xp(x|y )dx
-Estimation Theory
 Moments of a Random Variable
 The r th moment of X is deﬁned as :
 E (X r ) =
@@ -208,20 +170,15 @@ E (X 3 )
 E (X 4 )
 E (X 5 )
 E (X 6 )
-(Probability and Random Variables)
-Estimation Theory
 Central Moments
 The r th central moment of X is deﬁned as :
 E [(X − µ)r ] =
 (x − µ)r p(x)dx
 The second central moment (variance) is denoted by σ 2 or var(X ).
 Central Moments of Gaussian RVs :
-E [(X − µ)r ] =
 σ r (r − 1)!! if r is even
 where n!! denotes the double factorial that is the product of every odd
 number from n to 1.
-(Probability and Random Variables)
-Estimation Theory
 Some properties of Gaussian RVs
 If X ∼ N (µx , σx ) then Z = (X − µx )/σx ∼ N (0, 1).
 If Z ∼ N (0, 1) then X = σx Z + µx ∼ N (µx , σx ).
@@ -233,8 +190,6 @@ distribution N (0, 1) has a χ2 distribution with n degree of freedom.
 For large value of n, χ2 converges to N (n, 2n).
 The Euclidian norm X 2 + Y 2 of two independent RVs with
 standard normal distribution has the Rayleigh distribution.
-(Probability and Random Variables)
-Estimation Theory
 Covariance
 For two RVs X and Y , the covariance is deﬁned as
 σxy = E [(X − µx )(Y − µy )]
@@ -247,10 +202,8 @@ X is given by
 σ 2 = E [(X − µ)2 ] = E (X 2 ) − 2µE (X ) + µ2
 = E (X 2 ) − µ2
 The variance is the mean of the square minus the square of the mean.
-(Probability and Random Variables)
 
 [ _to('140502183413') ]
-
 Random Vectors
 Random Vector : is a vector of random variables 1 :
 Expectation Vector : µx = E (x) = [E (x1 ), E (x2 ), . . . , E (xn )]T
@@ -259,12 +212,9 @@ Cx is an n × n symmetric matrix which is assumed to be positive
 deﬁnite and so invertible.
 The elements of this matrix are : [Cx ]ij = E {[xi − E (xi )][xj − E (xj )]}.
 If the random variables are uncorrelated then $C_x$ is a diagonal matrix.
-
 Multivariate Gaussian PDF :
 1. In some books (including our main reference) there is no distinction between random
 variable X and its speciﬁc value x. From now on we adopt the notation of our reference.
-(Probability and Random Variables)
-Estimation Theory
 Random Processes
 Discrete Random Process : x[n] is a sequence of random variables
 deﬁned for every integer n.
@@ -279,8 +229,6 @@ Cross-correlation Function (CCF) : is deﬁned as
 rxy [k] = E (x[n]y [n + k])
 Cross-covariance function : is deﬁned as
 cxy [k] = E [(x[n] − µx )(y [n + k] − µy )] = rxy [k] − µx µy
-(Probability and Random Variables)
-Estimation Theory
 Discrete White Noise
 Some properties of ACF and CCF :
 Power Spectral Density : The Fourier transform of ACF and CCF gives
@@ -292,28 +240,18 @@ rxy [k] exp(−j2πfk)
 Discrete White Noise : is a discrete random process with zero mean and
 rxx [k] = σ 2 δ[k] where δ[k] is the Kronecker impulse function. The PSD of
 white noise becomes Pxx (f ) = σ 2 and is completely ﬂat with frequency.
-(Probability and Random Variables)
-Estimation Theory
 Introduction and Minimum Variance Unbiased
 Estimation
 (Minimum Variance Unbiased Estimation)
-Estimation Theory
 The Mathematical Estimation Problem
-Parameter Estimation Problem : Given a set of measured data
-which depends on an unknown parameter vector θ, determine an estimator
-θ = g (x[0], x[1], . . . , x[N − 1])
-where g is some function.
 The ﬁrst step is to ﬁnd the PDF of data as a
 function of θ : p(x; θ)
 Example : Consider the problem of DC level in white Gaussian noise with
 one observed data x[0] = θ + w [0] where w [0] has the PDF N (0, σ 2 ).
 Then the PDF of x[0] is :
 p(x[0]; θ) = √
-(Minimum Variance Unbiased Estimation)
 exp −
-Estimation Theory
 (x[0] − θ)2
-The Mathematical Estimation Problem
 Example : Consider a data sequence that can be modeled with a linear
 trend in white Gaussian noise
 Suppose that w [n] ∼ N (0, σ 2 ) and is uncorrelated with all the other
@@ -326,9 +264,6 @@ exp − 2
 The quality of any estimator for this problem is related to the assumptions
 on the data model. In this example, linear trend and WGN PDF
 assumption.
-(Minimum Variance Unbiased Estimation)
-Estimation Theory
-The Mathematical Estimation Problem
 Classical versus Bayesian estimation
 If we assume θ is deterministic we will have a classical estimation
 problem. The following method will be studied : MVU, MLE, BLUE,
@@ -340,8 +275,6 @@ where p(θ) summarizes our knowledge about θ before any data is
 observed and p(x|θ) summarizes our knowledge provided by data x
 conditioned on knowing θ. The following methods will be studied :
 MMSE, MAP, Kalman Filter.
-(Minimum Variance Unbiased Estimation)
-Estimation Theory
 Assessing Estimator Performance
 Consider the problem of estimating a DC level A in uncorrelated noise :
 Consider the following estimators :
@@ -349,8 +282,6 @@ Suppose that A = 1, A1 = 0.95 and A2 = 0.98. Which estimator is better ?
 An estimator is a random variable, so its
 performance can only be described by its PDF or
 statistically (e.g. by Monte-Carlo simulation).
-(Minimum Variance Unbiased Estimation)
-Estimation Theory
 Unbiased Estimators
 An estimator that on the average yield the true value is unbiased.
 Mathematically
@@ -367,9 +298,6 @@ Now, let’s compute the variance of the two estimators :
 var(A1 ) = var
 var(x[n]) =
 var(A2 ) = var(x[0]) = σ 2 > var (A1 )
-(Minimum Variance Unbiased Estimation)
-Estimation Theory
-Unbiased Estimators
 Remark : When several unbiased estimators of the same parameters from
 independent set of data are available, i.e., θ1 , θ2 , . . . , θn , a better estimator
 can be obtained by averaging :
@@ -382,8 +310,6 @@ n var(θi ) =
 By increasing n, the variance will decrease (if n → ∞, θ → θ).
 It is not the case for biased estimators, no matter how many estimators are
 averaged.
-(Minimum Variance Unbiased Estimation)
-Estimation Theory
 Minimum Variance Criterion
 The most logical criterion for estimation is the Mean Square Error (MSE) :
 mse(θ) = E [(θ − θ)2 ]
@@ -395,9 +321,6 @@ mse(θ) = E {[θ − E (θ)]2 } + 2b(θ)E [θ − E (θ)] + b 2 (θ) = var(θ) +
 Instead of minimizing MSE we can minimize the variance of
 the unbiased estimators :
 Minimum Variance Unbiased Estimator
-(Minimum Variance Unbiased Estimation)
-Estimation Theory
-Minimum Variance Unbiased Estimator
 Existence of MVU Estimator : In general MVU estimator does not
 always exist. There may be no unbiased estimator or non of unbiased
 estimators has a uniformly minimum variance.
@@ -407,21 +330,14 @@ Determine the Cramer-Rao lower bound (CRLB) and check to see if
 some estimator satisﬁes it.
 Apply the Rao-Blackwell-Lehmann-Scheﬀe theorem (we will skip it).
 Restrict to linear unbiased estimators.
-(Minimum Variance Unbiased Estimation)
-Estimation Theory
 Cramer-Rao Lower Bound
 (Cramer-Rao Lower Bound)
-Estimation Theory
-Cramer-Rao Lower Bound
 CRLB is a lower bound on the variance of any unbiased estimator.
 var(θ) ≥ CRLB(θ)
 Note that the CRLB is a function of θ.
 It tells us what is the best performance that can be achieved
 (useful in feasibility study and comparison with other estimators).
 It may lead us to compute the MVU estimator.
-(Cramer-Rao Lower Bound)
-Estimation Theory
-Cramer-Rao Lower Bound
 Theorem (scalar case)
 Assume that the PDF p(x; θ) satisﬁes the regularity condition
 ∂ ln p(x; θ)
@@ -430,16 +346,11 @@ Then the variance of any unbiased estimator θ satisﬁes
 var(θ) ≥ −E
 ∂ 2 ln p(x; θ)
 An unbiased estimator that attains the CRLB can be found iﬀ :
-∂ ln p(x; θ)
 = I (θ)(g (x) − θ)
 for some functions g (x) and I (θ). The estimator is θ = g (x) and the
 minimum variance is 1/I (θ).
-(Cramer-Rao Lower Bound)
-Estimation Theory
-Cramer-Rao Lower Bound
 Example : Consider x[0] = A + w [0] with w [0] ∼ N (0, σ 2 ).
 p(x[0]; A) = √
-exp −
 (x[0] − A)2
 ln p(x[0], A) = − ln 2πσ 2 − 2 (x[0] − A)2
 Then
@@ -448,33 +359,20 @@ Then
 ∂ 2 ln p(x[0]; A)
 According to Theorem :
 var (A) ≥ σ 2
-(Cramer-Rao Lower Bound)
-and
 I (A) =
 and A = g (x[0]) = x[0]
-Estimation Theory
-Cramer-Rao Lower Bound
 Example : Consider multiple observations for DC level in WGN :
 with w [n] ∼ N (0, σ 2 )
-exp − 2
 p(x; A) = √
-( 2πσ 2 )N
 (x[n] − A)2
-Then
 ∂ ln p(x; A)
 − ln[(2πσ 2 )N/2 ] − 2
 (x[n] − A) =
-(x[n] − A)2
-According to Theorem :
 var (A) ≥
-(Cramer-Rao Lower Bound)
 and I (A) = 2
 and A = g (x[0]) =
-Estimation Theory
 Transformation of Parameters
 If it is desired to estimate α = g (θ), then the CRLB is :
-∂ 2 ln p(x; θ)
-var(θ) ≥ −E
 Example : Compute the CRLB for estimation of the power (A2 ) of a DC
 level in noise :
 (2A)2 =
@@ -485,9 +383,6 @@ to be eﬃcient.
 Example : Knowing that x =
 x[n] is an eﬃcient estimator for A, is
 x 2 an eﬃcient estimator for A2 ?
-(Cramer-Rao Lower Bound)
-Estimation Theory
-Transformation of Parameters
 Solution : Knowing that x ∼ N (A, σ 2 /N), we have :
 E (¯2 ) = E 2 (¯) + var(¯) = A2 +
 So the estimator A2 = x 2 is not even unbiased.
@@ -498,9 +393,6 @@ E (¯4 ) = A4 + 6A2
 + 3( )2
 Therefore :
 var(¯2 ) = A4 + 6A2
-(Cramer-Rao Lower Bound)
-Estimation Theory
-Transformation of Parameters
 Remarks :
 The estimator A2 = x 2 is biased and not eﬃcient.
 As N → ∞ the bias goes to zero and the variance of the estimator
@@ -518,33 +410,18 @@ achieved.
 If g (θ) is a nonlinear function of θ and θ is an eﬃcient estimator,
 ˆ is an asymptotically eﬃcient estimator.
 then g (θ)
-(Cramer-Rao Lower Bound)
-Estimation Theory
-Cramer-Rao Lower Bound
 Theorem (Vector Parameter)
-Assume that the PDF p(x; θ) satisﬁes the regularity condition
-∂ ln p(x; θ)
-for all θ
 Then the variance of any unbiased estimator θ satisﬁes Cθ − I−1 (θ) ≥ 0
 where ≥ 0 means that the matrix is positive semideﬁnite. I(θ) is called the
 Fisher information matrix and is given by :
 Iij (θ) = −E
-∂ 2 ln p(x; θ)
-An unbiased estimator that attains the CRLB can be found iﬀ :
-∂ ln p(x; θ)
 = I(θ)(g(x) − θ)
-(Cramer-Rao Lower Bound)
-Estimation Theory
 CRLB Extension to Vector Parameter
 Example : Consider a DC level in WGN with A and σ 2 unknown.
 Compute the CRLB for estimation of θ = [A σ 2 ]T .
 ln p(x; θ) = − ln 2π − ln σ 2 − 2
-(x[n] − A)2
 The Fisher information matrix is :
 I(θ) = −E
-∂ 2 ln p(x;θ)
-∂ 2 ln p(x;θ)
-∂ 2 ln p(x;θ)
 ∂ 2 ln p(x;θ)
 ∂(σ2 )2
 The matrix is diagonal (just for this example) and can be easily inverted to
@@ -552,22 +429,13 @@ yield :
 var(θ) ≥
 var(σ 2 ) ≥
 Is there any unbiased estimator that achieves these bounds ?
-(Cramer-Rao Lower Bound)
-Estimation Theory
-Transformation of Parameters
 If it is desired to estimate α = g(θ), and the CRLB for the covariance of θ
 is I (θ), then :
-∂ 2 ln p(x; θ)
-Example : Consider a DC level in WGN with A and σ 2 unknown.
 Compute the CRLB for estimation of signal to noise ratio α = A2 /σ 2 .
 We have θ = [A σ 2 ]T and α = g (θ) = θ1 /θ2 , then the Jacobian is :
 ∂g (θ)
-∂g (θ)
-∂g (θ)
 So the CRLB is :
 var(ˆ ) ≥
-(Cramer-Rao Lower Bound)
-Estimation Theory
 Linear Models with WGN
 If N point samples of data observed can be modeled as
 where
@@ -577,32 +445,18 @@ vector of parameters to be estimated
 noise vector with PDF N (0, σ 2 I)
 Compute the CRLB and the MVU estimator that achieves this bound.
 Step 1 : Compute ln p(x; θ).
-∂ 2 ln p(x; θ)
 and the covariance
 Step 2 : Compute I(θ) = −E
 matrix of θ : Cθ = I−1 (θ).
 Step 3 : Find the MVU estimator g(x) by factoring
-∂ ln p(x; θ)
 = I(θ)[g(x) − θ]
 (Linear Models)
-Estimation Theory
-Linear Models with WGN
 Step 1 : ln p(x; θ) = − ln( 2πσ 2 )N − 2σ2 (x − Hθ)T (x − Hθ).
 Step 2 :
-∂ ln p(x; θ)
-Then
-I(θ) = −E
-∂ 2 ln p(x; θ)
-Step 3 : Find the MVU estimator g(x) by factoring
-∂ ln p(x; θ)
 = I(θ)[g(x) − θ] =
 [(HT H)−1 HT x − θ]
-Therefore :
 C ˆ = I−1 (θ) = σ 2 (HT H)−1
 θ = g(x) = (HT H)−1 HT x
-(Linear Models)
-Estimation Theory
-Linear Models with WGN
 For a linear model with WGN represented by x = Hθ + w the MVU
 estimator is :
 θ = (HT H)−1 HT x
@@ -612,8 +466,6 @@ E (θ) = (HT H)−1 HT E (Hθ + w) = θ
 The statistical performance of θ is completely speciﬁed because θ is a
 linear transformation of a Gaussian vector x and hence has a Gaussian
 θ ∼ N (θ, σ 2 (HT H)−1 )
-(Linear Models)
-Estimation Theory
 Example (Curve Fitting)
 Consider ﬁtting the data x[n] by a p-th order polynomial function of n :
 We have N data samples, then :
@@ -622,15 +474,12 @@ so x = Hθ + w, where H is :
 (N − 1)p
 N×(p+1)
 Hence the MVU estimator is : θ = (HT H)−1 HT x
-(Linear Models)
-Estimation Theory
 Example (Fourier Analysis)
 Consider the Fourier analysis of the data x[n] :
 ak cos(
 bk sin(
 so we have θ = [a1 , a2 , . . . , aM , b1 , b2 , . . . , bM ]T and x = Hθ + w where :
 H = [ha , ha , . . . , ha , hb , hb , . . . , hb ]
-ha
 cos( 2πk )
 cos( 2πk2 )
 cos( 2πk(N−1) )
@@ -638,28 +487,20 @@ sin( 2πk )
 sin( 2πk2 )
 sin( 2πk(N−1) )
 Hence the MVU estimate of the Fourier coeﬃcients is : θ = (HT H)−1 HT x
-(Linear Models)
-Estimation Theory
-Example (Fourier Analysis)
 After simpliﬁcation (noting that (HT H)−1 =
 we have :
 θ = [(ha )T x, . . . , (ha )T x , (hb )T x, . . . , (hb )T x]T
 which is the same as the standard solution :
-a
 From the properties of linear models the estimates are unbiased.
 The covariance matrix is :
 Cθ = σ 2 (HT H)−1 =
 Note that θ is Gaussian and Cθ is diagonal (the amplitude estimates
 are independent).
-(Linear Models)
-Estimation Theory
 Example (System Identiﬁcation)
 Consider identiﬁcation of a Finite Impulse Response (FIR) model, h[k] for
 k = 0, 1, . . . , p − 1, with input u[n] and output x[n] provided for
 FIR model can be represented by the linear model x = Hθ + w where
 The MVU estimate is θ = (HT H)−1 HT x with Cθ = σ 2 (HT H)−1 .
-(Linear Models)
-Estimation Theory
 Linear Models with Colored Gaussian Noise
 Determine the MVU estimator for the linear model x = Hθ + w with w a
 colored Gaussian noise with N (0, C).
@@ -673,8 +514,6 @@ estimator as :
 θ = (H T H )−1 H T x = (HT DT DH)−1 HT DT Dx
 so, we have :
 θ = (HT C−1 H)−1 HT C−1 x with Cθ = (H T H )−1 = (HT C−1 H)−1
-(Linear Models)
-Estimation Theory
 Linear Models with known components
 Consider a linear model x = Hθ + s + w, where s is a known signal. To
 determine the MVU estimator let x = x − s, so that x = Hθ + w is a
@@ -684,9 +523,7 @@ Example : Consider a DC level and exponential in WGN :
 x[n] = A + r n + w [n] where r is known. Then we have :
 The MVU estimator is :
 A = (HT H)−1 HT (x − s) =
-(Linear Models)
 (x[n] − r n ) with var(A) =
-Estimation Theory
 Best Linear Unbiased Estimators (BLUE)
 Problems of ﬁnding the MVU estimators :
 The MVU estimator does not always exist or impossible to ﬁnd.
@@ -702,7 +539,6 @@ Remark : The unbiasedness restriction implies a linear model for the data.
 However, it may still be used if the data are transformed suitably or the
 model is linearized.
 (Best Linear Unbiased Estimators)
-Estimation Theory
 Finding the BLUE (Scalar Case)
 Choose a linear estimator for the observed data
 an x[n] = aT x
@@ -713,12 +549,8 @@ an E (x[n]) = θ
 Minimize the variance
 var(θ) = E {[θ − E (θ)]2 } = E {[aT x − aT E (x)]2 }
 = E {aT [x − E (x)][x − E (x)]T a} = aT Ca
-(Best Linear Unbiased Estimators)
-Estimation Theory
-Finding the BLUE (Scalar Case)
 Consider the problem of amplitude estimation of known signals in noise :
 Choose a linear estimator : θ =
-an x[n] = aT x
 Restrict estimate to be unbiased : E (θ) = aT E (x) = aT sθ = θ
 T s = 1 where s = [s[0], s[1], . . . , s[N − 1]]T
 then a
@@ -727,10 +559,7 @@ The constrained optimization can be solved using Lagrangian Multipliers :
 Minimize
 J = aT Ca + λ(aT s − 1)
 The optimal solution is :
-(Best Linear Unbiased Estimators)
-and
 var(θ) =
-Estimation Theory
 Finding the BLUE (Vector Case)
 Theorem (Gauss–Markov)
 If the data are of the general linear model form
@@ -740,8 +569,6 @@ is arbitrary), then the BLUE of θ is :
 and the covariance matrix of θ is
 Cθ = (HT C−1 H)−1
 Remark : If noise is Gaussian then BLUE is MVU estimator.
-(Best Linear Unbiased Estimators)
-Estimation Theory
 Finding the BLUE
 Example : Consider the problem of DC level in noise : x[n] = A + w [n],
 where w [n] is of unspeciﬁed PDF with var(w [n]) = σn . We have θ = A
@@ -751,12 +578,8 @@ and hence the BLUE is :
 θ = (H C
 and the minimum covariance is :
 Cθ = (H C
-(Best Linear Unbiased Estimators)
-Estimation Theory
 Maximum Likelihood Estimation
 (Maximum Likelihood Estimation)
-Estimation Theory
-Maximum Likelihood Estimation
 Problems : MVU estimator does not often exist or cannot be found.
 BLUE is restricted to linear models.
 Maximum Likelihood Estimator (MLE) :
@@ -770,23 +593,15 @@ Likelihood Function : is the PDF p(x; θ) when θ is regarded as a variable
 ML Estimate : is the value of θ that maximizes the likelihood function.
 Procedure : Find log-likelihood function ln p(x; θ) ; diﬀerentiate w.r.t θ
 and set to zero and solve for θ.
-(Maximum Likelihood Estimation)
-Estimation Theory
-Maximum Likelihood Estimation
 Example : Consider DC level in WGN with unknown variance
 x[n] = A + w [n]. Suppose that A > 0 and σ 2 = A. The PDF is :
 p(x; A) =
 N exp −
 (2πA) 2
-(x[n] − A)2
 Taking the derivative of the log-likelihood function, we have :
-∂ ln p(x; A)
 (x[n] − A) +
-(x[n] − A)2
 What is the CRLB ? Does an MVU estimator exist ?
 MLE can be found by setting the above equation to zero :
-(Maximum Likelihood Estimation)
-Estimation Theory
 Stochastic Convergence
 Convergence in distribution : Let {p(xN )} be a sequence of PDF. If
 there exists a PDF p(x) such that
@@ -799,21 +614,13 @@ xn , then according to the Central Limit Theorem
 σ 2 . Let xN =
 converges in distribution to z ∼ N (0, 1).
 (CLT), zN = N
-(Maximum Likelihood Estimation)
-Estimation Theory
-Stochastic Convergence
 Convergence in probability : Sequence of random variables {xN }
 converges in probability to the random variable x if for every > 0
 Convergence with probability 1 (almost sure convergence) :
 Sequence of random variables {xN } converges with probability 1 to the
 random variable x if and only if for all possible events
-Example
-Consider N independent RV x1 , x2 , . . . , xN with mean µ and ﬁnite variance
 xn . Then according to the Law of Large Numbers
-σ 2 . Let xN =
 (LLN), zN converges in probability to µ.
-(Maximum Likelihood Estimation)
-Estimation Theory
 Asymptotic Properties of Estimators
 Asymptotic Unbiasedness : Estimator θN is an asymptotically unbiased
 estimator of θ if :
@@ -828,12 +635,9 @@ asymptotic var(θN ) =
 Mean-Square Convergence : Estimator θN converges to θ in a
 mean-squared sense, if :
 lim E [(θN − θ)2 ] = 0
-(Maximum Likelihood Estimation)
-Estimation Theory
 Consistency
 Estimator θN is a consistent estimator of θ if for every
 plim(θN ) = θ
-Remarks :
 If θN is asymptotically unbiased and its limiting variance is zero then
 it converges to θ in mean-square.
 If θN converges to θ in mean-square, then the estimator is consistent.
@@ -844,9 +648,6 @@ plim(x)
 plim(y )
 The importance of consistency is that any continuous function of a
 consistent estimator is itself a consistent estimator.
-(Maximum Likelihood Estimation)
-Estimation Theory
-Maximum Likelihood Estimation
 Properties : MLE may be biased and is not necessarily an eﬃcient
 estimator. However :
 MLE is a consistent estimator meaning that
@@ -857,21 +658,11 @@ normally distributed
 θ ∼ N (θ, I−1 (θ))
 even if the PDF of x is not Gaussian.
 If an MVU estimator exists then ML procedure will ﬁnd it.
-(Maximum Likelihood Estimation)
-Estimation Theory
-Maximum Likelihood Estimation
-Example
 Consider DC level in WGN with known variance σ 2 .
 Sol. Then
-p(x; A) =
 (2πσ 2 ) 2
-∂ ln p(x; A)
-exp −
-(x[n] − A)2
 (x[n] − A) = 0
 which leads to A = x =
-(Maximum Likelihood Estimation)
-Estimation Theory
 MLE for Transformed Parameters (Invariance Property)
 Theorem (Invariance Property of the MLE)
 The MLE of the parameter α = g (θ), where the PDF p(x; θ) is
@@ -883,46 +674,26 @@ If α = g (θ) is a one-to-one function, then
 α = arg max p(x; g −1 (α)) = g (θ)
 If α = g (θ) is not a one-to-one function, then
 pT (x; α) =
-max
 {θ:α=g (θ)}
-(Maximum Likelihood Estimation)
 p(x; θ)
-and
-Estimation Theory
 α = arg max pT (x; θ) = g (θ)
-MLE for Transformed Parameters (Invariance Property)
-Example
 Consider DC level in WGN and ﬁnd MLE of α = exp(A). Since g (θ) is a
 one-to-one function then :
 α = arg max pT (x, α) = arg max p(x; ln α) = exp(¯)
-Example
 Consider DC level in WGN and ﬁnd MLE of α = A2 . Since g (θ) is not a
-one-to-one function then :
 α = arg max{p(x; α), p(x; − α)}
 arg √ {p(x; α), p(x; − α)}
-max
-arg
-(Maximum Likelihood Estimation)
-max
 p(x; A)
-Estimation Theory
 MLE (Extension to Vector Parameter)
-Example
 Consider DC Level in WGN with unknown variance. The vector parameter
 θ = [A σ 2 ]T should be estimated.
 We have :
-∂ ln p(x; θ)
-∂ ln p(x; θ)
 (x[n] − A)
-(x[n] − A)2
 which leads to the following MLE :
-(Maximum Likelihood Estimation)
 (x[n] − x )2
-Estimation Theory
 MLE for General Gaussian Case
 Consider the general Gaussian case where x ∼ N (µ(θ), C(θ)).
 The partial derivative of the PDF is :
-∂ ln p(x; θ)
 ∂C(θ)
 = − tr C−1 (θ)
 ∂µ(θ)T −1
@@ -934,44 +705,30 @@ By setting the above equations equal to zero, MLE can be found.
 A particular case is when C is known (the ﬁrst and third terms
 become zero).
 In addition, if µ(θ) is linear in θ, the general linear model is obtained.
-(Maximum Likelihood Estimation)
-Estimation Theory
 MLE for General Linear Models
 Consider the general linear model x = Hθ + w where w is a noise vector
 with PDF N (0, C) :
-p(x; θ) =
 (2π)N
 exp − (x − Hθ)T C−1 (x − Hθ)
 det(C)
 Taking the derivative of ln p(x; θ) leads to :
 ∂(Hθ)T −1
-∂ ln p(x; θ)
 C (x − Hθ)
-Then
 HT C−1 (x − Hθ) = 0
-θ = (HT C−1 H)−1 HT C−1 x
 which is the same as MVU estimator. The PDF of θ is :
 θ ∼ N (θ, (HT C−1 H)−1 )
-(Maximum Likelihood Estimation)
-Estimation Theory
 MLE (Numerical Method)
 Newton–Raphson : A closed form estimator cannot be always computed
 by maximizing the likelihood function. However, the maximum value can
 be computed by the numerical methods like the iterative Newton–Raphson
 algorithm.
-∂ 2 ln p(x; θ)
-∂ ln p(x; θ)
-Remarks :
 The Hessian can be replaced by the negative of its expectation, the
 Fisher information matrix I(θ).
 This method suﬀers from convergence problems (local maximum).
 Typically, for large data length, the log-likelihood function becomes
 more quadratic and the algorithm will produce the MLE.
-(Maximum Likelihood Estimation)
-Estimation Theory
 Least Squares Estimation
 (Least Squares)
-Estimation Theory
 The Least Squares Approach
 In all the previous methods we assumed that the measured signal x[n] is
 the sum of a true signal s[n] and a measurement error w [n] with known
@@ -986,47 +743,29 @@ a deterministic signal model.
 It has a broader range of applications.
 No claim about the optimality can be made.
 The statistical performance cannot be assessed.
-(Least Squares)
-Estimation Theory
-The Least Squares Approach
-Example
 Estimate the DC level of a signal. We observe x[n] = A + [n] for
 n = 0, . . . , N − 1 and the LS criterion is :
-(x[n] − A)2
 J(A) =
 ∂J(A)
-(Least Squares)
-(x[n] − A) = 0
-Estimation Theory
 Linear Least Squares
 Suppose that the observation model is linear x = Hθ +
 then
 (x[n] − s[n, θ])2 = (x − Hθ)T (x − Hθ)
-J(θ) =
 where H is full rank. The gradient is
 ∂J(θ)
 ⇒ θ = (HT H)−1 HT x
 The minimum LS cost is :
 Jmin = (x − Hθ)T (x − Hθ) = xT [I − H(HT H)−1 HT ]x = xT (x − Hθ)
 where I − H(HT H)−1 HT is an Idempotent matrix.
-(Least Squares)
-Estimation Theory
 Comparing Diﬀerent Estimators for the Linear Model
 Consider the following linear model
 Estimator
 Estimate
 No probabilistic assumption
-θ = (HT H)−1 HT x
 w is white with unknown PDF
-θ = (HT H)−1 HT x
 w is white Gaussian noise
-θ = (HT H)−1 HT x
-w is white Gaussian noise
-θ = (HT H)−1 HT x
 For MLE and MVUE the PDF of the estimate will be
 Gaussian.
-(Least Squares)
-Estimation Theory
 Weighted Linear Least Squares
 The LS criterion can be modiﬁed by including a positive deﬁnite
 (symmetric) weighting matrix W :
@@ -1038,8 +777,6 @@ Jmin = xT [W − WH(HT WH)−1 HT W]x
 Remark : If we take W = C−1 , where C is the covariance of noise then
 weighted least squares estimator is the BLUE. However, there is no true
 LS-based reason for this choice.
-(Least Squares)
-Estimation Theory
 Geometrical Interpretation
 Recall the general signal model s = Hθ. If we denote the column of H by
 hi we have :
@@ -1050,14 +787,11 @@ J(θ) = (x − Hθ)T (x − Hθ) = x − Hθ
 The data vector can lie anywhere in R N , while signal vectors must lie
 in a p-dimensional subspace of R N , termed S p , which is spanned by
 the column of H.
-(Least Squares)
-Estimation Theory
 Geometrical Interpretation (Orthogonal Projection)
 Intuitively, it is clear that the LS error is minimized when ˆ = Hθ is
 the orthogonal projection of x onto S
 So the LS error vector = x − ˆ is orthogonal to all columns of H :
 HT (x − Hθ) = 0
-θ = (HT H)−1 HT x
 The signal estimate is the projection of x onto S p :
 ˆ = Hθ = H(HT H)−1 HT x = Px
 where P is the orthogonal projection matrix.
@@ -1066,8 +800,6 @@ subspace spanned by the columns of H.
 Now, since Px ∈ S p then P(Px) = Px. Therefore any projection
 matrix is idempotent, i.e. P2 = P.
 It can be veriﬁed that P is symmetric and singular (with rank p).
-(Least Squares)
-Estimation Theory
 Geometrical Interpretation (Orthonormal columns of H)
 Recall that
 If the columns of H are orthonormal then HT H = I and θ = HT x.
@@ -1075,12 +807,9 @@ In this case we have θi = h x, thus
 (hT x)hi
 If we increase the number of parameters (the order of the linear
 model), we can easily compute the new estimate.
-(Least Squares)
-Estimation Theory
 Choosing the Model Order
 Suppose that you have a set of data and the objective is to ﬁt a
 polynomial to data. What is the best polynomial order ?
-Remarks :
 It is clear that by increasing the order Jmin is monotonically
 non-increasing.
 By choosing p = N we can perfectly ﬁt the data to model. However,
@@ -1092,29 +821,20 @@ If we have an idea about the expected level of Jmin , we increase p to
 approximately attain this level.
 There is an order-recursive LS algorithm to eﬃciently compute a
 (p + 1)-th order model based on a p-th order one (See 8.6).
-(Least Squares)
-Estimation Theory
 Sequential Least Squares
 Suppose that θ[N − 1] based on x[N − 1] = x[0], . . . , x[N − 1] is
 available. If we get a new data x[N], we want to compute θ[N] as a
 ˆ − 1] and x[N].
-Example
 Consider LS estimate of DC level :
 x[n]. We have :
 (x[N] − A[N − 1])
 new estimate = old estimate + gain × prediction error
-(Least Squares)
-Estimation Theory
-Sequential Least Squares
 Example (DC level in uncorrelated noise)
 x[n] = A + w [n] and var(w [n]) = σn . The WLS estimate (or BLUE) is :
 Similar to the previous example we can obtain :
 The gain factor K [N] can be reformulated as :
 var(A[N − 1])
 var(A[N − 1]) + σ 2
-(Least Squares)
-Estimation Theory
-Sequential Least Squares
 Consider the general linear model x = Hθ + w, where w is an uncorrelated
 noise with the covariance matrix C. The BLUE (or WLS) is :
 θ = (HT C−1 H)−1 HT C−1 x and Cθ = (HT C−1 H)−1
@@ -1123,19 +843,13 @@ C[n] = diag(σ0 , σ1 , . . . , σn )
 The objective is to ﬁnd θ[n], based on n + 1 data samples, as a function of
 θ[n − 1] and new data x[n]. The batch estimator is :
 with Σ[n − 1] = (HT [n − 1]C−1 [n − 1]H[n − 1])−1
-(Least Squares)
-Estimation Theory
-Sequential Least Squares
 Estimator Update :
-where
 Covariance Update :
 Σ[n] = (I − K[n]hT [n])Σ[n − 1]
 The following Lemma is used to compute the updates :
 Matrix Inversion Lemma
 (A + BCD)−1 = A−1 − A−1 B[C−1 + DA−1 B]−1 DA−1
 Initialization ?
-(Least Squares)
-Estimation Theory
 Constrained Least Squares
 Linear constraints in the form Aθ = b can be considered in LS solution.
 The LS criterion becomes :
@@ -1146,8 +860,6 @@ Setting the gradient equal to zero produces :
 where θ = (HT H)−1 HT x is the unconstrained LSE.
 Now Aθc = b can be solved to ﬁnd λ :
 λ = 2[A(HT H)−1 AT ]−1 (Aθ − b)
-(Least Squares)
-Estimation Theory
 Nonlinear Least Squares
 Many applications have nonlinear observation model : s(θ) = Hθ. This
 leads to a nonlinear optimization problem that can be solved numerically.
@@ -1163,9 +875,6 @@ g(θ)
 Around the solution [x − s(θ)] is small so the ﬁrst term in the Jacobian
 can be neglected. This makes this method equivalent to the Gauss-Newton
 algorithm which is numerically more robust.
-(Least Squares)
-Estimation Theory
-Nonlinear Least Squares
 Gauss-Newton Method : Linearize signal model around the current
 estimate and solve the resulting linear problem.
 s(θ) ≈ s(θ0 ) +
@@ -1178,9 +887,6 @@ If we now iterate the solution, it becomes :
 θk+1 = θk + [HT (θk )H(θk )]−1 HT (θk )[x − s(θk )]
 Remark : Both the Newton-Raphson and the Gauss-Newton methods can
 have convergence problems.
-(Least Squares)
-Estimation Theory
-Nonlinear Least Squares
 Transformation of parameters : Transform into a linear problem by
 seeking for an invertible function α = g(θ) such that :
 s(θ) = s(g−1 (α)) = Hα
@@ -1191,25 +897,17 @@ The LS problem is nonlinear, however, we have :
 A cos(2πf0 n + φ) = A cos φ cos 2πf0 n − A sin φ sin 2πf0 n
 if we let α1 = A cos φ and α2 = −A sin φ then the signal model becomes
 linear s = Hα. The LSE is α = (HT H)−1 HT x and g−1 (α) is
-(Least Squares)
-and
 φ = arctan
-Estimation Theory
-Nonlinear Least Squares
 Separability of parameters : If the signal model is linear in some of the
 parameters, try to write it as s = H(α)β. The LS error can be minimized
 β = [HT (α)H(α)]−1 HT (α)x
 The cost function is a function of α that can be minimized by a
 numerical method (e.g. brute force).
 J(α, β) = xT I − H(α)[HT (α)H(α)]−1 HT (α) x
-Then
 α = arg max
 xT H(α)[HT (α)H(α)]−1 HT (α) x
 Remark : This method is interesting if the dimension of α is much less
 than the dimension of β.
-(Least Squares)
-Estimation Theory
-Nonlinear Least Squares
 Example (Damped Exponentials)
 Consider the following signal model :
 with θ = [A1 , A2 , A3 , r ]T . It is known that 0 < r < 1.
@@ -1219,11 +917,8 @@ Let’s take
 r N−1 r 2(N−1) r 3(N−1)
 Step 1 : Maximize xT H(r )[HT (r )H(r )]−1 HT (r ) x to obtain ˆ.
 Step 2 : Compute β = [HT (ˆ)H(ˆ)]−1 HT (ˆ)x.
-(Least Squares)
-Estimation Theory
 The Bayesian Philosophy
 (The Bayesian Philosophy)
-Estimation Theory
 Classical Approach :
 Assumes θ is unknown but deterministic.
 Some prior knowledge on θ cannot be used.
@@ -1238,8 +933,6 @@ Variance of the estimate does not depend on θ.
 A Bayesian estimate always exists
 In Monte-Carlo simulations, we do M runs for randomly chosen θ and
 then we compute sample mean and variance over all θ values.
-(The Bayesian Philosophy)
-Estimation Theory
 Mean Square Error (MSE)
 Classical MSE
 Classical MSE is a function of the unknown parameter θ and cannot be
@@ -1253,8 +946,6 @@ estimator.
 Bmse(θ) = E {[θ − θ(x)]2 } =
 [θ − θ(x)]2 p(x, θ)d xd θ
 Note that the E {·} is wrt the joint PDF of x and θ.
-(The Bayesian Philosophy)
-Estimation Theory
 Minimum Mean Square Error Estimator
 Consider the estimation of A that minimizes the Bayesian MSE, where A is
 a random variable with uniform PDF p(A) = U [−A0 , A0 ] and independent
@@ -1271,9 +962,6 @@ which results in
 Ap(A|x)dA = E (A|x)
 Bayesian MMSE Estimate : is the conditional mean of A given data x
 or the mean of posterior PDF p(A|x).
-(The Bayesian Philosophy)
-Estimation Theory
-Minimum Mean Square Error Estimator
 How to compute the Bayesian MMSE estimate :
 A = E (A|x) =
 Ap(A|x)dA
@@ -1281,7 +969,6 @@ The posteriori PDF can be computed using Bayes’ Rule :
 p(A|x) =
 p(x|A)p(A)
 p(x)
-p(x|A)p(A)
 p(x|A)p(A)dA
 p(x) is the marginal PDF deﬁned as p(x) = p(x, A)dA.
 The integral in the denominator acts as a ”
@@ -1290,17 +977,10 @@ p(x|A)p(A) such the integral of p(A|x) be equal to 1.
 p(x|A) has exactly the same form as p(x; A) which is used in the
 classical estimation.
 The MMSE estimator always exists and can be computed by :
-(The Bayesian Philosophy)
 Ap(x|A)p(A)dA
-p(x|A)p(A)dA
-Estimation Theory
-Minimum Mean Square Error Estimator
 Example : For p(A) = U [−A0 , A0 ] we have :
-exp
 (2πσ
-exp
 (2πσ 2 )N/2
-(x[n] − A)2 dA
 (x[n] − A)2 dA
 Before collecting the data the mean of the prior PDF p(A) is the best
 estimate while after collecting the data the best estimate is the mean
@@ -1309,33 +989,21 @@ Choice of p(A) is crucial for the quality of the estimation.
 Only Gaussian prior PDF leads to a closed-form estimator.
 Conclusion : For an accurate estimator choose a prior PDF that can be
 physically justiﬁed. For a closed-form estimator choose a Gaussian prior
-(The Bayesian Philosophy)
-Estimation Theory
 Properties of the Gaussian PDF
 Theorem (Conditional PDF of Bivariate Gaussian)
 If x and y are distributed according to a bivariate Gaussian PDF :
 p(x, y ) =
-exp
-det(C)
 with covariance matrix :
-x − E (x)
-y − E (y )
 x − E (x)
 y − E (y )
 var(x)
 cov(x, y )
 cov(x, y ) var(y )
 then the conditional PDF p(y |x) is also Gaussian and :
-cov(x, y )
 [x − E (x)]
-var(x)
 cov2 (x, y )
 var(y |x) = var(y ) −
-var(x)
 E (y |x) = E (y ) +
-(The Bayesian Philosophy)
-Estimation Theory
-Properties of the Gaussian PDF
 Example (DC level in WGN with Gaussian prior PDF)
 Consider the Bayesian model x[0] = A + w [0] (just one observation) with
 a prior PDF of A ∼ N (µA , σA ) independent of noise.
@@ -1346,30 +1014,17 @@ cov(A, x[0]) = E {(A − µA )(x[0] − E (x[0])}
 The Bayesian MMSE estimate is also Gaussian with :
 cov(A, x[0])
 [x[0] − µA ] = µA + 2 A 2 (x[0] − µA )
-var(x)
 var(A) = σA|x = σA −
-(The Bayesian Philosophy)
 cov2 (A, x[0])
 = σA (1 − 2 A 2 )
-var(x)
-Estimation Theory
-Properties of the Gaussian PDF
+
+[ _to('140528142647') ]
 Theorem (Conditional PDF of Multivariate Gaussian)
 If x (with dimension k × 1) and y (with dimension l × 1) are jointly
-Gaussian with PDF :
-p(x, y ) =
-(2π)
-exp
-det(C)
-with covariance matrix :
-x − E (x)
-y − E (y)
-x − E (x)
-y − E (y)
+Gaussian with PDF:
 then the conditional PDF p(y|x) is also Gaussian and :
 E (y|x) = E (y) + Cyx C−1 [x − E (x)]
-(The Bayesian Philosophy)
-Estimation Theory
+
 Bayesian Linear Model
 Let the data be modeled as
 where θ is a p × 1 random vector with prior PDF N (µθ , Cθ ) and w is a
@@ -1383,12 +1038,8 @@ estimator we should compute the covariance matrices :
 = HE {(θ − µθ )(θ − µθ )T }HT + E (wwT ) = HCθ HT + Cw
 = E {(θ − µθ )[H(θ − µθ ) + w]T }
 = E {(θ − µθ )(θ − µθ )T }HT = Cθ HT
-(The Bayesian Philosophy)
-Estimation Theory
-Bayesian Linear Model
 Theorem (Posterior PDF for the Bayesian General Linear Model)
 If the observed data can be modeled as
-where θ is a p × 1 random vector with prior PDF N (µθ , Cθ ) and w is a
 noise vector with PDF N (0, Cw ), then the posterior PDF p(x|θ) is
 Gaussian with mean :
 E (θ|x) = µθ + Cθ HT (HCθ HT + Cw )−1 (x − Hµθ )
@@ -1396,9 +1047,6 @@ and covariance
 Cθ|x = Cθ − Cθ HT (HCθ HT + Cw )−1 HCθ
 Remark : In contrast to the classical general linear model, H need not be
 full rank.
-(The Bayesian Philosophy)
-Estimation Theory
-Bayesian Linear Model
 Example (DC Level in WGN with Gaussian Prior PDF)
 A ∼ N (µA , σA ),
 w [n] ∼ N (0, σ 2 )
@@ -1408,9 +1056,7 @@ var(A|x) = σA − σA 1T (1σA 1T + σ 2 I)−1 1σA
 We use the Matrix Inversion Lemma to get :
 (I + 1
 E (A|x) = µA +
-(The Bayesian Philosophy)
 (¯ − µA ) and var(A|x) =
-Estimation Theory
 Nuisance Parameters
 Deﬁnition (Nuisance Parameter)
 Suppose that θ and α are unknown parameters but we are only interested
@@ -1423,20 +1069,13 @@ p(θ, α|x)d α
 p(θ|x) =
 We can also express it as
 p(x|θ)p(θ)
-p(θ|x) =
 p(x|θ)p(θ)d θ
-where
 p(x|θ) =
 p(x|θ, α)p(α|θ)d α
 Furthermore if α is independent of θ we have :
-p(x|θ) =
-(The Bayesian Philosophy)
 p(x|θ, α)p(α)d α
-Estimation Theory
 General Bayesian Estimators
 (General Bayesian Estimators)
-Estimation Theory
-General Bayesian Estimators
 A general Bayesian estimator is obtained by minimizing the Bayes Risk
 θ = arg min R(θ)
 where R(θ) = E {C (ε)} is the Bayes Risk, C (ε) is a cost function and
@@ -1447,13 +1086,9 @@ R(θ) = E {ε2 } = E {(θ − θ)2 }
 2. Absolute :
 R(θ) = E {|ε|} = E {|θ − θ|}
 R(θ) = E {C (ε)}
-(General Bayesian Estimators)
 where C (ε) =
-Estimation Theory
-General Bayesian Estimators
 The Bayes risk is
 R(θ) = E {C (ε)} =
-where
 g (θ) =
 C (θ − θ)p(x, θ)d xd θ =
 C (θ − θ)p(θ|x)d θ
@@ -1464,12 +1099,8 @@ For this case R(θ) = E {(θ − θ)2 } =Bmse(θ) which leads to the MMSE
 estimator with
 θ = E (θ|x)
 so θ is the mean of the posterior PDF p(θ|x).
-(General Bayesian Estimators)
-Estimation Theory
-General Bayesian Estimators
 Absolute
 In this case we have :
-g (θ) =
 |θ − θ|p(θ|x)d θ =
 (θ − θ)p(θ|x)d θ +
 (θ − θ)p(θ|x)d θ
@@ -1478,21 +1109,14 @@ rule, we get :
 p(θ|x)d θ =
 p(θ|x)d θ
 Then θ is the median (area to the left=area to the right) of p(θ|x)
-(General Bayesian Estimators)
-Estimation Theory
-General Bayesian Estimators
 In this case we have
-g (θ) =
 1 · p(θ|x)d θ +
 1 · p(θ|x)d θ
-p(θ|x)d θ
 For δ arbitrarily small the optimal estimate is the location of the
 maximum of p(θ|x) or the mode of the posterior PDF.
 This estimator is called the maximum a posteriori (MAP) estimator.
 Remark : For unimodal and symmetric posterior PDF (e.g. Gaussian
 PDF), the mean and the mode and the median are the same.
-(General Bayesian Estimators)
-Estimation Theory
 Minimum Mean Square Error Estimators
 Extension to the vector parameter case : In general, like the scalar
 case, we can write :
@@ -1504,17 +1128,13 @@ p(θ|x)d θ2 · · · d θp d θ1 =
 In vector form we have :
 θ1 p(θ|x)d θ
  θ2 p(θ|x)d θ
-θ1 p(θ|x)d θ
 θp(θ|x)d θ = E (θ|x)
 θp p(θ|x)d θ
 Similarly
-(General Bayesian Estimators)
 Bmse(θi ) =
 [Cθ|x ]ii p(x)d x
-Estimation Theory
 Properties of MMSE Estimators
 For Bayesian Linear Model, poor prior knowledge leads to MVU
-estimator.
 θ = E (θ|x) = µθ + (C−1 + HT C−1 H)−1 HT C−1 (x − Hµθ )
 For no prior knowledge µθ → 0 and C−1 → 0, and therefore :
 Commutes over aﬃne transformations.
@@ -1524,15 +1144,9 @@ Enjoys the additive property for independent data sets.
 Assume that θ, x1 , x2 are jointly Gaussian with x1 and x2
 independent :
 θ = E (θ) + Cθx1 C−1 1 [x1 − E (x1 )] + Cθx2 C−1 2 [x2 − E (x2 )]
-(General Bayesian Estimators)
-Estimation Theory
 Maximum A Posteriori Estimators
 In the MAP estimation approach we have :
 θ = arg max p(θ|x)
-where
-p(θ|x) =
-p(x|θ)p(θ)
-p(x)
 An equivalent maximization is :
 θ = arg max p(x|θ)p(θ)
 θ = arg max[ln p(x|θ) + ln p(θ)]
@@ -1540,25 +1154,13 @@ If p(θ) is uniform or is approximately constant around the maximum
 of p(x|θ) (for large data length), we can remove p(θ) to obtain the
 Bayesian Maximum Likelihood :
 θ = arg max p(x|θ)
-(General Bayesian Estimators)
-Estimation Theory
-Maximum A Posteriori Estimators
 Example (DC Level in WGN with Uniform Prior PDF)
 The MMSE estimator cannot be obtained in explicit form due to the need
 to evaluate the following integrals :
-exp
-(2πσ 2 )N/2
-exp
-(2πσ
-(x[n] − A)2 dA
-(x[n] − A)2 dA
 The MAP estimator is given as : A =
 Remark : The main advantage of MAP estimator is that for non jointly
 Gaussian PDFs it may lead to explicit solutions or less computational
 eﬀort.
-(General Bayesian Estimators)
-Estimation Theory
-Maximum A Posteriori Estimators
 Extension to the vector parameter case
 θ1 = arg max p(θ1 |x) = arg max
 p(θ|x)dθ2 . . . dθp
@@ -1571,9 +1173,6 @@ In general, as N → ∞, the MAP estimator → the Bayesian MLE.
 If the posterior PDF is Gaussian, the mode is identical to the mean,
 therefore the MAP estimator is identical to the MMSE estimator.
 The invariance property in ML theory does not hold for the MAP
-estimator.
-(General Bayesian Estimators)
-Estimation Theory
 Performance Description
 In the classical estimation the mean and the variance of the estimate
 (or its PDF) indicates the performance of the estimator.
@@ -1589,8 +1188,6 @@ unbiased (in the Bayesian sense).
 Ex,θ (θ − θ) = Ex,θ (θ − E (θ|x)) = Ex [Eθ|x (θ) − Eθ|x (θ|x)] = Ex (0) = 0
 The variance of the estimate is Bmse :
 var(ε) = Ex,θ (ε2 ) = Ex,θ [(θ − θ)2 ] = Bmse(θ)
-(General Bayesian Estimators)
-Estimation Theory
 Performance Description (Vector Parameter Case)
 The vector of the estimation error is ε = θ − θ and has a zero mean.
 Its covariance matrix is :
@@ -1604,8 +1201,6 @@ Mθ = Cθ|x = Cθ − Cθ HT (HCθ HT + Cw )−1 HCθ
 In this case ε is a linear transformation of x and θ and thus is
 Gaussian. Therefore :
 ε ∼ N (0, Mθ )
-(General Bayesian Estimators)
-Estimation Theory
 Signal Processing Example
 Deconvolution Problem : Estimate a signal transmitted through a
 channel with known impulse response :
@@ -1613,9 +1208,6 @@ where s[n] is a WSS Gaussian process with known ACF, and w [n] is WGN
 with variance σ 2 .
 ˆ = Cs HT (HCs HT + σ 2 I)−1 x
 where Cs is a symmetric Toeplitz matrix with [Cs ]ij = rss [i − j]
-(General Bayesian Estimators)
-Estimation Theory
-Signal Processing Example
 Consider that H = I (no ﬁltering), so the Bayesian model becomes
 Classical Approach The MVU estimator is ˆ = (HT H)−1 HT x = x.
 Bayesian Approach The MMSE estimator is ˆ = Cs (Cs + σ 2 I)−1 x.
@@ -1624,13 +1216,10 @@ where η = rss [0]/σ 2 is the SNR.
 Signal is a Realization of an Auto Regressive Process : Consider
 a ﬁrst order AR process : s[n] = −a s[n − 1] + u[n], where u[n] is
 WGN with variance σu . The ACF of s is :
-(General Bayesian Estimators)
 (−a)|k|
 1 − a2
-Estimation Theory
 Linear Bayesian Estimators
 (Linear Bayesian Estimators)
-Estimation Theory
 Problems with general Baysian estimators :
 diﬃcult to determine in closed form,
 need intensive computations,
@@ -1645,8 +1234,6 @@ Which is a suboptimal estimator that can be easily implemented.
 It needs only the ﬁrst and second moments of the joint PDF.
 It is analogous to BLUE in classical estimation.
 In practice, this estimator is termed Wiener ﬁlter.
-(Linear Bayesian Estimators)
-Estimation Theory
 Linear MMSE Estimators (scalar case)
 Goal : Estimate θ, given the data vector x. Assume that only the ﬁrst two
 moments of the joint PDF of x and θ are available :
@@ -1660,9 +1247,6 @@ Computing aN : Let’s diﬀerentiate the Bmse with respect to aN :
 E (θ − aT x − aN )2 = −2E (θ − aT x − aN )
 ∂aN
 Setting this equal to zero gives : aN = E (θ) − aT E (x).
-(Linear Bayesian Estimators)
-Estimation Theory
-Linear MMSE Estimators (scalar case)
 Minimize the Bayesian MSE :
 Bmse(θ) = E [(θ − θ)2 ] = E [(θ − aT x − E (θ) + aT E (x))2 ]
 = E [aT (x − E (x)) − (θ − E (θ))]2
@@ -1676,22 +1260,14 @@ This can be minimized by setting the gradient to zero :
 which results in a = C−1 Cxθ and leads to (Note that : Cθx = CT ) :
 θ = aT x + aN = CT C−1 x + E (θ) − CT C−1 E (x)
 = E (θ) + Cθx C−1 (x − E (x))
-(Linear Bayesian Estimators)
-Estimation Theory
-Linear MMSE Estimators (scalar case)
 The minimum Bayesian MSE is obtained :
 Bmse(θ) = CT C−1 Cxx C−1 Cxθ − CT C−1 Cxθ
-Remarks :
 The results are identical to those of MMSE estimators for jointly
 Gaussian PDF.
 The LMMSE estimator relies on the correlation between random
 variables.
 If a parameter is uncorrelated with the data (but nonlinearly
 dependent), it cannot be estimated with an LMMSE estimator.
-(Linear Bayesian Estimators)
-Estimation Theory
-Linear MMSE Estimators (scalar case)
-Example (DC Level in WGN with Uniform Prior PDF)
 The data model is : x[n] = A + w [n]
 where A ∼ U [−A0 , A0 ] is independent from w [n] (WGN with variance σ 2 ).
 We have E (A) = 0 and E (x) = 0. The covariances are :
@@ -1699,20 +1275,9 @@ We have E (A) = 0 and E (x) = 0. The covariances are :
 = E (AxT ) = E [A(A1 + w)T ] = E (A2 )1T
 Therefore the LMMSE estimator is :
 A = Cθx C−1 x = σA 1T (σA 11T + σ 2 I)−1 x =
-where
 = E (A ) =
-(Linear Bayesian Estimators)
-Estimation Theory
-Linear MMSE Estimators (scalar case)
-Example (DC Level in WGN with Uniform Prior PDF)
 Comparison of diﬀerent Bayesian estimators :
 A exp
-exp
-(x[n] − A)2 dA
-(x[n] − A)2 dA
-(Linear Bayesian Estimators)
-Estimation Theory
-Geometrical Interpretation
 Vector space of random variables : The set of scalar zero mean random
 variables is a vector space.
 The zero length vector of the set is a RV with zero variance.
@@ -1727,10 +1292,7 @@ For RVs, x1 , x2 , y and real numbers a1 and a2 we have :
 < a1 x1 + a2 x2 , y >= a1 < x1 , y > +a2 < x2 , y >
 E [(a1 x1 + a2 x2 )y ] = a1 E (x1 y ) + a2 E (x2 y )
 The projection of y on x is :
-(Linear Bayesian Estimators)
 E (yx)
-Estimation Theory
-Geometrical Interpretation
 The LMMSE estimator can be determined using the vector space
 viewpoint. We have :
 an x[n]
@@ -1744,9 +1306,6 @@ Clearly the length of the vector error is minimized when is
 orthogonal to the subspace spanned by x[0], x[1], . . . , x[N − 1] or to
 each data sample :
 E (θ − θ)x[n] = 0
-(Linear Bayesian Estimators)
-Estimation Theory
-Geometrical Interpretation
 The LMMSE estimator can be determined by solving the following
 equations :
 am x[m] x[n] = 0
@@ -1762,8 +1321,6 @@ E (x[1]x[N − 1])
 E (x
 Therefore
 Cxx a = CT
-a0
-a1
 aN−1
 E (θx[0])
 E (θx[1])
@@ -1771,24 +1328,16 @@ E (θx[N − 1])
 a = C−1 CT
 The LMMSE estimator is :
 θ = aT x = Cθx C−1 x
-(Linear Bayesian Estimators)
-Estimation Theory
 The vector LMMSE Estimator
 We want to estimate θ = [θ1 , θ2 , . . . , θp ]T with a linear estimator that
 minimize the Bayesian MSE for each element.
 ain x[n] + aiN
 Bmse(θi ) = E (θi − θi )2
-Minimize
-Therefore :
 θi = E (θi ) + Cθi x C−1 x − E (x)
 The scalar LMMSE estimators can be combined into a vector estimator :
 θ = E (θ) + Cθx C−1 x − E (x)
 and similarly
 Bmse(θi ) = [M ˆ]ii
-where
-(Linear Bayesian Estimators)
-Estimation Theory
-The vector LMMSE Estimator
 Theorem (Bayesian Gauss–Markov Theorem)
 If the data are described by the Bayesian linear model form
 where θ is a p × 1 random vector with mean E (θ) and covariance Cθθ , w
@@ -1799,67 +1348,42 @@ The performance of the estimator is measured by
 zero and whose covariance matrix is
 = θ − θ whose mean is
 C = Mθ = Cθθ − Cθθ HT (HCθθ HT + Cw )−1 HCθθ = C−1 + HT C−1 H
-(Linear Bayesian Estimators)
-Estimation Theory
 Sequential LMMSE Estimation
 Objective : Given θ[n − 1] based on x[n − 1], update the new estimate
 ˆ based on the new sample x[n].
 Example (DC Level in White Noise)
 Assume that both A and w [n] have zero mean :
-Estimator Update :
 A[N] = A[N − 1] + K [N](x[N] − A[N − 1])
-where
 Bmse(A[N − 1])
 Bmse(A[N − 1]) + σ 2
 Minimum MSE Update :
 Bmse(A[N]) = (1 − K [N])Bmse(A[N − 1])
-(Linear Bayesian Estimators)
-Estimation Theory
-Sequential LMMSE Estimation
 Vector space view : If two observations are orthogonal, the LMMSE
 estimate of θ is the sum of the projection of θ on each observation.
 1 Find the LMMSE estimator of A based on x[0], yielding A[0] :
 E (Ax[0])
-E (x 2 [0])
 Find the LMMSE estimator of x[1] based on x[0], yielding x [1|0]
-E (x[0]x[1])
-E (x
 Determine the innovation of the new data :˜[1] = x[1] − x [1|0].
 This error vector is orthogonal to x[0]
 Add to A[0] the LMMSE estimator of A based on the innovation :
 E (A˜[1])
 E (˜2 [1])
 the projection of
-(Linear Bayesian Estimators)
 = A[0] + K [1](x[1] − x [1|0])
-Estimation Theory
-Sequential LMMSE Estimation
 Basic Idea : Generate a sequence of orthogonal RVs, namely, the
 innovations :
 Then, add the individual estimators to yield :
-where
 E (A˜[n])
 E (˜2 [n])
 It can be shown that :
-and
-Bmse(A[N − 1])
 σ 2 + Bmse(A[N − 1])
 the minimum MSE be updated as :
-Bmse(A[N]) = (1 − K [N])Bmse(A[N − 1])
-(Linear Bayesian Estimators)
-Estimation Theory
 General Sequential LMMSE Estimation
 Consider the general Bayesian linear model x = Hθ + w, where w is an
 uncorrelated noise with the diagonal covariance matrix Cw . Let’s deﬁne :
 Cw [n] = diag(σ0 , σ1 , . . . , σn )
-Estimator Update :
-where
 Minimum MSE Matrix Update :
 M[n] = (I − K[n]hT [n])M[n − 1]
-(Linear Bayesian Estimators)
-Estimation Theory
-General Sequential LMMSE Estimation
-Remarks :
 For the initialization of the sequential LMMSE estimator, we can use
 the prior information :
 θ[−1] = E (θ)
@@ -1869,8 +1393,6 @@ fundamentally diﬀerent.
 No matrix inversion is required.
 The gain factor K[n] weights conﬁdence in the new data (measured
 by σn ) against all previous data (summarized by M[n − 1]).
-(Linear Bayesian Estimators)
-Estimation Theory
 Wiener Filtering
 Consider the signal model : x[n] = s[n] + w [n]
 where the data and noise are zero mean with known covariance matrix.
@@ -1885,13 +1407,9 @@ Prediction : Estimate θ = x[N − 1 + ] for positive integer based on the
 data set x = [x[0], x[1], . . . , x[N − 1]].
 Remarks : All these problems are solved using the LMMSE estimator :
 with the minimum Bmse :
-(Linear Bayesian Estimators)
-Estimation Theory
 Wiener Filtering (Smoothing)
 Estimate θ = s = [s[0], s[1], . . . , s[N − 1]] (vector) based on the data set
-Therefore :
 Cθx = E (sxT ) = E (s(s + w)T ) = Rss
-and
 ˆ = Csx C−1 x = Rss (Rss + Rww )−1 x = Wx
 Filter Interpretation : The Wiener Smoothing Matrix can be interpreted
 as an FIR ﬁlter. Let’s deﬁne :
@@ -1902,13 +1420,10 @@ hn = [h(n) [0], h(1) [1], . . . , h(n) [N − 1]] which is just the vector an wh
 aT x
 h(n) [N − 1 − k]x[k]
 This represents a time-varying, non causal FIR ﬁlter.
-(Linear Bayesian Estimators)
-Estimation Theory
 Wiener Filtering (Filtering)
 Estimate θ = s[n] based on the data set x = x[0], x[1], . . . , x[n] . We
 have again Cxx = Rxx = Rss + Rww and
 Cθx = E (s[n] x[0], x[1], . . . , x[n] ) = rss [n], rss [n − 1], . . . , rss [0] = (rss )T
-Therefore :
 ˆ[n] = (rss )T (Rss + Rww )−1 x = aT x
 Filter Interpretation : If we deﬁne hn = [h(n) [0], h(1) [1], . . . , h(n) [N − 1]]
 which is just the vector a when ﬂipped upside down. Then :
@@ -1917,26 +1432,20 @@ h(n) [n − k]x[k]
 This represents a time-varying, causal FIR ﬁlter. The impulse response can
 be computed as :
 (Rss + Rww )a = rss
-(Linear Bayesian Estimators)
-Estimation Theory
 (Rss + Rww )hn = rss
 Wiener Filtering (Prediction)
 Estimate θ = x[N − 1 + ] based on the data set
 x = [x[0], x[1], . . . , x[N − 1]]. We have again Cxx = Rxx and
 = E (x[N − 1 + ][x[0], x[1], . . . , x[N − 1]])
 rxx [N − 1 + ], rxx [N − 2 + ], . . . , rxx [ ] = (rxx )T
-Therefore :
 x [N − 1 + ] = (rxx )T R−1 x = aT x
 Filter Interpretation : If we let again h[N − k] = ak , we have
 x [N − 1 + ] = a x =
 This represents a time-invariant, causal FIR ﬁlter. The impulse response
 can be computed as :
 = 1, this is equivalent to an Auto-Regressive process.
-(Linear Bayesian Estimators)
-Estimation Theory
 Kalman Filters
 (Kalman Filters)
-Estimation Theory
 Kalman ﬁlter is a generalization of the Wiener ﬁlter.
 In Wiener ﬁlter we estimate s[n] based on the noisy observation
 vector x[n]. We assume that s[n] is a stationary random process with
@@ -1951,8 +1460,6 @@ Kalman ﬁlter has many applications in Control theory for state
 estimation.
 It can be generalized to vector signals and noise (in contrast to
 Wiener ﬁlter).
-(Kalman Filters)
-Estimation Theory
 Dynamical Signal Models
 Consider a ﬁrst order dynamical model :
 s[n] = as[n − 1] + u[n]
@@ -1961,14 +1468,9 @@ independent of u[n] for all n ≥ 0. It can be shown that :
 s[n] = a
 ak u[n − k]
 E (s[n]) = an+1 µs
-and
 s[m] − E (s[m]) s[n] − E (s[n])
 = am+n+2 σs + σu am−n
-a2k
 and Cs [m, n] = Cs [n, m] for m < n.
-(Kalman Filters)
-Estimation Theory
-Dynamical Signal Models
 Theorem (Vector Gauss-Markov Model)
 The Gauss-Markov model for a p × 1 vector signal s[n] is :
 A is p × p and B p × r and all eigenvalues of A are less than 1 in
@@ -1979,13 +1481,10 @@ covariance :
 for m ≥ n and Cs [m, n] = Cs [n, m] for m < n. The covariance matrix
 C[n] = Cs [n, n] and the mean and covariance propagation equations are :
 E (s[n]) = AE (s[n − 1]) , C[n] = AC[n − 1]AT + BQBT
-(Kalman Filters)
-Estimation Theory
 Scalar Kalman Filter
 Data model :
 State equation
 Observation equation
-s[n] = as[n − 1] + u[n]
 u[n] is zero mean Gaussian noise with independent samples and
 E (u 2 [n]) = σu .
 w [n] is zero mean Gaussian noise with independent samples and
@@ -1996,9 +1495,6 @@ Objective : Develop a sequential MMSE estimator to estimate s[n] based
 on the data X[n] = x[0], x[1], . . . , x[n] . This estimator is the mean of
 posterior PDF :
 ˆ[n|n] = E (s[n] x[0], x[1], . . . , x[n])
-(Kalman Filters)
-Estimation Theory
-Scalar Kalman Filter
 To develop the equations of a Kalman ﬁlter we need the following
 properties :
 Property 1 : For two uncorrelated jointly Gaussian data vector, the
@@ -2009,9 +1505,6 @@ Property 2 : If θ = θ1 + θ2 , then the MMSE estimator of θ is :
 Basic Idea : Generate the innovation x [n] = x[n] − x [n|n − 1] which is
 uncorrelated with previous samples X[n − 1]. Then use x [n] instead of x[n]
 for estimation (X[n] is equivalent to X[n − 1], x [n] ).
-(Kalman Filters)
-Estimation Theory
-Scalar Kalman Filter
 From Property 1, we have :
 ˆ[n|n] = E (s[n] X[n − 1], x [n]) = E (s[n] X[n − 1]) + E (s[n] x [n])
 = ˆ[n|n − 1] + E (s[n] x [n])
@@ -2027,12 +1520,9 @@ E (˜
 where x [n|n − 1] = ˆ[n|n − 1] + w[n|n − 1] = ˆ[n|n − 1].
 Finally we have :
 ˆ[n|n] = aˆ[n − 1|n − 1] + K [n](x[n] − ˆ[n|n − 1])
-(Kalman Filters)
-Estimation Theory
 Scalar State – Scalar Observation Kalman Filter
 State Model :
 Observation Model :
-s[n] = as[n − 1] + u[n]
 Prediction :
 ˆ[n|n − 1] = aˆ[n − 1|n − 1]
 Minimum Prediction MSE :
@@ -2041,13 +1531,10 @@ Kalman Gain :
 Correction :
 ˆ[n|n] = ˆ[n|n − 1] + K [n](x[n] − ˆ[n|n − 1])
 M[n|n] = (1 − K [n])M[n|n − 1]
-(Kalman Filters)
-Estimation Theory
 Properties of Kalman Filter
 The Kalman ﬁlter is an extension of the sequential MMSE estimator
 but applied to time-varying parameters that are represented by a
 dynamic model.
-No matrix inversion is required.
 The Kalman ﬁlter is a time-varying linear ﬁlter.
 The Kalman ﬁlter computes (and uses) its own performance measure,
 the Bayesian MSE M[n|n].
@@ -2061,36 +1548,19 @@ In KF M[n|n], M[n|n − 1] and K [n] do not depend on the
 measurement and can be computed oﬀ line. At steady state (n → ∞)
 the Kalman ﬁlter becomes an LTI ﬁlter (M[n|n], M[n|n − 1] and K [n]
 become constant).
-(Kalman Filters)
-Estimation Theory
 Vector State – Scalar Observation Kalman Filter
-State Model :
-Observation Model :
-Prediction :
 s[n] = As[n − 1] + Bu[n] with u[n] ∼ N (0, Q)
 x[n] = hT [n]s[n] + w [n] with s[−1] ∼ N (µs , Cs )
 Minimum Prediction MSE (p × p) :
 Kalman Gain (p × 1) :
-Correction :
 ˆ[n|n] = ˆ[n|n − 1] + K[n](x[n] − hT [n]ˆ[n|n − 1])
 Minimum MSE Matrix (p × p) :
 M[n|n] = (I − K[n]hT [n])M[n|n − 1]
-(Kalman Filters)
-Estimation Theory
 Vector State – Vector Observation Kalman Filter
-State Model :
-Observation Model :
-Prediction :
-s[n] = As[n − 1] + Bu[n] with u[n] ∼ N (0, Q)
 x[n] = H[n]s[n] + w[n] with w[n] ∼ N (0, C[n])
-Minimum Prediction MSE (p × p) :
 Kalman Gain Matrix (p × M) : (Need matrix inversion !)
-Correction :
 ˆ[n|n] = ˆ[n|n − 1] + K[n](x[n] − H[n]ˆ[n|n − 1])
-Minimum MSE Matrix (p × p) :
 M[n|n] = (I − K[n]H[n])M[n|n − 1]
-(Kalman Filters)
-Estimation Theory
 Extended Kalman Filter
 The extended Kalman ﬁlter is a sub-optimal approach when the state
 and the observation equations are nonlinear.
@@ -2103,9 +1573,6 @@ of s using a ﬁrst order Taylor series.
 f(s[n − 1]) ≈ f(ˆ[n − 1|n − 1]) +
 g(s[n]) ≈ g(ˆ[n|n − 1]) +
 We denote the Jacobians by :
-(Kalman Filters)
-Estimation Theory
-Extended Kalman Filter
 Now we use the linearized models :
 +f(ˆ[n − 1|n − 1]) − A[n − 1]ˆ[n − 1|n − 1]
 +g(ˆ[n|n − 1]) − H[n]ˆ[n|n − 1]
@@ -2117,5 +1584,3 @@ The extended Kalman ﬁlter has exactly the same equations where A
 is replaced with A[n − 1].
 A[n − 1] and H[n] should be computed at each sampling time.
 MSE matrices and Kalman gain can no longer be computed oﬀ line.
-(Kalman Filters)
-Estimation Theory
