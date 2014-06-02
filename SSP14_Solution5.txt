@@ -1,0 +1,268 @@
+5. Linear Estimation
+
+Problem 5.1
+LMMSE Estimator, MSE and SNR
+a) First, note that x as well as v have zero mean. Therefore, y has zero mean as well. The estimator
+T LMMSE for the estimate xLMMSE = T T
+LMMSE y is determined as the solution of the unconstrained
+optimization problem given as
+\todo{Shoudn't it in the last line not be $T^T C_y T$?}
+
+Setting the derivative of the objective function with respect to T T to zero gives
+[ _cf('140529165442') ]
+which results in the unique stationary point
+The second derivative with respect to T T is given as
+Thus, the stationary point actually is a minimizer and
+This directly leads to the LMMSE estimate xLMMSE for x based on y given as
+From the system model, we have that
+which results in
+The random vectors x and y are jointly Gaussian due to the linear channel model y = Hx + v . In
+particular, the random vector z = y T x T is a Gaussian random vector, as it can be constructed using the affine transformation of the Gaussian, due to the independence of x and v , random vector x T v T . Thus, the conditional mean estimator, i.e., the estimator which minimizes the MSE without the constraint that it has to be linear, turns out to be a linear estimator. Therefore, the LMMSE estimator is an MMSE estimator as well.
+All ingredients for the MMSE estimator can be found in the ﬁrst and second order moment of the Gaussian random vector z. Using
+This results in the MMSE estimator, here for the general case, given as
+[ _cf('140529172924') ]
+
+b) For NT = 1, it follows that Cx ⇒ σ2 and H ⇒ h ∈ RNR ×1 . The ﬁltered receive signal reads as
+tTy =
+t T hx
+ﬁltered useful signal
+ﬁltered noise
+A ﬁlter which maximizes the SNR in the presence of additive noise is called a matched ﬁlter (MF).
+The MF is determined by
+ E t T hx 2 
+t MF = argmax 
+2 
+t∈RNR ×1  E t T v
+ σ2 t T h 2 
+ x
+= argmax  2 T 
+ σ t t 
+ v
+t∈RNR ×1 
+ tT h 2 
+= argmax  T .
+ t t 
+( t T h)2
+Note that the objective function f (t) = t T t is scaling-invariant, i.e., we have that f (t) = f (ct) for
+every c ∈ R. Therefore, we determine t MF by w.l.o.g. ﬁxing the norm to t 2 = 1. This results in the
+optimization problem
+tT h
+t MF = argmax
+t∈RNR ×1 , t 2 =1
+(5.1)
+which has a maximizer that is obviously colinear with h. Thus, the solution (5.1), i.e., the MF with
+unit norm is given as
+t MF =
+Equivalently, as the solution is arbitrary with respect to scaling, we can write
+t MF = ch ∝ h
+as every t proportional to h achieves the same SNR given as
+SNRMF =
+σ2 t T h
+σ2 t T t MF
+v MF
+σ2 chT h
+σ2 chT ch
+c2 σ2 hT h
+σ2 hT h
+= x 2 .
+c) For NT = 1, it follows that T LMMSE ⇒ t LMMSE ∈ RNR ×1 . Thus, the estimator is given as
+hσ2 hT + σ2 I
+LMMSE = cxy Cy = σx h
+as cxy = σ2 hT and Cy = hσ2 hT + σ2 I for the case that NT = 1. Using the Sherman–Morrison
+formula with A = σ2 I, B = h, and c = σ2 h, the ﬁlter t T
+LMMSE can be expressed as
+LMMSE = σx h σx hh + σv I
+= σ2 hT bcT + A
+A−1 bcT A−1
+1 + cT A−1 b
+σ−2 Ihσ2 hT σ−2 I
+σ−2 I − v
+2 hT σ−2 Ih
+1 + σx
+σ−2 hσ2 hT σ−2
+2 hT σ−2 h
+−2 T
+σv h h
+hT 2
+−2 + σ−2 hT h
+= σ2 hT A−1 −
+= σ2 hT
+= hT
+σ−2
+σ−2 + σ−2 hT h
+∝ hT .
++h h
+Now, we observe that in this special case the LMMSE ﬁlter is proportional to the MF, i.e.,
+t LMMSE ∝ t MF ∝ h,
+and thus achieves the same SNR as the MF, which is the optimal SNR.
+d) We have E [xLMMSE ] = 0 due to E [y ] = 0 as E [x] = 0 and E [v ] = 0. Thus, the mean square of
+the error ex = x − xLMMSE of the LMMSE estimates is given as
+σ2x = E (x − xLMMSE )2
+= E x − tT
+LMMSE y
+= E x 2 − 2t T
+LMMSE y x + t LMMSE yy t LMMSE
+= σ2 − 2t T
+LMMSE cy x + t LMMSE Cy t LMMSE
+= σ2 − 2cTx Cy cy x + cTx C−1 cy x
+= σ2 − t T
+LMMSE cy x
+LMMSE hσx
+= σ2 1 − t T
+LMMSE h .
+Using the result for the LMMSE estimator t T
+LMMSE derived in sub-problem c) results in
+σex = σ2 1 − t T
+LMMSE h
+1 − h h 
+2
+= σx 
+σ2 
+v 
+h h+
+= σ2
+hT h +
+σ2 h T h
+1 + SNRMF
+Problem 5.2
+”Linear” Models and LMMSE
+Calculating the mean of x T y
+leads to
+T x +v
+! µ
+= x =0
+T µx + µv
+which results in the mean of the noise vector given as
+µv = µy − T T µx = 0
+as µy = 0 and µx = 0. Calculating the covariance matrix of x T y
+ x
+E
+y
+ = E
+T
+T
+T x +v T x +v 
+
+
+xx T
+x TTx + v
+= E 
+ T
+
+T x + v x T TTx + v TTx + v
+Cx T
+Cx CT
+T Cx T T Cx T + Cv
+Cyx Cy
+
+
+T 
+
+which results in the ”channel” matrix
+T T = Cyx C−1
+and the ”noise” covariance matrix
+Cv = Cy − Cyx C−1 Cxy .
+Equivalently for the second ”linear” model, we can determine the mean of the noise
+µn = µx − ST µy = 0,
+the ”channel” matrix
+ST = Cxy C−1 ,
+Cn = Cx − Cxy C−1 Cyx .
+b) Taking into account that all random variables are zero mean, the LMMSE estimator T T
+LMMSE for
+an estimation of y based on x is given as
+LMMSE = Cyx Cx
+and the LMMSE estimate yLMMSE for y based on x given as
+yLMMSE = T T
+LMMSE x = Cyx Cx x.
+The LMMSE estimator ST
+LMMSE for an estimation of x based on y is given as
+LMMSE = Cxy Cy
+and the LMMSE estimate xLMMSE for x based on y given as
+xLMMSE = ST
+We observe that T T
+LMMSE = T and SLMMSE = S .
+c) As E [yLMMSE ] = 0 and E [y ] = 0, the covariance matrix of the LMMSE estimates yLMMSE is
+given as
+CyLMMSE = E yLMMSE yLMMSE = T T
+LMMSE Cx T LMMSE = Cyx Cx Cxy
+and the covariance matrix of the error y − yLMMSE of the LMMSE estimates is given as
+Cey = E (y − yLMMSE ) (y − yLMMSE )T = E y − T T
+LMMSE x y − T LMMSE x
+= E yy T − T T
+LMMSE xy − yxT LMMSE + T LMMSE xx T LMMSE
+= Cy − T T
+LMMSE Cxy − Cyx T LMMSE + T LMMSE Cx T LMMSE
+= Cy − Cyx C−1 Cxy
+which is exactly the noise covariance matrix Cv as determined in sub-problem a). Note that
+Cv = Cey = Cy − CyLMMSE .
+Repeating above steps for the second estimator gives
+CxLMMSE = Cxy C−1 Cyx
+Cn = Cex = Cx − CxLMMSE = Cx − Cxy C−1 Cyx .
+d) The optimal estimator with respect to the MSE is given by the conditional mean estimator.
+If z = x T y T is a Gaussian random vector, the conditional mean estimators are given by the
+means of the posterior PDFs fx|y and fy |x which are both Gaussian as well, cf. tutorials 1 and 4. The
+conditional mean estimators are, cf. problem sheet on Bayesian estimators, given as
+yCM = E [y |x] = Cyx Cx x = T T
+LMMSE x
+xCM = E [x|y ] = Cxy Cy y = ST
+Thus, the LMMSE estimators actually are optimal estimators with respect to the MSE if the joint
+distribution of x and y is Gaussian.
+Problem 5.3
+Least Squares MIMO Channel Estimation
+a) The receive vectors {yi }i=1 ∈ RNR are stacked into a matrix Y ∈ RN×NR by
+ ——yT —— 
+Y=
+——yN ——
+and the transmit vectors {xi }i=1 ∈ RNT are stacked into a matrix X ∈ RN×NT by
+ ——xT —— 
+.
+X=
+——xN ——
+This leads to the linear model
+Y LLS = XT LLS ∈ RN×NR
+in order to determine the linear least squares estimator
+T T : RNT → RNR , x → yLLS = T T x.
+Applying the orthogonality principle column-wise, leads to the condition that we have
+Y − Y LLS = Y − XT LLS ⊥ span(X).
+which has to be interpreted column-wise. We have
+Y − Y LLS ∈ null(XT ) and Y LLS ∈ span(X),
+which is meant column-wise as well.
+Using the orthogonality condition from the previous sub-problem column-wise, it follows that
+Y − Y LLS = Y − XT LLS ∈ null(XT )
+which is equivalent to
+XT (Y − XT LLS ) = 0NT ×NR ,
+i.e., we require that every column of the matrix Y − XT LLS is element of null(XT ). Above condition
+results in the well-known normal equation
+XT Y = XT XT LLS .
+The matrix XT X ∈ RNT ×NT is invertible if and only if rank(X) = NT , i.e., if and only if X ∈ RN×NT is
+a tall matrix as N ≥ NT and has full column rank NT . Then, the least squares estimator is given as
+T LLS = XT X
+XT Y
+and the least squares estimates are given as
+Y LLS = X XT X
+XT Y.
+Alternatively, the least squares estimator is given as the solution of
+T LLS = argmin
+T∈RNT ×NR
+= argmin
+Y − Y LLS
+Y − XT
+= argmin tr (Y − XT) (Y − XT)T
+= argmin tr YY T − Y(XT)T − XTY T + XT(XT)T
+= argmin tr −YT T XT − XTY T + XTT T XT .
+As tr AT B = tr BAT = tr BT A = tr ABT , it follows that
+T LLS = argmin tr −YT T XT − XTY T + XTT T XT
+= argmin tr −2T T XT Y + T T XT XT
+which can be, for example, solved by using the ﬁrst and second derivative with respect to T T . The
+ﬁrst derivative is given as
+−2T T XT Y + T T XT XT = −2 XT Y
++ 2T T XT X = 0
+which results in the unique stationary point T ∗,T given as
+T ∗,T = XT Y
+XT X
+−2 XT Y
++ 2T T XT X = 2XT X
+and actually is positive deﬁnite if and only if rank(X) = NT , i.e., if and only if X ∈ RN×NT is a tall
+matrix as N ≥ NT and has full column rank NT . Then, the stationary point T ∗,T is a minimizer and
+we have
+T LLS = T ∗,T = XT X

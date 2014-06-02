@@ -1,7 +1,7 @@
 Statistical Signal Processing
 1. Multivariate Gaussian Distribution
 Solution
-Problem 1.1 Aﬃne Transformation of Gaussian Random Variables
+Problem 1.1 Affine Transformation of Gaussian Random Variables
 a)
 The random variable y is generated using the linear transformation (as b = 0)
 of x = [x1 , x2 ]T . Therefore, it follows that y ∼ N(µy , Cy ). For x, we have x ∼ N(0, I2 ). The mean
@@ -9,9 +9,11 @@ vector µy of y is given as
 and the covariance matrix Cy of y is given as
 Cy = E (y − µy )(y − µy )T = E yy T
 = E (Bx)(Bx)T = BCx BT = BBT
-_v('140502184703')
+
+[ _v('140502184703') ]
 [ inverse of a $2 \times 2$ matrix ]
 [ inverse of a 2x2 matrix ]
+
 b) As z is generated from x using the linear transformation z = BDx, we have
 and
 Cz = E (z − µz )(z − µz )T = E zz T

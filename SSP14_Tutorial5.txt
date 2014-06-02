@@ -1,0 +1,87 @@
+5. Linear Estimation
+
+Problem 5.1
+LMMSE Estimator, MSE and SNR
+Consider a MIMO point-to-point channel where the transmitter is equipped with NT transmit
+antennas and the receiver is equipped with NR receive antennas. Using the linear MIMO model and
+assuming additive white Gaussian noise v ∈ RNR with v ∼ N(0, σ2 I), the receive signal y ∈ RNR at
+the receiver can be expressed as
+y = Hx + v ,
+where x ∈ RNT with x ∼ N(0, Cx ) denotes the transmit signal and H ∈ RNT ×NR denotes the channel
+matrix. In the following, assume that H is known to the transmitter and the receiver.
+a) Derive the linear minimum mean square error (LMMSE) estimator for an estimation of the
+transmit signal x based on the receive signal y . Why is the LMMSE estimator the minimum mean
+square error (MMSE) estimator as well?
+Hint: Following derivatives may be helpful:
+∂tr {X A}
+= AT ,
+∂X
+∂tr X AXT
+= X AT + X A.
+In the following, we consider a SIMO channel, i.e., we have NT = 1.
+b) Determine the ﬁlter which maximizes the receive SNR. Which SNR does this ﬁlter achieve?
+c) Show that in this case the LMMSE estimator actually is a matched ﬁlter, i.e., a ﬁlter that
+maximizes the signal to noise power ratio as well.
+Hint: Given the matrix A ∈ Rn×n and the vectors b ∈ Rn×1 and c ∈ Rn×1 , it follows that
+A + bcT
+−1
+= A−1 −
+A−1 bcT A−1
+1 + cT A−1 b
+d) Express the MSE achieved by LMMSE estimator as a function of the optimal SNR.
+5. Linear Estimation
+Problem 5.2
+”Linear” Models and LMMSE
+The random vectors x ∈ Rm and y ∈ Rn model the inputs and outputs of an unknown noisy operator
+as depicted in Figure 5.1. The input vector and the output vector are stacked into the random vector
+Noise
+T( · )
+Fig. 5.1: Unknown and noisy operator.
+z = x T y T . The distribution of z as well as the marginal distributions of x and y are unknown.
+In contrast, the ﬁrst and second order moment of z, i.e.,
+µz = E [z] =
+and Cz = E zz T =
+are available. In the following, assume that Cx
+Determine T, µv , and Cv
+0 and Cy
+Cx CT
+Cyx Cy
+0 in order to formulate the ”linear” model
+y = TTx + v ,
+where v is independent of x, such that
+ x x
+E
+y y
+Determine S, µn , and Cn
+T
+ = Cz
+= µz .
+0 for the equivalent ”linear” model
+x = ST y + n
+as well.
+b) Compare the linear models to the LMMSE estimators T T
+LMMSE with yLMMSE = T LMMSE x and
+SLMMSE with xLMMSE = SLMMSE y .
+c) Determine the error covariance matrix and the covariance matrix of the estimates for both
+LMMSE estimators. What do you observe?
+d) Let z ∼ N(µz , Cz ). Show that in this case T LMMSE and SLMMSE are minimum mean square error
+(MMSE) estimators as well.
+Problem 5.3
+Least Squares MIMO Channel Estimation
+Consider a transmitter which is equipped with NT transmit antennas and a receiver which is equipped
+with NR receive antennas. In order to estimate the channel between transmitter and receiver, the
+transmitter transmits N globally known training symbols {xi }i=1 ∈ RNT . The corresponding receive
+signals at the receiver are given by N vectors {yi }i=1 ∈ R . The channel between transmitter and
+receiver is constant during the transmission of the N training symbols.
+a) Formulate a linear model Y LLS = XT LLS ∈ RN×NR in order to determine the linear least squares
+(LLS) estimator T LLS : RNT → RNR , x → yLLS = T T x.
+b) State the orthogonality condition for the estimator T LLS . What is the span of the subspace of
+the errors Y − Y LLS and what is the span of the subspace of the estimates Y LLS ?
+c) Using the result from sub-problem b), determine the linear least squares estimator T LLS and the
+least squares estimate Y LLS .
+For those who can’t get enough of optimization problems:
+d) Determine T LLS without exploiting the orthogonality principle.
+Hint 1: For A ∈ Rn×m , the square of the Frobenius norm is given as
+i=1 j=1
+|ai j |2 = tr AAH .
+Hint 2: Following derivatives may be helpful:

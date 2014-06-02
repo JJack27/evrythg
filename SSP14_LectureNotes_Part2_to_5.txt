@@ -204,19 +204,18 @@ Var
 (6.39) can be read out from Eq. (6.27) after some reformulation steps.
 (6.40)
 (6.41)
-Multivariate Variables
-Given two random vectors X ∼ N (µX , C X ), θ ∼ N (µθ , C θ ), and the covariance matrix C z from the
-joint distribution of Z = (X , θ)T ,
-(6.42)
-the Multivariate Conditional Mean Estimator is obtained as
-x → E [θ|x] = µθ + C θ,X C −1 (x − µX ).
-[ $\mu_{\theta}$ is the prior mean ]
-(6.43)
-The respective MMSE is equal to the Trace of the conditional covariance matrix C θ|X , this is
-E (TCM − θ)2 = tr C θ|X = tr C θ − C θ,X C −1 C X ,θ .
-(6.44)
 
+[ _to('140529172924') ]
+Multivariate Variables
+Given two random vectors X ∼ N (µX , C X ), θ ∼ N (µθ , C θ ), and the covariance matrix C z from the joint distribution of Z = (X , θ)T ,
+(6.42)
+the multivariate conditional mean estimator is obtained as
+(6.43)
+[ $\mu_{\theta}$ is the prior mean ]
+The respective MMSE is equal to the Trace of the conditional covariance matrix C θ|X , this is
+(6.44)
 Note. Given Jointly Gaussian Random Variables X and Y , the Conditional Mean Estimator E [Y |X ] is a Linear Function in X . This does not hold for arbitrarily jointly distributed random variables!
+\todo{It is actually strictly linear if all variables are zero mean, otherwise it is affine isn't it?}
 
 Mean Estimation Example (Cont’d)
 From a multivariate r.v. perspective we obtain
