@@ -1,6 +1,4 @@
-Computer-Controlled
-Systems
-Theory and Design
+Computer-Controlled Systems Theory and Design
 THIRD EDITION
 
 Karl J. Astrom
@@ -9,8 +7,7 @@ Tsinghua University Press
 Prentice Hall
 Computer-Controlled Systems-Theory and Design, Third Edition
 Copyright
-© 1997 by Prentice
-Hall
+© 1997 by Prentice Hall
 Original English language Edition Published by Prentice Hall.
 For sales in Mainland China only.
 *=t:513 Ep .~ EE ffl-1:~~ ttl ~~IW~~~m$**-:Jj Jl&t±;(-F. t.p ~!Jl1*J (;f'-EJ.f&wm, 1m f1 *f

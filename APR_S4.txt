@@ -1,0 +1,84 @@
+TECHNISCHE UNIVERSITAT MUNCHEN
+LEHRSTUHL FUR INFORMATIONSTECHNISCHE REGELUNG
+ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
+Adaptive and Predictive Control (APC)
+Dr. Stefan Sosnowski / Denis Cehaji´
+SS2014
+19.05.2014.
+EXERCISE 4 - SOLUTION
+Problem 1: Lyapunov theory for state space systems
+a) Write the reference model Gm in state-space form
+xm1 = xm2
+xm2 = −ω 2 xm1 − 2ξωxm2 + ω 2 uref
+From the above system, we see that the input
+u = −ax2 − bx2 − ω 2 x1 − 2ξωx2 + ω 2 uref
+which leads to the desired behavior
+ax2 + bx2 + (−ax2 − bx2 − ω 2 x1 − 2ξωx2 + ω 2 uref )
+−ω 2 x1 − 2ξωx2 + ω 2 uref
+b) If the parameters a and b are unknown, we have to replace them by their estimates a and ˆ
+respectively. This leads to the controller
+u = −ˆx2 − ˆ 2 − ω 2 x1 − 2ξωx2 + ω 2 uref
+a 1 bx
+Plugging (1) into the system model leads to
+˜ 1
+˜ 2 − ω 2 x1 − 2ξωx2 + ω 2 uref
+where a = a − a and ˜ = b − ˆ Deﬁning the error as e = e1 e2
+error equation
+= x − xm , we get the following
+˜ 2 − ω 2 e1 − 2ξωe2 = −ω 2 −2ξω e + ax2 + ˜ 2
+˜ 1 bx
+
+[ _to('140602203902') ]
+***
+We choose the Lyapunov function 
+![()](140602203612.png)
+of the associated Lyapunov equation. The derivative of [ the quadratic Lyapunov fuction ] V is given by
+![()](140602203718.png)
+and P is the solution
+follows that the system is stable.
+
+where Am =
+0 1 P e. From V (e, Φ) > 0 and V (e, Φ) ≤ 0, it
+Problem 2: Choice of an adaptive control law
+a) Diﬀerential equation of the reference model: ym + ym + ym = r.
+Diﬀerential equation of the plant: yp + (−1 − k1 )yp + (−k2 )yp = r.
+Diﬀerential equations of the controller: u = r + k1 yp + k2 yp .
+b) State space representations of the plant and the model are given by:
+xp = Ap xp + br
+xm = Am xm + br
+with xp =
+, Ap =
+and with xm = m , Am =
+−1 −1
+k2 1 + k1
+The expression of the controller in state space form is given by
+with φT = k2 1 + k1 .
+\todo{Is this correct? I would say $u = r + [k_2, k_1] [x_{p1}; x_{p2}]$}
+c) Verifying if Am is a stable matrix:
+|λI − Am | = λ2 + λ + 1 = 0 ⇒ λ1,2 =
+Pick Q = I:
+0 −1
+1 −1
+p1 p2
+p2 p3
+−1± 1−4
+⇒ Re(λ1,2 ) = −0.5 ⇒ asymptotically stable matrix
+Solving for p we obtain
+p2 = 0.5
+p3 = 1
+p1 = 1.5
+d) Deﬁne error e = xp − xm and obtain the expression of error dynamics
+e = Am e + bφT xp
+Lyapunov function candidate: V (e, φ) = eT P e + φT φ
+Obtain the derivative V (e, φ)
+V = eT P (Am e + bφT xp ) + (xT φbT + eT AT )P e + 2φT φ
+Regrouping the scalar value eT P bφT xp = xT φbT P e = φT xp eT P b and choosing the update law
+˙ = −xp eT P b the following result for the derivative of the Lyapunov function is obtained:
+V = eT (P Am + AT P )e + 2φT (xp eT P b + φ)
+= −eT Qe ≤ 0
+The adaptive laws can be computed as
+φ = ˙ 2 = −xp eT P b = − p
+e1 + 2e2
+k2 = −
+k1 = −
+e1 e2

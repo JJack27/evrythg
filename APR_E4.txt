@@ -1,28 +1,19 @@
 ¨ MUNCHEN
-¨
 TECHNISCHE UNIVERSITAT
-
 ¨ INFORMATIONSTECHNISCHE REGELUNG
 LEHRSTUHL FUR
 ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
-
 Adaptive and Predictive Control (APC)
-´
 Dr. Stefan Sosnowski / Denis Cehaji´
-c
-
 SS2014
 19.05.2014.
-
 EXERCISE 4
 Problem 1: Lyapunov for State Space Systems
 Consider the nonlinear plant model
 x˙ 1 = x2
 x˙ 2 = ax21 + bx2 + u
 y = x1
-
 (1)
-
 with states x1 , x2 ∈ R, input u ∈ R, output y ∈ R, and parameters a, b ∈ R.
 a) Assuming that the parameters a and b are known, design a state feedback controller u(x1 , x2 ) such
 that the behavior of (1) is given by the reference model
@@ -32,41 +23,20 @@ Gm (s) = 2
 s + 2ξωs + ω 2
 b) Based on the above solution, design an adaptive controller for the case when a and b are unknown
 and show that the system is stable.
-
 Problem 2: Choice of Adaptive Control Law
 In the system shown in the figure, determine rules for adjusting the parameters k1 and k2 so that the
 output error e1 tends to zero.
-ym
-
 1
 s2 +s+1
-
-+
-
-r
-+
-
-+
-
-u
-
 1
 s−1
 k1
 k2
-
 1
-s
-
 e1
-yp
-
 a) Determine appropriate differential equations for the reference model, the plant, and the input from
 the figure.
 b) Transfer the differential equations in state space representation with matrices Am and Ap and vector
-b.
 c) Find the elements of P , such that ATm P + P Am = −Q with Q = I in this case.
 d) Determine the update rules for the parameters k1 and k2 , so that e1 approaches zero, by choosing
 an appropriate Lyapunov function containing the weighting matrix P .
-
-

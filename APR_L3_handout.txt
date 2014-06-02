@@ -1,16 +1,13 @@
 Adaptive and Predictive Control
 L3: Self-tuning Controller, Pole placement
-
 Dr.-Ing. Stefan Sosnowski
 Institute for Information-Oriented Control
 Technische Universit¨
 at M¨
 unchen
 APR Lecture, summer semester 2014
-
 www.itr.ei.tum.de
-
-Content
+Content
 1. Introduction to Adaptive and Predictive Control
 2. Parameter Estimation
 3. Self tuning Controller, Pole placement
@@ -18,539 +15,196 @@ www.itr.ei.tum.de
 5. Autotuning, Gain Scheduling
 6. Practical Issues and Implementation, Applications
 Pole Placement
-
 Indirect STR
-
 Direct STR
-
-2
-
-Self-tuning Regulator (STR)
+Self-tuning Regulator (STR)
 Specification
-
 Controller
 Design
-
 Plant Parameters
 Estimation
-
 Controller Parameter
 Reference
-
-Controller
-
 Input
-
 Plant
-
-Output
-
 Identification and controller design in real-time
 ”certainty equivalence principle”
 Indirect adaptation: Separation of identification and controller
 design
 Direct adaptation: Identify controller parameters directly
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-3
-
 cf. 140427084015
-Pole Placement
-
 SISO model of process:
 $A(q)y(t) = B(q)(u(t) + ν(t))$
-
 with:
-
 $A(q) = 1 q^n + a_1 q_{n−1} + . . . + a_n$
 $B(q) = b_1 q^{m−1} + b2 q^{m−2} + . . . + b_m$
-
 output $y(t)$
 input $u(t)$
 disturbance $ν(t)$
 n ≥ m + d0
-Pole Placement
 d0 = time delay
 Assumptions:
 $A$ is a monic polynomial [ In algebra, a monic polynomial is a univariate polynomial in which the leading coefficient (the nonzero coefficient of highest degree) is equal to 1 ]
 A, B are relatively prime (greatest common factor of 1 )
--4-
-
-Pole Placement
+Pole Placement
 SISO model of process: 
 2 degrees of freedom controller:
 R(q)u(t) = (T (q)uc (t) − S(q)y(t))
-
 uc (t)
-
 T (q)
 R(q)
-
 u(t)
-
 ν(t)
 B(q)
 A(q)
-
-−
-
 y(t)
-
 S(q)
-R(q)
-
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-5
-
-Pole Placement
-SISO model of process:
-
 Ay(t) = B(u(t) + ν(t))
-
 Controller:
-
 Ru(t) = T uc (t) − Sy(t)
 
-140428164043
+[ _to('140530113456') ]
 Elimination of u(t) / y(t):
-
 Closed loop characteristic polynomial
 $AR + BS = A_c$
 Diophantine Equation
-
--6-
 
 Requirement: A,B relatively prime ⇒ solution always exists
 B´ezout’s identity: AR + BS = 1
 Examples:
 A(q) = (q + 1)(q + 2)
 B(q) = (q + 1)
-
-A(q) = (q + 1)(q + 2)
 B(q) = (q + 3) (q + 1)(q +
-
 (q +1)(q +2)R(q)+(q +1)S(q) = 1
-
 2)R(q) + (q + 3)S(q) = 1
-
 for z = −1 ⇒ 0 = 1!
-
 R(q) = 12 , S(q) = − 12 q
-
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-7
-
-Diophantine Equation
+Diophantine Equation
 AR + BS = Ac
 cf. 140505230713
 Sylvester matrix:
-
-Pole Placement
-
-Indirect STR
-
-
-0
-..  
-. 
-
-
 0 
-
-
 b0  
-
-
 b1 
-
-
-
 b2 
-
-.. 
-. 
-
- 
-r0
 ac1 − a1
-..  
-..
-
-. 
-.
- 
  acn − an
-rk 
-=
-
 s0 
   acn+1
-..  
-..
-.  
-.
-sl
 ack+l+1
-
-bn
-Direct STR
-
-8
-
-
-
-
-
-
-
-
-
-
-
-
-Pole Placement
 Specify desired Ac and compute R and S by solving the
 Diophantine equation (solution exists for A, B relatively prime)
-
 Controller: Ru(t) = T uc (t) − Sy(t)
-Determination of controller polynomial T : model following
 
+[ _to('140530113614') ]
+Determination of controller polynomial T : [ by ] model following
 Desired response from $u_c$ to $y$:
 $A_m y_m(t) = B_m u_c(t)$
-
 Condition for model following (assuming ν(t) = 0):
-cf. 140428164043
-
--9-
+[ _cf('140530113456') ]
 
 ym (t) = y(t) ⇒
-Pole Placement
-
-Bm
-BT
-BT
-=
-=
-Am
 AR + SB
-Ac
-Indirect STR
-
-Direct STR
-
-9
-
-Pole Placement
 factorization of B:
-B = B+B−
 B + : monic; zeros stable and
 well damped, can be cancelled
 by Controller
-
 B − : corresponds to unstable
 or poorly damped factors (no
 cancellation, factor of Bm )
-
 B + factor of Ac = A0 Am B +
-
-Bm = B − Bm
-
 B + also divides R (since B + is a factor of Ac and B): R = R B +
 Reduction of the closed loop characteristic polynomial to:
 AR + B − S = A0 Am Ac
-Bm
-BT
 Bm Ac
-=
-⇒T =
 = Bm A0
-Am
-Ac
-BAm
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-10
-
-Pole Placement
-Requirement: A,B relatively prime ⇒ solution always exists
 No unique solution for R,S:
 R = R0 + BQ
 S = S 0 − AQ
 with Q: arbitrary polynomial
 Causility conditions of Ru(t) = T uc (t) − Sy(t):
 deg(R(q)) ≥ deg(S(q)),
-
-Pole Placement
-
 deg(R(q)) ≥ deg(T (q))
-
-Indirect STR
-
-Direct STR
-
-11
-
-Minimum Degree Pole Placement (MDPP)
+Minimum Degree Pole Placement (MDPP)
 Determination of R and S:
 Diophantine equ.:
-
 Ac = AR + BS
-
 Design choice:
-
 select controller of lowest possible degree
-
 Minimum degree
 solution:
-
 deg(Ac ) ≥ 2deg(A) − 1
 deg(Am ) − deg(Bm ) ≥ deg(A) − deg(B) = d0
 d0 : pole excess
-
 Delay of the model at least as large as the delay of the process,
 but no extra delay
 ⇒ same degree of R, S and T
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-12
-
-Pole Placement Algorithm (MDPP)
+Pole Placement Algorithm (MDPP)
 Given:
 Specification:
-
 A, B
 Am , Bm , A0
-
 Compatibility conditions:
-
 deg(Am ) = deg(A), deg(Bm ) = deg(B)
 deg(A0 ) = deg(A) − deg(B + ) − 1
-Bm = B − Bm
-
 Step 1: Factorize B: B = B + B − with a monic B +
 Step 2: Determine R , S with deg(S) < deg(A) from:
 AR + B − S = A0 Am
 Step 3: Compute R = R B + and T = A0 Bm to obtain
-Ru = T uc − Sy
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-13
-
-Example: Model following 1/2
+Example: Model following 1/2
 Transfer function in continous time: G(s) =
-
-1
 s(s+1)
-
 [normalized motor model]
 140428171237
 [ Use Matlab: tf(1,[1, 1, 0]); c2d(ans, 0.5) ]
 Impulse transfer function with sample time 0.5sec:
-
-
 Design will lead to controller of first order and a closed-loop of 3rd
 order (deg(Ac ) ≥ 2deg(A) − 1)
 Desired closed-loop system:
-Bm
 bm0 q
 0.1767q
-= 2
-= 2
-Am
 q + am1 q + am2
 q − 1.3205q + 0.4966
 natural frequency: 1 rad/sec, rel. damping: 0.7, static gain: 1
-Pole Placement
-Indirect STR
-Direct STR
-
-14
-
-Example: Model following 2/2
+Example: Model following 2/2
 Design: B + (q) = q +
-
-b1
 b0 ,
-
 B − (q) = b0 ,
-
 Bm (q) =
-
-bm0 q
-b0
-
 R, S and T of first order since A is of second order
 R is of degree zero, since monic: R = 1
 deg(A0 ) = 0 since deg(B + ) = 1; choose A0 (q) = 1
-Diophantine equ.:
-
 (q 2 + a1 q + a2 )1 + b0 (s0 q + s1 )
 = q 2 + am1 q + am2
 [from: AR + B − S = A0 Am ]
-
 Controller polyn.:
-
 R(q) = B + = q +
-
-b1
-b0
-
 zero cancellation
-
 S(q) = s0 q + s1 , T (q) = a0 Bm =
-Pole Placement
-
-Indirect STR
-
-bm0 q
-b0
-
-Direct STR
-
-15
-
-Interpreting Pole Placement, Model Following
+Interpreting Pole Placement, Model Following
 Closed-loop response specified by a given model
 (in terms of zeros/poles):
-T
 A0 B m
 (AR + SB − )Bm
-ABm
-SBm
-=
-=
-=
-+
-R
-R
 Am R
 BAm RAm
 Control law:
-S
-ABm
-SBm
-T
-uc − y =
-+
-R
-R
-BAm RAm
-ABm
-S
-=
 uc − (y − ym )
-BAm
-R
-
-u=
-
-Pole Placement
-
-Indirect STR
-
-uc −
-
-S
-y
-R
-
-Direct STR
-
-16
-
-Interpreting Pole Placement, Model Following
-Control law:
-u=
-
-ABm
-S
-uc − (y − ym )
-BAm
-R
-
 Feedforward controller: Cancels the plant dynamics, replacement
 with desired response
-A
-B
-
-uc
-
-Bm
-Am
-
-ym
-
-S
-R
-
-u
-
-B
-A
-
-y
-
 Feedback controller: follows the desired behavior
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-17
-
-Indirect Self-tuning Controller
+Indirect Self-tuning Controller
 Principle: Combination of model-following and model estimation
 Assumptions: no disturbances
 Use of a recursive estimator to determine A, B:
 y(t) = − a1 y(t − 1) − a2 y(t − 2) − . . . − an y(t − n)
 + b0 u(t − d0 ) + . . . + bm u(t − d0 − m)
-
 linear model:
-
 =ϕT (t)θ
 with :
-
 θT = (a1 , . . . , an , b0 , . . . , bm )
-
 ϕT (t) = (−y(t − 1), . . . , −y(t − n), u(t − d0 ), . . . , u(t − d0 − m))
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-18
-
-Indirect Self-tuning Controller
 Reminder: LSE with exponential forgetting
-
 ˆ = θ(t
 ˆ − 1) + K(t)(y(t) − ϕT (t)θ(t
 ˆ − 1))
@@ -562,39 +216,18 @@ Regression vector ϕ defined after max(n, m + d0 ) samples
 All model parameters determined after n + m + 1 additional
 samples
 Process input is generated by feedback
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-19
-
-Indirect Self-tuning Controller Algorithm
+Indirect Self-tuning Controller Algorithm
 Given: Desired closed loop transfer model: Am , Bm , A0
 Step 1: Estimate A, B by RLS estimation
 Step 2: Apply minimum degree pole placement (MDPP) using
 estimated A, B
 Step 3: Compute R, S and T
 Step 4: Calculate control law from u(t) =
-
-1
 R (T uc (t)
-
 − Sy(t)
-
 Repeat at next sampling time
 (Steps 1/2/3 not necessarily every time)
-
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-20
-
-Example: Indirect STR
+Example: Indirect STR
 Process model estimated by RLS:
 y(t) + a1 y(t − 1) + a2 y(t − 2) = b0 u(t − d1) + b1 u(t − 2)
 Control law: u(t) + r1 u(t − 1) = t0 uc (t) − s0 y(t) − s1 y(t − 1)
@@ -602,297 +235,110 @@ a1 , a2 , b0 , b1 from estimation
 process zero is stable (cancellation by controller)
 r1 , t0 , s0 , s1 computed
 reference / process output
-
-Pole Placement
-
 control input
-
-Indirect STR
-
-Direct STR
-
-21
-
-Example: Indirect STR
 good convergence of y(t),
 strong oscillations of u(t)
 Estimation:
 Init:
 P = diag([100, 100, 1, 1])
-a
 ˆ1 (0) = a
 ˆ2 (0) = 0
 ˆb0 (0) = 0.01, ˆb1 (0) = 0.2
 Converged (t=100):
-a
 ˆ1 = −1.6, a
 ˆ2 = 0.6
 ˆb0 = 0.107, ˆb1 = 0.092
 Control parameters (t=100):
 r1 = 0.85, t0 = 1.65, s0 = 2.64, s1 = −0.99
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-22
-
-Example: Indirect STR
 Better behavior for u(t) possible without cancellation of process
 zero: choose deg(A0 ) = 1 instead of deg(A0 ) = 0
-
 ⇒ good following of y(t), fewer oscillations for u(t), convergence
 of estimates takes longer due to less excitation
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-23
-
-Direct Self-tuning Controller
-
+Direct Self-tuning Controller
 Indirect self-tuning: process parameters estimated based on
 transfer functions; controller parameters updated based on the
 process parameters
-
 Direct self-tuning: re-parametrization of the process model in
 terms of the controller parameters (direct adaptation of the latter)
-
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-24
-
-Direct Self-tuning Controller
 Assumption: no disturbances
 Process model:
-
 A(q)y(t) = B(q)u(t)
-
 Desired response:
-
 Am ym (t) = Bm uc (t)
-
 Diophantine equation:
-
-AR + B − S = A0 Am
-
 polynomials as signal operators:
 A0 Am y(t) = AR y(t) + B − Sy(t) = BR u(t) + B − Sy(t)
 with R = R B + : R B = R B + B − = RB −
-
 ⇒ A0 Am y(t) = B − (Ru(t) + Sy(t))
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-25
-
-Direct Self-tuning Controller
 A0 Am y(t) = B − (Ru(t) + Sy(t))
 Represents a model parameterized in B − , R, S; if parameters
 estimated, no additional design step necessary
 Assumption: process is minimum phase (no zeros and poles in the
 RHP, causal):
 B − is a constant, deg(A0 ) = deg(A) − deg(B) − 1
-˜
-˜
 A0 Am y(t) = b0 (Ru(t) + Sy(t)) =: Ru(t)
 + Sy(t)
-
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-26
-
-Direct Self-tuning Controller
 Choice of Bm if all process zeros canceled:
 Bm = q d0 Am (1)
 ⇒ Leads to minimal delay and static gain of 1
 output equation:
-
 y(t) =
-
-1
-˜
-˜
 (Ru(t)
 + Sy(t))
 =: R∗ uf (t − d0 ) + S ∗ yf (t − d0 )
 A0 Am
-
-with:
-
 uf (t) =
-
-1
 u(t),
 A∗0 (q −1 )A∗m (q −1 )
-
 yf (t) =
-
-1
-y(t)
-A∗0 (q −1 )A∗m (q −1 )
-
 A∗ (q −1 ) = q −n A(q)
-
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-27
-
-Direct Self-tuning Controller
 Output equation:
 y(t) = R∗ uf (t − d0 ) + S ∗ yf (t − d0 )
-
 Assumption:
-
 deg(R) = deg(S) = deg(A0 Am ) − d0 = p
-
 Introduction:
-
 parameters: θT = (r0 , . . . , s0 , . . . , sp )
 regressor:
 ϕT = (uf (t), . . . , uf (t − p), yf (t), . . . , yf (t − p))
-
-Estimation:
-
 y(t) = ϕT (t − d0 )θ
-
 ⇒ Controller parameters estimated directly!
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-28
-
-Algorithm for Direct Self-tuning Control
+Algorithm for Direct Self-tuning Control
 Given: Specification of the desired behavior: Am , Bm , A0 , d0
 Step 1: Estimate the coefficients of R, S by RLS using:
-y(t) = R∗ uf (t − d0 ) + S ∗ yf (t − d0 )
 Step 2: Determine T ∗ = A∗0 Am (1)/b0 with deg(A0 ) = d0 − 1 and
 compute u(t) from:
 u(t) =
-
-1
 (T ∗ uc (t) − S ∗ y(t))
-R∗
-
-Repeat at next sampling time
 Remark: No intermediate design step by pole placement necessary
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-29
-
-Example: Direct STR 1/3
+Example: Direct STR 1/3
 H(q) =
-
-B(q)
 b0 q + b1
-= 2
-A(q)
 q + a1 q + a2
-
 deg(A) = 2, deg(B) = 1
 ⇒ relative degree d0 = 1, deg(Am ) = 2, deg(A0 ) = 0
 Choice:
-
 A0 = 1, Bm = qAm (1) ⇒ T = qAm (1)/b0
-
-with:
-
 deg(R) = deg(S)deg(A) − 1 = 1
-
-Output equation:
 y(t) = r0 uf (t − 1) + r1 uf (t − 2) + s0 yf (t − 1) + s1 yf (t − 2)
-with:
-
 u(t) = uf (t) + am1 uf (t − 1) + am2 uf (t − 2)
 y(t) = yf (t) + am1 yf (t − 1) + am2 yf (t − 2)
-
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-30
-
-Example: Direct STR 2/3
+Example: Direct STR 2/3
 Control signal adapted from:
 rˆ0 u(t) + rˆ1 u(t − 1) = tˆ0 uc (t) − sˆ0 y(t) − sˆ1 y(t − 1)
 Parameters rˆ0 , rˆ1 , sˆ0 , sˆ1 estimated, with tˆ0 = (1 + am1 + am2 )/b0
-reference / process output
-
-control input
-
 Behavior similar to indirect self-tuner
 oscillation of u(t) due to zero cancellation
 d0 in general unknown: design parameter
-Pole Placement
-
-Indirect STR
-
-Direct STR
-
-31
-
-Example: Direct STR 3/3
+Example: Direct STR 3/3
 Parameter estimation (r0 = 0):
-
 for t = 100:
-
 rˆ1
 rˆ0
-
 = 0.85,
-
-Pole Placement
-
 tˆ0
-rˆ0
-
 = 1.65,
-
 sˆ0
-rˆ0
-
 = 2.68,
-
-Indirect STR
-
 sˆ1
-rˆ0
-
 = −1.03
-
-Direct STR
-
-32
-
-References
-
-33
-
-
+References

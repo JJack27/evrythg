@@ -6,7 +6,6 @@ University of Trento
 Academic year 2010-2011
 1 / 28
 Laplace transform
-Laplace transform
 Consider a function f (t), f :
 → , f (t) = 0 for all t < 0.
 Definition
@@ -26,9 +25,7 @@ Laplace transforms convert integral and differential
 equations into algebraic equations. We’ll see how ...
 (1749-1827)
 Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 2 / 28
-Laplace transform
 Examples of Laplace transforms
 Unit step
 f (t) = 1 =
@@ -38,7 +35,6 @@ if t ≥ 0
 ⇒ F(s) =
 Dirac’s delta (or impulse function1 )
 f (t) = δ(t)
-if t = 0
 if t = 0
 δ(t) = 1
 such that
@@ -50,10 +46,7 @@ se 0 ≤ t ≤ ε
 fε (t) =
 0 otherwise
 To be mathematically correct, Dirac’s δ is a distribution, not a function
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 3 / 28
-Laplace transform
 Properties of Laplace transforms
 Linearity
 [k1 f1 (t) + k2 f2 (t)] = k1
@@ -70,44 +63,32 @@ Example: f (t) = 3 1 − 2) ⇒
 Exponential scaling
 [eat f (t)] = F(s − a), where F(s) =
 Example: f (t) = eat 1
-I(t) ⇒
 Example: f (t) = cos(ωt) 1 =
-I(t)
-Prof. Alberto Bemporad (University of Trento)
 s−a
-[f (t)]
-I(t) ⇒
 s2 +ω2
-Academic year 2010-2011
 4 / 28
-Laplace transform
-Properties of Laplace transforms
 Time derivative2 :
 f (t)] = s
 [f (t)] − f (0+ )
 Example =⇒ f (t) = sin(ωt) 1
 I(t) ⇒ L[f ] =
-s2 +ω2
 Multiplication by t
 [tf (t)] = −
 Example =⇒ f (t) = t 1
-I(t) ⇒ L[f ] =
-[f (t)]
 f (0+ ) = limt→0+ f (t). If f is continuos in 0, f (0+ ) = f (0)
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 5 / 28
-[ _to('140518225600') ]
 
+[ _to('140518225600') ]
+Initial and final value theorems [ continous time ]
+Initial value theorem
+Example: 
+Final value theorem
 Example: f (t) = 1 − e−t 1
-I(t)
 I(t) ⇒ F(s) =
 f (+∞) = 1 = lims→0 sF(s)
-Prof. Alberto Bemporad (University of Trento)
 s→0
-Academic year 2010-2011
+
 6 / 28
-Laplace transform
 Convolution
 The convolution h = f ∗ g of two signals f and g is the signal
 f (τ)g(t − τ)dτ
@@ -115,13 +96,9 @@ h(t) =
 It’s easy to see that h = f ∗ g = g ∗ f
 The Laplace transform of the convolution:
 [f (t) ∗ g(t)] =
-[f (t)]
 [g(t)]
 Laplace transforms turn convolution into multiplication !
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 7 / 28
-Laplace transform
 Common Laplace transforms
 ecific
 δ (k)
@@ -129,10 +106,8 @@ In MATLAB use
 F = LAPLACE(f)
 ,k≥0
 sk+1
-s−a
 » f=exp(2*t)+t-tˆ2
 » F=laplace(f)
-1/2j
 1/2j
 s2 + ω 2
 sin ωt
@@ -140,20 +115,13 @@ cos(ωt + φ)
 e−at cos ωt
 e−at sin ωt
 MATLAB
-s2 + ω 2
 s cos φ − ω sin φ
-s2 + ω 2
 1/(s-2)+1/sˆ2-2/sˆ3
 (s + a)2 + ω 2
-(s + a)2 + ω 2
 courtesy of S. Boyd, http://www.stanford.edu/~boyd/ee102/
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 8 / 28
 Table of Laplace Transfer functions
-Laplace transform
 Remember that we consider all functions (signals) as defined only on t ≥ 0.
-Properties of Laplace transforms
 General
 f (t)
 F (s) =
@@ -174,18 +142,12 @@ F (s − a)
 tf (t)
 tk f (t)
 (−1)k
-f (t)
-g(t) =
 dk F (s)
 F (s) ds
 0≤t<T
 , T ≥ 0 G(s) = e−sT F (s)
 f (t − T ) t ≥ T
-courtesy of S. Boyd, http://www.stanford.edu/~boyd/ee102/
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 9 / 28
-Transfer functions
 Transfer function
 Let’s apply the Laplace transform to continuous-time linear systems
 ˙(t)
@@ -200,230 +162,118 @@ Define X(s) =
 Apply linearity and time-derivative rules
 sX(s) − x0
 Y(s)
-Prof. Alberto Bemporad (University of Trento)
 AX(s) + BU(s)
 CX(s) + DU(s)
-Academic year 2010-2011
 10 / 28
-Transfer functions
-Transfer function
 X(s)
-Y(s)
 (sI − A)−1 x0 + (sI − A)−1 BU(s)
 C(sI − A)−1 x0
 + (C(sI − A)−1 B + D)U(s)
-Laplace transform
 of natural response
-Laplace transform
 of forced response
-
 [ _to('140518222054') ]
-
-MATLAB
 »sys=ss(A,B,C,D);
 »G=tf(sys)
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 11 / 28
-Transfer functions
-Transfer function
 u(t)
 A,B,C,D
-y(t)
 U(s)
-Y(s)
 G(s)
 x0=0
 Example: The linear system
  ˙(t)
 −10
-y(t)
-−1
 x(t) +
-u(t)
 2 x(t)
 has the transfer function
-G(s) =
 2s + 22
 s2 + 11s + 10
 Note: The transfer function does not depend on the
 input u(t)! It’s only a property of the linear system.
-Prof. Alberto Bemporad (University of Trento)
-MATLAB
 »sys=ss([-10 1;
 0 -1],[0;1],[2 2],0);
-»G=tf(sys)
 Transfer function:
 2 s + 22
 ---------sˆ2 + 11 s + 10
-Academic year 2010-2011
 12 / 28
-
 [ _to('140518223130') ]
-
 Example
 ¨ + 11˙ + 10y = 2˙ + 22u
-G(s) =
-Transfer function:
-2 s + 22
----------sˆ2 + 11 s + 10
-2s + 22
-MATLAB
 »G=tf([2 22],[1 11 10])
 + 11s + 10
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 13 / 28
-Transfer functions
-Example
 Differential equation
 ¨(t) + 3˙(t) + y(t) = u(t) + u(t)
 The transfer function is
-G(s) =
 s2 + 3s + 1
 The same transfer function G(s) can be obtained through a state-space
 realization
  ˙(t) =
-x(t) +
-u(t)
 −1 −3
 1 1 x(t)
 y(t) =
 from which we compute
-G(s) =
-Prof. Alberto Bemporad (University of Trento)
-−1
 −3
-−1
-s2 + 3s + 1
-Academic year 2010-2011
 14 / 28
-Transfer functions
 Some common transfer functions
 Integrator
-˙(t)
-y(t)
-u(t)
 x(t)
-y(t) =
-u(t)
 u(τ)dτ
-y(t)
-u(t)
-y(t)
 kω0
 2 + 2ζω s + ω 2
-y(t)
 Double integrator
  ˙1 (t)
 ˙2 (t)
-y(t)
 x2 (t)
-u(t)
 x1 (t)
-y(t) =
-u(τ)dτ
 Damped oscillator with frequency ω0 rad/s and damping factor ζ
- ˙(t)
-y(t)
 −ω0 −2ζω0
 1 0 x(t)
-Prof. Alberto Bemporad (University of Trento)
-x(t) +
-kω0
-u(t)
-Academic year 2010-2011
 15 / 28
-Transfer functions
 Impulse response
 Remember that an input signal u(t) produces an output signal y(t) whose
 Laplace transform Y(s) is
 Y(s) = G(s)U(s)
 where U(s) = [u], for initial state x(0) = 0
-
 Speciale case: impulsive input u(t) = δ(t), U(s) = 1. The corresponding
 output y(t) is called the impulse response
-
 G(s) is the Laplace transform of the impulse response y(t)
 Y(s) = G(s) · 1 = G(s)
 0.35
-G(s) =
-−1
 impulse response y(t)
 Example:
-s2 + 3s + 1
 −2t
 [G(s)] = 2te
 0.25
 0.15
 0.05
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 16 / 28
-Transfer functions
 Inverse Laplace transform
-
 The impulse response y(t) is therefore the inverse Laplace transform of the
 transfer function G(s), y(t) = −1 [G(s)]
-
 The general formula for computing the inverse Laplace transform is
 f (t) =
 2πj
 F(s)est ds
 where σ is large enough that F(s) is defined for ℜs ≥ σ
 This formula is not used very often
-MATLAB
-In MATLAB use
 » F=2*s/(sˆ2+1)
 » f=ilaplace(F)
 f = ILAPLACE(f)
 f = 2*cos(t)
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 17 / 28
-Transfer functions
 Examples
-Integrator
-u(t)
-y(t)
 δ(t)
-u(t)
-y(t)
-u(t)
-y(t)
-u(t)
 −1 1
 s2 + 1
-I(t)
-Double integrator
-u(t)
-y(t)
-δ(t)
-−1
 I(t)t
 [ s1 ] = 1
 Undamped oscillator
-u(t)
-y(t)
-δ(t)
-−1
-Prof. Alberto Bemporad (University of Trento)
-I(t)
 [ s21 ] = 1 sin t
-y(t)
-Academic year 2010-2011
 18 / 28
-Transfer functions
-
 [ _to('140518224705') ]
-
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 19 / 28
-Transfer functions
-Examples
 Example 1
-G(s) =
 poles: {−1, − 2 + j
 ,−1
 + 2s2
@@ -431,33 +281,24 @@ poles: {−1, − 2 + j
 (s + 1)(s2 + s + 2)
 zeros: {−2}
 Example 2
-G(s) =
-2s + 22
-+ 11s + 10
 2(s + 11)
 (s + 10)(s + 1)
 poles: {−10, −1}, zeros: {−11}
-Prof. Alberto Bemporad (University of Trento)
-MATLAB
 » G=tf([2 22],[1 11 10])
 » zpk(G)
 Zero/pole/gain:
 2 (s+11)
 -------(s+10) (s+1)
-Academic year 2010-2011
 20 / 28
-Transfer functions
 Partial fraction decomposition
 The partial fraction decomposition of a rational function G(s) = N(s)/D(s) is
 (assuming pi = pj )3
-G(s) =
 s − p1
 αi is called the residue4 of G(s) in pi ∈
 αi = lim (s − pi )G(s)
 s→pi
 The inverse Laplace transform of G(s) is easily computed by inverting each
 term
-−1
 [G(s)] = α1 ep1 t + · · · + αn epn t
 For multiple poles pi with multiplicity k we have the terms
 αi1
@@ -474,10 +315,7 @@ tk−1
 (k − 1)!
 epi t
 Residues of conjugate poles are conjugate of each other: pi = pj ⇒ αi = αj
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 21 / 28
-Linear algebra recalls
 Linear algebra recalls
 The inverse of a matrix A ∈
  a21
@@ -491,21 +329,15 @@ The adjugate matrix is the transpose of the cofactor matrix C of A
 Adj A = CT , Cij = (−1)i+j Mij
 where Mij is the (i, j) cofactor of A, that is the determinant of the
 (n − 1) × (n − 1) matrix that results from deleting row i and column j of A
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 22 / 28
-Linear algebra recalls
 Numerical caveat
 Consider the linear system of n equalities Ax = b in the unknown vector
 x ∈ n (A ∈ n×n , b ∈ n )
 If det A = 0, the unique solution is x = A−1 B
 However, computing A−1 is not a smart thing to do for finding x !
 Numerical example: n=1000; A=rand(n,n)+10*eye(n); b=rand(n,1);
-MATLAB
 » tic; x=inv(A)*b; toc
-MATLAB
 » tic; x=A\ b; toc
-elapsed_time =
 elapsed_time =
 2.2190
 0.8440
@@ -514,17 +346,11 @@ The linear system is solved using Gauss
 costs O(n3 ) arithmetic operations
 method, an operation that costs O(n2 )
 arithmetic operations
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 23 / 28
-Linear algebra recalls
 Poles, eigenvalues, modes
 Linear system
 ˙(t) =
-y(t) =
 x(0) = 0
-Ax(t) + Bu(t)
-Cx(t) + Du(t)
 G(s) = C(sI − A)−1 B + D
 NG (s)
 DG (s)
@@ -535,62 +361,34 @@ det(sI − A)
 The denominator DG (s) = det(sI − A) !
 The poles of G(s) coincide with the eigenvalues of A
 Well, not always ...
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 24 / 28
-Linear algebra recalls
-Poles, eigenvalues, modes
 Some eigenvalues of A may not be poles of G(s) in case of pole/zero
 cancellations
-Example:
-−1
 det(sI − A) = (s − 1)(s + 1)
-G(s) =
 s−1
 The pole s = 1 has no inﬂuence on the input/output behavior of the system
 (but it has inﬂuence on the free response x1 (t) = et x10 )
 We’ll better understand cancellations when investigating reachability and
 observability properties
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 25 / 28
-Linear algebra recalls
-
 [ _to('140518225725') ]
-
-Academic year 2010-2011
 26 / 28
-Linear algebra recalls
 DC gain - Example
- ˙(t)
-y(t)
 DC gain: − [ 1
-−1
-x(t) +
-u(t)
-x(t)
 G(0)=3
 2s+3
 4s2 +2s+1
 Transfer function: G(s) =
 −2 −1
 −2
-−1
 Output y(t) for different initial
 conditions and input u(t) ≡ 1
 ans =
-u(t)
-y(t)
-MATLAB
 »sys=tf([2 3],[4 2 1]);
 »dcgain(sys)
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 27 / 28
-Linear algebra recalls
 English-Italian Vocabulary
 transfer function
-Laplace transform
 unit step
 delay
 damped oscillator
@@ -610,6 +408,4 @@ decomposizione in fratti semplici
 guadagno in continua
 regime stazionario
 Translation is obvious otherwise.
-Prof. Alberto Bemporad (University of Trento)
-Academic year 2010-2011
 28 / 28

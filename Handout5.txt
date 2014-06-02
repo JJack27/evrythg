@@ -1,0 +1,369 @@
+Part IB Paper 6: Information Engineering LINEAR SYSTEMS AND CONTROL
+Glenn Vinnicombe
+HANDOUT 5
+“An Introduction to Feedback Control Systems”
+Return ratio
+r (s)
+e(s) =
+1 + L(s)
+y(s) = G(s)K(s)¯(s) =
+Closed-loop transfer function
+relating e(s) and r (s)
+G(s)K(s)
+relating y(s) and r (s)
+Key Points
+The Closed-Loop Transfer Functions are the actual transfer
+functions which determine the behaviour of a feedback system.
+They relate signals around the loop (such as the plant input and
+output) to external signals injected into the loop (such as
+reference signals, disturbances and noise signals).
+It is possible to infer much about the behaviour of the feedback
+system from consideration of the Return Ratio alone.
+The aim of using feedback is for the plant output y(t) to follow
+the reference signal r (t) in the presence of uncertainty. A
+persistent diﬀerence between the reference signal and the plant
+output is called a steady state error. Steady-state errors can be
+evaluated using the ﬁnal value theorem.
+Many simple control problems can be solved using combinations
+of proportional, derivative and integral action:
+Proportional action is the basic type of feedback control, but it can
+be diﬃcult to achieve good damping and small errors
+simultaneously.
+Derivative action can often be used to improve damping of the
+closed-loop system.
+Integral action can often be used to reduce steady-state errors.
+Contents
+5 An Introduction to Feedback Control Systems
+5.1 Open-Loop Control . . . . . . . . . . . . . . . . . . . . . . . .
+5.2 Closed-Loop Control (Feedback Control) . . . . . . . . . . .
+5.2.1 Derivation of the closed-loop transfer functions: . .
+5.2.2 The Closed-Loop Characteristic Equation . . . . . . . .
+5.2.3 What if there are more than two blocks? . . . . . . .
+5.2.4 A note on the Return Ratio . . . . . . . . . . . . . . .
+5.2.5 Sensitivity and Complementary Sensitivity . . . . . .
+5.3 Summary of notation . . . . . . . . . . . . . . . . . . . . . . 10
+5.4 The Final Value Theorem (revisited) . . . . . . . . . . . . . . 11
+5.4.1 The “steady state” response – summary . . . . . . . . 12
+5.5 Some simple controller structures . . . . . . . . . . . . . . . 13
+5.5.1 Introduction – steady-state errors . . . . . . . . . . . 13
+5.5.2 Proportional Control . . . . . . . . . . . . . . . . . . . 14
+5.5.3 Proportional + Derivative (PD) Control . . . . . . . . . 17
+5.5.4 Proportional + Integral (PI) Control
+. . . . . . . . . . 18
+5.5.5 Proportional + Integral + Derivative (PID) Control . . 21
+5.1 Open-Loop Control
+Demanded
+(Reference)
+Controller
+“Plant”
+Controlled
+In principle, we could could choose a “desired” transfer function F (s)
+and use K(s) = F (s)/G(s) to obtain
+y(s) = G(s)
+F (s)
+r (s) = F (s)¯(s)
+In practice, this will not work
+– because it requires an exact model of the plant and that there be
+no disturbances (i.e. no uncertainty).
+Feedback is used to combat the eﬀects of uncertainty
+For example:
+Unknown parameters
+Unknown equations
+Unknown disturbances
+5.2 Closed-Loop Control (Feedback Control)
+Input
+disturbance
+For Example:
+r (s) −
+Error
+Signal
+di (s)
+do (s)
+u(s)
+Figure 5.1
+5.2.1 Derivation of the closed-loop transfer functions:
+y(s) = do (s) + G(s)
+di (s) + K(s)¯(s)
+e(s) = r (s) − y(s)
+y(s) = do (s) + G(s) di (s) + K(s) r (s) − y(s)
+1 + G(s)K(s) y(s) = do (s) + G(s)di (s) + G(s)K(s)¯(s)
+y(s) =
+do (s) +
+1 + G(s)K(s)
+Also:
+do (s) −
+d (s)
+1 + G(s)K(s) i
++ 1−
+5.2.2
+The Closed-Loop Characteristic Equation and the
+Closed-Loop Poles
+Note: All the Closed-Loop Transfer Functions of the previous
+section have the same denominator:
+The Closed-Loop Poles (ie the poles of the closed-loop system, or
+feedback system) are the zeros of this denominator.
+For the feedback system of Figure 5.1, the Closed-Loop Poles are the
+1 + G(s)K(s) = 0
+Closed-Loop Characteristic Equation
+(for Fig 5.1)
+The closed-loop poles determine:
+The stability of the closed-loop system.
+Characteristics of the closed-loop system’s
+transient response.(e.g. speed of response,
+presence of any resonances etc)
+5.2.3 What if there are more than two blocks?
+
+[ _to('140602165003') ]
+### General closed loop transfer function
+![5.2](140602164903.png)
+![()](140602164936.png)
+
+i.e. the product of all the terms around loop, not including the −1 at
+the summing junction. L(s) is called the Return Ratio of the loop (and
+is also known as the Loop Transfer Function).
+The Closed-Loop Characteristic Equation is then
+1 + L(s) = 0
+and the Closed-Loop Poles are the roots of this equation.
+5.2.4
+A note on the Return Ratio
+b(s)
+a(s)
+Figure 5.3
+With the switch in the position shown (i.e. open), the loop is open. We
+then have
+a(s) = H(s)G(s)K(s) × −b(s) = −H(s)G(s)K(s)b(s)
+Formally, the Return Ratio of a loop is deﬁned as −1 times the product
+of all the terms around the loop. In this case
+L(s) = −1 × −H(s)G(s)K(s) = H(s)G(s)K(s)
+Feedback control systems are often tested in this conﬁguration as a
+ﬁnal check before “closing the loop” (i.e. ﬂicking the switch to the
+closed position).
+Note: In general, the block denoted here as H(s) could include ﬁlters
+and other elements of the controller in addition to the sensor
+dynamics. Furthermore, the block labelled K(s) could include actuator
+dynamics in addition to the remainder of the designed dynamics of the
+controller.
+5.2.5 Sensitivity and Complementary Sensitivity
+The Sensitivity and Complementary Sensitivity are two particularly
+important closed-loop transfer functions. The following ﬁgure depicts
+just one conﬁguration in which they appear.
+Figure 5.4
+L(s) = G(s)K(s)
+Sensitivity
+S(s)
+Complementary
+T (s)
+Note:
+S(s) + T (s) =
+1 + L(s) 1 + L(s)
+5.3 Summary of notation
+The system being controlled is often called the “plant”.
+The control law is often called the “controller” ; sometimes it is
+called the “compensator” or “phase compensator”.
+The “demand” signal is often called the “reference” signal or
+“command”, or (in the process industries) the “set-point”.
+The “Return Ratio”, the “Loop transfer function” always refer to the
+transfer function of the opened loop, that is the product of all the
+transfer functions appearing in a standard negative feedback loop
+(our L(s)). Figure 5.1 has L(s) = G(s)K(s), Figure 5.2 has
+L(s) = H(s)G(s)K(s).
+It characterizes the sensitivity of a control system to disturbances
+The “Sensitivity function” is the transfer function S(s) =
+appearing at the output of the plant.
+is called the
+“Complementary Sensitivity”. The name comes from the fact that
+The transfer function T (s) =
+S(s) + T (s) = 1. When this appears as the transfer function from
+the demand to the controlled output, as in Fig 5.4 it is often called
+simply the “Closed-loop transfer function” (though this is
+ambiguous, as there are many closed-loop transfer functions).
+5.4 The Final Value Theorem (revisited)
+Consider an asymptotically stable system with impulse response g(t)
+and transfer function G(s), i.e.
+g(t)
+Impulse response
+Transfer Function
+(assumed asymptotically stable)
+y(t) =
+note that
+g(τ) dτ denote the step response of this system and
+We now calculate the ﬁnal value of this step response:
+lim y(t) =
+g(τ) dτ
+exp(−0τ) g(τ) dτ =
+L g(t)
+s=0 = G(0)
+Hence,
+Final Value of Step Response ≡
+“Steady-State Gain”
+evaluated at s = 0
+or “DC gain”
+Note that the same result can be obtained by using the Final Value
+Theorem:
+for any y for which
+both limits exist.
+lim y(t) = lim s y(s)
+s→0
+= G(0)
+5.4.1
+The “steady state” response – summary
+The term “steady-state response” means two diﬀerent things,
+depending on the input.
+Given an asymptotically stable system with transfer function G(s):
+The steady-state response of the system to a constant input U is a
+constant, G(0)U.
+The steady-state response of the system to a sinusoidal input
+cos(ωt) is the sinusoid |G(jω)| cos ωt + arg G(jω) .
+These two statements are not entirely unrelated, of course: The
+steady-state gain of a system, G(0) is the same as the frequency
+response evaluated at ω = 0 (i.e. the DC gain).
+5.5 Some simple controller structures
+5.5.1 Introduction – steady-state errors
+Return Ratio: L(s) = G(s)K(s).
+CLTFs: y(s) =
+Steady-state error:(for a step demand) If r (t) = H(t), then
+y(s) = 1+L(s) × 1 and so
+1 + L(s) s
+lim e(t) =
+L(0)
+1 + L(0)
+Steady-state error
+(using the ﬁnal-value theorem.)
+Note: These particular formulae only hold for this simple conﬁguration
+– where there is a unit step demand signal and no constant
+disturbances (although the ﬁnal value theorem can always be used).
+5.5.2
+Proportional Control
+K(s) = kp
+Typical result of increasing the gain kp , (for control systems where
+G(s) is itself stable):
+Increased accuracy of control.
+Increased control action.
+Reduced damping.
+Possible loss of closed-loop stability for large kp .
+“bad”
+Example:
+G(s) =
+(s + 1)2
+(A critically damped 2nd order system)
+kp G(s)
+r (s) =
+1 + kp G(s)
+1 + kp
+s + 2s + 1 + kp
+So, ω2 = 1 + kp ,
+2ζωn = 2
+1 + kp , ζ =
+Closed-loop poles at
+s = −1 ± j kp
+movement of
+closed-loop poles
+for increasing kp
+”root locus diagram”
+Steady-state errors using the ﬁnal value theorem:
+y(s) = 2
+r (s).
+s + 2s + 1 + kp ﬁnal
+value of
+step response
+So, if r (t) = H(t),
+s 2 + 2s + 1 + kp
+lim e(t) = 2
+(Note: L(s) = kp
+= L(0) = kp × 1 = kp )
+Hence, in this example, increasing kp gives smaller steady-state
+errors, but a larger and more oscillatory transient response .
+• However, by using more complex controllers it is usually possible to
+remove steady state errors and increase damping at the same time:
+To increase damping –
+can often use derivative action (or velocity feedback).
+To remove steady-state errors –
+can often use integral action.
+For reference, the step response: (i.e. response to r (s) =
+(2 + s)
+) is given by
+y(s) = − 2
+y(t) = −
+exp(−t) cos( kp t) +
+1+kp exp(−t) cos( kp t − φ)
+Transient Response
+sin( kp t) +
+Steady-state response
+where φ = arctan √
+But you don’t need to calculate this to draw the conclusions we have
+made.
+5.5.3 Proportional + Derivative (PD) Control
+K(s) = kp + kd s
+Typical result of increasing the gain kd , (when G(s) is itself stable):
+Increased Damping.
+Greater sensitivity to noise.
+(It is usually better to measure the rate of change of the error directly
+if possible – i.e. use velocity feedback)
+K(s)G(s)
+(s+1)2
+1 + K(s)G(s)
+1 + (kp + kd s) 1 2
+(s+1)
+(kp + kd s)
+s + (2 + kd )s + 1 + kp
+2cωn = 2 + kd =
+ωn = 1 + kp , c =
+2 + kd
+2 1 + kp
+Xkp = 4, kd = 0
+for increasing kd
+5.5.4
+Proportional + Integral (PI) Control
+In the absence of disturbances, and for our simple conﬁguration,
+steady-state error,
+(for step demand)
+1 + G(s)K(s) s=0
+1 + G(0)K(0)
+To remove the steady-state error, we need to make
+(assuming G(0) ≠ 0).
+K(0) = ∞
+K(s) = kp + i
+ki /s
+K(s) = kp + ki /s
+(kp + ki /s) 1 2
+1 + (kp + ki /s)
+kp s + ki
+s(s + 1)2 + kp s + ki
+s(s + 1)2
+Hence, for r (t) = H(t),
+s(s + 1)2 + kp s + ki s=0
+no steady-state error
+PI control – General Case
+In fact, integral action (if stabilizing) always results in zero
+steady-state error, in the presence of constant disturbances and
+demands, as we shall now show.
+Assume that the following system settles down to an equilibrium with
+lim e(t) = A ≠ 0, then:
+di (t)
+do (t)
+r (t)
+e(t)
+u(t)
+“G(s)”
+“ki /s”
+“H(s)”
+Contradiction
+(as system is not in equilibrium)
+Hence, with PI control the only equilibrium possible has
+lim e(t) = 0.
+provided the closed-loop
+asymptotically stable.
+That is, limt→∞ e(t) = 0
+system is
+
+[ _to('140530145143') ]
+5.5.5 Proportional + Integral + Derivative (PID) Control
+K(s) = kp + i + kd s
+Characteristic equation:
+1 + G(s)(kp + kd s + ki /s) = 0
+• can potentially combine the advantages of both derivative and
+integral action:
+but can be diﬃcult to “tune”.
+There are many empirical rules for tuning PID controllers
+(Ziegler-Nichols for example) but to get any further we really need
+some more theory . . .

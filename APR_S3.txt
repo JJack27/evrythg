@@ -2,12 +2,7 @@ Adaptive and Predictive Control (APC)
 Dr. Stefan Sosnowski / Denis Cehaji´
 Problem 1: MRAC for adaptation of a PD controller using MIT rule
 a) The closed-loop transfer function is given by
-c(Kp +K s)
-(Kp + Kd s)
-Y (s)
-G(s) =
-Uc (s)
-1 + Js (Kp + Kd s)
+[ _cf('140530145143') ]
 b) According to the MIT rule, the reference model should have the same form as the closed-loop
 transfer function, hence, we choose the general reference model
 Gm (s) =
@@ -75,8 +70,6 @@ where e is replaced with the previously obtained expression of error dynamics [ 
 Setting
 θx = −sgn(λ)exp
 θr = −sgn(λ)er
-
-\todo{So are we free to choose $\dot{\tilde{\theta}}_x$, $\dot{\tilde{\theta}}_y$}
 
 and V (e, θx , θr ) is negative semi-deﬁnite (V ≤ 0),
 [ $a_m < 0$ ! ]

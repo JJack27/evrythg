@@ -37,9 +37,10 @@ Lyapunov stability
 Given: y(t) = Gθ (p)u(t),
 ym (t) = Gm (p)uc (t)
 Original version of Model Reference Adaptive Control (MRAC) developed at MIT
-
-[ _to('140519081929') ] 
-
+MIT Rule: Use gradient descent method for parameter adaptation
+One adjustable controller parameter θ
+e = y − ym
+adaption gain $\gamma$
 MIT Rule Example 1/7
 Given: stable SISO system
 y(t) = kG(p)(u(t))
@@ -98,10 +99,12 @@ G(s) =
 + a1 s + a2
 a1 > 0,
 a2 > 0
+
 Characteristic polynomial
 _cf('140515095935')
 Stable zeros if and only if and
 \todo{How would you calculate these?}
+
 With any choice of γ > 0 ⇒ stability loss for suﬃciently large
 magnitudes of uc !
 MIT Rule Example 7/7

@@ -1,4 +1,0 @@
-Any affine transformation $y = Ax + b$ of a a jointly Gaussian random vector x, where A and b are deterministic, is jointly Gaussian (calculate the characteristic function of aT y ). It follows that 
-[ _v('140502182946') ]
-[ i.e the expected value and covariance matrix are given as ]
-

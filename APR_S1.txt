@@ -1,19 +1,11 @@
-¨
-¨
 TECHNISCHE UNIVERSITAT MUNCHEN
 
-¨
 LEHRSTUHL FUR INFORMATIONSTECHNISCHE REGELUNG
 ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
-
 Adaptive and Predictive Control (APC)
-´
 Dr. Stefan Sosnowski / Denis Cehaji´
-c
-
 SS2014
 14.04.2014.
-
 EXERCISE 1 - SOLUTION
 Problem 1: Parameter Identiﬁcation
 a) Assuming that e(k) = 0, from the numerical values given in the problem description we can obtain
@@ -23,119 +15,63 @@ c1 + 2c2
 c1 + 3c2
 c1 + 4c2
 c1 + 5c2
-
-=1
-=3
-=3
-=6
-=7
-
 The following vectors are obtained:
 output vector Y 
 regression matrix \Phi 
 parameter vector \theta 
-
 , and
-
 With Y , Φ, and θ deﬁned, the cost function V is given by
-1
 V (θ, k) = (Y − Φθ)T (Y − Φθ)
-2
-
-(1)
-
 b) General solution for ﬁnding θ:
 From (1) we get
-1
 V (θ, k) = (Y T Y − Y T Φθ − θT ΦT Y + θT ΦT Φθ)
-2
-1 T
 = (Y Y − 2Y T Φθ + θT ΦT Φθ)
-2
 A minimum is reached when gradθ V (θ, k) is zero. Taking the derivative of V along θ
 [_cf('140503201539'), _cf('140426153116', _cf('140426152848') ]
 [ \psi^T \psi is symmetric ]
 and setting the RHS to zero
-
 cf. 140426154601
 and ﬁnally, replacing the values in (3) we obtain
 θ = (ΦT Φ)−1 ΦT Y =
-
 1 11 −3
 10 −3 1
-
-20
 −0.5
-=
-75
-1.5
-
-−0.5
-ˆ
 c) The estimated value for the ﬁrst 5 samples is θ(k − 1) =
 obtained previously:
-1.5
 The new data set u(6) = 6, y(6) = 7 adds the equation c1 + 6c2 = 7. This implies a new row to
 the regression matrix Φ derived above and an additional entry to the output vector Y , hence
 ϕ(k) = 1 6
 y(k) = 7
-
-T
-
 The recursion formula for updating the parameter vector is given by
-cf. 140426154206
-
+[ cf. 140426154206 ]
 and the updated parameter vector
-
-d) The discrete-time dynamic system is given by y(k) = a1 u(k − 1) + a2 u(k − 2). Assuming that
+d) The discrete-time dynamic system is given by y(k) = a1 u(k − 1) + a2 u(k − 2). Assuming that
 u(k) = 0 ∀ k, and dividing by u(k − 1), the system becomes
 u(k − 2)
 y(k)
 = a1 + a2
 u(k − 1)
-u(k − 1)
 y (k) = a1 + a2 u(k)
-˜
-˜
 which is in the same form as the stationary process y(k) = c1 + c2 u(k) + e(k).
-
 Problem 2: Discrete-Time Control Systems
 a) The general solution for a continuous-time dynamic system with initial condition $y_c(t_0) = y_0$ is
 given by
 _v('140503210127')
-
 The state of the system at sampling time (k + 1)T starting at time kT is therefore given by
 (k+1)T
-
 y(k + 1) = yc ((k + 1)T ) = ea((k+1)T −kT ) y(kT ) +
-
 ea((k+1)T −τ ) b uc (τ )dτ
-kT
-
-(k+1)T
-
 ea((k+1)T −τ ) dτ b u(kT )
-
 = eaT y(kT ) +
-
-(4)
-
-kT
-
 Note, that the control input u(t) is constant in the interval [kT; (k + 1)T]. The integral in (4) can
 be evaluated and we get
 y((k + 1)T ) = eaT y(kT ) + (eaT − 1) b u(kT )
-
-
 Setting c := eaT and d := a (eaT − 1)b answers the question.
-
 As the system is scalar, the eigenvalues of the open-loop system are given by the constant a.
-[ cf. 140426200329 ]
 
+[ cf('140426200329') ]
 In the continuous-time case if a < 0, the system is stable. 
-If a < 0, then c = eaT < 1 which
-means stability in the discrete-time case. If a > 0, then c > 1. The stability properties of the
-continuous-time system carry over to the discrete-time system.
+If a < 0, then c = eaT < 1 which means stability in the discrete-time case. If a > 0, then c > 1. The stability properties of the continuous-time system carry over to the discrete-time system.
 
 b) Applying the feedback u(k) = −K_p y(k) to the dynamic system y(k + 1) = cy(k) + du(k), the
 closed-loop system
@@ -143,19 +79,17 @@ y(k + 1) = ay(k)
 a = (c − d K_p )
 is formed. From the previous results, only the constant a can be found, whereas the constants c
 and d cannot be found uniquely.
--3-
-
 Problem 3: Regressor Models
 a) Continuous-time transfer function
+
 [ Multiplication with s corresponds to taking derivative ]
 [ http://en.wikipedia.org/wiki/Laplace_transform#Proof_of_the_Laplace_transform_of_a_function.27s_derivative ]
 
 b) Non-linear system
 x(k) = −x(k − 1)2 2sin(u(k − 1))
-
 c) State space model
 The ODE which is given through the state space model is given by
 y = ay + by + cu
 and the regressor model is therefore given by
 [ \dot{x}_1 = x_2 ]
-
+\todo{Should it not be $-u$?}

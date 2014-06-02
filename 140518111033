@@ -1,7 +1,0 @@
-If a jointly Gaussian vector random $x$ is partitioned into x = [xa xb]T 
-The random variable xa |xb = b is jointly Gaussian (advanced: factorize the joint PDF of x into the marginal PDF of xb and a second factor by exploiting properties of the inverse of a block matrix).
-The conditional PDF of $xa |xb = b is determined by the conditional mean
-_v('140502194115')
-and the conditional covariance matrix
-_v('140502194158')
-which is the Schur complement of Cxb in Cx.
