@@ -1,0 +1,2161 @@
+Nonlinrar Piwgiwnnzing: Theoy, und Algor-ithnzs
+by Mokhtar S. Bazaraa, Hanif D. Sherali and C. M. Shetty
+Copyright 02006 John Wiley & Sons, Tnc.
+Chapter
+Convex Functions
+Generalizations
+Convex and concave functions have many special and important properties. For
+example, any local minimum of a convex function over a convex set is also a
+global minimum. In this chapter we introduce the important topics of convex
+and concave functions and develop some of their properties. As we shall learn in
+this and later chapters, these properties can be utilized in developing suitable
+optimality conditions and computational schemes for optimization problems that
+involve convex and concave functions.
+Following is an outline of the chapter.
+We introduce convex and
+Section 3.1: Definitions and Basic Properties
+concave functions tind develop some of their basic properties. Continuity of
+convex functions is proved, and the concept of a directional derivative is
+introduced.
+A convex function has a
+Section 3.2: Subgradients of Convex Functions
+convex epigraph and hence has a supporting hyperplane. This leads to the
+important notion of a subgradient of a convex function.
+Section 3.3: Differentiable Convex Functions
+In this section we give
+some characterizations of differentiable convex functions. These are helpful
+tools for checking convexity of simple differentiable functions.
+This section is
+Section 3.4: Minima and Maxima of Convex Functions
+important, since it deals with the questions of minimizing and maximizing a
+convex function over a convex set. A necessary and sufficient condition for
+a minimum is developed, and we provide a characterization for the set of
+alternative optimal solutions. We also show that the maximum occurs at an
+extreme point. This fact is particularly important if the convex set is polyhedral.
+Various relaxations of
+Section 3.5: Generalizations of Convex Functions
+convexity and concavity are possible. We present quasiconvex and pseudoconvex functions and develop some of their properties. We then discuss
+various types of convexity at a point. These types of convexity are sometimes sufficient for optimality, as shown in Chapter 4. (This section can be
+omitted by beginning readers, and later references to generalized convexity
+properties can largely be substituted simply by convexity.)
+Chapter 3
+3.1 Definitions and Basic Properties
+In this section we deal with some basic properties of convex and concave
+functions. In particular, we investigate their continuity and differentiability
+properties.
+3.1.1 Definition
+Let$ S 4R, where S is a nonempty convex set in R". The function f is said to
+be convex on S if
++ (1
+A>x2> 2 A f ( X l ) + (1 - A ) f ( X 2 1
+for each x l , x 2 E S and for each A E (0, 1). The function f is called strictly
+convex on S if the above inequality is true as a strict inequality for each distinct
+x 1 and x 2 in S and for each A E (0, 1). The function$ S + R is called concave
+(strictly concave) on S if - is convex (strictly convex) on S.
+Now let us consider the geometric interpretation of convex and concave
+functions. Let x 1 and x 2 be two distinct points in the domain off; and consider
+the point Axl +(1 - A ) x 2 , with A E (0, 1). Note that A f ( x l ) + ( i - A ) f ( x 2 ) gives
+the weighted average of f ( x l ) and f ( x 2 ) , while f [ A x l +(I - A ) x 2 ] gives the
+value offat the point A x , + (1 - A ) x 2 . So for a convex functionf, the value offat
+points on the line segment A x l + (1 - A ) x 2 is less than or equal to the height of
+the chord joining the points [ x l , f ( x I ) ]and [ x 2 , f ( x 2 ) ] . For a concave function,
+the chord is (on or) below the function itself. Hence, a function is both convex
+and concave if and only if it is afine. Figure 3.1 shows some examples of
+convex and concave functions.
+The following are some examples of convex functions. By taking the
+negatives of these functions, we get some examples of concave functions.
+f(x)=3x+4.
+f(x)=IxI.
+f ( x ) = x2 -2x.
+f ( x >=
+f ( x f , X 2 ) = 2 X I + X 22 -2x1x2.
+S ( X ~ , X ~ , X4 ~ )2=~X+~ ~ 3
++ 2 2 3 2 -4X1
+if x 2 0.
+-4X2X3.
+Note that in each of the above examples, except for Example 4, the functionfis convex over R". In Example 4 the function is not defined for x < 0. One
+can readily construct examples of functions that are convex over a region but not
+over R". For instance, f (x) = x 3 is not convex over R but is convex over S
+{x : x 2 O}.
+Convrx Functions and Generalizations
+Convex function
+Neither convex nor
+concave function
+Concave function
+Figure 3.1 Convex and concave functions.
+The examples above cite some arbitrary illustrative instances of convex
+functions. In contrast, we give below some particularly important instances of
+convex functions that arise very often in practice and that are useful to
+remember.
+Let fi, f 2 ,...,f k :R"
+(a) f(x)
+be convex functions. Then:
+=cajf,(x),
+where a j > O f o r j
+1, 2,..., k is a
+convex function (see Exercise 3.8).
+(b) f ( x ) = max{f;(x),f2(x), ...,fk( is a convex function (see
+Exercise 3.9).
+Suppose that g: Rn + R is a concave function. Let S = (x : g(x)
+> 0}, and define j S + R as f (x) = l/g(x). Then f is convex
+over S (see Exercise 3.1 1).
+Let g: R 4 R be a nondecreasing, univariate, convex function,
+and let h: R"-+ R be a convex function. Then the composite
+function j R" -+ R defined as f ( x )
+tion (see Exercise 3.10).
+g h x ] is a convex func[()
+Let g: R"' -+ R be a convex function, and let h: R" -+ R"' be an
+affine function of the form h(x) = Ax + b, where A is an m x n
+matrix and b is an m x I vector. Then the composite function!
+R"-+ R defined as f(x)
+Exercise 3.16).
+g h x ] is a convex function (see
+From now on, we concentrate on convex functions. Results for concave
+functions can be obtained easily by noting thatfis concave if and only if - is
+convex.
+Associated with a convex function f is the set S, = (x E S : f(x) Ia } ,
+a E R, usually referred to as a level set. Sometimes this set is called a lowerlevel set, to differentiate it from the upper-level set {x E S :f(x) > a } ,which has
+properties similar to these for concave functions. Lemma 3.1.2 shows that S, is
+convex for each real number a. Hence, if g,: R"
+is convex for i = I , ..., m,
+theset { x : g j ( x ) < O , i = I,...,m} isaconvexset.
+3.1.2 Lemma
+Let S be a nonempty convex set in R", and let f S + R be a convex function.
+Then the level set S, = {x E S : f(x) < a } ,where a is a real number, is a convex
+set.
+Pro0f
+Let xl, x2 E S,. Thus, xl, x2 E S and f ( x l ) l a and f(x2) 5 a . Now let
+A E (0, 1) and x = Axl + ( I -2)xz. By the convexity of S, we have that x E S.
+Furthermore, by the convexity ofA
+f(x) < A f ( x l ) + ( l - d ) f ( x 2 ) < A a + ( 1 - A ) c x = a .
+Hence, x E S, , and therefore, S, is convex.
+Continuity of Convex Functions
+An important property of convex and concave functions is that they are
+continuous on the interior of their domain. This fact is proved below.
+3.1.3 Theorem
+Let S be a nonempty convex set in R", and let f S + R be convex. Then f is
+continuous on the interior of S.
+Let X E int S. To prove continuity off at X, we need to show that given E
+> 0, there exists a 6 > 0 such that IIx -XI[ S 6 implies that If(x) - f ( X ) l < E . Since
+int S, there exists a 6 ' >0 such that IIx-XII 56' implies that x
+struct 0 as follows.
+B = max{max[f(i+6'ei)-f(X),f(X-6'ej)-f(X)]),
+IG$n
+(3.1)
+where e, is a vector of zeros except for a 1 at the ith position. Note that 0 5 O <
+00. Let
+(; 2'1
+6 = m i n -,--
+Convex Functions and Generalizations
+Choose an x with IIx -SrllI 6. If xI -TI 2 0, let z,
+-6'e,. Then x - X =
+1a I z l , where ar 2 0 for i
+= 6'el;
+otherwise, let zI
+1 ,..., n. Furthermore,
+6, it follows that a, _< lln for i = 1 , ..., n. Hence,
+From (3.2), and since IIx -XI1
+by the convexity off; and since 0 2 na, 5 1, we get
+Therefore, f(x) - f ( X ) I
+a,[f(X+ z,) - f(%)].From (3.1) it is obvious
+that f ( X + z r )-f(sZ) 5 13for each i; and since a, ? 0, it follows that
+Noting (3.3) and (3.2), it follows that a, 5 E/n6, and (3.4) implies that f(x)
+f(%)5 E . So far, we have shown that IIx -XI1 5 6 implies that f(x) -f(X) 5 E .
+By definition, this establishes the upper semicontinuity off at X. To complete
+the proof, we need to establish the lower semicontinuity off at X as well, that is,
+to show that f ( Y )- f(x) 5 E . Let y = 2X - x and note that Iy
+I 6. Therefore, as above,
+-%I\
+f(Y 1- f ( N 2 E.
+But X = (1/2)y
++ (1/2)x,
+(3.5)
+and by the convexity off; we have
+5 (1/2)f(Y) + ( W f ( x ) .
+Combining (3.5) and (3.6) above, it follows that f(X)-f(x)
+is complete.
+(3.6)
+5 E , and the proof
+Note that convex and concave functions may not be continuous everywhere. However, by Theorem 3.1.3, points of discontinuity only are allowed at
+the boundary of S, as illustrated by the following convex function defined on S =
+{ x : - l I x l I):
+Directional Derivative of Convex Functions
+The concept of directional derivatives is particularly useful in the motivation
+and development of some optimality criteria and computational procedures in
+nonlinear programming, where one is interested in finding a direction along
+which the function decreases or increases.
+3.1.4 Definition
+Let S be a nonempty set in R" , and let$ S + R. Let X E S and d be a nonzero
+vector such that X + Ad E S for R > 0 and sufficiently small. The directional
+derivative o f f at X along the vector d, denoted by f'(X;d), is given by the
+following limit if it exists:
+f'(X;d) = lim
+f ( X + Ad) - f ( X )
+In particular, the limit in Definition 3.1.4 exists for globally defined
+convex and concave functions as shown below. As evident from the proof of the
+following lemma, if$ S + R is convex on S, the limit exists if 57 E int S, but
+might be 4 if X E as, even iffis continuous at X, as seen in Figure 3.2.
+Figure 3.2 Nonexistence of the directional derivative offat X in the
+direction d.
+103
+Convex Funciions and Generalizations
+3.1.5 Lemma
+Let$ R"
+be a convex function. Consider any point X E R" and a nonzero
+direction d E R". Then the directional derivative f'(%;d), o f f at X in the
+direction d, exists.
+Pro0
+& > Al
+> 0. Noting the convexity off; we have
+f(X+Ald) = f -(X+&d)+
+This inequality implies that
+f ( X + A$) - f ( 3 f ( X + &d) - f ( 3
+Thus, the difference quotient [ f ( X + Ad) - f ( % ) ] / A is monotone decreasing
+(nonincreasing) as it + o+.
+Now, given any A > 0, we also have, by the convexity off; that
+i -f(X
+(X - d) + -(X
+-d) +-f(%
++ Ad)
++ Ad).
+2 f(X)-f(X-d).
+Hence, the monotone decreasing sequence of values [f(% Ad) - f(?)]/A , as
+A + 0' , is bounded from below by the constant f(%) f ( X - d) . Hence, the
+limit in the theorem exists and is given by
+lim f ( X + A 4
+1+0+
+f(X)
+inf f ( X + Ad) - f(?)
+3.2 Subgradients of Convex Functions
+In this section, we introduce the important concept of subgradients of convex
+and concave functions via supporting hyperplanes to the epigraphs of convex
+functions and to the hypographs of concave functions.
+Epigraph and Hypograph of a Function
+A function f on S can be fully described by the set { [ x ,f ( x ) ]: x E S } c R"" ,
+which is referred to as the graph of the function. One can construct two sets that
+are related to the graph of$ the epigraph, which consists of points above the
+graph off; and the hypograph, which consists of points below the graph of$
+These notions are clarified in Definition 3.2.1.
+3.2.1 Definition
+Let S be a nonempty set in R" , and let$ S
+epif; is a subset of R"" defined by
+-+ R. The epigraph off; denoted by
+{(x,Y):xES,Y E R , r 2 f ( x ) ) .
+The hypograph off; denoted by hypf; is a subset of R""
+{(X,Y>: x E s, Y E R, Y
+defined by
+f(x>>.
+Figure 3.3 illustrates the epigraphs and hypographs of several functions.
+In Figure 3.3a, neither the epigraph nor the hypograph off is a convex set. But
+in Figure 3.3b and c, respectively, the epigraph and hypograph off are convex
+sets. It turns out that a function is convex if and only if its epigraph is a convex
+set and, equivalently, that a function is concave if and only if its hypograph is a
+convex set.
+3.2.2 Theorem
+Let S be a nonempty convex set in R", and let$ S + R. Then f is convex if and
+only if epifis a convex set.
+Figure 3.3 Epigraphs and hypographs.
+Assume that f is convex, and let ( x l , y l )and ( x l , y 2 )epif; that is, x l ,
+yl 2 f ( x l ) ,and y2 2 f ( x 2 ) .Let A E (0, 1). Then
+A.Yl + ( 1 - A)Y2 2
+A f ( X I 1+ (1 - A ) f ( x 2 ) 2 f (Ax1 + (1 -
+where the last inequality follows by the convexity o f f : Note that Axl +
+( 1 - A)x2 E S . Thus, [Axl + (1 - A ) x 2 , Ayl + ( 1 - A)y2]E epi f; and hence epi f is
+convex. Conversely, assume that epi f is convex, and let x l , x2 E S . Then
+[ x l ,f ( x l ) ]and [ x 2 ,f ( x 2 ) ] belong to epi f; and by the convexity o f epif; we
+must have
+for A E (0, 1).
+[Axl +(I-A)x2,Af(xl)+(l-A)f(x2)]~epi f
+In other words, A f ( x l ) + ( l - A )f ( x 2 )2 f [ A x l +(1-A)x2] for each A
+that is,fis convex. This completes the proof.
+(0, 1 ) ;
+Theorem 3.2.2 can be used to verify the convexity or concavity of a given
+functionf: Making use of this result, it is clear that the functions illustrated in
+Figure 3.3 are (a) neither convex nor concave, (6) convex, and ( c ) concave.
+Since the epigraph of a convex function and the hypograph o f a concave
+function are convex sets, they have supporting hyperplanes at points of their
+boundary. These supporting hyperplanes lead to the notion of subgradients,
+which is defined below.
+3.2.3 Definition
+
+[ _to('140601075322') ]
+***
+Let S be a nonempty convex set in $R^n$, and let $f: S \to R$ be convex. Then $\zeta$ is called a subgradient of $f$ at $X \in S$ if
+$$f(x) \geq f(\bar{x}) + \zeta^T (x - \bar{x})$$
+
+Similarly, let$ S -+ R be concave. Then
+for all x
+6 is called a subgradient o f f at
+f ( x ) 2 f ( X )+ {'(x - X)
+6 is
+From Definition 3.2.3 it follows immediately that the collection of
+subgradients o f f at X (known as the subdifferential off at SZ) is a convex set.
+Figure 3.4 shows examples of subgradients of convex and concave functions.
+From the figure we see that the function f ( i ) + f ( x - j Z ) corresponds to a
+supporting hyperplane of the epigraph or the hypograph of the function f : The
+subgradient vector 6 corresponds to the slope of the supporting hyperplane.
+106
+Chapter 3
+Figure 3.4 Geometric interpretation of subgradients.
+3.2.4 Example
+Let f ( x ) = min
+{fi ( x ) , f 2( x ) ),where fi and f2
+are as defined below:
+f2(x)
+4-14,
+4-(~-2)~, x
+X E R
+Since f 2 ( x ) 2 f i ( x ) for 1 5 x 5 4 , f can be represented as follows:
+1sxs4
+4 - (x - 2)2, otherwise.
+In Figure 3.5 the concave function f is shown in dark lines. Note that 6 = -1 is
+the slope and hence the subgradient offat any point x in the open interval (1,4).
+If x < 1 or x > 4, 5 = -2(x - 2 ) is the unique subgradient off: At the points x = 1
+and x = 4 , the subgradients are not unique because many supporting hyperplanes
+exist. At x = 1, the family of subgradients is characterized by AV’(1)
+(1-A)Vf2(1)=A(-l)+(l-A)(2)=2-3A
+forA E [0, 11. Inotherwords,any t i n
+the interval [-1, 21 is a subgradient off at x = I , and this corresponds to the
+slopes of the family of supporting hyperplanes off at x = 1. At x = 4 , the family
+of subgradients is characterized by AVfi (4) + (1 - A) V f 2(4) = 4 1 + (1 - A) (4)
+= -4 + 3A for A E [0, 13. In other words, any 5 in the interval [A,-11 is a
+subgradient offat x = 4. Exercise 3.27 addresses the general characterization of
+subgradients of functions of the form f ( x ) = min{fi(x), f i ( x ) } .
+The following theorem shows that every convex or concave function has
+at least one subgradient at points in the interior of its domain. The proof relies
+on the fact that a convex set has a supporting hyperplane at points of the
+boundary.
+107
+Convex Functions and Generalizations
+Figure 3 5 Setup for Example 3.2.4.
+3 2 5 Theorem
+Let S be a nonempiy convex set in R", and let$ S + R be convex. Then for X
+int S, there exists a vector Csuch that the hyperplane
+H = { ( x , ~ ): y
+supports epifat [SZ, f
+( i )+ 5' (X -ST)}
+( 3 3 . In particular,
+f(x)2f(T)+f(x-X)
+foreachx ES;
+that is, 6 is a subgradient offat 51.
+By Theorem 3.2.2, epi f is convex. Noting that [X,f(SE)]belongs to the
+boundary of epif; by Theorem 2.4.7 there exists a nonzero vector ( 5 0 , ~ E R"
+x R such that
+ch(x -XI
++ p [ y - f ( x ) ]I o
+for all (x,y) E epiJ
+(3.7)
+Note that p is not positive, because otherwise, inequality (3.7) will be
+contradicted by choosing y sufficiently large. We now show that p < 0. By
+contradiction, suppose that p = 0 . Then c$(x-%)
+I 0 for all x E S. Since
+int S, there exists a il > 0 such that X + A t o E S and hence ill&
+implies that <o
+S O . This
+and (C0,p)= ( O , O ) , contradicting the fact that ( r 0 , p ) is a
+nonzero vector. Therefore, p < 0. Denoting so/lpl by
+inequality in (3.7) by [PI, we get
+and dividing the
+In particular, the hyperplane H = ( ( x , y ) : y
+=f(X)+{'(x
+-X)} supports epifat
+[X,f(X)]. By letting y = f ( X ) in (3.8), we get f ( x ) L f ( X > + f ( x - X ) for all x
+E S, and the proof is complete.
+Corollary
+Let S be a nonempty convex set in R", and let$ S + R be strictly convex. Then
+for X E int S there exists a vector { such that
+~(X)>~(F)+{'(X-X)
+forallx
+By Theorem 3.2.5 there exists a vector {such that
+f(x) 2 f(i) - X)
++ {'(x
+(3.9)
+By contradiction, suppose that there is an ? # X such that f ( i ) = f ( X ) +
+{'(? - X). Then, by the strict convexity offfor A
+f [ A k + (1 - A)?] < Af(F) + (1 - A)f(?)
+(0, l), we get
++ (1 - A{ (? - X).
+=f ( X )
+But letting x = AX + (1 - A)? in (3.9), we must have
+(3.10)
+f [ A X + (1 -A)?] 2 f ( X ) + (1 - A' ( i - X),
+contradicting (3.10). This proves the corollary.
+The converse of Theorem 3.2.5 is not true in general. In other words, if
+corresponding to each point X E int S there is a subgradient off; thenfis not
+necessarily a convex function. To illustrate, consider the following example,
+wherefisdefinedon S={(xl,x2):O<x1,x2 l } :
+51, o < x 2 51
+For each point in the interior of the domain, the zero vector is a subgradient off:
+However,fis not convex on S since epifis clearly not a convex set. However,
+as the following theorem shows,fis indeed convex on int S.
+3 2 6 Theorem
+Let S be a nonempty convex set in R", and let$ S -+ R. Suppose that for each
+point X E int S there exists a subgradient vector { such that
+109
+f ( x ) 2 f ( X )+ 5' (x - X)
+for each x
+Then,fis convex on int S.
+Let xl, x2 E int S , and let ; E (0, I). By Corollary 1 to Theorem 2.2.2,
+int S is convex, and we must have Axl + (1 - A ) x 2 E int S. By assumption, there
+exists a subgradient 5 off at Axl +(I - A ) x 2 . In particular, the following two
+inequalities hold true:
+1+ (1 - A)t'(Xl
+f ( x 2 ) 2 f [ A X l + (1 - A>x2 1+ G ' ( x 2
+f(Xl)
++ (1 -
+Multiplying the above two inequalities by
+adding, we obtain
+A and
+(1 -
+A f ( x 1 ) + (1 - A ) f ( x 2 ) 2 f E A X , + (1 -
+A), respectively, and
+and the result follows.
+3.3 Differentiable Convex Functions
+We now focus on differentiable convex and concave functions. First, consider
+the following definition of differentiability.
+3.3.1 Definition
+Let S be a nonempty set in R", and let j S -+ R. Then f is said to be
+differentiable at X E int S if there exist a vector Vf(X),called the gradient
+vector, and a function a: R"
+R such that
+f(x)=f(X)+Vf(X)'(x-X)+Ilx-Xlla(X;x-X)
+for each X E S ,
+where Iirnx+? a(X; -X) = 0. The functionfis said to be differentiable on the
+open set S' S if it is differentiable at each point in S'. The representation off
+above is called afirst-order (Taylor series) expansion offat (or about) the point
+x ; and without the implicitly defined remainder term involving the function a,
+the resulting representation is called afirst-order (Tqfor series) approximation
+of f a t (or about) the point X.
+Note that iff is differentiable at X, there could only be one gradient
+vector, and this vector is given by
+where f , ( X ) = af(X)/ax, is the partial derivative offwith respect to xl at X (see
+Exercise 3.36, and review Appendix A.4).
+The following lemma shows that a differentiable convex function has
+only one subgradient, the gradient vector. Hence, the results of the preceding
+section can easily be specialized to the differentiable case, in which the gradient
+vector replaces subgradients.
+3.3.2 Lemma
+Let S be a nonempty convex set in Rn, and let$ S -+ R be convex. Suppose that
+E int S. Then the collection of subgradients offat 5? is
+the singleton set (Vf(X)).
+f is differentiable at X
+By Theorem 3.2.5, the set of subgradients off at X is not empty. Now, let
+6 be a subgradient offat X. As a result of Theorem 3.2.5 and the differentiability
+off at X, for any vector d and for A sufficiently small, we get
+f ( X + Ad) 2 f ( X )+ At'd
+f ( X + Ad) = f ( Y ) + AVf(X)'d
++ AIldlla(X;Ad).
+Subtracting the equation from the inequality, we obtain
+0 2 .z[r-Vf(X)]'d-Alldllcx(x;Ad).
+If we divide by A > 0 and let A + O', it follows that [~-Vf(X)]'d 5 0.
+Choosing d = 6 - Vf(X), the last inequality implies that 6 = Vf(X). This completes the proof.
+In the light of Lemma 3.3.2, we give the following important
+characterization of differentiable convex functions. The proof is immediate from
+Theorems 3.2.5 and 3.2.6 and Lemma 3.3.2.
+3.3.3 Theorem
+Let S be a nonempty open convex set in R", and let$ S -+ R be differentiable on
+S. Thenf is convex if and only if for any X E S, we have
+f ( x ) L f(X)+Vf(X)'(x-X)
+Similarly,fis strictly convex if and only if for each X
+f(x) > f ( X ) + Vf(X)' (x - X)
+S, we have
+for each x # 57 in S.
+There are two evident implications of the above result that find use in various
+contexts. The first is that if we have an optimization problem to minimize f(x)
+subject to x E X,where f is a convex function, then given any point X, the affine
+111
+function f ( X )+ V()(
+X) bounds f from below. Hence, the minimum of
+f ( X ) + V()(
+fX'x -X) over X(or over a relaxation ofX) yields a lower bound on
+the optimum value of the given optimization problem, which can prove to be
+useful in an algorithmic approach. A second point in the same spirit is that this
+affine bounding function can be used to derive polyhedral outer approximations.
+For example, consider the set X = (x : g,(x) < 0, i = I,.. ., m},where g, is a
+convex function for each i = I , ..., m. Given any point X, construct the
+x ={x:gr(i)+Vg,(X)'(x-X)<O, i I , ..., m } . Note that the
+polyhedral set x contains X and, hence, affords an outer linearization of this
+polyhedral set
+set,sinceforanyx ~ X , w h a v e O ~ g , ( x ) 2 g , ( X ) + V g , ( i ) ' ( x - X ) f o r i = I , ...,
+m by Theorem 3.3.3. Such representations play a central role in many successive
+approximation algorithms for various nonlinear optimization problems.
+The following theorem gives another necessary and sufficient characterization of differentiable convex functions. For a function of one variable, the
+characterization reduces to the slope being nondecreasing.
+3.3.4 Theorem
+Let S be a nonempty open convex set in R" and let$ S -+ R be differentiable on
+S. Then f is convex if and only if for each xl,x2 E S we have
+Wf(x2)
+Vf(X1 11' (x2 - XI 12 0.
+Similarly, f is strictly convex if and only if, for each distinct xl, x2
+have
+S, we
+Assume thatfis convex, and let xI,x2
+f(x1)
+S.By Theorem 3.3.3 we have
+2 f(x2 1+ Vf(X2 )7Xl
+f(x2 1 2 f(x1 ) + Vf(Xl I(2
+- x1).
+Adding the two inequalities, we get [Vf(x2)-Vf(xI)f(x2
+the converse, let xl,x2 E S By the mean value theorem,
+-xl) 2 0. To show
+where x = A x l + (1 -A)x2 for some A E (0, 1). By assumption, [Vf(x)
+(x-xl)>O; that is, (1-A)[Vf(x)-Vf(xl)]'(x2
+Vf(xl)f
+-xl)>O. This implies that
+Vf(x)'
+x l ) > V f ( x l ) ' ( x 2 x i ) . By (3.11) we get f ( x 2 ) 2 f ( x l ) +
+Vf(xl)'(x2- x i ) , so by Theorem 3.3.3,f is convex. The strict case is similar and
+the proof is complete.
+Even though Theorems 3.3.3 and 3.3.4 provide necessary and sufficient
+characterizations of convex functions, checking these conditions is difficult from
+a computational standpoint. A simple and more manageable characterization, at
+least for quadratic functions, can be obtained, provided that the function is twice
+differentiable.
+Twice Differentiable Convex and Concave Functions
+A functionfthat is differentiable at X is said to be twice differentiable at X if the
+second-order (Taylor series) expansion representation of Definition 3.3.5 exists.
+3.3.5 Definition
+Let S be a nonempty set in R", and let f: S + R . Then f is said to be twice
+differentiable at X E int S if there exist a vector V f (X), and an n x n symmetric
+matrix H(X) , called the Hessian matrix, and a function a: Rn
+f ( x ) = f ( 2 )+ Vf(x)'(x- X ) +-(x
+for each x E S, where lim,,x
+-X)'H(X)(x - X )
++ IIx -T1I2
+a(X;x - X )
+a ( i ;x -X) = 0. The hnctionfis said to be twice
+differentiable on the open set S' S if it is twice differentiable at each point in S'.
+It may be noted that for twice differentiable functions, the Hessian matrix
+H ( X ) is comprised of the second-order partial derivatives A, (X) =
+a2f(X)/&, & for i = 1,..., n , j = 1 ,..., n, and is given as follows:
+In expanded form, the foregoing representation can be written as
+r=l J=1
++llx-X112 a(X;x-X).
+Again, without the remainder term associated with the function a, this
+representation is known as a second-order (Taylor series) approximation at (or
+about) the point X.
+3.3.6 Examples
+Example 1. Let f ( x l , x 2 )=2x, + 6 ~ -2xf -3x; +4X1X2. Then we have
+For example, taking X = (O,O)', the second-order expansion of this function is
+given by
+Note that there is no remainder term here since the given function is quadratic,
+so the above representation is exact.
+Example 2. Let f ( x l , x 2 )= e2xl+3x2.
+Then we get
+Hence, the second-order expansion of this function about the point X = (2,l)' is
++11x-i11~ i ; x - x > .
+Theorem 3.3.7 shows that f is convex on S if and only if its Hessian
+matrix is positive semidefinite (PSD) everywhere in S; that is, for any SZ in S, we
+have x'H(X)x 2 0 for all x E R". Symmetrically, a functionfis concave on S if
+and only if its Hessian matrix is negative semidefinite (NSD) everywhere in S,
+that is, for any X E S, we have xf H(X)x 5 0 for all x E R". A matrix that is
+neither positive nor negative semidefinite is called indefinite (ID).
+3.3.7 Theorem
+Let S be a nonempty open convex set in R", and let J S -+ R be twice
+differentiable on S. Thenfis convex if and only if the Hessian matrix is positive
+semidefinite at each point in S.
+Suppose that f is convex, and let X
+S. We need to show that
+x'H(X)x 2 0 for each x E Rn. Since S is open, then for any given x E R",
+x +Ax E S for 11 f 0 and sufficiently small. By Theorem 3.3.3 and by the twice
+differentiability off; we get the following two expressions:
+f ( x + AX)2 f ( x )+ avf(x)' x
+(3.12)
+f(x + AX) = f(x) + AV~-(X)' + -A~X'H(X)X+ a211x11~ ax).
+a(?;
+(3.13)
+Subtracting (3.13) from (3.12), we get
+-A~X'H(X)X+ a2 //X1l2 a ( x ; a x ) 2 0.
+Dividing by A2 > 0 and letting A + 0, it follows that x'H(X)x 2 0. Conversely,
+suppose that the Hessian matrix is positive semidefinite at each point in S.
+Consider x and X in S. Then, by the mean value theorem, we have
+S ( X )= f(i)+Vf(X)'(x-X)+-(x-i)'H(i)(x-X),
+where i = AX + (1 - A)x for some A
+(0, 1). Note that i
+(3.14)
+Sand hence, by assump-
+tion, H ( i ) is positive semidefinite. Therefore, (x -X)'H(i)(x -X) 2 0, and from
+(3.14), we conclude that
+f(x) 2 f ( X )+ Vf(X)' (x - ST).
+Since the above inequality is true for each x, X in S, f is convex by Theorem
+3.3.3. This completes the proof
+Theorem 3.3.7 is useful in checking the convexity or concavity of a twice
+differentiable function. In particular, if the function is quadratic, the Hessian
+matrix is independent of the point under consideration. Hence, checking its
+convexity reduces to checking the positive semidefiniteness of a constant
+matrix.
+Results analogous to Theorem 3.3.7 can be obtained for the strict convex
+and concave cases. It turns out that if the Hessian matrix is positive definite at
+each point in S, the function is strictly convex. In other words, if for any given
+point X in S, we have x'H(X)x > 0 for all x # 0 in R", thenfis strictly convex.
+This follows readily from the proof of Theorem 3.3.7. However, iff is strictly
+convex, its Hessian matrix is positive semidefinite, but not necessarily positive
+definite everywhere in S, unless, for example, iffis quadratic. The latter is seen
+by writing (3.12) as a strict inequality for A x f 0 and noting that the remainder
+term in (3.13) is then absent. To illustrate, consider the strictly convex function
+defined by f ( x ) = x4.The Hessian matrix H(x) = 12x2 is positive definite for all
+nonzero x but is positive semidefinite, and not positive definite, at x = 0. The
+following theorem records this fact.
+3.3.8 Theorem
+Let S be a nonempty open convex set in R", and let f S + R be twice
+differentiable on S. If the Hessian matrix is positive definite at each point in S, f
+is strictly convex. Conversely, iff is strictly convex, the Hessian matrix is
+positive semidefinite at each point in S. However, iff is strictly convex and
+quadratic, its Hessian is positive definite.
+The foregoing result can be strengthened somewhat while providing some
+additional insights into the second-order characterization of convexity. Consider,
+for example, the univariate function f ( x ) = x4 addressed above, and let us show
+how we can argue that this function is strictly convex despite the fact that
+f " ( 0 )= 0. Since f " ( x )2 0 for all x E R , we have by Theorem 3.3.7 that f is
+convex. Hence, by Theorem 3.3.3, all that we need to show is that for any point
+X, the supporting hyperplane y = f ( X )+ f ' ( Y ) ( x - X) to the epigraph of the
+finction touches this epigraph only at the given point ( x , y )= ( X , f ( X ) ) . On the
+contrary, if this supporting hyperplane also touches the epigraph at some other
+point (i, ( i ) ) ,we have f ( i ) = f(X) + f ' ( X ) ( i- X). But this means that for any
+xa = / Z X + ( l - A ) i , 0 5 A 5 1, we have, upon using Theorem 3.3.3 and the
+convexity off;
+A f ( Y ) + ( I - A ) f ( i ) = f(E)+f'(F)(x,
+-2)I f ( x , ) <Af(Y)+(l-A)f(i).
+Hence, equality holds true throughout, and the supporting hyperplane touches
+the graph of the function at all convex combinations (xa,f(xa)) as well. In fact,
+we obtain f ( x , ) = Af(?)+(l - A > f ( i ) for all 0 5 A 5 1, so f " ( x n ) = 0 at the
+uncountably infinite number of points x for all 0 < h < 1. This contradicts the
+fact that f " ( x )= 0 only at x = 0 from the above example, and therefore, the
+function is strictly convex. As a result, if we lose positive definiteness of a
+univariate convex function at only a finite (or countably infinite) number of
+points, we can still claim that this function is strictly convex.
+Staying with univariate functions for the time being, if the function is
+infinitely differentiable, we can derive a necessary and sufficient condition for
+the function to be strictly convex. [By an infinitely differentiable functionj
+R , we mean one for which for any X in R", derivatives of all orders
+exist and so are continuous; are uniformly bounded in values; and for which the
+infinite Taylor series expansion of f ( x ) about f(i)
+gives an infinite series
+representation of the value of$ Of course, this infinite series can possibly have
+only a finite number of terms, as, for example, when derivatives of order
+exceeding some value all vanish.]
+3.3.9 Theorem
+Let S be a nonempty open convex set in R, and let j S + R be infinitely
+differentiable. Then f is strictly convex on S if and only if for each X E S , there
+exists an even n such that f ' " ) ( X ) > O , while f ' " ( X ) = O
+where
+f(')
+for any 1 < j < n,
+denotes thejth-order derivative of$
+Let X be any point in S, and consider the infinite Taylor series expansion
+off about X for a perturbation h # 0 and small enough:
+f ( X + h) = f ( X )+ h '(X)
++ -f "(X) + -f " ( X )+ ...
+Iff is strictly convex, then by Theorem 3.3.3 we have that f (X + h) >f(X) +
+hf'(X) for h # 0. Using this above, we get that for all h # 0 and sufkiently small,
+-f " ( X )
++ -f " ( X )+ -f ' 4 ' ( X ) + . .. > 0.
+Hence, not all derivatives of order greater than or equal to 2 at X can be zero.
+Moreover, since by making h sufficiently small, we can make the first nonzero
+term above dominate the rest of the expansion, and since h can be of either sign,
+it follows that this first nonzero derivative must be of an even order and positive
+for the inequality to hold true.
+Conversely, suppose that given any X E S , there exists an even n such
+that f ( n ) ( X ) > 0, while f'"(X) = 0 for I < j < n. Then, as above, we have
+( + h ) E S and f ( X + h) > f ( X ) + hf'(X) for all -6 < h < 6, for some 6 > 0 and
+sufficiently small. Now the hypothesis given also asserts that f "(X) 2 0 for all
+Y E S , so by Theorem 3.3.7 we know that f is convex. Consequently, for any
+h f 0, with (X + h)E S , we get f ( X + 6 )2 f ( X )+ @() by Theorem 3.3.3. To
+complete the proof, we must show that this inequality is indeed strict. On the
+contrary, if f ( + ~ = S(X) + h f ' ( ~ we get
+n f ( x + h)+ (1 - ~)f(x) f ( x )+ a@'(:) I fx + nh)
+= f[A(x+h)+(l-A)x] Af(T+h)+(l-A)f(X)
+for all 0 5 A I 1 . But this means that equality holds throughout and that f(T +
+Ah) = f(T) + A@'@)
+for all 0 5 A 5 1. By taking h close enough to zero, we can
+contradict the statement that f ( T + h) > f ( X )+ hf'(X) for all -6 < h < 6, and
+this completes the proof.
+To illustrate, when f ( x ) = x4, we have f ' ( x ) = 4x3 and f"(x) = 12x2.
+Hence, for X # 0, the first nonzero derivative as in Theorem 3.3.9 is of order 2
+and is positive. Furthermore, for X = 0, we have f " ( 7 ) = f " ( T ) = 0 and f'4'(X)
+= 24 > 0; so by Theorem 3.3.9, we can conclude thatfis strictly convex.
+Now let us turn to the multivariate case. The following result provides an
+insightful connection between the univariate and multivariate cases and permits
+us to derive results for the latter case from those for the former case. For
+notational simplicity, we have stated this result for$ R"
++ R , although one can
+readily restate it for$ S + R, where S is some nonempty convex subset of R".
+3.3.10 Theorem
++ R , and for any point X E R" and a nonzero
+define q x , d ) ( A ) = f ( %+ Ad) as a function of A E R . Thenfis
+Consider a function J R"
+direction d E R",
+(strictly) convex if and only if q y ; d ) is (strictly) convex for all X and d # 0 in R".
+Given any
+and d # 0 in R", let us write
+convenience. Iff is convex, then for any Al and
+we have
+4 in R and for any 0 I a I
+Hence, F is convex. Conversely, suppose that q i ; d ) ( A ) , A
+simply as F ( A ) for
++d)(/Z)
+R, is convex for all
+x and d f 0 in R". Then, for any xI and x2 in R" and 0 5 A I 1, we have
+s o f i s convex. The argument for the strictly convex case is similar, and this
+completes the proof.
+This insight of examining f : R" -+ R via its univariate cross sections
+can be very useful both as a conceptual tool for viewing f and as an
+analytical tool for deriving various results. For example, writing F ( A )
+qx;d)(/Z)
+f(%+Ad), for any given X and d # O in R", we have fiom the
+univariate Taylor series expansion (assuming infinite differentiability) that
+By using the chain rule for differentiation, we obtain
+-'(A) = Vf(X + Ad)'d
+C f ; (X + Ad)di
+F"(A)
+=d'H(X+Ad)d
+= CCAJ(X+Ad)dldJ
+F"(A) = 1
+C AJk (X + Ad)d, dJd , etC.
+Substituting above, this gives the corresponding multivariate Taylor series expansion as
++ Ad) = f (x)+ nvf(%)' + -d'H (37)d + -1 C A j k (X)did j dk + . ...
+i j k
+As another example, using the second-order derivative result for characterizing
+the convexity of a univariate function along with Theorem 3.3.10, we can derive
+that f : R"
+that
+is convex if and only if F:i;d) (A)2 0 for all A
+R, X E R", and
+R". But since 37 and d can be chosen arbitrarily, this is equivalent to requiring
+F(iid) 2 0 for all X and d in R". From above, this translates to the state(0)
+ment that d'H(37)d > 0 for all d E R", for each X E R", or that H(Z) is positive
+semidefinite for all X E R", as in Theorem 3.3.7. In a similar manner, or by
+using the multivariate Taylor series expansion directly as in the proof of
+Convex Functions and Generalizaiions
+Theorem 3.3.9, we can assert that an infinitely differentiable hnction f: R"
+R is strictly convex if and only if for each X and d # 0 in R", the first nonzero
+derivative term [ F ( / ) ( O ) ] order greater than or equal to 2 in the Taylor series
+expansion above exists, is of even order, and is positive. We leave the details of
+exploring this result to the reader in Exercise 3.38.
+We present below an efficient (polynomial-time) algorithm for checking
+the definiteness of a (symmetric) Hessian matrix H(X) using elementary GaussJordan operations. Appendix A cites a characterization of definiteness in terms of
+eigenvalues which finds use in some analytical proofs but is not an
+algorithmically convenient alternative. Moreover, if one needs to check for the
+definiteness of a matrix H(x) that is a function of x, this eigenvalue method is
+very cumbersome, if not virtually impossible, to use. Although the method
+presented below can also get messy in such instances, it is overall a more simple
+and efficient approach.
+We begin by considering a 2 x 2 Hessian matrix H in Lemma 3.3.1 1,
+where the argument X has been suppressed for convenience. This is then
+generalized in an inductive fashion to an n x n matrix in Theorem 3.3.12.
+3.3.11 Lemma
+Consider a symmetric matrix H =
+Then H is positive semidefinite if and
+only if a 2 0, c 2 0, and ac- b2 2 0, and is positive definite if and only if the
+foregoing inequalities are all strict.
+By definition, H is positive semidefinite if and only if d'Hd
+ad: +
+2bd,d2 +cd: 2 0 for all ( d , , d2)' E R2. Hence, if H is positive semidefinite, we
+must clearly have a 2 0 and c 2 0. Moreover, if a = 0, we must have b = 0, so
+ac - b2 = 0; or else, by taking d2 = 1 and d,
+for M > 0 and large enough,
+we would obtain d'Hd < 0, a contradiction. On the other hand, if a > 0, then
+completing the squares, we get
+Hence, we must again have (ac - b2 ) 2 0, since otherwise, by taking d2 = 1 and
+dl = -b/a, we would get d'Hd = ( a c - b 2 ) / a < 0, a contradiction. Hence, the
+condition of the theorem holds true. Conversely, suppose that a ? 0, c 2 0, and
+ac - b2 L 0. If a = 0, this gives b = 0, so d'Hd = c d i 2 0. On the other hand, if a
+> 0, by completing the squares as above we get
+Hence, H is positive semidefinite. The proof of positive definiteness is similar,
+and this completes the proof.
+We remark here that since a matrix H is negative semidefinite (negative
+definite) if and only if -H is positive semidefinite (positive definite), we get
+from Lemma 3.3.1 1 that H is negative semidefinite if and only if a I c 5 0 ,
+and ac-b2 2 0 , and that H is negative definite if and only if these inequalities
+are all strict. Theorem 3.3.12 is stated for checking positive semidefiniteness or
+positive definiteness of H. By replacing H by -H, we could test symmetrically
+for negative semidefiniteness or negative definiteness. If the matrix turns out to
+be neither positive semidefinite nor negative semidefinite, it is indefinite. Also,
+we assume below that H is symmetric, being the Hessian of a twice
+differentiable function for our purposes. In general, if H is not symmetric, then
++ Hf)/2]d, we can check for the definiteness of H
+by using the symmetric matrix (H + H') / 2 below.
+since d'Hd
+= d'H'd = d'[(H
+3.3.12 Theorem (Checking for PSDRD)
+Let H be a symmetric n
+matrix with elements
+(a) If hi; S 0 for any i E {I, ..., n } , H is not positive definite; and if hii <
+0 for any i g {I, ...,n } , H is not positive semidefinite.
+(b) If hi, = O for any i E { l , ...,n } , we must have hv = h j i = O for a l l j =
+I , ..., n as well, or else H is not positive semidefinite.
+(c) If n = 1, H is positive semidefinite (positive definite) if and only if
+hl 2 0 (> 0). Otherwise, if n 2 2 , let
+in partitioned form, where q = 0 if h, = 0, and otherwise, h, > 0.
+Perform elementary Gauss-Jordan operations using the first row of
+H to reduce it to the following matrix in either case:
+121
+Then G,,, is a symmetric ( n - 1) x ( n - 1) matrix, and H is positive semidefinite
+if and only if G,,, is positive semidefinite. Moreover, if h, > 0, H is positive
+definite if and only if G,,, is positive definite.
+(a) Since d'Hd
+whenever dJ
+0 for all j
+theorem is obviously true.
+(b) Suppose that for some i # j , we have h,,
+taking dk
+0 for all k
+i, Part (a) of the
+0 and hy
+or j , we get d'Hd
++ 0. Then, by
+= 2hyd,dJ
+which can be made negative as in the proof of Lemma 3.3.1 1 by
+taking dJ = 1 and d, = -h,,M for M > 0 and sufficiently large. This
+establishes Part (b).
+(c) Finally, suppose that H is given in partitioned form as in Part (c). If
+n = 1, the result is trivial. Otherwise, for n L 2, let d' = (dl,6'). If
+hll = 0, by assumption we also have q = 0, and then G,,, = G .
+Moreover, in this case, d'Hd =6'C,,,6, so H is positive semidefinite if and only if G,,, is positive semidefinite. On the other
+hand, if h, I > 0, we get
+r41q'
+429' =Gppqq
+-4nq' which is a symmetric matrix. By substituting this above, we get
+Hence, it can readily be verified that d'Hd 2 0 for all d E R" if and only if
+6'G,,,6
+L 0 for all 6 E Rn-', because h, l(dl +q'6/4
+2 0, and the latter term
+can be made zero by selecting dl = -qtS/h,l, if necessary. By the same argu-
+ment, d‘Hd > 0 for all d # 0 in R” if and only if 6‘Gn,,6 > 0 for all 6 # 0 in
+p - 1
+, and this completes the proof.
+Observe that Theorem 3.3.12 prompts a polynomial-time algorithm for
+checking the PSD/PD of a symmetric n x n matrix H. We first scan the diagonal
+elements to see if either condition (a) or (b) leads to the conclusion that the
+matrix is not PSD/PD. If this does not terminate the process, we perform the
+Gauss-Jordan reduction as in Part (c) and arrive at a matrix G,,, of one lesser
+dimension for which we may now perform the same test as on H. When G,,, is
+finally a 2 x 2 matrix, we can use Lemma 3.3.1 1, or we can continue to reduce it
+to a 1 x 1 matrix and hence determine the PSDPD of H. Since each pass through
+the inductive step of the algorithm is of complexiv O(n2)(read as “of order n2”
+and meaning that the number of elementary arithmetic operations, comparison,
+etc., involved are bounded above by Kn2 for some constant K> and the number
+of inductive steps is of O(n), the overall process is of polynomial complexity
+O(n3).Because the algorithm basically works toward reducing the matrix to an
+upper triangular matrix, it is sometimes called a superdiugonafization algorithm.
+This algorithm affords a proof for the following useful result, which can
+alternatively be proved using the eigenvalue characterization of definiteness (see
+Exercise 3.42).
+Let H be an n x n symmetric matrix. Then H is positive definite if and only if it
+is positive semidefinite and nonsingular.
+If H is positive definite, it is positive semidefinite; and since the superdiagonalization algorithm reduces the matrix H to an upper triangular matrix with
+positive diagonal elements via elementary row operations, H is nonsingular.
+Conversely, if H is positive semidefinite and nonsingular, the superdiagonalization
+algorithm must always encounter nonzero elements along the diagonal because
+H is nonsingular, and these must be positive because H is positive semidefinite.
+Hence, H is positive definite.
+3.3.13 Examples
+Example 1 . Consider Example 1 of Section 3.3.6. Here we have
+H(x)=1-44 -6
+123
+-H(x) =[-4
+4 -4
+By Lemma 3.3.11 we conclude that -H(x) is positive definite, so H(x) is
+negative definite and the functionfis strictly concave.
+Example 2. Consider the function f ( x l ,x2)= x
++2.4.
+Here we have
+By Lemma 3.3.1 1, whenever xI < 0, H(x) is indefinite. However, H(x) is
+positive definite for xI > 0, sofis strictly convex over {x :x, > O}.
+Example 3. Consider the matrix
+’1
+2 3 4
+Note that the matrix is not negative semidefinite. To check PSD/PD, apply the
+superdiagonalization algorithm and reduce H to
+Now the diagonals of C,,, are positive, but det(G,,,)
+= -1. Hence, H is not
+positive semidefinite. Alternatively, we could have verified this by continuing to
+reduce G,,, to obtain the matrix
+-Z2J
+Since the resulting second diagonal element (i.e., the reduced G,,,) is negative,
+H is not positive semidefinite. Since H is not negative semidefinite either, it is
+indefinite.
+3.4 Minima and Maxima of Convex Functions
+In this section we consider the problems of minimizing and maximizing a
+convex function over a convex set and develop necessary and/or sufficient
+conditions for optimality.
+Minimizing a Convex Function
+The case of maximizing a concave function is similar to that of minimizing a
+convex function. We develop the latter in detail and ask the reader to draw the
+analogous results for the concave case.
+3.4.1 Definition
+LetJ Rn -+ R and consider the problem to minimize f ( x ) subject to x E S. A
+point x E S is called a feasible solution to the problem. If X E S and f ( x ) L f(X)
+for each x E S, X is called an optimal solution, a globaI optimal solution, or
+simply a solution to the problem. The collection of optimal solutions are called
+alternative optimal solutions. If X E S and if there exists an &-neighborhood
+N,(%) around SZ such that f ( x ) 2 f(X) for each x E S nN,(X), X is called a
+local optimal solution. Similarly, if X E S and if f ( x ) > f(X) for all x E S n
+N, (X),
+x # %, for some E > 0, X is called a strict local optimal solution. On the
+other hand, if X E S is the only local minimum in S n N,(X), for some Eneighborhood N,(%) around X, X is called a strong or isolated local optimal
+solution. All these types of local optima or minima are sometimes also referred
+to as relative minima. Figure 3.6 illustrates instances of local and global minima
+for the problem of minimizing f ( x ) subject to x E S, where f and S are shown in
+the figure.
+The points in S corresponding to A, B, and C are also both strict and
+strong local minima, whereas those corresponding to the flat segment of the
+graph between D and E are local minima that are neither strict nor strong. Note
+that if X is a strong or isolated local minimum, it is also a strict minimum. To
+see this, consider the &-neighborhood N, (X) characterizing the strong local
+minimum nature of X . Then we must also have f ( x ) > f(T) for all x E S n
+Local
+minimum
+Globalminimum
+Figure 3.6 Local and global minima.
+N , (X), because otherwise, suppose that there exists an 2 E S nN , (X) such that
+f ( 2 ) = f ( j 7 ) . Note that i is an alternative optimal solution within SnN,(X),
+so there exists some 0 < E' < E such that f(x) 2 f ( i ) for all x E S n N , l ( f ) .
+But this contradicts the isolated local minimum status of X, and hence j7 must
+also be a strict local minimum. On the other hand, a strict local minimum need
+not be an isolated local minimum. Figure 3.7 illustrates two such instances. In
+Figure 3.74 S = R and f ( x ) = 1 for x = 1 and is equal to 2 otherwise. Note that
+the point of discontinuity X = 1 offis a strict local minimum but is not isolated,
+since any &-neighborhood about X contains points other than X = 1, all of which
+are also local minima. Figure 3.76 illustrates another case in which f ( x ) = x2, a
+strictly convex function; but S = {li 2k ,k
+= 0,1,2, ...} u {0}
+is a nonconvex set.
+Here, the point X = I / 2 k for any integer k 2 0 is an isolated and therefore a strict
+local minimum because it can be captured as the unique feasible solution in
+S nN , (X) for some sufficiently small E > 0. However, although X = 0 is clearly
+a strict local minimum (it is, in fact, the unique global minimum), it is not
+isolated because any &-neighborhood about X = 0 contains other local minima
+of the foregoing type.
+Nonetheless, for optimization problems, min{f(x) : x E S}, where f is a
+convex function and S is a convex set, which are known as convex programming
+problems and that are of interest to us in this section, a strict local minimum is
+also a strong local minimum, as shown in Theorem 3.4.2 (see Exercise 3.47 for a
+weaker sufficient condition). The principal result here is that each local
+minimum of a convex program is also a global minimum. This fact is quite
+useful in the optimization process, since it enables us to stop with a global
+optimal solution if the search in the vicinity of a feasible point does not lead to
+an improving feasible solution.
+3.4.2 Theorem
+Let S be a nonempty convex set in R", and let f: S + R be convex on S.
+Consider the problem to minimize f(x) subject to x E S. Suppose that 51 E S is
+a local optimal solution to the problem.
+s = ( ( 1 / 2 ) k , k =0,1,2,...) u (0)
+Figure 3.7 Strict local minima are not necessarily strong local minima.
+Then X is a global optimal solution.
+If either X is a strict local minimum o r f i s strictly convex, 'jz is
+the unique global optimal solution and is also a strong local
+minimum.
+Since X is a local optimal solution, there exists an &-neighborhood N , (st)
+around X such that
+for each x E S nN , (57) .
+f(x) 2 f ( i )
+(3.15)
+By contradiction, suppose that X is not a global optimal solution so that f ( i ) <
+f(F) for some 2
+5 1:
+S. By the convexity off; the following is true for each 0 5 A
+f ( A i + (1 - A)%) I f ( i ) + (1
+A ) f ( s t ) < Af(S3)+ (1 - A ) f ( s t ) = f ( % ) .
+But for h > 0 and sufficiently small, A 2 + ( l - - A ) s t € SnN,(Y). Hence, the
+above inequality contradicts (3.19, and Part 1 is proved.
+Next, suppose that X is a strict local minimum. By Part 1 it is a global
+minimum. Now, on the contrary ,if there exists an i E S such that f ( i ) = f ( s t ) ,
+then defining xI = A i + (1 - A)st for 0 5 A 5 1, we have, by the convexity off
+and S that f(x,) 5 ,If(%)
++ (1 - A ) f ( % )= f ( s t ) , and x1
+S for all 0 I I 1 . By
+taking R -+O', since we can make xA E N,(st)nS for any E > 0, this contradicts the strict local optimality of X. Hence, X is the unique global minimum.
+Therefore, it must also be an isolated local minimum, since any other local
+minimum in N , (X) nS for any E > 0 would also be a global minimum, which is
+a contradiction.
+Finally, suppose that X is a local optimal solution and thatfis strictly
+convex. Since strict convexity implies convexity, then by Part 1, SZ is a global
+optimal solution. By contradiction, suppose that X is not the unique global
+optimal solution, so that there exists an x E S, x + X such that f(x) = f ( X ) . By
+strict convexity,
+1 f ( , x +- x) < - f(x)+ -f(x)
+=f(X).
+By the convexity of S, (1/2)x + (1/2)X E S , and the above inequality violates the
+global optimality of X. Hence, X is the unique global minimum and, as above, is
+also a strong local minimum. This completes the proof.
+We now develop a necessary and sufficient condition for the existence of a
+global solution. If such an optimal solution does not exist, then inf{f(x) : x E S ] is
+finite but is not achieved at any point in S, or it is equal to 4.
+127
+3.4.3 Theorem
+Let f: R"
+R be a convex function, and let S be a nonempty convex set in R".
+Consider the problem to minimize f ( x ) subject to x E S. The point X E S is an
+optimal solution to this problem if and only iffhas a subgradient
+that 5'(x -sZ) 2 0 for all x E S.
+5 at X
+Suppose that
+5' (x -X)
+S, where
+5 is a subgradient offat
+x . By the convexity off; we have
+f(x> 2 f ( ~ 6' (x - XI 2 f ( ~ ) for all x
+and hence X is an optimal solution to the given problem.
+To show the converse, suppose that X is an optimal solution to the
+problem and construct the following two sets in Rn+l:
+A1 = {(x -X,y) : x E R", y > f ( x ) - f ( X ) }
+A2 = { ( x - X , ~ ) : X E S , 2 0 ) .
+The reader may easily verify that both A, and A2 are convex sets. Also, A, n
+A2 = 0 because otherwise there would exist a point (x, y ) such that
+02y >f(x)-f(K),
+contradicting the assumption that X is an optimal solution to the problem. By
+Theorem 2.4.8 there is a hyperplane that separates A, and A2; that is, there exist
+a nonzero vector
+p ) and a scalar a such that
+(co,
+c i ( x - X ) + p y I a , VXER", y > f ( x ) - f ( X )
+(3.16)
+c i ( x - X ) + p y > a , VXES, y 1 0 .
+(3.17)
+If we let x = X and y = 0 in (3.17), it follows that a 5 0. Next, letting x = X andy
+= E > 0 in (3.16), it follows that p s i a . Since this is true for every E > 0, p 2 0
+and a 2 0. To summarize, we have shown that p 5 0 and a = 0. If p = 0, from
+(3.16), ch(x -X) 2 0 for each x E R". If we let x = X + 50, it follows that
+= O . Since ( 5 0 , p ) # ( 0 , 0 ) ,we must have p < 0. Dividing (3.16)
+and hence
+and (3.17) by -p and denoting -Ljo/p by 6, we get the following inequalities:
+y2f(x-X),
+f(x-Sz)-y>O,
+V X E Rn, y>f(x)-f(X)
+(3.18)
+VXES, y s o .
+By lettingy = 0 in (3.19), we get f(x-X)10
+obvious that
+(3.19)
+S. From (3.18) it is
+Therefore, 6 is a subgradient offat X with the property that
+x E S, and the proof is complete.
+6' (x - ST) 2 0 for all
+Corollary 1
+Under the assumptions of Theorem 3.4.3, if S is open, X is an optimal solution to
+the problem if and only if there exists a zero subgradient off at X. In particular,
+if S = Rn, X is a global minimum if and only if there exists a zero subgradient of
+f a t SZ.
+each x
+By the theorem, X is an optimal solution if and only if {'(X-X) 2 0 for
+E S, where 5 is a subgradient off at X. Since S is open, x = X - A t E S for
+some positive A. Therefore, -A
+ll6ll2 2 0; that is, 6 = 0 .
+Corollary 2
+In addition to the assumptions of the theorem, suppose that f is differentiable.
+Then X is an optimal solution if and only if Vf(X)'(x-X)20
+for all x E S.
+Furthermore, if S is open, X is an optimal solution if and only if Vf (X) = 0.
+Note the important implications of Theorem 3.4.3. First, the theorem
+gives a necessary and sufficient characterization of optimal solutions. This
+characterization reduces to the well-known condition of vanishing derivatives if
+f is differentiable and S is open. Another important implication is that if we
+reach a nonoptimal point X, where V()(
+fX'x -X) < 0 for some x E S, there is an
+obvious way to proceed to an improving solution. This can be achieved by
+moving from X in the direction d = x - X. The actual size of the step can be
+determined by solving a line search problem, which is a one-dimensional
+minimization subproblem of the following form: Minimize f [ Y + Ad] subject to
+A ? 0 and X + Ad E S . This procedure is called the method o feasible directions
+and is discussed in more detail in Chapter 10.
+To provide additional insights, let us dwell for awhile on Corollary 2,
+which addresses the differentiable case for Theorem 3.4.3. Figure 3.8 illustrates
+129
+i)'( 2 0
+x -i
+Figure 3.8 Geometrv for Theorems 3.4.3 and 3.4.4.
+the geometry of the result. Now suppose that for the problem to minimize f(x)
+subject to x E S, we have f differentiable and convex, but S is an arbitrary set.
+Suppose further that it turns out that the directional derivative f ' ( X ;x - X) =
+V()(
+- X) 2 0 for all x E S. The proof of the theorem actually shows that
+is a global minimum regardless of S, since for any solution i that improves over
+x, we have, by the convexity of f ; that f ( E ) > f ( i ) 2 f ( X ) + Vf(Sr)'(i -Y),
+which implies that V()(
+-X) < 0, whereas
+V ( ) ( -51)
+Hence, the hyperplane V ( ) (x - X) = 0 separates S from solutions that improve
+over X. [For the nondifferentiable case, the hyperplane f(x-X)= 0 plays a
+similar role.] However, if ,f is not convex, the directional derivative
+V ( ) ( -X) being nonnegative for all x
+S does not even necessarily imply
+that X is a local minimum. For example, for the problem to minimize f ( x ) = x3
+subject to -1 5 x 5 I , we have the condition f ' ( X ) ( x- X) 2 0 for all x E S being
+satisfied at X = 0, since f ' ( 0 ) = 0, but X = 0 is not even a local minimum for this
+problem.
+Conversely, suppose that f is differentiable but arbitrary otherwise and
+that S is a convex set. Then, if ST is a global minimum, we must have f ' ( X ; x - Sr)
+= V(r'x -X) 2 0.This follows because, otherwise, if V ( ) (
+fS)(
+f X ' x -X) < 0, we
+could move along the direction d = x - X and, as above, the objective value
+would fall for sufficiently small step lengths, whereas X + A d would remain
+feasible for 0 I /z I 1 by the convexity of S. Note that this explains a more
+general concept: iffis differentiable butfand S are otherwise arbitrary, and if X
+is a local minimum o f f over S, then for any direction d for which X + Ad
+remains feasible for 0 < /z 5 6 for some S > 0, we must have a nonnegative
+130
+directional derivative o f f at X in the direction d; that is, we must have
+f ' ( Y ;d) = Vf(sZ)' d 2 0.
+Now let us turn our attention back to convex programming problems. The
+following result and its corollaries characterize the set of alternative optimal
+solutions and show, in part, that the gradient of the objective function (assuming
+twice differentiability) is a constant over the optimal solution set, and that for a
+quadratic objective function, the optimal solution set is in fact polyhedral. (See
+Figure 3.8 to identify the set of alternative optimal solutions S* defined by the
+theorem in light of Theorem 3.4.3.)
+3 4 4 Theorem
+Consider the problem to minimize f(x) subject to x E S, where f is a convex
+and twice differentiable function and S is a convex set, and suppose that there
+exists an optimal solution X. Then the set of alternative optimal solutions is
+characterized by the set
+S' =(XES:V'(X)'(X-X)IO
+and Vf(x)=Vf(X)}
+Denote the set of alternative optimal solutions as
+9, say, and note that
+x E 5 f 0. Consider any f E S*. By the convexity off and the definition of S*,
+we have ~ E and
+so we must have i E by the optimality of X . Hence, S* 5
+Conversely, suppose that i €9, so that ~ E and f ( i ) = f ( X ) . This
+means that f(%)= f ( 2 ) 2 f ( X ) + Vf(X)'(k - X) or that Vf(X)'(? -X) 2 0. But
+by Corollary 2 to Theorem 3.4.3, we have Vf(X)'(i -X) 2 0. Hence, Vf(X)'(i -Sr)
+0. By interchanging the roles of FT and i , we obtain Vf(?)'(Y-?)
+symmetrically. Therefore,
+[Vf(Y) Vf(i)]'(X - 2) = 0.
+(3.20)
+Now we have
+[Vf(X) Vf(i)]= Vf[i+ A(X - i)];:;
+jA=ol H[? + /z(X - ?)I(?
+i )d A = G(Sr - i ) ,
+(3.2 1)
+where G
+JiH[i + A(X
+i ) ] A and where the integral of the matrix is perd
+formed componentwise. But note that C is positive semidefinite because d'Gd
+= Jid'H[i
++ A(X - i)]d d A 2 0 for all d E Rn,since d'H[i + AF
+- i)]d is a non-
+negative function of A by the convexity off: Hence, by (3.20) and (3.21), we get
+(X - i)'[Vf(X) - Vf(k)] = (X - i)'G(F - i ) .But the positive semidefiniteness of G implies that C(X - 2) = 0 by a standard result (see Exercise 3.41).
+Therefore, by (3.21), we have Vf(X) = Vf(2). We have hence shown that 2 E S,
+Vf(X)' ( i-X) 5 0, and Vf(2)= Vf(X). This means that 2 E S*, and thus 3 E S'.
+This, together with S*
+c $, completes the proof.
+The set S* of alternative optimal solutions can equivalently be defined as
+S* = {x E S : Vf(X)'(x -51) = 0 and Vf(x) = Vf(X)).
+The proof follows from the definition of S* in Theorem 3.4.4 and the fact
+that Vf(X)'(x-X) 2 0 for all x
+S by Corollary 2 to Theorem 3.4.3.
+Suppose thatfis a quadratic function given by f(x)
+x + (1/2)x'Hx and that S
+is polyhedral. Then S' is a polyhedral set given by
+S* = {XE S :C' ( X- X) 5 0, H(x - X)
+H(x - X)
+= 0) = {XE S : C'
+( X- X) = 0,
+= 0).
+The proof follows by direct substitution in Theorem 3.4.4 and Corollary
+1 , noting that Vf( x) = c + Hx .
+132
+3.4.5 Example
+Minimize ( x l
++ (x2 -5)2
+subject to -xl +x2 I 2
+2X1+3X2 I 1 1
+-xi 5 0
+-x2 s 0.
+Clearly, f ( x l , x 2 )= ( x l -3/2) 2 +(x2 -5)2 is a convex function, which
+gives the square of the distance from the point (3/2, 5). The convex polyhedral
+set S is represented by the above four inequalities. The problem is depicted in
+Figure 3.9. From the figure, clearly the optimal point is (1, 3). The gradient
+vector offat the point ( I , 3) is Vf(1,3) = (-1,-4)'. We see geometrically that the
+vector (-1, -4) makes an angle of < 90" with each vector of the form (xl -1,
+x2 -3), where ( x l , x 2 ) S. Thus, the optimality condition of Theorem 3.4.3 is
+verified and, by Theorem 3.4.4, (1,3) is the unique optimum.
+To illustrate further, suppose that it is claimed that 2 = (0,O)' is an
+optimal point. By Theorem 3.4.4, this cannot be true since we have Vf(Z)'(? -
+x) = 13 > 0 when SZ = (1,3)'. Similarly, by Theorem 3.4.3, we can easily verify
+and actually, for each
+that 2 is not optimal. Note that Vf(0,0)=(-3,-10)'
+nonzero x E S, we have -3x1 - lox2 < 0. Hence, the origin could not be an
+optimal point. Moreover, we can improvefby moving from 0 in the direction x
+- 0 for any x E S. In this case, the best local direction is -Vf(O,O), that is, the
+direction (3, 10). In Chapter 10 we discuss methods for finding a particular
+direction among many alternatives.
+Figure 3.9 Setup for Example 3.4.5.
+133
+Maximizing a Convex Function
+We now develop a necessary condition for a maximum of a convex function
+over a convex set. Unfortunately, this condition is not sufficient. Therefore, it is
+possible, and actually not unlikely, that several local maxima satisfying the
+condition of Theorem 3.4.6 exist. Unlike the minimization case, there exists no
+local information at such solutions that could lead us to better points. Hence,
+maximizing a convex function is usually a much harder task than minimizing a
+convex function. Again, minimizing a concave function is similar to maximizing
+a convex function, and hence the development for the concave case is left to the
+reader.
+3.4.6 Theorem
+Let$ R" -+ R be a convex function, and let S be a nonempty convex set in R".
+Consider the problem to maximize f ( x ) subject to x E S. If X E S is a local
+optimal solution,
+e' (x - X)
+0 for each x
+5 is any subgradient offat
+Suppose that X E S is a local optimal solution. Then an &-neighborhood
+N , (Y) exists such that f ( x ) I f ( X ) for each x E S n N , ( X ) . Let x E S, and note
+that X + A ( x - X) E S nN , (X) for A > 0 and sufficiently small. Hence,
+f [ Y + A ( x - X)] 2 f ( X ) .
+(3.22)
+Let 6 be a subgradient off at X. By the convexity off; we have
+f [ Y + A ( x - X > ] - f ( Y ) > A{'(x-X).
+The above inequality, together with (3.20), implies that A f ( x - X ) 20, and
+dividing by A > 0, the result follows.
+In addition to the assumptions of the theorem, suppose thatfis differentiable. If
+s is a local optimal solution, v~(x)' -XI I o for all x E S.
+Note that the above result is, in general, necessary but not sufficient for
+optimality. To illustrate, let f ( x ) = x2 and S = ( x : -1 < x 5 2 ) . The maximum of
+f over S is equal to 4 and is achieved at x = 2. However, at X = 0, we have
+S. Clearly, the point X = 0
+is not even a local maximum. Referring to Example 3.4.5, discussed earlier, we
+Vf(X) = 0 and hence Vf(X)'(x
+X) = 0 for each x
+have two local maxima, (0, 0) and (1 1/2, 0). Both points satisfy the necessary
+condition of Theorem 3.4.6. If we are currently at the local optimal point (0, 0),
+unfortunately no local information exists that will lead us toward the global
+maximum point (1 1/2, 0). Also, if we are at the global maximum point (1 1/2, 0),
+there is no convenient local criterion that tells us that we are at the optimal point.
+Theorem 3.4.7 shows that a convex function achieves a maximum over a
+compact polyhedral set at an extreme point. This result has been utilized by
+several computational schemes for solving such problems. We ask the reader to
+think for a moment about the case when the objective function is linear and,
+hence, both convex and concave. Theorem 3.4.7 could be extended to the case
+where the convex feasible region is not polyhedral.
+3.4.7 Theorem
+L e t j R" -+ R be a convex function, and let S be a nonempty compact polyhedral set in R". Consider the problem to maximize f ( x ) subject to x E S. An
+optimal solution ST to the problem then exists, where X is an extreme point of S.
+By Theorem 3.1.3, note that f is continuous. Since S is compact, f
+assumes a maximum at x' E S . If x' is an extreme point of S, the result is at
+hand. Otherwise, by Theorem 2.6.7, x'
+and x is an extreme point of S for;
+I;=,j , where c r = , d J = I, A, > 0,
+1,..., k. By the convexity ofJ we have
+But since f (x') 2 f ( x i ) f o r j = I , ..., k, the above inequality implies that f ( x ' ) =
+f ( x , ) f o r j = 1,..., k. Thus, the extreme points x , ,...,Xk are optimal solutions to
+the problem, and the proof is complete.
+3.5 Generalizations of a Convex Functions
+In this section we present various types of functions that are similar to convex
+and concave functions but that share only some of their desirable properties. As
+we shall learn, many of the results presented later in the book do not require the
+restrictive assumption of convexity, but rather, the less restrictive assumptions
+of quasiconvexity, pseudoconvexity, and convexity at a point.
+Quasiconvex Functions
+Definition 3.5.1 introduces quasiconvex functions. From the definition it is
+apparent that every convex function is also quasiconvex.
+3.5.1 Definition
+Let$ S + R, where S is a nonempty convex set in R". The function f is said to
+be quasiconvex if for each xl and x2 E S, the following inequality is true:
+f[hxl + ( I - h ) x Z ] ~ m a x ( f ( x l ) , f ( x 2 ) } foreach h E (0,I).
+The functionf is said to be quasiconcave if - is quasiconvex.
+From Definition 3.5.1, a functionfis quasiconvex if whenever f(x2) ?
+f ( x l ) , f ( x 2 ) is greater than or equal tofat all convex combinations of x1 and
+x2. Hence, iffincreases from its value at a point along any direction, it must
+remain nondecreasing in that direction. Therefore, its univariate cross section is
+either monotone or unimodal (see Exercise 3.57). A functionfis quasiconcave if
+whenever f ( x 2 ) 2 f ( x l ) , f at all convex combinations of x1 and x2 is greater
+than or equal to f ( x l ) . Figure 3.10 shows some examples of quasiconvex and
+quasiconcave functions. We shall concentrate on quasiconvex functions; the
+reader is advised to draw all the parallel results for quasiconcave functions. A
+function that is both quasiconvex and quasiconcave is called quasimonotone (see
+Figure 3.1Od).
+We have learned in Section 3.2 that a convex function can be
+characterized by the convexity of its epigraph. We now learn that a quasiconvex
+function can be characterized by the convexity of its level sets. This result is
+given in Theorem 3.5.2.
+3.5.2 Theorem
+Let f: S + R where S is a nonempty convex set in R". The function f is
+quasiconvex if and only if S, = {x E S : f ( x ) I
+a} is convex for each real
+number a.
+Figure 3.10 Quasiconvex and quasiconcave functions: (a) quasiconvex, (b)
+quasiconcave, (c) neither quasiconvex nor quasiconcave, (d) quasimonotone.
+136
+Suppose that f is quasiconvex, and let x l , x2 E S, . Therefore, xI, x2
+E S and max { f ( x l ) , f ( x 2 ) 2 a. Let A E (0, I), and let x = Axl +(1- A)x2. By
+the convexity of S, X E S . Furthermore, by the quasiconvexity of f;
+f ( x ) I max{f(xl),f(xz)> I a. Hence, x E S, and thus S, is convex.
+Conversely, suppose that S, is convex for each real number a. Let x l , x2 E S.
+Furthermore, let A E (0,l) and x = Axl + (1 -A)x2. Note that x1 , x2 E S, for
+a = max{f(xl),f(x2)}. By assumption, S, is convex, so that x E S,.
+Therefore, f(x) _< a
+proof is complete.
+= max{f(xl),f(x2)J.
+Hence, f is quasiconvex, and the
+The level set S, defined in Theorem 3.5.2 is sometimes referred to as a
+lower-level set, to differentiate it from the upper-level set {x E S : f(x) 2 a ) ,
+which is convex for all a E R if and only iffis quasiconcave. Also, it can be
+shown (see Exercise 3.59) that f is quasimonotone if and only if the level surface
+{x E S : f(x) = a ) is convex for all a E R.
+We now give a result analogous to Theorem 3.4.7. Theorem 3.5.3 shows
+that the maximum of a continuous quasiconvex function over a compact
+polyhedral set occurs at an extreme point.
+3 5 3 Theorem
+Let S be a nonempty compact polyhedral set in R", and let j R" -+ R be
+quasiconvex and continuous on S. Consider the problem to maximize f(x) subject to x E S. Then an optimal solution X to the problem exists, where X is an
+extreme point of S.
+Note that f is continuous on S and hence attains a maximum, say, at
+x' E S. If there is an extreme point whose objective is equal to f(x'), the result is
+at hand. Otherwise, let xl, ...,xk be the extreme points of S, and assume that
+f(x') > f ( x j ) f o r j = I , ..., k. By Theorem 2.6.7, x' can be represented as
+AjXj
+CA, = 1
+2 0,
+Since f ( x ' ) > f(x,) for each j , then
+j = I, ..., k .
+f ( x ' ) > max f ( x , )
+I<j<k
+(3.23)
+=a .
+Now, consider the set S, = { x :f ( x ) 5 a ) . Note that xi
+S, f o r j = 1, ...,
+k, and by the quasiconvexity ofA S, is convex. Hence, x ' = C ,k , i l j x j belongs
+to S,. This implies that f ( x ' ) 5 a , which contradicts (3.23). This contradiction
+shows that f ( x ' ) = f ( x i ) for some extreme point xi, and the proof is complete.
+Differentiable Quasiconvex Functions
+The following theorem gives a necessary and sufficient characterization of a
+differentiable quasiconvex function. (See Appendix B for a second-order characterization in terms of bordered Hessian determinants.)
+3.5.4 Theorem
+Let S be a nonempty open convex set in Rn,and l e t j S + R be differentiable on
+S. Then f is quasiconvex if and only if either one of the following equivalent
+statements holds true:
+S and f ( x l ) I f ( x 2 ) , V f ( x 2 ) ' ( x l - x 2 ) 20.
+S and V f ( x 2 ) ' ( x 1- x 2 ) > O , f ( x l ) > f ( x 2 ) .
+Obviously, statements 1 and 2 are equivalent. We shall prove Part 1. Letf
+be quasiconvex, and let x l , x 2 E S be such that f ( x l ) < f ( x 2 ) . By the differentiability offat x 2 , for i E (0, l), we have
+where a [ x 2 ; i l ( x ,-x2)]-+0 as i + 0. By the quasiconvexity o f f ; we have
+f [ i l x l + (1 - A ) x 2 ] 5 f ( x 2 ) , and hence the above equation implies that
+Dividing by i and letting i + 0, we get V f ( x 2 ) ' ( x 1 - x 2 ) I O .
+Conversely, suppose that x l , x 2 E S and that f ( x l ) 5 f ( x 2 ) . We need to
+show that given Part 1, we have f [ i l x l +(1 - A ) x 2 ] < f ( x 2 ) for each E (0, 1).
+We do this by showing that the set
+= { x : x = 1x1
++ (1 - il)x2, i E (0, l), f ( x ) > f ( x 2 ) )
+is empty. By contradiction, suppose that there exists an x' E L . Therefore, x' =
+Ax, + ( 1 -A)x2 for some A E (0, 1) and f ( x ' ) > f ( x 2 ) . Sincefis differentiable,
+it is continuous, and there must exist a S E (0, 1) such that
+for each pu[[6,1]
+f [ p x ' + ( 1 - p ) x 2 ] >f ( x 2 )
+(3.24)
+and f ( x ' ) > f [ 6 x ' + ( 1- S ) x 2 ] . By this inequality and the mean value theorem,
+we must have
+0 <A
+where i
+X ' ) - f [ S x ' + ( 1 - 6 ) x 2 ] = (1 - S ) V f ( i ) ' ( x ' -
+(3.25)
+x2),
++ (1 - ,h)x2 for some ,h E (S,l). From (3.24) it is clear that f(?)>
+f ( x 2 ) . Dividing (3.25) by 1 - 6 > 0, it follows that V f ( i ) ' ( x ' - x 2 ) > 0, which
+in turn implies that
+V f ( i ) '( X I
+-x2)
+(3.26)
+But on the other hand, f ( 2 ) > f ( x 2 ) L f ( x l ) , and i is a convex combination of
+x1 and x2, say 2 = i x , + ( I - i ) x 2 , where
+i (0,l). By the assumption of the
+theorem, V f ( 2 ) ' ( x l - i )5 0 , and thus we must have
+0 2 V f ( i ) ' ( x 1- i ) = ( l - i ) V f ( f ) ' ( x l -x2).
+The above inequality is not compatible with (3.26). Therefore, L is empty, and
+To illustrate Theorem 3.5.4, let f ( x ) = x 3 . To check its quasiconvexity,
+suppose that f ( x l ) < f ( x 2 ) ,that is, x1 i x : . This is true only if x1I x 2 . Now
+consider V f ( x 2 ) ( x l-X2)=3(X1 -x2)x2. Since x1 < x 2 , 3(x1-x2)x; 5 0.
+Therefore, f ( x , ) 5 f ( x 2 ) implies that V f ( x 2 ) ( x l x 2 ) < 0, and by the theorem
+we have thatfis quasiconvex. As another illustration, let f ( x l , x2)
+Let x1 =(2,-2)'
+and x2 =(l,O)'.
+x1 + x 3 .
+Note that f ( x l ) = O and f ( x 2 ) = l , so that
+f ( x l )< f ( x 2 ) . But on the other hand, V f ( x Z ) f ( x- x 2 ) = (3,0)(1,-2)' = 3 . By
+the necessary part of the theorem,fis not quasiconvex. This also shows that the
+sum of two quasiconvex functions is not necessarily quasiconvex.
+Strictly Quasiconvex Functions
+Strictly quasiconvex and strictly quasiconcave functions are especially important
+in nonlinear programming because they ensure that a local minimum and a local
+139
+maximum over a convex set are, respectively, a global minimum and a global
+maximum.
+3 5 5 Definition
+Let f : S + R, where S is a nonempty convex set in R". The fimction f is said to
+be strictly quasiconvex if for each x l , x2 E S with f ( x l ) + f(xZ), we have
+f[Axl + ( I -/z)x2] < max{f (xl),f(x2))
+for each A E (0, 1).
+The hnction f is called strictly quasiconcave if - is strictly quasiconvex.
+Strictly quasiconvex functions are also sometimes referred to as semi-strictly
+quasiconvex, functionally convex, or explicitly quasiconvex.
+Note from Definition 3.5.5 that every convex function is strictly
+quasiconvex. Figure 3.1 1 gives examples of strictly quasiconvex and strictly
+quasiconcave functions. Also, the definition precludes any "flat spots" from
+occurring anywhere except at extremizing points. This is formalized by the
+following theorem, which shows that a local minimum of a strictly quasiconvex
+function over a convex set is also a global minimum. This property is not
+enjoyed by quasiconvex functions, as seen in Figure 3.10a.
+3.5.6 Theorem
++ R be strictly quasiconvex. Consider the problem to minimize
+f(x)
+subject to x E S, where S is a nonempty convex set in R". If X is a local optimal
+solution, X is also a global optimal solution.
+Assume, on the contrary, that there exists an i E S with f ( i ) f (X). By
+the convexity of S, A? + (1 -A)% E S for each A E (0, 1). Since X is a local mini-
+mum by assumption, f (%) I f [ A i + (1 - A)%] for all A E (0,s) and for some 6 E
+Figure 3.1 1 Strictly quasiconvex and strictly quasiconcave functions: (a)
+strictly quasiconvex, (b) strictly quasiconvex, (c) strictly quasiconcave, (6)
+neither strictly quasiconvex nor quasiconcave.
+(0, 1). But because f is strictly quasiconvex and f ( f i ) < f ( % ) we have that
+f [ A %+ (1 -A)%] < f ( % )for each i E (0, 1). This contradicts the local optimality
+of X, and the proof is complete.
+As seen from Definition 3.1.1, every strictly convex function is indeed a
+convex function. But every strictly quasiconvex function is not quasiconvex. To
+illustrate, consider the following function given by Karamardian [ 19671:
+ifx=0
+ifx;t;O.
+By Definition 3.5.5, f is strictly quasiconvex. However, f is not quasiconvex,
+since for x1 = 1 and x2 = -1, f ( x l ) = f ( x 2 ) = 0, but f[(1/2)x1 +(1/2)x2] =
+f ( 0 ) = 1 > f ( x 2 ) . Iff is lower semicontinuous, however, then as shown below,
+strict quasiconvexity implies quasiconvexity, as one would usually expect from
+the word strict. (For a definition of lower semicontinuity, refer to Appendix A.)
+3.5.7 Lemma
+Let S be a nonempty convex set in R" and let J S
+and lower semicontinuous. Thenfis quasiconvex.
+R be strictly quasiconvex
+Let X I and x 2 E S . If f ( x l ) # f(xZ), then by the strict quasiconvexity of
+1 we must have f[ilxl +(I-/2)x2] < max(f(xl),f(x2)} for each A E (0, 1).
+NOW,suppose that f ( x l ) = f(x2). To show that f is quasiconvex, we need to
+show that f[/2xl + (1 -il)x2] i f ( x l ) for each i E (0, I). By contradiction, supl
+pose that f [ p x l +(1 - p ) x 2 ] > f ( x l ) for some p E (0, 1). Denote pxl +(l-p)x2
+by x. Sincefis lower semicontinuous,there exists a i E (0, 1) such that
+f(x) >f
++ (1 - A h 1 > f(x, ) = f(x2 1.
+(3.27)
+Note that x can be represented as a convex combination of Axl + (1 - A)x and x2.
+Hence, by the strict quasiconvexity off and since f[Axl + (1 - A)x] > f(x2), we
+have f(x) < f[ilxl +(1 -,%)XI,
+contradicting (3.27). This completes the proof.
+Strongly Quasiconvex Functions
+From Theorem 3.5.6 it followed that a local minimum of a strictly quasiconvex
+function over a convex set is also a global optimal solution. However, strict
+quasiconvexity does not assert uniqueness of the global optimal solution. We
+shall define here another version of quasiconvexity, called strong
+quasiconvexity, which assures uniqueness of the global minimum when it exists.
+141
+3.5.8 Definition
+Let S be a nonempty convex set in R", and let$ S + R. The functionf is said to
+be strongly quasiconvex if for each x l r x 2 E S , with xI # x 2 , we have
+f [ A x * + (1 -
+1 < max{f(x1), f ( x 2 11
+for each A E (0, I). The functionfis said to be strongly quasiconcave if -f is
+strongly quasiconvex. (We caution the reader that such a function is sometimes
+referred to in the literature as being strictly quasiconvex, whereas a function
+satisfying Definition 3.5.5 is called semi-strictly quasiconvex. This is done
+because of Karamardian's example given above and Property 3 below.)
+From Definition 3.5.8 and from Definitions 3.1.1, 3.5.1, and 3.5.5, the
+following statements hold true:
+Every strictly convex function is strongly quasiconvex.
+Every strongly quasiconvex function is strictly quasiconvex.
+Every strongly quasiconvex function is quasiconvex even in the
+absence of any semicontinuity assumption.
+Figure 3.1 l a illustrates a case where the function is both strongly
+quasiconvex and strictly quasiconvex, whereas the function represented in
+Figure 3.116 is strictly quasiconvex but not strongly quasiconvex. The key to
+strong quasiconvexity is that it enforces strict unimodality (see Exercise 3.58).
+This leads to the following property.
+3.5.9 Theorem
+-+ R be strongly quasiconvex. Consider the problem to minimize f
+solution, X is the unique global optimal solution.
+Since X is a local optimal solution, there exists an &-neighborhoodN , (X)
+around X such that f ( E ) < f ( x ) for all x ~ S n N , ( k ) . Suppose, by
+contradiction to the conclusion of the theorem, that there exists a point ? E S
+such that ? # X and f ( 2 ) 2 f ( X ) . By strong quasiconvexity it follows that
+f[A?+(1--A)X]<max{f(i),f(X))
+for all A E (0, 1). But for h small enough, A? + (1 - A)X E S nN,(X), so that the
+above inequality violates the local optimality of X. This completes the proof.
+Pseudoconvex Functions
+The astute reader might already have observed that differentiable strongly (or
+strictly) quasiconvex functions do not share the particular property of convex
+functions, which says that if Vf(T) = 0 at some point X,X is a global minimum
+of f: Figure 3 . 1 2 ~ illustrates this fact. This motivates the definition of
+pseudoconvex functions that share this important property with convex
+functions, and leads to a generalization of various derivative-based optimality
+conditions.
+3.5.10 Definition
+Let S be a nonempty open set in R", and letf S -+ R be differentiable on S. The
+function f is said to be pseudoconvex if for each x l , x2 E S with Vf(xl)'
+- X I )2 0, we have f ( x 2 ) 2 f ( x l ) ; or equivalently, if f (x2) < f (XI),
+Vf(xl)'(x2 - x l ) < O . The function f is said to be pseudoconcave if - is
+pseudoconvex.
+The function f is said to be strictly pseudoconvex if for each distinct x l ,
+x2 E S
+satisfying Vf(xl)'(x2 - xl)2 0, we have f ( x 2 ) 2 f ( x l ) ; or equivalently,
+if for each distinct x l r x2 E S, f ( x 2 ) f ( x l ) implies that V (x1)'(x2 - x l ) < 0 .
+The functionf is said to be strictly pseudoconcave if -f is strictly pseudoconvex.
+Figure 3.12~1
+illustrates a pseudoconvex function. From the definition of
+pseudoconvexity it is clear that if Vf(X) = 0 at any point X, f (x) 2 f ( T ) for all
+x; so S;i is a global minimum forf: Hence, the function in Figure 3 . 1 2 ~ neither
+pseudoconvex nor pseudoconcave. In fact, the definition asserts that if the
+directional derivative of f at any point x1 in the direction (x2 - x l ) is
+nonnegative, the function values are nondecreasing in that direction (see
+Exercise 3.69). Furthermore, observe that the pseudoconvex functions shown in
+Figure 3.12 are also strictly quasiconvex, which is true in general, as shown by
+Theorem 3.5.11. The reader may note that the function in Figure 3 . 8 ~ not
+pseudoconvex, yet it is strictly quasiconvex.
+Figure 3.1 2 Pseudoconvex and pseudoconcave functions: (a) pseudoconvex,
+(6) both pseudoconvex and pseudoconcave, (c) neither pseudoconvex nor
+pseudoconcave.
+3.5.11 Theorem
+Let S be a nonempty open convex set in R", and let f:S -+R be a differentiable
+pseudoconvex function on S. Then fis both strictly quasiconvex and quasiconvex.
+We first show thatfis strictly quasiconvex. By contradiction, suppose that
+there exist x l , x 2 E S such that f ( x l )# f ( x 2 ) and f ( x ' ) 2 max{f(xl), f ( x 2 ) } ,
+where x' = A x , + ( 1 - A)x2 for some il E (0, 1 ) . Without loss of generality, assume
+that f ( x l )< f ( x 2 ) ,so that
+(3.28)
+f(x') 2 f ( x 2 ) >f(x1).
+Note, by the pseudoconvexity off; that Vf(x')'( x l
+x') < 0. Now since Vf(x')'
+( x l -x')<O and x 1 - x r = - ( l - i l ) ( x 2 - x ' ) / i l , Vf(x')'(x2-x')>O; and hence,
+by the pseudoconvexity off; we must have f ( x 2 )2 f ( x ' ) . Therefore, by (3.28),
+we get f ( x 2 )= f ( x ' ) . Also, since Vf(x')'(x2- x') > 0, there exists a point
+2 = px'+ (I - p ) x 2 with p E (0, 1 ) such that
+f ( i'f(X')
+=f(x2).
+Again, by the pseudoconvexity of f; we have V f ( i ) ' ( x 2 - 2 ) < 0. Similarly,
+V'(i)'(x' - 2 ) < 0. Summarizing, we must have
+Vf(i)[(x2 2) <0
+Vf(k)'(X'-i )< 0.
+Note that x 2 - k = p(2 - x ' ) / ( l - p), and hence the above two inequalities are not
+compatible. This contradiction shows that f is strictly quasiconvex. By Lemma
+3.5.7, then fis also quasiconvex, and the proof is complete.
+In Theorem 3.5.12 we see that every strictly pseudoconvex function is
+strongly quasiconvex.
+3.5.12 Theorem
+Let S be a nonempty open convex set in R", and l e t j S -+ R be a differentiable
+strictly pseudoconvex function. Then f i s strongly quasiconvex.
+By contradiction, suppose that there exist distinct x l , x 2 E S and i E (0,
+1) such that f ( x ) > max(f(xl),f(x2)), where x = a x l +(1-il)x2. Since f ( x l )
+5 f(x), we have, by the strict pseudoconvexity off, that Vf(x)'(x, - x) < 0 and
+hence
+Vf(X)'(Xl - x * ) < 0.
+(3.29)
+Similarly, since f(x2) 2 f(x), we have
+Vf(X)[(X* -XI)
+(3.30)
+The two inequalities (3.29) and (3.30) are not compatible, and hence f is
+strongly quasiconvex. This completes the proof.
+We remark here in connection with Theorems 3.5.1 1 and 3.5.12, for the
+special case in which f is quadratic, that f is pseudoconvex if and only iff is
+strictly quasiconvex, which holds true if and only iff is quasiconvex. Moreover,
+we also have that f is strictly pseudoconvex if and only i f f is strongly
+quasiconvex. Hence, all these properties become equivalent to each other for
+quadratic functions (see Exercise 3.55). Also, Appendix B provides a bordered
+Hessian determinant characterization for checking the pseudoconvexity and the
+strict pseudoconvexity of quadratic functions.
+Thus far we have discussed various types of convexity and concavity.
+Figure 3.13 summarizes the implications among these types of convexity. These
+implications either follow from the definitions or from the various results proved
+in this section. A similar figure can be constructed for the concave case.
+Figure 3.13 Relationship among various types of convexity.
+145
+Convexity at a Point
+Another useful concept in optimization is the notion of convexity or concavity at
+a point. In some cases the requirement of a convex or concave function may be
+too strong and really not essential. Instead, convexity or concavity at a point
+may be all that is needed.
+3.5.13 Definition
+Let S be a nonempty convex set in Rn, and let $ S -+ R. The following are
+relaxations of various forms of convexity presented in this chapter:
+Convexity at X. The functionf is said to be convex at X
+S if
+f[RX+(1-R)x]IRf(X)+(I-il)f(x)
+for each R E (0, 1) and each x
+Strict convexity at 51. The functionfis said to be strictly convex at X
+f[RX+(I-R)x] < R f ( X ) + ( I - R ) f ( x )
+for each R
+(0, 1) and for each x
+Quasiconvexity at X . The functionfis said to be quasiconvex at 51 E S if
+f [ R X + (1 - R ) x ] I max{f(x),f(X)}
+(0, 1) and each x
+Strict quasiconvexity at X. The function is said to be strictly quasiconvex at X
+S such that f ( x )
++f(X).
+Strong quasiconvexity a t X , The functionfis said to be strongly quasiconvex at
+X E Sif
+for each R E (0,l) and each x
+Pseudoconvexity at SZ. The function f is said to be pseudoconvex at X
+Vf(Y)'(x -F) 2 0 for x
+S implies that f(x) 2 f ( Q .
+Strictpseudoconvexity at X. The function f is said to be strictly pseudoconvex at
+S if Vf(sZ)'(x -X) 2 0 for x
+S, x f X, implies that f ( x ) > f(SZ).
+Various types of concavity at a point can be stated in a similar fashion.
+Figure 3.14 shows some types of convexity at a point. As the figure suggests,
+these types of convexity at a point represent a significant relaxation of the
+concept of convexity.
+Figure 3.14 Various types of convexity at a point. ( a ) Convexity and strict
+convexity:fis convex but not strictly convex at xl; f i s both convex and strictly
+convex at x2. (6) Pseudoconvexity and strict pseudoconvexity: f is pseudoconvex
+but not strictly pseudoconvex at x,; f i s both pseudoconvex and strictly pseudoconvex at x2. (c) Quasiconvexity, strict quasiconvexity, and strong quasiconvexity: f’ is quasiconvex but neither strictly quasiconvex nor strongly
+quasiconvex at xl; f i s both quasiconvex and strictly quasiconvex at x2 but not
+strongly quasiconvex at x2; f i s quasiconvex, strictly quasiconvex, and strongly
+quasiconvex at x?.
+We specify below some important results related to convexity of a
+functionf at a point, where$ S + R and S is a nonempty convex set in R". Of
+course, not all the results developed throughout this chapter hold true. However,
+several of these results hold true and are summarized below. The proofs are
+similar to the corresponding theorems in this chapter.
+Letfbe both convex and differentiable at X. Then f ( x ) ? f ( 3 )
+Vf(X)'(x-X) for each x E S. Iff is strictly convex, strict
+inequality holds for x + X.
+Let f be both convex and twice differentiable at 51. Then the
+Hessian matrix H(X) is positive semidefinite.
+Letfbe convex at i E S, and let 3 be an optimal solution to the
+problem to minimize f ( x ) subject to x E S. Then X is a global
+optimal solution.
+Letfbe convex and differentiable at si; E S. Then X is an optimal
+solution to the problem to minimize f ( x ) subject to x E S if and
+only if Vf(X)'(x-X) 2 0 for each x E S. In particular, if X E int
+S, 51 is an optimal solution if and only if V f ( X )= 0 .
+Let f be convex and differentiable at X E S. Suppose that X is an
+optimal solution to the problem to maximize f ( x ) subject to x E
+S. Then Vf(X)'(x- iT) i 0 for each x E S.
+Let f be both quasiconvex and differentiable at 53, and let x
+be such that f ( x ) 5 f ( X ) . Then Vf(X)'(x-X) i 0.
+Suppose that X is a local optimal solution to the problem to
+minimize f ( x ) subject to x E S. Iffis strictly quasiconvex at X,
+x is a global optimal solution. Iffis strongly quasiconvex at X, 51
+is the unique global optimal solution.
+Consider the problem to minimize f ( x ) subject to x E S, and let
+si; E S be such that Vf(X) = 0. Iff is pseudoconvex at X, 53 is a
+global optimal solution; and iffis strictly pseudoconvex at X, X
+Exercises
+1 . 1 Which of the following functions is convex, concave, or neither? Why?
+f ( x l ,x 2 ) = 2 x l2 - 4x1x2 - 8x1+ 3x2
+f ( x l , x 2 ) = x,e-(*1+3x2)
+f ( X i , X 2 ) = - X f 2 -3X2 + ~ X I X ~ + ~ O X ~ - ~ O X ~
+f ( ~ ~ , ~ ~ , x ~ )+ 2 x 22 x x~2 x 2 x 3 -5x!x3
+= 1 + 2+~ 2
+[3.2] Over what subset of ( x :x > O] is the univariate function f ( x ) = e-"h convex, where a > 0 and b L l ?
+13-31 Prove or disprove concavity of the following function defined over S =
+( X , x2 ) :- 1 I
+I 1, -1 I x2 I 1) :
+f(xl,x2)=10-3(X2 -xi2 )2 .
+Repeat for a convex set S
+{(xl,x2): 2 x2].
+13.41 Over what domain is the function f ( x ) = x 2 ( x 2 -1) convex? Is it strictly
+convex over the region(s) specified? Justify your answer.
+[3.5] Show that a function$ R"
++ R is affine if and only iffis
+both convex and
+concave. [A function f is uffine if it is of the form f ( x ) = a +c'x, where u is a
+scalar and c is an n-vector.]
+13.61 Let S be a nonempty convex set in R", and let f S + R. Show that f is
+convex if and only if for any integer k 2 2, the following holds true: x I ,..., x k E S
+impliesthatf(~~=lA,x,)l~~=lA,f(x,),where~~=lA, =1, 2, 2 O f o r j = 1,...,
+[3.7] Let S be a nonempty convex set in R", and let $ S -+ R. Show that f is
+concave if and only if hypfis convex.
+13.81 Let f i , f 2 ,...,f k : R"
+be convex functions. Consider the function f
+defined by f ( x ) = x : = l a , f , ( x ) , where a, > 0 for j
+1, 2 ,..., k. Show thatfis
+convex. State and prove a similar result for concave functions.
+13.91 Let f i , f 2 ,..., f k : R" + R be convex functions. Consider the function f
+defined by f ( x ) = max(fi(x),f2(x),
+...,fk( ) ) . Show thatfis convex. State and
+prove a similar result for concave functions.
+13.101 Let h: R" -+ R be a convex function, and let g: R + R be a nondecreasing
+convex function. Consider the composite functionf R" -+ R defined by f ( x ) =
+g[h(x)].Show thatfis convex.
++ R be a concave function, and letf
+be defined by f ( x ) =
+l g x . Show that f is convex over S = { x : g ( x ) > 0). State a symmetric result
+interchanging the convex and concave functions.
+13.121 Let S be a nonempty convex set in R", and letf R" -+ R be defined as
+13.111 Let g: R"
+149
+f(y) = infflly -
+xII :x
+Note that f (y) gives the distance from y to the set S and is called the distance
+function. Prove that f is convex.
+13.131 Let S = { ( x 1 , x 2 ) : x +x: 2 4 ) . Let f be the distance function defined in
+Exercise 3.12. Find the function f explicitly.
+13.141 Let S be a nonempty, bounded convex set in R", and let$ R"
+defined as follows:
+R be
+f(y)=sup{y'x:xES}.
+The function f is called the support function of S. Prove that f is convex. Also,
+show that iff (y) = yfX, where 5 E S, 5 is a subgradient off at y.
+13.151 Let S = A u B , where
+A = { ( x , , x ~ ) : x<~O , X ~ + ~ 2 4 )
+B = { ( X , , X ~ )XI t 0,-2 i X* 5 2).
+Find the support function defined in Exercise 3.14 explicitly.
+I . 6 Let g: Rm + R be a convex function, and let h : R" -+ Rm be an affine
+function of the form h(x) = Ax + b, where A is an m x n matrix and b is an m x
+1 vector. Then show that the composite function $ R" -+ R defined as f(x) =
+g[h(x)] is a convex function. Also, assuming twice differentiability of g, derive
+an expression for the Hessian off:
+13.171 Let F be a cumulative distributionfunction for a random variable 6, that
+is, F ( y ) = Prob(b i y ) . Show that +(z)
+I( y ) dy is a convex function. Is +
+convex for any nondecreasing function F
+13.181 A function$ R" -+ R is called a gauge function if it satisfies the following equality:
+f (Ax) = A f (x)
+for all x E R" and all A 2 0.
+Further, a gauge function is said to be subadditive if it satisfies the following
+inequality:
++f(y)
+(x + y)
+for all x, y E R".
+Prove that subadditivity is equivalent to convexity of gauge functions.
+I3.191 Let$ S -+ R be defined as
+where S is a convex subset of R", a and p are vectors in R", and where p'x > 0
+for all x E S. Derive an explicit expression for the Hessian o f x and hence verify
+thatfis convex over S.
+13.201 Consider a quadratic functionj R"
++ R and suppose that f is convex on
+S, where S is a nonempty convex set in R". Show that:
+The function f is convex on M(S), where M(S) is the afine manifold
+containing S defined by M ( S ) = ( y :y
+A,x,,
+x:=lA,
+S for allj, for k 2 1f .
+The function f is convex on L(S), the linear subspace parallel to
+M(S), defined by L ( S ) = (y - x : y E M ( S ) and x E S}. (This result
+is credited to Cottle [ 19671.)
+13.211 Let h: R"
++ R be convex, and let A be an m x
+n matrix. Consider the
+hnction h: R m + R defined as follows:
+h ( y ) = inf{f(x) : Ax
+Show that h is convex.
+13.221 Let S be a nonempty convex set in R", and let f R" -+ R and g:
+R" -+ R"' be convex. Consider the perturbation function
+below:
+4 :R m +R
+defined
+4(y) = inf(f(x) : g(x) I y , x E S ) .
+Prove that 4 is convex.
+Show that if y1 5 y2, 4 ( y l ) 2 4 ( y z ) .
+13.231 Letf R" + R be lower semicontinuous. Show that the level set S,
+{x :f(x) I a } is closed for all a E R.
+(3.24) Let f be a convex function on R". Prove that the set of subgradients off
+at a given point forms a closed convex set.
+13.251 Let f R"
++ R be convex. Show that 5 is a subgradient off
+at SZ if and
+only if the hyperplane ((x,y): y = f(X)+f(x-jz)} supports epi f at [X,
+f(Z)].
+State and prove a similar result for concave functions.
++ R be defined by f (x) = llxll. Prove that subgradients off are
+characterized as follows: If x = 0, 6 is a subgradient off at x if and only if
+13.261 Let$ R"
+151
+llril5 1. On the other hand, if x # 0, 6 is a subgradient off
+llSll= 1 and S'x
+= IIx(\.Use
+at x if and only if
+this result to show thatfis differentiable at each x # 0,
+and characterize the gradient vector.
+fi, f 2 :
+Rn + R be differentiable convex functions. Consider the
+function f defined by f(x)=max{fi(x), f2(x)}. Let X be such that f(X) =
+fi (SZ) = f2 (X). Show that 6 is a subgradient offat X if and only if
+13.271 Let
+6 = ilVfi(X)+(1-il)Vf2(X),
+where i E [0, I].
+Generalize the result to several convex functions and state a similar result for
+concave functions.
+13.281 Consider the function B defined by the following optimization problem
+for any u ? 0, where X is a compact polyhedral set.
+6(u) = Minimize c'x+u'(Ax-b)
+subject to x E X .
+Show that 0 is concave.
+Characterize the subgradients of B at any given u.
+13.291 In reference to Exercise 3.28, find the function B explicitly and describe
+the set of subgradients at each point u 2 0 if
+X = { ( X ~ , X Z ) : O 5 3X 2 , 0 5 x 2 5312).
+< 1~
+13.301 Consider the function Bdefined by the following optimization problem:
+6(u1, u2 ) = Minimize x1( 2 - u, ) + x2 ( 3 - u2 )
+subject to x1 + x 2 5 4.
+Show that 6 is concave.
+Evaluate 6 at the point ( 2 , 3).
+Find the collection of subgradients of B at (2, 3).
+13.311 Let$ S + R, where S c Rn is a nonempty convex set. Then the convex
+envelope offover S, denoted fs(x), x E S,is a convex function such that fs(x)
+I f(x) for all x E S; and if g is any other convex function for which g(x) 5
+f(x) for all x E S, fs(x)>g(x) for all x E S. Hence fs is the pointwise
+supremum over all convex underestimators off over S. Show that min{ f (x) : x
+E S} = min{fs(x): x E S } , assuming that the minima exist, and that
+c {x' E s : fs(x*)
+5 fs(x) for ail x
+13.321 Let j S + R be a concave function, where S c R" is a nonempty polytope with vertices x1 ,..., xE. Show that the convex envelope (see Exercise 3.31)
+off over S is given by
+Hence, show that if S is a simplex in R", fs is an affine function that attains the
+same values as f over all the vertices of S. (This result is due to Falk and
+Hoffman [ 19761.)
+13.331 L e t j S + R and
+fs : S + R be as defined in Exercise 3.31. Show that
+iff is continuous, the epigraph {(x,y ) : y 2 fs(x), x E S , y E R } of fs over S
+is the closure of the convex hull of the epigraph {(x, y ) :y 2 f(x) , x E S ,
+y E R } off over S. Give an example to show that the epigraph of the latter set is
+not necessarily closed.
+[3.34] Let f (x, y ) = xy be a bivariate bilinear function, and let S be a polytope
+in R2 having no edge with a finite, positive slope. Define A = { ( a , p y ) E R3 :
+a x k + p Y k + y 5 X k Y k for k
+1, ..., K ) , where ( X k , Y k ) , k = 1, ..., K, are the
+vertices of S. Referring to Exercise 3.3 1, show that if S is two-dimensional, the
+set of extreme points (a,, pe,y e ) , e = 1, ..., E, of A is nonempty and that
+fs(x, y ) = max {a,x + /ley+ y e ,e = I ,..., E ) . On the other hand, if S is onedimensional and given by the convex hull of ( x l ,y l ) and (x2, y 2 ) , show that
+there exists a solution ( a , ,pl,y1) to the system a x k + pyk + y = xkyk for k =
+1, 2, and in this case, f s ( x , y ) = q x + p l y + yI . Specialize this result to verify
+that if S = { ( x , y ) : a l x < b ,c < y l d } , where c1 < b and c < d, then
+fs (x, y ) = max{& + by - bd, cx + ay - ac) . (This result is due to Sherali and
+Alameddine [ 19901,)
+I3.351 Consider a triangle S having vertices (0, l), (2, 0), and (1, 2 ) and let
+f (x, y ) = xy be a bivariate, bilinear function. Show that the convex envelope
+f s off over S (see Exercise 3.3 1) is given by
+f S ( X > Y )=
+2-x+y
+for ( x , y ) # (2,o)
+for ( x , y ) E S.
+Can you generalize your approach to finding the convex envelope off over a
+triangle having a single edge that has a finite, positive slope? (This result is due
+to Sherali and Alameddine [ 19901.)
+13.36) Letf: R”
+is given by
+be a differentiable function. Show that the gradient vector
+[3.37] Letf: R” + R, be a differentiable function. The linear approximation of
+fat a given point X is given by
+f(x)+Vf(ST)’(x-St).
+Iff is twice differentiable at X , the quadratic approximation off at X is given
+f(T)
++ Vf(X)‘ (x - St) + - (x - X)‘ H (?)(x - X).
+Let f ( x l , x 2 ) =
+-‘2
+-3x, + 5x2.
+Give the linear and quadratic
+approximations o f f at ( I , I). Are these approximations convex, concave, or
+neither? Why?
+13.381 Consider the function f : R“ -+ R, and suppose that f is infinitely
+differentiable. Then show thatfis strictly convex if and only if for each X and d
+in R“ , the first nonzero derivative term of order greater than or equal to 2 in the
+Taylor series expansion exists, is of even order, and is positive.
+13.393 Consider the functionf: R3 + R, given by f(x) = x‘ A x , where
+What is the Hessian off7 For what values of Bisfstrictly convex?
+13.401
+Consider
+function
+f(x)=x3,
+over
+S = {x E R : x 2 0) . Show thatfis strictly convex over S. Noting that f “(0)= 0
+and f ‘“(0) 6 , comment on the application of Theorem 3.3.9.
+13.41) Let H be an n x n symmetric, positive semidefinite matrix, and suppose
+that x‘Hx
+for some x E R” . Then show that Hx
+0. (Hint: Consider the
+diagonal of the quadratic form x‘Hx via the transformation x
+columns of Q are the normalized eigenvectors of H.)
+Qy, where the
+154
+13.421 Let H be an n x n symmetric matrix. Using the eigenvalue
+characterization of definiteness, verify that H is positive definite if and only if it
+13.431 Suppose that H is an n x n symmetric matrix. Show how Theorem 3.3.12
+demonstrates that H is positive definite if and only if it can be premultiplied by a
+series of n lower triangular Gauss-Jordan reduction matrices L, ,..., L, to yield
+an upper triangular matrix U with positive diagonal elements. (Letting
+L-* = L, . . . L l, we obtain H = LU, where L is lower triangular. This is known
+as the LU-decomposition of H; see Appendix A.2.) Furthermore, show that H is
+positive definite if and only if there exists a lower triangular matrix L with
+positive diagonal elements such that H = LL' . (This is known as the Cholesky
+factorization of H; see Appendix A.2.)
+[3.441 Suppose that S # 0 is closed and convex. Let $ S + R be
+differentiable on int S. State if the following are true or false, justifying your
+answer:
+If f is convex on S, f(x) 2 f ( i ) + ~ f ( i ) ' ( x
+x E int S.
+If f ( x ) 2 f ( Y ) + V f ( i ) ' ( x - i )
+convex on S.
+13.451 Consider the following problem:
+-XI for all x E S ,
+for all x E S and F ~ i n S , f is
+Minimize (x, -4)2
++ (x2 - 6 ) 2
+subject to x2 2 x1
+x2 5 4 .
+Write a necessary condition for optimality and verify that it is satisfied by the
+point (2,4). Is this the optimal point? Why?
+13.461 Use Theorem 3.4.3 to prove that every local minimum of a convex
+function over a convex set is also a global minimum.
+13.471 Consider the problem to minimize { f ( x ) : x E S> and suppose that there
+exists an E > 0 such that N,(X)nS is a convex set and that f ( i 5 f(x) for all
+x E N,(F)nS.
+a. Show that if H(X) is positive definite, X is both a strict and a
+strong local minimum.
+b. Show that if X is a strict local minimum andfis pseudoconvex on
+N,(F) A S , X is also a strong local minimum.
+13.481 L e t j R" -+ R be a convex function, and suppose that f ( x + Ad) 2 f(x)
+for all A E ( O , ~ ) where 6 > O . Show that f ( x + A d ) is a nondecreasing
+function of A. In particular, show that f(x +Ad) is a strictly increasing function
+of A iffis strictly convex.
+13.491 Consider the following problem:
+155
+Maximize c'x
+subjectto Ax I b
+x 2 0,
+where H is a symmetric negative definite matrix, A is an m x n matrix, c is an nvector, and b is an m-vector. Write the necessary and sufficient condition for
+optimality of Theorem 3.4.3, and simplify it using the special structure of this
+1 . 0 Consider the problem to minimize f(x) subject to x E S, where J
+is a differentiable convex function and S is a nonempty convex set in
+R" . Prove that X is an optimal solution if and only if Vf(X)'(x -X) 2 0 for
+each x E S . State and prove a similar result for the maximization of a concave
+hnction. (This result was proved in the text as Corollary 2 to Theorem 3.4.3. In
+this exercise the reader is asked to give a direct proof without resorting to
+subgradients.)
+1 . 1 I A vector d is called a direction of descent offat X if there exists a S > 0
+such that f ( X + Ad) < f(X) for each A E (0,d). Suppose thatfis convex. Show
+that d is a direction of descent if and only if f'(X;d) < 0 . Does the result hold
+true without the convexity off7
+13.521 Consider the following problem:
+Maximize f(x)
+subject to Ax = b
+where A is an m
+n matrix with rank m andfis a differentiable convex function.
+Consider the extreme point ( x i , x h ) = (6',Of),where
+6 = B-'b 2 0 and A =
+[B, N]. Decompose Vf(x) accordingly into VBf(x) and VNf(x) . Show that
+the necessary
+condition of Theorem 3.4.6 holds true if
+VNf(x)' -
+VBf(x)' B-'N < 0 . If this condition holds, is it necessarily true that x is a local
+maximum? Prove or give a counterexample.
+If VNf(x)' -VBf(x)'B-'N $0, choose a positive component j and
+increase its corresponding nonbasic variable x, until a new extreme point is
+reached. Show that this process results in a new extreme point having a larger
+objective value. Does this method guarantee convergence to a global optimal
+solution? Prove or give a counterexample.
+1 . 3 Apply the procedure of Exercise 3.52 to the following problem starting
+with the extreme point (1/2,3,0,0):
+Maximize (xl - 2)2
+subject to -2x1 + x2
++ 3x2
++ (x2
++ x3
++ x4
+x4 2
+i . 4 Consider the problem to minimize f(x)
+subject to x E S , where $
+R" 4 R is convex and S is a nonempty convex set in R" . The cone of feasible
+directions of S at x E S is defined by
+D = { d :thereexisha S > O suchthat Y + / Z d E S for /ZE(O,S)}.
+Show that X is an optimal solution to the problem if and only if f'(Sl;d) 2 0 for
+each d E D . Compare this result with the necessary and sufficient condition of
+Theorem 3.4.3. Specialize the result to the case where S = R" .
+1 . 5 Let$ R" + R be a quadratic function. Show that f is quasiconvex if and
+only if it is strictly quasiconvex, which holds true if and only if it is
+pseudoconvex. Furthermore, show thatfis strongly quasiconvex if and only if it
+is strictly pseudoconvex .
+(3.561 Let h: R" + R be a quasiconvex function, and let g: R + R be a
+nondecreasing function. Then show that the composite function j R" + R
+defined as f(x) = g[h(x)] is quasiconvex.
+13.571 Letf S c R + R be a univariate function, where S is some interval on
+the real line. Define f as unimodal on S if there exists an x* E S at which f
+attains a minimum and f is nondecreasing on the interval { x E S : X ~ X * } ,
+whereas it is nonincreasing on the interval {x E S :x < x*}. Assuming that f
+attains a minimum on S, show thatfis quasiconvex if and only if it is unimodal
+[3.58] Let f S 4 R be a continuous function, where S is a convex subset of
+Show that f is quasimonotone if and only if the level surface
+{ x E S : f ( x ) = a } is a convex set for all a E R .
+13.591 Let J S + R be a differentiable function, where S is an open, convex
+subset of R". Show that f is quasimonotone if and only if for every x1 and x2
+in S, f(xl) 2 f(x2)
+implies that Vf(x2)'(x1
+implies that Vf(x2)'(xl
+and f(x,) I f(x2)
+- x2) 5 0. Hence, show that f is quasimonotone if and
+only if f ( x l ) 2 f(x2) implies that Vf(xn)' (x, - x2) 2 0 for all x1 and x2 in S
+andforall x1 =ilxl+(1-A)x2, where O < A 1 1 .
+13.601 Let$ S + R , where f is lower semicontinuous and where S is a convex
+subset of R" . Define f as being strongly unimodal on S if for each x1 and x2 in
+157
+S for which the function F ( A ) = f [ x l + A(x2 - x l ) ] ,
+minimum at a point A* >O,
+0 I A 5 1 , attains a
+we have that F ( O ) > F ( A ) > F ( A * ) for all
+0 < A < A*. Show that f is strongly quasiconvex on S if and only if it is strongly
+unimodal on S (see Exercise 8.10).
+13.611 Let g: S -+ R and h: S -+ R, where S is a nonempty convex set in R" .
+Consider the function j S -+ R defined by f ( x ) = g(x)/h(x). Show that f is
+quasiconvex if the following two conditions hold true:
+a. g is convex on S, and g ( x ) 2 0 for each x E S .
+b. h is concave on S, and h(x) > 0 for each x E S.
+(Hint: Use Theorem 3.5.2.)
+[3.62] Show that the function f defined in Exercise 3.61 is quasiconvex if the
+following two conditions hold true:
+a. g is convex on S, and g ( x ) 5 0 for each x E S .
+b. h is convex on S, and h(x) > 0 for each x E S.
+13.631 Let g : S -+ R and h: S -+ R, where S is a nonempty convex set in R" .
+Consider the function j S --+ R defined by f ( x ) = g(x)h(x). Show that f is
+a. g is convex, and g ( x ) 5 0 for each x E S.
+b. h is concave, and h(x) > 0 for each x E S.
+[3.64] In each of Exercises 3.61, 3.62, and 3.63, show that f is pseudoconvex
+provided that S is open and that g and h are differentiable.
+13.651 Let c l , c2 be nonzero vectors in R" , and al , a2 be scalars. Let
+= { x : c i x +a2> 0} . Consider the
+function f : S -+ R defined as follows:
+Show that f is both pseudoconvex and pseudoconcave. (Functions that are both
+pseudoconvex and pseudoconcave are called pseudofinear.)
+[3.66] Consider the quadratic function $ R" --+ R defined by f ( x ) = x'Hx.
+The functionfis said to be positive subdefinite if x f H x < 0 implies that H x 2 0
+or H x I 0 for each x
+R" . Prove that f is quasiconvex on the nonnegative
+orthant, RT = { x E R" :x 2 0 } if and only if it is positive subdefinite. (This
+result is credited to Martos [ 19691.)
+I3.671 The function f defined in Exercise 3.66 is said to be strictly positive
+subdefinite if x t H x < 0 implies that H x > 0 or H x < 0 for each x E R" . Prove
+that f is pseudoconvex on the nonnegative orthant excluding x = 0 if and only if
+it is strictly positive subdefinite. (This result is credited to Martos [ 19691.)
+13.681 Let$ S + R be a continuously differentiable convex function, where S
+is some open interval in R. Then show that f is (strictly) pseudoconvex if and
+only if whenever f'(Y) = 0 for any X E S , this implies that X is a (strict) local
+minimum off on S. Generalize this result to the multivariate case.
+13.691 Let$ S -+R be pseudoconvex, and suppose that for some x1 and x2 in
+R", we have Vf(xl)'(x2 - x l ) 2 0 . Show that the function F ( 1 ) =
+f[xl +A(x2 -xl)] is nondecreasing for A 2 0 .
+13.701 Let $ S + R be a twice differentiable univariate function, where S is
+some open interval in R. Then show thatfis (strictly) pseudoconvex if and only
+if whenever f'(Y) = 0 for any X E S , we have that either f"(Y) > 0 or that
+f"(Y)= 0 and X is a (strict) local minimum offover S. Generalize this result
+to the multivariate case.
+13.711 Let f: R" 4 Rm and g: R"
+satisfy the following: If a2 2 al and
+&(al,
+bl). Consider the function h: R"
+b 2 b,, &(a2,b2) 2
+be differentiable and convex. Let
+defined by h(x) = qj(f(x),g(x)).
+Show the following:
+If & is convex, h is convex.
+If qj is pseudoconvex, h is pseudoconvex.
+If & is quasiconvex, h is quasiconvex.
+I3.721 Let g l , g2 : R"
+let a E [0,1]. Consider the function Ga :
+defined as
+Ga (x> =
++ R , and
+5 gl (x) + g2 (XI
+(XI +
+gi (XI
+(x)g2 (x)]
+denotes the positive square root.
+Show that C, (x) 2 0 if and only if gl(x) 2 0 and g2(x) 2 0 , that
+is, minimum {gl(x), g2(x)} 2 0 .
+b. If gl and g2 are differentiable, show that G is differentiable at x
+for each a E [O,l) provided that gl (x) , g2(x) f 0 .
+c. Now suppose that gl and g2 are concave. Show that G, is
+concave for a in the interval [0, 11. Does this result hold true for
+a E (-1,0)?
+d. Suppose that gl and g2 are quasiconcave. Show that G, is
+quasiconcave for a = 1.
+Let g l ( x ) = - x ~ - x ~ + 4 and g 2 ( x ) = 2 x 1 + x 2 - 1 . Obtain an
+explicit expression for G, , and verify parts a, b, and c.
+This exercise describes a general method for combining two constraints
+of the form g l ( x ) 2 0 and g2(x) 2 0 into an equivalent single constraint of the
+159
+form G, (x) 2 0 . This procedure could be applied successively to reduce a
+problem with several constraints into an equivalent single constrained problem.
+The procedure is due to RvaEev [ 19631.
+[3.73] Let gl,g2: R"
+and let a E [0,1]. Consider the function G,:
+a. Show that G, (x) 2 0 if and only if maximum {gl g2(x)} L 0.
+(x),
+b. If gl and g2 are differentiable, show that G, is differentiable at x
+for each a E [0, I ) , provided that gI(x) , g2(x) f 0 .
+Now suppose that gI and g2 are convex. Show that G, is convex
+for a E [O,l] . Does the result hold true for a E (-1,0)?
+Suppose that gl and g2 are quasiconvex. Show that G, is
+quasiconvex for a = 1.
+In some optimization problems, the restriction that the variable x = 0
+or 1 arises. Show that this restriction is equivalent to maximum
+{gl g2(x)} 2 0 , where gl x ) = -x2 and g2(x) = -(x - 1) ,
+Find the function G, explicitly, and verify statements a, b, and c.
+This exercise describes a general method for combining the either-or
+constraints of the form gl (x) 2 0 or g2(x) 2 0 into a single constraint of the
+form G,(x) 2 0 , and is due to RvaEev [1963].
+Notes and References
+In this chapter we deal with the important topic of convex and concave
+functions. The recognition of these functions is generally traced to Jensen [ 1905,
+19061. For earlier related works on the subject, see Hadamard [ 18931 and Holder
+[ 18891.
+In Section 3.1, several results related to continuity and directional
+derivatives of a convex function are presented. In particular, we show that a
+convex function is continuous on the interior of the domain. See, for example,
+Rockafellar [ 19701. Rockafellar also discusses the convex extension to R" of a
+convex function j S c R"
+which takes on finite values over a convex
+subset S of R", by letting f ( x ) = 00 for x E S. Accordingly, a set of arithmetic
+operations involving 00 also needs to be defined. In this case, S is referred to as
+the effective domain off: Also, a proper convex function is then defined as a
+convex function for which f(x)<00 for at least one point x and for which
+f ( x ) > -00 for all x.
+160
+In Section 3.2 we discuss subgradients of convex functions. Many of the
+properties of differentiable convex functions are retained by replacing the
+gradient vector by a subgradient. For this reason, subgradients have been used
+frequently in the optimization of nondifferentiable functions. See, for example,
+Bertsekas [1975], Demyanov and Pallaschke [ 19851, Demyanov and Vasilev
+[1985], Held and Karp [1970], Held et al. [1974], Kiwiel [1985], Sherali et al.
+[2000], Shor [ 19851, and Wolfe [ 19761. (See also, Chapter 8.)
+In Section 3.3 we give some properties of differentiable convex functions.
+For further study of these topics as well as other properties of convex functions,
+refer to Eggleston [1958], Fenchel [1953], Roberts and Varberg [1973], and
+Rockafellar [ 19701. The superdiagonalization algorithm derived from Theorem
+3.3.12 provides an efficient polynomial-time algorithm for checking definiteness
+properties of matrices. This method is intimately related with LU and Cholesky
+factorization techniques (see Exercise 3.43, and refer to Section A.2, Fletcher
+[ 19851, Luenberger [ 1973a1, and Murty [ 19831 for hrther details).
+Section 3.4 treats the subject of minima and maxima of convex functions
+over convex sets. Robinson [ 19871 discusses the distinction between strict and
+strong local minima. For general functions, the study of minima and maxima is
+quite complicated. As shown in Section 3.4, however, every local minimum of a
+convex function over a convex set is also a global minimum, and the maximum
+of a convex function over a convex set occurs at an extreme point. For an
+excellent study of optimization of convex functions, see Rockafellar [ 19701. The
+characterization of the optimal solution set for convex programs is due to
+Mangasarian [ 19881. This paper also extends the results given in Section 3.4 to
+subdifferentiable convex functions.
+In Section 3.5 we examine other classes of functions that are related to
+convex functions; namely, quasiconvex and pseudoconvex functions. The class
+of quasiconvex functions was first studied by De Finetti [1949]. Arrow and
+Enthoven [ 1961) derived necessary and sufficient conditions for quasiconvexity
+on the nonnegative orthant assuming twice differentiability. Their results were
+extended by Ferland [1972]. Note that a local minimum of a quasiconvex
+function over a convex set is not necessarily a global minimum. This result
+holds true, however, for a strictly quasiconvex function. Ponstein [ 19671 introduced the concept of strongly quasiconvex functions, which ensures that the
+global minimum is unique, a property that is not enjoyed by strictly quasiconvex
+functions. The notion of pseudoconvexity was introduced by Mangasarian
+[ 19651. The significance of the class of pseudoconvex functions stems from the
+fact that every point with a zero gradient is a global minimum. Matrix theoretic
+characterizations (see, e.g., Exercises 3.66 and 3.67) of quadratic pseudoconvex
+and quasiconvex functions have been presented by Cottle and Ferland [ 19721
+and by Martos [1965, 1967b, 1969, 19751. For further reading on this topic, refer
+to Avriel et al. [1988], Fenchel [1953], Greenberg and Pierskalla [1971],
+Karamardian [ 19671, Mangasarian [ 1969a1, Ponstein [ 19671, Schaible [ 1981a,b],
+and Schaible and Ziemba [ 19811. The last four references give excellent surveys
+on this topic, and the results of Exercises 3.55 to 3.60 and 3.68 to 3.70 are
+discussed in detail by Avriel et al. [I9881 and Schaible [1981a,b]. Karamardian
+and Schaible [ 19901 also present various tests for checking generalized
+properties for differentiable functions. See also Section B.2.
+Exercises 3.31 to 3.34 deal with convex envelopes of nonconvex
+functions. This construct plays an important role in global optimization
+techniques for nonconvex programming problems. For additional information on
+this subject, we refer the reader to Al-Khayyal and Falk [1983], Falk [1976],
+Grotzinger [1985], Horst and Tuy [1990], Pardalos and Rosen [1987], Sherali
+[1997], and Sherali and Alameddine [ 19901.

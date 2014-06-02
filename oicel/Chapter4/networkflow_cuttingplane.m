@@ -1,6 +1,6 @@
+function [x, u, lambda, util, D, LB, UB] = networkflow_cuttingplane(M, terminal, source)
 % [x,u,lambda,util,D,LB,UB] = networkflow_cuttingplane(M,terminal,source)
-%
-% network flow maximization, dual decomposition, subgradient
+% Solve network flow problem with cutting plane method
 %
 % Input
 %  M: node-arc incidence matrix
@@ -16,8 +16,6 @@
 % D: dual function value over iterations
 % LB: lower bounds over iterations for utility function   
 % UB: upper bounds over iterations for utility function
-
-function [x,u,lambda,util,D,LB,UB] = networkflow_cuttingplane(M,terminal,source)
 
   [n_nodes,n_flows] = size(M);  
   n_com = length(terminal);

@@ -1,3 +1,4 @@
+[ _to('140531155456') ]
 Convex Optimization
 Stephen Boyd
 Department of Electrical Engineering
@@ -5,10 +6,6 @@ Stanford University
 Lieven Vandenberghe
 Electrical Engineering Department
 University of California, Los Angeles
-cambridge university press
-Cambridge, New York, Melbourne, Madrid, Cape Town, Singapore, S˜o Paolo, Delhi
-Cambridge University Press
-The Edinburgh Building, Cambridge, CB2 8RU, UK
 Published in the United States of America by Cambridge University Press, New York
 http://www.cambridge.org
 Information on this title: www.cambridge.org/9780521833783

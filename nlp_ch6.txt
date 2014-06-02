@@ -1,0 +1,2023 @@
+Nonlinrar Piwgiwnnzing: Theoy, und Algor-ithnzs
+by Mokhtar S. Bazaraa, Hanif D. Sherali and C. M. Shetty
+Copyright 02006 John Wiley & Sons, Tnc.
+Chapter Lagran g ian Duality and Saddle Point Optimality Conditions
+Given a nonlinear programming problem, there is another nonlinear
+programming problem closely associated with it. The former is called the primal
+problem, and the latter is called the Lagrangian dual problem. Under certain
+convexity assumptions and suitable constraint qualifications, the primal and dual
+problems have equal optimal objective values and, hence, it is possible to solve
+the primal problem indirectly by solving the dual problem.
+Several properties of the dual problem are developed in this chapter. They
+are used to provide general solution strategies for solving the primal and dual
+problems. As a by-product of one of the duality theorems, we obtain saddle
+point necessary optimality conditions without any differentiability assumptions.
+Following is an outline of the chapter.
+We introduce the Lagrangian dual
+Section 6.1 : Lagrangian Dual Problem
+problem, give its geometric interpretation, and illustrate it by several
+numerical examples.
+Section 6.2: Duality Theorems and Saddle Point Optimality Conditions
+We prove the weak and strong duality theorems. The latter shows that the
+primal and dual objective values are equal under suitable convexity
+assumptions. We also develop the saddle point optimality conditions along
+with necessary and sufficient conditions for the absence of a duality gap,
+and interpret this in terms of a suitable perturbation function.
+We study several important
+Section 6.3: Properties of the Dual Function
+properties of the dual function, such as concavity, differentiability, and
+subdifferentiability. We then give necessary and sufficient characterizations
+of ascent and steepest ascent directions.
+Section 6.4: Formulating and Solving the Dual Problem
+Several
+procedures for solving the dual problem are discussed. In particular, we
+describe briefly gradient and subgradient-based methods, and present a
+tangential approximation cutting plane algorithm.
+We show that the points
+Section 6.5: Getting the Primal Solution
+generated during the course of solving the dual problem yield optimal
+solutions to perturbations of the primal problem. For convex programs, we
+show how to obtain primal feasible solutions that are near-optimal.
+Chapter 6
+We give Lagrangian dual
+Section 6.6: Linear and Quadratic Programs
+formulations for linear and quadratic programming, relating them to other
+standard duality formulations
+
+[ _to('140601081056') ]
+***
+6.1 Lagrangian Dual Problem
+Consider the following nonlinear programming Problem P, which we call the primal problem.
+Primal Problem P
+Minimize $f(x)$
+subject to g i ( x ) 0 for i = 1, ...,m
+h(x)= 0
+XEX.
+for i = 1 ..., C
+
+Several problems, closely related to the above primal problem, have been
+proposed in the literature and are called dual problems. Among the various
+duality formulations, the Lagrangian duality formulation has perhaps attracted
+the most attention. It has led to several algorithms for solving large-scale linear
+problems as well as convex and nonconvex nonlinear problems. It has also
+proved useful in discrete optimization where all or some of the variables are
+further restricted to be integers. The Lagrangian dual problem D is stated below.
+
+[ _to('140601081114') ] -3-
+Lagrangian Dual Problem D
+Maximize B(u, v)
+subject to u 2 0,
+where B(u, v) = inf{f ( x ) +
+xEluigi(x)+ x ; = 1 v i 4 ( x ): x
+Note that the Lagrangian dualfunction Bmay assume the value of --co for
+some vectors (u, v). The optimization problem that evaluates B(u,v) is sometimes referred to as the Lagrangian dual subproblem. In this problem the
+constraints g i ( x ) 5 0 and hj(x) = 0 have been incorporated in the objective
+function using the Lagrangian multipliers or dual variables ui and v i , respectively. This process of accommodating the constraints within the objective
+function using dual or Lagrangian multipliers is referred to as dualization. Also
+note that the multiplier ui associated with the inequality constraint g i ( x )5 0 is
+nonnegative, whereas the multiplier vi associated with the equality constraint
+hi(x)= 0 is unrestricted in sign.
+Since the dual problem consists of maximizing the infimum (greatest
+xi'=,
+lower bound) of the function f ( x )+
+uigi(x)+
+vihi(x), it is sometimes
+referred to as the ma-min dualproblem. We remark here that strictly speaking,
+Lagrangian Duality and Saddle Point Optimality Conditions
+we should write D as sup{B(u,v) : u L 0}, rather than max{B(u, v) : u 2 0}, since
+the maximum may not exist (see Example 6.2.8). However, we shall specifically
+identify such cases wherever necessary.
+The primal and Lagrangian dual problems can be written in the following
+form using vector notation, where$ R" + R, g: R" + Rm is a vector function
+whose ith component is g,, and h: R" + Re is a vector function whose ith
+component is 4 . For the sake of convenience, we shall use this form throughout
+the remainder of this chapter.
+Minimize f(x)
+subject to g(x) I 0
+h(x) = 0
+where B(u,v)=inf{f(x)+u'g(x)+v'h(x): X E X } .
+Given a nonlinear programming problem, several Lagrangian dual
+problems can be devised, depending on which constraints are handled as g(x) 5
+0 and h(x) = 0 and which constraints are treated by the set X. This choice can
+affect both the optimal value of D (as in nonconvex situations) and the effort
+expended in evaluating and updating the dual function 6 during the course of
+solving the dual problem. Hence, an appropriate selection of the set X must be
+made, depending on the structure of the problem and the purpose for solving D
+(see the Notes and References section).
+Geometric Interpretation of the Dual Problem
+We now discuss briefly the geometric interpretation of the dual problem. For the
+sake of simplicity, we consider only one inequality constraint and assume that
+no equality constraints exist. Then the primal problem is to minimize f(x)
+subject to x E Xand g(x) 5 0.
+In the b,z ) plane, the set { ( y ,z ) :y = g(x), z = f(x) for some x E x) is
+denoted by G in Figure 6.1. Thus, G is the image of X under the (g,f)map. The
+primal problem asks us to find a point in G with y i 0 that has a minimum
+ordinate. Obviously, this point is (L, Z) in Figure 6.1.
+260
+Chapter 6
+Figure 6.1 Geometric interpretation of Lagrangian duality.
+Now suppose that u 2 0 is given. To determine B(u), we need to
+minimize f(x)+ ug(x) over all x E X. Letting y = g(x) and z = f(x) for x E X ,
+we want to minimize z + uy over points in G. Note that z + uy = a is an equation
+of a straight line with slope -u and intercept a on the z-axis. To minimize z +
+uy over G, we need to move the line z + uy = a parallel to itself as far down
+(along its negative gradient) as possible while it remains in contact with G. In
+other words, we move this line parallel to itself until it supports G from below,
+that is, the set G lies above the line and touches it. Then the intercept on the zaxis gives B(u), as shown in Figure 6.1. The dual problem is therefore equivalent to finding the slope of the supporting hyperplane such that its intercept on
+the z-axis is maximal. In Figure 6.1, such a hyperplane has slope -U and
+supports the set G at the point (7,)Thus, the optimal dual solution is U , and
+the optimal dual objective value is Z. Furthermore, the optimal primal and dual
+objectives are equal in this case.
+There is a related interesting interpretation that provides an important
+conceptual tool in this context. For the problem under consideration, define the
+function
+v ( y ) = min{f(x) : g(x) I y, x E X } .
+The function v is called a perturbation function since it is the optimal value
+function of a problem obtained from the original problem by perturbing the
+right-hand side of the inequality constraint g(x) I0 toy from the value of zero.
+Note that v(,v) is a nonincreasing function of y since, as y increases, the feasible
+261
+Lagrangian Duality and Saddle Point Optimdity Conditions
+region of the perturbed problem enlarges (or stays the same). For the present
+case, this function is illustrated in Figure 6.1. Observe that v corresponds here to
+the lower envelope of G between points A and B because this envelope is itself
+monotone decreasing. Moreover, v remains constant at the value at point B for
+values of y higher than that at B and becomes 00 for points to the left of A
+because of infeasibility. In particular, if v is differentiable at the origin, we
+observe that v’(O)=-ii. Hence, the marginal rate of change in objective
+function value with an increase in the right-hand side of the constraint from its
+present value of zero is given by -U, the negative of the Lagrangian multiplier
+value at optimality. If v is convex but is not differentiable at the origin, then -ii
+is evidently a subgradient of v at y = 0. In either case we know that
+v ( y )2 v(0)- iiy for all y E R . As we shall see later, v can be nondifferentiable
+andor nonconvex, but the condition v ( y )2 v(0)- iy holds true for all y E R if
+and only if i is a KKT Lagrangian multiplier corresponding to an optimal
+solution T such that it solves the dual problem with equal primal and dual
+objective values. As seen above, this happens to be the case in Figure 6.1.
+6.1.1 Example
+Consider the following primal problem:
+Minimize x1 +x2
+subject to -xl - x2 + 4 d 0
+x1,x2 20.
+Note that the optimal solution occurs at the point (x1,xl) = (2,2) , whose
+objective value is equal to 8.
+Letting g(x)=-xl-x2+4 and X={(xl,x2):x1,x2 201, the dual
+function is given by
+B(u) = i n f ( x ~ + x 2 + u ( - x l - x 2 + 4 ) : x l , x 20)
+= inf{xl - uxl : xl 2 0) inf{x2 - wc2 :x2 2 0) 424.
+Note that the above infima are achieved at xl = x2 = u I 2 if u 2 0 and at
+xl = x2 = 0 if u < 0. Hence,
+for u < 0.
+Note that B is a concave function, and its maximum over u 2 0 occurs at i = 4.
+Figure 6.2 illustrates the situation. Note also that the optimal primal and dual
+objective values are both equal to 8.
+Chupter 6
+Figure 6.2 Geometric interpretation of Example 6.1.1.
+Now let us consider the problem in the (y, z)-plane, where y = g(x) and
+z = f ( x ) . We are interested in finding G, the image of X = ( ( X I , x 2 ) :xl 2 0,
+x2 2 0), under the ( g , f ) map. We do this by deriving explicit expressions for
+the lower and upper envelopes of G, denoted, respectively, by a and p.
+Given y , note that a ( y ) and p(y) are the optimal objective values of the
+following problems PI and P2, respectively.
+Problem Pl
+Minimize
+subject to
+Problem P2
++ x22
+-xl - x 2 +4 = y
+XI,X2
+Maximize
++ "2
+-xl - x2 + 4 = y
+x 1 , q 20.
+Lagrangian Duality and Saddle Poini Optimaliiy Condiiions
+The reader can verify that a ( y )= (4 - ~ ) ~ and P(y) = (4 - y)* for y 5 4. The
+set G is illustrated in Figure 6.2. Note that x E X implies that xi, x2 2 0, so that
+-xl - x2 + 4 5 4. Thus, every point x E X corresponds t o y 5 4.
+Note that the optimal dual solution is i = 4, which is the negative of the
+slope of the supporting hyperplane shown in Figure 6.2. The optimal dual
+objective value is a(0)= 8 and is equal to the optimal primal objective value.
+Again, in Figure 6.2, the perturbation function v(v) for y E R corresponds
+to the lower envelope a Q for y 5 4, and v(y) remains constant at the value 0 for
+y ? 4. The slope v'(0) equals -4, the negative of the optimal Lagrange multiplier
+value. Moreover, we have v(v) L v(0) - 4y for all y E R. As we shall see in the
+next section, this is a necessary and sufficient condition for the primal and dual
+objective values to match at optimality.
+6.2 Duality Theorems and Saddle Point Optimality Conditions
+In this section we investigate the relationships between the primal and dual
+problems and develop saddle point optimality conditions for the primal problem.
+Theorem 6.2.1, referred to as the weak duality theorem, shows that the
+objective value of any feasible solution to the dual problem yields a lower bound
+on the objective value of any feasible solution to the primal problem. Several
+important results follow as corollaries.
+6.2.1 Theorem (Weak Duality Theorem)
+Let x be a feasible solution to Problem P; that is, x E X , g(x) 5 0, and h(x) = 0.
+Also, let (u, v) be a feasible solution to Problem D; that is, u L 0. Then
+f W 2 B(u, v).
+By the definition of 0, and since x E X , we have
+B(u,v)
+inf{f(y)+u'g(y)+v'h(y):
+y E X}
+If(x)+u'g(x)+v'h(x)If(x)
+since u L 0, g(x) 5 0 , and h(x) = 0. This completes the proof.
+Corollary 1
+inf(f(x) : x E X, g(x) I h(x) = 0) 2 sup(B(u, v) : u 2 O}.
+Corollary 2
+If f ( X ) = B(U,V), where Ti 2 0 and X E {x E X :g(x) 5 0, h(x) = 0}, then ST and
+(U,V) solve the primal and dual problems, respectively.
+Corollary 3
+If inf(f(x) :x
+X,g(x) 50, h(x)
+= 0) = 4 then
+6(u,v) = --oo for each u 2 0.
+Corollary 4
+If sup{@(u, : u 2 O] = Q), the primal problem has no feasible solution.
+then
+Duality Gap
+From Corollary 1 to Theorem 6.2.1, the optimal objective value of the primal
+problem is greater than or equal to the optimal objective value of the dual
+problem. If strict inequality holds true, a duality gap is said to exist. Figure 6.3
+illustrates the case of a duality gap for a problem having a single inequality
+constraint and no equality constraints. The perturbation function vb)fory E R is
+as shown in the figure. Note that by definition, this is the greatest monotone
+nonincreasing function that envelopes G @om below (see Exercise 6.1). The
+optimal primal value is v(0). The greatest intercept on the ordinate z-axis
+achieved by a hyperplane that supports G from below gives the optimal dual
+objective value as shown. In particular, observe that there does not exist a iT
+such that v ( y ) 2 v(O)-Uy for all y E R, as we had in Figures 6.1 and 6.2.
+Exercise 6.2 asks the reader to construct G and v for the instance illustrated in
+Figure 4.13 that results in a situation similar to that of Figure 6.3.
+6.2.2 Example
+Consider the following problem:
+Figure 6.3 Duality gap.
+265
+Lagrangian Duality and Saddle Point Optimality Conditions
+Minimize f(x) = -2xl + x;!
+subject to h(x) = xI+ x2 - 3 = 0
+( X I 4 E X,
+whereX=
+(0,4), (4,413 (4, O, (1,2), (2, 1)).
+It is easy to verify that (2, 1) is the optimal solution to the primal problem
+with objective value equal to -3. The dual objective function 6is given by
+6(v) = min{(-2xl
++ x2)+ v ( q + x2 - 3) : (XI,x2) E X } .
+The reader may verify that the explicit expression for 6 is given by
+-4+5v
+6 ( ~ ) =8 + v
+for v I - 1
+for - 1 1 ~ 1 2
+for v 2 2.
+The dual function is shown in Figure 6.4, and the optimal solution is V = 2 with
+objective value -6. Note that there exists a duality gap in this example.
+In this case, the set G consists of a finite number of points, each
+corresponding to a point in X. This is shown in Figure 6.5. The supporting
+hyperplane, whose intercept on the vertical axis is maximal, is shown in the
+figure. Note that the intercept is equal to -6 and that the slope is equal to -2.
+Thus, the optimal dual solution is V = 2, with objective value -6. Furthermore,
+note that the points in the set C on the vertical axis correspond to the primal
+feasible points and, hence, the minimal primal objective value is equal to -3.
+Similar to the inequality constrained case, the perturbation function here
+is defined as v b ) = minMx) : h(x) = y , x E x). Because of the discrete nature of
+X, h(x) can take on only a finite possible number of values. Hence,
+Figure 6.4 Dual function for ExamDle 6.2.2.
+noting G in Figure 6.5, we obtain v(-3) = 0, v(0) = -3, v( 1) = -8, and v(5) = -4,
+with vb)= 00 for all y E R otherwise. Again, the optimal primal value is v(0) =
+-3, and there does not exist a V such that v ( y )2 v(0)-3.
+Hence, a duality gap
+exists.
+Conditions that guarantee the absence of a duality gap are given in
+Theorem 6.2.4. Then Theorem 6.2.7 relates this to the perturbation function.
+First, however, the following lemma is needed.
+6.2.3 Lemma
+Let X be a nonempty convex set in R", Let a R"
++ R and g: R"
+3 Rm
+be con-
+vex, and let h: R" + RP be affine; that is, h is of the form h(x) = Ax - b. If
+System 1 below has no solution x, then System 2 has a solution (uo, u,v). The
+converse holds true if uo > 0.
+System 1 : a(x) < 0, g(x) 5 0 , h(x) = 0 for some x E X
+System 2 : uOa(x)+ u'g(x)+ v'h(x) 2 0
+(uo,u>2 0, (uo,u, v)
+for all x E X
+Pro0f
+Suppose that System 1 has no solution, and consider the following set:
+A = {(p,q,r) :p > a(x), q 2 g(x), r = h(x) for some x
+0 (1-4)
+rPointsinG
+Points on the perturbation
+function graph
+( 5 , -4)
+objective = -6
+Supporting hyperplane with
+Figure 6.5 Geometric interpretation of Example 6.2.2.
+267
+Lagrangian Duality and Saddle Poinr Oprimality Conditions
+Noting that X, a,and g are convex and that h is affine, it can easily be shown
+that A is convex. Since System 1 has no solution, (0, 0, 0) E A. By Corollary 1
+to Theorem 2.4.7, there exists a nonzero (uo,u, v) such that
+for each (p, q, r) E cl A.
+(6.1)
+Now fix an x E X. Since p and q can be made arbitrarily large, (6.1) holds true
+only if uo 2 0 and u 2 0. Furthermore, (p, q, r) = [a(x), g(x), h(x)] belongs to
+cl A. Therefore, from (6.1), we get
+uoa(x)+u'g(x)+v'h(x)20.
+Since the above inequality is true for each x E X , System 2 has a solution.
+To prove the converse, assume that System 2 has a solution (UO, u, v)
+such that uo > 0 and u 2 0, satisfying
+u,a(x)+ u'g(x)+ v'h(x) 2 0
+for each x E X.
+Now let x E X be such that g(x) 5 0 and h(x) = 0. From the above inequality,
+since u 2 0, we conclude that uoa(x) 2 0. Since uo > 0, a(x) > 0; and hence,
+System 1 has no solution. This completes the proof.
+Theorem 6.2.4, referred to as the strong duality theorem, shows that
+under suitable convexity assumptions and under a constraint qualification, the
+optimal objective function values of the primal and dual problems are equal.
+6.2.4 Theorem (Strong Duality Theorem)
+Let X be a nonempty convex set in R", let f R"
+R and g: R"
+convex, and let h: R" + Re be afine; that is, h is of the form h(x) = Ax - b.
+Suppose that the following constraint qualification holds true. There exists an i
+E X such that g ( i ) < 0 and h(i) = 0, and 0 E int h(X), where h(X) = {h(x) : x E
+X ) . Then
+g(x) 5 0, h(x) = 0} = sup(B(u, v) : u 2 O}.
+inf{f(x) :x E X,
+(6.2)
+Furthermore, if the inf is finite, then sup{B(u, v) :u 2 0) is achieved at (ii, V)
+with ii 2 0. If the inf is achieved at X, then ii'g(X) = 0.
+Pro0
+Let y = inf(f(x) :x E X , g(x) I h(x) = O}. By assumption, y < 00. If
+y = -00, then by Corollary 3 to Theorem 6.2.1, sup{B(u, v) : u 2 0} = -00, and
+therefore (6.2) holds true. Hence, suppose that y is finite, and consider the
+following system:
+f(x)-y < 0, g(X) SO, h(x) = 0, x E X .
+By the definition of y , this system has no solution. Hence, from Lemma 6.2.3,
+there exists a nonzero vector (uo, u, v) with (uo, u) 2 0 such that
+uo[f(x)-y]+u'g(x)+v'h(x)20
+forall x EX.
+(6.3)
+We first show that uo > 0. By contradiction, suppose that uo = 0. By
+assumption there exists an f E X such that g(i) < 0 and h(f) = 0. Substituting in
+(6.3), it follows that u'g(f) 2 0. Since g(f) < 0 and u 2 0, u'g(f) 1 0 is possible
+only if u = 0. But from (6.3), uo = O and u = 0, which implies that v'h(x) Z 0
+for all x E X.But since 0 E int h(X), we can pick an x E Xsuch that h(x) = -AV,
+where A > 0. Therefore, 0 5 v'h(x) = -A[[vf?,which implies that v = 0. Thus, we
+have shown that uo = 0 implies that (uo, u, v) = 0, which is impossible. Hence,
+uo > O . Dividing (6.3) by uo and denoting d u o and v/uo by ii and V,
+respectively, we get
+f(x>+ii'g(x)+T'h(x)>y
+forallx EX.
+(6.4)
+This shows that B(ii,V) = inf(f(x)+ii'g(x)+T'h(x): x E X}2 y. In view of
+Theorem 6.2.1, it is then clear that B(ii,V)=y, and (ii,V) solves the dual
+problem.
+To complete the proof, suppose that X is an optimal solution to the
+primal problem; that is, SZ E X,g(X)l 0, h(SZ) = 0, and f(SZ) = y. From (6.4), letting x = SZ, we get ii'g(SZ) 2 0. Since ii 2 0 and g(T) I 0, we get ii'g(X) = 0, and
+the proof is complete.
+In Theorem 6.2.4, the assumption 0 E int h(X) and that there exists an
+EX such that g(f)<O and h(f)=O can be viewed as a generalization of
+Slater's constraint qualification of Chapter 5. In particular, if X = R", then 0 E
+int h(X) holds true automatically (if redundant equations are deleted), so that the
+constraint qualification asserts the existence of a point f such that g(f) < 0 and
+h ( i ) = 0. To see this, suppose that h(x) = Ax - b. Without loss of generality,
+assume that rank (A) = m,because otherwise, any redundant constraints could be
+deleted. Now, any y E Rm could be represented as y = Ax - b, where x =
+A'(AA')-l(y
++ b) . Thus, h(X) = Rm and, in particular, 0 E int h(X).
+Saddle Point Criteria
+The foregoing theorem shows that under convexity assumptions and under a
+suitable constraint qualification, the primal and dual objective function values
+match at optimality. Actually, a necessary and sufficient condition for the latter
+property to hold true is the existence of a saddle point, as we learn next. Given
+the primal Problem P, define the Lagrangianfunction
+#(x, u, ~)=f(x)+u'g(x)+v'h(x).
+A solution (X, ii, V) is called a saddle point of the Lagrangian function if X E X,
+u 2 0, and
+&Sz, u, v) 2 fp(X, ii, V I 4(x, ii, V
+for all x E X,and all (u, v) with u 2 0.
+(6.5)
+Hence, we have that X minimizes 4 over X when (u, v) is fixed at (ii, V, and
+that (ii, V maximizes 4 over all (u, v) with ii 2 0 when x is fixed at X . Relating
+this to Figure 4.2, we see why (rZ,ii,V) is called a saddle point for the
+Lagrangian function 4.
+The following result characterizes a saddle point solution and shows that
+its existence is a necessary and sufficient condition for the absence of a duality
+gap.
+6.2.5 Theorem (Saddle Point Optimality and Absence
+of a Duality Gap)
+A solution (X, ii, V) with X E X and ii 2 0 is a saddle point for the Lagrangian
+function @(x, u, v) = f(x)+u'g(x)
++ v'h(x)
+if and only if
+4(T, ii, V) = min{$(x, ii, V) :x E X},
+g(X)<O, h(X)=O, and
+u'g(X)=O.
+Moreover, (5,ii, V) is a saddle point if and only if X and (ii,V) are, respectively,
+optimal solutions to the primal and dual problems P and D with no duality gap,
+that is, with f ( X ) = B(U, 7).
+Suppose that (X, ii, V) is a saddle point for the Lagrangian function 4. By
+definition, Condition (a) must be true. Furthermore, from (6.5), we have
+f ( X )+ ii'g(X)
++ V'h(X) 2 f(%)+ u'g(X) + v'h(T)
+for all (u, v) with u L 0. (6.6)
+Clearly, this implies that we must have g(X) 5 0 and h(Z) = 0, or else (6.6) can
+be violated by appropriately making a component of u or v sufficiently large in
+magnitude. Now, taking u = 0 in (6.6), we obtain that U g X 2 0. Noting that
+u 2 0 and g(X) 2 0 imply that U'g(X) 5 0, we must have U'g(X) = 0. Hence,
+conditions (a), (b), and (c) hold true.
+Conversely, suppose that we are given (5,U, V) with X E X and ii 2 0
+such that conditions (a), (b), and (c) hold true. Then #(X, U, V) I ~ ( x ,
+all x
+X by Property (a). Furthermore, 4(T, U, V) = f ( X )+U'g(X)+ V'h(X)
+f ( X ) 2 f ( X ) + u'g(X) + v'h(X) = 4(X, u, v) for all (u, v) with u 2 0, since
+g(X)<O and h(X)=O. Hence, (X,U,V)is a saddle point. This proves the first
+part of the theorem.
+Next, suppose again that (51,U, V) is a saddle point. By Property (b), X is
+feasible to Problem P. Since ii 2 0, we also have that (U, V is feasible to D.
+Moreover, by properties (a), (b), and (c), 6(U, V) = #(X, U, V) = f ( X ) + Erg(%) +
+v'h(X) = f ( X ) . By Corollary 2 to Theorem 6.2.1, 51 and (6, solve P and D,
+respectively, with no duality gap.
+Finally, suppose that X and (U,V) are optimal solutions to problems P
+and D, respectively, with f(X)=B(ii,V). Hence, we have XEX, g(X)<O,
+h(X) = 0, and U 2 0. Moreover, we have by primal4ual feasibility that
+B(ii,V) = min{f(x)+ii'g(x)+V"h(x):xEX)
+5 f(K)
++ ii'g(K) + V'h(K) = f(K) + ii'g(K) I f(K).
+But B(U, 5;) = f ( X ) , by hypothesis. Hence, equality holds true throughout the
+discussion above. In particular, U'g(X) = 0, so 4(X, U, V = f ( X ) = 6(U, V =
+min{+(x, ii, V) : x E X ) . Hence, properties (a), (b), and (c) hold true in addition
+to X E X and U 2 0; so (X, U, V is a saddle point. This completes the proof.
+Corollary
+Suppose that X,f, g are convex and that h is affine; that is, h is of the form
+h(x) = Ax - b. Further, suppose that 0 E int h(X) and that there exists an 2 E X
+with g(;) < 0 and h(2) = 0. If X is an optimal solution to the primal Problem P,
+there exists a vector (U, V) with U 2 0 such that (51, U, V) is a saddle point.
+By Theorem 6.2.4 there exists an optimal solution (ii,V), 1120 to
+Problem D such that f(X)=B(li,V). Hence, by Theorem 6.2.5, (X,ii,V) is a
+saddle point solution. This completes the proof.
+There is an additional insight that can be derived in regard to the duality
+gap between the primal and dual problems. Note that the dual problem's optimal
+value is given by
+e* =
+inf [@(x,u,v)].
+(u,v):u>O xf3Y
+If we interchange the order of optimization (see Exercise 6.3), we get
+6* I inf
+sup [@(x,u,v)].
+x . 4 , (u,v):u>O
+But the supremum of @(x,u, v ) = f ( x ) + u t g ( x ) + v r h ( x ) over (u, v) with u 1 0
+is infinity, unless g(x) 5 0 and h(x) = 0, whence it is f(x). Hence,
+e* 2
+sup [@(x,u,v)]
+d (u,v):u20
+inf{f(x):g(x)lO,h(x)=O,xE X},
+which is the primal optimal value. Hence, we see that the primal and dual objective values match at optimality if and only if the interchange of the foregoing
+infimum and supremum operations leaves the optimal values unchanged. By
+Theorem 6.2.5, assuming that an optimum exists, this occurs if and only if there
+exists a saddle point (X, ii, V) for the Lagrangian function 4.
+Relationship Between the Saddle Point Criteria and the KarushKuhn-Tucker Conditions
+In Chapters 4 and 5 , we discussed the KKT optimality conditions for Problem P:
+subject to g(x) I0
+Furthermore, in Theorem 6.2.5 we developed the saddle point optimality
+conditions for the same problem. Theorem 6.2.6 gives the relationship between
+these two types of optimality conditions.
+272
+6.2.6 Theorem
+Let S = {x E X :g(x) I 0, h(x) = 0), and consider Problem P to minimize f (x)
+subject to x E S . Suppose that 51 E S satisfies the KKT conditions; that is, there
+exist ii 2 0 and V such that
+Vf(SZ)
++ Vg(X)'ii + Vh(51)'V
+(6.7)
+ii'g(S3) = 0.
+Suppose that f and gi for i E I are convex at X, where 1 = {i :g,(St) = O}.
+Further, suppose that if # 0, then 4 is afftne. Then (51, ii, 5)is a saddle point
+for the Lagrangian fknction @(x,u, v) = f (x) + u'g(x)+ v'h(x).
+Conversely, suppose that (SZ, ii, V) with X E int X and ii 2 0 is a saddle
+point solution. Then 5 is feasible to Problem P, and furthermore, (Z,ii,V)
+satisfies the KKT conditions specified by (6.7).
+Suppose that (51, ii, V, with 51 E S and ii 2 0, satisfies the KKT conditions
+specified by (6.7). By convexity at X off and gi for i E I, and since hi is affine
+for f 0, we get
+f(x>2f(ST)+Vf(S3)'(x-X)
+(6.8a)
+g;(x)2 g;(Sz)+Vg;(51)'(x-X)
+for i E I
+h,(x) = h,(S3)+Vhi(Sz)'(x-%)
+for i = 1 ,...,!
+(6.8b)
+(6.8~)
+for all x E X.Multiplying (6.8b) by iii 2 0, ( 6 . 8 ~ by q, and adding these to
+(6.8a) and noting (6.7), it follows from the definition of @ that @(x, i, V 2
+@(51, ii, V for all x E X.Also, since g(X) I 0, h(S3) = 0, and ii'g(X) = 0, it follows
+that @(X, u, v) I @(51, ii, V) for all (u, v) with u 2 0. Hence, (51, ii, V satisfies
+the saddle point conditions given by (6.5).
+To prove the converse, suppose that (51, ii, V) with 51 E int X and ii 2 0 is
+a saddle point solution. Since @(X, u, v) 5 @(X, ii, V for all u 2 0 and all v, we
+have, using (6.6) as in Theorem 6.2.5, that g(X) 5 0, h(S3) = 0, and ii'g(X) = 0.
+This shows that X is feasible to Problem P. Since @(X, ii, V I @(x,ii, V) for all
+x E X,then X solves the problem to minimize @(x, V) subject to x E X.Since
+x E int X,then V,@, ii, V) = 0, that is, V (X) + Vg(51)'ii
+hence, (6.7) holds true. This completes the proof.
++ Vh(51)'V = 0;
+273
+Theorem 6.2.6 shows that if sf is a KKT point, then under certain
+convexity assumptions, the Lagrangian multipliers in the KKT conditions also
+serve as the multipliers in the saddle point criteria. Conversely, the multipliers in
+the saddle point conditions are the Lagrangian multipliers of the KKT
+conditions. Moreover, in view of Theorems 6.2.4, 6.2.5, and 6.2.6, the optimal
+dual variables for the Lagrangian dual problem are precisely the Lagrangian
+multipliers for the KKT conditions and also the multipliers for the saddle point
+conditions in this case.
+Saddle Point Optimality Interpretation Using a
+Perturbation Function
+While discussing the geometric interpretation of the dual problem and the
+associated duality gap, we introduced the concept of a perturbation function v
+and illustrated this in Examples 6.1.1 and 6.1.2 (see Figures 6.1 through 6.5). As
+alluded to previously, the existence of a supporting hyperplane to the epigraph
+of this function at the point (0, v(0)) related to the absence of a duality gap in
+these examples. This is formalized in the discussion that follows.
+Consider the primal Problem P, and define the perturbation function v:
++ R as the optimal value function of the following problem, where y =
+(Y1,...,YmiYm+l,...,Ym+b):
+v(y) = min{f(x): g,(x)
+yi for i = 1,..., m,
+for i = 1,...,C, x
+h,(x) =
+(6.9)
+Theorem 6.2.7 asserts that if Problem P has an optimum, the existence of a
+saddle point solution, that is, the absence of a duality gap, is equivalent to the
+existence of a supporting hyperplane for the epigraph of v at the point (0, v(0)).
+6.2.7 Theorem
+Consider the primal Problem P, and assume that an optimal solution fz to this
+problem exists. Then (sf,ii,V) is a saddle point for the Lagrangian function
+b(x,u, v)=f(x)+u'g(x)+v'h(x) ifandonlyif
+v(y) 2 v(0) - (i, i;')y
+for all y E R ~ + ' ,
+that is, if and only if the hyperplane z = v(0)-(ii',V')y
+(6.10)
+supports the epigraph
+((y,z): z 2 v(y), y E Rm+'} of v at the point (y,z) = (O,v(O)).
+Suppose that (fz, ii, V) is a saddle point solution. Then, by Theorem 6.2.5,
+the absence of a duality gap asserts that
+v ( 0 ) = Q(11,V) = min {f(x)
++ ii'g(x) + V'h(x) : x E X }
++ ~ ~ [ h , ( ~ ) - y , + ~ ] : x ~fXr a n y y e Rm+e.
+Applying the weak duality Theorem 6.2.1 to the perturbed problem (6.9), we
+obtain from the foregoing identity that v(0)5 (ii' ,V f)y + v(y) for any y E Rm+e,
+so (6.10) holds true.
+Conversely, suppose that (6.10) holds true for some (U, V), and let X
+solve Problem P. We must show that (X,ii, V) is a saddle point solution. First,
+note that X E X , g(X) I 0, and h(Y) = 0. Furthermore, ii 2 0 must hold true,
+because if i < 0, say, then by selecting y such that y j = 0 for i # p , and y , > 0,
+we obtain v(0) ? v(y) >. 40) - iipyp, which implies that Upyp 2 0, a contradiction.
+Second, observe that by fixing y = 7 = [g(Y)', h(T)'] in (6.9), we obtain
+a restriction of Problem P, since g(X) I 0 and h(X) = 0. But for the same reason,
+since X is feasible to (6.9) with y fixed as such, and since Fz solves Problem P,
+we obtain v(y)=v(O). By (6.10), this in turn means that iifg(X)20. Since
+g(X) 5 0 and Ti 2 0, we therefore must have Erg(%) 0.
+Finally, we have
+&X,U,V)= f(Y)+li'g(St)+V'h(X)=f(X)=v(O)~v(y)+(ii',V')y
+(6.11)
+for all y E Rm+'. Now, for any 2 E X , denoting i = [g(i)r,h(?)f], we obtain
+from (6.9) that v ( i ) I f ( i ) , since ? is feasible to (6.9) with y =i. Hence,
+using this in (6.11), we obtain @(X,ii,U) =f(?)+ii'g(i)+V'h(i) all 2 E X ; so
+&T, ii, V) = min{@(x, V : x E X I .
+ii, )
+We have therefore shown that X E X, ii 1 0, and that conditions (a), (b),
+and (c) of Theorem 6.2.5 hold true. Consequently, (X,ii, V) is a saddle point for
+4, and this completes the proof.
+To illustrate, observe in Figures 6.1 and 6.2 that there does exist a
+supporting hyperplane for the epigraph of v at (0, v(0)). Hence, both the primal
+and dual problems have optimal solutions having the same optimal objective
+values for these cases. However, for the situations illustrated in Figures 6.3 and
+6.5, no such supporting hyperplane exists. Hence, these instances possess a
+positive duality gap.
+275
+In conclusion, there are two noteworthy points regarding the perturbation
+function v. First, iff and g are convex, h is affine, and X is a convex set, it can
+easily be shown that v is a convex function (see Exercise 6.4). Hence, in this
+case, the condition (6.10) reduces to the statement that -i' 7') is a subgradient
+ofv at y = 0.
+Second, suppose that corresponding to the primal and dual problems P
+and D there exists a saddle point solution (51, U, V, and assume that v is continu)
+ously differentiable at y
+where a(O;y)+O
+-[v~(o)'',
+= 0.
+as y
+Then we have v(y)
+= v(0)
++ Vv(0)'y + IIylla(O;y),
++ 0. Using (6.10) of Theorem 6.2.7, this means that
+~ ' ) l y Ilylla(O y) for all y E R ~ + Letting y
+-A[vv(o>' +
+(i?, V for A 2 0, and letting A -+Of, we readily conclude that Vv(0)'
+v'). Hence, the negative of the optimal Lagrange multiplier values give the
+marginal rates o change in the optimal objective value of Problem P with
+respect to perturbations in the right-hand sides. Assuming that the problem
+represents one of minimizing cost subject to various material, labor, budgetary
+resource limitations, and demand constraints, this yields useful economic
+interpretations in terms of the marginal change in the optimal cost with respect
+to perturbations in such resource or demand entities.
+6.2.8 Example
+Consider the following (primal) problem:
+P: Minimize(x2 :XI 2 1, xl + x i I l,(xl, x2) E R 2 } .
+As illustrated in Figure 6.6, the unique optimal solution to this problem is
+(XI, = (1, 0), with optimal objective function value equal to 0. However,
+although this is a convex programming problem, the optimum is not a KKT
+point, since Fo n G ' f 0, and a saddle point solution does not exist (refer to
+Theorems 4.2.15 and 6.2.6).
+Now let us formulate the Lagrangian dual Problem D by treating 1 - xl I
+0 as g(x) 5 0 and letting X denote the set {(xl, x2) : xl + x2 I 1). Hence, Problem
+D requires us to find sup{B(u): u 2 0}, where Q(u) = inf{x2 + u(l -xi) : x1 + x2
+L 1). For any u L 0, it is readily verified that the optimum is attained at xl
+/ m and x2 = -1 /
+Hence, B(u) = u We see that as u +
+6 ( u ) + 0, the optimal primal objective value. Hence, sup{B(u) :u 2 0) = 0,
+but this is not attained for any i 2 0; that is, a maximizing solution i does not
+exist.
+Figure 6.6 Solution to Examole 6.2.8.
+v(y)
+Next, let us determine the perturbation function v(y) for y E R. Note that
+x + x; 2 1). Hence, we obtain v(y) = 00 for y < 0, v(y)
+= min(x2 :1- x1 I y ,
+- / 0 iy 5 1, and v(y) = -1
+for y L 1. This is illustrated in Figure
+6.6~.
+Observe that there does not exist any supporting hyperplane at (0, 0) for the
+epigraph of v(y), y E R, since the right-hand derivative of v with respect t o y at y
+= 0 is -00.
+6.3 Properties of the Dual Function
+In Section 6.2 we studied the relationships between the primal and dual
+problems. Under certain conditions, Theorems 6.2.4 and 6.2.5 showed that the
+optimal objective values of the primal and dual problems are equal, and hence it
+would be possible to solve the primal problem indirectly by solving the dual
+problem. To facilitate solution of the dual problem, we need to examine the
+properties of the dual function. In particular, we show that B is concave, discuss
+its differentiability and subdifferentiabilityproperties, and characterize its ascent
+and steepest ascent directions.
+Throughout the rest of this chapter, we assume that the set X is compact.
+This will simplify the proofs of several of the theorems. Note that this
+assumption is not unduly restrictive, since if X were not bounded, we could add
+suitable lower and upper bounds on the variables such that the feasible region is
+not affected in the relative vicinity of an optimum. For convenience, we also
+combine the vectors u and v as w and the functions g and h asp. Theorem 6.3.1
+shows that 6 is concave.
+6.3.1 Theorem
+Let X be a nonempty compact set in R", and let$ R"
+be continuous. Then 0, defined by
+and fl R"
+277
+Lagrangian Dualify and Saddle Point Optimalify Conditions
+is concave over R ~ + ~ .
+Rm+E
+Sincef and p are continuous and X is compact, B is finite everywhere on
+. Let w l , w2 E Rm+', and let A E (0,l). We then have
+e[aw, + (1 - a)w2] = inf{f(x) +LAW, - a)w2]'p(x) : x E X>
++ wip(x)] + (1 - ~ ) [ f ( x + w$p(x)l: x E X>
+2 a inf{f(x) + wfp(x): x E X>
+= inf{n[f(x)
++ (1 - A ) inf{f(x) + w;p(x)
+jEe(wl ) + (1 - A)e(w2).
+:x E X >
+Thus, B is concave, and the proof is complete.
+Since B is concave, by Theorem 3.4.2, a local optimum of B is also a
+global optimum. This makes the maximization of 8 an attractive proposition.
+However, the main difficulty in solving the dual problem is that the dual
+function is not explicitly available, since B can be evaluated at a point only after
+a minimization subproblem is solved. In the remainder of this section we study
+differentiability and subdifferentiability properties of the dual function. These
+properties will aid us in maximizing the dual function.
+Differentiability of 8
+We now address the question of differentiability of 8, defined by B(w)=
+inf{f(x) + w'p(x) : x E X}. It will be convenient to introduce the following set
+of optimal solutions to the Lagrangian dual subproblem:
+X(W) = {y :y minimizes f(x)+ w'p(x) over x E XI.
+The differentiability of 8 at any given point W depends on the elements of
+X(W). In particular, if the set X ( W ) is a singleton, Theorem 6.3.3 shows that ~9
+is differentiable at W. First, however, the following lemma is needed.
+6.3.2 Lemma
+R and fl R"
+-+Rm'e
+be continuous. Let W E Rm+e, and suppose that X(W) is the singleton {X}.
+Suppose that W k -+W,and let Xk E x(wk) for each k. Then x k -+ X.
+contradiction,
+- 5211 > E > o for all k E
+suppose
+that
+Xk E X(wk),
+where 5 is some index set. Since Xis compact,
+the sequence { x k } j y has a convergent subsequence { x k } r , with limit y in X.
+Note that lly -XI[2 E > 0, and hence, y and X are distinct. Furthermore, for each
+with k
+x',have
+f ( X k ) + w ' k P ( x k ) f ( s r )+
+Taking the limit as k in X ' approaches 00, and noting that Xk
+and that f and p are continuous, it follows that
+f(Y) + W'P(Y)
+f (53) + W B ( 3 .
+Therefore, y E X(W), contradicting the assumption that X ( W ) is a singleton.
+This completes the proof.
+6.3.3 Theorem
++ R, and B: R" + Rm'e
+be continuous. Let W E Rm+' and suppose that X ( W ) is the singleton (X}. Then
+Bis differentiable at W with gradient V B ( W ) = p(X).
+Since f and p are continuous and X is compact, for any given w there
+exists an x w E X ( w ) . From the definition of 0, the following two inequalities
+hold true:
+B(W) - B(w) I f (x,)
++ W B(x,,,) f(x , ) - w'p(x,) = (W- w)' p(x,).
+From (6.12) and (6.13) and the Schwartz inequality, it follows that
+0 2 B(w)-B(W)-(w - W ) ' p ( X ) 2 (w-W)'[p(x,)-p(S?)]
+This further implies that
+-1IW
+-qp(X,)-B(q.
+(6.13)
+279
+As w
+-+ W,then, by Lemma 6.3.2, x, +X and by the continuity of /?,p(x,)
++ p(sZ). Therefore, from (6.14) we get
+e ( w )- e(w)- (W - w p(x)
+IIW - i
+Hence, B is differentiable at W with gradient p(X).This completes the proof.
+Subgradients of 8
+We have shown in Theorem 6.3.1 that B is concave, and hence, by Theorem
+3.2.5, 8 is subdifferentiable; that is, it has subgradients. As will be shown later,
+subgradients play an important role in the maximization of the dual function,
+since they lead naturally to the characterization of the directions of ascent.
+Theorem 6.3.4 shows that each X E X ( W ) yields a subgradient of Bat W.
+6.3.4 Theorem
++ R and P:
+be continuous so that for any W E Rm+', X(W) is not empty. If X E X ( W ) , then
+p(X) is a subgradient of Bat W.
+Since f and p are continuous and X is compact, X ( W ) + 0 for any W
+Now, let W E Rm+', and let X E X ( W ) . Then
+e ( w ) = inf(f(x)+
+w'p(x) : x E X>
+2 f ( X )+ w'p(X)
+f ( x )+ (w - W
+p(X)+ W'P(X)
+= e(w)+ (W - w ) ' p ( ~ ) .
+Therefore, p(X) is a subgradient of Bat W,and the proof is complete.
+6.3.5 Example
+Minimize -xl -x2
+subject to xl + 2x2 - 3 2 0
+x l , x 2 = 0,1,2, or 3.
+Letting g(xl,x2)=x1+2x2-3
+dual function is given by
+and X = ( ( x l , x 2 ) : x 1 , x 2= 0, 1, 2, or 31, the
+8(u) = inf (-xl
+- x2 + u(xl + 2x2 - 3) :xl, x2 = 0, I, 2, or 3)
+-6+6u
+if O I u 1 1 1 2
+if 1 / 2 < u < 1
+if u 2 l .
+=[ -3
+We ask the reader to plot the perturbation function for this example in Exercise
+6.5 and to investigate the saddle point optimality conditions. Now let U = 112.
+To find a subgradient of 8 at U, consider the following subproblem:
+Minimize -xl - x2 + (1 I 2)(x1 + 2x2 - 3)
+subject to xl, x2 = 0, I, 2, or 3.
+Note that the set X(U) of optimal solutions to the above problem is ((3, 0), (3,
+I), (3, 2), and (3, 3)). Thus, from Theorem 6.3.4, g(3,O) = 0, g(3, 1) = 2, g(3,2)
+= 4, and g(3,3) = 6 are subgradients of 8 at TI. Note, however, that 312 is also a
+subgradient o f 8 at U, but 312 cannot be represented as g(X) for any X E X(U).
+From the above example, it is clear that Theorem 6.3.4 gives only a
+sufficient characterization of subgradients. A necessary and sufficient
+characterization of subgradients is given in Theorem 6.3.7. First, however, the
+following important result is needed. The principal conclusion of this result is
+stated in the corollary and holds true for any arbitrary concave function 8 (see
+Exercise 6.6). However, our proof of Theorem 6.3.6 is specialized to exploit the
+structure of the Lagrangian dual function 8.
+6.3.6 Theorem
+be continuous. Let W, d
+the direction d satisfies
+-+ R and P : R"
+4Rmic
+Rm+e.Then the directional derivative of 8 at W in
+B'(W;d)2 d'P(jZ)
+for some X E X(W).
+Consider w + / z ~ where Ak +of. For each k there exists an Xk E
+X(W+/Zkd); and since X is compact, there exists a convergent subsequence
+{ x k } x having a limit X in X.Given an x E X,
+note that
+f(x)+w'p(x)
+2 f(jZ)+w'p(sr);
+281
+that is, X E X(%). Furthermore, by the definition of B(W
++ Akd) and B(W), we get
+8 ( W + Akd)-8(W) = f(Xk)+ (ii + Akd)'/?(Xk) - 8(W)
+2 /zkd'/?(Xk).
+The above inequality holds true for each k
+approaches 00, we get
+k e X
+2 Noting that
+8(% + Akd) - 8(*)
+Xk -+ 51
+as k
+2 d'P(F).
+By Lemma3.1.5,
+B'(W;d)= lim
+8(W + Ad) - B(W)
+exists. In view of the above inequality, the proof is complete.
+Let aQ(W) be the collection of subgradients of 8 at W, and suppose that the
+assumptions of the theorem hold true. Then
+8'(W;d) = inf(d'6:
+6 E aO(W)}.
+Let X be as specified in the theorem. By Theorem 6.3.4, /?(F) E a6(ii); and
+hence Theorem 6.3.6 implies that B'(W;d) 2 inf(d'6 :6 E aQ(W)}. Now let
+aQ(W) . Since 8 is concave, 8(W + Ad) - B(W) 2 Ad'r. Dividing by A > 0 and
+taking the limit as
+A -+O+, it follows that B'(%;d) 2 d'c. Since this is true for
+each 6 E a8(W), B'(W;d) I inf(d'6 :6 E a6(W)}, and the proof is complete.
+6.3.7 Theorem
+Let X be a nonempty compact set in R", and IetJ R"
+be continuous. Then 6 is a subgradient of 8 at W E Rm+' if and only if 6 belongs
+to the convex hull of (P(y) : y E X ( W ) } .
+Denote the set (/?(y) :y E X(W)} by A and its convex hull by conv(A).
+By Theorem 6.3.4, A c a8(W); and since a@(%)is convex, conv(A) a@(%).
+Using the facts that X is compact and /? is continuous, it can be verified that A is
+compact. Furthermore, the convex hull of a compact set is closed. Therefore,
+conv(h) is a closed convex set. We shall now show that conv(h) 2 a6(W).
+By contradiction, suppose that there is a 6' E aB(iV) but not in conv(A).
+By Theorem 2.3.4 there exist a scalar a and a nonzero vector d such that
+d'P(y) I
+for each y E X(W)
+d'f < a.
+(6.15)
+(6.16)
+By Theorem 6.3.6 there exists a y E X ( W ) such that 6'(ii;d) 2 d'P(y); and by
+(6.15) we must have B'(iV;d) 2 a. But by the corollary to Theorem 6.3.6 and by
+(6.16), we get
+B'(W;d) = inf(d'6 : 6 E aB(w)} I ' t ' <a,
+which is a contradiction. Therefore, 6 E conv(h), and aQ(iV)= conv(A). This
+completes the proof.
+To illustrate, consider the problem of Example 6.2.2, for which the dual
+function B(v), v E R, is sketched in Figure 6.4. Note that 6 is differentiable (has
+a unique subgradient) for all v except for v = -1 and v = 2. Consider v = 2, for
+example. The set X(2) is given by the set of alternative optimal solutions to the
+problem
+8(2) = min(3x2 - 6 :(xl, x2) E X}.
+Hence, X(2) = ((0, 0), (4,0)}, with 6(2) = 4 .By Theorem 6.3.4, the subgradients of the form p(X) for 51 E X(2) are h(0,O) = -3 and h(4,O) = I . Observe that
+in Figure 6.4 these values are the slopes of the two affine segments defining the
+graph of 6 that are incident at the point (v, 6(v)) = (2, -6). Therefore, as in
+Theorem 6.3.7, the set of subgradients of Bat v = 2, which is given by the slopes
+of the set of affine supports for the hypograph of S, is precisely 1-3, I], the set of
+convex combinations of -3 and 1.
+For another illustration using a bivariate function 8, consider the
+following example.
+6.3.8 Example
+283
+Minimize -(xl -4)2 - (x2 -4)
+XI - 3 1 0
+-220
+-x1+x2
+x I + x- 4
+x2 20.
+In this example, we let gl(xl ,x2) = x1 - 3, g2 (xl, x2) = -xl + x2 - 2, and X
+{(xl,x2) :xl+ x2 - 4 1 0;xl ,x2 2 O}. Thus, the dual function is given by
+8(u1,u2) inf{-(xl -4) 2 -(x2 -4) 2 +ul(xI -3)+Uz(-X1
++x2 -2): x E X ) .
+We utilize Theorem 6.3.7 to determine the set of subgradients of Bat ii = (1,5)r.
+To find the set X(ii), we need to solve the following problem:
+Minimize -(xl - 4)2 - (x2 - 4)2 - 4x1 + 5x2 - 13
+xl + x2 - 4 5 0
+Xl,X2
+2 0.
+The objective function of this subproblem is concave, and by Theorem 3.4.7 it
+assumes its minimum over a compact polyhedral set at one of the extreme
+points. The polyhedral set X has three extreme points, (0, 0), (4, 0), and (0, 4).
+Noting thatf(0, 0) =f(4, 0) = 4 5 andf(O,4) = -9, it is evident that the optimal
+solutions of the above subproblem are (0, 0) and (4, 0); that is, X(ii) = ((0, 0 ,
+(4, 0)). By Theorem 6.3.7, the subgradients of B at ii are thus given by the
+convex combinations of g(0, 0) and g(4, 0), that is, by convex combinations of
+the two vectors (-3,
+gradients.
+-2)r and (1, -6)'.
+Figure 6.7 illustrates the set of sub-
+Ascent and Steepest Ascent Directions
+The dual problem is concerned with the maximization of 6 subject to the
+constraint u L 0. Given a point w' = (u', v' ), we would like to investigate the
+directions along which 8 increases. For the sake of clarity, first consider the
+following definition of an ascent direction, reiterated here for convenience.
+6.3.9 Definition
+A vector d is called an ascent direction of Bat w if there exists a S > 0
+such that
+6(w +Ad) > B(w)
+for each A E (0,s).
+Note that if B is concave, a vector d is an ascent direction of Bat w if and
+only if B'(w;d) > 0. Furthermore, Bassumes its maximum at w if and only if it
+has no ascent directions at w, that is, if and only if B'(w;d) I0 for each d.
+Using the corollary to Theorem 6.3.6, it follows that a vector d is an
+ascent direction of B at w if and only if inf (d'c :5 E aB(w)) > 0, that is, if and
+only ifthe following inequality holds true for some E > 0.
+d'c 2 E > 0
+for each
+5 E aO(w>.
+To illustrate, consider Example 6.3.8. The collection of subgradients of 6
+at the point (1, 5 ) is illustrated in Figure 6.7. A vector d is an ascent direction of
+B if and only if d'c 2 E for each subgradient 5, where E > 0. In other words, d is
+an ascent direction if it makes an angle strictly less than 90" with each
+subgradient. The cone of ascent directions for this example is given in Figure
+6.8. In this case, note that each subgradient is an ascent direction. However, this
+is not necessarily the case in general.
+Since B is to be maximized, we are interested not only in an ascent
+direction but also in the direction along which B increases at the fastest local
+rate.
+6.3.10 Definition
+A vector
+a is called a direction of steepest ascent of B at w if
+Theorem 6.3.1 1 shows that the direction of steepest ascent of the Lagrangian dual
+function is given by the subgradient having the smallest Euclidean norm. As
+evident from the proof, this result is true for any arbitrary concave function 0.
+Figure 6.7 Subgradients.
+285
+subgradient
+Cone of ascent
+Figure 6.8 Cone of ascent directions in Example 6.3.8.
+6.3.11 Theorem
++ R and fl
+-+ Rmie
+be continuous. The direction of steepest ascent of Bat w is given below, where
+is the subgradient in M(w) having the smallest Euclidean norm:
+By Definition 6.3.10 and by the corollary to Theorem 6.3.6, the steepest
+ascent direction can be obtained from the following expression:
+The reader can easily verify that
+(6.17)
+If we construct a direction
+steepest ascent direction. If
+5 = 0, then for d = 0, we obviously have B'(w;d) =
+1 f1 .
+Now, suppose that f
+such that B'(w;&) =
+0, and let d = f /
+then by (6.17),
+is the
+l cl .Note that
+~ ' ( w ; d = inf(d'6 :6 E ae(w)]
+Since
+c is the shortest vector in aB(w), then by Theorem 2.4.1, c ' ( 6 - f ) L 0
+6 E aB(w).
+Hence, inf{F' (4 - f ):4 E aB(w)) = 0 is achieved at
+From (6.18) it then follows that Q'(w;d) =
+vector
+Thus, we have shown that the
+a specified in the theorem is the direction of steepest ascent both when f
+and when f
+0. This completes the proof.
+6.4 Formulating and Solving the Dual Problem
+Given a primal Problem P to minimize f(x) subject to g(x) 50, h(x) = 0, and x
+E X, we have defined a Lagrangian dual Problem D to maximize B(u, v) subject
+to u L 0, where B(u,v) is evaluated via the (Lagrangian) subproblem B(u,v) =
+min(f(x)+ u'g(x) + v'h(x) :x E X}. In formulating this dual problem, we have
+dualized, that is, accommodated within the Lagrangian dual objective function,
+the constraints g(x) 5 0 and h(x) = 0, maintaining any other constraints within
+the set X. Differentformulations of the Lagrangian dual problem might dualize
+different sets of constraints in constructing the Lagrangian dual function. This
+choice must usually be a trade-off between the ease of evaluating O(u, v) for a
+given (u, v) versus the duality gap that might exist between P and D. For
+example, consider the linear discrete problem
+DP: Minimize c'x
+subject to Ax = b
+XEX,
+(6.19a)
+where X is some compact, discrete set. Let us define the Lagrangian dual problem
+LDP : Maximize {6(lr) : 7r unrestricted},
+(6.19b)
+where 6(n) = min{c'x + 7' (Ax - b) : Dx = d, x E X } . Because of the linearity of
+the objective function in the latter subproblem, we equivalently have
+B(A) = min{c'x +x'(Ax - b) : x E conv[x E X : Dx = d]}, where conv{-} denotes
+the convex hull. It readily follows (see Exercise 6.7) that the Lagrangian dual
+objective value will match that of the modified Problem DP' to minimize c'x
+subject to Ax = b and x ~ c o n v { x ~ X : D x = d } .
+Noting that DP is itself
+equivalent to minimizing C'X subject to x E conv{x E X Ax = b, Dx = d}, we
+surmise how the partial convex hull operation manifested in DP' can influence
+the duality gap.
+In this spirit, we may sometimes wish to manipulate the primal problem
+itself into a special form before constructing a Lagrangian dual formulation to
+create exploitable structures for the subproblem. For example, the discrete
+Problem DP stated above can be written equivalently as the problem to
+where Y is a copy ofXin
+minimize {c'x : Ax = b, Dy = d, x = y, x E X,y E 0,
+which the x-variables have been replaced by a set of matching y-variables. Now
+we can formulate a Lagrangian dual problem:
+Maximize {8(p): p unrestricted},
+(6.20)
+Observe that
+where 8(p)= min{c'x+p'(x-y): Ax = b, Dy = d, x E X, E 0.
+this subproblem decomposes into two separable problems over the x- and yvariables, each with a possible specially exploitable structure. Moreover, it can
+be shown (see Exercise 6.8) that maxP{8(p)} 2 max,O(a), where 6 is defined
+in (6.19b). Hence, the Lagrangian dual formulation LDP affords a tighter
+representation for the primal Problem DP in the sense that it yields a smaller
+duality gap than does LDP. Note that, as observed previously, the value of LDP
+matches that of the following partial convex hull representation of the problem:
+DP: M i n i m i z e { c ' x : x ~ c o n v { x ~ X : A x = b } ,
+y E conv{y E Y : Dy = d ) , x = y}.
+The conceptual approach leading to the formulation of LDP is called a layering
+strategv (because of the separable layers of constraints constructed), or a
+Lagrangian decomposition strategv (because of the separable decomposable
+structures generated). Refer to the Notes and References section for further
+reading on this subject matter.
+Returning to the dual Problem D corresponding to the primal Problem P
+stated in Section 6.1, the reader will recall that we have described in the
+preceding section several properties of this dual function. In particular, the dual
+problem requires the maximization of a concave function B(u, v) over the
+simple constraint set {(u, v): u Z 0). If B is differentiable due to the property
+stated in Theorem 6.3.3, then VB(ii,V)' = [g(51)', h(51)'I. Various algorithms
+described in subsequent chapters that are applicable to maximizing
+differentiable concave functions can be used to solve this dual problem. These
+algorithms involve the generation of a suitable ascent direction d, followed by a
+one-dimensional line search along this direction to find a new improved
+solution.
+To illustrate one simple scheme to find an ascent direction at a point
+(U, V), consider the following strategy. If VB(U, V) f 0, then by Theorem 4.1.2
+this is an ascent direction and B will increase by moving from (U,V) along
+VB(U, V However, if some components of U are equal to zero, and any of the
+corresponding components of g(51) is negative, then Ti+ Rg(sI) 2 0 for A > 0,
+thus violating the nonnegativity restriction. To handle this difficulty we can use
+a modified or projected direction [g(X), h(51)], where g(51) is defined as
+if iii > O
+if iij = O .
+2; (51) =
+It can then be shown (see Exercise 6.9) that [g(X), h(51)l is a feasible ascent
+direction of 19at (U, V). Furthermore, [g(X), h(k)] is zero only when the dual
+maximum is reached. On the other hand, suppose that B is nondifferentiable. In
+this case, the set of subgradients of 0 are characterized by Theorem 6.3.7. For d
+to be an ascent direction of B at (u, v), noting the corollary to Theorem 6.3.6
+and the concavity of 8, we must have d't 2 E > 0 for each 6 E dB(u, v). As a
+preliminary idea, the following problem can then be used for finding such a
+direction:
+subject to d'e 2 E
+dj 2 0
+-1Idj I 1
+for 6 E M ( u , V)
+if ui = O
+for i = I, ..., m + l.
+Note that the constraints di 2 0 if uj = 0 ensure that the vector d is a feasible
+direction, and that the normalization constraints -1 I dj 2 1, Vi, guarantee a
+finite solution to the problem.
+The reader may note the following difficulties associated with the above
+direction-findingproblem:
+The set M(u, v) and hence the constraints of the problem are
+not known explicitly in advance. However, Theorem 6.3.7, which
+fully characterizes the subgradient set, could be of use.
+Lagrangian Duality and Saddle Point Optima@ Conditions
+The set dQ(u, v) usually admits an infinite number of subgradients, so that we have a linear program having an infinite number
+of constraints. However, if M(u, v) is a compact polyhedral set,
+then the constraints d'c 2 E for
+by the constraints
+d'cj 2 E
+6 E dB(u, v) could be replaced
+= I, ..., E,
+A,...,cE
+where
+are the extreme points of M(u, v). Thus, in this case, the problem reduces to a regular linear program.
+To alleviate some of the above problems, we could use a row generation
+strategy in which only a finite number (say, j) of representatives of the
+constraint set d'c 2 E for 6 E dB(u, v) are used, and the resulting direction d, is
+tested to ascertain if it is an ascent direction. This can be done by verifying if
+min{d;c : E aQ(u, v)} > 0. If so, d, can be used in the line search process. If
+not, the foregoing subproblem yields a subgradient cY+1for which dJ + 2 0,
+and thus this constraint can be added to the direction-finding problem, and the
+operation could then be repeated.
+We ask the reader to provide the details of this scheme in Exercise 6.30.
+However, this type of a procedure is fraught with computational difficulties,
+except for small problems having simple structures. In Chapter 8 we address
+more sophisticated and efficient subgradient-based optimization schemes that
+can be used to optimize B whenever it is nondifferentiable. These procedures
+employ various strategies for constructing directions based on single
+subgradients, possibly deflected by suitable means, or based on a bundle of
+subgradients collected over some local neighborhood. The directions need not
+always be ascent directions, but ultimate convergence to an optimum is
+nevertheless assured. We refer the reader to Chapter 8 and its Notes and References section for further information on this topic.
+We now proceed to describe in detail one particular cutting plane or
+outer-linearization scheme for solving the dual Problem D. The concept of this
+approach is important in its own right, as it constitutes a useful ingredient for
+many decomposition and partitioning methods.
+Cutting Plane or Outer-Linearization Method
+The methods discussed in principle above for solving the dual problem generate
+at each iteration a direction of motion and adopt a step size along this direction,
+with a view ultimately to finding the maximum for the Lagrangian dual
+function. We now discuss a strategy for solving the dual problem in which, at
+each iteration, a function that approximates the dual function is optimized.
+Recall that the dual function 19 defined by
+Q(u, v)=inf(f(x)+u'g(x)+v'h(x):x~X}.
+Letting z = B(u, v), the inequality z 5 f(x) + u'g(x) + v'h(x) must hold true for
+each x E X. Hence, the dual problem of maximizing B(u,v) over u 2 0 is
+equivalent to the following problem:
+Maximize z
+subject to z 5 f(x)
++ u'g(x) + v'h(x)
+for x E X
+(6.21)
+u20.
+Note that the above problem is a linear program in the variables z, u, and v.
+Unfortunately, however, the constraints are infinite in number and are not
+known explicitly. Suppose that we have the points xl,...,xk-l in X , and consider
+the following approximating problem:
+subject to z <f(x,)+u'g(x,)+v'h(x,)
+for j = 1, ...,k-1
+(6.22)
+u 20.
+The above problem is a linear program having a finite number of constraints and
+can be solved by the simplex method, for example. Let (zk, U k , vk) be an optimal solution to this approximating problem, sometimes referred to as the master
+program. If this solution satisfies (6.21), then it is an optimal solution to the
+Lagrangian dual problem. To check whether (6.21) is satisfied, consider the
+following subproblem:
+Minimize f(x)+uig(x)+vih(x)
+subject to x E X .
+Let xk be an optimal solution to the above problem, so that B(uk, vk) = f(xk)
++ uig(xk)+ vih(xk). If
+Zk I (uk, vk), then
+(uk, v k ) is an optimal solution to
+the Lagrangian dual problem. Otherwise, for (u, v) = (uk, vk), the inequality
+(6.2 1) is not satisfied for x = X k . Thus, we add the constraint
+I f(Xk)+U'g(Xk)+V'h(Xk)
+to the constraints in (6.22), and re-solve the master linear program. Obviously,
+the current optimal point (zk, uk,v k ) contradicts this added constraint. Thus,
+this point is cut away, hence the name cuttingplane algorithm.
+Summary of the Cutting Plane or Outer-LinearizationMethod
+Assume that f; g, and h are continuous and that X is compact, so that the set
+X(u, v) is nonempty for each (u, v),
+Lagrangian Dual@ and Saddle Point Optimalig Conditions
+29 1
+Find a point xo E X such that g(xo) 5 0 and
+Initialization Step
+h(x0) = 0. Let k = 1, and go to the main step.
+Main Step
+Solve the following master program:
+f o r j = O , ...,k-1
+subject to zIf(x,)+u'g(x,)+v'h(x,)
+u 2 0.
+Let (zk, U k ,
+be an optimal solution. Solve the following subproblem:
+Minimize f(x)+uig(x)+ vih(x)
+subject to x E X.
+be an optimal point, and let B(uk, vk)=f(xk)+uig(xk)+vih(xk). If
+z = B(uk, vk), then stop; (uk, vk) is an optimal dual solution. Otherwise, if zk
+> B(uk, vk), then add the constraint z 6 f(xk)+u'g(xk)+v'h(xk) to the master
+program, replace k by k + 1, and repeat the main step.
+At each iteration, a cut (constraint) is added to the master problem, and
+hence the size of the master problem increases monotonically. In practice, if the
+size of the master problem becomes excessively large, all constraints that are not
+binding may be thrown away. Theoretically, this might not guarantee
+convergence, unless, for example, the dual value has strictly increased since the
+last time such a deletion was executed, and the set X has a finite number of
+elements. (See Exercise 6.28; and for a general convergence theorem, see
+Exercises 7.21 and 7.22.) Also, note that the optimal solution values of the
+master problem form a nonincreasing sequence {zk). Since each zk is an upper
+bound on the optimal value of the dual problem, we may stop after iteration k if
+Zk - maxis,<k O(u v,) < E , where E is a small positive number .
+Interpretation as a TangentialApproximation or
+Outer-Linearization Technique
+The foregoing algorithm for maximizing the dual function can be interpreted as
+a tangential approximation technique. By the definition of 6, we must have
+B(u, v)If(x)+u'g(x)+v'h(x)
+Thus, for any fixed x
+for X E X .
+X , the hyperplane
+( ( u , v , z ) : u E Rm, V E R ~ z=f(x)+u'g(x)+v'h(x)}
+bounds the function Bfrom above.
+The master problem at iteration k is equivalent to solving the following
+problem:
+Maximize i ( u , v)
+where & ~ , v ) = m i n { f ( x ~ ) + u ' g ( x ~ ) t+ v( x j ) : j = 1,..., k- l}. Note that 6 is
+a piecewise linear function that provides an outer approximation or outer
+linearization for B by considering only k - 1 of the bounding hyperplanes.
+Let the optimal solution to the master problem be ( z k , uk, Vk). Now the
+subproblem is solved yielding B(uk, Vk) and X k . If Z k > B(uk,vk), the new
+constraint z 5 f(xk)+ u'g(xk) + v'h(xk) is added to the master problem, giving
+a new and tighter piecewise linear approximation to 8 Since B(uk, vk) = f(xk)
++ uig(xk) + vih(xk), the hyperplane {(z,u, v) :z = f(xk) + u'g(xk) + v'h(xk)}
+is tangential to the graph of 8 at (zk, U k , vk): hence, the name tangential
+approximation.
+6.4.1 Example
+Minimize (XI - 2)2 + (1 / 4)";
+subject to xl - (7 / 2)x2 - 1I 0
+2x1 +3X2 = 4.
+We let X = {(xl, x2) :2x1+ 3x2 = 4},so that the Lagrangian dual function
+is given by
+qU)min{(xl - 2)2 + (1 / 4 ) 4 + u(xl - (7 /2)x2 - 1) :2x1+ 3x2 = 4).
+(6.23)
+The cutting plane method is initialized with a feasible solution xo
+(5 / 4,1/ 2)'. At Step 1 of the first iteration, we solve the following problem:
+subjectto z 1 5 / 8 - ( 3 / 2 ) u
+The optimal solution is ( z l ,u l ) = (5/8,0). At Step 2 we solve (6.23) for u = u1 =
+0, yielding an optimal solution x1 = (2,O)' with B ( q ) = 0 < z l . Hence, more iterations are needed. A summary of the first four iterations is given in Table 6.1.
+The approximating function 6 at the end of the fourth iteration is shown
+by darkened lines in Figure 6.9. The reader can easily verify that the Langrangian
+dual function for this problem is given by B(u) = -(5/2)u2 + u and that the
+hyperplanes added at Iteration 2 onward are indeed tangential to the graph of B
+293
+Table 6.1 Summary of Computations for Example 6.4.1
+Step 2 Solution
+Step 1 Solution
+Iteration k Constraint Added
+z S 518 - ( 3 / 2 ) ~
+(Zk 7 %
+(51830)
+(270)
+(13/8, 1/4)
+(2946, 1/8)
+(55/32,3/16)
+3/32
+11428
+51612
+(1/4, 1/4)
+(1/8, 1/8)
+z<5/32-(1/4)u
+z 15/128+(3/8)u (7/64,3/16)
+e(uk
+at the respective points ( z k ,I+). Incidentally, the dual objective function is
+maximized at U = 1/5 with Q(U) = 1/10. Note that the sequence ( u k } converges
+to the optimal point U = 1 6 .
+6.5 Getting the Primal Solution
+Thus far we have studied several properties of the dual function and described
+some procedures for solving the dual problem. However, our main concern is
+finding an optimal solution to the primal problem.
+In this section we develop some theorems that will aid us in finding a
+solution to the primal problem as well as solutions to perturbations of the primal
+problem. However, for nonconvex programs, as a result of the possible presence
+of a duality gap, additional work is usually needed to find an optimal primal
+Solutions to Perturbed Primal Problems
+During the course of solving the dual problem, the following problem, which is
+used to evaluate the function Bat (u, v), is solved frequently:
+Minimize f(x)+ u'g(x)+v'h(x)
+Figure 6.9 Tangential approximation of 6.
+294
+Theorem 6.5.1 shows that an optimal solution X to the above problem is also an
+optimal solution to a problem that is similar to the primal problem, in which
+some of the constraints are perturbed. Specifically, X evaluates v[g(X), h(X)],
+where v is the perturbation function defined in (6.9).
+6.5.1 Theorem
+Let (u, v) be a given vector with u 2 0. Consider the problem to minimize f(x)
+X. Let X be an optimal solution. Then X is an
+optimal solution to the following problem, where I = (i : ui > 0}:
++ u'g(x) + v'h(x) subject to x
+subject to gi(x) I gi(X)
+h,(x) = h,(X)
+for i = I, ..., l
+In particular, X solves the problem to evaluate v[g(X), h(X)], where v is the
+perturbation function defined in (6.9).
+Let x E X b e such that hi(x) = hi@) for i = 1,..., t and gi(x) I gi(X) for i
+E I. Note that
+f(x)+u'g(x)+v'h(x) 2 f(X)+u'g(X)+v'h(X).
+(6.24)
+But since h(x) = h(F) and u'g(x) = c j E I u i g i ( x ) Ic j E , u j g j ( X )= u'g(X), we
+get from (6.24) that
+f(x)+u'g(X) 2 f(x)+u'g(x) 2 f(X)+u'g(X),
+which shows that f(x) 2 f(%).Hence, X solves the problem stated in the theorem.
+Moreover, since this problem is a relaxation of (6.9) for y = 7, where
+[g(sf)', h(X)'], and since X is feasible to (6.9) with y '7,
+evaluates ~(7). completes the proof.
+This
+it follows that X
+Under the assumptions of the theorem, suppose that g(X) 5 0, h(X)
+u'g(X)
+= 0. Then
+X is an optimal solution to the following problem:
+0, and
+295
+Lagrangian Duality and Saddle Point O p t i d i t y Conditions
+subject to gi (x) I 0
+h,(x) =0
+In particular, TI is an optimal solution to the original primal problem, and (u, v)
+is an optimal solution to the dual problem.
+Note that u'g(X)=O implies that g , ( X ) = O for i E I; and from the
+theorem, it follows that 51 solves the problem stated. Also, since the feasible
+region of the primal problem is contained in that of the above problem, and
+since X is a feasible solution to the primal problem, then X is an optimal solution
+to the primal problem. Furthermore, f ( X ) = f ( X )+ u'g(%)+ v'h(X)
+that (u, v) solves the dual problem. This completes the proof.
+= 6(u, v),
+Of course, the conditions of the above corollary coincide precisely with
+the saddle point optimality conditions (a), (b), and (c) of Theorem 6.2.5, implying that (%, u, v) is a saddle point and, hence, that X and (u, v) solve Problems
+P and D, respectively. Also, elements of the proof of Theorem 6.5.1 are evident
+in the proof of Theorem 6.2.7. However, our purpose in highlighting Theorem
+6.5.1 and its corollary is to emphasize the role played by this result in deriving
+heuristic primal solutions based on solving the dual problem. As seen from
+Theorem 6.5.1, as the dual function 0 is evaluated at a given point (u, v), we
+obtain a point X that is an optimal solution to a problem that is closely related to
+the original problem, in which the constraints are perturbed from h(x) = 0 and
+gi(x)I 0 for i = 1,..., m, to h(x) = h(X) and g i ( x ) I gi(X) for i = 1,..., m.
+In particular, during the course of solving the dual problem, suppose that
+for a given (u, v) with u L 0, we have 2 E X(u, v). Furthermore, for some E > 0,
+suppose that I i i l I for i E I, g i ( i )I for i 4 I, and Ih,(i)l<E for i = 1,..., 1.
+g() E
+Note that if E is sufficiently small, then i is neur-feasible. Now, suppose that X
+is an optimal solution to the primal Problem P. Then, by the definition of
+Q(u, v),
+f ( i ) + u;g&)+ c v , h , ( i ) I f ( x ) +c ujg;(X)+ Cv,hj(X)If(X)
+i€ I
+since hi(%)= 0, gi(X)50, and ui 10. The above inequality thus implies that
+I ].
+f ( i ) I f ( X ) + E cui+cIviI
+296
+& I]
+Therefore, if E is sufficiently small so that E[& ui +
+Ivi is small enough,
+then % is a near-optimal solution. In many practical problems, such a solution is
+often acceptable.
+Note also that in the absence of a duality gap, if X and (U,V) are,
+respectively, optimal primal and dual solutions, then, by Theorem 6.2.5, (3, U,
+v) is a saddle point. Hence, by Property (a) of Theorem 6.2.5, X minimizes
+#(x,ii,V) over x E X. This means that there exists an optimal solution to the
+primal problem among points in the set X(U, V), where (ii, V) is an optimal
+solution to the dual problem. Of course, not any solution X E X (ii, V) solves
+the primal problem unless 51 is feasible to P and it satisfies the complementary
+slackness condition ii'g(X) = 0.
+Generating Primal Feasible Solutions in the Convex Case
+The foregoing discussion was concerned with general, perhaps nonconvex
+problems. Under suitable convexity assumptions, we can easily obtain primal
+feasible solutions at each iteration of the dual problem by solving a linear
+program. In particular, suppose that we are given a point X O , which is feasible
+to the original problem, and let the points xi E X ( u j , vj) for j = 1,..., k be
+generated by an arbitrary algorithm used to maximize the dual function.
+Theorem 6.5.2 shows that a feasible solution to the primal problem can be
+obtained by solving the following linear programming problem P':
+P': Minimize
+C Ajf(xj)
+C Ajg(xj)
+(6.25)
+C Ajh(xj)=O
+C Aj=l
+Aj 2 0
+6.5.2 Theorem
+Let X be a nonempty convex set in R", let J R"
+-+ R and g:
+convex, and let h: R" + Re be affine; that is, h is of the form h(x) = Ax - b.
+Let xo be an initial feasible solution to Problem P, and suppose that xj E X ( u j ,
+1, ..., k are generated by any algorithm for solving the dual problem.
+297
+Furthermore, let
+1 f o r j = 0,..., k be an optimal solution to Problem P' defined
+in (6.25), and let x k = E ; = ~ X ~ X ,Then yk is a feasible solution to the primal
+Problem P. Furthermore, letting
+Zk = z$=O%,f(x,)
+and z*
+inf(f(x) : x
+g(x) I h(x) = 01, if Zk - e(u, v ) I E for some (u, v ) with u z 0, then f ( z k ) 5 z*
+Since Xis convex and x
+for each j , yk E X. Since g is convex and h
+is affine, and noting the constraints of Problem P', g ( Y k ) 5 0 and h ( X k ) = 0.
+Thus, T?k is a feasible solution to the primal problem. Now suppose that
+Z k -B(u, v ) I & for some (u, v ) with u 2 0. Noting the convexity o f f and
+Theorem 6.2.1, we get
+and the proof is complete.
+At each iteration of the dual maximization problem, we can thus obtain a
+primal feasible solution by solving the linear programming Problem P'. Even
+though the primal objective values ( f ( y k ) ) of the generated primal feasible
+points are not necessarily decreasing, they form a sequence that is bounded from
+above by the nonincreasing sequence {Zk 1.
+Note that if Z k is close enough to the dual objective value evaluated at
+any dual feasible point (u, v), where u 2 0, then yk is a near-optimal primal
+feasible solution. Also note that we need not solve Problem P' in the case of the
+cutting plane algorithm, since it is precisely the linear programming dual of the
+master problem stated in Step 1 of this algorithm. Thus, the optimal variables
+&,...,& can be retrieved easily from the solution to the master problem, and F k
+can be computed as
+E;=, xjx j . It is also worth mentioning that the termination
+criterion Z k = @ ( u k , v k ) in the cutting plane algorithm can be interpreted as
+letting (u, v ) = ( u k , v k ) and E = 0 in the Theorem 6.5.2.
+To illustrate the above procedure, consider Example 6.4.1. At the end of
+Iteration k = 1, we have the points x o = (5/4,1/2)' and x 1 = (2,O)'. The
+associated primal point Y, can be obtained by solving the following linear
+programming problem:
+Chapfer6
+Minimize (5 / 8)&
+subject to -(3 / 2 ) 4 + A, I 0
+&++=I
+&, A, 2 0.
+The optimal solution to this problem is given by
+yields a primal feasible solution
+& = 2/5 and &
+3/5. This
+Sr, =(2/5)(5/4, 1/2)' +(3/5)(2,0)' =(17/10,2/10)'.
+As pointed out earlier, the above linear program need not be solved
+since its dual has already been
+separately to find the values of & and
+solved during the course of the cutting plane algorithm.
+6.6 Linear and Quadratic Programs
+In this section, we discuss some special cases of Lagrangian duality. In
+particular, we discuss briefly duality in linear and quadratic programming. For
+linear programming problems, we relate the Lagrangian dual to that derived in
+Chapter 2 (see Theorem 2.7.3 and its corollaries). In the case of quadratic
+programming problems, we derive the well-known Dorn's dual program via
+Lagrangian duality.
+Linear Programming
+Consider the following primal linear program:
+Minimize c'x
+x20.
+Letting X = (x : x L 0}, the Lagrangian dual of this problem is to maximize
+e(v), where
+8(v) = inf{c' x + v' (b - Ax) :x 2 0} = v' b + inf{(c' - v' A)x : x L 0} .
+Clearly,
+Hence, the dual problem can be stated as follows:
+Maximize v'b
+subject to A'v I c.
+Recall that this is precisely the dual problem discussed in Section 2.7. Thus, in
+the case of linear programs, the dual problem does not involve the primal variables. Furthermore, the dual problem itself is a linear program, and the reader
+can verify that the dual of the dual problem is the original primal program.
+Theorem 6.6.1 summarizes the relationships between the primal and dual
+problems as established by Theorem 2.7.3 and its three corollaries.
+6.6.1 Theorem
+Consider the primal and dual linear problems stated above. One of the following
+mutually exclusive cases will occur:
+The primal problem admits a feasible solution and has an unbounded
+objective value, in which case the dual problem is infeasible.
+The dual problem admits a feasible solution and has an unbounded
+objective value, in which case the primal problem is infeasible.
+Both problems admit feasible solutions, in which case both problems have optimal solutions 51 and V such that c'X = b'v and (c'
+- d A ) Y = 0.
+Both problems are infeasible.
+See Theorem 2.7.3 and its Corollaries 1 and 3.
+Quadratic Programming
+Consider the following quadratic programming problem:
+Minimize (1/2)x'Hx+d'x
+subject to Ax 5 b,
+where H is symmetric and positive semidefinite, so that the objective function is
+convex. The Lagrangian dual problem is to maximize 8(u) over u ? 0, where
+B(u) = inf{(l/2)x'Hx
++ d'x + u'(Ax - b) :x E R"}.
+(6.26)
+Note that for a given u, the function (1 / 2)x'Hx + d'x + AX - b) is convex, so
+a necessary and sufficient condition for a minimum is that the gradient must
+vanish; that is,
+Hx+A'u+d=O.
+Thus, the dual problem can be written as follows:
+(6.27)
+Maximize (ll2)x'Hx
++ d'x + U' (Ax - b)
+subject to Hx + A'u = -d
+(6.28)
+Now, from (6.27), we have d'x + uf Ax = -x'Hx. Substituting this into (6.28),
+we derive the familiar form of Dorn ' dual quadratic program:
+Maximize - (1/2)x'Hx - b'u
+(6.29)
+Again, by Lagrangian duality, if one problem is unbounded, then the other is
+infeasible. Moreover, following Theorem 6.2.6, if both problems are feasible,
+then they both have optimal solutions having the same objective value.
+We now develop an alternative form of the Lagrangian dual problem
+under the assumption that H is positive definite, so that H-' exists. In this case,
+the unique solution to (6.27) is given by
+x = -H-' (d + A' u).
+Substituting in (6.26), it follows that
+B(u) = (1 /2)u'Du
+where D = -AH-'A'
++ U'C - (1 /2)d'H-'d,
+and c = -b - AH-'d. The dual problem is thus given by:
+Maximize (1 /2)u'Du + u'c -(1/2)d'H-'d
+(6.30)
+The dual problem (6.30) can be solved relatively easily using the algorithms
+described in Chapters 8 through 11, noting that this problem simply seeks to
+maximize a concave quadratic function over the nonnegative orthant. (See
+Exercise 6.45 for a simplified scheme.)
+Exercises
+[6.1] Consider the (singly) constrained problem to minimize f(x) subject to
+g(x) 5 0 and x E X. Define G = { (y, z) :y = g(x), z = f(x) for some x E X ) ,and
+let vb)= min {f(x) : g(x) I y, x E X ) , y E R, be the associated perturbation
+function. Show that v is the pointwise supremum over all possible nonincreasing
+functions whose epigraph contains G.
+16.21 Consider the problem to minimize f(x) subject to gl(x) 5 0 and g2(x) 5 0
+as illustrated in Figure 4.13. Denote X = {x :gl(x) I O}. Sketch the perturbation
+function v ( y )= min{f(x) :g2(x) I y , x E X } and indicate the duality gap. Pro-
+301
+Lagrangian Duality and Saddle Point Optimali@ Conditions
+vide a possible sketch for the set G = { ( y , z ) :y = g2(x), z = f (x) for some x
+X ) for this problem.
+[6.3] Let &x, y) be a continuous function defined for x
+Xc R" and y E
+Rm. Show that
+sup inf &x,y) I inf sup #(x,y).
+y€Y E X
+E X y€Y
+[6.4] Consider the problem to minimize f (x) subject to gi(x) 5 0 for i = 1, ..., m,
+hi(x) = 0 for i = I , ..., P, and x E X,and let v: Rm+e -+ R be the perturbation
+function defined by (6.9). Assuming that f and g are convex, h is affine, and that
+X is a convex set, show that v is a convex function.
+[6.5] For the problem of Example 6.3.5, sketch the perturbation function v
+defined by (6.9), and comment on the existence of a saddle point solution.
+[6.6] Let$ R" -+ R be a concave function, and let af(X) be the subdifferential
+off at any 51 E R". Show that the directional derivative off at ST in the direction
+d is given by f'(ST;d) = inf(6'd : 6 E af(ST)}.What is the corresponding result if
+f is a convex function?
+[6.7] Consider the discrete optimization Problem DP: Minimize {c'x : Ax = b,
+Dx = d, x E X ) , where X is some compact discrete set, and assume that the
+problem is feasible. Define 6(w)= min{c'x +a'(Ax - b) :Dx
+any z E Rm, where A is m x n. Show that max(f?(a) : w E Rm} = min{c'x : Ax
+= b, x E conv{x E X : Dx = d}}, where conv b} denotes the convex hull
+operation. Use this result to interpret the duality gap that might exist between
+DP and the Lagrangian dual problem stated.
+[6.8] Consider Problem DP given in Exercise 6.7, and rewrite this problem as
+minimize {c'x : Ax = b, Dy = d, x = y, x E X, y E r>, where Y is a copy of X in
+which the x-variables have been replaced by a set of matching y-variables.
+Formulate a Lagrangian dual function 8(p)= min{c'x + p'(x - y) : Ax = b, Dy
+= d, x E X , y E r>. Show that max{g(p):pER"} 2 max(6(a): K E Rm),
+where 6 is defined in Exercise 6.7. Discuss this result in relation to the
+respective partial convex hulls corresponding to 6 and 8 as presented in
+Section 6.4 and Exercise 6.7.
+[6.9] Consider the pair of primal and dual Problems P and D stated in Section
+6.1, and assume that the Lagrangian dual function 6 is differentiable. Given
+(6, E Rm+', l 2 0, let VB(li, V = [g(X)', h(51)'], and define &(X) = gi(X)if
+TT, > O and &(Y) =max{O, g,(Sr)} if =0, for i = 1,..., m. If (d,,d,) = [g(51),
+302
+h(ST)] # (0, 0), then show that (d,, d,) is a feasible ascent direction of 6 at
+(U, V Hence, discuss how 6 can be maximized in the direction (d,, d,) via the
+(6(ii + Ad,, V + Ad,) :ii + Ad, L 0,
+one-dimensional problem to maximizeA
+A 2 0). On the other hand, if (d,, d,) = (0, 0), then show that (Ti, 7 ) solves D.
+Consider the problem to minimize XI2 + x2 subject to gl = -x1 - x2 + 4 5 0
+and g2 (x) = x1 + 2x2 - 8 5 0. Illustrate the gradient method presented above by
+starting at the dual solution (ul, u 2 ) = (0, 0) and verifying that after one iteration of this method, an optimal solution is obtained in this case.
+[6.10] Consider the problem to minimize x t
+- 4 ? 0 and
+a. Verify that the optimal solution is X = (2,2)' with f(F) = 8.
+b. Letting X = {(xl, x2) :x1 2 0, x2 2 0}, write the Lagrangian dual prob-
+lem. Show that the dual fbnction is 6(u) = -u2 / 2 - 4u. Verify that
+there is no duality gap for this problem.
+c. Solve the dual problem by the cutting plane algorithm of Section
+6.4. Start with x = (3,3)'.
+d. Show that 6 is differentiable everywhere, and solve the problem
+using the gradient method of Exercise 6.9.
+[6.11] Consider the following problem:
+Minimize (xl - 2)2
++ (x2 -6)2
+subject to xf - x2 1 0
++ 3x2 1 1 8
+x;! 2 0.
+Find the optimal solution geometrically, and verify it by using the
+KKT conditions.
+b. Formulate the dual problem in which X = {(xl, x2): 2x1 +3x2 5 18,
+XI, x2 2 0 .
+c. Perform three iterations of the cutting plane algorithm described in
+Section 6.4, starting with (ul, u 2 ) = (0, 0). Describe the perturbed
+optimization problems corresponding to the generated primal infeasible points. Also identify the primal feasible solutions generated by
+the algorithm.
+[6.12] In reference to Exercise 6.1 1, perform three iterations of the gradient
+method of Exercise 6.9 and compare the results with those obtained by the
+cutting plane algorithm.
+[6.13] Consider the following problem:
+303
+Lagrangian Dualiiy and Saddle Point Optimdiiy Conditions
+Maximize 3x1 + 6x2
+subjectto xl + x2
++ 2x3 + 4 x 4
++ x3 + x4 5 12
++ 2x4 I
+2 12
+~4 5 6
+Formulate the dual problem in which X
+((xl,x2, x3, x4): xl + x2
+512, ~2 54, ~3 + ~4 5 6 ; ~ 1 , ~ 2 , ~ 3 0 ) . 4
+2, ~
+Starting from the point (0, 0), solve the Lagrangian dual problem by
+optimizing along the direction of steepest ascent as discussed in
+Exercise 6.9.
+At optimality of the dual, find the optimal primal solution.
+[6.14] Consider the primal Problem P discussed in Section 6.1. Introducing the
+slack vectors, the problem can be formulated as follows:
+subject to g(x) + s = 0
+(x,s) E X ' ,
+where X'= ((x,s) :x E X , s 2 O } . Formulate the dual of the above problem and
+show that it is equivalent to the dual problem discussed in Section 6.1.
+I6.151 Consider the following problem:
+Maximize 3x1 + 2x2 + x3
+subject to 2x1 + x2 - x3 I2
++ 2x2
+x3 I3
+Xl,X2,X3
+Find explicitly the dual function, where X = {(xl,x2,x3): 2x1
+~2 - ~ 3 2; ~ 1 ~, 2~3 2 O}.
+Repeat Part a for X = {(q, x3): x1 +2x2 14; xl, x2, x3 2 O}.
+In Parts a and b, note that the difficulty in evaluating the dual
+hnction at a given point depends on which constraints are handled
+via the set X. Propose some general guidelines that could be used in
+selecting the set X to make the solution easier.
+16.161 Consider the problem to minimize e-2x subject to -x 10.
+Solve the above primal problem.
+Letting X = R find the explicit form of the Lagrangian dual
+function, and solve the dual problem.
+[6.17] Consider the problem to minimize xl subject to x + x i = 4. Derive the
+dual function explicitly, and verify its concavity. Find the optimal solutions to
+both the primal and dual problems, and compare their objective values.
+[6.18] Under the assumptions of Theorem 6.2.5, suppose that X is an optimal
+solution to the primal problem and that f and g are differentiable at X. Show that
+there exists a vector @,V) such that
+Vf(X)+
+iSiVgi( X ) +
+V,Vh,(X) (x - SZ) 2 0
+for each x E X
+for i = I, ...,m
+uigi(X)= 0
+Show that these conditions reduce to the KKT conditions if X is open.
+[6.19] Consider the problem to minimize f(x) subject to g(x) 5 0, x E X.
+Theorem 6.2.4 shows that the primal and dual objective values are equal at
+optimality under the assumptions that f; g, and X are convex and that the
+constraint qualification g(i) < 0 for some i E X holds true. Suppose that the
+convexity assumptions on f and g are replaced by continuity off and g and that X
+is assumed to be convex and compact. Does the result of the theorem hold true?
+Prove or give a counterexample.
+[6.20] In the proof of Lemma 6.2.3, show that the set A is convex.
+[6.21] Prove the following saddle point optimality condition. Let X be a
+nonempty convex set in R", and let$ R" -+ R, g: R" -+ Rm be convex and h:
+R" -+ Re be affine. If X is an optimal solution to the problem to minimize f ( x )
+subject to g(x) 5 0 , h(x) = 0, x E X,then there exist (Uo, ii, V) z 0, (Uo, ii) 2 0
+@(Ug, u, v, X)
+for all u 2 0, v E R e and x
+@(Go,
+u, 7,X) I$quo,u, V,x)
+X , where @(u,-,, u, v, x)
+= uof ( x )
+u'g(x)
+v'h(x).
+[6.22] Let P and D be the primal and dual nonlinear programs stated in Section
+6.1, and denote w = (u, v). Suppose that W solves D. If there exists a saddle
+point solution to P and if X solves uniquely for 8(W), then show that (X, W) is
+such a saddle point solution. Correspondingly, if 6 is differentiable at W , and if
+x (uniquely) solves for 8 at W , then show that (X, W) is a saddle point
+solution. (In particular, this shows that if Problem P has no saddle point solution,
+then Bcannot be differentiable at optimality.)
+305
+Lagrangian Duality and Saddle Point Optimalily Conditions
+I6.231 Consider the following problem:
+Minimize -2x1
++ 2x2 +
++ x2 +
+- 2x3
+x - 3x4
+x4 I 8
++ 4x4 I
+x4 2 0.
+LetX= {(xl, x2, x3, x4): xl + x2 5 8, x3 + 2x4 5 6;
+x2, x3, x4
+2 O}.
+Find the function Bexplicitly.
+Verify that B is differentiable at (4,0), and find VB(4,O).
+Verify that VB(4,O) is an infeasible direction, and find an
+improving feasible direction.
+Starting fiom (4,0), maximize Bin the direction obtained in Part c.
+I6.241 Consider the following problem:
+Minimize 2x1 + x2
+subject to x1 + 2x2 I 8
+2x1 + 3x2 I 6
+x2 2 0
+integers.
+Let X = { (xl, x2) : 2x1+ 3x2 I xl, x2 L 0 and integer). At u = 2, is B differenti6,
+able? If not, characterize its ascent directions.
+(6.251 Construct a numerical problem in which a subgradient of the dual function is not an ascent direction. Is it possible that the collection of subgradients
+and the cone of ascent directions are disjoint at a nonoptimal solution?
+(Hint: Consider the shortest subgradient.)
+[6.26] Suppose that 8 : Rm + R is concave.
+Show that Bachieves its maximum at ii if and only if
+max{6’(ii;d) : lldll Il} = 0.
+Show that Bachieves its maximum over the region U = {u: u 2 0} at
+u if and only if
+max{B’(li;d) :d E D, 5 1) = 0,
+where D is the cone of feasible directions of U at ii. (Note that the above results
+can be used as stopping criteria for maximizing the Lagrangian dual function.)
+306
+[6.27] Consider the problem to minimize x subject to g(x) Iand x E X = {x : x
+2 O}. Derive the explicit form of the Lagrangian dual function, and determine
+the collection of subgradients at u = 0 for each of the following cases:
+-2Ix forx;tO
+for x = 0.
+g(x)=
+-2Ix f o r x # 0
+[6.281 Consider the cutting plane method described in Section 6.4, and suppose
+that each time the master program objective value strictly increases, we delete
+all the constraints of the type z I f ( x i )
++ u'g(xi) + v'h(xj)
+that are nonbinding
+at optimality. If X has a finite number of elements, show that this modified
+algorithm will converge finitely. Give some alternative conditions under which
+such a constraint deletion will assure convergence of the algorithm.
+I6.291 Consider the following problem, in which X is a compact polyhedral set
+and f is a concave function:
+Minimize f (x)
+Formulate the Lagrangian dual problem.
+Show that the dual function is concave and piecewise linear.
+Characterize the subgradients, the ascent directions, and the steepest
+ascent direction for the dual function.
+d. Generalize the result in Part b to the case where Xis not compact.
+[6.30] Consider the pair of primal and dual Problems P and D stated in Section
+6.1, and suppose that the Lagrangian dual function B is not necessarily
+differentiable. Given W =(U, V ) E Rmie, U 2 0 , let gl,
+p 2 1, be some
+known collection of subgradients of Bat W. Consider the problem to maximize
+{ ~ : d ' { .-> E f o r j = 1,..., p , -1 I d i 5 1 for i = l , ..., m+C, with di 2 0 if Ui =O}.
+a) solve this problem. I f
+0, show that W solves D. Otherwise, solve
+the problem to maximize { ~ ' { : ~ E ~ B ( W )and let ( p + l be an optimum. If
+a is an ascent direction along which 8 can be maximized by solving max{B(W + /la): & + A& 2 0 for i 1, ..., m, A 2 0}, and the
+d' Cp+, > 0, then show that
+process can then be repeated. Otherwise, if
+#cp+l20, then increment p by 1
+and re-solve the direction-finding problem given above. Discuss the possible
+307
+computational difficulties associated with this scheme. How would you
+implement the various steps if all functions were affine and X was a nonempty
+polytope? Illustrate this using the example to minimize XI-4X2 subject to
+- x , - x 2 + 2 ~ 0 , x 2 - 1 ~ 0 n d x ~ X = ( x : O I x ~ 1 3 , O 13}, startingatthe
+point (ul, = (0,4).
+(6.311 Consider the linear program to minimize ctx subject to Ax = b, x ? 0.
+Write the dual problem. Show that the dual of the dual problem is equivalent to
+the primal problem.
+[6.32] Consider the following problem:
+Minimize -2x1 - 2x2 - x3
+subject to 2xl + x2 + x3 I 8
+3x1 - 2x2 + 3x3 1 3
+XI +
+x3 2 0.
+Solve the primal problem by the simplex method. At each iteration identify the
+dual variables from the simplex tableau. Show that the dual variables satisfy the
+complementary slackness conditions but violate the dual constraints. Verify that
+dual feasibility is attained at termination.
+[6.33] Consider the primal and dual linear programming problems discussed in
+Section 6.6. Show directly using Farkas's lemma that if the primal is
+inconsistent and the dual admits a feasible solution, the dual has an unbounded
+objective value.
+[6.34] In Section 6.3 we showed that the shortest subgradient 5 of 8 at U is the
+steepest ascent direction. The following modification of 5 is proposed to
+maintain feasibility:
+max {0,5j 1
+5. = { Ti
+if iii = O
+if iii 20.
+an ascent direction? Is it the direction of steepest ascent with the added
+nonnegativity restriction? Prove or give a counterexample.
+[6.35] Suppose that the shortest subgradient
+zero. Show that there exists an
+0 such that
+of 8 at (U, V) is not equal to
+l l ~ - ~ l l < that 5 is an
+implies
+ascent direction of 8 at (U, 7). (From this exercise, if an iterative procedure is
+used to find
+iterations.)
+5, it would find an ascent direction after a sufficient number of
+[6.36] Consider a singly constrained problem to minimize f ( x ) subject to g(x)
+5 0 and x E X,where X is a compact set. The Lagrangian dual problem is to
+maximize e(u) subject to u 2 0, where B(u) = inf{f(x) + ug(x): x E X ) .
+Let ti 2 0, and let 2 E X ; . Show that if g(2) > 0, then U > i,and
+if g(?)<O, then U < i , where ii is an optimal solution to the
+Lagrangian dual.
+Use the result of Part a to find an interval [a, b] that contains all the
+optimal solutions to the dual problem or else to conclude that the
+dual problem is unbounded.
+Now consider the problem to maximize 6(u) subject to a I u I 6.
+Suppose that the following scheme is used to solve the problem: Let
+U = (a + b)/2, and let 51 E X(U). If g(X) > 0, replace a by U and
+repeat the process. If g(X) < 0, replace b by U and repeat the
+process. If g(X) = 0, stop; ii is an optimal dual solution. Show that
+the procedure converges to an optimal solution, and illustrate by
+solving the dual of the following problem:
+Minimize 2x1 +x2
+subject to -xl - 2x2 + 2 5 0.
+d. An alternative approach to solving the problem to maximize 6(u)
+subject to a 5 u 5 b is to specialize the tangential approximation
+method discussed in Section 6.4. Show that at each iteration only
+two supporting hyperplanes need be considered, and that the method
+could be stated as follows: Let xu E X ( a ) and x b E X(b). Let
+u = [ f ( X , > - f ( X b ) ] / [ g ( X b ) - g(X,)]. If ; = a Or U = b , Stop; U iS
+an optimal solution to the dual problem. Otherwise, let X E X(U). If
+g(X) > 0, replace a by ii and repeat the process. If g(X) < 0,
+replace b by U and repeat the process. If g(E) = 0 , stop; ii is an
+optimal dual solution. Show that the procedure converges to an
+optimal solution, and illustrate by solving the problem in Part c.
+[6.37] Consider the primal and Lagrangian dual problems discussed in Section
+6.1. Let (U, V) be an optimal solution to the dual problem. Given (u, v), suppose
+that X E X(u, v), as defined in Section 6.3. Show that there exists a S> 0 such
+that II(U, V) - (u, v) - iE[g(X), h(F)]ll is a nonincreasing function of X over the
+interval [0, 4. Interpret the result geometrically, and illustrate by the following
+problem, in which (al, u2) = (3, 1) are the dual variables corresponding to the
+first two constraints:
+309
+Minimize -2x1 - 2x2 - 5x3
+subject to xl + x2 + x3 5 10
++ 2x3 2 6
+x3 5 3
+[6.38] From Exercise 6.37 it is clear that moving a small step in the direction of
+any subgradient leads us closer to an optimal dual solution. Consider the
+following algorithm for maximizing the dual of the problem to minimize f ( x )
+subject to h ( x ) = 0, x E X .
+Given V k , let Xk E X ( v k ) . Let V k + l = V k + A h ( x k ) , where
+scalar. Replace k by k + 1 and repeat the main step.
+A > 0 is a small
+Discuss some possible ways of choosing a suitable step size A. Do
+you see any advantages in reducing the step size during later
+iterations? If so, propose a scheme for doing that.
+Does the dual function necessarily increase from one iteration to
+another? Discuss.
+Devise a suitable termination criterion.
+Apply the above algorithm, starting from v = (1,2)', to solve the
+following problem:
+Minimize x + x
+subject to x1 + x2
++ 2x3
++ x3 = 6
+x3 = 4.
+(This procedure, with a suitable step size selection rule, is referred to
+as a subgradient optimization technique. See Chapter 8 for further
+details.)
+16.391 Consider the problem to minimize f ( x ) subject to g ( x ) 5 0, x
+In Exercise 6.38, a subgradient optimization technique was discussed for the equality case. Modify the procedure for the above
+inequality-constrained problem. [Hint: Given u, let x E X(u).
+Replace g i ( x ) by max(0, g i ( x ) > for each i with ui = 0.1
+Illustrate the procedure given in Part a by solving the problem in
+Exercise 6.13 starting from u = ( , ) .
+Extend the subgradient optimization technique to handle both
+equality and inequality constraints.
+[6.40] Consider the problems to find
+3 10
+rnin max $(x,y)
+and max min 4(x,y),
+where X and Y are nonempty compact convex sets in R" and Rm, respectively,
+and 4 is convex in x for any given y and concave in y for any given x.
+Show that min max &x, y) 2 max min #(x, y) without any convexity
+assumptions.
+Show that max &-,y) is a convex function in x and that rnin &x, -) is
+a concave function in y.
+Show that min max @(x, y) = max min +(x, y).
+(Hint: Use Part b and the necessary optimality conditions of Section 3.4.)
+[6.41] Consider the following problem, in which X is a compact polyhedral set:
+subject to A x = b
+X E X .
+For a given dual vector v, suppose that XI, ..., Xk are the extreme points in X that
+belong to X(v) as defined in Section 6.3. Show that the extreme points of M ( v )
+are contained in the set A = { A x j - b : j = I, ...,k). Give an example where the
+extreme points of M ( v ) form a proper subset of A.
+[6.42] A company wants to plan its production rate of a certain item over the
+planning period [0, TJ such that the sum of its production and inventory costs is
+minimized. In addition, the known demand must be met, the production rate
+must fall in the acceptable interval [l, the inventory must not exceed d, and
+it must be at least equal to b at the end of the planning period. The problem can
+be formulated as follows:
+Minimize f [ c l x ( t )
++ c2y2(t)]dt
+subject to x ( t ) = xo +
+[ y ( r )- z(z)] dr for t E [0,T ]
+x(T) 2 b
+0 Ix ( t ) I d
+P I y ( t )I u
+x ( t ) = inventory at time t
+y ( t ) = production rate at time t
+z(t)
+= known demand rate at time t
+for t E (0, T )
+for t E (0, T ) ,
+Lagrangian Duality and Saddle Point Optimdity Conditions
+xo = known initial inventory
+cl, c2 = known coefficients
+Make the above control problem discrete as was done in Section 1.2,
+and formulate a suitable Lagrangian dual problem.
+Make use of the results of this chapter to develop a scheme for
+solving the primal and dual problems.
+Apply your algorithm to the following data: T = 6 , xo = 0, b = 4, CI
+c2 = 2 , Q = 2 , u = 5 , d = 6 , andz(t) = 4 over [0, 41 andz(t)
+over (4,6].
+= 1,
+I . 3 Consider the following warehouse location problem. We are given
+destinations 1, ..., k, where the known demand for a certain product at destination
+j is d j . We are also given m possible sites for building warehouses. If we decide
+to build a warehouse at site i, its capacity has to be s i , and it incurs a fixed cost
+f,. The unit shipping cost from warehouse i to destinationj is cr/. The problem is
+to determine how many warehouses to build, where to locate them, and what shipping patterns to use so that the demand is satisfied and the total cost is
+minimized. The problem can be stated mathematically as follows:
+Minimize C C c j j x j j+ C h y i
+subject to C xu I siyi
+2 dj
+for j = 1, ...,k
+O < x j j <yimin{s. dJ. ) f o r i = i,..., m ; j = l ,...,k
+yi =Oor 1
+for i = 1, ...,m.
+Formulate a suitable Lagrangian dual problem. Explain the utility of
+the upper bound imposed on x j j .
+Make use of the results of this chapter to devise a special scheme for
+maximizing the dual of the warehouse location problem.
+Illustrate by a small numerical example.
+[6.44]Consider the (primal) quadratic program PQP: Minimize (c'x + (1/2)x'Dx :
+Ax 2 b}, where D is an n x n symmetric matrix and A is m x n. Let W be an
+arbitrary set such that (w : Aw Z b} c W, and consider Problem EDQP: Minimize
+( c ' x + ( ~ / ~ ) w ' D wA X2 b, DW= Dx, w E W } .
+Show that PQP and EPQP are equivalent in the sense that if x is
+feasible to PQP, (x, w) with w = x is feasible to EDQP with the
+same objective value; and conversely, if (x, w) is feasible to EPQP,
+x is feasible to PQP with the same objective value.
+Construct a Lagrangian dual LD: Maximize {O(y)}, where O(y) =
+min((c+Dy)'x + (1/2)wfDw - y'Dw : Ax 2 b, w E
+Show that
+equivalently, we have
+LD: sup{b'u -(1/2)y'Dy +4(y): A'u - Dy = C,u 2 0 } ,
+where &(y)= inf{(l/2)(y - w)' D(y - w) :w E W } .
+Show that if D is positive semidefinite and W = R", @(y) = 0 for
+all y, and LD reduces to Dorn's dual program given in (6.29). On
+the other hand, if D is not positive semidefinite and W = R",
+4(y) = -m for all y. Furthermore, if PQP has an optimum of objective value vp, and if W = {w : Aw 2 b}, show that the optimum
+value of LD is also vp. What does this suggest regarding the formu-
+lation of LD for nonconvex situations?
+d. Illustrate Part c using the problem to minimize{x,x2 :xl 2 0 and
+x2 2 0}. (This exercise is based on Sherali [ 19931.)
+[6.45] Consider the dual quadratic program given by (6.30). Describe a
+gradient-based maximization scheme for this problem, following Exercise 6.9.
+Can you anticipate any computational difficulties? (Hint: See Chapter 8.)
+Illustrate by using the following quadratic programming problem:
+Minimize 3x1
+subject to 2x1
+- 2x1x2- 3x1 - 4x2
++ 3x2 I 6
+x2 2 0.
+At each iteration, identify the corresponding primal infeasible point as well as
+the primal feasible point. Develop a suitable measure of infeasibility and check
+its progress. Can you draw any general conclusions?
+16.461 Let X and Y be nonempty sets in R", and letf; g: R"
+conjugatefunctions f * and g* defined as follows:
+g*(u)=sup{g(x)-u~x:x€Y }
+Interpret f* and g* geometrically.
+Consider the
+Lagrangian Dualiq and Saddle Point O p t i d i t y Conditions
+Show that f * is concave over X* and g* is convex over Y*,
+where X* = {u : f*(u) > -a}and Y* = {u : g*(u) < m>.
+Prove the following conjugate weak duality theorem:
+inf{f(x) - g(x) : x E
+x n Y >2 sup{f*(u) -g*(u) :u E X*nY * } .
+d. Now suppose that f is convex, g is concave, int X nint Y f 0, and
+inf(f(x) - g(x): x E X n Y is finite. Show that equality in Part c
+above holds true and that sup{f*(u) - g*(u) : u E X*nY * } is
+achieved.
+e. By suitable choices o f f ; g, X, and Y, formulate a nonlinear
+programming problem as follows:
+Minimize f (x) - g(x)
+subject to x E X nY .
+What is the form of the conjugate dual problem? Devise some
+strategies for solving the dual problem.
+Notes and References
+The powerful results of duality in linear programming and the saddle point
+optimality criteria for convex programming sparked a great deal of interest in
+duality in nonlinear programming. Early results in this area include the work of
+Cottle [ 1963b], Dorn [ 1960a1, Hanson [ 19611, Mangasarian [ 19621, Stoer
+[ 19631, and Wolfe [ 19611.
+More recently, several duality formulations that enjoy many of the properties of linear dual programs have evolved. These include the Lagrangian dual
+problem, the conjugate dual problem, the surrogate dual problem, and the mixed
+Lagrangian and surrogate, or composite dual, problem. In this chapter we concentrated on the Lagrangian dual formulation because, in our judgment, it is the
+most promising formulation from a computational standpoint and also because
+the results of this chapter give the general flavor of the results that one would
+obtain using other duality formulations. Those interested in studying the subject
+of conjugate duality may refer to Fenchel [1949], Rockafellar [1964, 1966,
+1968, 1969, 19701, Scott and Jefferson [ 1984, 19891, and Whinston [ 19671. For
+the subject of surrogate duality, where the constraints are grouped into a single
+constraint by the use of Lagrangian multipliers, refer to Greenberg and Pierskalla
+[1970bl. Several authors have developed duality formulations that retain the
+symmetry between the primal and dual problems. The works of Cottle [ 1963b],
+Dantzig et al. [ 19651, Mangasarian and Ponstein [ 19651, and Stoer [ 19631 are in
+this class. For composite duality, see Karwan and Rardin [ 1979, 19801.
+The reader will find the work of Geoffrion [1971b] and Karamardian
+[ 19671 excellent references on various duality formulations and their
+interrelationships.See Everett [1963], Falk [1967, 19691, and Lasdon [1968] for
+a further study on duality. The relationship between the Lagrangian duality
+314
+formulation and other duality formulations is examined in Bazaraa et al.
+[ 1971b], Magnanti [ 19741, and Whinston [ 19671. The economic interpretation of
+duality is covered by Balinski and Baumol [ 19681, Beckmann and Kapur [ 19721,
+Peterson [ 19701, and Williams [ 19701.
+In Sections 6.1 and 6.2 the dual problem is presented and some of its
+properties are developed. As a by-product of the main duality theorem, we
+develop the saddle point optimality criteria for convex programs. These criteria
+were first developed by Kuhn and Tucker [1951]. For the related concept of
+min-max duality, see Mangasarian and Ponstein [ 19651, Ponstein [ 19651,
+Rockafellar [1968], and Stoer [ 19631. For further discussions and illustrations of
+perturbation functions, see Geoffrion [ 1971b] and Minoux [ 19861. Larsson and
+Patriksson [2003] provide a generalized set of near-saddle point optimality
+conditions and lay the foundation for Lagrangian-based heuristics. For some
+fundamental discussions and applications of Lagrangian relaxatioddual-based
+approaches for discrete problems, see Fisher [ 1981, 19851, Geoffrion [ 19741,
+and Shapiro [1979b]. Guignard and Kim [1987] discuss a useful concept of
+Lugrungiun decomposition for exploiting special structures and formulating
+suitable Lagrangian duals for discrete and nonconvex problems, and Guignard
+[19981 discusses the value of adding additional constraints (cuts) in a Lagrangian
+relaxation framework that would have the potential for tightening the relaxationbased bound.
+In Section 6.3 we examine several properties of the dual function. We
+characterize the collection of subgradients at any given point, and use that to
+determine both ascent directions and the steepest ascent direction. We show that
+the steepest ascent direction is the shortest subgradient. This result is essentially
+given by Demyanov [1968]. In Section 6.4 we use these properties to suggest
+several gradient-based or outer-linearization methods for maximizing the dual
+function. An accelerated version of the cutting plane method that ensures the
+generation of ascent directions is discussed by Hearn and Lawphongpanich
+[ 1989, 19901. For a fkrther study of this subject, see Bazaraa and Goode [1979],
+Demyanov [1968, 19711, Fisher et al. [1975], and Lasdon [1970]. For constraint
+deletion concepts in outer-linearization methods, see Eaves and Zangwill [ 197I]
+and Lasdon [1970]. There are other procedures for solving the dual problem.
+The cutting plane method discussed in Section 6.4 is a row generation
+procedure. In its dual form, it is precisely the column generation generalized
+programming method of Wolfe (see Dantzig [ 19631). Another procedure is the
+subgradient optimization method, which is introduced briefly in Exercises 6.37,
+6.38, and 6.39 and is discussed in more detail in Chapter 8. See Held et al.
+[ 19741 and Polyak [I9671 for validation of subgradient optimization. For related
+work, see Bazaraa and Goode [ 1977, 19791, Bazaraa and Sherali [ 19811, Fisher
+et al. [ 19751, Held and Karp [ 19701, and Sherali et al. [2000].
+One of the pioneering works for using the Lagrangian formulation to
+develop computational schemes is credited to Everett [ 19633. Under certain conditions he showed how the primal solution could be retrieved. The result and its
+extensions are given in Section 6.5. For duality in quadratic programming, see
+Cottle [1963b], Dorn [1960a,b, 1961a1, and Sherali 119931.
