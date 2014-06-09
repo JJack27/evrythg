@@ -1,5 +1,4 @@
 Lecture: Discrete-time linear systems
-
 Automatic Control 1
 Discrete-time linear systems
 Academic year 2010-2011
@@ -69,7 +68,6 @@ x2 (k + 1) = a21 x1 (k) + . . . + a2n xn (k) +b2 u(k)
 xn (k + 1) = an1 x1 (k) + . . . + ann xn (k) +bn u(k)
 x1 (0) = x10 , . . . xn (0) = xn0
 In compact matrix form:
-x 
 where x =  ...  ∈
 Ax(k) + Bu(k)
 6 / 32
@@ -77,16 +75,12 @@ The solution is
 Ak x 0
 Ai Bu(k − 1 − i)
 If matrix A is diagonalizable, A = TΛT
-λ
 0 ...
 0 λ2 ...
 −1
 λk1 0 ...
  0 λk2 ...
 Λ =  .. .. . . ..  ⇒ Ak = T 
-.. .. . . .. 
-T
-. . . .
 0 0 ... λn
 0 0 ... λkn
 where T = [v1 . . . vn ] collects n independent eigenvectors.
@@ -134,17 +128,12 @@ an y(k − n) + an−1 y(k − n + 1) + · · · + a1 y(k − 1) + y(k) =
 bn u(k − n) + · · · + b1 u(k − 1) + b0 u(k)
 Equivalent linear discrete-time system in canonical state matrix form
  0
- .
 x(k + 1) =  ..
  0
 −an −an−1 −an−2 . . .
 y(k) = (bn − b0 an ) . . . (b1 − b0 a1 )
- 
 0
 0 
- 
- . 
-. 
 .  x(k) +  .  u(k)
 0
 1 
@@ -165,10 +154,6 @@ The state x(0) summarizes all the past history of the system
 The dimension n of the state x(k) ∈ n is called the order of the system
 The system is called proper (or strictly causal) if D = 0
 General multivariable case:
-n×n
-n×m
-p×n
-p×m
 11 / 32
 Example - Student dynamics
 Problem Statement:
@@ -278,27 +263,20 @@ stable if |a| ≤ 1
 asymptotically stable if |a| < 1
 
 [ _to('140426200329') ]
-Since the natural response of x(k + 1) = Ax(k) + Bu(k) is x(k) = Ak x0 , the stability properties depend only on A. We can therefore talk about system stability of a discrete-time linear system (A, B, C, D)
+###Stability of discrete-time linear systems
+Since the natural response of $x(k + 1) = A x(k) + B u(k)$ is $x(k) = A^k x_0$, the stability properties depend only on $A$. We can therefore talk about system stability of a discrete-time linear system $(A, B, C, D)$
 Theorem:
-Let λ1 , . . ., λm , m ≤ n be the eigenvalues of A the system  x(k + 1) = Ax(k) + Bu(k) is 
-asymptotically stable iff |λi | < 1, ∀i = 1, . . . , m
-(marginally) stable if |λi | ≤ 1, ∀i = 1, . . . , m, and the eigenvalues with unit
-modulus have equal algebraic and geometric multiplicity a
-unstable if ∃ i such that |λi | > 1
-Algebraic multiplicity of λi = number of coincident roots λi of det(λI − A). Geometric multiplicity of λi = number of linearly independent eigenvectors vi, Avi = λi vi
+![()](140604093411.png)
 The stability properties of a discrete-time linear system only depend on the modulus of the eigenvalues of matrix A  
 [ the modulus means the absolute value / magnitude of a complex number ]
--18- 
+
 18 / 32
-Proof:
 The natural response is x(k) = Ak x0
 If matrix A is diagonalizable1 , A = TΛT −1 ,
 1 0 ...
 λk 0 ...
  01 λk ... 0
-Λ=
  .. .. . . ..  ⇒ A = T  .. .. . . ..
- . . . .
 0 ... λn
 0 ... λkn
  T −1
@@ -422,9 +400,6 @@ The discrete-time system
 ¯ x(k) + D¯
 depends on the original continuous-time system through the relations
 eATs ,
-¯ B,
-¯ C,
-¯ D)
 ¯ provides the exact evolution of state
 If u(t) is piecewise constant, (A,
 and output samples at discrete times kTs
@@ -437,7 +412,6 @@ Rule of thumb: Ts ≈ 10
 to 90% of the steady-state value, for input u(t) ≡ 1, x(0) = 0
 rise time
 90 %
-output
 More on the choice of sampling time in the second part of the course ...
 29 / 32
 Approximate sampling - Euler’s method
@@ -462,7 +436,6 @@ For nonlinear systems ˙x(t) = f (x(t), u(t)):
 For linear systems ˙x(t) = Ax(t) + Bu(t):
 x((k + 1)Ts ) = (I + Ts A)x(kTs ) + Ts Bu(kTs )
 I + ATs ,
-Ts B,
 Tsn An
 Note that eTs A = I + Ts A + . . . + n! + . . .
 Therefore when Ts is small Euler’s method and exact sampling are similar

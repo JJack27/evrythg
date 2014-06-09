@@ -617,7 +617,7 @@ larger variations in flight regimes.
 Short-period aircraft dynamics
 A schematic diagram of an airplane is given in Fig. 1.12. To illustrate the
 effect of parameter variations, we consider the pitching motion of the aircraft.
-Introduce the pitch angle θ . Choose normal acceleration N z , pitch rate q = θ ,
+Introduce the pitch angle \theta . Choose normal acceleration N z , pitch rate q = \theta ,
 Figure 1.12
 Schematic diagram of the aircraft in Example 1.6.
 and elevon angle δ e as state variables and the input to the elevon servo as the
@@ -628,7 +628,7 @@ is a rigid body:
 (1.6)
 =  21 a22 a23 
 0 −a
-where x T = ( N z θ δ e ). This model is called short-period dynamics. The
+where x T = ( N z \theta δ e ). This model is called short-period dynamics. The
 parameters of the model given depend on the operating conditions, which can
 be described in terms of Mach number and altitude; see Fig. 1.13, which shows
 the flight envelope.
@@ -797,9 +797,9 @@ is nontrivial. The following parameter adjustment mechanism, called the MIT
 rule, was used in the original MRAS:
 = −γ e
 (1.7)
-In this equation, e = y − ym denotes the model error and θ is a controller
-parameter. The quantity e/ θ is the sensitivity derivative of the error with
-respect to parameter θ . The parameter γ determines the adaptation rate.
+In this equation, e = y − ym denotes the model error and \theta is a controller
+parameter. The quantity e/ \theta is the sensitivity derivative of the error with
+respect to parameter \theta . The parameter γ determines the adaptation rate.
 In practice it is necessary to make approximations to obtain the sensitivity
 derivative. The MIT rule can be regarded as a gradient scheme to minimize
 the squared error e2 .
@@ -886,7 +886,7 @@ Hyperstate
 Figure 1.20
 Block diagram of a dual controller.
 state variables. This means that the resulting controller can handle very rapid
-parameter variations. An augmented state z = ( x T θ T )T consisting of the
+parameter variations. An augmented state z = ( x T \theta T )T consisting of the
 state of the process and the parameters can now be introduced. The goal of the
 control is then formulated to minimize a loss function
 G ( z(T ), u(T )) +
@@ -1455,11 +1455,12 @@ mathematical model should be chosen in such a way that
 the sum of the squares of the differences between the actually observed
 and the computed values, multiplied by numbers that measure the
 degree of precision, is a minimum.
+
 The least-squares method can be applied to a large variety of problems. It is
 particularly simple for a mathematical model that can be written in the form
-y(i) = ϕ 1 (i)θ 1 + ϕ 2 (i)θ 2 + ⋅ ⋅ ⋅ + ϕ n (i)θ n = ϕ T (i)θ 0
-(2.1)
-where y is the observed variable, θ 1 , θ 2 , . . . , θ n are parameters of the model to
+![(2.1)](140605085019.png)
+
+where y is the observed variable, \theta 1 , \theta 2 , . . . , \theta n are parameters of the model to
 be determined, and ϕ 1 , ϕ 2 , . . . , ϕ n are known functions that may depend on
 other known variables. The vectors
 ϕ T ( i) = ( ϕ 1 ( i) ϕ 2 ( i) . . . ϕ n ( i) )
@@ -1473,63 +1474,56 @@ and regressors {( y(i), ϕ (i)) , i = 1, 2, . . . , t} are obtained from an expe
 The problem is to determine the parameters in such a way that the outputs
 computed from the model in Eq. (2.1) agree as closely as possible with the
 measured variables y(i) in the sense of least squares. That is, the parameter
-θ should be chosen to minimize the least-squares loss function
-V (θ , t) =
-y(i) − ϕ T (i)θ
+\theta should be chosen to minimize the least-squares loss function
+V (\theta , t) =
+y(i) − ϕ T (i)\theta
 (2.2)
-Since the measured variable y is linear in parameters θ 0 and the least-squares
-criterion is quadratic, the problem admits an analytical solution. Introduce the
-notations
-Y (t) = ( y(1)
-y(2)
-y(t) )T
-E (t) = ( ε (1) ε (2) . . . ε (t) )T
- ϕ (1) 
-Φ(t) =  . 
-ϕ (t)
-P(t) = Φ T (t)Φ(t)
-ϕ (i)ϕ T (i)
-(2.3)
-where the residuals ε (i) are defined by
-ε (i) = y(i) − y(i) = y(i) − ϕ T (i)θ
+Since the measured variable y is linear in parameters \theta 0 and the least-squares
+criterion is quadratic, the problem admits an analytical solution.
+
+Introduce the notations
+![(2.3)](140605084420.png)
+
+where the residuals \epsilon (i) are defined by
+\epsilon (i) = y(i) − y(i) = y(i) − ϕ T (i)\theta
 With these notations the loss function (2.2) can be written as
-ε 2 ( i) =
+\epsilon 2 ( i) =
 where E can be written as
 (2.4)
 The solution to the least-squares problem is given by the following theorem.
 Least-squares estimation
-The function of Eq. (2.2) is minimal for parameters θ such that
+The function of Eq. (2.2) is minimal for parameters \theta such that
 (2.5)
 If the matrix Φ T Φ is nonsingular, the minimum is unique and given by
-θ = (Φ T Φ)−1 Φ T Y
+\theta = (Φ T Φ)−1 Φ T Y
 (2.6)
 The loss function of Eq. (2.2) can be written as
-2V (θ , t) = E T E = ( Y − Φθ )T ( Y − Φθ )
+2V (\theta , t) = E T E = ( Y − Φθ )T ( Y − Φθ )
 (2.7)
 Since the matrix Φ Φ is always nonnegative definite, the function V has a
-minimum. The loss function is quadratic in θ . The minimum can be found in
+minimum. The loss function is quadratic in \theta . The minimum can be found in
 many ways. One way is to determine the gradient of Eq. (2.7) with respect
-to θ . (See Problem 2.1 at the end of the chapter). The gradient is zero when
+to \theta . (See Problem 2.1 at the end of the chapter). The gradient is zero when
 Eq. (2.5) is satisfied. Another way to find the minimum is by completing the
 square. We get
-2V (θ , t) = Y T Y − Y T Φθ − θ T Φ T Y + θ T Φ T Φθ
+2V (\theta , t) = Y T Y − Y T Φθ − \theta T Φ T Y + \theta T Φ T Φθ
 + Y T Φ(Φ T Φ)−1 Φ T Y − Y T Φ(Φ T Φ)−1 Φ T Y
 = Y T I − Φ(Φ T Φ)−1 Φ T Y
-+ θ − (Φ T Φ)−1 Φ T Y
-Φ T Φ θ − (Φ T Φ)−1 Φ T Y
++ \theta − (Φ T Φ)−1 Φ T Y
+Φ T Φ \theta − (Φ T Φ)−1 Φ T Y
 (2.8)
-The first term on the right-hand side is independent of θ . The second term is
+The first term on the right-hand side is independent of \theta . The second term is
 always positive. The minimum is obtained for
-θ = θ = (Φ T Φ)−1 Φ T Y
+\theta = \theta = (Φ T Φ)−1 Φ T Y
 and the theorem is proven.
 Remark 1. Equation (2.5) is called the normal equation. Equation (2.6) can
 be written as
-θ (t) =
+\theta (t) =
 ϕ (i) y(i) = P(t)
 ϕ (i) y(i)
 (2.9)
 Remark 2. The condition that the matrix Φ T Φ is invertible is called an excitation condition.
-Remark 3. The least-squares criterion weights all errors ε (i) equally, and this
+Remark 3. The least-squares criterion weights all errors \epsilon (i) equally, and this
 corresponds to the assumption that all measurements have the same precision.
 Different weighting of the errors can be accounted for by changing the loss
 function (2.2) to
@@ -1542,7 +1536,7 @@ y(i) = b0 + b1 u(i) + b2 u2 (i) + e(i)
 where e(i) is zero mean Gaussian noise with standard deviation 0.1. The system
 is linear in the parameters and can be written in the form (2.1) with
 ϕ T (i) = ( 1 u(i) u2 (i) )
-θ T = ( b0
+\theta T = ( b0
 The output is measured for the seven different inputs shown by the dots in
 Fig. 2.1. In practice the model structure is usually unknown, and the user must
 decide on an appropriate model. We illustrate this by estimating parameters
@@ -1578,38 +1572,38 @@ they are linearly independent. The predicted output Y lies in the plan spanned
 ˆ is smallest when E is orthogonal to this
 by ϕ and ϕ . The error E = Y − Y
 plane. In the general case, Eq. (2.4) can be written as
- ε (1)   y(1)   ϕ 1 (1) 
+ \epsilon (1)   y(1)   ϕ 1 (1) 
  ϕ n (1) 
- ε (2)   y(2)   ϕ 1 (2) 
+ \epsilon (2)   y(2)   ϕ 1 (2) 
  ϕ n (2) 
 y(t)
-ε (t)
+\epsilon (t)
 ϕ 1 (t)
 ϕ n (t)
 where ϕ i are the columns of the matrix Φ . The least-squares problem can
-thus be interpreted as the problem of finding constants θ 1 , . . . , θ n such that
+thus be interpreted as the problem of finding constants \theta 1 , . . . , \theta n such that
 Figure 2.2
 Geometric interpretation of the least-squares estimate.
 the vector Y is approximated as well as possible by a linear combination of the
 vectors ϕ 1 , ϕ 2 , . . . , ϕ n . Let Y be the vector in the span of ϕ 1 , ϕ 2 , . . . , ϕ n , which
 is the best approximation, and let E = Y − Y. The vector E is smallest when
 it is orthogonal to all vectors ϕ . This gives
-(ϕ i )T Y − θ 1ϕ 1 − θ 2ϕ 2 − ⋅ ⋅ ⋅ − θ nϕ n = 0
+(ϕ i )T Y − \theta 1ϕ 1 − \theta 2ϕ 2 − ⋅ ⋅ ⋅ − \theta nϕ n = 0
 i = 1, . . . , t
-which is identical to the normal equation (2.5). The vector θ is unique if the
+which is identical to the normal equation (2.5). The vector \theta is unique if the
 vectors ϕ 1 , ϕ 2 , . . . , ϕ n are linearly independent.
 Statistical Interpretation
 The least-squares method can be interpreted in statistical terms. It is then necessary to make assumptions about how the data has been generated. Assume
 that the process is
-y(i) = ϕ T (i)θ 0 + e(i)
+y(i) = ϕ T (i)\theta 0 + e(i)
 (2.12)
-where θ 0 is the vector of “true” parameters and { e(i), i = 1, 2, . . .} is a sequence
+where \theta 0 is the vector of “true” parameters and { e(i), i = 1, 2, . . .} is a sequence
 of independent, equally distributed random variables with zero mean. It is also
 assumed that e is independent of ϕ . Equation (2.4) can be written as
 Multiplying by (Φ T Φ)−1 Φ T gives
 (2.13)
 Provided that E is independent of Φ T , which is equivalent to saying that e(i)
-is independent of ϕ (i), the mathematical expectation of θ is equal to θ 0 . An
+is independent of ϕ (i), the mathematical expectation of \theta is equal to \theta 0 . An
 estimate with this property is called unbiased. The following theorem is given
 without proof.
 Statistical properties of least-squares estimation
@@ -1619,12 +1613,12 @@ and cov the covariance of a random variable.
 If Φ T Φ is nonsingular, then
 (ii)
 (iii)
-Eθ (t) = θ 0
-cov θ (t) = σ 2 (Φ T Φ)−1
-σ 2 (t) = 2V (θ , t)/(t − n) is an unbiased estimate of σ 2
-where n is the number of parameters in θ 0 and θ and t is the number of data
+Eθ (t) = \theta 0
+cov \theta (t) = σ 2 (Φ T Φ)−1
+σ 2 (t) = 2V (\theta , t)/(t − n) is an unbiased estimate of σ 2
+where n is the number of parameters in \theta 0 and \theta and t is the number of data
 points.
-The theorem states that the estimates are unbiased, that is, Eθ (t) = θ 0 .
+The theorem states that the estimates are unbiased, that is, Eθ (t) = \theta 0 .
 Further, it is desirable that an estimate converge to the true parameter value
 as the number of observations increases toward infinity. This property is called
 consistency. There are several notions of consistency corresponding to different
@@ -1668,26 +1662,26 @@ It is then desirable to make the computations recursively to save computation
 time. Computation of the least-squares estimate can be arranged in such a way
 that the results obtained at time t − 1 can be used to get the estimates at time
 t. The solution in Eq. (2.6) to the least-squares problem will be rewritten in a
-recursive form. Let θ (t − 1) denote the least-squares estimate based on t − 1
+recursive form. Let \theta (t − 1) denote the least-squares estimate based on t − 1
 measurements. Assume that the matrix Φ T Φ is nonsingular for all t. It follows
 from the definition of P(t) in Eq. (2.3) that
 P−1 (t) = Φ T (t)Φ(t) =
 ϕ (i)ϕ T (i) + ϕ (t)ϕ T (t)
 = P−1 (t − 1) + ϕ (t)ϕ T (t)
 (2.14)
-The least-squares estimate θ (t) is given by Eq. (2.9):
-θ (t) = P(t)
+The least-squares estimate \theta (t) is given by Eq. (2.9):
+\theta (t) = P(t)
 ϕ (i) y(i) + ϕ (t) y(t)
 It follows from Eqs. (2.9) and (2.14) that
-ϕ (i) y(i) = P−1 (t − 1)θ (t − 1) = P−1 (t)θ (t − 1) − ϕ (t)ϕ T (t)θ (t − 1)
+ϕ (i) y(i) = P−1 (t − 1)\theta (t − 1) = P−1 (t)\theta (t − 1) − ϕ (t)ϕ T (t)\theta (t − 1)
 The estimate at time t can now be written as
-θ (t) = θ (t − 1) − P(t)ϕ (t)ϕ T (t)θ (t − 1) + P(t)ϕ (t) y(t)
-= θ (t − 1) + P(t)ϕ (t) y(t) − ϕ T (t)θ (t − 1)
-= θ (t − 1) + K (t)ε (t)
+\theta (t) = \theta (t − 1) − P(t)ϕ (t)ϕ T (t)\theta (t − 1) + P(t)ϕ (t) y(t)
+= \theta (t − 1) + P(t)ϕ (t) y(t) − ϕ T (t)\theta (t − 1)
+= \theta (t − 1) + K (t)\epsilon (t)
 K (t) = P(t)ϕ (t)
-ε (t) = y(t) − ϕ T (t)θ (t − 1)
-The residual ε (t) can be interpreted as the error in predicting the signal y(t)
-one step ahead based on the estimate θ (t − 1).
+\epsilon (t) = y(t) − ϕ T (t)\theta (t − 1)
+The residual \epsilon (t) can be interpreted as the error in predicting the signal y(t)
+one step ahead based on the estimate \theta (t − 1).
 To proceed, it is necessary to derive a recursive equation for P(t) rather
 than for P(t)−1 as in Eq. (2.14). The following lemma is useful.
 Matrix inversion lemma
@@ -1712,18 +1706,18 @@ is, for a single output system it is a scalar.
 The recursive calculations are summarized in the following theorem.
 Recursive least-squares estimation (RLS)
 Assume that the matrix Φ(t) has full rank, that is, Φ T (t)Φ(t) is nonsingular,
-for all t ≥ t0 . Given θ (t0 ) and P(t0 ) = (Φ T (t0 )Φ(t0 ))−1 , the least-squares
-estimate θ (t) then satisfies the recursive equations
-θ (t) = θ (t − 1) + K (t) y(t) − ϕ T (t)θ (t − 1)
+for all t ≥ t0 . Given \theta (t0 ) and P(t0 ) = (Φ T (t0 )Φ(t0 ))−1 , the least-squares
+estimate \theta (t) then satisfies the recursive equations
+\theta (t) = \theta (t − 1) + K (t) y(t) − ϕ T (t)\theta (t − 1)
 K (t) = P(t)ϕ (t) = P(t − 1)ϕ (t) I + ϕ (t) P(t − 1)ϕ (t)
 P(t) = P(t − 1) − P(t − 1)ϕ (t) I + ϕ T (t) P(t − 1)ϕ (t)
 = I − K (t)ϕ T (t) P(t − 1)
 (2.15)
 (2.16)
 (2.17)
-Remark 1. Equation (2.15) has strong intuitive appeal. The estimate θ (t) is
-obtained by adding a correction to the previous estimate θ (t − 1). The correction
-is proportional to y(t) − ϕ T (t)θ (t − 1), where the last term can be interpreted
+Remark 1. Equation (2.15) has strong intuitive appeal. The estimate \theta (t) is
+obtained by adding a correction to the previous estimate \theta (t − 1). The correction
+is proportional to y(t) − ϕ T (t)\theta (t − 1), where the last term can be interpreted
 as the value of y at time t predicted by the model of Eq. (2.1). The correction
 term is thus proportional to the difference between the measured value of
 y(t) and the prediction of y(t) based on the previous parameter estimate. The
@@ -1731,21 +1725,21 @@ components of the vector K (t) are weighting factors that tell how the correctio
 and the previous estimate should be combined.
 Remark 2. The least-squares estimate can be interpreted as a Kalman filter
 for the process
-θ (t + 1) = θ (t)
+\theta (t + 1) = \theta (t)
 (2.18)
-y(t) = ϕ T (t)θ (t) + e(t)
+y(t) = ϕ T (t)\theta (t) + e(t)
 Remark 3. The recursive equations can also be derived by starting with the
 loss function of Eq. (2.2). Using Eqs. (2.8) and (2.6) gives
-2V (θ , t) = 2V (θ , t − 1) + ε 2 (θ , t)
+2V (\theta , t) = 2V (\theta , t − 1) + \epsilon 2 (\theta , t)
 = Y T (t − 1) I − Φ(t − 1) Φ T (t − 1)Φ(t − 1)
-+ θ − θ (t − 1)
-+ y(t) − ϕ T (t)θ
++ \theta − \theta (t − 1)
++ y(t) − ϕ T (t)\theta
 Φ(t − 1) Y (t − 1)
-Φ T (t − 1)Φ(t − 1) θ − θ (t − 1)
-y(t) − ϕ T (t)θ
+Φ T (t − 1)Φ(t − 1) \theta − \theta (t − 1)
+y(t) − ϕ T (t)\theta
 (2.19)
-The first term on the right-hand side is independent of θ , and the remaining
-two terms are quadratic in θ . V (θ , t) can then easily be minimized with respect
+The first term on the right-hand side is independent of \theta , and the remaining
+two terms are quadratic in \theta . V (\theta , t) can then easily be minimized with respect
 Notice that the matrix P(t) is defined only when the matrix Φ T (t)Φ(t) is
 nonsingular. Since
 Φ T (t)Φ(t) =
@@ -1753,7 +1747,7 @@ it follows that Φ Φ is always singular if t < n. To obtain an initial conditio
 for P, it is thus necessary to choose t = t0 such that Φ T (t0 )Φ(t0 ) is nonsingular.
 The initial conditions are then
 P(t0 ) = Φ T (t0 )Φ(t0 )
-θ (t0 ) = P(t0 )Φ T (t0 ) Y (t0 )
+\theta (t0 ) = P(t0 )Φ T (t0 ) Y (t0 )
 The recursive equations can then be used for t > t0 . It is, however, often
 convenient to use the recursive equations in all steps. If the recursive equations
 are started with the initial condition
@@ -1765,10 +1759,10 @@ by choosing P0
 sufficiently large.
 By using the Kalman filter interpretation of the least-squares method,
 it may be seen that this way of starting the recursion corresponds to the
-situation in which the parameters have an initial distribution with mean θ 0
+situation in which the parameters have an initial distribution with mean \theta 0
 and covariance P0 .
 Time-Varying Parameters
-In the least-squares model (2.1) the parameters θ i are assumed to be constant.
+In the least-squares model (2.1) the parameters \theta i are assumed to be constant.
 In several adaptive problems it is of interest to consider the situation in which
 the parameters are time-varying. Two cases can be covered by simple extensions of the least-squares method. In one such case parameters are assumed to
 change abruptly but infrequently; in the other case the parameters are changing continuously but slowly. The case of abrupt parameter changes can be covered by resetting. The matrix P in the least-squares algorithm (Theorem 2.3)
@@ -1778,7 +1772,7 @@ with a larger step. A more sophisticated version is to run n estimators in paral
 decision logic. (See Chapter 6.) The case of slowly time-varying parameters can
 be covered by relatively simple mathematical models. One pragmatic approach
 is simply to replace the least-squares criterion of Eq. (2.2) with
-λ t−i y(i) − ϕ T (i)θ
+λ t−i y(i) − ϕ T (i)\theta
 (2.20)
 where λ is a parameter such that 0 < λ ≤ 1. The parameter λ is called the
 forgetting factor or discounting factor. The loss function of Eq. (2.20) implies
@@ -1788,19 +1782,19 @@ method is therefore called exponential forgetting or exponential discounting.
 By repeating the calculations leading to Theorem 2.3 for the loss function of
 Eq. (2.20), the following result is obtained.
 Recursive least squares with exponential forgetting
-Assume that the matrix Φ(t) has full rank for t ≥ t0 . The parameter θ , which
+Assume that the matrix Φ(t) has full rank for t ≥ t0 . The parameter \theta , which
 minimizes Eq. (2.20), is given recursively by
 K (t) = P(t)ϕ (t) = P(t − 1)ϕ (t) λ + ϕ T (t) P(t − 1)ϕ (t)
 (2.21)
 P(t) = I − K (t)ϕ T (t) P(t − 1) / λ
 A disadvantage of exponential forgetting is that data is discounted even
 if P(t)ϕ (t) = 0. This condition implies that y(t) does not contain any new
-information about the parameter θ . In this case it follows from Eqs. (2.21)
+information about the parameter \theta . In this case it follows from Eqs. (2.21)
 that the matrix P increases exponentially with rate λ . Several ways to avoid
 this are discussed in detail in Chapter 11.
 An alternative method of dealing with time-varying parameters is to assume a time-varying mathematical model. Time-varying parameters can be
 obtained by replacing the first equation of Eqs. (2.18) with the model
-θ (t + 1) = Φ vθ (t) + v(t)
+\theta (t + 1) = Φ vθ (t) + v(t)
 where Φ v is a known matrix and v(t) is discrete-time white noise. The filtering
 interpretation of the least-squares problem given in Remark 2 of Theorem 2.3
 can now easily be generalized. The least-squares estimator will then be the
@@ -1808,38 +1802,38 @@ Kalman filter. The case Φ v = I corresponds to a model in which the parameters
 are drifting Wiener processes.
 Simpliﬁed Algorithms
 The recursive least-squares algorithm given by Theorem 2.3 has two sets of
-state variables, θ and P, which must be updated at each step. For large
+state variables, \theta and P, which must be updated at each step. For large
 n the updating of the matrix P dominates the computing effort. There are
 several simplified algorithms that avoid updating the P matrix at the cost of
 slower convergence. Kaczmarz’s projection algorithm is one simple solution. To
 describe this algorithm, consider the unknown parameter as an element of Rn .
 One measurement
 (2.22)
-y(t) = ϕ T (t)θ
-determines the projection of the parameter vector θ on the vector ϕ (t). From
+y(t) = ϕ T (t)\theta
+determines the projection of the parameter vector \theta on the vector ϕ (t). From
 this it is immediately clear that n measurements, where ϕ (1), . . . , ϕ (n) span
-Rn , are required to determine the parameter vector θ uniquely. Assume that an
-estimate θ (t − 1) is available and that a new measurement such as Eq. (2.22) is
+Rn , are required to determine the parameter vector \theta uniquely. Assume that an
+estimate \theta (t − 1) is available and that a new measurement such as Eq. (2.22) is
 obtained. Since the measurement y(t) contains information only in the direction
 ϕ (t) in parameter space, it is natural to choose as the new estimate the value
-θ (t) that minimizes θ (t) − θ (t − 1) subject to the constraint y(t) = ϕ T (t)θ (t).
+\theta (t) that minimizes \theta (t) − \theta (t − 1) subject to the constraint y(t) = ϕ T (t)\theta (t).
 Introducing a Lagrangian multiplier α to handle the constraint, we thus have
 to minimize the function
-θ (t) − θ (t − 1)
-θ (t) − θ (t − 1) + α y(t) − ϕ T (t)θ (t)
-Taking derivatives with respect to θ (t) and α , we get
-θ (t) − θ (t − 1) − αϕ (t) = 0
-y(t) − ϕ T (t)θ (t) = 0
+\theta (t) − \theta (t − 1)
+\theta (t) − \theta (t − 1) + α y(t) − ϕ T (t)\theta (t)
+Taking derivatives with respect to \theta (t) and α , we get
+\theta (t) − \theta (t − 1) − αϕ (t) = 0
+y(t) − ϕ T (t)\theta (t) = 0
 Solving these equations gives
-θ (t) = θ (t − 1) +
+\theta (t) = \theta (t − 1) +
 ϕ T (t)ϕ (t)
-y(t) − ϕ T (t)θ (t − 1)
+y(t) − ϕ T (t)\theta (t − 1)
 (2.23)
 The updating formula is called Kaczmarz’s algorithm. It is useful to be able to
 change the step length of the parameter adjustment by introducing a factor γ .
 This gives
 γ ϕ (t)
-θ (t) = θ (t − 1) + T
+\theta (t) = \theta (t − 1) + T
 ϕ (t)ϕ (t)
 To avoid a potential problem that occurs when ϕ (t) = 0, the denominator in
 the correction term is changed from ϕ T (t)ϕ (t) to ϕ T (t)ϕ (t) + α , where α is a
@@ -1853,9 +1847,9 @@ rithm.
 In some textbooks this is called the normalized projection algo-
 Remark 2. The bound for the parameter γ is obtained from the following
 analysis. Assume that data has been generated by Eq. (2.22) with parameter
-θ = θ 0 . It then follows from Eq. (2.24) that the parameter error
+\theta = \theta 0 . It then follows from Eq. (2.24) that the parameter error
 satisfies the equation
-θ (t) = A(t)θ (t − 1)
+\theta (t) = A(t)\theta (t − 1)
 A(t) = I −
 γ ϕ (t)ϕ T (t)
 The matrix A(t) has one eigenvalue,
@@ -1865,7 +1859,7 @@ A are all equal to 1.
 The projection algorithm assumes that the data is generated by Eq. (2.22)
 with no error. When the data is generated by Eq. (2.12) with additional random
 error, a simplified algorithm is given by
-θ (t) = θ (t − 1) + P(t)ϕ (t) y(t) − ϕ T (t)θ (t − 1)
+\theta (t) = \theta (t − 1) + P(t)ϕ (t) y(t) − ϕ T (t)\theta (t − 1)
 P(t) =
 (2.25)
 (2.26)
@@ -1873,7 +1867,7 @@ P(t) =
 This is the stochastic approximation (SA) algorithm. Notice that P(t) = ΦΦ T
 is now a scalar when y(t) is a scalar. A further simplification is the least mean
 square (LMS) algorithm in which the parameter updating is done by using
-θ (t) = θ (t − 1) + γ ϕ (t) y(t) − ϕ T (t)θ (t − 1)
+\theta (t) = \theta (t − 1) + γ ϕ (t) y(t) − ϕ T (t)\theta (t − 1)
 where γ is a constant.
 Continuous-Time Models
 In the recursive schemes the variables have so far been indexed by a discrete
@@ -1881,8 +1875,8 @@ parameter t. The notation t was chosen because in many applications it denotes t
 It is straightforward to generalize the results to this case. Equation (2.1) is
 still used, but i is now assumed to be a real variable. Assuming exponential
 forgetting, the parameter should be determined such that the criterion
-V (θ ) =
-e−α (t−τ ) y(τ ) − ϕ T (τ )θ
+V (\theta ) =
+e−α (t−τ ) y(τ ) − ϕ T (τ )\theta
 (2.27)
 is minimized. The parameter α , where α ≥ 0, corresponds to the forgetting
 factor λ in Eq. (2.20). A straightforward calculation shows that the criterion
@@ -1900,7 +1894,7 @@ Assume that the matrix R(t) given by Eq. (2.29) is invertible for all t. The
 estimate that minimizes Eq. (2.27) satisfies
 dθ (t)
 = P(t)ϕ (t) e(t)
-e(t) = y(t) − ϕ T (t)θ (t)
+e(t) = y(t) − ϕ T (t)\theta (t)
 dP(t)
 = α P(t) − P(t)ϕ (t)ϕ T (t) P(t)
 (2.30)
@@ -1921,8 +1915,8 @@ Finite-Impulse Response (FIR) Models
 A linear time-invariant dynamical system is uniquely characterized by its impulse response. The impulse response is in general infinite-dimensional. For stable systems the impulse response will go to zero exponentially fast and may then be truncated. Notice, however, that a large number of parameters may be required if the sampling interval is short in comparison to the slowest time constant of the system. This results in the so-called finite impulse response (FIR) model, which is also called a transversal filter. The model can be described by the equation
 y(t) = b1 u(t − 1) + b2 u(t − 2) + ⋅ ⋅ ⋅ + bn u(t − n) (2.33)
 Estimating Parameters in Dynamical Systems
-y(t) = ϕ T (t − 1)θ
-θ T = ( b1
+y(t) = ϕ T (t − 1)\theta
+\theta T = ( b1
 ϕ (t − 1) = ( u(t − 1) . . . u(t − n) )
 This model is identical to the regression model of Eq. (2.1), except for the
 index t of the regression vector, which is different. The reason for this change
@@ -1932,7 +1926,7 @@ Eq. (2.33) clearly fits the least-squares formulation, and the estimator is then
 given by Theorem 2.3.
 The parameter estimator can be represented by the block diagram in
 Fig. 2.3. The estimator may be regarded as a system with inputs u and y
-and output θ . Since the signal
+and output \theta . Since the signal
 y(t) = b1 (t − 1)u(t − 1) + ⋅ ⋅ ⋅ + bn (t − 1)u(t − n)
 is available in the system, we can also consider y(t) as an output. Since y(t) is
 a predicted estimate of y, the recursive estimator can also be interpreted as an
@@ -1952,12 +1946,12 @@ y(t) + a1 y(t − 1) + ⋅ ⋅ ⋅ + an y(t − n) = b1 u(t + m − n − 1) + �
 Assume that the sequence of inputs {u(1), u(2), . . . , u(t)} has been applied to
 the system and the corresponding sequence of outputs { y(1), y(2), . . . , y(t)} has
 been observed. Introduce the parameter vector
-θ T = ( a1
+\theta T = ( a1
 and the regression vector
 (2.35)
 ϕ T (t − 1) = ( − y(t − 1) . . . − y(t − n) u(t + m − n − 1) . . . u(t − n) )
 Notice that the output signal appears delayed in the regression vector. The
-model is therefore called an autoregressive model. The way in which the elements are ordered in the matrix θ is, of course, arbitrary, provided that ϕ (t − 1)
+model is therefore called an autoregressive model. The way in which the elements are ordered in the matrix \theta is, of course, arbitrary, provided that ϕ (t − 1)
 is also similarly reordered. Later, in dealing with adaptive control, it will be
 natural to reorder the terms. The convention that the time index of the ϕ vector will refer to the time when all elements in the vector are available will also
 be adopted. The model can formally be written as the regression model
@@ -1987,8 +1981,8 @@ Determine the parameters that minimize the criterion
 ( y( k) − y( k))2
 where y(t) = y(t) + e(t). This problem can be interpreted as a least-squares
 problem whose solution is given by
-θ (t) = θ (t − 1) + P(t)ϕ (t − 1)ε (t)
-ε (t) = y(t) − ϕ T (t − 1)θ (t − 1)
+\theta (t) = \theta (t − 1) + P(t)ϕ (t − 1)\epsilon (t)
+\epsilon (t) = y(t) − ϕ T (t − 1)\theta (t − 1)
 Compare with Theorem 2.1. The recursive estimator obtained can be represented by the block diagram in Fig. 2.4.
 Continuous-Time Transfer Functions
 We now show that the least-squares method can also be used to estimate
@@ -2011,12 +2005,12 @@ y f (t) = H f ( p) y(t)
 u f (t) = H f ( p)u(t)
 and H f ( p) is a stable transfer function with a pole excess of n or more. See
 Fig. 2.5. If we introduce
-θ = ( a1
+\theta = ( a1
 ϕ T (t) = ( − pn−1 y f . . . − y f pm−1 u f . . . u f )
 = ( − pn−1 H f ( p) y . . . − H f ( p) y pm−1 H f ( p)u . . .
 the model expressed by Eq. (2.37) can be written as
 H f ( p)u )
-pn y f (t) = pn H f ( p) y(t) = ϕ T (t)θ
+pn y f (t) = pn H f ( p) y(t) = ϕ T (t)\theta
 By a proper realization of the filter H f it is possible to use one filter to generate
 all the signals pi H f ( p) y, i = 0, . . . , n, and another filter to generate pi H f ( p)u,
 i = 0, . . . , m − 1. Standard least squares can now be applied, since this is
@@ -2026,7 +2020,7 @@ input to the system.
 Nonlinear Models
 Least squares can also be applied to certain nonlinear models. The essential
 restriction is that the models be linear in the parameters so that they can be
-Parameter estimate θ
+Parameter estimate \theta
 Estimator
 p i Hf (p)u
 Figure 2.5
@@ -2038,11 +2032,11 @@ Nonlinear system
 Consider the model
 By introducing
 y(t) + ay(t − 1) = b1 u(t − 1) + b2 sin(u(t))
-θ = ( a b1
+\theta = ( a b1
 ϕ T (t) = ( − y(t) u(t) sin(u(t)) )
 the model can be written as
 The model is linear in the parameters, and the least-squares method can be
-used to estimate θ .
+used to estimate \theta .
 Stochastic Models
 The least-squares estimate is biased when it is used on data generated by
 Eq. (2.12), where the errors e(i) are correlated. The reason is that Eϕ T (i) e(i) =
@@ -2057,10 +2051,10 @@ correlation of the disturbance. The model of Eq. (2.38) cannot be converted
 directly to a regression model, since the variables { e(t)} are not known. A
 regression model can, however, be obtained by suitable approximations. To
 describe these, introduce
-ϕ T (t − 1) = (− y(t − 1) . . . − y(t − n) u(t − 1) . . . u(t − n) ε (t − 1) . . . ε (t − n) )
-The variables e(t) are approximated by the prediction errors ε (t). The model
+ϕ T (t − 1) = (− y(t − 1) . . . − y(t − n) u(t − 1) . . . u(t − n) \epsilon (t − 1) . . . \epsilon (t − n) )
+The variables e(t) are approximated by the prediction errors \epsilon (t). The model
 can then be approximated by
-y(t) = ϕ T (t − 1)θ + e(t)
+y(t) = ϕ T (t − 1)\theta + e(t)
 and standard recursive least squares can be applied. The method obtained is
 called extended least squares (ELS). The equations for updating the estimates
 are given by
@@ -2068,7 +2062,7 @@ are given by
 P−1 (t) = P−1 (t − 1) + ϕ (t − 1)ϕ T (t − 1)
 (Compare with Theorem 2.3.) Another method of estimating the parameters in
 Eq. (2.38) is to use Eqs. (2.39) and let the residual be defined by
-C ( q)ε (t) = A( q) y(t) − B ( q)u(t)
+C ( q)\epsilon (t) = A( q) y(t) − B ( q)u(t)
 (2.40)
 and regression vector ϕ in Eqs. (2.39) be replaced by ϕ f , where
 C ( q)ϕ f (t) = ϕ (t)
@@ -2078,8 +2072,8 @@ from t = 1 for each measurement. The following approximations can be made:
 This algorithm is called the recursive maximum likelihood (RML) method.
 It is advantageous for both ELS and RML to replace the residual in the
 regression vector by the posterior residual defined as
-ε p (t) = y(t) − ϕ T (t − 1)θ (t)
-that is, the latest value of θ is used to compute ε p .
+\epsilon p (t) = y(t) − ϕ T (t − 1)\theta (t)
+that is, the latest value of \theta is used to compute \epsilon p .
 Another possibility to model the correlated noise is to use the model
 C ( q)
 u(t) +
@@ -2094,7 +2088,7 @@ described by the equations
 P(t − 1) −
 P(t − 1)ϕ (t − 1)ϕ T (t − 1) P(t − 1)
 λ + ϕ T (t − 1) P(t − 1)ϕ (t − 1)
-where θ , ϕ , and ε are different for the different methods.
+where \theta , ϕ , and \epsilon are different for the different methods.
 Experimental Conditions
 The properties of the data used in parameter estimation are crucial for the
 quality of the estimates. For example, it is obvious that no useful parameter
@@ -2242,9 +2236,9 @@ is further assumed that deg A = deg A0 and deg B ≥ B 0 , then limt→∞ Φ T 
 is positive definite.
 Consider
 Φ Φθ = lim
-V (θ ) = θ T lim
-ϕ T ( k)θ
-v(t) = ϕ T (t + n − 1)θ = B ( q)u(t) − ( A( q) − qn ) y(t)
+V (\theta ) = \theta T lim
+ϕ T ( k)\theta
+v(t) = ϕ T (t + n − 1)\theta = B ( q)u(t) − ( A( q) − qn ) y(t)
 = B ( q)u(t) −
 A( q) − qn 0
 B ( q)u(t)
@@ -2370,7 +2364,7 @@ are illustrated through simulations. Throughout the section, data is generated
 y(t) + ay(t − 1) = bu(t − 1) + e(t) + ce(t − 1)
 (2.53)
 where a = −0.8, b = 0.5, and e(t) is zero mean white noise with standard
-deviation σ = 0.5. Furthermore, c = 0, P(0) = 100 ⋅ I, and θ (0) = 0 except
+deviation σ = 0.5. Furthermore, c = 0, P(0) = 100 ⋅ I, and \theta (0) = 0 except
 when indicated. In most cases we use
 ϕ (t − 1) = ( − y(t − 1) u(t − 1) )
 Only in Example 2.13 is the parameter c estimated.
@@ -2466,7 +2460,7 @@ Stochastic approximation (SA):
 Figure 2.12 Estimates of the parameters in the process (2.53) when RLS
 is used and (a) λ = 1, (b) λ = 0.999, (c) λ = 0.99, and (d) λ = 0.95.
 The convergence properties of the four algorithms RLS, LMS, PA, and SA are
-compared in Fig. 2.13. All algorithms are initialized with θ (0) = 0. The RLS
+compared in Fig. 2.13. All algorithms are initialized with \theta (0) = 0. The RLS
 method in Fig. 2.13(a) uses P(0) = 100I and λ = 1. Notice that the estimates
 move very quickly initially. The LMS method used in Fig. 2.13(b) has a constant
 gain γ = 0.01. The estimates approach values that are close to the correct ones
@@ -2500,13 +2494,13 @@ highlighted by a few examples.
 Prior information in continuous time
 Consider the continuous-time system with the transfer function
 G ( s) =
-(1 + θ 1 s)(1 + θ 2 s)
+(1 + \theta 1 s)(1 + \theta 2 s)
 Prior Information
-The parameter θ 1 is assumed to be known; θ 2 and θ 3 are unknown. If we
+The parameter \theta 1 is assumed to be known; \theta 2 and \theta 3 are unknown. If we
 introduce the filtered signal u defined by
 the input-output relation may be written as
 (2.55)
-The estimation problem thus reduces to estimation of parameters θ 3 and θ 2 of
+The estimation problem thus reduces to estimation of parameters \theta 3 and \theta 2 of
 the first-order system given by Eq. (2.55).
 The example thus shows that it is straightforward to handle prior information for the continuous-time model. The next example illustrates some complications that occur when the model is sampled.
 Prior information in sampled models
@@ -2514,27 +2508,27 @@ Consider the system in Example 2.17. Sampling the system with sampling
 period h gives the pulse transfer operator
 H ( q) =
 + a1 q + a2
-θ 1 1 − e−h/θ 1 − θ 2 1 − e−h/θ 2
-θ 2 1 − e−h/θ 2 e−h/θ 1 − θ 1 1 − e−h/θ 1 e−h/θ 2
-a1 = − e−h/θ 1 + e−h/θ 2
-a2 = e−(1/θ 1 +1/θ 2 )h
-The pulse transfer function is nonlinear in θ 1 , θ 2 , and θ 3 . Further, both parameters appear in all the coefficients of the discrete-time pulse transfer function.
-This implies that a change in the unknown time constant θ 2 will influence all
+\theta 1 1 − e−h/\theta 1 − \theta 2 1 − e−h/\theta 2
+\theta 2 1 − e−h/\theta 2 e−h/\theta 1 − \theta 1 1 − e−h/\theta 1 e−h/\theta 2
+a1 = − e−h/\theta 1 + e−h/\theta 2
+a2 = e−(1/\theta 1 +1/\theta 2 )h
+The pulse transfer function is nonlinear in \theta 1 , \theta 2 , and \theta 3 . Further, both parameters appear in all the coefficients of the discrete-time pulse transfer function.
+This implies that a change in the unknown time constant \theta 2 will influence all
 the coefficients in the sampled data model. There is, however, some structure
 in the parameter dependence. The denominator polynomial can be written as
-q2 + a1 q + a2 = q − e−h/θ 1
-q − e−h/θ 2
-When θ 1 is known, one factor of A( q) is thus known. By reparameterization
+q2 + a1 q + a2 = q − e−h/\theta 1
+q − e−h/\theta 2
+When \theta 1 is known, one factor of A( q) is thus known. By reparameterization
 the sampled model can be written as
 ( q − α 1 )( q − α 2 )
 The prior information can be used to reduce the estimated parameters from 4
 to 3. Further simplifications can be made when the sampling interval is small
-in comparison with θ 1 and θ 2 . A series approximation of b1 and b2 in h gives
-θ 3 (θ 1 + θ 2 ) 3
+in comparison with \theta 1 and \theta 2 . A series approximation of b1 and b2 in h gives
+\theta 3 (\theta 1 + \theta 2 ) 3
 For short sampling periods we have
 The model can now be described by
 k( q + 1)
-where parameter α 1 is known and α 2 and k = θ 3 /(h2θ 1θ 2 ) are unknown.
+where parameter α 1 is known and α 2 and k = \theta 3 /(h2θ 1θ 2 ) are unknown.
 The observation about the structure of the sampled model for small sampling periods is a consequence of a general result about how poles and zeros
 are transformed by sampling. If α i is a pole of a continuous-time system, then
 the sampled system has a pole at exp(α i h).
@@ -2553,11 +2547,11 @@ Reparameterization
 Consider the circuit in Fig. 2.14. The state space representation is
 y = (0 R) x
 and the transfer function is
-Let θ 1 = R, θ 2 = 1/ L, and θ 3 = 1/ C. Then
+Let \theta 1 = R, \theta 2 = 1/ L, and \theta 3 = 1/ C. Then
 The coefficients are nonlinear (although of special structure) in the physical
 parameters R, 1/ L, and 1/ C. The system can be written as
 (2.56)
-and it is possible to make an estimation of θ 1 , θ 2 , and θ 3 by using Eq. (2.56).
+and it is possible to make an estimation of \theta 1 , \theta 2 , and \theta 3 by using Eq. (2.56).
 However, the estimates must be constrained such that the relations
 are fulfilled.
 For indirect self-tuning regulators it is possible to estimate the continuoustime process parameters from discrete-time measurements. The model can then
@@ -2644,16 +2638,16 @@ errors.)
 2.11 Consider Example 2.12. Analyze the asymptotic properties of the Pmatrix and explain the simulation in Figs. 2.7(a) and 2.7(b).
 2.12 Show that Eq. (2.11) minimizes the weighted least-squares loss function
 (2.10).
-2.13 Consider Eqs. (2.21) with the initial condition θ (0) = θ 0 and P(0) = P0 .
-Show that θ (t) minimizes the criterion
-(θ − θ 0 )T P0 1 (θ − θ 0 )
+2.13 Consider Eqs. (2.21) with the initial condition \theta (0) = \theta 0 and P(0) = P0 .
+Show that \theta (t) minimizes the criterion
+(\theta − \theta 0 )T P0 1 (\theta − \theta 0 )
 Compare Theorem 2.4.
 2.14 Consider the following model of time-varying parameters:
-θ (t) = Φ vθ (t − 1) + v(t)
+\theta (t) = Φ vθ (t − 1) + v(t)
 where {v(t), t = 1, 2, . . .} and { e(t), t = 1, 2, . . .} are sequences of independent, equally distributed random vectors with zero mean values and
 covariances R1 and R2 , respectively. Show that the recursive estimates
-of θ are given by
-θ (t) =θ (t − 1) + K (t) y(t) − ϕ T (t)θ (t − 1)
+of \theta are given by
+\theta (t) =\theta (t − 1) + K (t) y(t) − ϕ T (t)\theta (t − 1)
 K (t) =Φ v P(t − 1)ϕ (t − 1) R2 + ϕ T (t − 1) P(t − 1)ϕ (t − 1)
 P(t) =Φ v P(t − 1)Φ v + R1
 − Φ v P(t − 1)ϕ (t) R2 + ϕ T (t) P(t − 1)ϕ (t)
@@ -2684,7 +2678,7 @@ with gain K such that a + K b < 1. The estimator is a least-squares
 (LS) estimator that is based on the regression model
 y(t) = y(t) + ay(t − 1)
 ϕ (t − 1) = u(t − 1)
-(a) Determine the asymptotic LS estimate of θ = b when d = 0 and {uc }
+(a) Determine the asymptotic LS estimate of \theta = b when d = 0 and {uc }
 is a sequence of independent, equally distributed random variables
 with zero mean and variance σ 2 (i.e., uc is a white noise signal).
 (b) Determine the asymptotic LS estimate of b when uc = 0 and d = d0 =
@@ -2703,7 +2697,7 @@ Try to support your observations by analysis.
 2.21 Consider the open-loop system in Section 2.5 when c = 0. Let the input
 signal be a square wave with unit amplitude and a period of 100 samples. Investigate through simulations the convergence and behavior of the
 parameter estimates when varying:
-(a) The initial value θ (0).
+(a) The initial value \theta (0).
 (b) The initial value of the covariance matrix P(0).
 (c) The forgetting factor λ .
 (d) The period of the input signal.
@@ -2877,11 +2871,13 @@ feedback with the transfer operator − S/ R and a feedforward with the transfer
 operator T / R. It thus has two degrees of freedom. A block diagram of the
 closed-loop system is shown in Fig. 3.2. Elimination of u between Eqs. (3.1)
 and (3.2) gives the following equations for the closed-loop system:
-uc (t) +
-uc (t) −
 (3.3)
+
+[ _to('140604090343') ]
+***
 The closed-loop characteristic polynomial is thus
-(3.4)
+![(3.4)](140604085946.png)
+
 The key idea of the design method is to specify the desired closed-loop characteristic polynomial Ac . The polynomials R and S can then be solved from
 Eq. (3.4). Notice that in the design procedure we consider polynomial Ac to be
 a design parameter that is chosen to give desired properties to the closed-loop
@@ -2897,15 +2893,18 @@ the controller (3.2). To do this, we will require that the response from the
 command signal uc to the output be described by the dynamics
 Am ym (t) = Bm uc (t)
 (3.5)
-
 It then follows from Eqs. (3.3) that the following condition must hold:
-(3.6)
+
+[ _to('140604135649') ]
+***
+![(3.6)](140604135758.png)
 [ _cf('140530113614') ]
 This model-following condition says that the response of the closed-loop system
 to command signals is as specified by the model (3.5). Whether model-following
 can be achieved depends on the model, the system, and the command signal.
 If it is possible to make the error equal to zero for all command signals, then
 perfect model-following is achieved.
+
 The consequences of the model-following condition will now be explored.
 Equation (3.6) implies that there are cancellations of factors of BT and Ac .
 Factor the $B$ polynomial as
@@ -2933,11 +2932,16 @@ continuous-time case, we must impose the conditions
 deg S ≤ deg R
 deg T ≤ deg R
 (3.13)
-The Diophantine equation (3.4) has many solutions because if R0 and S0 are
+
+[ _to('140604090257') ]
+***
+The Diophantine equation (3.4) has many solutions because if $R_0$ and $S_0$ are
 solutions, then so are
-(3.14)
-where Q is an arbitrary polynomial. Since there are many solutions, we may
-select the solution that gives a controller of lowest degree. We call this the
+![(3.14)](140604090158.png)
+where $Q$ is an arbitrary polynomial.
+Since there are many solutions, we may select the solution that gives a controller of lowest degree.
+
+We call this the
 minimum-degree solution. Since deg A > deg B, the term of highest order on
 the left-hand side of Eq. (3.4) is AR. Hence
 deg R = deg Ac − deg A
@@ -3164,7 +3168,7 @@ the parameters and can be written as
 Indirect Self-tuning Regulators
 ϕ T (t − 1) = ( − y(t − 1) . . . − y(t − n) u(t − d0 ) . . . u(t − d0 − m) )
 The least-squares estimator with exponential forgetting is given by
-θ (t) = θ (t − 1) + K (t)ε (t)
+\theta (t) = \theta (t − 1) + K (t)\epsilon (t)
 K (t) = P(t − 1)ϕ (t − 1) λ + ϕ T (t − 1) P(t − 1)ϕ (t − 1)
 (3.22)
 P(t) = I − K (t)ϕ T (t − 1) P(t − 1) / λ
@@ -3315,7 +3319,7 @@ can be expected and that the estimate of convergence time given by Eq. (3.23)
 is reasonable. The examples also show the importance of using a good underlying control design. With model-following design it is recommended that
 cancellation of process zeros is avoided.
 The indirect self-tuning regulator based on model-following given by Algorithm 3.1 is a straightforward application of the idea of self-tuning. The adapˆ
-tive controller has states that correspond to the parameter estimate θ , the
+tive controller has states that correspond to the parameter estimate \theta , the
 covariance matrix P, the regression vector ϕ , and the states required for the
 implementation of the control law. The controller in Example 3.4 has 20 state
 variables; updating of the covariance matrix P alone requires ten states. The
@@ -3341,11 +3345,11 @@ If we introduce the filtered signals
 y f (t) = H f y(t)
 u f (t) = H f u(t)
 the model (3.1) can be written as
-pn y f (t) = ϕ T (t)θ
+pn y f (t) = ϕ T (t)\theta
 ϕ (t) = ( − pn−1 y f
 By using least squares with exponential forgetting the parameter estimate is
 then obtained from Theorem 2.5:
-= P(t)ϕ (t) pn y f (t) − ϕ T (t)θ (t)
+= P(t)ϕ (t) pn y f (t) − ϕ T (t)\theta (t)
 We illustrate the procedure given by Algorithm 3.1 by an example.
 Continuous-time self-tuner
 Consider the system in Example 3.3, in which the process has the transfer
@@ -3413,11 +3417,11 @@ Bm = qn−d0 Am (1)
 where d0 = deg A − deg B. This gives response with minimal delay and unit
 static gain.
 By introducing the parameter vector
-θ = ( r0
+\theta = ( r0
 ϕ (t) = ( u(t) . . . u(t − )
 y(t − ) )
 the model given by Eq. (3.25) can be written as
-η (t) = A∗ q−1 A∗ q−1 y(t) = ϕ T (t − d0 )θ
+η (t) = A∗ q−1 A∗ q−1 y(t) = ϕ T (t − d0 )\theta
 (3.26)
 Since η (t) can be computed from y(t), it can be regarded as an auxiliary output,
 and a recursive estimate of the parameters can now be obtained as described
@@ -3434,11 +3438,11 @@ A∗ ( q−1 ) A∗ ( q−1 )
 and d0 = deg A − deg B. We have further assumed that deg R = deg S =
 deg( Ao Am ) − d0 = . Equation (3.27) can be used for least-squares estimation.
 If we introduce
-θ = ( r 0 . . . r s0 . . . s )
+\theta = ( r 0 . . . r s0 . . . s )
 ϕ (t) = ( u f (t) . . . u f (t − )
 it can be written as
 y f (t)
-y(t) = ϕ T (t − d0 )θ
+y(t) = ϕ T (t − d0 )\theta
 y f (t − ) )
 The estimates are then obtained recursively from Eqs. (3.22). The following
 adaptive control algorithm is then obtained.
@@ -3939,7 +3943,7 @@ cancel:1
 "initial estimates
 "initial covariances
 Consider the simulation of the indirect self-tuning regulator in Example 3.5. Investigate how the transient behavior of the algorithm depends
-on the initial values of θ and P and the forgetting factor.
+on the initial values of \theta and P and the forgetting factor.
 Consider the indirect self-tuning regulator in Example 3.5. Make a simulation over longer time periods, and investigate how the parameters approach their true values. Also explore how the convergence rate depends
 on the forgetting factor λ .
 Consider the indirect self-tuning regulator in Example 3.5. Show that no
@@ -3990,7 +3994,7 @@ am2:1
 alpha:0
 ao:2
 ulim:4
-3.13 Consider the simulation of the continuous-time indirect self-tuning regulator in Example 3.6. Investigate how the transient behavior of the algorithm depends on the initial values of θ and P.
+3.13 Consider the simulation of the continuous-time indirect self-tuning regulator in Example 3.6. Investigate how the transient behavior of the algorithm depends on the initial values of \theta and P.
 3.14 Consider the indirect self-tuning regulator in Example 3.6. Make a simulation, and investigate how the convergence rate depends on the forgetting
 factor α .
 3.15 Consider the system in Problem 1.9.
@@ -4333,7 +4337,7 @@ The ELS method is used to estimate the unknown parameters a, b, and c. The
 estimates are obtained from Eq. (2.21) with
 θT = ( a b c )
 ϕ T (t − 1) = ( − y(t − 1) u(t − 1) ǫ(t − 1) )
-ǫ(t) = y(t) − ϕ T (t − 1)θ (t − 1)
+ǫ(t) = y(t) − ϕ T (t − 1)\theta (t − 1)
 The controller is
 a(t) − c(t)
 ˆ (t)
@@ -4402,17 +4406,17 @@ Basic direct self-tuning algorithm
 Data: Given the prediction horizon d, let k and l be the degrees of the R∗ and
 S∗ polynomials, respectively. Let Q ∗ / P∗ be a stable filter.
 Estimate the coefficients of the polynomials R∗ and S∗ of the model
-y(t + d) = R∗ ( q−1 )u f (t) + S∗ ( q−1 ) y f (t) + ε (t + d)
+y(t + d) = R∗ ( q−1 )u f (t) + S∗ ( q−1 ) y f (t) + \epsilon (t + d)
 (4.23)
 R∗ ( q−1 ) = r0 + r1 q−1 + ⋅ ⋅ ⋅ + r k q−k
 S∗ ( q−1 ) = s0 + s1 q−1 + ⋅ ⋅ ⋅ + sl q−l
 using Eq. (2.21) with
 Q ∗ ( q−1 )
 P∗ ( q−1 )
-ε (t) = y(t) − R∗ u f (t − d) − S∗ y f (t − d) = y(t) − ϕ T (t − d)θ (t − 1)
+\epsilon (t) = y(t) − R∗ u f (t − d) − S∗ y f (t − d) = y(t) − ϕ T (t − d)\theta (t − 1)
 ϕ T (t) =
 ( u(t)
-θ T = ( r0
+\theta T = ( r0
 . . . u(t − k)
 y(t − l ) )
 Step 2: Calculate the control signal from
@@ -4426,9 +4430,9 @@ Remark 2. The parameter r0 can either be estimated or be assumed to be
 known. In the latter case it is convenient to write R∗ as
 R∗ ( q−1 ) = r0 1 + r′1 q−1 + ⋅ ⋅ ⋅ + r′k q−k
 and use
-ε (t) = y(t) − r0 u f (t − d) − ϕ T (t − d)θ (t − 1)
+\epsilon (t) = y(t) − r0 u f (t − d) − ϕ T (t − d)\theta (t − 1)
 ( r0 u(t − 1)
-θ T = ( r′1
+\theta T = ( r′1
 r0 u(t − k)
 Asymptotic Properties
 The models of Eqs. (4.21) and (4.22) can be interpreted as reparameterizations
@@ -4454,18 +4458,18 @@ y(t + τ )u(t) = 0
 where the overbar indicates a time average. Also, k and l are the degrees of
 the polynomials R∗ and S∗ , respectively.
 Proof: The model of Eq. (4.23) can be written as
-y(t + d) = ϕ T (t)θ + ε (t + d)
+y(t + d) = ϕ T (t)\theta + \epsilon (t + d)
 and the control law becomes
-ϕ T (t)θ (t + d) = 0
+ϕ T (t)\theta (t + d) = 0
 (4.26)
-At an equilibrium the estimated parameters θ are constant. Furthermore, they
+At an equilibrium the estimated parameters \theta are constant. Furthermore, they
 satisfy the normal equations (2.5), which in this case are written as
 ϕ ( k) y( k + d) =
-ϕ ( k)ϕ T ( k)θ (t + d)
+ϕ ( k)ϕ T ( k)\theta (t + d)
 By using the control law it follows from Eq. (4.26) that
 ϕ ( k) y( k + d) = lim
-ϕ ( k)ϕ T ( k) θ (t + d) − θ ( k + d)
-If the estimate θ (t) converges as t → ∞ and the regression vector ϕ ( k) is
+ϕ ( k)ϕ T ( k) \theta (t + d) − \theta ( k + d)
+If the estimate \theta (t) converges as t → ∞ and the regression vector ϕ ( k) is
 bounded, the right-hand side goes to zero. Equation (4.25) now follows from
 Q ∗ / P∗ = 1 and the definition of the regression vector in Algorithm 4.1.
 Stronger statements can be made if more is assumed about the system to
@@ -4527,7 +4531,7 @@ Example 4.5 is controlled by using the direct minimum-variance self-tuning
 Direct minimum-variance self-tuning regulator
 Consider the same process as in Example 4.4. The process model of Eq. (4.23)
 is now
-y(t + 1) = r0 u(t) + s0 y(t) + ε (t + 1)
+y(t + 1) = r0 u(t) + s0 y(t) + \epsilon (t + 1)
 It is assumed that r0 is fixed to the value r0 = 1. Notice that this is different
 from the true value, which is 3. The parameter s0 is estimated by using the
 least-squares method. The control law becomes
@@ -4605,7 +4609,7 @@ Data: Given the prediction horizon, d, the order of the controller, deg R∗ and
 deg S∗ , the stable observer polynomial, A∗ , and the stable polynomials Q ∗ and
 P∗ , define the filtered signals
 y f (t + d) =
-u(t) + ∗ y′f (t) + ε (t + d)
+u(t) + ∗ y′f (t) + \epsilon (t + d)
 using the least-squares method.
 Calculate the control signal from
 y (t)
@@ -4695,7 +4699,7 @@ machines. Command signals can also be interpreted as a measurable disturbance. T
 command signal. To use feedforward, it is necessary to know the dynamics of
 the process. It is, however, also possible to establish self-tuning feedforward
 compensation. One way to do this is to postulate a model structure of the form
-y(t + d) = R∗ u(t) + S∗ y(t) + T ∗ v(t) + ε (t + d)
+y(t + d) = R∗ u(t) + S∗ y(t) + T ∗ v(t) + \epsilon (t + d)
 where v(t) is the measurable disturbance acting on the system. The signal v
 could also be the reference value. The polynomials R∗ , S∗ , and T ∗ are estimated
 in the usual way, and the control law is chosen to be
@@ -5274,7 +5278,7 @@ value?
 (a) Use the difference y − uc instead of y in the algorithm, and introduce
 an integrator in the controller.
 (b) Estimate the parameters using the model
-y(t + d) = R∗ u + S∗ y − T ∗ uc + ε
+y(t + d) = R∗ u + S∗ y − T ∗ uc + \epsilon
 and let the controller be
 (c) Use the difference uc − y instead of y in the algorithm, and introduce
 Show that the control equation (4.37) minimizes the loss function (4.36).
@@ -5470,7 +5474,7 @@ the direction of the negative gradient of J, that is,
 This is the celebrated MIT rule. The partial derivative $\frac{\partial e}{\partial \theta}$ which is called the sensitivity derivative of the system, tells how the error is influenced by the adjustable parameter. If it is assumed that the parameter changes are slower than the other variables in the system, then the derivative $\frac{\partial e}{\partial{\theta}}$ can be evaluated under the assumption that $\theta$ is constant.
 There are many alternatives to the loss function given by Eq. (5.1). If it is
 chosen to be
-J (θ ) = e
+J (\theta ) = e
 (5.3)
 the gradient method gives
 sign e
@@ -5482,8 +5486,8 @@ sign( e)
 This is called the sign-sign algorithm. A discrete-time version of this algorithm
 is used in telecommunications, in which simple implementation and fast computations are required. (See Section 13.2.)
 Adjusting many parameters Equation (5.2) also applies when there are many
-parameters to adjust. The symbol θ should then be interpreted as a vector and
-e/ θ as the gradient of the error with respect to the parameters.
+parameters to adjust. The symbol \theta should then be interpreted as a vector and
+e/ \theta as the gradient of the error with respect to the parameters.
 We now give two examples that illustrate how the MIT rule is used to obtain
 a simple adaptive controller, and we also show some properties of adaptive
 systems.
@@ -5494,15 +5498,15 @@ is known and k is an unknown parameter. The underlying design problem is
 to find a feedforward controller that gives a system with the transfer function
 G m (s) = k0 G (s), where k0 is a given constant. With the feedforward controller
 where u is the control signal and uc the command signal, the transfer function
-from command signal to the output becomes θ kG (s). This transfer function is
-equal to G m (s) if the parameter θ is chosen to be
+from command signal to the output becomes \theta kG (s). This transfer function is
+equal to G m (s) if the parameter \theta is chosen to be
 Figure 5.2 Block diagram of an MRAS for adjustment of a feedforward gain
 based on the MIT rule.
 We will now use the MIT rule to obtain a method for adjusting the parameter
-θ when k is not known. The error is
-e = y − ym = kG ( p)θ uc − k0 G ( p)uc
+\theta when k is not known. The error is
+e = y − ym = kG ( p)\theta uc − k0 G ( p)uc
 where uc is the command signal, ym is the model output, y is the process output,
-θ is the adjustable parameter, and p = d/dt is the differential operator. The
+\theta is the adjustable parameter, and p = d/dt is the differential operator. The
 sensitivity derivative is given by
 = kG ( p)uc =
 The MIT rule then gives the following adaptation law:
@@ -5536,14 +5540,14 @@ where k I is the current to torque constant and J is the unknown moment
 of inertia. Another example is the dynamics of a CD player, in which the
 sensitivity of the laser diode is the unknown process parameter.
 A remark on notation In analyzing the MRAS with time-varying parameters
-it is important to consider the fact that the parameter θ is time-varying. The
+it is important to consider the fact that the parameter \theta is time-varying. The
 expression
-G ( p)(θ u)
+G ( p)(\theta u)
 where p = d/ dt is the differential operator should be interpreted as the
-differential operator G ( p) acting on the signal θ u. When θ is time-varying,
-this is different from θ G ( p)u. For example, if G ( p) = p, we have
-G ( p)(θ u) = p(θ u) = θ
-u = θ ( pu) + u( pθ )
+differential operator G ( p) acting on the signal \theta u. When \theta is time-varying,
+this is different from \theta G ( p)u. For example, if G ( p) = p, we have
+G ( p)(\theta u) = p(\theta u) = \theta
+u = \theta ( pu) + u( pθ )
 Care must thus be taken in manipulating expressions and block diagrams.
 Notice that no approximations were needed in Example 5.1. When the
 MIT rule is applied to more complicated problems, however, it is necessary
@@ -5568,7 +5572,7 @@ where u is the control variable and y is the measured output. Assume that we
 want to obtain a closed-loop system described by
 = −am ym + bm uc
 Let the controller be given by
-u(t) = θ 1 uc (t) − θ 2 y(t)
+u(t) = \theta 1 uc (t) − \theta 2 y(t)
 The controller has two parameters. If they are chosen to be
 (5.7)
 
@@ -5581,7 +5585,7 @@ where y denotes the output of the closed-loop system. It follows from Eqs. (5.6)
 and (5.7) that
 p + a + bθ 2
 where p = d/ dt is the differential operator. The notation used is discussed in
-Section 1.5. The sensitivity derivatives are obtained by taking partial derivatives with respect to the controller parameters θ 1 and θ 2 :
+Section 1.5. The sensitivity derivatives are obtained by taking partial derivatives with respect to the controller parameters \theta 1 and \theta 2 :
 ( p + a + bθ 2 )2
 These formulas cannot be used directly because the process parameters a and
 b are not known. Approximations are therefore required. One possible approx0
@@ -5614,22 +5618,22 @@ Notice that the parameters change most when the command signal changes
 Figure 5.5 Simulation of the system in Example 5.2 using an MRAS. The
 parameter values are a = 1, b = 0.5, am = bm = 2, and γ = 1.
 and that the parameters converge very slowly. For γ = 1, the value used in
-Fig. 5.5, the parameters have the values θ 1 = 3.2 and θ 2 = 1.2 at time t = 100.
-These values are far from the correct values θ 1 = 4 and θ 2 = 2. However,
+Fig. 5.5, the parameters have the values \theta 1 = 3.2 and \theta 2 = 1.2 at time t = 100.
+These values are far from the correct values \theta 1 = 4 and \theta 2 = 2. However,
 the parameters will converge to the true values with increasing time. The
 convergence rate increases with increasing γ , as is shown in Fig. 5.6.
 The fact that the control is quite good even at time t = 10 is a reflection of
 the fact that the parameter estimates are related to each other in a very special
 way, although they are quite far from their true values. This is illustrated in
-Fig. 5.7, where parameter θ 2 is plotted as a function of θ 1 for a simulation with
+Fig. 5.7, where parameter \theta 2 is plotted as a function of \theta 1 for a simulation with
 a duration of 500 time units. Figure 5.7 shows that parameters do indeed ap-
-Figure 5.6 Controller parameters θ 1 and θ 2 for the system in Example 5.2
+Figure 5.6 Controller parameters \theta 1 and \theta 2 for the system in Example 5.2
 when γ = 0.2, 1 and 5.
-Figure 5.7 Relation between controller parameters θ 1 and θ 2 when the
+Figure 5.7 Relation between controller parameters \theta 1 and \theta 2 when the
 system in Example 5.2 is simulated for 500 time units. The dashed line shows
-the line θ 2 = θ 1 − a/b. The dot indicates the convergence point.
+the line \theta 2 = \theta 1 − a/b. The dot indicates the convergence point.
 proach their correct values as time increases. The parameter estimates quickly
-approach the line θ 2 = θ 1 − a/ b. This line represents parameter values such
+approach the line \theta 2 = \theta 1 − a/ b. This line represents parameter values such
 that the closed-loop system has correct steady-state gain.
 Error and Parameter Convergence
 The goal in model-reference adaptive systems is to drive the error e = y − ym to
@@ -5638,21 +5642,21 @@ their correct values, as is illustrated in the following example.
 Lack of parameter convergence
 Consider the simple system for updating a feedforward gain, discussed in
 Example 5.1. Assume that G (s) = 1. The process model is y = ku, the control
-law is u = θ uc , and the desired response is given by ym = k0 uc . The error is
-e = ( kθ − k0 )uc = k(θ − θ 0 )uc
-where θ 0 = k0 / k. The MIT rule gives the following differential equation for the
+law is u = \theta uc , and the desired response is given by ym = k0 uc . The error is
+e = ( kθ − k0 )uc = k(\theta − \theta 0 )uc
+where \theta 0 = k0 / k. The MIT rule gives the following differential equation for the
 parameter:
-= −γ k2 u2 (θ − θ 0 )
+= −γ k2 u2 (\theta − \theta 0 )
 This equation has the solution
-θ (t) = θ 0 + (θ (0) − θ 0 ) e−γ k
+\theta (t) = \theta 0 + (\theta (0) − \theta 0 ) e−γ k
 (5.10)
 u2 (τ ) dτ
-and θ (0) is the initial value of the parameter θ . The estimate converges toward
+and \theta (0) is the initial value of the parameter \theta . The estimate converges toward
 its correct value only if the integral It diverges as t → ∞. The convergence is
 exponential if the input signal is persistently exciting. (Compare with Section 2.4.) The error is given by
-e(t) = kuc (t)(θ (0) − θ 0 ) e−γ k
+e(t) = kuc (t)(\theta (0) − \theta 0 ) e−γ k
 Notice that the error will always go to zero as t → ∞ because either the integral
-It diverges or else uc (t) → 0. However, the limiting value of the parameter θ
+It diverges or else uc (t) → 0. However, the limiting value of the parameter \theta
 will depend on the properties of the input signal.
 Example 5.3 illustrates the fact that the error e goes to zero but that
 the parameters do not necessarily converge to their correct values. This is
@@ -5675,9 +5679,9 @@ ym = k0 G ( p)uc
 = −γ ym e
 Determination of the Adaptation Gain
 _v('140515094820')
-where uc is the command signal, ym is the model output, y is the process output, θ is the adjustable parameter, and p = d/ dt is the differential operator.
+where uc is the command signal, ym is the model output, y is the process output, \theta is the adjustable parameter, and p = d/ dt is the differential operator.
 Elimination of the variables u and y in these equations gives
-+ γ ym ( kG ( p)θ uc ) = γ ym
++ γ ym ( kG ( p)\theta uc ) = γ ym
 (5.11)
 This equation is a compact description of the behavior of the parameters that we
 call the parameter equation. Notice that ym may be considered a known function
@@ -5690,7 +5694,7 @@ To get some insight into the behavior of the system given by Eq. (5.11), we
 consider an experiment with the adaptive system such that the equation simplifies considerably. An understanding of the behavior of the system under such
 circumstances will give us some insight, but it will of course not give the full
 picture.
-Consider the following experiment: Assume that the value of parameter θ is fixed, that the adaptation mechanism is disconnected, and that a constant input signal uc is applied. The adaptation mechanism is then connected when all signals have settled to steady-state values. The behavior of the parameter is then given by
+Consider the following experiment: Assume that the value of parameter \theta is fixed, that the adaptation mechanism is disconnected, and that a constant input signal uc is applied. The adaptation mechanism is then connected when all signals have settled to steady-state values. The behavior of the parameter is then given by
 (5.12)
 which is a linear time-invariant system. This equation is linear with constant
 coefficients. 
@@ -5742,18 +5746,18 @@ amplitudes of uc .
 Figure 5.8 Simulation of the MRAS in Example 5.5. The command signal
 is a square wave with the amplitude (a) 0.1, (b) 1, and (c) 3.5. The model
 output ym is a dashed line; the process output is a solid line. The following
-parameters are used: k = a1 = a2 = θ 0 = 1, and γ = 0.1.
+parameters are used: k = a1 = a2 = \theta 0 = 1, and γ = 0.1.
 The example indicates clearly that the choice of adaptation gain is crucial
 and that the value chosen depends on the signal levels. Because of this it seems
 natural to modify the algorithm so that it does not depend on the signal levels.
 To do this, we will write the MIT rule as
 =γϕe
-where we have introduced ϕ = − e/ θ . Introduce the following modified adjustment rule:
+where we have introduced ϕ = − e/ \theta . Introduce the following modified adjustment rule:
 γϕe
 (5.16)
 where parameter α > 0 is introduced to avoid difficulties when ϕ is small.
 Notice that we have written the equation in such a way that it also holds when
-θ is a vector; in that case, ϕ is also a vector of the same dimension.
+\theta is a vector; in that case, ϕ is also a vector of the same dimension.
 If we repeat the analysis of the thought experiment, we find that Eq. (5.13)
 is replaced by
 kG (s) = 0
@@ -5763,7 +5767,7 @@ Figure 5.9 Simulation of the MRAS in Example 5.5 with the normalized
 MIT rule. The command signal is a square wave with the amplitude (a) 0.1,
 (b) 1, and (c) 3.5. Compare with Fig. 5.8. The model output ym is a dashed
 line; the process output is a solid line. The parameters used are k = a1 =
-a2 = θ 0 = 1, α = 0.001, and γ = 0.1.
+a2 = \theta 0 = 1, α = 0.001, and γ = 0.1.
 malized MIT rule. The improved performance with this algorithm is illustrated
 in Fig. 5.9. A comparison with Fig. 5.8 shows that normalization is useful.
 Notice that the normalized adjustment rule performs very well even in
@@ -5776,13 +5780,13 @@ Having derived the MIT rule and investigated some of its properties, we can
 now summarize some of the key issues. The model-reference control problem
 can be described as follows: Let the desired performance be specified by a
 reference model having the transfer function G m (s), and let the closed-loop
-transfer function of the plant be G (s, θ ), where θ are the adjustable parameters.
+transfer function of the plant be G (s, \theta ), where \theta are the adjustable parameters.
 Furthermore, let uc be the command signal. The model-reference adaptive
 Lyapunov Theory
 system tries to change the controller parameters so that the error
-e(t) = ( G ( p, θ ) − G m ( p))uc (t)
+e(t) = ( G ( p, \theta ) − G m ( p))uc (t)
 goes to zero. The MIT rule given by
-where ϕ = − e/ θ and γ is the adaptation gain, can be interpreted as a
+where ϕ = − e/ \theta and γ is the adaptation gain, can be interpreted as a
 gradient method for minimizing the error. The MIT rule can be applied in
 many different cases; a few examples have been given in this section. The
 choice of the adaptation gain is critical and depends on the signal levels. The
@@ -5816,11 +5820,11 @@ whether the solution of Eq. (5.17) is stable with respect to perturbations. For
 this purpose he introduced the following stability concept.
 Lyapunov stability
 The solution x(t) = 0 to the differential equation (5.17) is called stable if for
-given ε > 0 there exists a number δ (ε ) > 0 such that all solutions with initial
+given \epsilon > 0 there exists a number δ (\epsilon ) > 0 such that all solutions with initial
 conditions
 x(0) < δ
 have the property
-x(t) < ε
+x(t) < \epsilon
 (5.18)
 The solution is unstable if it is not stable. The solution is asymptotically stable
 if it is stable and δ can be found such that all solutions with x(0) < δ have
@@ -5861,8 +5865,8 @@ Moreover if
 when
 V ( x) → ∞
 then the solution is globally asymptotically stable.
-Given ε > 0 such that { x
-x ≤ ε } ∈ U , determine
+Given \epsilon > 0 such that { x
+x ≤ \epsilon } ∈ U , determine
 and δ such that
 = min V ( x) = max V ( x)
 (5.20)
@@ -5870,7 +5874,7 @@ Consider initial conditions such that
 Since V is positive definite, it then follows from Definition 5.2 that
 V ( x(0)) <
 To prove that inequality (5.18) holds, we proceed by contradiction. Assume that
-t1 is the smallest value such that x(t1 ) = ε . It follows from Eq. (5.20) that
+t1 is the smallest value such that x(t1 ) = \epsilon . It follows from Eq. (5.20) that
 V ( x(t1 )) ≥
 Furthermore,
 V ( x(t1 )) = V ( x(0)) +
@@ -5880,7 +5884,7 @@ W ( x(s)) ds
 Since W ( x) is positive semidefinite, it follows that
 V ( x(t1 )) ≤ V ( x(0)) <
 and we have thus obtained a contradiction and it can be concluded that x(t) <
-ε for all t, which by Definition 5.1 implies that the solution x(t) = 0 is stable.
+\epsilon for all t, which by Definition 5.1 implies that the solution x(t) = 0 is stable.
 To prove asymptotic stability, we notice that it follows from Eq. (5.21) that
 W ( x(s)) ds = V ( x(0)) − V ( x(t)) ≤
 Since W ( x) and x(t) are continuous, it then follows that
@@ -5942,11 +5946,11 @@ a neighborhood of x(t) = 0. We now investigate the stability of the solution
 x(t) = 0.
 In the time-varying case the solution will depend on t as well as on the
 starting time t0 . This implies that the bound δ in Definition 5.1 will depend
-on ε and t0 . The definition on stability can be refined to give uniform stability
+on \epsilon and t0 . The definition on stability can be refined to give uniform stability
 properties with respect to the initial time. We have the following definition.
 Uniform Lyapunov stability
-The solution x(t) = 0 of Eq. (5.25) is uniformly stable if for ε > 0 there exists
-a number δ (ε ) > 0, independent of t0 , such that
+The solution x(t) = 0 of Eq. (5.25) is uniformly stable if for \epsilon > 0 there exists
+a number δ (\epsilon ) > 0, independent of t0 , such that
 x(t0 ) < δ
 The solution is uniformly asymptotically stable if it is uniformly stable and
 there is c > 0, independent of t0 , such that x(t) → 0 as t → ∞, uniformly in t0 ,
@@ -6041,10 +6045,10 @@ equation for the error. We get
 [ by filling in a term $a_m y$ ]
 Notice that the error goes to zero if the parameters are equal to the values
 given by Eqs. (5.8). We will now attempt to construct a parameter adjustment
-mechanism that will drive the parameters θ 1 and θ 2 to their desired values.
+mechanism that will drive the parameters \theta 1 and \theta 2 to their desired values.
 For this purpose, assume that bγ > 0 and introduce the following quadratic
 function:
-V ( e, θ 1 , θ 2 ) =
+V ( e, \theta 1 , \theta 2 ) =
 e2 +
 (bθ 2 + a − am )2 +
 (bθ 1 − bm )2
@@ -6065,8 +6069,8 @@ If the parameters are updated as
 (5.27)
 = −am e2
 The derivative of V with respect to time is thus negative semidefinite but
-not negative definite. This implies that V (t) ≤ V (0) and thus that e, θ 1 , and
-θ 2 must be bounded. This implies that y = e + ym also is bounded. To use
+not negative definite. This implies that V (t) ≤ V (0) and thus that e, \theta 1 , and
+\theta 2 must be bounded. This implies that y = e + ym also is bounded. To use
 Theorem 5.4, we determine
 = −2am e
 = −2am e (−am e − (bθ 2 + a − am ) y + (bθ 1 − bm ) uc )
@@ -6085,7 +6089,7 @@ diagram of the system is shown in Fig. 5.11. Compare with the corresponding
 block diagram for the system with the MIT rule in Fig. 5.4. The only difference
 is that there is no filtering of the signals uc and y with the Lyapunov rule. In
 both cases the adjustment law can be written as
-where θ is a vector of parameters and
+where \theta is a vector of parameters and
 ϕ = ( −uc
 for the Lyapunov rule and
 (5.28)
@@ -6096,7 +6100,7 @@ Figure 5.12 Simulation of the system in Example 5.7 using an adaptive
 controller based on Lyapunov theory. The parameter values are a = 1, b = 0.5,
 am = bm = 2, and γ = 1. (a) Process (solid line) and model (dashed line)
 outputs. (b) Control signal.
-Figure 5.13 Controller parameters θ 1 and θ 2 for the system in Example 5.7
+Figure 5.13 Controller parameters \theta 1 and \theta 2 for the system in Example 5.7
 when γ = 0.2, 1, and 5. The dotted lines are the parameters obtained with
 the MIT rule. Compare Fig. 5.6.
 simulation of the system for the case G (s) = 0.5/(s + 1) and G m (s) = 2/(s + 2).
@@ -6132,9 +6136,9 @@ A general linear control law for the system given by Eq. (5.29) is
 The closed-loop system then becomes
 (5.32)
 The control law can be parameterized in different ways. All parameters in the matrices L and M may be chosen freely. There may also be constraints among the parameters. The general case can be captured by assuming that the closedloop system is described by Eq. (5.32), where matrices Ac and Bc depend on a
-parameter θ.
-Compatibility conditions It is not always possible to find parameters θ such
-that Eq. (5.32) is equivalent to Eq. (5.30). A sufficient condition is that there exists a parameter value θ 0 such that
+parameter \theta.
+Compatibility conditions It is not always possible to find parameters \theta such
+that Eq. (5.32) is equivalent to Eq. (5.30). A sufficient condition is that there exists a parameter value \theta 0 such that
 (5.33)
 This condition for perfect model-following is fairly stringent. When all parameters in the control law can be chosen freely, it implies that This means that the columns of matrices A − Am and Bm are linear combinations of the columns of matrix B. If these conditions are satisfied and the columns of B and Bm are linearly independent, then the matrices L and M
 The error equation
@@ -6143,7 +6147,7 @@ $e = x − x_m$
 Subtracting Eq. (5.30) from Eq. (5.29) gives
 Adding and subtracting Am x from the right-hand side give
 ![(5.34)](140602202717.png)
-To obtain the last equality, it has been assumed that the conditions for exact model-following are satisfied. This is required for θ 0 to exist. To derive a parameter adjustment law, we introduce the Lyapunov function
+To obtain the last equality, it has been assumed that the conditions for exact model-following are satisfied. This is required for \theta 0 to exist. To derive a parameter adjustment law, we introduce the Lyapunov function
 ![()](140602202805.png)
 where P is a positive definite matrix. The function V is positive definite. To find out whether it can be a Lyapunov function, we calculate its total time derivative
 where $Q$ is positive definite and such that
@@ -6159,28 +6163,28 @@ for the problem of adjusting a feedforward gain. We consider the case in which
 the plant has transfer function kG (s), where G (s) is known and k is unknown.
 The desired response is given by the transfer function k0 G (s). This problem
 was discussed previously in Examples 5.1 and 5.3. The error is given by
-e = ( kG ( p)θ − k0 G ( p))uc = kG ( p)(θ − θ 0 )uc
-where θ 0 = k0 / k. To use Lyapunov theory, we first introduce a state space
+e = ( kG ( p)\theta − k0 G ( p))uc = kG ( p)(\theta − \theta 0 )uc
+where \theta 0 = k0 / k. To use Lyapunov theory, we first introduce a state space
 representation of the transfer function G. The relation between the parameter
-θ and the error e can then be written as
-= Ax + B (θ − θ 0 )uc
+\theta and the error e can then be written as
+= Ax + B (\theta − \theta 0 )uc
 e = Cx
 (5.36)
 If the homogeneous system x = Ax is asymptotically stable, there exist positive
 definite matrices P and Q such that
 (5.37)
 Choose the following function as a candidate for a Lyapunov function:
-γ xT Px + (θ − θ 0 )2
+γ xT Px + (\theta − \theta 0 )2
 The time derivative of V along the differential equation (Eqs. 5.36) is given by
-+ (θ − θ 0 )
++ (\theta − \theta 0 )
 Using Eqs. (5.36), we get
-Ax + Buc (θ − θ 0 )
-Px + x T P Ax + Buc (θ − θ 0 )
-x T Qx + (θ − θ 0 )
+Ax + Buc (\theta − \theta 0 )
+Px + x T P Ax + Buc (\theta − \theta 0 )
+x T Qx + (\theta − \theta 0 )
 (5.38)
 we find that the derivative of the Lyapunov function will be negative as long
 as x = 0. The state vector x and the error e = Cx will go to zero as t goes to
-infinity. Notice, however, that the parameter error θ − θ 0 will not necessarily
+infinity. Notice, however, that the parameter error \theta − \theta 0 will not necessarily
 go to zero.
 Output feedback The result obtained is quite restrictive because it requires
 that all state variables are known. A parameter adjustment law that uses
@@ -6196,8 +6200,8 @@ A rational transfer function G with real coefficients is positive real (PR) if
 Re G (s) ≥ 0
 Re s ≥ 0
 (5.39)
-A transfer function G is strictly positive real (SPR) if G (s − ε ) is positive real
-for some real ε > 0.
+A transfer function G is strictly positive real (SPR) if G (s − \epsilon ) is positive real
+for some real \epsilon > 0.
 The concept of SPR is discussed further in Section 5.6. Let it suffice to
 mention that G (s) = 1/(s + 1) is SPR and G (s) = 1/ s is PR but not SPR. The
 following result gives a state space interpretation of SPR.
@@ -6388,8 +6392,8 @@ x(s) y(s) ds
 We have the following definition.
 Passive system
 A system with input u and output y is passive if
-The system is input strictly passive (ISP) if there exists ε > 0 such that
-and output strictly passive (OSP) if there exists ε > 0 such that
+The system is input strictly passive (ISP) if there exists \epsilon > 0 such that
+and output strictly passive (OSP) if there exists \epsilon > 0 such that
 Notice that in electrical systems the power is proportional to the product of
 current and voltage. The definition is thus a very natural abstraction. The
 following example illustrates the definition of passivity.
@@ -6468,9 +6472,9 @@ where Y and U are the Laplace transforms of y and u, respectively. If G (iω )
 is positive real (see Definition 5.5), we have Re G (iω ) ≥ 0, and we get
 which shows that the system is passive. It follows from Definition 5.9 that a
 positive real transfer function is input strictly passive if
-Re G (iω ) ≥ ε > 0
+Re G (iω ) ≥ \epsilon > 0
 and output strictly passive if
-Re G (iω ) ≥ ε G (iω ) 2
+Re G (iω ) ≥ \epsilon G (iω ) 2
 The transfer function G (s) = s + 1 is thus SPR and ISP but not OSP. The
 transfer function G (s) = 1/(s + 1) is SPR and OSP but not ISP. The transfer
 is OSP but not ISP and SPR.
@@ -6500,11 +6504,11 @@ B T P(sI − A)−1 B + B T (−sI − A)−T PB = B T (−sI − A)−T Q (sI �
 (5.52)
 Since G T (−s) = G (−s), Eq. (5.49) now implies that
 2 Re G (iω ) = G (iω ) + G (−iω ) = B T (−iω I − A)−T Q (iω I − A)−1 B ≥ 0
-It now follows from Theorem 5.7 that G (s) is PR. Replacing s by s − ε in the
+It now follows from Theorem 5.7 that G (s) is PR. Replacing s by s − \epsilon in the
 above calculations, we find in a similar way that
-Re G (iω − ε ) ≥ 0
+Re G (iω − \epsilon ) ≥ 0
 Since the matrix A has all its eigenvalues in the open left half-plane, it follows
-that the matrix A + ε I is also stable. It now follows from Theorem 5.7 that
+that the matrix A + \epsilon I is also stable. It now follows from Theorem 5.7 that
 G (s) is SPR.
 To prove sufficiency, we start with the assumption that the system (5.48)
 has a transfer function G (s) that is SPR. The proof is based on a direct
@@ -6675,7 +6679,7 @@ is then passive.
 y(τ )u(τ ) dτ =
 (u(τ )r(τ )) ( G ( p)ru)(τ ) dτ
 w(τ ) ( G ( p)w) (τ ) dτ = 〈w Gw〉
-(θ − θ ) u
+(\theta − \theta ) u
 Figure 5.18 Representation of the system with adjustable feedforward gain
 when using the control law of Eq. 5.40. Compare with Fig. 5.14(b).
 Figure 5.19
@@ -6685,9 +6689,9 @@ from Example 5.12 that 〈w Gw〉 ≥ 0, which proves the result.
 By invoking the passivity theorem (Theorem 5.8) we can now obtain an
 alternative proof of Theorem 5.5. Figure 5.18 shows that the model-reference
 system can be viewed as a feedback connection of two systems. One system is
-linear with the transfer function G. It has the signal (θ −θ 0 )uc as the input and
+linear with the transfer function G. It has the signal (\theta −\theta 0 )uc as the input and
 the model error as the output. The other system has the model error e as the
-input and the quantity −(θ −θ 0 )uc as the output. Since an integrator is positive
+input and the quantity −(\theta −\theta 0 )uc as the output. Since an integrator is positive
 real, it follows from Lemma 5.3 that the system H is passive. If the transfer
 function G is proper and strictly positive real, it follows from Example 5.12
 that G (s) is output strictly proper. The passivity theorem (Theorem 5.8) then
@@ -6704,7 +6708,7 @@ adaptation can be made arbitrarily fast.
 Design of Stable Adjustment Mechanisms
 The passivity theorem gives a convenient way to construct stable adjustment
 laws. We simply try to introduce some compensating network so that the
-transfer function relating the error to (θ − θ 0 )uc is strictly positive real, as
+transfer function relating the error to (\theta − \theta 0 )uc is strictly positive real, as
 is illustrated in Fig. 5.19. For systems with output feedback, the problem is to
 find a compensator Gc such that the transfer function GGc is strictly positive
 real. This can be done by using the Kalman-Yakubovich lemma (Lemma 5.2).
@@ -6730,7 +6734,7 @@ are, of course, many other possibilities for choosing the adaptation mechanism
 H in Fig. 5.18. For instance, it can be expected that quicker adaptation can
 be achieved by using a proportional and integral adjustment law. This means
 that the control law of Eq. (5.40) is replaced by
-θ (t) = −γ 1 uc (t) e(t) − γ 2
+\theta (t) = −γ 1 uc (t) e(t) − γ 2
 uc (τ ) e(τ ) dτ
 (5.57)
 Since a system with the transfer function
@@ -6745,18 +6749,18 @@ good insight and led to the idea of filtering the model error so that GG c is
 SPR. However, we have not solved the problem in which G has a pole excess
 larger than 1. To do this, we first factor the transfer function G as
 where the transfer function G1 is SPR. The error e = y− ym can then be written
-e = G (θ − θ 0 )uc = ( G1 G2 )(θ − θ 0 )uc
-= G1 G2 (θ − θ 0 )uc + (θ − θ 0 ) G2 uc − (θ − θ 0 ) G2 uc
-= G1 (θ − θ 0 ) G2 uc − G1 (θ − θ 0 ) G2 uc − G2 (θ − θ 0 )uc
-Introduce the augmented error ε defined by
-ε = e+η
+e = G (\theta − \theta 0 )uc = ( G1 G2 )(\theta − \theta 0 )uc
+= G1 G2 (\theta − \theta 0 )uc + (\theta − \theta 0 ) G2 uc − (\theta − \theta 0 ) G2 uc
+= G1 (\theta − \theta 0 ) G2 uc − G1 (\theta − \theta 0 ) G2 uc − G2 (\theta − \theta 0 )uc
+Introduce the augmented error \epsilon defined by
+\epsilon = e+η
 where η is the error augmentation defined by
-η = G1 (θ − θ 0 ) G2 uc − G (θ − θ 0 )uc
-= G1 (θ G2 uc ) − Gθ uc
-The second equality follows because Gθ 0 u = θ 0 Gu when θ 0 is constant. The
+η = G1 (\theta − \theta 0 ) G2 uc − G (\theta − \theta 0 )uc
+= G1 (\theta G2 uc ) − Gθ uc
+The second equality follows because Gθ 0 u = \theta 0 Gu when \theta 0 is constant. The
 augmented error is thus obtained by adding a correction term η to the error.
-The correction term vanishes when the parameter θ is constant. It follows that
-ε = G1 (θ − θ 0 ) G2 uc = G1 (θ − θ 0 )uc
+The correction term vanishes when the parameter \theta is constant. It follows that
+\epsilon = G1 (\theta − \theta 0 ) G2 uc = G1 (\theta − \theta 0 )uc
 (5.58)
 where uc is the reference signal filtered through G2 . Equation (5.58) is an error
 model similar to the ones used previously, and we have the following theorem.
@@ -6764,19 +6768,19 @@ Stability using augmented error
 Consider a model-reference system for adaptation of a feedforward gain for a
 system with the transfer function G. Let G1 G2 be a factorization of G such
 that G1 is SPR. The parameter adjustment law
-= −γ ε ( G2 uc )
+= −γ \epsilon ( G2 uc )
 (5.59)
-ε = e + G1 (θ G2 uc ) − G (θ uc )
+\epsilon = e + G1 (\theta G2 uc ) − G (\theta uc )
 (5.60)
 gives a closed-loop system in which the error goes to zero as t goes to infinity.
-Since G1 is SPR, the discussion of the error model shows that ε ∈ L2 .
+Since G1 is SPR, the discussion of the error model shows that \epsilon ∈ L2 .
 Figure 5.20 Block diagram of a model-reference adaptive system based on
 the augmented error.
 The trivial factorization with G1 = 1 is one possibility.
 Remark 2. If the input signal is persistently exciting, it can be shown that
 the parameters also converge.
-Remark 3. Notice that G2 must be minimum phase to establish that θ converges to θ 0 . The reason is that we have to go “backwards” through G2 to show
-that θ − θ 0 goes to zero if the output e goes to zero. That is, the inverse of G2
+Remark 3. Notice that G2 must be minimum phase to establish that \theta converges to \theta 0 . The reason is that we have to go “backwards” through G2 to show
+that \theta − \theta 0 goes to zero if the output e goes to zero. That is, the inverse of G2
 must be stable. This is a condition that will be seen again in the general case
 in Section 5.8.
 A block diagram of the system with augmented error is shown in Fig. 5.20.
@@ -6802,15 +6806,15 @@ the controller can be parameterized in such a way that the error is linear in
 the controller parameters. The derivation of the MRAS is described as follows:
 Find a controller structure that admits perfect output tracking.
 Derive an error model of the form
-ε = G1 ( p) ϕ T (t)(θ 0 − θ )
+\epsilon = G1 ( p) ϕ T (t)(\theta 0 − \theta )
 (5.61)
-where G1 is a strictly positive real transfer function, θ 0 is the process parameters, and θ is the controller parameters. The right-hand side should be
+where G1 is a strictly positive real transfer function, \theta 0 is the process parameters, and \theta is the controller parameters. The right-hand side should be
 expressed in computable quantities.
 Use the parameter adjustment law
 or the normalized law
 (5.62)
 (5.63)
-Notice that the error ε in Eq. (5.61) is linear in the parameters, a condition
+Notice that the error \epsilon in Eq. (5.61) is linear in the parameters, a condition
 that imposes restrictions on the models and controllers that can be dealt with.
 A model of the form (5.61) is typically obtained by algebraic manipulations,
 filtering, and error augmentation.
@@ -6859,7 +6863,7 @@ Rewrite R/ P as
 The filtered error then becomes
 Let k, l, and m be the degrees of the polynomials R, S, and T, respectively.
 Introduce a vector of true controller parameters
-θ 0 = (r′1 . . . r′k s0 . . . sl t0 . . . tm )
+\theta 0 = (r′1 . . . r′k s0 . . . sl t0 . . . tm )
 (5.71)
 where r′i are the coefficients of the polynomial R − P2 . Also introduce a vector
 of filtered input, output, and command signals
@@ -6869,25 +6873,25 @@ The filtered error can then be written as
 (5.73)
 To obtain an error model, we must introduce a parameterization of the controller. In the nominal case in which the parameters are known, the control
 law can be expressed as
-u = − P1 (ϕ T θ 0 ) = − P1 (θ 0 )T ϕ = −(θ 0 )T ( P1ϕ )
+u = − P1 (ϕ T \theta 0 ) = − P1 (\theta 0 )T ϕ = −(\theta 0 )T ( P1ϕ )
 (5.74)
-where P1 is a polynomial in the differential operator. Let θ denote the adjustable controller parameters. The feedback law
-u = − P1 (ϕ T θ )
+where P1 is a polynomial in the differential operator. Let \theta denote the adjustable controller parameters. The feedback law
+u = − P1 (ϕ T \theta )
 would give the desired error model. However, this control law is not realizable if
-P1 has a degree greater than 1 because the term P1 (ϕ T θ ) contains derivatives
+P1 has a degree greater than 1 because the term P1 (ϕ T \theta ) contains derivatives
 of the parameters. However, the control law
-u = −θ T ( P1ϕ )
+u = −\theta T ( P1ϕ )
 (5.75)
 is realizable because of Eq. (5.69). If we use this control law, it follows from
 Eq. (5.70) that the filtered error can be written as
-θ ( P1ϕ )
-θ ( P1ϕ ) + ϕ T θ
-Introduce the signals η and ε , defined by
-θ ( P1ϕ ) − ϕ T θ = −
-ε = ef +
-ϕ (θ − θ )
+\theta ( P1ϕ )
+\theta ( P1ϕ ) + ϕ T \theta
+Introduce the signals η and \epsilon , defined by
+\theta ( P1ϕ ) − ϕ T \theta = −
+\epsilon = ef +
+ϕ (\theta − \theta )
 (5.76)
-The signal ε is called the augmented error, and η is called the error augmentation. The augmented error is computed as follows:
+The signal \epsilon is called the augmented error, and η is called the error augmentation. The augmented error is computed as follows:
 ( y − ym ) +
 (5.77)
 With the chosen degrees of P and Q it is straightforward to verify that the
@@ -6901,16 +6905,16 @@ sufficient that the system (5.70) is SPR. It is also necessary that the signals 
 ϕ are bounded. This condition can be difficult to show. Furthermore, Eqs. (5.76)
 are valid only if the control signal is generated from Eq. (5.75). This implies, for
 instance, that the control signal cannot be saturated. Notice that it is necessary
-to know the parameter b0 to compute the augmented error ε .
+to know the parameter b0 to compute the augmented error \epsilon .
 The derived algorithm thus requires that the high-frequency gain b0 be
 known. If the parameter is not known, it can be estimated as follows. The
 error model of Eq. (5.73) can be written as
-ef = b0 ϕ T θ 0 + u f
+ef = b0 ϕ T \theta 0 + u f
 (5.78)
-A simple gradient estimator for b0 and θ 0 is then given by
+A simple gradient estimator for b0 and \theta 0 is then given by
 (5.79)
-where ε p is the prediction error
-ε p = ef − ef = ef − b0 ϕ T θ + u f
+where \epsilon p is the prediction error
+\epsilon p = ef − ef = ef − b0 ϕ T \theta + u f
 (5.80)
 Notice that b0 can be absorbed in the adaptation gain if its sign is known.
 Realization
@@ -6989,22 +6993,22 @@ An MRAS for a general continuous-time linear system was derived in
 Section 5.8. In the derivation it was assumed that the process was minimumphase and that all its zeros were canceled in the design. We showed that the
 adjustment law for updating the parameters can be written as
 (5.81)
-where ϕ f is a filtered regression vector and ε is the augmented error given by
+where ϕ f is a filtered regression vector and \epsilon is the augmented error given by
 Eq. (5.77), that is,
-ε = ( y − ym ) +
+\epsilon = ( y − ym ) +
 (5.82)
 Now consider a discrete-time direct self-tuner. When all process zeros are
 canceled, polynomial B − is a constant and we get the process model
-y(t) = ϕ T (t − d0 ) θ
+y(t) = ϕ T (t − d0 ) \theta
 In the direct algorithm the estimated parameters are equal to the controller
 parameters. The least-squares method can be used for the estimation by using
 the residual
-ε (t) = y(t) − y(t) = y(t) − ϕ T (t − d0 ) θ (t − 1)
+\epsilon (t) = y(t) − y(t) = y(t) − ϕ T (t − d0 ) \theta (t − 1)
 The parameter update can be written as
-θ (t) = θ (t − 1) + P(t)ϕ T (t − d0 ) ε (t)
+\theta (t) = \theta (t − 1) + P(t)ϕ T (t − d0 ) \epsilon (t)
 (5.83)
 The residual is given by
-ε (t) = y(t) − y(t) = y(t) − ym (t) + ym (t) − y(t) = e(t) + η (t)
+\epsilon (t) = y(t) − y(t) = y(t) − ym (t) + ym (t) − y(t) = e(t) + η (t)
 (5.84)
 A comparison of Eqs. (5.81) and (5.83) show that Eq. (5.83) can be interpreted
 as a discrete-time version of Eq. (5.81). Notice that the gain γ in the MRAS
@@ -7015,16 +7019,16 @@ a significant ingenuity to derive in the MRAS context is thus obtained directly
 from the least-squares equations in the STR. More filtering is required in the
 MRAS because of the continuous time formulation. Notice that it follows from
 Eq. (5.83) that
-ϕ T (t − d0 ) = − gradθ ε (t)
+ϕ T (t − d0 ) = − gradθ \epsilon (t)
 The vector ϕ T (t − d0 ) can be interpreted as the sensitivity derivative of the
-prediction error ε with respect to the parameter. The parameter update of
+prediction error \epsilon with respect to the parameter. The parameter update of
 Eq. (5.83) is thus a discrete-time version of the MIT rule. The main difference
 is that the model error e(t) = y(t) − ym (t) is replaced by the prediction error
-ε (t).
+\epsilon (t).
 Notice that in the identification-based schemes such as self-tuning controllers we normally attempt to obtain a form similar to
-y(t) = ϕ T θ
+y(t) = ϕ T \theta
 With the model-reference approach, it is also possible to admit a model of the
-y(t) = G ( p) ϕ T θ
+y(t) = G ( p) ϕ T \theta
 where G ( p) is SPR. In summary we thus find that the MRAS-type algorithms
 can be obtained in a straightforward way as a direct self-tuning regulator based
 on a minimum-degree pole placement design with cancellation of the whole B
@@ -7105,25 +7109,25 @@ situation in which the process model has unknown parameters. The approach
 will be similar to the idea used to derive model-reference adaptive controllers.
 Let us start with an example that is an adaptive version of Example 5.15.
 Adaptive feedback linearization
-= x2 + θ f ( x1 )
-where θ is an unknown parameter and f is a known differentiable function.
+= x2 + \theta f ( x1 )
+where \theta is an unknown parameter and f is a known differentiable function.
 Applying the certainty equivalence principle gives the following control law:
-u = −a2 x1 − a1 + θ f ′ ( x1 ) x2 + θ f ( x1 ) + v
+u = −a2 x1 − a1 + \theta f ′ ( x1 ) x2 + \theta f ( x1 ) + v
 (5.88)
 Introducing this into the system equations gives an error equation that is nonlinear in the parameter error. This makes it very difficult to find a parameter
 adjustment law that gives a stable system. Therefore it is necessary to use
 another approach.
 Proceeding as in Example 5.15 and introducing the new coordinates
-ξ 2 = x2 + θ f ( x1 )
-where θ is an estimate of θ , we have
-= x2 + θ f ( x1 ) = ξ 2 + (θ − θ ) f (ξ 1 )
-f ( x1 ) + θ x2 + θ f ( x1 ) f ′ ( x1 ) + u
+ξ 2 = x2 + \theta f ( x1 )
+where \theta is an estimate of \theta , we have
+= x2 + \theta f ( x1 ) = ξ 2 + (\theta − \theta ) f (ξ 1 )
+f ( x1 ) + \theta x2 + \theta f ( x1 ) f ′ ( x1 ) + u
 Choosing the control law to be
-u = −a2ξ 1 − a1ξ 2 − θ x2 + θ f ( x1 ) f ′ ( x1 ) − f ( x1 )
+u = −a2ξ 1 − a1ξ 2 − \theta x2 + \theta f ( x1 ) f ′ ( x1 ) − f ( x1 )
 −a2
 f (ξ 1 )
 −a1
-θ f (ξ 1 ) f ′ (ξ 1 )
+\theta f (ξ 1 ) f ′ (ξ 1 )
 (5.89)
 A comparison with the certainty equivalence control law given by Eq. (5.88)
 shows that the major difference is the presence of the term dθ / dt in Eq. (5.89).
@@ -7138,18 +7142,18 @@ v = a2 um
 we find that the error equation becomes
 de  0
 e+
- θ = Ae + Bθ
+ \theta = Ae + Bθ
 (5.90)
-θ f (ξ 1 ) f (ξ 1 )
+\theta f (ξ 1 ) f (ξ 1 )
 The matrix A has all eigenvalues in the left half-plane if a1 > 0 and a2 > 0. It
 is then possible to find a matrix P such that
 Choosing the Lyapunov function
 V = eT Pe +
 we find that
-= eT ( AT P + PA) e + 2θ B T Pe + θ
+= eT ( AT P + PA) e + 2θ B T Pe + \theta
 If the law for updating the parameters is chosen to be
 = γ B T Pe
-(θ − θ ) = −
+(\theta − \theta ) = −
 = −γ B T Pe
 and the derivative of the Lyapunov function becomes
 = − eT e
@@ -7217,21 +7221,21 @@ The key idea of backstepping is to derive an error equation and to construct a
 control law and a parameter adjustment law such that the state of the error
 equation goes to zero. The idea is illustrated by a simple example.
 Adaptive stabilization by backstepping
-where f is a known function and θ an unknown parameter. We derive a control
-law that stabilizes the system when the parameter θ is unknown. Introduce a
+where f is a known function and \theta an unknown parameter. We derive a control
+law that stabilizes the system when the parameter \theta is unknown. Introduce a
 new state variable ξ 1 = x1 . We write the derivative of ξ 1 as a sum of terms
 in which one of them depends on known quantities only. For this purpose we
-introduce the parameter estimate θ and the error θ = θ − θ . The derivative of
+introduce the parameter estimate \theta and the error \theta = \theta − \theta . The derivative of
 ξ 1 then becomes
-= −ξ 1 + ξ 1 + x2 + θ f (ξ 1 ) + θ f (ξ 1 )
+= −ξ 1 + ξ 1 + x2 + \theta f (ξ 1 ) + \theta f (ξ 1 )
 Introduce the next state variable ξ 2 as
-ξ 2 = x2 + a1 (ξ 1 , θ )
-a1 (ξ 1 , θ ) = ξ 1 + θ f (ξ 1 )
+ξ 2 = x2 + a1 (ξ 1 , \theta )
+a1 (ξ 1 , \theta ) = ξ 1 + \theta f (ξ 1 )
 (5.94)
 The differential equation for ξ 1 can then be written as
 (5.95)
 We now proceed to rewrite the derivative of ξ 2 as a sum of two terms in which
-the first depends only on ξ 1 , ξ 2 , and θ . Hence
+the first depends only on ξ 1 , ξ 2 , and \theta . Hence
 a1 dξ 1
 a1 dθ
 Equation (5.95) gives the desired separation of terms in dξ 1 / dt. Some work is
@@ -7243,7 +7247,7 @@ can be used to find a control law and an adaptation law that stabilizes the
 error equation for variables ξ 1 and ξ 2 . After some calculations we find that the
 derivative of V is given by
 f (ξ 1 ) −
-The term containing θ can be eliminated by choosing
+The term containing \theta can be eliminated by choosing
 = b2 (ξ 1 , ξ 2 )
 b2 = ξ 1 f (ξ 1 ) + ξ 2
 (5.97)
@@ -7253,10 +7257,10 @@ to give
 Using b2 as an estimate of dθ / dt, we now rewrite Eq. (5.96) as
 (5.98)
 Now define
-a2 ξ 1 , ξ 2 , θ = ξ 1 + ξ 2 +
+a2 ξ 1 , ξ 2 , \theta = ξ 1 + ξ 2 +
 (5.99)
 and introduce the state variable ξ 3 as
-ξ 3 = x3 + a2 (ξ 1 , ξ 2 , θ )
+ξ 3 = x3 + a2 (ξ 1 , ξ 2 , \theta )
 The differential equation (5.98) can be written as
 a1 ˜
 (5.100)
@@ -7272,7 +7276,7 @@ the general MRAS approach, we now attempt to find a feedback law and a
 parameter adjustment rule that stabilizes the error equation. Choosing
 as a possible Lyapunov function, we get, after straightforward but tedious
 calculations,
-The term that contains θ can be eliminated by updating the parameters in the
+The term that contains \theta can be eliminated by updating the parameters in the
 following way:
 f + c(ξ 1 , ξ 2 )ξ 3
 (5.102)
@@ -7302,7 +7306,7 @@ or, in the normalized form,
 In the gradient method the vector ϕ is the negative gradient of the error with
 respect to the parameters. Estimation of parameters or approximations may be
 needed to obtain the gradient. In other cases, ϕ is a regression vector, which is
-found by filtering inputs, outputs, and command signals. The quantity ε is the
+found by filtering inputs, outputs, and command signals. The quantity \epsilon is the
 augmented error, which also can be interpreted as the prediction error of the
 estimation problem. It is customary to use an augmented error that is linear
 in the parameters.
@@ -7320,14 +7324,14 @@ Determine model-reference adaptive controllers based on gradient and
 stability theory, respectively. (Compare Problem 3.2.)
 Consider the simple MRAS in Fig. 5.4 with G = 1/ s. Let the parameter
 adjustment law be Eq. (5.57) (i.e., of PI type). Determine the differential
-equation for θ , and discuss how γ 1 and γ 2 influence the convergence rate.
+equation for \theta , and discuss how γ 1 and γ 2 influence the convergence rate.
 Consider a position servo described by
 = −av + bu
 where parameters a and b are unknown. Assume that the control law
-u = θ 1 (uc − y) − θ 2 v
+u = \theta 1 (uc − y) − \theta 2 v
 is used and that it is desired to control the system in such a way that the
 transfer function from command signal to process output is given by
-Determine an adaptive control law that adjusts parameter θ 1 and θ 2 so
+Determine an adaptive control law that adjusts parameter \theta 1 and \theta 2 so
 that the desired objective is obtained.
 An integrator
 is to be controlled by a zero-order continuous-time controller
@@ -7369,7 +7373,7 @@ by simulation. (Compare Problem 3.4.)
 5.13 The general MRAS procedure in Section 5.8 was derived for known instantaneous gain b0 . If b0 is unknown, we may use the following augmented
 error:
 where b0 is the estimate of b0 . Discuss how this augmented error can be
-obtained and how it may be used to update the parameters b0 and θ .
+obtained and how it may be used to update the parameters b0 and \theta .
 5.14 Study the parameter adjustment law in Example 5.2. Make a simulation
 program that implements the adaptive system. Repeat the simulation in
 Fig. 5.5. Investigate the behavior of the parameters and the error. Explore
@@ -7604,12 +7608,12 @@ data filter, and the auxiliary state variables that may have to be introduced
 to calculate the error e and the regression vector ϕ used in the parameter
 adjustment mechanism. The vector η consists of the error and the regression
 vector that are used by the parameter estimator.
-Furthermore, let θ denote the process parameters. A normalized gradient
+Furthermore, let \theta denote the process parameters. A normalized gradient
 scheme for estimating the parameters can be described by
 ϕ (ϑ , ξ ) e(ϑ , ξ )
 α + ϕ (ϑ , ξ )T ϕ (ϑ , ξ )
 (6.2)
-The control design can be represented by a nonlinear function ϑ = χ (θ ), which
+The control design can be represented by a nonlinear function ϑ = χ (\theta ), which
 maps the estimated parameters into controller parameters. This map becomes
 the identity for direct algorithms.
 For constant ϑ the system (6.1) is linear. The solution can then also be
@@ -7629,13 +7633,13 @@ case. For a system with recursive least-squares estimation the equations can
  e(t) 
  = C (ϑ )ξ (t) + D (ϑ )ν (t)
 η (t) = 
-θ (t + 1) = θ (t) + P(t + 1)ϕ (t) e(t)
+\theta (t + 1) = \theta (t) + P(t + 1)ϕ (t) e(t)
 P(t + 1) = P(t) − P(t)ϕ (t)(λ + ϕ T (t) P(t)ϕ (t))−1ϕ T (t) P(t)
 (6.3)
 It is useful to try to exploit the special structure of the equations to get a deeper
 understanding of adaptive systems. One special feature is that the state of the
-closed-loop system is naturally separated into two parts, ξ and θ . Moreover, it
-is reasonable to assume that θ changes more slowly than ξ .
+closed-loop system is naturally separated into two parts, ξ and \theta . Moreover, it
+is reasonable to assume that \theta changes more slowly than ξ .
 Analysis
 Let us briefly summarize how a nonlinear system such as Eqs. (6.1) and (6.2)
 or Eqs. (6.3) can be analyzed. It is a comparatively simple task to find the
@@ -7643,7 +7647,7 @@ equilibrium solutions by solving the algebraic equations
 for continuous-time systems. For discrete-time systems the equivalent equations become
 ξ (t + 1) = ξ (t)
 It may happen that proper equilibria do not exist. In such cases there
-may be integral manifolds where the parameters θ are constant although
+may be integral manifolds where the parameters \theta are constant although
 the state ξ varies with time. We are then led to averaging analysis, which is
 discussed in depth in Section 6.6. Equilibria having been found, it is natural to
 determine the local behavior by linearizing the equations around the equilibria
@@ -7659,33 +7663,33 @@ useful for two-dimensional systems.
 Analysis of a Simple Discrete-Time System
 To illustrate how the analysis can be done, we discuss a simple example.
 Consider a discrete-time adaptive controller that is based on estimation of
-the parameter θ in the model
+the parameter \theta in the model
 Let the controller be
-y(t + 1) = θ y(t) + u(t)
-u(t) = −θ (t) y(t) + y0
+y(t + 1) = \theta y(t) + u(t)
+u(t) = −\theta (t) y(t) + y0
 (6.4)
 (6.5)
-ˆ is an estimate of θ and y0 the setpoint. If the process is indeed
-where θ
-described by Eq. (6.4) and if the estimate θ is correct, the controller gives a
+ˆ is an estimate of \theta and y0 the setpoint. If the process is indeed
+where \theta
+described by Eq. (6.4) and if the estimate \theta is correct, the controller gives a
 deadbeat response. The parameter is estimated by using a normalized gradient
 algorithm
-y(t) y(t + 1) − θ (t) y(t) − u(t)
-θ (t + 1) = θ (t) + γ
+y(t) y(t + 1) − \theta (t) y(t) − u(t)
+\theta (t + 1) = \theta (t) + γ
 (6.6)
 α + y2 (t)
 where γ and α are parameters. This is equal to Kaczmarz’s projection algorithm if γ = 1 and α = 0.
 To analyze the closed-loop system, we must also have a description of the
 actual process. We assume that this is given by
-y(t + 1) = θ 0 y(t) + a + u(t)
+y(t + 1) = \theta 0 y(t) + a + u(t)
 (6.7)
 Notice that, because of the presence of the parameter a on the right-hand
 side, this model is different from the model (6.4) used to design the adaptive
 controller. Equations (6.4), (6.5), (6.6), and (6.7) thus describe a very simple
 case of adaptive control of a process with a constant unmodeled disturbance.
 Using Eq. (6.5) to eliminate u in Eqs. (6.6) and (6.7), we find that the closedloop system can be described by the equations
-y(t + 1) = θ 0 − θ (t) y(t) + a + y0
-y(t) θ 0 − θ (t) y(t) + a
+y(t + 1) = \theta 0 − \theta (t) y(t) + a + y0
+y(t) \theta 0 − \theta (t) y(t) + a
 (6.8)
 This is a second-order nonlinear system. To explore the behavior of this system,
 we follow the procedure of nonlinear analysis.
@@ -7723,45 +7727,45 @@ equilibrium becomes
 Stability is thus guaranteed simply by choosing a reasonable value of γ .
 Global Properties We now investigate the global properties when the parameters are chosen in such a way that the equilibrium is stable. To get some
 guidelines for the analysis, we first simulate the system. In Fig. 6.2 we show
-a phase portrait for the case in which α = 0.1, γ = 0.1, θ 0 = 1.5, y0 = 1, and
+a phase portrait for the case in which α = 0.1, γ = 0.1, \theta 0 = 1.5, y0 = 1, and
 a = 0.9. It follows from Eqs. (6.9) that the equations have an equilibrium for
-y = 1.0 and θ = 2.4 and from condition (ii) in Eqs. (6.11) that the equilibrium
+y = 1.0 and \theta = 2.4 and from condition (ii) in Eqs. (6.11) that the equilibrium
 is stable provided that 0 < γ < 0.22. The equilibrium is thus stable for the chosen value of the adaptation gain. Remember that the system is a discrete-time
 system. The discrete solution points are connected with straight lines to give a
 continuous graph. All trajectories shown in the simulation are approaching the
-equilibrium. Solutions with initial values θ (0) = 0 appear to have large excurˆ (0) = 2.5 seems to be oscillatory. To understand
-sions, and the trajectory with θ
-the behavior intuitively, we consider the equations for y and θ separately. It
+equilibrium. Solutions with initial values \theta (0) = 0 appear to have large excurˆ (0) = 2.5 seems to be oscillatory. To understand
+sions, and the trajectory with \theta
+the behavior intuitively, we consider the equations for y and \theta separately. It
 ˆ is constant, then the motion of y is governed
-follows from Eqs. (6.8) that if θ
-y(t + 1) = (θ 0 − θ ) y(t) + a + y0
+follows from Eqs. (6.8) that if \theta
+y(t + 1) = (\theta 0 − \theta ) y(t) + a + y0
 This is a first-order difference equation with the equilibrium solution
-y = f (θ ) =
+y = f (\theta ) =
 a + y0
 (6.12)
 Figure 6.2 Phase portrait for the system in the stable case. Parameter
-values are α = 0.1, γ = 0.1, θ 0 = 1.5, y0 = 1, and a = 0.9. The dashed lines
-indicate the interval θ 0 − 1 < θ < θ 0 + 1. The dot is the equilibrium point.
-If parameter θ is constant, the solution is stable if
+values are α = 0.1, γ = 0.1, \theta 0 = 1.5, y0 = 1, and a = 0.9. The dashed lines
+indicate the interval \theta 0 − 1 < \theta < \theta 0 + 1. The dot is the equilibrium point.
+If parameter \theta is constant, the solution is stable if
 and unstable otherwise. These bounds are shown as dashed lines in Fig. 6.2. If
-the parameter θ is kept constant, y diverges monotonically at the lower bound
+the parameter \theta is kept constant, y diverges monotonically at the lower bound
 and diverges in an oscillatory manner with period 2 at the upper bound. In
-reality, parameter θ will of course change. The smaller the adaptation gain
+reality, parameter \theta will of course change. The smaller the adaptation gain
 is, the smaller rate of change. With the numbers used in the simulation the
 bounds are 0.5 and 2.5. The behavior shown in Fig. 6.2 can thus be explained
 qualitatively. The solution approaches the curve (6.12) and then moves along
-this curve. The variable y appears to grow exponentially for θ < 0.5; it decays
+this curve. The variable y appears to grow exponentially for \theta < 0.5; it decays
 ˆ < 1.5 and decays in an oscillatory manner for
-exponentially for 0.5 < θ
-1.5 < θ < 2.5. The variable grows in an oscillatory manner for θ > 2.5.
+exponentially for 0.5 < \theta
+1.5 < \theta < 2.5. The variable grows in an oscillatory manner for \theta > 2.5.
 We now turn our attention to the equation for the parameter estimate.
 we find
-θ (t + 1) = 1 − γ
+\theta (t + 1) = 1 − γ
 y2 (t)
-θ (t) + γ
+\theta (t) + γ
 ay(t)
 (6.13)
-This equation implies that the signals y and θ cannot be unbounded because
+This equation implies that the signals y and \theta cannot be unbounded because
 Eq. (6.13) is always stable when γ is sufficiently small. For large values of y(t)
 the added term is small, and the solution will decay. It thus appears as though
 the equilibrium solution that is locally stable may also be globally stable in
@@ -7774,19 +7778,19 @@ eigenvalue passes the unit circle with complex values if condition (i) is violat
 through z = −1 if condition (ii) is violated and through z = 1 if condition (iii)
 is violated. We consider the situation in which the value of the adaptation gain
 is too large. Increasing the gain means that the solution will become unstable
-with period 2. Consider the case in which θ 0 = 1, α = 0.1, y0 = 1, and a = 0.9.
-The equilibrium is y = 1 and θ = 1.9. It follows from the stability criterion
+with period 2. Consider the case in which \theta 0 = 1, α = 0.1, y0 = 1, and a = 0.9.
+The equilibrium is y = 1 and \theta = 1.9. It follows from the stability criterion
 that the equilibrium is stable if γ < 0.22. With γ = 0.5 the linearized closedloop system is unstable. Figure 6.3 shows a simulation of the system. The
 behavior of the system is typical for the case with unmodeled dynamics. The
-output y and the parameter estimate θ appear to approach their equilibrium
+output y and the parameter estimate \theta appear to approach their equilibrium
 values. The equilibrium is unstable and a diverging oscillation with period 2
-appears when y and θ come sufficiently close to their equilibrium. The variables
+appears when y and \theta come sufficiently close to their equilibrium. The variables
 then oscillate with large excursions. When this happens, the modeling error
 becomes less significant, and the process output y and the parameter estimate
-θ approach their equilibrium values. The process then repeats all over again.
+\theta approach their equilibrium values. The process then repeats all over again.
 Figure 6.3 Simulation of a simple adaptive controller with unmodeled dyˆ
-namics. The equilibrium values of y and θ are indicated by solid straight
-lines. The true parameter value θ 0 is indicated by a dashed straight line.
+namics. The equilibrium values of y and \theta are indicated by solid straight
+lines. The true parameter value \theta 0 is indicated by a dashed straight line.
 The phenomenon that has been observed in many adaptive systems is called
 bursting.
 The simulation shown in Fig. 6.3 represents a very complex behavior.
@@ -7815,13 +7819,13 @@ that the input signal is uc (t) = e−t . The system can then be described by th
 equations
 = − e + kθ uc
 = −γ euc
-where θ = θ − θ 0 . The equilibrium is e = θ = uc = 0. Linearization around
+where \theta = \theta − \theta 0 . The equilibrium is e = \theta = uc = 0. Linearization around
 this point gives a linear system with the system matrix.
 This matrix has the eigenvalues −1, 0, and −1, and the system is clearly not
 Persistency of excitation gives structural stability
 Consider the same system as in Example 6.1, but assume now that the command signal is a step, that is, uc (t) = 1. The system is then described by the
 = − e + kθ
-The equilibrium is e = θ = 0. Linearization around this fixed point gives a
+The equilibrium is e = \theta = 0. Linearization around this fixed point gives a
 linear system with the system matrix.
 and the equilibrium is thus stable if γ k is positive.
 Figure 2.10 in Chapter 2, which illustrates a case of identification under
@@ -7853,7 +7857,7 @@ and the parameter adjustment rule is
 Since the signal ym can be computed from the command signal uc , both uc and
 ym can thus be regarded as known time-varying signals. The adaptive system
 is described by the equation
-−γ ym (t)   θ   γ ym (t) 
+−γ ym (t)   \theta   γ ym (t) 
 (6.16)
 kuc (t)
 The system can thus be described by a time-varying linear differential equation
@@ -8008,24 +8012,24 @@ case it is possible to derive general properties of the estimators.
 Projection or Gradient Algorithms
 The properties of the projection or gradient algorithm are now investigated in
 the ideal case in which data is generated by the model
-y(t) = ϕ T (t)θ 0
+y(t) = ϕ T (t)\theta 0
 (6.21)
 We have the following result.
 Projection algorithm properties
 Let the estimator
-e(t) = y(t) − ϕ (t)θ (t − 1) = ϕ T (t) θ 0 − θ (t − 1)
+e(t) = y(t) − ϕ (t)\theta (t − 1) = ϕ T (t) \theta 0 − \theta (t − 1)
 (6.22)
 with α ≥ 0 and 0 < γ < 2, be applied to data generated by Eq. (6.21). It then
 follows that
-θ (t) − θ 0 ≤ θ (t − 1) − θ 0 ≤ θ (0) − θ 0
-lim θ (t) − θ (t − k) = 0
+\theta (t) − \theta 0 ≤ \theta (t − 1) − \theta 0 ≤ \theta (0) − \theta 0
+lim \theta (t) − \theta (t − k) = 0
 for any finite k
-Introduce θ (t) = θ (t) − θ 0 and
-V (t) = θ T (t)θ (t) = θ (t)
-e(t) = ϕ T (t)θ 0 − ϕ T (t)θ (t − 1) = −ϕ T (t)θ (t − 1)
-Subtracting θ 0 from both sides of the parameter equation in Eqs. (6.22) and
+Introduce \theta (t) = \theta (t) − \theta 0 and
+V (t) = \theta T (t)\theta (t) = \theta (t)
+e(t) = ϕ T (t)\theta 0 − ϕ T (t)\theta (t − 1) = −ϕ T (t)\theta (t − 1)
+Subtracting \theta 0 from both sides of the parameter equation in Eqs. (6.22) and
 taking the norm, we get
-γ ϕ T (t)θ (t − 1) e(t) γ 2ϕ T (t)ϕ (t) e2 (t)
+γ ϕ T (t)\theta (t − 1) e(t) γ 2ϕ T (t)ϕ (t) e2 (t)
 (α + ϕ T (t)ϕ (t))
 γ e2 (t)
 = χ (t)
@@ -8048,11 +8052,11 @@ Eqs. (6.22),
 T ( t)ϕ ( t)
 It follows from property (ii) that the right-hand side of the preceding equation
 goes to zero as t → ∞ if α > 0. Hence
-θ (t) − θ (t − k)
-θ (t − i + 1) − θ (t − i)
+\theta (t) − \theta (t − k)
+\theta (t − i + 1) − \theta (t − i)
 where the right-hand side goes to zero as t → ∞ for finite k.
 Remark 1. For γ = 1 and α = 0 the algorithm reduces to Kaczmarz’s projection algorithm.
-Remark 2. Notice that the result does not imply that the estimates θ (t) converge.
+Remark 2. Notice that the result does not imply that the estimates \theta (t) converge.
 Remark 3. The function V (t) can be interpreted as a discrete-time Lyapunov
 function.
 Theorem 6.3 is useful because it gives some properties of the estimator
@@ -8070,7 +8074,7 @@ excitation. We first consider the gradient algorithm, which is simpler than the
 least-squares algorithm, although it converges at a considerably slower rate. A
 typical projection or gradient algorithm is given by Eqs. (6.22), where α ≥ 0
 and 0 < γ < 2. The estimation error is given by
-θ (t) = θ (t) − θ 0 = A(t − 1)θ (t − 1)
+\theta (t) = \theta (t) − \theta 0 = A(t − 1)\theta (t − 1)
 A(t − 1) = I −
 (6.23)
 The problem of analyzing convergence rates is thus equivalent to analyzing the
@@ -8157,26 +8161,26 @@ simple model (6.21), which is linear in the parameters and for which are no
 disturbances. Let the parameter vector have n elements. The parameters can be
 calculated exactly from n data points, provided that the vectors ϕ (1), . . . , ϕ (n)
 are linearly independent. The least-squares estimate is given by
-θ (n) =
+\theta (n) =
 ϕ ( k)ϕ ( k)
 ϕ ( k) y( k)
-ϕ ( k)ϕ T (t)θ 0 = θ 0
+ϕ ( k)ϕ T (t)\theta 0 = \theta 0
 (6.27)
 The correct state is obtained in n steps. If the estimate is instead calculated
 by recursive least squares, the following estimate is obtained:
 P−1 (0) +
 ϕ ( k)ϕ T ( k)
-ϕ ( k) y( k) + P−1 (0)θ (0)
+ϕ ( k) y( k) + P−1 (0)\theta (0)
 (6.28)
-where θ (0) is the initial estimate and P(0) is the initial covariance of the
+where \theta (0) is the initial estimate and P(0) is the initial covariance of the
 estimator. By making P(0) positive definite but arbitrarily large, the result
 from the recursive estimation can be made arbitrarily close to the true value.
 From this analysis we obtain the following result.
 Property of RLS
 Let the recursive least squares be applied to data generated by Eq. (6.21). Let
-P(0) be positive definite and let θ (0) be bounded. Assume that
+P(0) be positive definite and let \theta (0) be bounded. Assume that
 β (t) I ≤
-where β (t) goes to infinity. Then the estimate converges to θ 0 .
+where β (t) goes to infinity. Then the estimate converges to \theta 0 .
 This discussion shows that in the deterministic case it is possible to obtain parameter estimators that converge in a finite number of steps. The key
 assumption is that the regressors are linearly independent, so
 is of full rank. When the parameters are changing, a least-squares estimator,
@@ -8186,7 +8190,7 @@ estimators in parallel, which are reset sequentially.
 Results similar to Theorem 6.3 can also be established for the least-squares
 algorithm and several of its variants. The key is to replace function V (t) in
 Theorem 6.3 by
-V (t) = θ T (t) P−1 (t)θ (t)
+V (t) = \theta T (t) P−1 (t)\theta (t)
 and add assumptions that guarantee that the eigenvalues of P stay bounded.
 One way to do this is to use the constant trace algorithm (see Section 11.5).
 So far, only the general model (6.21) has been discussed. The properties
@@ -8199,7 +8203,7 @@ deg B 0 , it follows from Theorem 2.1 that the estimate is not unique because th
 columns of the matrix Φ are linearly dependent. Theorem 2.10 gives conditions
 for uniqueness of the least-squares estimate.
 The Stochastic Case
-y(t) = ϕ T (t)θ 0 + e(t)
+y(t) = ϕ T (t)\theta 0 + e(t)
 where { e(t)} is a sequence of independent Gaussian (0, σ ) random variables.
 The least-squares estimator is given by Eq. (6.28). The covariance of the estimate for large t is (see Theorem 2.2)
 P(t) = σ
@@ -8210,8 +8214,8 @@ Let the least-squares method for estimating parameters of a transfer function be
 sequence of uncorrelated random variables with zero mean and variance σ 2 .
 Assume that the estimated model has the same structure as the process generating the data, that is, the ideal case. Further assume that the input signal
 is persistently exciting of order deg A + deg B + 1. Then
-θ (t) → θ 0
-var (θ − θ 0 )
+\theta (t) → \theta 0
+var (\theta − \theta 0 )
 in the mean square as
 Remark 1. The estimates do not converge to the true parameters when e(t)
 is correlated with e(s) for t = s.
@@ -8227,9 +8231,9 @@ speaking, the parameters will converge to a value that minimizes the leastsquare
 ( Ay f (t) − Bu f (t))
 (6.30)
 where y f and u f are the filtered process input and output, that is,
-and the parameter θ represents the coefficients of the polynomials A and B.
+and the parameter \theta represents the coefficients of the polynomials A and B.
 The minimum exists under certain regularity conditions, and the minimizing
-θ is unique under the condition of persistency of excitation. The minimizing
+\theta is unique under the condition of persistency of excitation. The minimizing
 value will depend on the data filter H f and the spectrum of the reference
 signal and the disturbances.
 When discussing parameter estimation in Chapter 2, we observed that identifiability could be lost if the input was generated by feedback from the output.
@@ -8272,7 +8276,7 @@ estimated will give the correct closed-loop characteristic polynomial.
 Design Calculations
 The design calculations are an important part of indirect adaptive systems.
 Theoretically, the design procedure is represented by the function χ , which
-maps process parameters θ to controller parameters ϑ . The properties of χ
+maps process parameters \theta to controller parameters ϑ . The properties of χ
 will, of course, depend on the parameterization of the model and the design
 procedure chosen. The function can often be quite complicated. It is important that the map gives unique controller parameters and that there are no
 singularities in the map.We discuss the properties of the map in some simple
@@ -8368,7 +8372,7 @@ This specification implies that all process zeros are canceled. Furthermore, let
 the observer polynomial be Ao . A direct algorithm can then be formulated as
 follows. Estimate parameters of the model
 (6.39)
-A∗ A∗ y(t + d) = R∗ u(t) + S∗ y(t) = ϕ T (t)θ
+A∗ A∗ y(t + d) = R∗ u(t) + S∗ y(t) = ϕ T (t)\theta
 ϕ (t) = ( u(t) u(t − 1) . . . u(t − k)
 y(t − 1)
 y(t − l ) )T
@@ -8377,7 +8381,7 @@ The parameters are estimated by using the following projection estimator:
 γ ϕ (t − d)
 − d)ϕ (t − d)
 + ϕ T (t
-e(t) = y(t) − ϕ (t − d)θ (t − 1)
+e(t) = y(t) − ϕ (t − d)\theta (t − 1)
 (6.41)
 with 0 < γ < 2 and α > 0. This estimator is the same as Eqs. (6.22) except
 that ϕ now has index t − d instead of t. The properties given in Theorem 6.3
@@ -8385,9 +8389,9 @@ are still valid.
 The control law is
 R∗ u(t) + S∗ y(t) = t0 A∗ uc (t)
 (6.42)
-θ T (t) ( A∗ A∗ ϕ (t)) = t0 A∗ uc (t)
+\theta T (t) ( A∗ A∗ ϕ (t)) = t0 A∗ uc (t)
 (6.43)
-where uc (t) is the desired setpoint. Notice that it must be required that θ 1 (t) =
+where uc (t) is the desired setpoint. Notice that it must be required that \theta 1 (t) =
 r0 (t) = 0; otherwise, the control law is not causal.
 Preliminaries
 Since the proof consists of several steps, we outline the basic idea. The properties of the estimator were given in Theorem 6.3, which proved that the estimates are bounded and that a normalized prediction error converges to zero.
@@ -8424,25 +8428,25 @@ A4: The sign of b0 = r0 is known.
 The sequences {u(t)} and { y(t)} are bounded.
 lim A∗ ( q−1 ) y(t) − t0 uc (t − d) = 0
 Introduce the control error
-ε (t) = A∗ ( A∗ y(t) − t0 uc (t − d)) = P∗ y(t) − t0 A∗ uc (t − d)
-= P∗ y(t) − θ T (t − d) ( P∗ϕ (t − d))
-= P∗ e(t) + P∗ θ T (t − 1)ϕ (t − d) − θ T (t − d) ( P∗ϕ (t − d))
+\epsilon (t) = A∗ ( A∗ y(t) − t0 uc (t − d)) = P∗ y(t) − t0 A∗ uc (t − d)
+= P∗ y(t) − \theta T (t − d) ( P∗ϕ (t − d))
+= P∗ e(t) + P∗ \theta T (t − 1)ϕ (t − d) − \theta T (t − d) ( P∗ϕ (t − d))
 deg P
 = P∗ e(t) +
-pi (θ (t − 1 − i) − θ (t − d)) ϕ (t − d − i)
+pi (\theta (t − 1 − i) − \theta (t − d)) ϕ (t − d − i)
 (6.45)
 where P = Ao Am has been introduced to simplify the writing. The first two
 equalities are trivial. The third is obtained from Eq. (6.39), the fourth from
 Eqs. (6.41), and the last by expanding the expression.
 It now follows from properties (ii) and (iii) of Theorem 6.3 that
 It follows from the first equality in Eq. (6.45) that
-A∗ A∗ y(t) = ε (t) + t0 A∗ uc (t)
+A∗ A∗ y(t) = \epsilon (t) + t0 A∗ uc (t)
 Since the polynomials Ao and Am are stable and since uc is bounded, it follows
-y(t) ≤ α 1 + β 1 max ε ( k)
+y(t) ≤ α 1 + β 1 max \epsilon ( k)
 Moreover, since the polynomial B is stable, it follows that
 u(t − d) ≤ α 2 + β 2 max y( k)
-ϕ (t − d) ≤ α 3 + β 3 max ε ( k)
-If we apply Lemma 6.2, it follows that ϕ (t) is bounded and that ε (t) → 0 as
+ϕ (t − d) ≤ α 3 + β 3 max \epsilon ( k)
+If we apply Lemma 6.2, it follows that ϕ (t) is bounded and that \epsilon (t) → 0 as
 t → ∞. Since the polynomial A∗ is stable, property (ii) also follows.
 Remark 1. We used an algorithm for which the details of the proof are simple.
 With minor modification the results can be extended to cover many of the direct
@@ -8485,9 +8489,9 @@ The results can also be extended to systems with disturbances generated from
 known dynamics.
 The gradient estimation algorithm can be replaced by other, more efficient
 methods. Theorem 6.3 then needs to be generalized. Many types of least˜ ˜
-squares-like algorithms can be covered by replacing the function V = θ T θ
+squares-like algorithms can be covered by replacing the function V = \theta T \theta
 ˜ T P−1θ and adding assumptions that guarantee that
-in Theorem 6.3 by V = θ
+in Theorem 6.3 by V = \theta
 the eigenvalues of P stay bounded. Other control laws can also be treated. One
 important situation that has not been treated is the case in which the control
 signal is kept bounded by saturation. Theorem 6.3 still holds, but Theorem 6.7
@@ -8548,43 +8552,43 @@ idea is that the parameters change much more slowly than the other variables
 of the system. This property is intrinsic to the adaptive algorithms. If this were
 not the case, we could hardly justify using the notion of parameters.
 To describe the averaging methods, consider the adaptive system described
-by Eqs. (6.1) and (6.2). The rate of change of the parameter θ can be made
+by Eqs. (6.1) and (6.2). The rate of change of the parameter \theta can be made
 arbitrarily small by choosing the adaptation gain γ sufficiently small. For
 simplicity we use the simple gradient algorithm
 = γ ϕ (ϑ , ξ ) e(ϑ , ξ )
 (6.48)
-The product ϕ e on the right-hand side depends on ϑ and ξ , where ϑ = ϑ (θ )
+The product ϕ e on the right-hand side depends on ϑ and ξ , where ϑ = ϑ (\theta )
 varies slowly and ξ varies fast. The key idea in the averaging method is to
 approximate the product ϕ e by
-G (θ ) = avg ϕ ϑ (θ ), ξ (ϑ (θ ), t) e ϑ (θ ), ξ (ϑ (θ ), t)
-where avg{⋅} denotes the average and ξ (ϑ (θ ), t) is computed under the asˆ
-sumption that the parameters θ are constant. The average can be computed in
+G (\theta ) = avg ϕ ϑ (\theta ), ξ (ϑ (\theta ), t) e ϑ (\theta ), ξ (ϑ (\theta ), t)
+where avg{⋅} denotes the average and ξ (ϑ (\theta ), t) is computed under the asˆ
+sumption that the parameters \theta are constant. The average can be computed in
 many ways. Typical examples are
-avg f θ , ξ (θ , t), t
-f θ , ξ (θ , t), t dt
+avg f \theta , ξ (\theta , t), t
+f \theta , ξ (\theta , t), t dt
 = lim
-= E f θ , ξ (θ , t), t
+= E f \theta , ξ (\theta , t), t
 The first alternative is applicable when f is periodic with period T, and the
 last equation applies when ξ is a stationary stochastic process. Notice that
 the averaged equations can be calculated only when the signals are bounded.
-This implies that the closed-loop system must be stable if the parameters θ are
+This implies that the closed-loop system must be stable if the parameters \theta are
 ˆ ), t) is a straightforward exercise in linear system
-fixed. The calculation of ξ (ϑ (θ
+fixed. The calculation of ξ (ϑ (\theta
 analysis. However, the expressions may be complex for high-order systems.
 Symbolic calculation is a useful tool for carrying out the calculations. The
 use of averaging thus results in the following averaged nonlinear differential
 equation for the parameters:
-− γ avg ϕ ϑ (θ ), ξ (ϑ (θ ), t) e ϑ (θ ), ξ (ϑ (θ ), t)
+− γ avg ϕ ϑ (\theta ), ξ (ϑ (\theta ), t) e ϑ (\theta ), ξ (ϑ (\theta ), t)
 (6.49)
 (6.50)
 This equation can also be written as
 − γ avg
-Gϕν (ϑ (θ ), p)ν
-G eν (ϑ (θ ), p)ν
+Gϕν (ϑ (\theta ), p)ν
+G eν (ϑ (\theta ), p)ν
 Notice that the transfer functions G eν and Gϕν depend on the averaged param¯
-eter θ . When the averaged equations are obtained, the behavior of the state
+eter \theta . When the averaged equations are obtained, the behavior of the state
 variables ξ can be obtained by linear analysis.
-Several averaging theorems give conditions for θ being close to θ . The conditions typically require smoothness of the functions involved and periodicity
+Several averaging theorems give conditions for \theta being close to \theta . The conditions typically require smoothness of the functions involved and periodicity
 or near periodicity of the time functions. There are also stochastic averaging
 theorems. Notice that averaging analysis was used in Theorems 4.1 and 4.2.
 A significant advantage of averaging theory is that it reduces the dimensions of the problem. The theorems require that the adaptation gain be small,
@@ -8601,7 +8605,7 @@ A simple case of averaging is when the external driving force is sinusoidal,
 that is, ν (t) = u0 sin ω t. The signals ϕ and e are then given by
 ϕ (t) = Gϕν (ϑ , ω )ν (t)
 e(t) = G eν (ϑ , ω )ν (t)
-Notice that controller parameters ϑ depend on θ . The following result is useful
+Notice that controller parameters ϑ depend on \theta . The following result is useful
 for calculation of the averages.
 Averaging for sinusoidal input
 Let Gv and Gw be stable transfer functions, and let v and w denote the steadystate responses of the corresponding systems to the input uc = u0 sin ω t. The
@@ -8613,26 +8617,26 @@ Proof: The signals v and w have the amplitudes Gv (iω ) and Gw(iω ) ; their
 phase angles are arg Gv (iω ) and arg Gw(iω ). Integrating over one period gives
 the result.
 A true parameter equilibrium exists if the equation
-G eν ϑ (θ ), ω = 0
+G eν ϑ (\theta ), ω = 0
 has a unique solution. To derive a necessary condition we consider the averaged
-= γ Re Gϕν ϑ (θ ), ω Rν G eν ϑ (θ ), −ω
+= γ Re Gϕν ϑ (\theta ), ω Rν G eν ϑ (\theta ), −ω
 (6.51)
 Rν = avg ν ν T
 A necessary condition for Eq. (6.51) to have a unique parameter equilibrium
-is that ν and θ have equal dimension and that Rν be of full rank. To have
+is that ν and \theta have equal dimension and that Rν be of full rank. To have
 a unique parameter equilibrium for slow external driving signals, it is thus
 necessary that the number of estimated parameters be less than or equal to
 the number of external driving signals and that the external driving signals be
 persistently exciting. This result indicates that there may be some disadvantages to overparameterization, contrary to what is indicated in Theorem 6.7.
-The local stability of the equilibrium θ 0 is given by the linearized equation
-where x denotes the deviation from the equilibrium θ − θ 0 and
-A = Gϕν ϑ (θ 0 ), ω Rν
-G eν ϑ (θ 0 ), ω
+The local stability of the equilibrium \theta 0 is given by the linearized equation
+where x denotes the deviation from the equilibrium \theta − \theta 0 and
+A = Gϕν ϑ (\theta 0 ), ω Rν
+G eν ϑ (\theta 0 ), ω
 The preceding equations can be applied to slow or constant perturbations by
 setting ω = 0, provided that the assumptions of averaging are fulfilled.
 An Example of Averaging Analysis
 Consider a process with the transfer function kG (s) and an adjustable feedˆ
-forward gain. Find a feedforward gain θ such that the input-output behavior
+forward gain. Find a feedforward gain \theta such that the input-output behavior
 matches the transfer function k0 G m (s) as well as possible. It is assumed that
 k > 0 and k0 > 0. The case G m = G was discussed in Chapter 5. Two different
 algorithms for updating the gain were proposed in Chapter 5: the MIT rule
@@ -8642,7 +8646,7 @@ and the SPR rule. The algorithms are
 (6.52)
 where uc is the command signal, ym = k0 G m uc is the model output, and e is
 the error defined by
-e(t) = y − ym = kG ( p) θ (t)uc (t) − k0 G m ( p)uc (t)
+e(t) = y − ym = kG ( p) \theta (t)uc (t) − k0 G m ( p)uc (t)
 The analysis in Section 5.5 shows that the MIT rule gives a closed-loop system
 that is globally stable for any adaptation gain γ in the “ideal” case, when
 G = G m and G is SPR. In the presence of unmodeled dynamics it is, of course,
@@ -8651,13 +8655,13 @@ result has been given for the MIT rule. However, Example 5.5 indicates that the
 MIT rule will be unstable for sufficiently high adaptation gains if the system
 is not SPR.
 We now investigate the algorithms under nonideal conditions, using averaging. Inserting the expressions for ym and e into the equations for the parameters, we get
-+ γ ( k0 G m uc ) kG (θ uc ) − k0 G m uc = 0
++ γ ( k0 G m uc ) kG (\theta uc ) − k0 G m uc = 0
 (6.53)
-+ γ uc kG (θ
++ γ uc kG (\theta
 where the first equation holds for the MIT rule and the second holds for the
 SPR rule. The corresponding averaging equations are
-+ γ θ kk0 avg{( G m uc )( Guc )} − k0 avg{( G m uc )2 } = 0
-+ γ θ k avg{uc ( Guc )} − k0 avg{uc ( G m uc )} = 0
++ γ \theta kk0 avg{( G m uc )( Guc )} − k0 avg{( G m uc )2 } = 0
++ γ \theta k avg{uc ( Guc )} − k0 avg{uc ( G m uc )} = 0
 (6.54)
 The equilibrium parameters are
 avg{( G m uc )2 }
@@ -8721,11 +8725,11 @@ obtained from averaging analysis.
 ω = 3 and ω = 3.4. The equilibrium values predicted by the averaging theory
 are also shown in the figure. The SPR is unstable for ω = 3.4 > 10. Also
 notice the drastic difference in the equilibrium values between the different
-updating methods. The desired equilibrium value is θ 0 = k0 / k.
+updating methods. The desired equilibrium value is \theta 0 = k0 / k.
 The behavior is well predicted by the averaging analysis. Notice the differ¯
-ence in convergence rates. Initially, when θ = 0, the rates of changes are given
+ence in convergence rates. Initially, when \theta = 0, the rates of changes are given
 θ˙MIT = γ k2 avg{( G m uc )2 }
-θ SPR = γ k0 avg{uc ( G m uc )}
+\theta SPR = γ k0 avg{uc ( G m uc )}
 These expressions clearly show that the initial rates decrease with increasing
 frequency because G m (iω ) decreases with frequency. For the SPR rule the
 rate decreases even more because of the phase lag between uc and G m uc .
@@ -8768,15 +8772,15 @@ The system is described by the equations
 y = G ( p)u
 ym = G m ( p)uc
 where uc is the reference signal, u is the process input, y is the process output,
-ym is the output of the reference model, e is the error, θ 1 is the adjustable
-feedforward gain, and θ 2 is the adjustable feedback gain.
+ym is the output of the reference model, e is the error, \theta 1 is the adjustable
+feedforward gain, and \theta 2 is the adjustable feedback gain.
 It is not possible to give a complete analysis of Eqs. (6.57) for general
 reference signals; approximations must be made even in a simple case like
 this. We now investigate the adaptive system when the reference signal is
 sinusoidal. The equilibrium points are first explored, and the behavior in their
 neighborhood is then investigated by averaging and linearization.
 Equilibrium Values for the Parameters
-It follows from Eqs. (6.57) that the parameters θ 1 and θ 2 are constant when
+It follows from Eqs. (6.57) that the parameters \theta 1 and \theta 2 are constant when
 the error e is zero. The conditions for e to be zero will now be investigated. The
 signal transmission from the command signal uc to the output y is described
 by the transfer function
@@ -8784,9 +8788,9 @@ and the control error becomes
 e(t) = y(t) − ym (t) = ( G c ( p) − G m ( p)) uc (t)
 Let the reference signal be uc = u0 sin ω t. The error e is then zero if
 G c (iω ) = G m (iω )
-θ 1 G (iω ) = θ 2 G m (iω ) G (iω ) + G m (iω )
+\theta 1 G (iω ) = \theta 2 G m (iω ) G (iω ) + G m (iω )
 (6.58)
-This equation can be solved for θ 1 and θ 2 by equating the real and imaginary
+This equation can be solved for \theta 1 and \theta 2 by equating the real and imaginary
 parts. There is a unique solution if Im{ G (iω )} = 0. The solutions are easily obtained by dividing Eq. (6.58) by G m G and G, respectively, and taking
 imaginary parts. This gives
 Im{1/ G (iω )}
@@ -8794,7 +8798,7 @@ Im{1/ G m (iω )}
 (6.59)
 Im{ G m (iω )/ G (iω )}
 Im G m (iω )
-In the nominal case we get θ 1 = bm / b and θ 2 = (am − a)/ b. These equilibrium
+In the nominal case we get \theta 1 = bm / b and \theta 2 = (am − a)/ b. These equilibrium
 values do not depend on the frequency of the command signal. They also
 correspond to the desired feedback gains.
 The command signal uc is the only external signal; hence ν = uc . Furthermore,
@@ -8804,12 +8808,12 @@ and Gϕν are first calculated:
 G eν =
 By using Lemma 6.5 the averaged equations can now be written as
 = − 0 Re
-θ 1 G (iω )
-1 + θ 2 G (iω )
+\theta 1 G (iω )
+1 + \theta 2 G (iω )
 − G m (iω )
-θ 1 G (−iω )
+\theta 1 G (−iω )
 (6.60)
-1 + θ 2 G (−iω )
+1 + \theta 2 G (−iω )
 Figure 6.11 Parameter estimates and their approximation by the averaging
 method. The dashed lines show the equilibrium values of the gains.
 Figure 6.12 System output y (solid line) and the output of the reference
@@ -8819,7 +8823,7 @@ that is, G does not need to satisfy Eq. (6.56).
 Accuracy of averaging
 Consider the particular case of a = 1, b = 2, and am = bm = 3. Let the
 adaptation gain γ be 1, and let the command signal be u0 sin t. The time
-histories of the parameter estimates θ 1 , θ 2 and their approximations θ 1 , θ 2
+histories of the parameter estimates \theta 1 , \theta 2 and their approximations \theta 1 , \theta 2
 are shown in Fig. 6.11. The figure shows that the averaging gives a good
 approximation in this case. Notice that the approximation improves with time.
 The process output y and the output of the reference model ym are shown in
@@ -8834,12 +8838,12 @@ The stability of the equilibrium of the averaged equations (Eqs. 6.60) will now
 be investigated. Straightforward but tedious calculations give the following
 linearized equation:
 (6.61)
-where x is a vector whose two components are the deviations of θ 1 and θ 2 from
+where x is a vector whose two components are the deviations of \theta 1 and \theta 2 from
 their equilibrium values and the matrix A is given by
 (6.62)
-where θ 1 is the equilibrium value of θ 1 and θ m = arctan(ω / am ). The matrix A
+where \theta 1 is the equilibrium value of \theta 1 and \theta m = arctan(ω / am ). The matrix A
 has the characteristic equation
-λ 2 + α λ (1 + cos2 θ m ) + α 2 sin2 θ m = 0
+λ 2 + α λ (1 + cos2 \theta m ) + α 2 sin2 \theta m = 0
 γ u2 am b
 2 (a2 + ω 2 )
 The characteristic equation has its zeros in the left half-plane if ω = 0. The
@@ -8861,9 +8865,9 @@ The dynamics correspond to the nominal plant 2/(s+1) cascaded with 229/(s2 +
 30s + 229). The process thus has two poles s = −15 ± 2i, which were neglected
 in the model used to design the adaptive controller. Figure 6.13 shows the
 behavior of the controller parameters when the command signal is a step and
-θ 1 (no noise)
-θ 2 (no noise)
-Figure 6.13 Controller parameters θ 1 and θ 2 when the adaptive control law
+\theta 1 (no noise)
+\theta 2 (no noise)
+Figure 6.13 Controller parameters \theta 1 and \theta 2 when the adaptive control law
 of Eqs. (6.57) is applied to the process of Eq. (6.63). The command signal is
 a step, and there is sinusoidal measurement noise. The smooth curves show
 the behavior when there is no measurement noise.
@@ -8879,28 +8883,28 @@ the equilibrium condition of Eq. (6.58) reduces to
 G m (0)
 G (0)
 (6.64)
-Figure 6.14 Controller parameters θ 1 and θ 2 when the adaptive control law
+Figure 6.14 Controller parameters \theta 1 and \theta 2 when the adaptive control law
 of Eqs. (6.57) is applied to the process of Eq. (6.63) when the command signal
 is uc = sin ω t with (a) ω = 1; (b) ω = 3; (c) ω = 6; (d) ω = 20.
 The equilibrium set is thus a straight line in the parameter space. The line
 is uniquely determined by the steady-state gains G (0) and G m (0). Notice in
 particular that the equilibrium set is not a point. This is easily understood from
 the viewpoint of system identification. We wish to determine two parameters,
-θ 1 and θ 2 . However, the excitation used is a step that is persistently exciting
+\theta 1 and \theta 2 . However, the excitation used is a step that is persistently exciting
 of first order and thus admits determination of only one parameter. (See
 Example 2.5.)
 Averaging is now applied to obtain further insight into the behavior of the
 system. The averaging analysis applies to the set of parameter values such that
 the closed-loop system is stable for fixed parameters. To find this set, notice
 that the closed-loop system is a linear time-invariant system when parameters
-θ 1 and θ 2 are constant. The closed-loop eigenvalues are the zeros of the equation
-1 + θ 2 G ( s) = 0
-A necessary condition for stability is that 1 + θ 2 G (s) has its roots in the left
+\theta 1 and \theta 2 are constant. The closed-loop eigenvalues are the zeros of the equation
+1 + \theta 2 G ( s) = 0
+A necessary condition for stability is that 1 + \theta 2 G (s) has its roots in the left
 half-plane. This condition is also sufficient in the nominal case because the
 transfer function G (s) is then SPR, and arbitrarily large feedback gains can
 be used. When there are unmodeled dynamics, the transfer function G (s) is
 usually not SPR and the closed-loop system typically becomes unstable when
-θ 2 is sufficiently large.
+\theta 2 is sufficiently large.
 Step commands
 With the transfer function of Eq. (6.63) used in Example 6.10, the closed-loop
 characteristic equation is given by
@@ -8909,47 +8913,47 @@ This equation has all roots in the left half-plane if
 stab
 The averaged equations for the parameter estimates are obtained by setting
 ω = 0 in Eqs. (6.60). If it is assumed that G m (0) = 1, the equations become
-θ 1 G (0)
-1 + θ 2 G (0)
-γ u2 θ 1 G (0)
-2 1 + θ 2 G (0)
+\theta 1 G (0)
+1 + \theta 2 G (0)
+γ u2 \theta 1 G (0)
+2 1 + \theta 2 G (0)
 − G m (0)
 (6.65)
 These differential equations have the equilibrium set of Eq. (6.64).
 Close to the equilibrium set, the equations are described by the following
 (6.66)
-where x1 = θ 1 −θ 1 and x2 = θ 2 −θ 2 . Consider a point away from the equilibrium
-line, that is, x2 = x1 + δ or θ 2 = θ 1 − 1/ G (0) + δ . The velocity of the state
-vector at that point is x1 = γ u2δ /θ 1 , x2 = −γ u2δ /θ 1 . The vector field of
+where x1 = \theta 1 −\theta 1 and x2 = \theta 2 −\theta 2 . Consider a point away from the equilibrium
+line, that is, x2 = x1 + δ or \theta 2 = \theta 1 − 1/ G (0) + δ . The velocity of the state
+vector at that point is x1 = γ u2δ /\theta 1 , x2 = −γ u2δ /\theta 1 . The vector field of
 the linearized equation is thus as shown in Fig. 6.15. The vector field thus
 Stability boundary
 Figure 6.15
 Equilibrium set and local behavior of the averaged equations.
-(a) θ 2
-(b) θ 2
+(a) \theta 2
+(b) \theta 2
 Figure 6.16 Phase plane of the controller parameters (a) in the nominal
 case of G (s) = 2/(s + 1) and (b) in the case of unmodeled dynamics Eq. (6.63).
 The dashed lines are the equilibrium sets of the parameters in the nominal
-pushes the parameter toward the equilibrium for θ 1 > 0 and away from the
+pushes the parameter toward the equilibrium for \theta 1 > 0 and away from the
 ¯1 < 0. Notice that the system is not structurally stable because
-equilibrium for θ
+equilibrium for \theta
 one eigenvalue of the linearized equation is zero. This means that we can expect
 drastically different properties when the system is perturbed.
 It is usually difficult to go beyond the local analysis. However, in this
 particular case it is possible to obtain the global properties of the averaged
 equation. Outside the equilibrium set of Eq. (6.64), the averaged equations
 (Eqs. 6.65) can be divided to give
-G (0)θ 1
+G (0)\theta 1
 This differential equation has the solution
 The parameters of the averaged equations will thus move along circular paths
-with the center at (0, −1/ G (0)). The motion is clockwise for θ 2 > θ 1 − 1/ G (0)
-and counterclockwise for θ 2 < θ 1 − 1/ G (0). The motion slows down and stops
+with the center at (0, −1/ G (0)). The motion is clockwise for \theta 2 > \theta 1 − 1/ G (0)
+and counterclockwise for \theta 2 < \theta 1 − 1/ G (0). The motion slows down and stops
 when the parameters reach the equilibrium set
-θ 1 , θ 2 θ 1 > 0, θ 2 = θ 1 − 1/ G (0)
+\theta 1 , \theta 2 \theta 1 > 0, \theta 2 = \theta 1 − 1/ G (0)
 The averaged equation approximates the nonlinear equations for the parameters only for parameters such that the closed-loop system is stable. In the
 nominal case, when the transfer function of the plant is G (s) = 2/(s + 1), the
-stability region is −1/ G (0) < θ 2 . In the case of unmodeled dynamics the stabilˆ stab
-ity region is defined by −1/ G (0) < θ 2 < θ 2 . This means that trajectories that
+stability region is −1/ G (0) < \theta 2 . In the case of unmodeled dynamics the stabilˆ stab
+ity region is defined by −1/ G (0) < \theta 2 < \theta 2 . This means that trajectories that
 start far away from the origin will escape from the stability region. Figure 6.16
 shows the actual parameter paths in the nominal case and for the unmodeled
 dynamics given by the transfer function of Eq. (6.63) in Example 6.10. With
@@ -8963,7 +8967,7 @@ unstable if the input signal is a step and if there are unmodeled dynamics.
 Measurement Noise
 We now investigate the effects of measurement noise. The simulation shown in
 Fig. 6.13 indicates that measurement noise may cause the parameters to drift.
-Figure 6.17 shows parameter θ 2 as a function of parameter θ 1 with and without
+Figure 6.17 shows parameter \theta 2 as a function of parameter \theta 1 with and without
 measurement noise. The simulation indicates that the equilibrium is lost in the
 presence of measurement noise. The parameters move toward a set close to the
 equilibrium set, oscillate rapidly in the neighborhood of this set, and drift along
@@ -9019,7 +9023,7 @@ b r(ω )
 G (iω ) = √
 a2 + ω 2
 The system thus becomes unstable for the gain
-¯2 = θ 2 = a + ω
+¯2 = \theta 2 = a + ω
 (6.69)
 where ω is the smallest value that satisfies Eq. (6.68).
 Equilibrium Analysis
@@ -9042,7 +9046,7 @@ may lead to difficulties. The feedforward gain vanishes for frequencies such
 that Eq. (6.68) is satisfied. This is precisely the frequency at which the process
 has a phase lag of 180○ . The feedback gain for this frequency is
 ˆ2 = 1 (ω sin φ − a cos φ ) = a + ω
-This implies that θ 2 G (iω ) = 1, that is, that the loop gain then becomes unity.
+This implies that \theta 2 G (iω ) = 1, that is, that the loop gain then becomes unity.
 We thus find that the equilibrium values of the parameters for sinusoidal
 input signals will depend on the unmodeled dynamics and the frequency of the
 sinusoidal command signal. When the frequency is such that the plant has a
@@ -9054,7 +9058,7 @@ The equilibrium values of the controller gains are
 2(137 + 7ω 2 )
 when am = bm = 3. The transfer function G has a phase shift of 180○ at
 ω = 259 = 16.09. At this frequency the equilibrium values of the controller
-gains are θ 1 = 0 and θ 2 = 3900/229 = 17.03. The closed-loop system is unstable
+gains are \theta 1 = 0 and \theta 2 = 3900/229 = 17.03. The closed-loop system is unstable
 for this feedback gain. This explains the results shown in Fig. 6.14.
 Summary of the MRAS Examples
 The investigation of the first-order MRAS is summarized in the following table:
@@ -9101,11 +9105,11 @@ where e(t) is a zero-mean Gaussian stochastic process. Depending on the specific
 estimated from a model of the form
 y(t) = R∗ ( q−1 )u(t − d) + S∗ ( q−1 ) y(t − d)
 (6.72)
-y(t) = ϕ (t − d)T θ
+y(t) = ϕ (t − d)T \theta
 (6.73)
-The parameters θ are estimated by using the recursive least-squares method.
+The parameters \theta are estimated by using the recursive least-squares method.
 In applying averaging, it is appropriate to use the form
-θ (t) = θ (t − 1) + γ (t) R(t)−1ϕ (t − d) y(t) − ϕ T (t − d)θ (t − 1)
+\theta (t) = \theta (t − 1) + γ (t) R(t)−1ϕ (t − d) y(t) − ϕ T (t − d)\theta (t − 1)
 R(t) = R(t − 1) + γ (t) ϕ (t − d)ϕ T (t − d) − R(t − 1)
 (6.74)
 where the covariance matrix P(t) is related to R(t) through
@@ -9116,7 +9120,7 @@ but it gives slower convergence. For stochastic approximation we obtain
 r(t) = r(t − 1) + γ (t) ϕ (t − d)T ϕ (t − d) − r(t − 1)
 S∗ ( q−1 )
 ˆ ∗ ( q−1 )
-ϕ (t)T θ (t) = 0
+ϕ (t)T \theta (t) = 0
 (6.75)
 (6.76)
 The self-tuning regulator is described by Eqs. (6.73) and (6.74). The control
@@ -9132,39 +9136,39 @@ given here; further details can be found in the references at the end of this
 chapter.
 A Heuristic Derivation
 For sufficiently large t the step size γ (t) in Eqs. (6.74) is small, and the
-correction in θ (t) is small. As in Section 6.6, we can separate the states from
+correction in \theta (t) is small. As in Section 6.6, we can separate the states from
 the parameters and assume that the parameters are constant in evaluating the
 behavior of the closed-loop system. Both R(t) and ϕ (t) depend on the parameter
-estimates. Since θ is assumed to change slowly, the behavior of the model can
+estimates. Since \theta is assumed to change slowly, the behavior of the model can
 be approximated by
-y(t) = ϕ T (t − d, θ )θ
-where θ is the averaged value of the estimates. Also, ϕ depends on the estimated variables through the feedback. The updating equation for R can be
+y(t) = ϕ T (t − d, \theta )\theta
+where \theta is the averaged value of the estimates. Also, ϕ depends on the estimated variables through the feedback. The updating equation for R can be
 approximated by
-R(t) = R(t − 1) + γ (t) G (θ ) − R(t − 1)
+R(t) = R(t − 1) + γ (t) G (\theta ) − R(t − 1)
 (6.77)
-G (θ ) = E ϕ (t − d, θ )ϕ T (t − d, θ )
+G (\theta ) = E ϕ (t − d, \theta )ϕ T (t − d, \theta )
 (6.78)
-θ (t) = θ (t − 1) + γ (t) R(t)−1 f (θ )
+\theta (t) = \theta (t − 1) + γ (t) R(t)−1 f (\theta )
 (6.79)
 The expectation is taken with respect to the underlying stochastic process in
-Eq. (6.71) and evaluated for the fixed value of the parameters θ . In the same
+Eq. (6.71) and evaluated for the fixed value of the parameters \theta . In the same
 way the parameter update is approximated by
-f (θ ) = E ϕ (t − d, θ ) y(t) − ϕ T (t − d, θ )θ
+f (\theta ) = E ϕ (t − d, \theta ) y(t) − ϕ T (t − d, \theta )\theta
 (6.80)
 Equations (6.79) and (6.77) are the averaged difference equations describing
 the estimator. Now let ∆τ be a small number, and let t′ be defined by
 γ ( k)
-θ (t′ ) = θ (t) + ∆τ R(t)−1 f θ (t)
-R(t′ ) = R(t) + ∆τ G θ (t) − R(t)
+\theta (t′ ) = \theta (t) + ∆τ R(t)−1 f \theta (t)
+R(t′ ) = R(t) + ∆τ G \theta (t) − R(t)
 With a change of time scale such that t = τ and t′ = t + ∆τ , these equations can
 be seen as a difference approximation of the ordinary differential equations
-= R(τ )−1 f θ (τ )
+= R(τ )−1 f \theta (τ )
 (6.81)
-= G θ (τ ) − R(τ )
+= G \theta (τ ) − R(τ )
 (6.82)
 If stochastic approximation is used, Eq. (6.82) is replaced by
-θ (τ ) − r(τ )
-(θ ) = E ϕ T (t − d)ϕ (t − d)
+\theta (τ ) − r(τ )
+(\theta ) = E ϕ T (t − d)ϕ (t − d)
 and R is replaced by r in Eq. (6.81). These equations are called the associated
 ordinary differential equations to Eqs. (6.74) and (6.75). They are a special
 kind of averaged equations. First, the difference equations are replaced by differential equations; second, there is a time scaling compared with the original
@@ -9172,26 +9176,26 @@ system. The time scaling can be interpreted as a logarithmic compression of
 the original time. That is, more and more steps of length γ (t) are needed to
 get the step ∆τ as the time progresses.
 The arguments leading to Eqs. (6.81) and (6.82) have been heuristic.
-However, it can be rigorously shown that, provided that the estimates θ (t) are
+However, it can be rigorously shown that, provided that the estimates \theta (t) are
 “sufficiently often” in the domain of attraction of the associated differential
 equations, then
 • Only stable stationary points of Eqs. (6.81) and (6.82) are possible conver-
 gence points for the estimates.
-• The trajectories θ (τ ) are the “asymptotic paths” of the estimates θ (t).
+• The trajectories \theta (τ ) are the “asymptotic paths” of the estimates \theta (t).
 The associated ODE can be used to find possible convergence points of an
-adaptive algorithm, θ 0 and R0 . The equations can then be linearized around
+adaptive algorithm, \theta 0 and R0 . The equations can then be linearized around
 these stationary points. It is easily seen that the linearized equations are
-f (θ )
-d  θ − θ 0   G (θ )−1
+f (\theta )
+d  \theta − \theta 0   G (\theta )−1
 where the element X is not important for the local stability. The stationary
 point is thus stable if the matrix
-K = G (θ )−1
+K = G (\theta )−1
 (6.83)
 has all its eigenvalues in the left half-plane. The associated ODEs can thus be
 used in the following way:
-1. Compute the expressions for ϕ (t) and ε (t) = y(t) − ϕ (t − d)T θ for a fixed
-value of θ
-2. Compute the expected values G (θ ) and f (θ ).
+1. Compute the expressions for ϕ (t) and \epsilon (t) = y(t) − ϕ (t − d)T \theta for a fixed
+value of \theta
+2. Compute the expected values G (\theta ) and f (\theta ).
 3. Determine possible convergence points for Eqs. (6.81) and (6.82), and
 determine the local stability properties by using Eq. (6.83).
 4. Simulate the equations.
@@ -9235,19 +9239,19 @@ values corresponding to the minimum-variance controller are indicated by a
 In this case,
 ϕ T (t − 1) = ( u(t − 2)
 y(t − 1) )
-θ T = ( r1
-ε (t) = y(t)
+\theta T = ( r1
+\epsilon (t) = y(t)
 r (2) 
-f (θ
+f (\theta
 r y(1)
 r (0)
-G (θ
+G (\theta
 r yu (1)
 r yu (1) 
 r y(0)
 where r y(τ ), ru (τ ), and r yu (τ ) are the covariance functions of y and u and the
 cross-covariance between y and u.
-The stationary point is given by f (θ ) = 0, which gives r yu (2) = 0 and
+The stationary point is given by f (\theta ) = 0, which gives r yu (2) = 0 and
 r y(1) = 0. This is exactly the result obtained in Theorem 4.1. Figure 6.18(a)
 shows the phase plane of the ODE when recursive least-squares estimation
 is used. The stationary point corresponds to the minimum-variance controller,
@@ -9384,7 +9388,7 @@ Several ideas have been proposed to modify the adaptive algorithms to
 avoid the difficulty. One possibility is to modify the algorithm so that the
 parameters are projected into a given fixed set. However, this requires that
 appropriate prior knowledge be available. For example, in Example 6.11 it is
-sufficient to project into a set such that 0 ≤ θ 2 ≤ 17. A convenient way to obtain
+sufficient to project into a set such that 0 ≤ \theta 2 ≤ 17. A convenient way to obtain
 a controller with a finite gain is to introduce a path parallel to the process with
 gain ρ . Let G r be the transfer function of the controller. The arrangement with
 the parallel path is equivalent to use a controller with the transfer function
@@ -9392,16 +9396,16 @@ This is clearly bounded by 1/ ρ when G r has high gain.
 In Section 5.3 we showed that the normalization in the estimator (6.2)
 is important to improve the properties of the algorithms. The normalization
 comes automatically when least-squares methods are used. Another modification is to change the parameter updating in Eq. (6.2) to
-+ α 1 (θ 0 − θ )
++ α 1 (\theta 0 − \theta )
 (6.84)
-where θ 0 is an a priori estimate of the parameters and α 1 > 0 is an appropriate
-constant. The added term α 1 (θ 0 − θ ), sometimes called leakage, will make sure
-the estimates are driven toward θ 0 when they are far from θ 0 . However, the
+where \theta 0 is an a priori estimate of the parameters and α 1 > 0 is an appropriate
+constant. The added term α 1 (\theta 0 − \theta ), sometimes called leakage, will make sure
+the estimates are driven toward \theta 0 when they are far from \theta 0 . However, the
 modification will change the equilibrium. A priori knowledge is also required
-to choose θ 0 and α 1 .
+to choose \theta 0 and α 1 .
 To avoid the problem of shift in equilibria, the following modification has
 also been suggested:
-+ α 1 e (θ 0 − θ )
++ α 1 e (\theta 0 − \theta )
 (6.85)
 A third way to avoid the difficulty is to switch off the parameter estimation if
 the input signal is not appropriate. There are several ways to determine when
@@ -9440,21 +9444,21 @@ Bounded disturbances
 y(t + 1) + ay(t) = u(t) + v(t + 1)
 Use an adaptive control law with A∗ = A∗ = 1. (The desired response is thus
 ym (t + 1) = uc (t).) The control law is
-u(t) = −θ (t) y(t) + uc (t)
+u(t) = −\theta (t) y(t) + uc (t)
 e(t + 1)
 1 + y2 (t)
-e(t + 1) = y(t + 1) − θ y(t) − u(t)
-θ (t + 1) = θ (t) +
-where θ 0 = −a. The closed-loop system can be described by the equations
+e(t + 1) = y(t + 1) − \theta y(t) − u(t)
+\theta (t + 1) = \theta (t) +
+where \theta 0 = −a. The closed-loop system can be described by the equations
 y(t)v(t + 1)
-θ (t) +
+\theta (t) +
 2 ( t)
-y(t + 1) = −θ (t) y(t) + uc (t) + v(t + 1)
-θ (t + 1) =
+y(t + 1) = −\theta (t) y(t) + uc (t) + v(t + 1)
+\theta (t + 1) =
 (6.87)
 To show that y(t) may be unbounded, we want to construct a disturbance v and
 a command signal uc such that the parameter error goes to infinity. Assume
-that initial conditions are chosen such that θ (1) = 0 and y(1) = 1. Define
+that initial conditions are chosen such that \theta (1) = 0 and y(1) = 1. Define
 f (t) =
 t(t − 1) − (t − 1)
 for some large T. Choose the following disturbance:
@@ -9463,15 +9467,15 @@ v(t) = 1 − √
 and the following command signal:
 uc (t − 1) = √ − f (t)
 The signals v and uc are bounded. A straightforward calculation gives
-θ (t) = t − 1
+\theta (t) = t − 1
 y(t) = √
 for t = 1, . . . , T − 5. Further, let
 v(t) = 0
 uc (t − 1) =
-It can then be verified that θ (t) and y(t) for large T are approximately given
+It can then be verified that \theta (t) and y(t) for large T are approximately given
 by the following table.
-θ (t)
-Now choose v(T + 1) and uc (T ) such that θ (T + 1) = 0 and y(T + 1) = 1.
+\theta (t)
+Now choose v(T + 1) and uc (T ) such that \theta (T + 1) = 0 and y(T + 1) = 1.
 The state vector of Eqs. (6.87) is then equal to the initial state. By repeating
 the procedure for increasing values of T, a subsequence of y(t) will increase as
 −T /2 and therefore is unbounded.
@@ -9578,23 +9582,23 @@ The problem with this approach is that some safeguards must be taken to avoid
 the estimate r0 becoming too small. Another possibility is to introduce a crude
 fixed estimate of b0 . The following analysis shows what happens when this is
 done. Let the true system be
-y(t + 1) = b0 u(t) + ψ T (t)θ 0
+y(t + 1) = b0 u(t) + ψ T (t)\theta 0
 and let the model be
-y(t + 1) = r0 u(t) + ψ T (t)θ = r0 u(t) + ϕ T (t)θ
+y(t + 1) = r0 u(t) + ψ T (t)\theta = r0 u(t) + ϕ T (t)\theta
 With zero command signal the control law becomes
-u(t) = −ψ T (t)θ (t)
+u(t) = −ψ T (t)\theta (t)
 The equation for parameter updating is
-θ (t + 1) = θ (t) + P(t + 1)ϕ (t) e(t + 1)
-e(t + 1) = y(t + 1) = b0 u(t) + b0ψ T (t)θ 0
-= −b0ψ T (t) θ (t) − θ 0 = − ϕ T (t) θ (t) − θ 0
+\theta (t + 1) = \theta (t) + P(t + 1)ϕ (t) e(t + 1)
+e(t + 1) = y(t + 1) = b0 u(t) + b0ψ T (t)\theta 0
+= −b0ψ T (t) \theta (t) − \theta 0 = − ϕ T (t) \theta (t) − \theta 0
 The estimation error is thus governed by
-P(t + 1)ϕ (t)ϕ T (t) θ (t)
+P(t + 1)ϕ (t)ϕ T (t) \theta (t)
 With a pure projection algorithm we have
 P(t + 1) =
 In this case the matrix in large parentheses has one eigenvalue (1 − b0 / r0 )
 and the remaining eigenvalues 1. With least-squares updating, the averaged
-equation for θ becomes
-θ (t + 1) = 1 −
+equation for \theta becomes
+\theta (t + 1) = 1 −
 Hence, to remain stable, it must be required that
 If an algorithm with a fixed r0 is used, it is convenient to absorb r0 in the
 scaling of the signals. This is discussed in more detail in Chapter 11. When
@@ -9608,35 +9612,35 @@ posed. Consider the scalar system
 = ay + bu
 (6.91)
 where a and b are constants. Does there exist a feedback law of the form
-u = f (θ , y)
-= (θ , y)
+u = f (\theta , y)
+= (\theta , y)
 (6.92)
 that stabilizes the system for all values of a and b? Morse (1983) suggested
 that there are no rational f and that solve the problem. Morse’s conjecture
 was verified by Nussbaum (1983), who proved the following result.
 Universal stabilizer
 The control law of Eqs. (6.92), with
-f (θ , y) = yθ 2 cos θ
-(θ , y) = y
+f (\theta , y) = yθ 2 cos \theta
+(\theta , y) = y
 (6.93)
-and θ (0) = 0, stabilizes Eq. (6.91).
+and \theta (0) = 0, stabilizes Eq. (6.91).
 Proof: The closed-loop system is described by
-= ay + byθ 2 cos θ
-Since θ (0) = 0 and dθ / dt ≥ 0, it follows that θ (t) is nonnegative and nondeˆ (t) is also bounded, which is shown by contradiction. Hence assume
-creasing. θ
-that limt→∞ θ (t) = ∞. Multiplication of the differential equation for y by y
-= ay2 + by2θ 2 cos θ = a
+= ay + byθ 2 cos \theta
+Since \theta (0) = 0 and dθ / dt ≥ 0, it follows that \theta (t) is nonnegative and nondeˆ (t) is also bounded, which is shown by contradiction. Hence assume
+creasing. \theta
+that limt→∞ \theta (t) = ∞. Multiplication of the differential equation for y by y
+= ay2 + by2θ 2 cos \theta = a
 Integration with respect to time gives
 y2 (t) = y2 (0) + 2aθ (t) + 2b
 y2 (0)
 + 2a +
-θ ( t)
-x2 cos x dx = θ sin θ + 2 cos θ −
+\theta ( t)
+x2 cos x dx = \theta sin \theta + 2 cos \theta −
 lim inf
-sin θ
-which is a contradiction because y2 /θ is nonnegative. It thus follows that
-lim θ (t) = θ 0 < ∞
-Integration of the equation for θ gives
+sin \theta
+which is a contradiction because y2 /\theta is nonnegative. It thus follows that
+lim \theta (t) = \theta 0 < ∞
+Integration of the equation for \theta gives
 y2 (t) dt
 Figure 6.21 Simulation of the control law of Eqs. (6.94) applied to the
 plants (a) G (s) = 1/(1 − s) and (b) G (s) = 1/(s − 1).
@@ -9644,15 +9648,15 @@ It then follows that
 lim y(t) = 0
 The behavior of a universal stabilizer is illustrated in Fig. 6.21. A reference
 value is used in the simulations, and the control law is then modified to
-f (θ , y) = (uc − y)θ 2 cos θ
-(θ , y) = (uc − y)2
+f (\theta , y) = (uc − y)\theta 2 cos \theta
+(\theta , y) = (uc − y)2
 (6.94)
 Notice that the control law of Eqs. (6.94) can be interpreted as proportional
-feedback with the gain k = θ 2 cos θ . The behavior of the control law can be
+feedback with the gain k = \theta 2 cos \theta . The behavior of the control law can be
 interpreted as follows. Sweep over all possible controller gains and stop when
 a stabilizing gain has been found. The function can be interpreted as the
 rate of change of the gain sweep. The rate is large for large errors and small
-for small errors. The form cos θ makes sure that the gains can be both positive
+for small errors. The form cos \theta makes sure that the gains can be both positive
 and negative. Universal stabilizers may show very violent behavior. This not
 surprising, since the system may be temporarily unstable during the sweep
 over the gains.
@@ -9692,9 +9696,9 @@ Consider the indirect continuous-time self-tuning controller in Example 3.6. Col
 they can be written in the form
 = A(ϑ )ξ + B (ϑ )uc
   = C (ϑ )ξ + D (ϑ )uc
-ϑ = χ (θ )
+ϑ = χ (\theta )
 = Pϕ e
-Give explicit expressions for all components of the vectors ξ , ϕ , ϑ , and θ
+Give explicit expressions for all components of the vectors ξ , ϕ , ϑ , and \theta
 and the matrix P.
 Consider a system with unknown gain whose transfer function is SPR.
 Show that a closed-loop system that is insensitive to variations in the gain
@@ -9728,12 +9732,12 @@ y(t) = u(t − 1) + a
 where a is an unknown constant. Construct an adaptive control law that
 makes y follow a command uc asymptotically. Prove that it converges.
 Consider the continuous-time model
-Let the parameter θ be estimated by
+Let the parameter \theta be estimated by
 where γ > 0 and α > 0 are real constants and
 Assume that y(t) is given by
 Prove that
 as t → ∞.
-θ (t) − θ 0 ≤ θ (s) − θ 0 ≤ θ (0) − θ 0
+\theta (t) − \theta 0 ≤ \theta (s) − \theta 0 ≤ \theta (0) − \theta 0
 6.10 Consider the system in Example 6.12. Interpret the results as if the
 adaptive algorithm tried to estimate parameters a and b in the transfer
 function G (s) = b/(s + a). Use Eqs. (6.70) to show that
@@ -9753,7 +9757,7 @@ how the stability of the linearized system depends on the parameter
 results in part (b).
 6.12 An integrator process
 is to be controlled by the error feedback law
-sU (s) = (4s + θ )( Uc (s) − Y (s))
+sU (s) = (4s + \theta )( Uc (s) − Y (s))
 where U (s), Uc (s), and Y (s) are the Laplace transforms of the input,
 reference, and output signals, respectively. The desired response of the
 closed-loop system is given by the transfer function
@@ -10478,8 +10482,8 @@ det P(t + 2)
 min E ( y(t + 1) − uc (t + 1)) − ρε 2 (t + 1)
 (7.21)
 (7.22)
-respectively. The innovation ε (t + 1) is defined as
-ε (t + 1) = y(t + 1) − ϕ T (t) x(t + 1)
+respectively. The innovation \epsilon (t + 1) is defined as
+\epsilon (t + 1) = y(t + 1) − ϕ T (t) x(t + 1)
 Both these loss functions lead to quadratic criteria that make it possible to
 derive simple analytic expressions for the control signal.
 Serial Expansion of the Loss Function
@@ -10513,7 +10517,7 @@ where Y t denotes the data available at time t, that is, { y(t), y(t − 1), . .
 introducing the normalized variables
 it can be shown that V N depends on η and β only. Further introduce the
 normalized innovation
-ε (t) =
+\epsilon (t) =
 y(t + 1) − y(t) − b(t)u(t)
 2 P( t)
 R2 + u(t)
@@ -10639,10 +10643,10 @@ Compute the suboptimal control law that minimizes the loss function of
 Eq. (7.21). (Hint: See Goodwin and Payne (1977), p. 296.)
 Eq. (7.22). (Hint: See Milito et al. (1982).)
 Assume that the process is described by one of the known models
-y(t) = ϕ (t)θ i + e(t)
+y(t) = ϕ (t)\theta i + e(t)
 i = 1, . . . , m
 but it is not known which is the correct one. Let the initial information be
-described by the probabilities pi = P(θ = θ i ). Formulate the dual control
+described by the probabilities pi = P(\theta = \theta i ). Formulate the dual control
 problem and discuss the computational difficulties associated with the
 solution.
 Discuss the consequences of formulating the dual control problem for the
@@ -12421,11 +12425,11 @@ Smooth Control Laws
 The control law (10.10) has the drawback that the relay chatters. One way to
 avoid this is to make the relay characteristics smoother. To do this, introduce
 a boundary layer around the switching surface
-B (t) = x(t) σ ( x(t)) ≤ ε
-The parameter ε can be interpreted as a measure of the thickness of the boundary layer. The sign function in Eq. (10.10) is now replaced by the saturation
-sat(σ , ε ) = σ /ε
+B (t) = x(t) σ ( x(t)) ≤ \epsilon
+The parameter \epsilon can be interpreted as a measure of the thickness of the boundary layer. The sign function in Eq. (10.10) is now replaced by the saturation
+sat(σ , \epsilon ) = σ /\epsilon
 The control law is then
-− T sat(σ ( x), ε )
+− T sat(σ ( x), \epsilon )
 (10.12)
 The width of the boundary layer will influence the tracking performance and
 the bandwidth of the closed-loop system.
@@ -12442,7 +12446,7 @@ of the system parameters at the sliding mode. The sliding mode controller
 Figure 10.14 Phase portrait of the system in Example 10.4. The dashed line
 shows σ ( x) = 0.
 Figure 10.15 The states and the output as a function of time in Example 10.4. The initial conditions are x1 (0) = 1.5 and x2 (0) = 0. The controllers
-are (a) Eq. (10.10) with µ = 0.5; (b) Eq. (10.12) with µ = 0.5 and ε = 0.01.
+are (a) Eq. (10.10) with µ = 0.5; (b) Eq. (10.12) with µ = 0.5 and \epsilon = 0.01.
 (10.10) is now
 − µ sign(σ ( x))
 = − ( 2 0 ) x(t) − µ sign(σ ( x))
@@ -12451,8 +12455,8 @@ and the output for one initial value are shown in Fig. 10.15(a). The trajectorie
 hit the switching line σ = 0 and stay on it. This implies that the control signal
 will chatter. Using the control law (10.12),
 u(t) = − ( 2
-0 ) x(t) − µ sat(σ ( x), ε )
-with ε = 0.01, gives the behavior shown in Fig. 10.15(b). The control signal is
+0 ) x(t) − µ sat(σ ( x), \epsilon )
+with \epsilon = 0.01, gives the behavior shown in Fig. 10.15(b). The control signal is
 now smooth, but the differences in the state trajectories are negligible.
 Variable-structure systems are related to the self-oscillating adaptive systems
 (SOAS). In variable-structure systems we want the system to get into a sliding
@@ -13281,7 +13285,7 @@ time. There are problems with exponential forgetting when the excitation is
 poor. To understand this, we first consider the extreme case in which there is
 no excitation at all, that is, ϕ = 0. The equations for the estimate then become
 P(t)
-The equation for the estimate θ is thus unstable with all eigenvalues equal to 1,
+The equation for the estimate \theta is thus unstable with all eigenvalues equal to 1,
 and the equation for the P-matrix is unstable with all eigenvalues equal to 1/λ .
 In this case the estimate will thus remain constant, and the P-matrix will grow
 exponentially if λ < 1. Since the estimator gain is Pϕ , the gain of the estimator
@@ -13362,7 +13366,7 @@ algorithms with conditional updating or dead zones. A correct detection of
 excitation should be based on calculation of covariances or spectra as discussed
 in Section 2.4. Simpler conditions are often used in practice. Common tests are
 based on the magnitudes of the variations in process inputs and outputs or
-other signals such as ε and ϕ T Pϕ . Notice that the quantity ϕ T Pϕ is dimension
+other signals such as \epsilon and ϕ T Pϕ . Notice that the quantity ϕ T Pϕ is dimension
 free.
 If the regression vector is constant, it follows from Eq. (11.20) that
 ϕ 0 P(t)ϕ 0 = a(t)
@@ -13421,8 +13425,8 @@ P-matrix is driven toward a matrix proportional to the identity matrix when
 there is poor excitation.
 Leakage
 Another way to avoid estimator windup, called leakage, was discussed in Section 6.9. In continuous time the estimator was modified as shown in Eq. (6.84)
-by adding the term α (θ 0 − θ ). This means that the parameters will converge to
-θ 0 when no useful information is obtained, that is, when e = 0. A similar modification can also be made in discrete-time estimators. When a least-squares
+by adding the term α (\theta 0 − \theta ). This means that the parameters will converge to
+\theta 0 when no useful information is obtained, that is, when e = 0. A similar modification can also be made in discrete-time estimators. When a least-squares
 type of algorithm is used, it is also common to add a similar term to the P
 equation to drive it toward a specified matrix.
 Robust Estimation
@@ -13433,11 +13437,11 @@ a drastic influence on the result because the errors are squared in the criterio
 probability of large errors is very small. Estimators with very different properties are obtained if it is assumed that the probability for large errors is not
 negligible. Without going into technicalities, we remark that the estimators
 will be replaced by equations such as
-θ (t) = θ (t − 1) + P(t)ϕ (t − 1) f (ε (t))
-= Pϕ f (ε )
-where the function f (ε ) is linear for small ε but increases more slowly than
-linear for large ε . A typical example is
-f (ε ) =
+\theta (t) = \theta (t − 1) + P(t)ϕ (t − 1) f (\epsilon (t))
+= Pϕ f (\epsilon )
+where the function f (\epsilon ) is linear for small \epsilon but increases more slowly than
+linear for large \epsilon . A typical example is
+f (\epsilon ) =
 1+aε
 The net effect is to decrease the consequences of large errors. The estimators
 are then called robust.
@@ -13513,11 +13517,11 @@ mean of a Gaussian random variable is equivalent to transforming the joint
 covariance matrix of the variables to the form of Eq. (11.27). Notice that this
 form may be viewed as a square root representation of R.
 Application to Recursive Estimation
-The basic step in recursive estimation can be described as follows: Let θ be
-Gaussian N (θ 0 , P). Assume that a linear observation
+The basic step in recursive estimation can be described as follows: Let \theta be
+Gaussian N (\theta 0 , P). Assume that a linear observation
 y = ϕ Tθ + e
 is made, where e is normal N (0, σ 2 ). The new estimate is then given as the
-conditional mean E (θ y). The joint covariance matrix of y and θ is
+conditional mean E (\theta y). The joint covariance matrix of y and \theta is
 The symmetric nonnegative matrix P has a decomposition P = LD LT , where
 L is a lower triangular matrix with unit diagonal and D is a nonnegative
 diagonal matrix. The matrix R can then be written as
@@ -13616,7 +13620,7 @@ col = ARRAY[0..maxindex] OF REAL;
 has been introduced. By using the procedure DyadicReduction it is now
 straightforward to write a procedure that implements Algorithm 11.1. Such a
 procedure is given in Fig. 11.16. The algorithm performs one step of a recursive
-least-squares estimation. Starting from the current estimate θ , the covariance
+least-squares estimation. Starting from the current estimate \theta , the covariance
 represented by its LD decomposition, and the regression vector, the procedure
 generates updated values of the estimate and its covariance. The data type
 matr = ARRAY[0..maxindex] OF col;
@@ -15456,7 +15460,7 @@ To obtain a recursive estimator, the parameter vector
 x(t − 1)
 x(t − n) )
 are introduced. The error is then given by
-ε (t) = y(t) − y(t) = y(t) − ϕ T (t − 1)θ (t − 1)
+\epsilon (t) = y(t) − y(t) = y(t) − ϕ T (t − 1)\theta (t − 1)
 and the equation for updating the estimate is
 The special case of Example 13.1, obtained when the filter is an FIR filter
 and a gradient parameter estimation scheme is used, is particularly simple.
@@ -15472,7 +15476,7 @@ The block diagram in Fig. 13.2 represents a solution to a generic signal process
 consider this module as a building block that can be used for many different
 purposes. This is simpler if a proper representation is used. For that purpose
 it is convenient to represent the module as a block that receives signals x and
-y and delivers estimates y and θ . Such a representation, shown in Fig. 13.2(b),
+y and delivers estimates y and \theta . Such a representation, shown in Fig. 13.2(b),
 makes it possible to describe several adaptive signal processing problems.
 Adaptive Noise Cancellation
 Consider the situation of a mobile telephone in a car where there is a considerable ambient noise. Assume that two microphones are used. One is directional
@@ -15495,7 +15499,7 @@ is possible to reduce the bit rate to 64 kbit/s, which is the standard for digit
 voice transmission.
 It is highly desirable to reduce the transmission rate, because more communication channels are then obtained with the same transmission equipment.
 The bit rate can be reduced significantly by using differential pulse code modulation (DPCM). In this technique the innovations of the signal are computed
-as ε = y − y, where y is generated by filtering the innovations through a preˆ
+as \epsilon = y − y, where y is generated by filtering the innovations through a preˆ
 dictive filter. Only the innovations are transmitted (see Fig. 13.4). The receiver
 has a prediction filter with the same characteristics as the filter in the sender.
 The signal y can then be reconstructed in the receiver. The bit rate that is
@@ -15526,7 +15530,7 @@ tion system.
 Block diagram of an adaptive differential pulse code modula-
 and the associated parameter vector is
 The standard least-squares estimator is of the form
-θ (t + 1) = θ (t) + P(t + 1)ϕ (t)ε (t + 1)
+\theta (t + 1) = \theta (t) + P(t + 1)ϕ (t)\epsilon (t + 1)
 Several drastic modifications are made to simplify the calculations. A constant
 value of the gain is used. The multiplication is avoided by just using the signs
 of the signals. Leakage is also added to make sure that the estimator is stable.
@@ -15589,9 +15593,9 @@ systems assume that the systems are static. This assumption can be justified
 if the time between the changes in the reference value is sufficiently long.
 For static systems it is possible to use many of the methods from numerical
 optimization. A typical description of the process is
-y(t) = f (u(t), θ , t)
+y(t) = f (u(t), \theta , t)
 (13.2)
-where f is a nonlinear function and θ is a vector of unknown parameters that
+where f is a nonlinear function and \theta is a vector of unknown parameters that
 may change with time.
 If there are dynamics in the process, the performance may not have settled
 at a new steady-state value before the next measurement is taken. This will

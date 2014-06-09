@@ -99,8 +99,12 @@ The Laplace transform of the convolution:
 [g(t)]
 Laplace transforms turn convolution into multiplication !
 7 / 28
-Common Laplace transforms
-ecific
+
+[ _to('140604132258') ]
+***
+### Common Laplace transforms
+cf. ![()](140604132543.png) [ constant ]
+
 δ (k)
 In MATLAB use
 F = LAPLACE(f)
@@ -119,6 +123,7 @@ s cos φ − ω sin φ
 1/(s-2)+1/sˆ2-2/sˆ3
 (s + a)2 + ω 2
 courtesy of S. Boyd, http://www.stanford.edu/~boyd/ee102/
+
 8 / 28
 Table of Laplace Transfer functions
 Remember that we consider all functions (signals) as defined only on t ≥ 0.
@@ -171,7 +176,15 @@ C(sI − A)−1 x0
 + (C(sI − A)−1 B + D)U(s)
 of natural response
 of forced response
-[ _to('140518222054') ]
+Definition
+
+>'140518222054'
+The transfer function of a continuous-time linear system $(A, B, C, D)$ is the ratio
+$$G(s) = C(sI − A)^{−1} B + D$$
+between the Laplace transform $Y(s)$ of output and the Laplace transform $U(s)$ of the input signals for the initial state $x_0 = 0$
+[ Hint: ]
+cf.  ![()](140502184703.png) 
+
 »sys=ss(A,B,C,D);
 »G=tf(sys)
 11 / 28
@@ -196,10 +209,13 @@ Transfer function:
 2 s + 22
 ---------sˆ2 + 11 s + 10
 12 / 28
-[ _to('140518223130') ]
+
+Consider the $n$th-order differential equation with input
+![](140504215652.png)
+For initial conditions $y^{(n−1)}(0)$, we obtain immediately the transfer function from $u$ to $y$
+![()](140604083757.png)
+
 Example
-¨ + 11˙ + 10y = 2˙ + 22u
-»G=tf([2 22],[1 11 10])
 + 11s + 10
 13 / 28
 Differential equation
@@ -271,7 +287,22 @@ I(t)t
 Undamped oscillator
 [ s21 ] = 1 sin t
 18 / 28
+
 [ _to('140518224705') ]
+***
+###Poles and Zeros
+Rewrite the transfer function as the ratio of polynomials $(m < n)$
+![()](140518224801.png)
+The roots $p_i$ of $D(s)$ are called the poles of the linear system $G(s)$
+The roots $z_i$ of $N(s)$ are called the zeros of $G(s)$
+
+[ _to('140604093903') ] 
+***
+###[ Zero Gain Form ]
+$G(s)$ is often written in zero/pole/gain form
+![()](140518224739.png)
+In MATLAB use ZPK to transform to zero/pole/gain form
+
 19 / 28
 Example 1
 poles: {−1, − 2 + j
@@ -358,12 +389,15 @@ Use the adjugate matrix to represent the inverse of sI − A
 C(sI − A)−1 B + D = C
 C Adj(sI − A)B
 det(sI − A)
-The denominator DG (s) = det(sI − A) !
-The poles of G(s) coincide with the eigenvalues of A
+
+[ _to('140604092849') ]
+***
+The denominator $D_G(s) = \det(sI − A)$!
+The poles of $G(s)$ coincide with the eigenvalues of $A$
 Well, not always ...
+Some eigenvalues of A may not be poles of G(s) in case of pole/zero cancellations
+
 24 / 28
-Some eigenvalues of A may not be poles of G(s) in case of pole/zero
-cancellations
 det(sI − A) = (s − 1)(s + 1)
 s−1
 The pole s = 1 has no inﬂuence on the input/output behavior of the system
@@ -371,7 +405,20 @@ The pole s = 1 has no inﬂuence on the input/output behavior of the system
 We’ll better understand cancellations when investigating reachability and
 observability properties
 25 / 28
+
+Steady-state solution and DC gain
+Let A asymptotically stable. Natural response vanishes asymptotically
+Assume constant u(t) ≡ ur . What is the asymptotic value xr = limt→∞ x(t) ?
+Impose 0 = ˙r (t) = Axr + Bur and get xr = −A−1 Bur
+
 [ _to('140518225725') ]
+***
+The corresponding steady-state output $y_r = C x_r + D u_r$ is
+![()](140518225746.png)
+Cf. final value theorem:
+[ u_r is constant $\iff$ U(s) = \frac{u_r}{s} ] 
+G(0) is called the DC gain of the system
+
 26 / 28
 DC gain - Example
 DC gain: − [ 1

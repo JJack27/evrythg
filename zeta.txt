@@ -23,9 +23,12 @@ discrete equivalent of the Laplace transform.
 2 / 21
 
 [ _to('140530102314') ]
-Examples of [ important ] Z-transforms
+***
+### Examples of [ important ] Z-transforms
 Discrete impulse
+![()](140604132829.png)
 Discrete step
+![()](140604132802.png)
 Geometric sequence
 
 3 / 21
@@ -40,7 +43,11 @@ Forward shift1
 [f (k + 1) 1I(k)] = z [f ] − zf (0)
 Example: f (k) = ak+1 1I(k) ⇒
 [f ] = z z−a
-z is also called forward shift operator
+
+[ _to('140604134325') ]
+***
+$z$ is also called forward shift operator
+
 4 / 21
 Backward shift or unit delay 2
 [f (k − 1) 1I(k)] = z−1 [f ]
@@ -55,18 +62,14 @@ is also called backward shift operator
 5 / 21
 
 [ _to('140427095925') ]
-Initial and final value theorems [ discrete time ]
-Initial value theorem
-f (0) = lim F(z)
-Example: f (k) = 1I(k) − k 1I(k) ⇒ F(z) =
-f (0) = limz→∞ F(z) = 1
-Final value theorem
-lim f (k) = lim(z − 1)F(z)
-z→1
-Example: f (k) = 1I(k) + (−0.7)k 1I(t) ⇒ F(z) =
-f (+∞) = limz→1 (z − 1)F(z) = 1
-z+0.7
+***
+### Initial and final value theorems [ discrete time ]
+![()](140604133658.png)
+![()](140604133716.png)
 
+Example: f (k) = 1I(k) − k 1I(k) ⇒ F(z) =
+Final value theorem
+Example: f (k) = 1I(k) + (−0.7)k 1I(t) ⇒ F(z) =
 6 / 21
 Transfer functions
 Discrete-time transfer function
@@ -89,9 +92,13 @@ z(zI − A)−1 x0 + (zI − A)−1 BU(z)
 zC(zI − A)−1 x0 + (C(zI − A)−1 B + D)U(z)
 of natural response
 of forced response
-140427093404
 Definition:
-The transfer function of a discrete-time linear system (A, B, C, D) is the ratio G(z) = C(zI − A)−1 B + D between the Z-transform Y(z) of the output and the Z-transform U(z) of the input signals for the initial state x0 = 0
+
+'140604133846'
+The transfer function of a discrete-time linear system $(A, B, C, D)$ is the ratio
+$$G(z) = C(zI − A)^{−1} B + D$$
+between the Z-transform $Y(z)$ of the output and the Z-transform $U(z)$ of the input signals for the initial state $x_0 = 0$
+
 MATLAB
 »sys=ss(A,B,C,D,Ts);
 »G=tf(sys)
@@ -208,7 +215,12 @@ final value theorem:
 lim y(k) = lim(z − 1)Y(z)
 lim(z − 1)G(z)U(z) = lim(z − 1)G(z)
 G(1)ur = (C(I − A)−1 B + D)ur
+
+[ _to('140604133542') ]
+***
+![()](140604134848.png)
 G(1) is called the DC gain of the system
+
 16 / 21
 Example - Student dynamics
 Recall student dynamics in 3-years undergraduate course

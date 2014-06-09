@@ -1,0 +1,130 @@
+TECHNISCHE UNIVERSITAT MUNCHEN
+LEHRSTUHL FUR INFORMATIONSTECHNISCHE REGELUNG
+ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
+Adaptive and Predictive Control (APC)
+Dr. Stefan Sosnowski / Denis Cehaji´
+SS2014
+26.05.2014.
+EXERCISE 5 - SOLUTION
+Problem 1:
+m−1
+
+[ The following tricks may be useful
++ Expand with the conjugate denominator
+![()](140603191638.png)
+![()](140603191717.png)
++ Use the Euler formula
+cf. ![()](140603192132.png) ]
+
+a) Given W (s) = n(s) = bans n +am−1sn−1 +...+a00 characterized with a relative degree n∗ = degree(d(s)) −
+d(s)
+n−1
+degree(n(s)), W (s) is said to be a strickly positive real (SPR) function when:
+1. n(s) and d(s) are Hurwitz (stable) polynomials, i.e. all coeﬃcients of n(s) and d(s) are real
+and positive and all roots of the polynomials have negative real part (instead of looking at the
+roots directly, an alternative criterion is to test the Hurwitz determinant
+an−1
+an−0
+H= 0
+an−3
+an−2
+an−5
+an−4
+an−7
+an−6
+(same for bm , ..., b0 ) and all its north-west (upper left) subdeterminants for positive deﬁniteness)
+2. n∗ ∈ {−1, 0, 1}
+3. ∠W (s) ∈ [− π , π ]
+Note: The above lemma is from [Narenda1985, p65] and there exist many variations of it.
+
+[ _to('140603193706') ]
+Alternative test for SPR in the frequency domain (usually easier):
+![()](140603193645.png)
+
+Note: Checking if W (s) is analytic is beyond the scope of the class since in general polynomials,
+exponential functions, trigonometric functions, etc. are analytic. The interested reader can
+check the Cauchy-Riemann conditions.
+• G1 (s) =
+(s+a)(s+b)
+(s+c)(s+d)
+n∗ = 0
+1. G1 (s) is analytic
+2. G1 (jω) = (jω+a)(jω+b) =
+(jω+c)(jω+d)
+(jω+a)(jω+b) (−jω+c)(−jω+d)
+= (ω2(jω+a)(jω+b)(−jω+c)(−jω+d) 2 )
+(jω+c)(jω+d) (−jω+c)(−jω+d)
+−cjω+cjω+c2 )(ω 2 −djω+djω+d
+ω 4 −ajω 3 −bjω 3 −abω 2 +cjω 3 +acω 2 +bcω 2 −abcjω+djω 3 +adω 2 +bdω 2 −abdjω−cdω 2 +acdjω+bcdjω+abcd
+(c2 +ω 2 )(d2 +ω 2 )
+abcd+ω 4 +ω 2 ((a+b)(c+d)−ab−cd)
+Re[G1 (jω)] =
+> 0 for 0 < ab + cd < (a + b)(c + d)
+3. not necessary as n = 0
+⇒ G1 (s) is SPR
+• G2 (s) = e−sT s+a ⇒ n∗ = 1
+1. G2 (s) is analytic
+−jω+a
+2. G2 (jω) = e−jωT jω+a = e−jωT jω+a · −jω+a = e−jωT ω2 −ajω+ajω+a2
+Replacing e−jωT = cos(ωT ) + j sin(ωT ), we obtain
+sin(ωT
+G2 (jω) = [a cos(ωT )+j 2 +ω2 )](−jω+a) = −jω cos(ωT )+ω sin(ωT+ω2 cos(ωT )+aj sin(ωT )
+Re[G2 (jω)] = a cos(ωT2)+ω2sin(ωT ) , which is not positive in general
+a +ω
+⇒ G2 (s) is not SPR
+• G3 (s) = (s+a)(s+b) ⇒
+⇒ G3 (s) is not SPR
+n∗ = 2
+• G4 (s) = (s+b)(s+c) ⇒ n∗ = −1
+1. G4 (s) is analytic
+2. G4 (jω) = (jω+b)(jω+c) = (jω+b)(jω+c) ·
+jω+a
+= (jω+b)(jω+c)(−jω+a)
+ω 2 +ajω−ajω+a2
+jω 3 +bω 2 +cω 2 −cbjω−aω 2 +abjω+acjω+acb
+a2 +ω 2
+abc+ω 2 (b+c−a)
+> 0 for 0 < a < b + c
+Re[G4 (jω)] =
++(b+c−a)
+=b+c−a>0
+limω2 →∞ Re[G4 (jω)] = ω2 a2
+lim|ω|→∞ G4jω = 1 > 0
+⇒ G4 (s) is SPR
+Problem 2: Gain Scheduling in Ship Steering
+a) Some of possible reasons are:
+• Varying disturbances (depending on weather): e.g. waves, wind, current
+• Diﬀerent loading conditions
+• Linearization is only valid for one velocity u = unom
+b) The loop transfer function is
+G(s) = Gp (s)Gr (s) =
+Kb(1 + sTd )
+K(1 + sTd ) =
+s(s + a)
+The closed-loop transfer function is
+G(s) =
+Gp (s)Gr (s)
+1 + Gp (s)Gr (s)
+s + (a + KbTd )s + Kb
+The characteristic equation of the closed-loop system is
+s2 + (a + KbTd )s + Kb = 0
+From the general second order diﬀerential equation, s2 +2Dω0 s+ω0 = 0, the expression of damping
+ratio and angular frequency can be obtained. Therefore, from 2Dω0 = a + KbTd and ω0 = Kb it
+results in:
++ Td Kb) and ω0 = Kb
+D = (√
+2 Kb
+Since damping depends of the speed of the ship, we have
+anom
+and knowing that D = 1 ( √Ka b + Td,nom Knom b) , all results in:
+2 Knom bnom unom
+Knom bnom ) = (−0.21 +
+1.22)
+Conclusion: if u < 0.17unom the control system becomes unstable, because D < 0!
+c) In case of a desired constant damping D for all velocities u
+1 a0
++ Td Kb) = ( √
+2 Kb0
+Kb0 u)
+⇒ If Td is chosen proportional to u , D does not depend on velocities u any more.
+But: ω0 = Kb0 u, the dynamics is also faster with increasing velocity.

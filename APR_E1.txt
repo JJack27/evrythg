@@ -28,7 +28,9 @@ parameters a1 and a2 . Represent this system in the same form as the stationary 
 in order to solve the identiﬁcation problem.
 Problem 2: Discrete-Time Control Systems
 Given a continuous-time linear control system, described by the ordinary diﬀerential equation (ODE)
-yc = ayc + buc
+
+![(1)](140605093654.png)
+
 where yc , uc ∈ R are the system output and the control input respectively, and a, b ∈ R are constants,
 its discrete-time representation, with a sampling interval T , becomes
 y(k + 1) = cy(k) + du(k)

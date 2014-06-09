@@ -67,7 +67,10 @@ Note, that the control input u(t) is constant in the interval [kT; (k + 1)T]. Th
 be evaluated and we get
 y((k + 1)T ) = eaT y(kT ) + (eaT − 1) b u(kT )
 Setting c := eaT and d := a (eaT − 1)b answers the question.
-As the system is scalar, the eigenvalues of the open-loop system are given by the constant a.
+As 
+
+'140605093300'
+[ When ]the system is scalar, the eigenvalues of the open-loop system are given by the constant a.
 
 [ cf('140426200329') ]
 In the continuous-time case if a < 0, the system is stable. 

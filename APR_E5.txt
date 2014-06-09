@@ -1,0 +1,40 @@
+TECHNISCHE UNIVERSITAT MUNCHEN
+LEHRSTUHL FUR INFORMATIONSTECHNISCHE REGELUNG
+ORDINARIA: UNIV.-PROF. DR.-ING. SANDRA HIRCHE
+Adaptive and Predictive Control (APC)
+Dr. Stefan Sosnowski / Denis Cehaji´
+SS2014
+26.05.2014.
+EXERCISE 5
+Problem 1: SPR Functions
+a) State the three conditions that a strictly positive real (SPR) function has to fulﬁll.
+b) Which transfer functions are SPR?
+• G1 (s) = (s+a)(s+b) with a, b, c, d > 0
+(s+c)(s+d)
+• G2 (s) = e−sT s+a with a, T > 0
+• G3 (s) = (s+a)(s+b) with a, b > 0
+• G4 (s) =
+(s+b)(s+c)
+with a, b, c > 0
+Problem 2: Gain Scheduling in Ship Steering
+In ship control often autopilots are applied. Assume that the ship dynamics, as an approximation, can
+be reduced to the motion in the horizontal plane. Then the control input is the rudder angle δ that
+has to be chosen appropriately to achieve a desired heading ψ. A common linear model for the ship
+dynamics is the Nomoto model, relating heading ψ and rudder angle δ:
+Gp (s) =
+ψ(s)
+δ(s)
+s(s + a)
+with
+b = b0 u 2
+a = a0 u.
+The parameters a and b of the model thus depend on the ships velocity u. Further a0 and b0 are
+constants.
+a) What are possible reasons that make adaptive control necessary in ship control?
+b) Use the ideal PD control law
+Gr (s) = K(1 + sTd )
+and determine the damping D for a nominal velocity u = unom . How does damping change for
+velocities diﬀerent from unom ? Use anom = −0.3, bnom = 0.8, Knom = 2.5, and Td,nom = 0.86,
+which realizes Dnom = 0.5.
+c) Deduce speciﬁcations for a gain scheduling controller, if the damping D is desired to be constant
+for all velocities u. What does this mean in practice?

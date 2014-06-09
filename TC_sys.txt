@@ -62,15 +62,8 @@ x(t) = x(0)e− M t
 First order differential equations with inputs
 Introduce the forcing signal $u(t)$
 The unique solution x(t) is
-natural response
-forced response
-effect of the initial condition
-effect of the input signal
-u(t)
-u(t) − RC˙(t) − x(t) = 0
-−βx(t) + u(t) = M˙(t)
-˙(t) = − RC x(t) −
-˙(t) = − M x(t) +
+![()](140605085822.png)
+
 Linear systems
 System of n ﬁrst-order differential equations with inputs
 ˙1 (t)
@@ -331,30 +324,36 @@ Translation is obvious otherwise.
 Diagonalization of A:
 _v('140504214018')
 (not all matrices A are diagonalizable, see Jordan normal form)
+
+[ _to('140603192155') ]
 Complex exponential: $\exp(c) = ... $
-('140504222729')
+![()](140603192132.png)
 [ $| \exp(j b) = 1$ ]
+
 The state trajectory is the natural response
 _v('140504233114')
 where $v_i$ =eigenvector of A, $\lambda_i$ eigenvalue of A, $\alpha = $
 The evolution of the system depends on the eigenvalues λi of A, called modes of the system (sometimes we also refer to eλi t as the i-th mode)
 A mode λi is called excited if αi = 0
 
-[ _to('140518222542') ]
-***
-###[State space realization of ordinary differential equations]
-Linear ordinary differential equations
+>Linear ordinary differential equations
 $n$th-order linear ODE with input
 ![](140504215652.png)
 [ by setting 
 ![](140518223843.png) ]
-One can verify by inspection that the given $n$th-order ODE is equivalent to the following 1st -order linear system of ODEs:
+One can verify by inspection that the given $n$th-order ODE is equivalent to the following $1$st-order linear system of ODEs:
 ![](140518223618.png)
 [ Note the *ordering* and *sign* of the coefficients $a_{(n-1)}, b_{(n-1)}$ ]
 
 The operation of transforming a nth -order ODE into a linear system of 1st -order ODEs is called state-space realization. There are inﬁnitely many realizations.
-Other state-space realization methods
-[ _to('140518223340') ]
+
+### Other state-space realization methods
+The following state-space realization is called controllable canonical form
+![()](140504220319.png)
+
+The following state-space realization is called observable canonical form 2
+We will see later in the course that the pair (A, B) is completely reachable.
+We will see later in the course that the pair (A, B) is completely observable.
 Let λ1 , . . ., λm , m ≤ n be the eigenvalues of A 
 . The system ˙ = Ax + Bu is
 asymptotically stable iff ℜλi < 0, ∀i = 1, . . . , m
