@@ -1,0 +1,61 @@
+EE102
+Table of Laplace Transforms
+Remember that we consider all functions (signals) as deﬁned only on t ≥ 0.
+General
+f (t)e−st dt
+f (t)
+F (s) =
+αf (α ∈ R)
+sF (s) − f (0)
+sk F (s) − sk−1 f (0) − sk−2
+g(t) =
+f (τ ) dτ
+G(s) =
+F (s)
+f (αt), α > 0
+F (s/α)
+eat f (t)
+F (s − a)
+tf (t)
+t f (t)
+(−1)
+0≤t<T
+,T ≥0
+f (t − T ) t ≥ T
+F (s) ds
+G(s) = e−sT F (s)
+dk−1 f
+(0) − · · · − k−1 (0)
+Speciﬁc
+![()](140604132543.png) [ constant ]
+δ (k)
+,k≥0
+sin ωt
+cos(ωt + φ)
+e−at cos ωt
+e−at sin ωt
+sk+1
+s−a
+1/2j
+s cos φ − ω sin φ
+s2 + ω 2
+(s + a)2 + ω 2
+Notes on the derivative formula at t = 0
+The formula L(f ) = sF (s) − f (0− ) must be interpreted very carefully when f has a discontinuity at t = 0. We’ll give two examples of the correct interpretation.
+First, suppose that f is the constant 1, and has no discontinuity at t = 0. In other words,
+f is the constant function with value 1. Then we have f = 0, and f (0− ) = 1 (since there is
+no jump in f at t = 0). Now let’s apply the derivative formula above. We have F (s) = 1/s,
+so the formula reads
+L(f ) = 0 = sF (s) − 1
+which is correct.
+Now, let’s suppose that g is a unit step function, i.e., g(t) = 1 for t > 0, and g(0) = 0.
+In contrast to f above, g has a jump at t = 0. In this case, g = δ, and g(0− ) = 0. Now let’s
+apply the derivative formula above. We have G(s) = 1/s (exactly the same as F !), so the
+formula reads
+L(g ) = 1 = sG(s) − 0
+which again is correct.
+In these two examples the functions f and g are the same except at t = 0, so they have
+the same Laplace transform. In the ﬁrst case, f has no jump at t = 0, while in the second
+case g does. As a result, f has no impulsive term at t = 0, whereas g does. As long as you
+keep track of whether your function has, or doesn’t have, a jump at t = 0, and apply the
+formula consistently, everything will work out.

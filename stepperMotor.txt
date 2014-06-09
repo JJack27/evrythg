@@ -1,0 +1,121 @@
+[ _to('140604182041') ]
+Stepper Motor
+Implement stepper motor model
+
+The Stepper Motor (STM) block implements a generic model that represents tw o most popular families of stepper motors:
+Variable-reluctance stepper motors
+Permanent-magnet or hybrid stepper motors
+The Stepper Motor model consists of electrical and mechanical sections. The electrical section is represented by an
+equivalent circuit, configuration of w hich depends on the motor type. The equivalent circuits have been built w ith the
+supposition that the magnetic circuit is linear (no saturation) and the mutual inductance betw een phases is negligible. The
+mechanical section is represented by a state-space model based on inertia moment and viscous friction coefficient.
+For a variable-reluctance stepper motor, the equivalent circuit for one phase is show n in the follow ing figure.
+In this model, Ra and La(θ) represent respectively the resistance and the inductance of phase A w inding. The w inding
+inductance varies as a function of the rotor position:
+La(θ) = L0 + L1cos(Nr θ),
+w here L0 is the average inductance, L1 is the maximum inductance variation and Nr is the rotor teeth number.
+Note that at the reference position (θ = 0), the rotor tooth is fully aligned w ith A-axis pole so that the A-phase w inding
+inductance is then maximum.
+The total electromagnetic torque produced by the motor is the sum of the torques produced by the motor phases:
+w here m is the phase number, i x is the w inding current in phase x and Lx is the inductance function of phase x w inding.
+For a permanent-magnet (PM) or hybrid stepper motor, the equivalent circuit for one phase is show n in the follow ing
+figure.
+In this model, Ra and La represent respectively the resistance and inductance of A-phase w inding. Due to the large value
+of the air gap introduced by the magnets, the w inding inductance of the permanent-magnet or hybrid stepper motor can
+be considered to be independent of the rotor position. The voltage source ea(θ) represents the motor back EMF
+(electromotive force) w hich is a sinusoidal function of the rotor position:
+w here p is the number of pole pairs and ψm is the motor maximum magnetic flux.
+Note that at the reference position (θ = 0), the North pole on the rotor is fully aligned w ith A-axis pole so that the A-phase
+back EMF is then zero.
+The electromagnetic torque produced by a tw o-phase PM or hybrid stepper motor is equal to the sum of the torque
+resulting from the interaction of the phase currents and magnetic fluxes created by the magnets and the detent torque,
+w hich results from the saliency of the rotor:
+Te = –pψmi asin(pθ) – pψmi bsin(pθ – π/2) – Tdmsin(2pθ).
+Dialog Box and Parameters
+Motor type
+Select V r a l r l c a c to implement a variable-reluctance stepper motor.
+aibe eutne
+Num ber of phases
+You can select 3, 4 or 5 phases.
+Maxim um w inding inductance
+The maximum inductance Lmax (Henry) of each phase w inding.
+Minim um w inding inductance
+The minimum inductance Lmin (Henry) of each phase w inding.
+Winding resistance
+The resistance Ra (ohm) of each phase w inding.
+Step angle
+The step angle (degrees) of the rotor movement.
+Total inertia
+The total inertia momentum J (kg.m2) of the motor and the load.
+Total friction
+The total viscous friction coefficient B (N.m.s) of the motor and the load.
+Initial speed
+The initial rotation speed ω0 (rad/s).
+Initial position
+The initial rotor position Θ0 (degrees).
+Select P r a e t m g e / y r dto implement a permanent-magnet or hybrid stepper motor.
+emnn-antHbi
+You can select 2 or 4 phases.
+Winding inductance
+The inductance La (Henry) of each phase w inding.
+Maxim um flux linkage
+The maximum flux linkage ψm (V.s) produced by the magnets.
+Maxim um detent torque
+The maximum detent torque Tdm (N.m) resulting from the saliency of the rotor.
+The initial rotor position Θ0 (degrees).
+Inputs and Outputs
+
+[ _to('140604182318') ]
+$TL$ : The mechanical load torque (in N.m). $TL$ is positive in motor operation and negative in generator operation.
+
+![()](140604181033.png)
+
+The Simulink® output of the block is a vector containing 5 signals. You can demultiplex these signals by using the Bus
+Selector block provided in the Simulink library.
+Signal
+Definition
+Units
+Sym bol
+Phase voltage
+V ph
+Phase current
+Electromagnetic torque
+Rotor speed
+rad/s
+Rotor position
+Theta
+How to Get Stepper Motor Parameters
+The parameters used in the stepper model are usually obtained from the manufacturer data sheets. In the case w here
+the parameters are not available, they can be determined from experimental measurements.
+Variable-Reluctance Stepper Motor Parameters
+The parameters provided by manufacturer data sheets are usually: number of phases, holding torque, step angle,
+voltage per phase, current per phase, w inding resistance (Ra), maximum inductance (Lmax), average inductance (L0), and
+rotor inertia (J).
+Permanent-Magnet/Hybrid Stepper Motor Parameters
+voltage per phase, current per phase, w inding resistance (Ra), w inding inductance (La), and rotor inertia (J).
+The maximum detent torque (Tdm) is not alw ays specified. This parameter can be assumed to be equal to 1-10% of the
+maximum holding torque.
+The maximum flux linkage (ψm) is not alw ays specified. This parameter can be obtained experimentally by driving the
+motor to a constant speed N (rpm) and by measuring the maximum open-circuit w inding voltage Em (V).
+The parameter ψm is then computed by the follow ing relation:
+ψm = (30/pπ)(Em/N),
+w here p is the number of pole pairs given by p = 360 / (2m·step). Here m = phase number, step = step angle in degrees.
+Example
+The p w r s e p r o o example illustrates the operation of a stepper motor drive using a tw o-phase hybrid
+oe_tpemtr
+stepper motor model.
+The motor phases are fed by tw o H-bridge MOSFET PWM converters connected to a 28 V DC voltage source. The motor
+phase currents are independently controlled by tw o hysteresis-based controllers w hich generate the MOSFET drive
+signals by comparing the measured currents w ith their references. Square-w ave current references are generated
+using the current amplitude and the step frequency parameters specified in the dialog w indow . The movement of the
+stepper drive is controlled by the STEP and DIR signals received from external sources.
+The follow ing w aveforms are obtained from a simulation of 0.25 sec operation of the stepper motor drive during w hich
+the stepper rotates during 0.1 sec in the positive direction, stops for 0.05 sec, rotates in the reverse direction for 0.05
+sec and stops.
+Detailed w aveforms are show n in the follow ing figure.
+References
+[1] T. Kenjo, A. Sugaw ara, Stepping Motors and Their Microprocessor Controls, 2nd Edition, Oxford University Press,
+Oxford, 2003.
+[2] P. Acarnley, Stepping Motors - A guide to theory and practice, 4th Edition, The Institution of Electrical Engineers,
+London, 2002.
+Was this topic helpful?

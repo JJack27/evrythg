@@ -1,0 +1,29 @@
+Stepper Motor Drive
+This example shows a model of a hybrid stepper motor drive.
+
+![()](140604182949.png)
+
+Open this Example
+Hoang Le-Huy, Laval University
+Description
+This example presents a stepper motor drive using the Hybrid Tw o-Phase model selected among the options on the
+dialog w indow . The motors parameters are those of a small stepper motor (size 23). The motor phases are fed by tw o
+H-bridge MOSFET PWM converters. The DC bus is represent by a 28-V DC voltage source. The motor currents are
+independently regulated by tw o hysteresis-based controllers that generate the MOSFETs drive signals by comparing the
+measured currents w ith their references. The ripple in the current w aveforms is controlled by the hysteresis band of the
+comparators. The sw itching frequency is variable and dependent on the motor parameters.
+In this example, single-phase-on excitation scheme is used because of its simplicity. Square-w ave current references
+are generated using the current amplitude and the step frequency parameters specified in the dialog w indow . The
+movement of the stepper drive is controlled by the STEP and DIR signals received from Signal Builder block.
+Sim ulation
+The current amplitude and the stepping rate are selected in the dialog mask to be 2A and 500 step/s, respectively.
+The STEP signal from the Signal Builder block controls the movement of the stepper drive.
+
+'140604182747'
+A positive value (1.0) will make the motor rotating and a zero value will stop the rotation. The DIR signal controls the rotation direction. A positive value (1.0) will impose the positive direction while a zero value will impose the reverse direction.
+
+The stepper motor drive operation
+is illustrated by the main w aveforms (voltages, currents, torque, speed and position) displayed on the Scope block. The
+simulation is done using a fixed-step solver w ith a sampling time of 1 us, providing acceptable accuracy for the PWM. If a
+high PWM accuracy is required, a smaller time step can be used but the simulation w ill be slow er.
+Was this topic helpful?

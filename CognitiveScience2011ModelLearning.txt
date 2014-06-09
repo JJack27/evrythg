@@ -22,12 +22,11 @@ creating learning frameworks, enabling robots to autonomously learn complex skil
 ranging from task imitation to motor control [132, 175, 133]. However, learning is not
 an easy task. For example, reinforcement learning can require more trials and data
 
-[ _v('140527222316') ]
 1.1 Model Learning for Control: Problem Statement
-Accurate models of the system and its environment are crucial for planning, control and many other applications. In this paper, we focus on generating learned models of dynamical systems that are in a state sk taking an action ak and transfer to a next state sk+1 , where we can only observe an output y k that is a function of the current state and action. Thus, we have
-sk+1 = f (sk , ak ) +
-y k = h(sk , ak ) +
-where f and h represent the state transition and the output function, f and y denote the noise components.
+Accurate models of the system and its environment are crucial for planning, control and many other applications. In this paper, 
+we focus on generating learned models of dynamical systems that are in a state $s_k$ taking an action $a_k$ and transfer to a next state $s_{k+1}$ , where we can only observe an output $y_k$ that is a function of the current state and action. Thus, we have
+![(1)](140604174431.png)
+where $\operatorname{ f }$ and $\operatorname{ h }$ represent the state transition and the output function, $\epsilon_f$ and $\epsilon_y$ denote the noise components.
 
 In practice, state estimation techniques are often needed to reduce the noise of the state estimate and to obtain complete state information [67].
 While the output function h can often be described straightforwardly by an algebraic equation, it is more difficult to model the state transition function f , as it includes more complex relationship between states and actions.
@@ -309,10 +308,9 @@ Forward
 Inverse
 (c) Distal Teacher Learning
 
-[ _v('140528105359') ]
-\todo{Don't understand the difference between solid and dashed lines}
-Fig. 3 Learning architectures in model learning applied to control. (a) In the direct modeling
-approach, the model is learned directly from the observations. (b) Indirect modeling approximates the model using the output of the feedback controller as error signal. (c) In the distal
+![()]('140528105359.png)
+
+Fig. 3 Learning architectures in model learning applied to control. (a) In the direct modeling approach, the model is learned directly from the observations. (b) Indirect modeling approximates the model using the output of the feedback controller as error signal. (c) In the distal
 teacher learning approach, the inverse model’s error is determined using the forward model.
 The resulting composite model will converge to an identity transformation.
 learning techniques. Instead of learning a global mapping from inputs to outputs (as
