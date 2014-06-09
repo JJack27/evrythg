@@ -1,14 +1,9 @@
 Verband der Südtiroler Berg- und Skiführer
 Autonome Provinz Bozen
-
 Maurizio Lutzenberger
-
 Seiltechniken für Bergführer.
-
 Ausgabe 2002
-
-Seiltechniken für Bergführer.
-.
+Seiltechniken für Bergführer.
 1.
 1.1.
 1.2.
@@ -17,7 +12,6 @@ Ausgabe 2002
 1.5.
 1.6.
 1.7.
-
 Seile, Bandschlingen und Karabiner
 Seile.
 Karabiner.
@@ -26,16 +20,13 @@ Reepschnüre.
 Belastungen an den Verankerungen.
 Verwendung von Reepschnüren auf Klettersteigen.
 Schlussfolgerungen.
-
 2.1.
 2.2.
 2.3.
-
 Physik des Sturzes.
 Mechanische Analyse der „statischen“ Sicherungssysteme.
 Mechanische Analyse der „dynamischen“ Sicherungssysteme.
 Abrutschen auf Schnee oder Eis.
-
 3.1.
 3.2.
 3.3.
@@ -45,7 +36,6 @@ Abrutschen auf Schnee oder Eis.
 3.7.
 3.8.
 3.9.
-
 Schlingen.
 Sackstichschlinge.
 Gesteckte Sackstichschlinge.
@@ -56,7 +46,6 @@ Verkehrt gesteckte Sackstichschlinge.
 Schlinge mit einfachem Bulinknoten.
 Schlinge doppeltem gestecktem Bulinknoten.
 Spierenstichschlinge an einem Seilmittelpunkt.
-
 4.1.
 4.2.
 4.3.
@@ -64,7 +53,6 @@ Spierenstichschlinge an einem Seilmittelpunkt.
 4.5.
 4.6.
 4.7.
-
 Verbindungsknoten.
 Verbindung mit Sackstich.
 Verbindung mit gestecktem Sackstich.
@@ -73,20 +61,17 @@ Verbindung mit Bandschlingenknoten.
 Verbindung mit Weberknoten.
 Verbindung mit einfachem Spierenstich.
 Verbindung mit doppeltem Spierenstich.
-
 5.1.
 5.2.
 5.3.
 5.4.
 5.5.
-
 Anseilmethoden.
 Anseilen mit gestecktem Achterknoten.
 Anseilen mit gestecktem doppelten Bulinknoten.
 Anseilen mit Spierenstich.
 Anseilen an einem Seilmittelpunkt.
 Anseilen von zwei Klienten am selben Seil.
-
 6.1.
 6.2.
 6.3.
@@ -95,7 +80,6 @@ Anseilen von zwei Klienten am selben Seil.
 6.6.
 6.7.
 6.8.
-
 Klemmknoten.
 “Prusik” - Klemmknoten.
 Gesteckter “Prusik” - Klemmknoten.
@@ -105,38 +89,24 @@ Zweiseitiger “Marschand” - Klemmknoten.
 “Bellunese” – Klemmknoten.
 “Bachmann” - Klemmknoten.
 Klemmknoten am Doppelseil.
-
 7.1.
 7.2.
 7.3.
-
 Karabiner.
 Einfacher Karabiner.
 Einfacher Karabiner mit Schraubverschluss.
 HMS - Karabiner.
-
 2.
-
 3.
-
 4.
-
 5.
-
 6.
-
 7.
-
 2
-
-7.4.
+7.4.
 7.5.
-
 Klettersteig - Karabiner.
 “SOS” - Karabiner.
-
-8.
-
 Haken und Verankerungspunkte.
 8.1.
 Messerhaken mit um 90° gedrehter Öse (Querhaken).
@@ -147,48 +117,35 @@ Ringhaken.
 8.4.
 Profilhaken.
 8.5.
-Bong.
 8.6.
-Rurp.
 8.7.
 Reduzierung des Hebelarmes.
 Eisschrauben und Eisnägel.
-8.8.
-8.9.
 Dynamischer toter Körper "Dead Man".
 8.10.
 Statischer toter Körper.
 8.11.
 Spit und Klebehaken.
-
-9.
-
 Klemmkeile und andere Klemmgeräte.
 9.1.
 Stopper.
 9.2.
-Roks.
 9.3.
 Hexentrics.
 9.4.
 Turner und Pentanuts.
-Clog Clogs.
 9.5.
 9.6.
 Camaloks.
 Tricam.
 9.7.
-9.8.
 Friends.
-9.9.
 Camalots.
 9.10.
 Sliders.
 9.11.
 Sächsischer Klemmknoten.
-
 10.
-
 Natürliche Verankerungspunkte.
 10.1.
 Felsvorsprünge.
@@ -196,9 +153,7 @@ Felsvorsprünge.
 Sanduhren und eingeklemmte Blöcke.
 10.3.
 Bäume und Pflanzen.
-
 11.
-
 Verankerungen.
 11.1.
 Verankerung an einem einzelnen Punkt.
@@ -222,9 +177,7 @@ Verankerung an einem Pickel.
 Verankerung mit Reihenschaltung.
 11.11.
 Einholbare Verankerung auf Eis.
-
 12.
-
 Sicherungsknoten.
 12.1.
 Mastwurf.
@@ -240,25 +193,18 @@ Blockierungsschlinge am Halbmastwurf.
 12.6.
 Sicherungsschlinge.
 12.7.
-
 13.
-
 Einholen mit Rücklaufsperre.
 13.1.
 "Hubert" - Blockierung an Halbmastwurf.
-
 3
-
-13.2.
+13.2.
 13.3.
 13.4.
-
 "Garda" - Blockierung oder “Herzknoten”.
 "Edi" – Blockierung.
 „Französische“ Blockierung.
-
 14.
-
 Grundlegende Seilmanöver.
 14.1.
 Selbstsicherung und Sicherung am Standplatz.
@@ -274,17 +220,13 @@ Länge des Kurzseils.
 Anseilmethode für das Fortschreiten auf dem Gletscher.
 Anseilmethode für das Fortschreiten am Klettersteig.
 14.7.
-
 15.
-
 Abseilen am Doppelseil.
 15.1.
 Abseilen am Doppelseil.
 15.2.
 Assistiertes Abseilen am Doppelseil.
-
 16.
-
 Manöver für die behelfsmäßige Bergrettung.
 16.1.
 Schneller Flaschenzug.
@@ -296,9 +238,7 @@ Direkter Flaschenzug (Vanzo - Methode).
 16.4.
 16.5.
 Abseilen bei der behelfsmäßigen Bergrettung.
-
 17.
-
 Manöver für die organisierte Rettung.
 17.1.
 Grundlegende Strategie des Bodeneinsatzes.
@@ -322,10 +262,7 @@ Vorbereitung der Abseilspitze.
 Zusammenstellen der "Mariner" – Bahre.
 17.11.
 Aufstellung der Rettertraube.
-
 4
-
-Vorwort
 Schon seit zehn Jahren sprach man im Bereich der Südtiroler Bergführer davon, alle
 Seiltechniken, wie sie tatsächlich bei der Ausübung des Bergführerberufs angewendet
 werden, in einem Werk zu vereinen. Die Regale in den Bibliotheken sind gefüllt mit
@@ -349,13 +286,9 @@ Dank an Adam Holzknecht und Hubert Niederwolfsgruber für ihre große Mühe und 
 kritische Genauigkeit bei der Verbesserung, an Diego Zanesco, Kurt Walde, Enrico
 Baccanti und Othmar Prinoth für ihre wertvollen Ratschläge, und nicht zuletzt an Othmar
 Zingerle, der stets den Plan dieses Handbuches unterstützt und gefördert hat.
-
 Maurizio Lutzenberger
-
 5
-
-1. Seile, Bandschlingen und Karabiner.
-
+1. Seile, Bandschlingen und Karabiner.
 1. Seile, Bandschlingen und Karabiner.
 1.1
 Seile
@@ -402,36 +335,23 @@ man bei einem 80 Kg schweren Bergsteiger erreicht.
 Die bedeutendste Änderung hat man jedoch, indem man auf den „Sturzfaktor“ einwirkt,
 das heißt, indem man bewirkt, dass durch gut angebrachte Zwischensicherungen auf der
 Aufstiegslinie der Sturz so abgebremst wird, dass möglichst viel Seil durchgezogen wird.
-
 1
-
-1. Seile, Bandschlingen und Karabiner.
-
+1. Seile, Bandschlingen und Karabiner.
 Festigkeitswerte bei verschiedenen Handhabungen
 Alle folgenden Angaben in % beziehen sich auf die
 Reißfestigkeit des Probematerial ohne Knoten = 100 %
-
 100% der Reißfestigkeit.
-
 Sackstich in Tropfenform = 43%
-
 Achterknoten in Tropfenform um Karabinerschenkel = 73%
-
 Sackstich in Ringform = 55%
-
 Seil durch Hakenöse gefädelt = 115%
 Einfache Schlinge zwischen Karabiner = 116%
-
 Doppelte Schlinge zwischen Karabiner = 263 %
-
 Ankerstich in Hakenöse =120%
-
 Mastwurf gesichert um Karabinerschenkel = 61%
 Ankerstich mit Bandschlinge in Hakenöse = 75%
-
 Prisikknoten am Einfachseil =135 % der Reißfestigkeit der
 Prusikschlinge.
-
 Fig. 1.1
 Beispiel 1: Wird eine Zwischensicherung 10 m über dem Stand angebracht, und man
 geht noch 10 m weiter und stürzt, entsteht daraus ein Sturz von zwanzig Metern, der von
@@ -461,11 +381,8 @@ F = 1,66 x 1200 = 2000 Kg.
 Die UIAA Normen schreiben mit geschlossenem Hebel eine Mindestbruchkraft von 2200
 Kg vor, daher ist jeder UIAA Karabiner oder jeder andere, der eine Bruchkraft von mehr
 als 2000 Kg garantiert, zufriedenstellend.
-
 2
-
-1. Seile, Bandschlingen und Karabiner.
-
+1. Seile, Bandschlingen und Karabiner.
 1.3 Bandschlingen
 Um Expressschlingen herstellen zu können, welche die selbe Reißfestigkeit der Karabiner
 besitzen (2200 Kg), müssen Bandschlingen mit einer Reißfestigkeit von 1700 Kg
@@ -527,35 +444,19 @@ reduzieren. Es ist sehr wichtig daran zu denken, dass tatsächlich eine Reduzier
 Kräfte, die auf die Knoten ausgeübt werden, existiert, solange der Winkel klein ist;
 nimmt dieser Winkel zu, wird diese Reduzierung belanglos und wird schließlich zu einer
 Zunahme, wie in den graphischen Konstruktionen deutlich hervorgehoben wird.
-
 3
-
-1. Seile, Bandschlingen und Karabiner.
-
+1. Seile, Bandschlingen und Karabiner.
 Winkel der Kräfteverteilung in den Verankerungen.
-
 60°
-
 50% ca.
-
 Ausgezeichnet.
-
 58%
-
-Gut.
-
 90°
-
 120°
-
 71%
-
 Annehmbar.
-
 100%
-
 Zu vermeiden !
-
 Fig. 1.5
 Der Grenzwinkel ist geringer als 60°, da unter diesen Bedingungen eine Reißkraft von
 1200 Kg nur 700 Kg auf jeden Haken ablädt. Für 90° sind es schon 850 Kg, und über
@@ -584,11 +485,8 @@ Bandschlingen mit einer Reißfestigkeit von über 1700 Kg können für alle besc
 Arten der Zwischensicherung sicher angewendet werden. Nur im Fall der Anbringung im
 Ankerstich an einem Haken sinkt die Festigkeit des Systems beträchtlich und ermöglicht
 nur das Auffangen von bescheidenen Stürzen.
-
 4
-
-2. Physik des Sturzes
-
+2. Physik des Sturzes
 2. Physik des Sturzes.
 2.1 Mechanische Analyse der “statischen” Sicherungssysteme:
 Zum Zweck eines besseren Verständnisses der Seil- und Sicherungstechniken, die während des Kletterns
@@ -599,50 +497,29 @@ beziehen, denen man in der Wirklichkeit selten begegnet.
 Kinetische Energie des Sturzes:
 Die kinetische Energie (Ec), die ein Körper der Masse (m) im Freifall besitzt, wird durch folgende Formel
 beschrieben:
-
 Ec =
-
 1 mv2 ;
 2
-
 (01)
-
 Die Geschwindigkeit v wird durch die Formel
-
-v=
-
 2gh
-
-;
-
 (02)
-
 ausgedrückt,
 v: Sturzgeschwindigkeit in m/sec;
 g: Gravitationsbeschleunigung;
 h: Sturzhöhe in m;
 Das Gewicht ist P = mg (Masse * 9.81)
 Vervollständigt und vereinfacht man die Formel (01), erhält man für die kinetische Energie (Ec) beim Sturz:
-
 Ec = P ( h + dl ) ;
-
 (03)
-
 wo dl die Verlängerung des Seiles darstellt.
 Deformationsenergie des Seiles:
 In einem statischen Sicherungssystem ist es die Deformation des gespannten Seilstückes, welche die kinetische
 Energie des Sturzes absorbiert. Diese Energie wird durch folgende Formel beschrieben:
-
 Ed =
-
 2
-F L
 2 E Ac
-
-;
-
 (04)
-
 F = Maximale Einschlagskraft (Kg);
 L = Länge des unter Zug gesetzten Seilsstückes (m);
 E = Deformationsmodul des Seils (ca. 3000 – 3500 Kg/cm²);
@@ -651,65 +528,32 @@ Energiegleichung für das Aufhalten des Sturzes:
 Die während des Sturzes erreichte Energie, die durch die Formel (04) beschrieben wird, verwandelt sich in
 erster Annäherung und für ein statisches Sicherungssystem in Deformationsenergie des Seils. Die kinetische
 Energie ist also gleich der Deformationsenergie.
-
 Ec = Ed ;
-
 (05)
-
 Durch Einsetzen erhält man:
-
-Ph + P
-
 2
-F Lc
-F Lc
-;
-=
 E Ac
 2E Ac
-
 (06)
-
 Im Grenzfall, in dem der Sturz ohne Zwischensicherungen stattfindet, erreicht das Verhältnis zwischen der
 Sturzhöhe und der Länge des gespannten Seilstückes seinen Höchstwert (h/L = 2). In diesem Fall lautet die
 Formel:
-
 Fmax = P +
-
-h
 2
 P + 2PEA
-L
-
-;
-
 (07)
-
 1
-
-2. Physik des Sturzes
-
+2. Physik des Sturzes
 2
 P + 4PEA
-
 Fmax = P +
-
-;
-
 (08)
-
 Möchte man die Sturzhöhe vermindern, bringt der Seilerste gewöhnlich Zwischensicherungen an. An diesen
 Stellen bewirken die Reibungskräfte, die zwischen Seil und Karabiner entstehen, dass die Einschlagskraft im
 Falle eines Sturzes sich wie in der Figur verteilt:
-
 5/3 F
-
 2/3 F
-
-F
-
 Fig.2.1.a
-
 Am Punkt der Zwischensicherung bildet sich ein Flaschenzugeffekt. Auf diese Weise erreicht die Belastung an
 diesem Punkt 170% der maximalen Einschlagskraft, reduziert aber diejenige, die den Standplatz belastet, bis
 auf 70% (2/3) der Einschlagskraft.
@@ -717,248 +561,121 @@ Die Berechnung der maximalen Einschlagskraft wird nun ein wenig komplexer. Die D
 sich jetzt auf zwei Seilstränge: jenen, der vom stürzenden Körper zum Punkt der Zwischensicherung Lc (von F
 beansprucht) läuft, und jenen, der vom Punkt der Zwischensicherung zum Standplatz Ls (von 2/3 F
 beansprucht) läuft.
-
-Lc =
-
-Ph ;
-
-h
 2
-
-Ls = L - h
 2
-
-;
-
-;
-
 (09)
-
 (10)
-
 Kinetische Energie des freien Falles
 P Fmax h
 E Ac
 EAc 2
-
 Kinetische Energie des Sturzes entlang der Verlängerung Zwischensicherung – Körper
-
-P
-
 2
 3
-
 Fmax
 EAc
 Ac
-
-L- h
 2
-
-;
-
 (12)
-
 Kinetische Energie des Sturzes entlang der Verlängerung Standplatz – Zwischensicherung
-
 2
 Fmax h
 2 EAc 2
 Ac
-
-;
-
 (13)
-
 Deformationsenergie der Strecke Zwischensicherung – Körper
-
 2
 4 Fmax
 9 2 E Ac
-
-L- h
 2
-
-;
-
 (14)
-
 Deformationsenergie der Strecke Standplatz – Zwischensicherung
-
 Ec = Ed;
 h + P Fmax
 E Ac
-
 2 Fmax
-h
-+P
 3 E Ac
 2
-
-L- h
 2
-
-=
-
 (15)
-
 2
 2
 Fmax h + 9 Fmax
 2E Ac 2
 4 2E Ac
-
-L- h
 2
-
-;
-
 (16)
-
 Löst man schließlich in Funktion von Fmax auf:
-Für h/L = y
-
 2
-
-2. Physik des Sturzes
-
+2. Physik des Sturzes
 Fmax =
-
 P (3y+12) +
-
-P
-
 2 (3y+12) 2+ 36 EAcPy (5y+8)
 (5y+8)
-
-;
-
 (17)
-
 Verfolgt man das Vorankommen einer Seilschaft, ist es nun möglich, eine kontinuierliche Analyse der
 Beanspruchung der Fixpunkte im Falle eines Sturzes zu machen.
-
 Einige Beispiele von Stürzen mit statischer Sicherung:
 h/L = 0,08
-
 h/L = 0,80
-
 240 kg
-
 25.00 m
-
 195 kg
 h/L = 0,50
-
 240 kg
-
 20.00 m
 h/L = 1
-
 Pendel.
 1461
-kg
-
 1270
-kg
-
 15.00 m
-
 h/L = 2
-
 760 kg
-
 1550
-kg
-
 10.00 m
-
 h/L = 2
 195 kg
 876 kg
-
 930 kg
-
 5.00 m
-
 Im Nachstieg.
 1087 kg
-
 584 kg
-
 508 kg
-
 620 kg
-
 1087 kg
-
 0.00 m
-
 Mit Zwischensicherungen.
 1087 kg
-
 = 80 kg
 1087 kg
-
 Ohne Zwischensicherungen.
-
 Fig.2.1.b
 Für den Sonderfall des Einholens des Seilzweiten wird als Sturzhöhe der Wert 0 genommen, aber der Körper
 erhält eine bestimmte kinetische Energie, da er eine Strecke weit stürzt, die gleich der Verlängerung des
 Lastseils ist. Setzt man diesen Wert in die Formel (7a) ein, stellt man fest, dass die Verankerung eine Belastung
 erfährt, die doppelt so groß ist wie das Gewicht des Stürzenden.
-
 Fmax = P +
-
-h
 2
 P + 2PEA
-L
-
 Fmax = P +
-
 2
-P
-
-;
-
-;
-
 (18)
-
 (19)
-
 Im Falle eines Pendels aus einer waagrechten Position entspricht die maximale Kraft, der die Verankerung
 ausgesetzt ist, der Zentrifugalkraft, die beim Sturz erzeugt wird, der sich das Gewicht des Stürzenden
 hinzufügt.
-
 2
 Fcentr = mv
-r
-
-;
-
 (20)
-
 Bedenkt man, dass die Geschwindigkeit v durch die Formel (02) ausgedrückt wird:
-
 3
-
-2. Physik des Sturzes
-
-v=
+2. Physik des Sturzes
 erhält man mit r = h :
-
 2gh
-
-;
-
 (21)
-
 Fmax = 2mg; (22)
-
 Der Zentrifugalkraft fügt sich natürlich auch das Gewicht P = mg hinzu;
-
 Fmax = 3mg = 3P; (23)
 Im Endeffekt erzeugt der Pendelsturz eine Belastung des Standplatzes, die etwa 3 Mal so groß ist wie das
 Gewicht des Stürzenden.
@@ -969,41 +686,23 @@ man auf jeden Fall ersehen, dass die Zwischensicherung und der Standplatz in gew
 beansprucht werden, bis an die Grenze des Bruches der Sicherungsgeräte, wie die Kabel der Klemmkeile oder
 die Segmente der Friends.
 2000
-
 erung
 nsich
 ische
-Zw
-
 1500
-
 Fmax
-
 Körper
-
 1000
-
 Stand
-
 500
-
 0
-
 0,1
-
 0,5
-
 1
-
 1,5
-
 2,0
-
-h/L
-
 Fig.2.1.c
 A)
-
 Die Standplatzverankerung darf nach unten höchstens 1000 Kg absorbieren. (h/L = 2; Sturz
 ohne Zwischensicherungen);
 B) Die Standplatzverankerung darf nach oben höchstens 700 Kg absorbieren. (h/L = 1,8; Sturz 20
@@ -1016,7 +715,6 @@ desselben als eine Einheit angegeben werden, die man Fangstoß nennt.
 Je niedriger der angegebene Fangstoß ist, desto elastischer ist das Seil, und somit werden die Stürze umso
 weicher (und länger !?) sein. Für unsere Berechnungen haben wir ein Einzelseil mit mittleren Eigenschaften und
 einen Fangstoß gleich 1000 Kg betrachtet.
-
 2.2 Mechanische Analyse der “dynamischen“ Sicherungssysteme:
 Gewöhnlich verwendet man am Standplatz ein Bremssystem, das ermöglicht, demjenigen, der als Seilerster
 aufsteigt, „Seil zu geben“, und zugleich ein Bremssystem bildet, das imstande ist, Energie zu absorbieren und
@@ -1028,22 +726,14 @@ Bremssystem der Wahl zweifellos der „Halbmastwurf“.
 Dieser wird gewöhnlich auf dem Ankerpunkt des Standplatzes ausgeführt und besitzt eine Bremskapazität (die
 Fähigkeit eines besseren Aufhaltens des Sturzes), die variiert, je nachdem, ob der Zug nach unten stattfindet
 (Abwesenheit von Zwischensicherungen h/L = 2) oder nach oben (h/L < 2).
-
 4
-
-2. Physik des Sturzes
-
+2. Physik des Sturzes
 250-270 kg
-
 Zug nach oben
 30-40 kg
-
 350-370 kg
-
 30-40 kg
-
 Zug nach unten
-
 Fig.2.2.a
 Mechanismus der dynamischen Sicherung:
 Bei der dynamischen Sicherung erfolgt die Absorption der Energie mit einer Folge von mechanischen
@@ -1058,13 +748,9 @@ als jenen der Bremskraft des Halbmastwurfes zu reduzieren, hält das Laufen des 
 der Sturz inne.
 Dieser Prozess ist mit mathematischen Begriffen einfach zu beschreiben. Dazu stellen wir noch einmal einen
 Energieausgleich auf:
-
 Ec =
-
 Ed + EBremse ;
-
 (24)
-
 Die kinetische Energie, die durch den Sturz erzeugt wird, wird zum Teil in Deformationsenergie des Seiles
 umgewandelt und zum Großteil, durch das Laufen desselben durch die Bremse, in „Bremsenergie“.
 Sobald das Seil eine Spannung erreicht hat, die ausreicht, den Halbmastwurf laufen zu lassen, hört es auf, sich
@@ -1072,18 +758,9 @@ weiter anzuspannen und die kinetische Energie zu zerstreuen. Die aufgrund der De
 Energie nimmt somit einen sehr niedrigen Wert ein und überlässt dem Halbmastwurf die Aufgabe, etwa 95%
 der Energie des Sturzes zu verteilen.
 Eine erste Schätzung ergibt für den Energieausgleich:
-
-Ph + Ps = Fs ;
-s=
-
 (25)
-
-Ph
-;
 (F - P)
-
 (26)
-
 s = Durchlaufen des Seils durch die Bremse.
 P = Gewicht der Person. (80 Kg)
 F = Kraft, die nötig ist, um die Bremse laufen zu lassen. (350 Kg nach unten)
@@ -1093,103 +770,57 @@ Reibungen Werte von 1/3 der Sturzhöhe erreichen kann!
 In Anwesenheit einer Zwischensicherung wird Fmax gleich 3/2 F, aber die Bremse hat eine Höchstbremskraft
 von nur 270 kg.
 Die Bremskraft ist:
-
 Ph + Ps = 3/2 Fs ;
-
-s=
-
-Ph
 (3/2 F - P)
-
-;
-
 (27)
-
 (28)
-
 und beträgt etwa 27% der Sturzhöhe.
-
 5
-
-2. Physik des Sturzes
-
+2. Physik des Sturzes
 In einer strengeren Analyse, wenn man die Verlängerungen des Seils und somit auch den Sturzfaktor mit
 berücksichtigt, wird die Laufstrecke des Seils durch den Halbmastwurf:
-
 3
-9k
 16
 4
-
 Eah - kPh
-
-+
-
 1
 1
 2
-f
-
-k
 -1
 2
-;
-
-s=
-
 (29)
-
 3k
 -1
 2
-
 EA
-
 Seildurchlauf (m)
-
 Die im Diagramm zusammengefassten Ergebnisse, beweisen, dass der Sturzfaktor nur dann einen Einfluss hat,
 wenn seine Werte niedrig sind und dass die Laufstrecke nur von der Sturzhöhe abhängt und höchstens ¼
 derselben betragen kann.
 12.00
 10.00
 fc = 1,5
-
 8.00
-
 fc = 1,0
-
 6.00
 fc = 0,5
-
 4.00
 2.00
 0.00
-
 fc = 0,2
 fc = 0,1
 4
-
-8
-
 12
-
 16
-
 20
-
 24
-
 28
-
 32
-
 36
-
 Sturzhöhe. (m)
 EA= 3000 Kg
 P = 80 kg
 K= F/P = 270/80 = 3.38
-
 Fig.2.2.b
 Das Laufen des Seils durch den Halbmastwurf ist eine viel zu sehr vernachlässigte Wirklichkeit. Die Länge des
 Seilstückes, das durch die Hände des Sichernden läuft, ist in völliger Abwesenheit von weiteren Reibungen viel
@@ -1206,11 +837,9 @@ Selbstsicherung veranlasst.
 Glücklicherweise tragen viele weitere Reibungen zur Absorption der Energie bei und ermöglichen in den meisten
 Fällen, den Sturz aufzuhalten, ohne weitere erhebliche Beanspruchungen auf die Fixierungselemente
 auszuüben.
-
 Die Anwendung einer Bremse am Standplatz ermöglicht jedenfalls, die wirkenden Kräfte sowohl an den
 Zwischensicherungen als auch am Standplatz zu reduzieren:
 a)
-
 Der Standplatz wird mit einem Gewicht von etwa 450 Kg nach unten belastet (h/L=2); und von etwa
 270 Kg nach oben.
 b) Die letzte Zwischensicherung hält eine Belastung von höchstens 650 Kg aus;
@@ -1219,18 +848,10 @@ vorausgesetzt, dass übermäßige Reibungen ihr korrektes Funktionieren nicht be
 2.3 Abrutschen auf Schnee und Eis.
 Die Geschwindigkeit, die man erreicht, wenn man auf einer geneigten Oberfläche abrutscht, drückt sich
 folgendermaßen aus:
-
 6
-
-2. Physik des Sturzes
-
-v=
-
+2. Physik des Sturzes
 2gh ( 1 - u cotg a ) ;
-
 (30)
-
-Wo:
 v= Geschwindigkeit in m/sec
 g= Gravitationsbeschleunigung (9.81 m/sec²)
 h= Sturzhöhe (Höhenunterschied in m)
@@ -1246,135 +867,80 @@ Geschwindigkeit, die man erreichen würde, wenn man aus der selben Höhe ins Lee
 hohe Werte, die in der folgenden Tabelle zusammengefasst sind.
 Rutschgeschwindigkeit in % zum freien
 Fall
-
 u=0,03
-
 u=0,10
-
 u=0,20
-
 u=0,30
-
 20°
-
 96%
-
 85%
-
 67%
-
 42%
-
 30°
-
 97%
-
 91%
-
 81%
-
 69%
-
 40°
-
-98%
-
 94%
-
 87%
-
 80%
-
 50°
-
-99%
-
 96%
-
 91%
-
 87%
-
 60°
-
-99%
-
 97%
-
 94%
-
 91%
-
 70°
-
-99%
-
-98%
-
 96%
-
 94%
-
 Aus den Werten, die in der Tabelle angeführt sind, ersieht man, dass beim Abrutschen Geschwindigkeiten
 erreicht werden, die schon bei Neigungen von 30° oder 40° beinahe jene des freien Falls erreichen, daher sind
 über diese Werte hinaus alle Betrachtungen gültig, die für den freien Fall gemacht worden sind.
-
 7
-
-3. Schlingen
-
+3. Schlingen
 3. Schlingen:
 Schlingen sind Knoten, die es ermöglichen, Anknüpfpunkte am Ende des Seiles und eventuell
 auch an einem Punkt in der Mitte des Seils anzufertigen.
 3.1 Sackstichschlinge:
 Es ist die am einfachsten und schnellsten gebildete Schlinge. Sie ist im Alpinismus und in der
 Rettung noch vielverwendet. Nach starken Belastungen ist sie nicht einfach zu lösen.
-
 Fig.3.1
 3.2. Gesteckte Sackstichschlinge:
 Wenn man ein Seil mit irgend einer Schlinge verbinden möchte, ist es nötig, am Einfachseil
 einen Knoten zu bilden und ihn im Folgenden zu stecken, nachdem man das Seil in die
 Schlinge eingefädelt hat.
-
 Fig.3.2
 3.3 Achterschlinge:
 Um die Schwierigkeiten beim Lösen der Sackstichschlinge zu vermeiden ist es möglich, mit
 einer zusätzlichen Drehung eine Schlinge zu bilden, welche die Lasten dynamisch absorbiert.
-
 Fig.3.3
 3.4 Gesteckte Achterschlinge:
 Auch mit der Achterschlinge kann man eine geschlossene Schlinge verbinden, wie zum
 Beispiel den Gurtring, indem man zuerst einen einfachen Knoten bildet und ihn im
 Nachhinein mit dem selben Seilende steckt.
-
 1
-
-3. Schlingen
-
+3. Schlingen
 Fig.3.4
 3.5 Spierenstichschlinge:
 Wenn man Ausrüstungsteile für die Rettung mittels Schlingen verbinden muss, zieht man es
 häufig vor, die erste Hälfte des einfachen Sackstichs vorzubereiten und im Folgenden,
 anstatt ihn zu stecken, einen Spierenstich zu bilden, so dass die Verbindung leichter zu lösen
 ist.
-
 Fig.3.5
 3.6 Verkehrt gesteckte Sackstichschlinge:
 Wenn man in der Wand Lasten wie Säcke und sonstige Ausrüstung einholen muss, bleibt die
 Sackstichschlinge häufig an den Kanten hängen. Steckt man den Sackstich verkehrt, bildet
 man einen Knoten, der leicht über die Kanten rutscht und sich so viel weniger leicht
 verhängt.
-
 Fig.3.6.a
-
 2
-
-3. Schlingen
-
+3. Schlingen
 P.S.: Um im Falle eines langen Einholens eines Sackes in der Wand ein ständiges Verhängen
 der Knoten zu vermeiden, ist es möglich, eine einfache Sackstichschlinge zu verwenden, die
 durch eine Plastikflasche geschützt wird, dessen Boden abgeschnitten worden ist.
-
 Fig.3.6.b
 3.7 Schlinge mit einfachem Bulinknoten
 Die schnellste Methode, ein Seil in eine geschlossene Schlinge einzuhängen, ist zweifellos
@@ -1382,31 +948,21 @@ der einfache Bulinknoten. Er ist auch nach harten Rissen oder starker Beanspruch
 zu lösen.
 P.S.: Die Seilschlinge, die sich dabei bildet, darf nicht von innen belastet werden, da dies zur
 Lösung des Knoten führen kann und schon Ursache für Unfälle gewesen ist.
-
 Nein!
-
 Fig.3.7
 3.8 Schlinge mit doppeltem gestecktem Bulinknoten:
 Diese Art von Schlinge wird hauptsächlich dazu angewendet, sich am Klettergurt anzuseilen.
 Nach einem Riss einfach zu lösen, ist er jedoch nicht so einfach auszuführen und zu
 kontrollieren.
-
 Fig.3.8
-
 3
-
-3. Schlingen
-
+3. Schlingen
 3.9 Spierenstich an einem Seilmittelpunkt:
 Dieser Knoten bietet die Möglichkeit, Schlingen mit einem Punkt in der Mitte des Seils zu
 verbinden, ohne Karabiner zu verwenden.
-
 Fig.3.9
-
 4
-
-4. Verbindungsknoten
-
+4. Verbindungsknoten
 4. Verbindungsknoten:
 Die Verbindungsknoten ermöglichen die Verbindung von Seilen und Bandschlingen und
 das Schließen von Schlingen zu einem Ring, und besitzen unterschiedliche
@@ -1416,7 +972,6 @@ Ausführungsgeschwindigkeit.
 Es ist zweifellos der am einfachsten und schnellsten ausführbare Verbindungsknoten. Der
 Knoten gleitet bestens über Kanten, wenn er aber starkem Zug ausgesetzt wird, ist er
 nicht einfach zu lösen.
-
 Fig.4.1
 4.2 Verbindung mit gestecktem Sackstich:
 Dieser Knoten wird genauer auch Bandschlingenknoten genannt. Zuerst wird an einem
@@ -1424,50 +979,38 @@ Ende ein einfacher Sackstich gebildet, der dann mit dem anderen Ende in die
 entgegengesetzte Richtung gesteckt wird. Es ist ein kompakter Knoten, der nicht über
 Kanten rutschen kann und gewöhnlich angewendet wird, um Reepschnüre oder
 Bandschlingen endgültig zu schließen.
-
 Fig.4.2
 4.3 Verbindung mit Achterknoten:
 Es ist auch möglich, zwei Seil- oder Reepschnurenden mit einem Achterknoten zu
 verbinden, mit dem einzigen Vorteil, eine verbindung zu bilden, die leichter zu lösen ist,
 wenn sie starken Ladungen ausgesetzt wird.
-
 Fig.4.3
-
 1
-
-4. Verbindungsknoten
-
+4. Verbindungsknoten
 4.4 Verbindung mit Bandschlingenknoten:
 Wie schon in 02.02 erwähnt, ist der zur Verbindung gesteckte Sackstich der ideale
 Knoten für die Verbindung der Bandschlingen. Wenn er einmal starken Lasten ausgesetzt
 worden ist, kann er nicht mehr leicht gelöst werden und ist daher geeignet für endgültige
 Verbindungen.
-
 Fig.4.4
 4.5 Verbindung mit Weberknoten:
 Diese Art von Verbindung wird fast nie für tragende Zwecke benützt, kann sich jedoch
 nützlich erweisen, um schnell verschiedene Geräte für die Rettung, wie Skier, Bahren,
 usw. festzubinden. Er ist leicht zu lösen.
-
 Fig.4.5
 4.6 Verbindung mit einfachem Spierenstich:
 Dieser Knoten ermöglicht eine schnelle Verbindung, ist aber nicht ganz leicht zu lösen,
 nachdem er schweren Lasten ausgesetzt worden ist, und besitzt nicht die gleiche
 Fähigkeit wie der Sackstich, über Kanten zu rutschen.
-
 Fig.4.6
 4.7 Verbindung mit doppeltem Spierenstich:
 In früheren Zeiten war dies der Verbindungsknoten schlechthin, aber die geringe
 Schnelligkeit in der Ausführung und seine Tendenz, sich zu verklemmen, haben ihn fast
 in Vergessenheit gebracht. Er bleibt trotzdem ein geeigneter Knoten, um Seile mit
 unterschiedlichen Durchmessern zu verbinden.
-
 Fig.4.7
-
 2
-
-5. Anseilmethoden
-
+5. Anseilmethoden
 5. Anseilmethoden:
 Es gibt verschiedene Methoden, die gewöhnlich angewendet werden, um sich am
 Klettergurt anzuseilen. Im Wesentlichen muss die angebrachte Schlinge sowohl für den
@@ -1484,42 +1027,29 @@ wird im richtigen Moment die richtige Wahl treffen müssen.
 Hier wird eine einfache und durchaus angebrachte Methode dargestellt, die beiden Teile
 des Klettergurtes zu verbinden. Zu diesem Zweck benützt man ein Seilstück mit einem
 Durchmesser von wenigstens 9 mm oder ein Schlauchband mit einer Breite von 25 mm.
-
 Fig.5.0
 5.1. Anseilen mit gestecktem Achterknoten (3.4):
 Diese ist zweifellos die meistgebräuchliche Methode, ziemlich einfach auszuführen, zu
 kontrollieren und zu lösen.
-
 Fig.5.1
-
 1
-
-5. Anseilmethoden
-
+5. Anseilmethoden
 5.2 Anseilen mit doppeltem gestecktem Bulinknoten (3.8):
 Als Alternative zum gestecktem Achterknoten wenden viele Alpinisten den doppelten
 Bulinknoten an, der, wenngleich er ein wenig komplizierter erscheint, leichter zu lösen
 ist, nachdem er starker Spannung ausgesetzt worden ist.
-
 Fig.5.2
-
 5.3 Anseilen mit Spierenstich
 Einige Alpinisten wenden zum Anseilen immer noch diesen Knoten an, obwohl er nicht
 mehr leicht auszuführen und nach einer starken Belastung auch nicht leicht lösbar ist.
-
 Fig.5.3
-
 2
-
-5. Anseilmethoden
-
+5. Anseilmethoden
 5.4 Anseilen an einem Punkt in der Mitte des Seils:
 Beim Anseilen an einem Punkt in der Mitte des Seils, zum Beispiel auf dem Gletscher,
 kann man, wenn man auf die Benützung eines Karabiners mit Schraubverschluss
 verzichten möchte, eine Spierenstichschlinge anwenden.
-
 Fig.5.4
-
 P.S. Noch jetzt führen viele Sportkletterer die Seilschlinge sowohl in den Gürtel wie auch
 in die Beinharnische ein, wie es viele Hersteller von Klettergurten empfehlen. In den
 letzten Jahren haben sich verschiedene Unfälle ereignet, weil vergessen worden war, den
@@ -1527,13 +1057,9 @@ Knoten zu stecken und das Seil, das hinter dem Gürtel eingeklemmt war, fiel nic
 Boden und gab so den Eindruck, dass man korrekt angeseilt war. Die am Gurt
 angebrachte Schlinge ist an und für sich richtig dimensioniert und folglich sind die
 vorgeschlagenen Methoden zweifellos vorzuziehen.
-
 Fig.5.4.a
-
 3
-
-5. Anseilmethoden
-
+5. Anseilmethoden
 5.5 Anseilen zweier Klienten am gleichen Seil:
 Auf sehr leichten Klettertouren, oder beim Fortschreiten am Kurzseil ist es möglich, zwei
 Klienten an einem einzigen Seil (Einfachseil 11 mm) zu sichern. Sie werden wie in Fig.5.5
@@ -1543,21 +1069,13 @@ mit einem Spierenstich (siehe 5.4) angeseilt wird, der mit einer Sackstichschlin
 ausgeführt wird, dass eine Ableitung von etwa 70 cm gebildet wird. Diese Ableitung
 erlaubt dem Klienten eine gewisse Beweglichkeit, und ermöglicht dem Führer, den
 unerfahreneren Gefährten immer unter Zug zu halten.
-
 1° Gast
-
 70 cm max
-
 2° Gast
-
 2-3m
-
 Fig.5.5
-
 4
-
-6. Klemmknoten
-
+6. Klemmknoten
 6. Klemmknoten:
 Möchte man ein schon gespanntes Seil unter Zug setzen, ohne einzig und allein die
 Hände zu benützen, ist es möglich, einen Klemmknoten anzuwenden, der mit einem
@@ -1571,7 +1089,6 @@ Durchmesser haben als jenes, auf das man den Zug ausübt. Die Belastbarkeit und 
 Lauffähigkeit hängen von der Zahl der Windungen, der Qualität der Seile und dem
 Verhältnis zwischen ihren Durchmessern ab. Die Zahl der Umwicklungen variiert somit
 von 2 bis 5.
-
 Fig.6.1
 6.2 Gesteckter „Prusik“ - Klemmknoten:
 Wenn man nicht über geschlossene Schlinge verfügt, sondern nur über ein Seilende, ist
@@ -1580,45 +1097,33 @@ das heraustretende Ende zu blockieren, können verschiedene Knoten angewendet
 werden (gesteckter Sackstich oder Spierenstich), aber es ist ratsam, den einfachen
 Bulinknoten (3.8) zu benützen, der leicht auszuführen und ideal ist, den Zug bestens auf
 die Windungen zu verteilen.
-
 Fig.6.2
-
 1
-
-6. Klemmknoten
-
+6. Klemmknoten
 6.3“Marschand” - Klemmknoten:
 Diese Art von Klemmknoten ist sehr leicht auszuführen, indem man eine geschlossene
 Seil- oder Reepschnurschlinge benützt. Er blockiert gut in eine einzige Richtung. Er bildet
 den idealen Klemmknoten, wenn man eine einfache Schlinge verwenden möchte.
-
 Fig.6.3
 6.4 „Marschand“ - Klemmknoten mit Bandschlinge.
 Der „Marschand“ - Klemmknoten funktioniert bestens mit Bandschlingen, auch wenn er
 nicht immer ganz leicht am Seil entlang läuft.
-
 Fig.6.4
-
 2
-
-6. Klemmknoten
-
+6. Klemmknoten
 6.5 Bidirektionaler „Marschand“ – Klemmknoten
 Diese Variante des Marschand – Klemmknotens kann in beide Richtungen blockieren, und
 kann sehr leicht laufen, auch wenn er nicht die selben Greifcharakteristiken der anderen
 Klemmknoten aufweist. Er findet besten Gebrauch als passive Sicherung beim Abseilen
 am Doppelseil. P.S. Der Abstand des Karabiners von der Achse des Seils darf nicht
 übermäßig sein (max. 3-4 cm), sonst blockiert der Knoten nicht mehr gut.
-
 3-4 cm Max
-
 Fig.6.5
 6.6“Bellunese” – Klemmknoten
 Diese Art von Klemmknoten wird auf sehr einfache und schnelle Art mit einem einzigen
 Ende ausgeführt. In den organisierten Rettungsoperationen hat er weite Anwendung
 gefunden, auch dank seiner ausgezeichneten Haltung bei Seilen mit ähnlichem
 Durchmesser.
-
 Fig.6.6
 6.7 „Bachmann“ – Klemmknoten:
 Diese Art von Klemmknoten bildet eine Variante des Marschands, bei der man zwischen
@@ -1626,26 +1131,18 @@ dem Seil, das unter Zug gesetzt werden soll, und den Spiralen des Knotens selbst
 einfachen Karabiner einführt. Der Karabiner ermöglicht eine schnelle und bequeme
 Verschiebung des Knotens. Er wird fast ausschließlich bei Rettungsoperationen
 eingesetzt.
-
 Fig.6.7
-
 3
-
-6. Klemmknoten
-
+6. Klemmknoten
 6.8 Klemmknoten am Doppelseil
 Es kann geschehen, dass es nötig wird, selbstgesichert an einem Doppelseil ab- oder
 aufzusteigen. Zu diesem Zweck kann es nützlich sein, die beiden Seile mit einer
 Reepschnurschlinge wie in der Zeichnung einzufädeln. Nach unten blockiert dieser
 Klemmknoten bestens, nach oben wiederum läuft er bestens. P.S. Es ist günstig, die
 Seile an ihren Enden zu beschweren.
-
 Fig. 6.8
-
 4
-
-7.Karabiner
-
+7.Karabiner
 7.Karabiner :
 Karabiner sind Verbindungselemente zwischen den Verankerungen und der Seilschaft.
 Anfänglich wurden sie aus Stahl produziert, heute werden sie aus Aluminiumlegierungen
@@ -1654,12 +1151,10 @@ hergestellt und besitzen entlang ihrer Achse Bruchkräfte, die 2000 Kg übertref
 Diese Art von Karabiner, mit Bruchkräften >20kn (2000 Kg) kann überall dort benützt
 werden, wo die Richtung der Zugkraft sicher ist und nicht unvorhergesehene
 Abweichungen erfahren kann.
-
 Fig.7.1
 7.2 Einfacher Karabiner mit Schraubverschluss:
 Wenn die Bedingungen sich häufig abwechseln zwischen Spannung und Entlastung ist es
 ratsam, Karabiner mit Schraubverschluss zu benützen.
-
 Fig.7.2
 7.3 HMS – Karabiner:
 Diese Art von Karabiner ist gedacht für die Verwendung bei Sicherungsmanövern mit
@@ -1668,32 +1163,23 @@ von der Abseilposition in die Einholposition und umgekehrt. Da die Möglichkeit 
 ist, die Ladung umzukehren, ist er mit einem Sicherheitsschraubverschluss versehen. In
 den moderneren Versionen ist der Sicherheitsring von einem Schnappverschluss der Art
 „Twist-lok“ gebildet.
-
 Fig. 7.3
-
 1
-
-7.Karabiner
-
+7.Karabiner
 7.4 Karabiner für Klettersteige:
 Diese Art von Karabiner wurde mit einer breiteren Base geschaffen, um bequem die
 Stahlseile und -leitern fassen zu können, die man entlang der ausgerüsteten Steige
 findet. An besagter Base bleibt der innere Winkel allerdings spitz, was ihn ungeeignet
 macht für den Gebrauch mit dem Halbmastwurf.
-
 Fig.7.4
 7.5. „SOS“ – Karabiner:
 Diese Art von Karabiner besitzt eine ovale Form und wurde geschaffen für die
 Verwendung als Abseilbremsen bei der organisierten Rettung. Er ist mit
 Sicherheitsschraubverschluss versehen, um eine unwillkürliche Öffnung während der
 Abseilphase zu vermeiden.
-
 Fig. 7.5
-
 2
-
-8. Haken und Ankerungspunkte
-
+8. Haken und Ankerungspunkte
 8. Haken und Verankerungspunkte:
 Eis- und Felshaken bilden fixe Verankerungspunkte, auf welche die Seilschaft oder
 eventuell die Rettungsoperation ihre Sicherheit begründen. Die Haken werden sowohl aus
@@ -1706,13 +1192,11 @@ Diese Art von Haken wird mit Hilfe des Hammers in vorwiegend senkrechte Felsriss
 eingeschlagen. Die Position der Öse, um 90° zur Klinge gedreht, erzeugt im Falle einer
 senkrechten Beanspruchung eine Torsion des Hakens selbst und in der Folge eine
 Erhöhung der Reibungen gegen die Innenwände des Risses.
-
 Fig.8.1
 8.2 Messerhaken, Öse um 45° gedreht (Universalhaken):
 Bei dieser Art von Haken, die ähnlich ist wie die vorhergehende (8.1) ist die Öse um 45°
 gedreht, mit dem Zweck, einen Torsionseffekt beim Kontakt mit den Rändern von
 senkrechten wie waagrechten Rissen zu erzeugen.
-
 Fig.8.2
 8.3 Messerhaken mit ringförmiger Öse (Ringhaken):
 Auch wenn sie heute nicht mehr verwendet werden, werden Haken mit ringförmiger Öse
@@ -1722,44 +1206,33 @@ eine sparsame Verwendung des Materials erfordern (ein einziger Karabiner pro
 Expressschlinge). Es muss allerdings gesagt werden, dass die Ringe gewöhnlich aus Stahl
 von schlechter Qualität hergestellt und oft vom Hammer beschädigt werden,
 insbesondere an der Lötstelle.
-
 Fig.8.3
-
 1
-
-8. Haken und Ankerungspunkte
-
+8. Haken und Ankerungspunkte
 8.4 Profilhaken:
 Haken mit der selben Funktion wie die Messerhaken (08.01) werden mit profiliertem
 Querschnitt hergestellt, um sich an breitere Risse anzupassen. Die gewöhnlichsten
 Querschnitte sind V-, C- und Z-förmig.
-
 Fig.8.4
 8.5 Bong:
 In noch breiteren Rissen (< 3.0 cm) können spezielle profilierte Haken benützt werden,
 die aufgrund ihrer Größe aus einer Aluminiumlegierung hergestellt werden. Heutzutage
 ist diese Art von Haken in Vergessenheit geraten, da sie von bequemeren und
 vielseitigeren Klemmgeräten ersetzt worden ist.
-
 Fig.8.5
 8.6 Rurp:
 Auf Granitfels findet man häufig Wände, die von sehr feinen Rissen durchzogen sind,
 welche das Einführen von Haken mit normaler Klinge unmöglich machen. Für das
 Fortschreiten auf technische Art kann man kleine Messerhaken benützen, die nur wenige
 mm weit eindringen und so imstande sind, das Gewicht des Bergsteigers zu halten.
-
 Fig.8.6
-
 2
-
-8. Haken und Ankerungspunkte
-
+8. Haken und Ankerungspunkte
 8.7 Reduktion des Hebelarmes:
 Häufig dringen die Haken nicht über ihre ganze Länge in die Risse ein. In diesen Fällen
 sollte es vermieden werden, ihre Öse direkt zu beladen, da sich dadurch ein übermäßiger
 Hebelarm gegenüber der Wand bilden würde. Mit Hilfe des Hammers oder einer
 Reepschnur kann dieser Arm leicht beseitigt werden.
-
 Fig.8.7
 8.8 Eisschrauben und Eishaken: Auf dem Eis bieten die röhrenförmigen Schrauben
 eine Verankerungsmöglichkeit, die man überall dort anbringen kann, wo das Eis
@@ -1769,21 +1242,15 @@ Qualität haben Neigungen von 10° nach unten ausgezeichnete Ergebnisse für die
 ergeben. Bis vor wenigen Jahren wurden Röhren mit feinem Gewinde (SNARG) benützt.
 Diese werden mit dem Hammer eingesetzt und einfach „herausgeschraubt“. Wegen ihrer
 ausbrechenden Wirkung sind sie praktisch vom Markt verschwunden.
-
 90°-100°
-
 Fig.8.8
 8.9 Dynamischer toter Körper “Dead Man”:
 Diese Art von totem Körper wird mit einem Winkel von 40° zur Oberfläche in den Schnee
 gesteckt. Wird er durch eine starke Last beansprucht, so hat er die Tendenz, noch weiter
 in den Boden einzusinken und dadurch Belastungen dynamisch zu absorbieren.
-
 Fig.8.9
-
 3
-
-8. Haken und Ankerungspunkte
-
+8. Haken und Ankerungspunkte
 8.10 Statischer toter Körper:
 Im transformierten und tiefen Schnee ist es möglich, ausgezeichnete Verankerungen zu
 errichten, indem man buchstäblich einen Pickel, ein Paar Stöcke, ein Paar Skier oder
@@ -1791,20 +1258,15 @@ ganz einfach einen Rucksack begräbt. P.S. Beim Graben ist es ratsam, die Strukt
 Schneedecke talwärts des toten Körpers nicht zu zerstören. Der Schnee, mit dem er
 bedeckt wird, sollte gut gepresst werden. Mit regennassem Schnee ist es nicht möglich,
 ausreichend widerstandsfähige Verankerungen zu erhalten.
-
 Fig.8.10
 8.11 Spit und Klebehaken:
 Mit Hilfe eines Bohrers ist es natürlich möglich, sehr robuste und bombensichere
 Verankerungen zu schaffen. Im Handel findet man heute viele Arten und Formen von
 Einsätzen, aber im Wesentlichen gibt es zwei grundlegende Kategorien: Bohr- und
 Klebehaken.
-
 Fig.8.11
-
 4
-
-9. Klemmkeile und andere Klemmgeräte
-
+9. Klemmkeile und andere Klemmgeräte
 9. Klemmkeile und andere Klemmgeräte:
 In den letzten zwanzig Jahren haben sich immer mehr die „schnellen“ Geräte für die
 Sicherung verbreitet. Unter diesem Begriff versteht man all jene Klemmgeräte, die
@@ -1815,14 +1277,12 @@ Einschlagen traditioneller Haken. Die Auswahl der Produkte ist wirklich riesig.
 Sie zählen zu den ersten Klemmkeilen, die geschaffen worden sind. Sie sind zweiseitig
 konisch (auf den beiden Achsen), auch wenn bei den kleineren Maßen praktisch nur die
 kleinere Seite verwendbar ist.
-
 Fig.9.1
 9.2 Roks:
 Sie sind eine Evolution der Stopper. Sie sind auf den beiden Achsen doppelt konisch, und
 besitzen auf der schmaleren Achse auch eine gebogene Form, die eine bessere
 Positionierung in die Spalten ermöglicht und vor allem eine bessere Stabilität gegenüber
 den Schwingungen des Seils gewährleistet. (Ungewolltes Heraustreten erschwert).
-
 Fig.9.2
 9.3 Hexentrics:
 Sie sind aus einem unregelmäßigen sechseckigen Profil entstanden und zeigen auch auf
@@ -1830,43 +1290,32 @@ der anderen Achse eine Konizität. Sie werden sowohl an Stahlkabeln wie auch an
 Bandschlingen gehängt und eignen sich gut für Risse von mittlerer Größe (2 – 5 cm). Die
 Unregelmäßigkeit des Profils verursacht eine Aufdrehung im Riss, wenn sie belastet
 werden.
-
 Fig.9.3
-
 1
-
-9. Klemmkeile und andere Klemmgeräte
-
+9. Klemmkeile und andere Klemmgeräte
 9.4 Turners und Pentanuts:
 Diese sind Keile mit vielfacher Konizität. Da sie um eine ihrer Achsen drehen können ist
 es möglich, die geeignetste Größe und Konizität einzusetzen. Sie ergeben praktisch vier
 verschiedene Kombinationen.
-
 Fig.9.4
 9.5 Clog Clogs:
 Den Hexentrics ähnlich, gehen auch diese aus einem sechseckigen Profil hervor, ihre
 Kanten sind jedoch gut abgerundet, um sich den Rissen im Kalkgestein besser
 anzupassen. In ihrer Konstruktion erscheinen sie auch widerstandsfähiger und schwerer.
-
 Fig.9.5
 9.6 Camaloks:
 Das Klemmprinzip dieses Geräts gründet auf seine segmentierte Form und auf seine
 Tendenz, infolge der Belastung zu rotieren. Sie werden in die Risse gelegt und leicht
 geklemmt (wenn nötig auch mit dem Hammer). Sie haben sich auch für einzelne
 Kalklöcher bestens bewährt.
-
 Fig.9.6
-
 2
-
-9. Klemmkeile und andere Klemmgeräte
-
+9. Klemmkeile und andere Klemmgeräte
 9.7 Tricams:
 In der Wirkweise ähnlich den Camaloks, führen sie ihre Greiffähigkeit auf die Drehung
 der Segmente zurück. Die kleineren Größen haben eine optimale Anwendung in kleinen
 Kalklöchern gefunden. Für ihre Positionierung und vor allem für ihre Entfernung ist es
 ratsam, über ein Gerät zum Entfernen der Keile zu verfügen.
-
 Fig.9.7
 9.8 Friends:
 Diese Geräte haben gewissermaßen die Sicherungssysteme einer Seilschaft
@@ -1876,7 +1325,6 @@ muss in die Richtung eines möglichen Zuges in den Riss eingeführt werden. Sein
 Segmente müssen gut an den Seiten der Einhöhlung anliegen und dürfen weder zu weit
 geöffnet (Gefahr eines Überkippens wie bei einem Schirm im Wind) noch zu weit
 geschlossen sein (Gefahr, ihn nicht mehr herausnehmen zu können).
-
 Fig.9.8
 9.9 Camalots:
 Es handelt sich um eine gelungene Entwicklung des Friends. Die Nocken des Camalots
@@ -1884,32 +1332,23 @@ drehen um zwei getrennte und parallele Achsen, die dazu dienen, die Drehung zu
 blockieren und so das Überkippen (wie ein Schirm im Wind) zu verhindern, wenn die
 Segmente zu weit geöffnet sind. Dank diesem Kniff kann der Camalot auch in Kalklöchern
 verwendet werden, die in ihrem Inneren zu groß erscheinen.
-
 Fig.9.9
-
 3
-
-9. Klemmkeile und andere Klemmgeräte
-
+9. Klemmkeile und andere Klemmgeräte
 9.10 Sliders:
 Zwei kleine und durch ein System von Federn gesteuerte Keile ermöglichen ein gutes
 Einklemmen in kleine Risse, in die ein Friend nicht hineinpasst. Die äußeren Flächen sind
 gewöhnlich verzinnt, um die durch die Reibung gegebene Greiffähigkeit zu verbessern.
 Durch einen Sturz beansprucht, sind sie dann gewöhnlich schwierig zu entfernen.
-
 Fig.9.10
 9.11 Sächsische Knotenschlinge:
 In den obersächsischen Sandsteintürmen haben die Brüchigkeit des Felsens sowie die
 sehr strenge Ethik der Kletterer die Benützung von metallischen Klemmgeräten
 verhindert. Schon seit fast hundert Jahren sichert man sich im Elbsandstein beim Klettern
 mittels Knoten, die mit Hilfe einer Art Holzmesser in die Risse geklemmt werden.
-
 Fig.9.11
-
 4
-
-10. Natürliche Verankerungspunkte
-
+10. Natürliche Verankerungspunkte
 10. Natürliche Verankerungspunte.
 10.1 Felsvorsprünge:
 Häufig bietet ein Felsvorsprung in Gratnähe einen guten Verankerungspunkt, der benützt
@@ -1917,7 +1356,6 @@ werden kann, eine Seilschaft zu sichern, auch wenn berücksichtigt werden muss, 
 ausschließlich nach unten belastet werden kann. Damit der Zug mit Sicherheit die
 gewünschte Richtung beibehält, ist es ratsam, eine Bandschlinge zu verwenden, da sie
 besser am Felsvorsprung anliegt.
-
 Fig.10.1
 10.2 Sanduhren und eingeklemmte Blöcke:
 Auf Kalkfelsen und Dolomit findet man häufig im Inneren des Felsens kommunizierende
@@ -1925,24 +1363,16 @@ Löcher, in die eine Seil- oder Reepschnurschlinge eingeführt werden kann, welc
 ausgezeichnete Verankerung mit Haltung in allen Richtungen bietet. Auf die selbe Weise
 kann man Seilschlingen in Felsblöcke einführen, die fest in große Risse eingekeilt sind,
 Haltesicherheit bieten sie aber nur nach unten.
-
 Fig.10.2
-
 1
-
-10. Natürliche Verankerungspunkte
-
+10. Natürliche Verankerungspunkte
 10.3 Bäume und Pflanzen:
 An den in geringen Höhen gelegenen Wänden können Pflanzen und Bäume Verankerungen
 mit guter Haltung bieten. Benützt man am Stamm einen Ankerstich, ist es in einigen Fällen
 möglich, Haltung sowohl nach oben als auch nach unten zu bekommen.
-
 Fig.10.3
-
 2
-
-11. Verankerungen
-
+11. Verankerungen
 11. Verankerungen:
 Unter einer Verankerung versteht man die Errichtung und die Verbindung mehrerer
 Fixpunkte, die der Benützung an den Standplätzen zwischen einer Seillänge und der
@@ -1971,50 +1401,32 @@ definieren, geben wir den Fixpunkten Zahlenwerte.
 Die Grundregel für die Verankerung am Standplatz lautet:
 Die Summe der Werte der Fixpunkte einer Verankerung darf nicht kleiner als 3
 sein.
-
 Beispiele:
-!
-!
-!
-!
-!
-
 Haken + Felsvorsprung (2+1=3)
 Haken + Klemmkeil (2+1=3)
 Sanduhr + Klemmkeil (2+1=3)
 Klemmkeil + 2 gegeneinanderwirkende Keile (1+2=3)
 Dicke Sanduhr (3=3)
-
 1
-
-11. Verankerungen
-
+11. Verankerungen
 11.1 Verankerung an einem einzelnen Punkt
 Wie schon erwähnt, ist die Errichtung einer Verankerung an einem einzigen Fixpunkt
 erlaubt, sofern er bi-direktional und von sicherer Haltung ist (> 1500 kg). Zu diesem
 Zweck werden zementierte Ringe, dicke Sanduhren oder starke Bäume benutzt.
-
 Fig.11.1
 11.2 Verankerung an zwei Haken:
 Verfügt man über wenigstens zwei Haken, werden diese mit einem Seilstück so
 verbunden, dass zwei grundlegende Anforderungen erfüllt werden:
-!
-!
-
 Die Ladung soll gleichmäßig auf beide Fixpunkte verteilt werden.
 Im Fall, dass ein Punkt nachgibt, bleibt die Ladung an dem anderen, der übrig
 bleibt, verankert.
-
 Fig.11.2.a
 P.S.: Im Falle eines Zuges nach oben (Sturz mit Zwischensicherung) wird die gesamte
 Verankerung dazu tendieren, nach oben zu kippen und dabei auch denjenigen, der am
 Sichern ist, hochzuheben. Um diesen Effekt zu reduzieren ist es möglich, einen Sackstich
 an die längere Seite des Verbindungsstückes anzubringen. Auf diese Art werden nicht
-
 2
-
-11. Verankerungen
-
+11. Verankerungen
 beide Punkte nach oben beansprucht, aber dies wird durch die Tatsache gerechtfertigt,
 dass in diesem Fall die Belastung am Standplatz geringer ist (ca. ½)
 P.S.: Der Winkel zwischen den Verbindungsstrecken zu den beiden Fixpunkten sollte
@@ -2026,7 +1438,6 @@ Karabiner benützen. Möchte man an einem Punkt Material sparen, ist es auch mö
 den Bandschlingenring mit einem Ankerstich einzuführen. Man muss allerdings beachten,
 dass dieser Knoten selbstdurchschneidend ist, wenn er mit einer Bandschlinge benützt
 wird.
-
 Fig.11.2.b
 11.3 Verankerung an Haken und Felsvorsprung:
 Wie schon erwähnt, ergibt der Felsvorsprung einen monodirektionalen Fixpunkt, das
@@ -2034,20 +1445,15 @@ heißt, er kann nur nach unten belastet werden. Dazu ist es für seine Verbindun
 großem Vorteil, den Sackstich anzubringen, so dass er im Falle eines Zuges nach oben
 nicht belastet wird und dass die Verbindungsschnur nicht vom Felsvorsprung gleitet.
 P.S. Der Felsvorsprung muss sich notwendigerweise über dem Haken befinden.
-
 Fig.11.3
-
 3
-
-11. Verankerungen
-
+11. Verankerungen
 11.4 Verankerung an Haken und Klemmkeil:
 Wie die Felsvorsprünge sind auch die Klemmkeile, wenn sie in senkrechte oder diagonale
 Risse eingeführt werden, Fixpunkte, die nur nach unten belastet werden können. Bei der
 Errichtung der Verankerung muss daher vermieden werden, dass der Klemmkeil im Falle
 eines Zuges nach oben unwillkürlich herausgezogen wird. Auch in diesem Fall verhindert
 ein Sackstich, der an seiner Verbindung angebracht wird, diese gefährliche Auswirkung.
-
 Fig.11.4
 11.5 Verankerung an drei Klemmkeilen:
 Möchte man eine Verankerung an drei Klemmkeilen bilden, ist es notwendig, zwei davon
@@ -2055,13 +1461,9 @@ mit Gegenzug zu verbinden, so dass sie einen Fixpunkt bilden, der in alle Richtu
 belastet werden kann. Nachfolgend kann man diesen mit einem dritten Keil verbinden.
 Um zwei Klemmkeile mit Gegenzug zu verbinden, kann man den „Paketknoten“
 anwenden, der es ermöglicht, die beiden Keile optimal unter Spannung zu setzen.
-
 Fig.11.5.a
-
 4
-
-11. Verankerungen
-
+11. Verankerungen
 Fig.11.5.b
 11.6 Verankerung für das Abseilen am Doppelseil:
 Beim Abseilen am Doppelseil muss die Verbindung es ermöglichen, dass das Seil bequem
@@ -2072,13 +1474,9 @@ Beweglichkeit der Verankerung nicht verzichten möchte und der Abwesenheit von
 Reibungen beim Abziehen des Seils größere Bedeutung beimisst, ist es möglich, eine
 einzige Schlinge zu bilden. In diesem Fall gibt die ganze Verankerung nach, wenn die
 Reepschnur von einem Stein durchgeschnitten wird!
-
 Fig.11.6
-
 5
-
-11. Verankerungen
-
+11. Verankerungen
 P.S. Die Seilhälfte, die man ziehen muss, ist natürlich immer jene, die an der Wand
 anliegt. Andernfalls bilden sich beim Abziehen des Seils Reibungen zwischen dem Seil
 und der Wand, die das Einholen des Seils schwierig oder sogar unmöglich machen.
@@ -2087,9 +1485,7 @@ Auf dem Eis ist es möglich, optimale Verankerungspunkte zu errichten, da man ih
 Position oft frei wählen kann. Die optimale Positionierung von zwei Eisschrauben besteht
 aus einer Versetzung von 50-70 cm auf der senkrechten und von 10 cm auf der
 waagrechten Achse.
-
 50-70 cm
-
 Fig.11.7
 Die Verbindung der einzelnen Schrauben kann entweder mittels eines Karabiners gebildet
 werden, oder durch das direkte Einführen in die Metallöse (Achtung auf die schneidenden
@@ -2106,23 +1502,16 @@ mit einem leichten Winkel bergwärts und mit talwärts gerichteter Sohle, um das
 Durchschneiden der Reepschnur gegen die Kanten zu vermeiden. Achtet man darauf, die
 Skier in senkrechte Richtung zu versetzen, werden diese verschiedene Flächen der
 Schneedecke belasten und bessere Widerstandsleistungen bieten.
-
 6
-
-11. Verankerungen
-
+11. Verankerungen
 Fig.11.8
 11.9 Verankerung an einem Pickel:
 Beim Vorhandensein von gut kompaktiertem und transformiertem Schnee ist es an
 Hängen mittlerer Neigung (35°-45°) möglich, einen Seilzweiten einzuholen, indem man
 den Pickel benützt, der mit dem Griff in den Schnee gesteckt wird.
-
 Fig.11.9
-
 7
-
-11. Verankerungen
-
+11. Verankerungen
 11.10 Verankerung mit Reihenschaltung.
 Beim Klettern auf Hauptdolomit ermöglichen die vielen horizontalen Risse es häufig,
 Fixpunkte von ausgezeichneter Qualität auf der selben Höhe, aber mit einiger Entfernung
@@ -2132,15 +1521,9 @@ Reihenschaltung an. Man benützt direkt das Seil der Seilschaft und verbindet di
 Fixpunkte untereinander mit Mastwürfen, indem man den besten Punkt als
 Hauptverankerungspunkt verwendet. Dieser übernimmt die gesamte Last, während die
 anderen nur dann intervenieren, wenn dieser nachgibt.
-
 3° Haken
-
 Fig.11.10
-
-8
-
-11. Verankerungen
-
+11. Verankerungen
 11.11 Einholbare Verankerung auf Eis
 Wenn man sich auf steilem Eis oder von einem Wasserfall am Doppelseil abseilt, ist es
 möglich, nach dem Absteigen die Eisschraube bequem einzuholen.
@@ -2167,13 +1550,8 @@ ausgeführt
 wird,
 absolute
 Funktionierungsgarantie.
-
 Fig.11.11
-
-9
-
-12. Sicherungsknoten
-
+12. Sicherungsknoten
 12. Sicherungsknoten.
 Sicherungsknoten sind alle jene Knoten, die unabhängig von der Art des Geländes an der
 Verankerung benützt werden, um:
@@ -2192,36 +1570,26 @@ Sicherung zu annullieren.
 12.1 Mastwurf:
 Dieser Knoten wird hauptsächlich zur Selbstsicherung an der Verankerung benützt. Er
 ermöglicht eine bequeme Regulierung ohne die Verwendung von besonderer Ausrüstung.
-
 Fig.12.1.a
 Der selbe Knoten kann, wenn man über ein freies Seilende verfügt, benützt werden, um
 geschlossene Stahlringe zu verbinden.
-
 Fig.12.1.b
-
 1
-
-12. Sicherungsknoten
-
+12. Sicherungsknoten
 12.2 Halbmastwurf in Abseilposition:
 Der „Halbmastwurf“ ist ein Bremsknoten, der sowohl für die Sicherung des Seilersten als
 auch des Seilzweiten benützt wird. Er kann bequem in seine beiden Positionen (Abseilen
 und Einholen) gekippt werden, aber er kann auch so gebildet werden, dass er schon für
 das Abseilen oder das „Seilausgeben“ an den Seilersten bereit ist.
-
 Fig.12.2
 12.3 Halbmastwurf in Einholposition:
 Der „Halbmastwurf“ ist ein Bremsknoten, der sowohl für die Sicherung des Seilersten als
 auch des Seilzweiten benützt wird. Er kann bequem in seine zwei Positionen (Abseilen
 und Seil einholen) gekippt werden, aber er kann so gebildet werden, dass er schon für
 das Einholen des Seilzweiten bereit ist.
-
 Fig.12.3
-
 2
-
-12. Sicherungsknoten
-
+12. Sicherungsknoten
 12.4 “Doppelter” Halbmastwurf:
 Häufig ist es während der Rettungsmanöver notwendig, gleichzeitig zwei oder mehr
 Personen abzuseilen oder zu halten. Die Bremswirkung des Halbmastwurfes erweist sich
@@ -2229,7 +1597,6 @@ als ungenügend und es ist daher nötig, sie zu „verdoppeln“. Bildet man auf
 Karabiner zuerst einen Halbmastwurf in Einholposition und danach einen in
 Abseilposition, so erhält man ein Bremssystem, mit dem man mühelos und ohne Gefahr
 auch 300 – 400 kg hinunter lassen kann.
-
 Fig.12.4
 12.5 Anschlagknoten an einfacher Umlenkung:
 Häufig kann man an wenig steilen Schneehängen, wo der Seilzweite nicht ins Leere
@@ -2239,15 +1606,9 @@ sein, das Seil zu blockieren. Zu diesem Zweck ist der Anschlagknoten die ideale 
 um das Lastseil zu blockieren und es dann, immer noch belastet, zu befreien. In dem
 Augenblick, wo man die Schlinge wieder löst, sollte man darauf achten, dass das Seil sich
 nicht aufringelt!
-
-!!
-
 Fig.12.5
-
 3
-
-12. Sicherungsknoten
-
+12. Sicherungsknoten
 12.6 Anschlagknoten an Halbmastwurf:
 Nachdem man einen Sturz mittels Halbmastwurf aufgehalten hat, ist es unbedingt
 notwendig, dass man in der Lage ist, das Seil unter der Last des Gefährten endgültig zu
@@ -2255,7 +1616,6 @@ blockieren. Auch in diesem Fall erweist sich der Anschlagknoten als eine Lösung
 schnell und ideal ist, jegliches Manöver einer behelfsmäßigen Bergrettung zu
 unternehmen. Der Halbmastwurf muss sich in Abseilposition befinden und auch in diesem
 Fall darf sich das Seil, wenn man die Schleife wieder löst, nicht aufringeln.
-
 Fig.12.6
 12.7 Sicherungsschlinge
 Nachdem man den Halbmastwurf mit dem Anschlagknoten blockiert hat, ist es
@@ -2263,13 +1623,9 @@ unerlässlich, das Ganze noch mit einer weiteren Schleife, „Sicherungsschlinge
 zu blockieren, um eine unwillkürliche Auflösung zu vermeiden und über den Rest des
 Seiles (jenes, das nicht unter Zug steht) für die behelfsmäßige Rettung oder andere
 notwendige Manöver verfügen zu können.
-
 Fig.12.7
-
 4
-
-13. Einholen mit Rücklaufsperre
-
+13. Einholen mit Rücklaufsperre
 13. Einholen mit Rücklaufsperre.
 Beim Einholen des Seilzweiten oder wenn man behelfsmäßige Bergrettungsmanöver
 ausführt, ist es häufig nötig, Einholmethoden anzuwenden, welche das unwillkürliche
@@ -2286,59 +1642,32 @@ angewendet werden. Beim Einholen des Seilzweiten ermöglicht sie, die Hände zu
 befreien. Wird das belastete Seil vom hinzugefügten Karabiner befreit, bleibt es weiterhin
 möglich, den Halbmastwurf zu kippen und zur Abseilphase überzugehen. P.S. Diese
 Operation gelingt nicht mit allen Karabinertypen.
-
-b)
-
 a)
-
-c)
-
-d)
-
 Fig.13.1
-
 1
-
-13. Einholen mit Rücklaufsperre
-
+13. Einholen mit Rücklaufsperre
 13.2 Rücklaufsperre „Garda“ oder „Herzknoten“:
 Diese Einholmethode findet in Rettungs- und Selbstrettungsmanövern selten Anwendung.
 Die Reibungen, die sich dabei bilden, sind beträchtlich, und wenn die Rücklaufsperre
 belastet wird, ist es praktisch unmöglich, in die Abseilposition überzugehen.
-
 Fig.13.2
 13.3 Rücklaufsperre “Edi”:
 Ohne Umkehrung, erzeugt diese Einholmethode viel weniger Reibung
 vorangehenden, ermöglicht aber nicht den Übergang zur Abseilphase.
-
 als
-
 die
-
 Fig.13.3
-
 2
-
-13. Einholen mit Rücklaufsperre
-
+13. Einholen mit Rücklaufsperre
 13.4 „Französische“ Rücklaufsperre
 Obwohl ihre Ausführung scheinbar kompliziert ist, ermöglicht diese Rücklaufsperre, die
 Vorteile des “Edi” und des Halbmastwurfes zu vereinen. Die Umkehrung in die
 Abseilphase ist ziemlich bequem Fig.12.4.b (verwandelt sich in den Halbmastwurf
 Fig.12.4.c) und die eventuelle Rückkehr zur Rücklaufsperre ist automatisch Fig.12.4.a.
-
 a)
-
-b)
-
-c)
-
 Fig.13.4
-
 3
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 14. Grundlegende Seilmanöver:
 Unter grundlegenden Seilmanövern versteht man alle jene Techniken, die das klassische
 Fortschreiten in der Wand ermöglichen: Sicherung beim Aufstieg, Abseilen am Doppelseil,
@@ -2354,11 +1683,7 @@ des Seilersten wird, wenn Zwischensicherungen gelegt worden sind, der Sichernde
 zusammen mit der Bremse nur bis auf die Höhe gehoben, welche die Verankerung durch das
 Kippen nach oben erreicht. Dies trägt zur Dynamizität bei und verhindert, dass das Seil aus
 den Händen entgleitet.
-
 a)
-
-b)
-
 Fig.14.1
 14.2 Korrektes Einhängen des Seils in die Expressschlingen:
 Häufig ist es geschehen, dass bei der Benützung von fertigen Expressschlingen das Seil
@@ -2371,15 +1696,10 @@ den Karabiner. Fig.14.02.b zeigt deutlich, wie das Seil richtig eingehängt wird
 Achtung: Wird in den Schlüsselpassagen nur ein einzelner Karabiner im Haken benützt,
 kann sich dieses Problem trotzdem ereignen.
 P.S. Die Pfeile zeigen das Seilende an, an dem derjenige angeseilt ist, der am Klettern ist.
-
 1
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 Rechts
-
 Links
-
 Fig.14.2
 14.3 Überquerung am Fixseil:
 An besonders schwierigen Überquerungen könnte ein Sturz des Seilzweiten manchmal zu
@@ -2391,85 +1711,45 @@ einzige, die konkrete Anwendung findet, ist die in der Folge beschriebene.
 Fig.14.3.a : am Beginn des Querganges angelangt, baut man eine Standplatzverankerung,
 die von beiden Mitgliedern der Seilschaft erreicht wird. Der Führer bindet sich in der Mitte
 des Seils an und befreit das eigene Seilende.
-
 Stand
-
 Zwischensicherung
-
-KL
-
-BF
-
 Fig.14.3.a
-
 2
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 Fig.14.3.b : Nachdem das freie Ende am Standplatz festgebunden worden ist, beginnt man
 den Quergang, indem man vom Klienten an seiner Seilhälfte gesichert wird und die andere
 Hälfte mit sich führt.
 Fixiertes
 Ende.
-
 Stand
-
-KL
-
 Zwischensicherung
-
-BF
-
 Seilhälfte des Klienten
 (Sicherung).
-
 Seilmitte
-
 Seilhälfte des Führers
 (Fixseil).
-
 Fig.14.3.b
 Fig.14.3.c : An einer Seilhälfte gesichert, bringt man den Quergang zu Ende, und fixiert
 dabei die andere Hälfte so, dass man eine Art Geländer bildet.
 Zwischensicherung
-
 Fixseil.
-
 Stand
-KL
 Sicherungsseil.
-
-BF
-
 Seilhälfte des
 Führers
-
 Seilhälfte des
 Klienten
-
 Fig.14.3.c
-
 3
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 Fig.14.3.d : Am Ende des Querganges angelangt, ist es möglich, den Klienten einzuholen,
 der nachfolgt, indem er die eigene Selbstsicherung beibehält, die aus einer am Fixseil
 angehängten Longe besteht. Er lässt alle Karabiner an ihrer Stelle, sie werden später
 eingeholt.
-
 Zwischensicherung
-
 Fixseil.
-
 Stand
-
-BF
-
 Sicherungsseil.
-
-KL
-
 Fig.14.3.d
 Fig.14.3.e: Sobald der Gast den Quergang beendet hat, kann man ihn am neuen Standplatz
 sichern, löst sich dann selbst vom Seil und, gesichert durch eine „Longe“, die am
@@ -2477,47 +1757,26 @@ angebrachten Fixseil entlang läuft, kehrt man zum vorhergehenden Standplatz zur
 Entlanggehen dieser Strecke löst man die Knoten an den Zwischensicherungen und lässt das
 Seil einfach durch die Karabiner laufen. Bevor man losgeht sollte man für den Klienten den
 Halbmastwurf vorbereiten, mit dem er uns einholen kann.
-
 Zwischensicherung
-
 Gelöste Knoten.
-
 Stand
 Schon fertiger Halbmastwurf.
-
-KL
 Sicherheitslonge.
-
 Das ganze restliche Seil.
-
 Fig.14.3.e
-
 4
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 Fig.14.3.f:
 Am vorhergehenden Standplatz angelangt, seilen wir uns wieder an dem dort fixierten
 Seilende an, queren, vom Klienten gesichert, zum dritten Mal die Strecke, und holen dabei
 das ganze Material ein.
-
 Zwischensicherung
-
 Gelöste Knoten.
-
 Stand
-
-KL
-BF
-
 Das ganze restliche Seil.
-
 Fig.14.3.f
-
 5
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 14.4 Befestigungsmethode des Kurzseils:
 Es gibt zahlreiche Befestigungsmethoden, die vom Führer angewendet werden, um den Rest
 des während des Fortschreitens am Kurzseil um die Brust gewickelten Seils zu fixieren, aber
@@ -2530,26 +1789,18 @@ einen Sackstich an dem Strang, der an den Klienten geht, wobei man die Windungen
 den Körper würgt. Diese Fixierung kann mit einer einzigen Hand gelöst werden, die
 Windungen sind nicht zu eng und liegen auch dann am Körper an, wenn man sich beugt, so
 dass sie die Sicht zum Fußbereich nicht behindern.
-
 Fig.14.4.a
-
 6
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 B) Befestigung mit dem Mastwurf:
 In der Dolomitengegend wird das Seil häufig mit dem Mastwurf am Gurtring abgebunden. Es
 handelt sich um eine praktische Methode, die ein schnelles Öffnen und Schließen ermöglicht,
 was ideal ist, wenn aufgrund des Geländes ständige Anpassungen der Länge des Seils
 verlangt werden. Das Schließen und Öffnen der Schließung mit einer Hand ist nicht immer
 ganz einfach und verlangt viel Übung.
-
 Fig.14.4.b
-
 7
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 C) Befestigung mit dem einfachen Bulinknoten:
 Die Schlingen werden oberhalb des Rucksacks aufgewickelt, und wenn dieser abgenommen
 werden muss, ist es vorzuziehen, alle Windungen gleichzeitig hochzuheben und sie vor sich
@@ -2557,13 +1808,8 @@ hängen zu lassen. Durch die Verwendung eines einfachen Bulinknotens bleiben die
 geordnet und bereit, ohne Zeitverlust wieder auf die Schultern gehoben zu werden. P.S. Der
 einfache Bulinknoten muss immer kontrolliert werden, da er die Tendenz hat, sich selbst zu
 lockern.
-
 Fig.14.4.c
-
-8
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 14.5 Länge des Kurzseils:
 Die Länge des Kurzseils variiert in Abhängigkeit des Geländes, auf dem man sich bewegt.
 Die Wahl der geeigneten Länge ist extrem wichtig für die Sicherheit der Seilschaft. Man darf
@@ -2574,15 +1820,8 @@ sehr kurzen Seillängen abwechselt, ist es vorzuziehen, das Seil, das notwendig 
 verschiedenen Felssprünge zu überwinden, in der Hand zu halten. Die Länge des Seils, die
 man in Schlingen gewickelt hält, hängt somit von der Höhe der Felssprünge ab und kann
 zwischen 4 m und 15 m variieren.
-
-KL
-
 Fig.14.5.a
-
-9
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 Fig.14.5.b: An Schneehängen, wo die Bedingungen und die Neigung es erlauben,
 schreitet man strengstens mit sehr wenig Kurzseil fort, und achtet darauf, es immer so
 angespannt wie möglich zu halten. Nur so hat diese Art des Fortschreitens einen Sinn. Damit
@@ -2591,20 +1830,13 @@ am Seil anzubringen, damit man den Ausrutschenden begleiten kann, indem man den 
 streckt und nachher die Belastung definitiv über den Klettergurt absorbiert. Die Schlinge, die
 man mit dem Sackstich bildet, muss sehr klein sein, damit man sich darin nicht mit der
 Hand verfängt. Der Zug würde sonst am Arm abgefangen und das Umkippen so erleichtert.
-
 Mit gestrecktem Arm soll man die Schlinge
 loslassen können, wenn das Seil gespannt
 ist.
-
-KL
 1,5 m
-
 Fig.14.5.b
-
 10
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 Fig.14.5.c: An Graten im kombinierten Gelände:
 wenn wir sicher sind, auf der Gratschneide fortschreiten zu können, wird das Fortschreiten
 am Kurzseil durchgeführt, indem man einen Seilstrang in der Hand hält, der genügend lang
@@ -2615,29 +1847,15 @@ kann man etwa 1,5 – 2 m vom Klienten entfernt eine Sackstichschlinge bilden, d
 Hand gehalten wird, wenn man sich für ein Stück an einem Hang befindet. Es ist ein
 Kompromiss, den man nur für sehr kurze Strecken eingehen kann. Ansonsten ist es nötig,
 eine Distanz wie in Fig.14.5.b einzuhalten.
-
-KL
-
 Fig.14.5.c
-
 11
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 14.6: Anseilmethode für das Fortschreiten am Gletscher:
 Beim Fortschreiten am Gletscher muss der Führer alle technischen Vorsichtsmaßnahmen
 ergreifen, die notwendig sind, damit im Falle eines Sturzes in eine Spalte nicht die gesamte
 Seilschaft mit hineingezogen wird, und lässt die Maßnahmen, welche die Einholmethoden
 betreffen, an zweiter Stelle. Durch die im Laufe mehrerer Jahrzehnte gemachten
 Erfahrungen sind einige wichtige Faktoren für die Sicherheit definiert worden:
-!
-!
-!
-!
-!
-!
-!
-
 Seilschaften mit zahlreichen Mitgliedern bilden (4-6 besser als 2-3)
 Das Seil zwischen den Mitgliedern gut gespannt halten.
 Sich so weit entfernt wie möglich anseilen (zu zweit auch im Abstand von 15-18 m).
@@ -2645,39 +1863,24 @@ Hüftsitzgurte verwenden.
 Elastischere Seile benützen (9 mm).
 Seilschaften mit nur zwei oder drei Personen müssen den Bremsknoten benützen.
 Das Material für die Einrichtung der Verankerung greifbar haben.
-
 Bremsknoten.
-
 15 - 18 m
-CL
-
 4m
-
 2m
-
 Fig.14.6.a
 Der Bremsknoten ist in Seilschaften von 2 oder 3 Personen sehr hilfreich. In dem
 Augenblick, wo einer der Seilschaftsmitglieder in die Spalte stürzt, schneidet das Seil den
 verschneiten Rand ein und erzeugt so eine Art von Kerbe, in der sich der Knoten verklemmt.
 Dies könnte Schwierigkeiten in der Einholphase darstellen, wichtig ist aber, dass der Sturz
 aufgehalten worden ist.
-
 12
-
-14. Grundlegende Seilmanöver
-
+14. Grundlegende Seilmanöver
 15 - 18 m
-
 10 - 12 m
-
 10 - 12 m
-
 8 - 10 m
-
 8 - 10 m
-
 8 - 10 m
-
 14.7 Anseilmethode für das Fortschreiten am Klettersteig:
 Auch am Klettersteig ist es möglich, mit Anfängern am Kurzseil fortzuschreiten und ihnen
 somit den Aufwand zu ersparen, sich selbst zu sichern. Man geht in einem Abstand voran,
@@ -2690,36 +1893,22 @@ In den Quergängen wird der Klient, oder jedenfalls der Letzte der Gruppe, eine 
 benützen, die mittels eines langen Endes gebildet wird, das aus seinem Anseilknoten
 hervorgeht.
 3-5 m
-
-KL
-
 Fig.14.7
 P.S. An schwierigen und ausgesetzten Stellen, wo das Fortschreiten am Kurzseil nicht mehr
 möglich ist, muss der Klient offensichtlich gesichert werden, indem man einen Fixpunkt
 verwendet.
-
 13
-
-15. Abseilen
-
+15. Abseilen
 15. Abseilen.
 15.1 Individuelles (selbständiges) Abseilen :
 Unabhängig von der angewendeten Bremsmethode sieht das Abseilen eine grundlegende
 Prozedur vor, die sich in folgende Punkte gliedert:
-!
-!
-!
-!
-!
-!
-
 Einrichtung der Verankerung.
 Vorbereitung einer „Longe“ für die Selbstsicherung.
 Anbringung des Seils an die Verankerung.
 Vorbereitung eines Sicherheitsklemmknotens unterhalb der Bremse.
 Anbringung der Abseilbremse.
 Aushängen der „Longe“ für die Selbstsicherung und Abstieg.
-
 Wie wir schon im Kapitel 11 gesehen haben, ist die Verankerung für das Abseilen am
 Doppelseil fix, und auch für den Fall, dass eine Schlinge bricht, ist es noch möglich, an
 einem Punkt verankert zu bleiben. Der doppelte Ring ermöglicht ein bequemeres
@@ -2734,19 +1923,14 @@ einen Mastwurf blockiert. Auf diese Weise kann der Karabiner sich nicht drehen u
 auch möglich, die Länge der „Longe“ schnell zu regulieren. Etwa zehn Zentimeter vom
 Klettergurt bildet man einen Sackstich, der dazu dienen kann, den Klemmknoten von der
 Bremse zu trennen, wenn man nicht über den oberen Teil des Klettergurtes verfügt.
-
 Fig.15.1.a
-
 1
-
-15. Abseilen
-
+15. Abseilen
 Wie schon im Kapitel 11 erwähnt, wird das Seil an der Verankerung so angebracht, dass
 die zu ziehende Hälfte jene ist, die an der Wand anliegt, da sich das Seil in der
 Einholphase sonst gegen den Fels drücken und so das Einholen selbst verhindert würde.
 Es ist ratsam, einfache Sackstiche an den Seilenden anzubringen, um das Ausfädeln des
 Seiles an der Bremse zu vermeiden, wenn man versehentlich ans Seilende gelangt.
-
 Fig.15.1.b
 An ausgesetzten oder gefährlichen Abseilstellen ist es ratsam, einen Klemmknoten
 unterhalb der Bremse anzubringen, der auch dann Sicherheit garantiert, wenn man die
@@ -2756,32 +1940,23 @@ man den Klemmknoten bei jeder Abseillänge anbringen und abmachen, ohne Gefahr z
 laufen, die Reepschnur zu verlieren.
 Bringt man den Klemmknoten schon am Anfang an, ist es einfacher, das Seil in die
 Bremse einzuführen, da das Gewicht des Seils von diesem hochgehalten wird.
-
 Fig.15.1.c
-
 2
-
-15. Abseilen
-
+15. Abseilen
 Fig.15.1.d Nachdem man die Abseilbremse angebracht und die “Longe” für die
 Selbstsicherung ausgehängt hat, ist man bereit, in Sicherheit abzuseilen, wobei man
 beide Hände unterhalb der Bremse an den Seilen hält: eine zum Bremsen, die andere,
 um den Klemmknoten geöffnet zu halten. Die Bremse und der Klemmknoten dürfen sich
 nicht verhängen, daher muss man darauf achten, sie mit geeignetem Abstand
 anzubringen.
-
 Fig.15.1.d
-
 3
-
-15. Abseilen
-
+15. Abseilen
 Fig.15.1.e Wenn man einen Hüftsitzgurt benützt, ändern sich die Prozedur und die
 Vorbereitung nicht. Es ist allerdings nötig, auf die Versetzung von Bremse und
 Klemmknoten zu achten.
 Achtung! : Mit dem Hüftsitzgurt ist es im Leeren und mit einem schweren Rucksack
 leicht, mit dem Kopf nach unten zu kippen!
-
 Fig.15.1.e
 15.2 Assistiertes Abseilen am Doppelseil:
 Wenn man Klienten, die Kletteranfänger sind, auf klassischen Touren begleitet, kann man
@@ -2793,7 +1968,6 @@ Technik mit 1 Klienten:
 Mit einem Klienten gliedert sich die Prozedur in folgende Punkte:
 • Man sichert den Klienten an der Verankerung.
 • Man sichert sich selbst mir einer „Longe“ und macht sich vom eigenen Seilende
-los.
 • Man fädelt das Seil bis zur Hälfte in die Verankerungsschlinge ein.
 • Mit Blockierungsschlinge und Sicherungsschlinge wird das Seil in der Mitte
 blockiert.
@@ -2805,52 +1979,28 @@ einem Sackstich.
 • Das Seil wird so weit eingeholt, dass der Klient ohne unnötige Schleife gesichert
 ist.
 • Man seilt an beiden Seilen ab und hält den Klienten automatisch gesichert.
-
 4
-
-15. Abseilen
-
+15. Abseilen
 1° Selbstsicherung des
 Klienten.
 3° Blockierung des Seils in
 der Mitte.
 2° Longe
-
-BF
 Sicherungsseil.
-
-KL
-
 Seil zum Abseilen.
-
 Fig.15.2.a
-
 5
-
-15. Abseilen
-
+15. Abseilen
 4° Der Klient seilt an der
 einen Seilhälfte ab.
-
 5° Der Führer sichert
 an der anderen
 Hälfte.
-
-BF
-KL
-
 Sicherungsseil.
-
 Seil zum Abseilen.
-
 Fig.15.2.b
 Auf diese Weise kann der Klient das Abseilen mit folgenden Vorteilen in totaler Sicherheit
 erlernen:
-!
-!
-!
-!
-
 Der Führer ist gegenwärtig und im kritischen Moment des Starts in der Nähe.
 Der Klient muss sich nicht darum kümmern, Sicherheitsklemmknoten
 nachzuführen.
@@ -2858,34 +2008,18 @@ Wenn der Klient Probleme hat, kann der Führer die Leitung des Abstiegs jederzei
 in die Hand nehmen.
 Es ist nicht nötig, dass er die nächste Verankerung findet, denn er bleibt immer
 gesichert.
-
 6
-
-15. Abseilen
-
+15. Abseilen
 6° Der Führer löst den Anschlagknoten.
-
-BF
-
 8° Der Führer seilt sich an beiden Seilen
 bis zum Klienten ab.
-
 7° Der Führer holt das Seil ein, bis er
 den Schlappseil eliminiert.
-
-KL
-
 Das Schlappseil wird an der anderen
 Hälfte eingeholt.
-
 Fig.15.2.c
 Technik mit 2 Klienten:
 Mit zwei Klienten ändern sich die Prozeduren kaum.
-!
-!
-!
-!
-
 Der zweite Klient, mit Selbstsicherungslonge ausgerüstet, wird zeitweilig an der
 Verankerung in Sicherheit „geparkt“ und vom Seil befreit.
 Der Führer sichert sich seinerseits mit seiner Longe und hängt sich aus.
@@ -2893,48 +2027,29 @@ Der Führer blockiert die Seile in der Mitte mit einem Mastwurf und wirft die
 Seilhälfte, an dem er angehängt war, aus.
 Der erste Klient seilt an dieser Hälfte ab und wird dabei vom Führer mittels der
 anderen Hälfte gesichert, an der er angeseilt ist.
-
 7
-
-15. Abseilen
-
-!
-
-!
-
+15. Abseilen
 Der Führer holt das Seil ein, an dem der Erste abgestiegen ist und, nachdem er es
 in den Abseilring eingefädelt hat, benützt er es, um den zweiten Klienten
 abzulassen, der an der Seilhälfte abseilt, an dem der Erste hängt.
 Sind die beiden Klienten unten angelangt, holt der Führer alles ein und seilt an
 den beiden Seilen ab.
-
 Das Seil wird in der Mitte durch
 einen Mastwurf fixiert.
-
 Der erste Klient seilt auf
 einer Seilhälfte ab.
-
 Der Führer sichert
 auf der anderen
 Hälfte.
-
-BF
 1°KL
-
 Sicherungsseil.
-
 Seil zum Abseilen.
-
 Fig.15.2.d
 Der zweite Klient wird ohne Halbmastwurf gesichert, indem nur die Reibung zwischen
 dem Seil und dem Stahlring ausgenützt wird. Wenn es keinen Stahlring gibt, sichert man
 den zweiten Klienten nach dem Einfädeln des Seils mit einem Karabiner, und, wenn man
 es für nötig hält, mit dem Halbmastwurf.
-
-8
-
-15. Abseilen
-
+15. Abseilen
 Wenn man die Wirksamkeit der Sicherung erhöhen möchte,
 reicht es aus, das Seil mit einer halben Drehung um sich
 selbst einzufädeln.
@@ -2943,10 +2058,7 @@ Hälfte (jene, an welcher der Erste
 abgeseilt hat).
 Der zweite Klient seilt am
 Seil des ersten Klienten ab.
-
-BF
 2°KL
-
 Fig.15.2.e
 15.3 Von unten assistiertes Abseilen:
 Wenn man sich auf unbekanntem Gelände abseilen muss oder dort, wo die
@@ -2958,27 +2070,15 @@ fixiert die Seile talwärts der Verankerung mit einer Sackstichschlinge. Sobald 
 nach dem Abstieg die neue Verankerung errichtet hat, löst der Klient die Schlinge an der
 oberen Verankerung und seilt ohne Sicherheitsklemmknoten ab, bis er den Führer
 erreicht.
-
-9
-
-15. Abseilen
-
+15. Abseilen
 Gast
-
 Gast
-
 Bergführer
-
 Bergführer
-
 Fig.15.3.a
-
 Fig.15.3.b
-
 10
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 16. Manöver für die behelfsmäßige Bergrettung:
 Die Manöver für die behelfsmäßige Bergrettung sind Seiltechniken, die sich auf die
 Rettung einer in Schwierigkeit geratenen Seilschaft richten. Im Bereich des Alpinismus
@@ -2989,26 +2089,16 @@ die sich erfahrungsgemäß auch als die wirksamsten erwiesen haben.
 In der Einholphase ist es möglich, einem in Schwierigkeit geratenen Seilzweiten zu
 helfen, eine schwierige Passage zu überwinden, indem man die Kraft beim Einholen
 verstärkt.
-
 Gewicht.
-
-Zug.
-
 Fig.16.1.a
 P.S. Wenn man beim Einholen eine „GI-GI“ – Platte oder ein anderes Gerät mit
 Rücklaufsperre (Kap. 13) benützt, kann der selbe Flaschenzug für ein längeres Einholen
 angewendet werden.
-
 Gewicht.
-
 Gewicht.
-
 Fig.16.1.b
-
 1
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 16.2 Direkter Flaschenzug (Seilrolle).
 Diese Art von Flaschenzug wird gewöhnlich mit Erfolg bei der Bergung aus
 Gletscherspalten angewendet. Wenn man einen mitarbeitenden Kameraden birgt und
@@ -3018,26 +2108,16 @@ Verankerung (Ski oder toter Körper) so nahe wie möglich an den Rand der Spalte
 zu errichten, nachdem man den Sturz aufgehalten hat. Das Bergungsmanöver soll direkt
 am Rand ausgeführt werden, um Reibungen zu vermeiden, und ausschließlich mit der
 Benützung des freien Seiles.
-
 Verankerungen an Schrauben, totem
 Körper oder Ski.
-
 Halbmastwurf, Anschlagknoten,
 Sicherungsschlinge.
-
 Anseilpunkt.
 Selbstsicherung.
-
-Zug.
-
 Zu bergender Gefährte.
-
 Fig. 16.2
-
 2
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 16.3 “Schweizer” Flaschenzug mit Hilfsseilstück:
 Diese Art von Flaschenzug wird bevorzugt, wenn man nicht über die nötige Länge des
 freien Seiles verfügt, um den direkten Flaschenzug (15.02) auszuführen, oder wenn die
@@ -3051,15 +2131,9 @@ hat, bringt man einen „Prusik“ – Klemmknoten an und gibt dabei Acht, die
 Reepschnurschlinge hinter den Halbmastwurf einzuführen. Bei der Bergung aus einer
 Gletscherspalte kann man den Zug auch mittels eines „Prusiks“ auf den Klettergurt
 abladen, indem man das Seil ganz einfach wie in Fig.10.3.b in den Karabiner einführt.
-
 Fig.16.3.a
-
 3
-
-16. Manöver für die behelfsmäßige Bergrettung
-
-Zug.
-
+16. Manöver für die behelfsmäßige Bergrettung
 4.) Man löst die
 Sicherungsschlinge
 und den
@@ -3077,98 +2151,64 @@ Anschlagknoten legt. (Zu
 diesem Zweck kann man
 auch das freie Seilende
 benützen)
-
 3.) Man führt das freie
 Seil in den Karabiner
 ein, der am Seilstück
 festgemacht ist.
-
 Gewicht.
-
 2.) Man bringt einen zweiten Prusik
 an dem gespannten Seil an und führt
 durch den Karabiner das andere Ende
 des Seilstückes, an das man einen
 weiteren Karabiner hängt.
-
 Fig.16.3.b
-
 4
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 16.4 “Poldo” – Flaschenzug mit Hilfsseilstück:
 Diese Art von Flaschenzug ermöglicht eine weitere Reduzierung der Zugkraft, die
 notwendig ist, den nicht mitarbeitenden Kameraden hochzuheben. Anders als der
 „Schweizer“ Flaschenzug wird er nicht automatisch eingeholt, erzeugt aber auch nicht
 dieselben Reibungen.
-
 Halbmastwurf, Anschlagknoten
 und Sicherungsschlinge.
-
-Zug
-
 Das Seil, ursprünglich
 unter Zug, lockert sich.
 3° Reduzierung.
-
 2° Reduzierung.
-
 1° Reduzierung.
-
 Gefährte.
-
 Fig.16.4.a
-
 5
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Nachdem genügend Seil eingeholt worden ist, blockiert man den Flaschenzug
 provisorisch mit einem Anschlagknoten an der 3. Reduzierung und montiert auf das lose
 Seil ein Einholsystem mit Rücklaufsperre (siehe Kap.12) oder eine „GIGI“ – Platte in
 Einholposition.
-
 Halbmastwurf, Anschlagknoten,
 Sicherungsschlinge.
-
 GIGI - Platte in Einholposition.
-
 Lockeres Seil.
-
 Anschlagknoten auf der dritten
 Reduzierung.
-
 Gefährte.
-
 Fig.16.4.b
-
 6
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Nach dem Einfügen des losen Seils in Einholposition in die GIGI – Platte ist es möglich,
 den Anschlagknoten an der 3. Reduzierung zu lösen und mit dem Heben des Kameraden
 fortzusetzen, wobei man nach und nach das gelockerte Seil durch die GIGI – Platte
 einholt.
-
 Halbmastwurf, Anschlagknoten,
 Sicherungsschlinge.
 3) Das gelockerte Seil wird durch
 die GIGI - Platte eingeholt.
-
 1) Zug.
 2) Das Seil lockert
 sich.
-
 Gefährte.
-
 Fig.16.4.c
-
 7
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 16.5 Abseilen bei der behelfsmäßigen Bergrettung:
 Wenn der verletzte Klient weder in der Lage ist zu klettern, noch dem Führer zu helfen,
 kann man auf eine komplizierte aber wirksame Absteigtechnik zurückgreifen. Zu diesem
@@ -3177,15 +2217,9 @@ muss. Diese Technik muss auf jeden Fall geübt werden, um die verschiedenen Phas
 ins Detail verstehen zu können.
 Fig.16.5.a: Als Erstes muss man das Seil des Klienten mit einem Anschlagknoten und
 der dazugehörigen Sicherungsschlinge blockieren.
-
 A)
-
 Fig.16.5.a
-
-8
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Fig.16.5.b Jetzt ist es nötig, den Halbmastwurf und die eigene Selbstsicherung mittels
 eines Seilstückes zu entlasten, indem man damit einen Klemmknoten auf dem belasteten
 Seil macht und es dann, wieder mit Halbmastwurf, Anschlagknoten und
@@ -3193,29 +2227,16 @@ Sicherungsschlinge, an die Verankerung festmacht. Hier sollte man nicht vergesse
 der verwendete Karabiner und die Reepschnur, welche die Verankerungspunkte
 verbindet, zurückgelassen werden. Bei solchen Manövern ist die Einteilung des Materials
 sehr wichtig.
-
-B)
-
 Fig.16.5.b
-
-9
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Fig.16.5.c Sobald das Gewicht des verletzten Klienten auf den Klemmknoten überlagert
 ist, sichert sich der Führer selbst mit einer Longe und bindet sich von seinem Seilende
 los. Gleich unterhalb des am Seil gebildeten Anschlagknotens bereitet er sich das
 Abseilgerät (an einem einzigen Seil angebracht) vor, zusammen mit einem Marschand –
 Klemmknoten zur Sicherheit.
-
-C)
-
 Fig.16.5.c
-
 10
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Fig.16.5.d Nun löst der Führer den Anschlagknoten, den er am Seil angebracht hatte,
 nimmt dieses aus dem Karabiner heraus und führt es in den Karabiner ein, an dem das
 Seilstück mit dem Klemmknoten festgemacht ist. Nachdem er sich mit seinem Gewicht in
@@ -3223,60 +2244,37 @@ das Abseilgerät gesetzt hat, kann er auch den Anschlagknoten des Klemmknotens l
 und dann das Seilstück herausziehen. So kann er absteigen und dabei den Klemmknoten
 mitführen, indem er ihn an dem Teil des Seils, an dem der Verletzte hängt, entlang zieht.
 (Auf diese Art muss er nur eine Reepschnur und einen Karabiner zurücklassen)
-
-D)
-
 Fig.16.5.d
-
 11
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Fig.16.5.e Beim Verletzten angelangt, bindet der Führer das Seilstück mit dem
 Klemmknoten an den eigenen Gurt. Indem er eine lange Bandschlinge benützt und sie
 hinter dem Rücken des Verletzten überkreuzt, erhält er eine Art von Träger, in den er
 zusammen mit den Armen des Verletzten auch seine eigenen einhängt. Auf diese Weise
 ist es ihm möglich, den Abstieg fortzusetzen und dabei den Verletzten von der Wand fern
 zu halten. Diese Umsicht ist nicht nötig, wenn man ins Leere absteigt.
-
 E)
-
 Fig.16.5.e
-
 12
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Fig.16.5.f Fast am Seilende angelangt, richtet der Führer eine neue Verankerung ein. An
 diese bindet er das Seilstück mit dem Klemmknoten mittels Halbmastwurf,
 Anschlagknoten und Sicherungsschlinge fest. Wird das Abseilgerät noch ein weiteres
 Stück durchlaufen lassen, gerät der Verletzte an der neuen Verankerung wieder unter
 Zug, so dass der Führer das Seil für die nächste Abseillänge einholen kann, nachdem er
 sich selbst gesichert hat.
-
-F)
-
 Fig.16.5.f
-
 13
-
-16. Manöver für die behelfsmäßige Bergrettung
-
+16. Manöver für die behelfsmäßige Bergrettung
 Fig.16.5.g Wird das Seilstück in den folgenden Abseillängen direkt am Gurt des
 Verletzten festgemacht, um es, wie vorhin, an jeder Verankerung zu entlasten, ist es
 möglich, zugleich am selben Abseilgerät abzusteigen, noch dazu ohne einen Karabiner an
 jeder Verankerung zurücklassen zu müssen. Zu diesem Zweck bildet man mit einem
 weiteren Seilstück eine Verzweigung, um beide am selben Abseilgerät anzubinden.
 P.S. Der Verletzte muss am kürzeren Ende festgemacht werden.
-
-G)
-
 Fig.16.5.g
-
 14
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17. Organisierte Rettungsmanöver.
 In den letzten Jahren haben die Techniken der organisierten Rettung teilweise
 unterschiedliche Entwicklungen erfahren, in Funktion des Geländes und der Regionen, in
@@ -3287,17 +2285,6 @@ die dolomitische Gegend darstellen.
 Bei einem Bodeneinsatz erfolgt die Bergung des Verletzten und des Gefährten grundsätzlich
 durch Abseilen bis zur Basis der Wand. Wenn es nicht anders möglich ist, werden sie auch
 durch Abseilen von oben erreicht.
-!
-
-!
-!
-
-!
-
-!
-!
-!
-
 Die Verwendung von statischen Seilen ermöglicht ein kontinuierliches Abseilen für
 200-400m. Für längere Strecken ist es ratsam, eine Fraktionierung durchzuführen,
 das heißt, die Führung des Abseilens einer Staffel zu überlassen, die sich weiter
@@ -3318,7 +2305,6 @@ Nachdem das Ablassen der Seile beendet ist, holt die 1. Staffel die Reepschnüre
 und kehrt zurück.
 Die 2. Staffel beendet das Abseilmanöver und, nachdem sie ihrerseits die Seile
 mittels der Reepschnüre abgelassen hat, kehrt sie zurück.
-
 Diese ist eine Sequenz von grundlegenden Manövern, zu denen noch eine Reihe von Tricks
 und Handgriffen hinzukommen, die für die Anpassung der Standardmaßnahmen an die
 spezifischen Erfordernisse der Rettungsoperation unerlässlich sind.
@@ -3327,28 +2313,13 @@ weniger angewendet, zum großen Vorteil des Verunglückten. Man darf jedoch nich
 vergessen, dass die Rettung mit Helikopter nicht bei Dunkelheit oder schlechtem Wetter
 durchgeführt werden kann, und dass diese Seilmanöver sich auch weiterhin unerlässlich
 erweisen können, um eine Rettungsmission zu gutem Ende zu bringen.
-
 1
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 a)
-
-b)
-
-c)
-
-d)
-
 e)
-
-f)
-
 1. Staffel.
-
 Fraktionierung.
 2° Staffel.
-
 Fig. 17.1
 17.2 Anseilmethode des Retters.
 Der Retter, der sich in Rettungseinsätzen befindet, die sowohl von der Luft als auch vom
@@ -3358,18 +2329,12 @@ sich auch im Leeren einzuhängen (beim Abseilen oder an der Seilwinde eines Heli
 ohne mit dem Kopf nach unten zu kippen. Die klassische Anseilmethode für die Rettung wird
 mit einem etwa 3 – 3.5 m langen Seilstrang ausgeführt. Mit einem ersten Achterknoten wird
 er am unteren Teil des Gurtes befestigt 1., mit einem zweiten Achterknoten (mit kleiner
-
 2
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Schlinge, 2.) bildet man den Einhängepunkt für die Seilwinde und mit einer dritten
 Achterschlinge bereitet man die „Longe“ für die Selbstsicherung vor 3.. (Fig.17.2.b).
-
 Fig.17.2.a
-
 Fig.17.2.b
-
 Als Grundlage beim Helikoptereinsatz wendet man häufig die in Fig.16.2.a abgebildete
 alternative Anseilmethode an, die den Vorzug hat, den Retter in einer senkrechteren Position
 zu halten, wenn er unter dem Helikopter hängt, und so die Gefahr zu reduzieren, dass er
@@ -3380,15 +2345,10 @@ aus mehreren, untereinander fix verbundenen Punkten. Wenn die Richtung des
 Abseilmanövers definiert ist, ist eine fixe Verankerung vorzuziehen, da so das eventuelle
 Nachgeben eines Verankerungspunktes nicht die Verstellung der Abseilbremse verursacht,
 und die Länge des Seils, das nötig ist, um die Verbindung herzustellen, viel kleiner ist.
-
 3
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Lockeres Regulierungsseil.
-
 Fixierung des restlichen Seils.
-
 Fig.17.3
 Um die Verbindung von mehreren fixen Punkten zu bilden, benützt man gewöhnlich ein
 11mm - Einfachseil. Nachdem man sowohl die Richtung des Abseilens als auch die Position
@@ -3397,11 +2357,8 @@ wobei man zwischen ihnen genügend lockeres Seil lässt, um eventuelle Regulieru
 vornehmen zu können. Nachdem die Verbindung hergestellt worden ist, wird das übrige
 Seilstück mit einer lockeren Schleife in der Mitte der Verankerung festgemacht, um zu
 garantieren, dass in keinem Fall ein einziger Fixpunkt allein belastet werden kann.
-
 4
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17.4 Fixe Verankerung an einem Felsvorsprung oder Baum:
 Häufig verfügt man bei Abseilmanövern über große Felsvorsprünge oder Bäume mit einem
 großen Durchmesser, die eine ausgezeichnete Möglichkeit bieten, in kurzer Zeit
@@ -3409,15 +2366,11 @@ Verankerungen mit ausgezeichneter Haltung zu bilden. Sowohl der Felsvorsprung al
 der dicke Baum werden mit wenigstens drei voneinander unabhängigen Seilschlingen
 umwickelt. Auf diese Art beeinträchtigt die Beschädigung einer Schlinge durch Steinfall nicht
 die Sicherheit des Abseilmanövers.
-
 Drei getrennte und
 voneinander unabhängige
 Seilschlingen.
-
 Schlingen unterschiedlicher Länge.
-
 Restliches Seil.
-
 Fig.17.4
 Wie für die anderen Rettungsverankerungen benützt man für die Verbindung, wenn möglich,
 ein 11mm - Einfachseil.
@@ -3429,11 +2382,8 @@ Sackstichschlingen bilden, wenn sie unterschiedlich lang gemacht werden, eine Ve
 der Knoten untereinander, so dass man eine ordentlichere Verbindung erhält. Auch in
 diesem Fall ist es gut, den Rest des Seils mit einer weiteren Schlinge in der Mitte der
 Verankerung zu fixieren.
-
 5
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17.5 Abseilbremse mit SOS – Karabinern:
 Gewöhnlich benützt man für das Ablassen einer Traube von Rettern oder einer Bahre mit
 Verletztem und Retter zwei parallele Seile mit einer doppelten Karabinerbremse. Zu diesem
@@ -3446,32 +2396,22 @@ SOS – Karabiner werden, nachdem er den 4 eintretenden Seilen angelagert worden
 sowohl die Schlinge als auch die Seile (insgesamt 6) eingehängt.
 P.S. Um ein unwillkürliches Öffnen des senkrechten SOS – Karabiner während der
 Abseilphase zu vermeiden, sollte sein Schraubverschluss nach oben rechts gesetzt werden.
-
 1°
 2°
-
 Seileingabe.
-
 Seile zum Ablassen.
-
 Fig.17.05.a
-
 6
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.05.b:
 Nachdem man die beiden SOS – Karabiner so weit verschoben hat, dass sie sich
 überkreuzen (der quer liegende mit der Öffnung auf der unteren Seite), bildet sich
 automatisch die erste Karabinerbremse; diese reicht für das Ablassen von zwei oder
 mehreren Personen noch nicht aus.
-
 2°
 Seilenigabe.
-
 1°
 Seile zum Ablassen.
-
 Fig.17.05.b
 Fig.17.5.c:
 Nachdem man weitere zwei SOS – Karabiner wie Kettenglieder hinzugefügt hat (3. und 4.)
@@ -3480,32 +2420,22 @@ ein, bis eine neue Schlinge gebildet wird, die von einem letzten SOS – Karabin
 zusammen mit den Seilen selbst eingehängt wird; dadurch wird die zweite Karabinerbremse
 (insgesamt 4 Seile) gebildet. Auch in diesem Fall zeigt die Öffnung des quer liegenden
 Karabiners natürlich nach unten.
-
 2°
 3°
 Seileingabe.
-
 1°
 4°
 5°
-
 Seile zum Ablassen.
-
 Fig.17.5.c
-
 7
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.5.d:
 Nachdem man die letzten beiden SOS – Karabiner gekreuzt angebracht hat, erhält man die
 erwünschte doppelte Karabinerbremse. Mit dieser Bremse ist es möglich, 2 bis 4 Personen
 bequem und mit guter Kontinuität abzulassen.
-
 Seileingabe
-
 Seile zum Ablassen.
-
 Fig.17.5.d
 Fig.17.5.e:
 Nachdem die doppelte Karabinerbremse fertig gestellt worden ist, kann man, indem man ein
@@ -3515,20 +2445,12 @@ Klemmknoten besteht, der mit einem Halbmastwurf mit Anschlagknoten und
 Sicherungsschlinge an die Verankerung befestigt wird. Der Klemmknoten, der sich für diesen
 Zweck am besten eignet, ist zweifellos der „Bellunese“.
 2 HMS Karabiner
-
 Seileingabe
-
 Halbmastwurf, Anschlagknoten,
 Sicherungsschlinge.
-
 Bellunese - Klemmknoten.
-
 Fig.17.5.e
-
-8
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17.6: Verbindung der Seile auf der Karabinerbremse
 In der Dolomitengegend hat sich die organisierte Bodenrettung in den letzten Jahren der
 Verwendung von statischen 100 oder 200 m langen Seilen zugewandt. Mit solchen
@@ -3547,63 +2469,42 @@ Seile „beißt“ und somit das Abseilen blockiert. Zu diesem Zweck achtet derj
 ablässt, darauf, ein wenig mehr von dem Seil, das nicht verbunden wird, zurückzuhalten.
 Zur Sicherheit bringt man oberhalb des „Bellunese“ – Klemmknotens eine kleine Schlinge
 an, um zu vermeiden, dass das Seil durch den Klemmknoten läuft, wenn es endet.
-
 Seilende.
 1,5m
-
 Sicherungsschlinge.
-
 Bellunese unter Zug.
-
 Fig.17.6.a
-
-9
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.6.b
 Im Folgenden ist es möglich, das Seil, das verbunden werden soll, aus der Karabinerbremse
 herauszuziehen. Diese Operation wird gewöhnlich von demjenigen durchgeführt, der sich am
 „Bellunese“ – Klemmknoten befindet, während derjenige, der ablässt, weiterhin die Seile in
 der Hand hält.
-
 Zu verbindendes Seil.
-
 Fig.17.6.b
 Fig.17.6.c
 Nachdem das neue Seil durch die Bremsen gezogen worden ist, verbindet man es mit dem
 vorhergehenden mittels eines gelegten Sackstichs und gibt dabei Acht, alle vier Enden des
 Knotens einzeln gut festzuziehen.
-
 Die 4 Seile gut ziehen.
-
 Fig.17.6.c
-
 10
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.06.d
 Nachdem die Verbindung ausgeführt worden ist, ist es möglich, den Anschlagknoten des
 Klemmknotens zu lösen und das Seil durch den Halbmastwurf laufen zu lassen, bis die
 Karabinerbremse wieder belastet ist. Die kleine Sicherungsschlinge oberhalb des
 Klemmknotens wird sich von selbst lösen.
-
 Die Bremse übernimmt die
 Last wieder.
-
 Der Knoten wird bis zur Bremse
 eingeholt.
 Die Schlinge löst sich automatisch.
-
 Fig.17.06.d
 Zuletzt wird es notwendig sein, den „Bellunese“ – Klemmknoten zu lösen und ihn oberhalb
 des Verbindungsknotens erneut zu bilden.
-
 11
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17.7 Abseilbremse mit GIGI – Platten:
 In den letzten Jahren haben sich die GIGI – Platten sowohl als Gerät zum Einholen als auch
 als Abseilbremse gut bewährt. Für die organisierten Rettungseinsätze haben sie für die
@@ -3612,7 +2513,6 @@ Vorteile gebracht.
 Fig.17.7.a:
 Gleich am Anfang werden zwei Platten, die durch einen Karabiner mit Schraubverschluss wie
 die Glieder einer Kette miteinander verbunden sind, an der Verankerung angebracht.
-
 Fig.17.7.a
 Fig.17.7.b:
 Wenn man die Seile, die dem Abseilen dienen, in die Platte einführt, die sich weiter talwärts
@@ -3620,45 +2520,32 @@ befindet, bildet sich eine Schlinge, in die wiederum ein Karabiner (nicht unbedi
 Schraubverschluss) eingehängt wird, wobei man darauf achtet, dass die Öffnung nach oben
 gerichtet ist. Auf diese Weise hat man eine erste Plattenbremse gebildet, die ausreicht, um
 einen Retter mit Bahre im Anhang abzuseilen.
-
 Seile zum
 Ablassen.
 Seileingabe
-
 Fig.17.7.b
-
 12
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.7.c:
 Beim Einfädeln der Seile oberhalb der ersten Bremse in die obere Platte erhält man eine
 zweite Plattenbremse, die sich eignet, auch vier Personen abzuseilen.
-
 Seile zum
 Ablassen.
 Seileingabe
-
 Fig.17.7.c
 Fig.17.7.d:
 Wie die doppelte Karabinerbremse benötigt man auch für die doppelte Plattenbremse ein
 Blockierungssystem, bestehend aus einem „Bellunese“ – Klemmknoten, verbunden mit
 Halbmastwurf, Anschlagknoten und Sicherungsschlinge. Diese werden unterhalb der Bremse
 selbst angebracht, so dass sie dem System nicht unerwünschte Reibungen hinzufügen.
-
 2° Bremse
 Halbmastwurf, Anschlagknoten,
 Sicherungsschlinge.
 1° Bremse
-
 Bellunese
-
 Fig.17.7.d
-
 13
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.7.e:
 Blockierungsphase des Abseilens. Unabhängig davon, ob man die doppelte Karabinerbremse
 oder die doppelte Plattenbremse verwendet, darf derjenige, der abseilt, in keinem Fall die
@@ -3666,23 +2553,15 @@ Seile, an denen abgeseilt wird, loslassen. Er wird sie strengstens in den Hände
 den Fall, dass er sie loslassen muss, wird er darauf achten, das Ablassen mit einem
 Anschlagknoten und einer Sicherungsschlinge zu blockieren, die direkt unterhalb der Bremse
 selbst gebildet werden.
-
 2° Bremse
 Halbmastwurf, Anschlagknoten,
 Sicherungsschlinge.
-
 1° Bremse
-
 Bellunese
-
 Anschlagknoten, Sicherungsschlinge.
-
 Fig.17.7.e
-
 14
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Verbindung der Seile, die dem Abseilen dienen, an der GIGI – Bremse:
 Benützt man GIGI – Platten, hat man für die Phase der Verbindung der Seile den
 grundlegenden Vorteil, einen Sackstich für die Verbindung anfertigen zu können, noch bevor
@@ -3692,60 +2571,41 @@ Fig.17.8.a
 Sobald der Verbindungsknoten beim Abseilen etwa 1,5 m von der Bremse entfernt ist,
 überträgt man die Last dem Klemmknoten, indem man das verbundene Seil länger
 weiterlaufen lässt.
-
 Schon fertiger Verbindungsknoten.
-
 Fig.17.8.a
-
 15
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.8.b
 Sobald der Klemmknoten belastet ist, sollte man ein wenig weiter oben eine kleine Schlinge
 anbringen, denn auch wenn in diesem Fall das Seil nicht mehr entgleiten könnte, würde sich
 der Verbindungsknoten gegen die Platte drücken und die Operation beeinträchtigen. Im
 Nachfolgenden wird es möglich sein, das verbundene Seil aus der Bremse zu nehmen, indem
 man die senkrecht zu den Platten gelegten Karabiner öffnet.
-
 Die Karabiner einzeln öffnen und das
 Seil ausziehen.
-
 Anschlagknoten.
-
 Fig.17.8.b
 Fig.17.8.c
 Nachdem der Verbindungsknoten talwärts der Bremse gebracht worden ist, ist es möglich,
 das Seil wieder in die Platten einzuführen und so die Bremse wieder herzustellen.
-
 Der Knoten befindet sich unterhalb der
 Bremse.
-
 Die Schlinge löst sich von selbst wenn der Klemmknoten
 abgelassen wird.
-
 Fig.17.8.c
-
 16
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Fig.17.8.d Nachdem der Knoten talwärts gebracht worden ist, ist es möglich, die Bremse
 wieder zu belasten, indem man den Klemmknoten hinunter lässt. Die Seile nehmen ihren
 Spannungszustand wieder ein und die Sicherungsschlinge oberhalb des Klemmknotens löst
 sich von alleine.
-
 Fig.17.8.d
 Fig.17.8.e
 Bevor man das Abseilen wieder aufnimmt, ist es nötig, oberhalb des Verbindungsknotens
 wieder den Klemmknoten anzubringen.
-
 Fig.17.8.e
-
 17
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17.9 Vorbereitung der Abseilspitze:
 In einer organisierten Rettungsoperation wird die Verbindung ausgeführt, indem man das
 Prinzip der „doppelten Sicherheit“ einhält, sei es beim Ablassen einer Bahre mit Retter, sei
@@ -3754,21 +2614,14 @@ Häufig hat man festgestellt, dass der Achterknoten des unteren Seils durch das 
 Felskanten verschleißen kann. Aus diesem Grund beschließt man manchmal, oberhalb dieser
 Schlinge mit einem Sackstich eine weitere lockere Schlinge zu bilden, welche die eventuelle
 Beschädigung der ersten trägt.
-
 Lockere Schutzschlinge.
-
 Zwei versetzte Achterschlingen
 (die untere ist länger).
-
 Zwei Karabiner mit Schraubverschluss, am
 besten aus Stahl.
-
 Fig.17.9
-
 18
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17.10 Zusammenstellung der “Mariner” – Bahre:
 Die Bahre, die in der Dolomitengegend die größte Vielseitigkeit gezeigt hat, ist zweifellos die
 Mariner – Bahre gewesen. Bereits vor Jahrzehnten erfunden und konstruiert, wird sie immer
@@ -3776,26 +2629,16 @@ noch vorgezogen, besonders dort, wo die senkrechte Neigung und die Ausgesetzthei
 maximal sind. Die Zusammenstellung dieser Bahre sowie ihr Einhängen an die Abseilspitze
 wird unter Einhaltung des Prinzips der doppelten Sicherheit durchgeführt. Jede Person wird
 auf zwei verschiedene Weisen für das Abseilen angehängt.
-
 1° Verbindung des Retters (regulierbar).
-
 2° Hohe Verbindung (fix).
-
 3° Tiefe Verbindung
 (regulierbar).
-
 4° Anseilen des Verletzten.
-
 5° Hilfsseilstück. (15m 20m)
-
 Regulierung der Verbindung des Retters.
-
 Fig.17.10
-
 19
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 Notwendige Verbindungen:
 Alle Verbindungen müssen mittels Seilstränge eines 10 - oder 11mm – Einfachseils
 durchgeführt werden. Möchte man mindestens zwei Personen ablassen (Verletzten und
@@ -3826,11 +2669,8 @@ die Seile zu entlasten und die Anfertigung der neuen Bremse zu ermöglichen.
 6. Bevor man zum Abseilen aufbricht, sichert sich der Retter zusätzlich mit seiner
 eigenen Longe an einer der Schlingen, welche die untere Verbindung der Bahre
 bilden.
-
 20
-
-17. Organisierte Rettungsmanöver
-
+17. Organisierte Rettungsmanöver
 17.11 Ausstattung der Retterabseilgruppe:
 Nachdem der höchste Punkt der vorgesehenen Abseilstelle erreicht worden ist, erweist es
 sich häufig als bequemer und schneller, die Retter, welche die Fraktionierung des Abseilens
@@ -3838,12 +2678,8 @@ bis zur nachfolgenden Verankerung leiten, abzulassen. Damit das Prinzip der dopp
 Sicherheit erfüllt ist, seilt sich jeder Retter mit einem Seilstück, dessen Länge durch einen
 Klemmknoten regulierbar ist, an der Seilspitze und gleichzeitig mit der Longe an den
 Gefährten neben ihm an.
-
 Fig.17.11
 P.S.: Die regulierbaren Seilstücke müssen so angeordnet (reguliert) werden, dass die
 jeweiligen Longen nicht belastet sind, damit jeder Retter direkt an den Seilen, an denen
 abgeseilt wird, angehängt ist, und nicht am Gurtring des Gefährten.
-
 21
-
-

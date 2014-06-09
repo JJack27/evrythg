@@ -378,9 +378,9 @@ Frobenius inner product A, B F = tr(AB ). Any M ∈ H can be written as
 M = 2 (M + M ) + 1 (M − M ).
 (48)
 In the following we use the notation
-sym(M ) := 2 (M + M ),
-(49)
-skew(M ) := 1 (M − M ).
+
+![(49)](140609111849.png)
+
 Both these mappings are linear and idempotent and are therefore projection operators.
 Furthermore, we can show that
 sym(A), skew(B)
@@ -594,17 +594,21 @@ ktk−1 (−X−1 V)k X−1
 It should come as no surprise that this is the same result as the one obtained above.
 A little bit more tricky is the derivation of the differential map of the determinant.
 Example 2.29 (Determinant). Let f : Rn×n → R, f (X) = det(X). In order to compute the derivative of the determinant, we first assume that X is invertible. Using the
-calculation rules det(AB) = det(A) det(B) and det(tA) = tn det(A) we obtain
+
+Calculation rules for the determinant
+140609103109
+$$\det(AB) = \det(A) \det(B)$$
+$$\det(t A) = t^n det(A)$$
+
+we obtain
 det(X + tH) = det(X) det(In + tX −1 H) = det(X)tn det(t−1 In + X −1 H).
 (86)
 The last factor is the characteristic polynomial of X −1 H in t−1 , i.e.
 det(t−1 In + X −1 H) = a0 + a1 t−1 + · · · + an−1 t−n+1 + t−n ,
 (87)
 where it is well known that an−1 = tr(X −1 H). Hence
-dt t=0 det(X
-+ tH) = det(X)
-dt t=0 t det(t In
-+ X −1 H) = det(X) tr(X −1 H). (88)
+[ where after $\frac{d}{d t} \right|_{t=0}$ all sumands except $a_{n-1}$ cancel ]
+
 Now let the adjunct of X be the matrix with (i, j)-entry
 (adj(X))ij := (−1)i+j det(Xji ),
 (89)
@@ -614,9 +618,9 @@ D det(X)(H) = tr(adj(X)H).
 (90)
 This equation holds true for all X ∈ Rn×n , since the set of invertible matrices is open
 and dense and X → tr(adj(X)H) is continuous on Rn×n .
-Now X is a critical point of det if and only if D det(X)(H) = 0 for all H, which
-by the non-degeneracy of tr(AB) implies adj(X) = 0. This holds true if and only if
-rk X ≤ n − 2, which characterizes the critical points of det.
+
+Now X is a critical point of det if and only if D det(X)(H) = 0 for all H, which by the non-degeneracy of tr(AB) implies adj(X) = 0. This holds true if and only if rk X ≤ n − 2, which characterizes the critical points of det.
+
 2.7 The Mean Value Theorem
 The mean value theorem for real valued function says that given a continuously differentiable function f : R → R and a section [a, b], a, b ∈ R, there exists a ξ ∈ [a, b] such that
 f (ξ) = f (b)−f (a) , i.e. there exists a point in the interval [a, b] where the slope of the funcb−a
@@ -645,13 +649,15 @@ In this case where f is smooth in x0 , its differential map is zero, i.e. Df (x0
 all v ∈ H, or equivalently Df (x0 ) ≡ 0. This is easily shown by considering the function
 ϕv (t) = f (x0 + tv) which has a local extremum in 0, thus the directional derivative
 vanishes.
-Definition 3.1 (Critical Point). A point x0 that satisfies Df (x0 ) ≡ 0 is called a critical
-point. The corresponding value f (x0 ) is called critical value.
-It is important to note that a point where the derivative vanishes is not necessarily
-a local extremum but as for real valued functions can also be a saddle point. In this
-lecture we will focus on function minimization. However, it should be noted that every
-maximization problem can be equivalently stated as a minimization problem.
-Example 3.2. Let the set of all real n×n matrices be denoted by
+
+Definition 3.1 (Critical Point). 
+A point $x_0$ that satisfies 
+$$\operatorname{ D }f (x_0) = 0$$
+is called a critical point. The corresponding value $f(x_0)$ is called critical value.
+
+It is important to note that a point where the derivative vanishes is not necessarily a local extremum but as for real valued functions can also be a saddle point. In this lecture we will focus on function minimization. However, it should be noted that every maximization problem can be equivalently stated as a minimization problem.
+
+Example 3.2. Let the set of all real  \times  matrices be denoted by
 Sym(n) := {X ∈ Rn×n | X = X}.
 (92)
 The goal is to determine the critical points of the smooth function
@@ -666,16 +672,20 @@ tr (X + tV)
 = 2 tr V
 (94)
 For X to be a critical point Df (X) · V has to be equal to zero for all V ∈ Sym(n).
-This is obviously fulfilled for V = 0. In order to find other critical points, recall that
-tr(A B) is a scalar product on Rn×n and that the orthogonal decomposition of Rn×n
-with respect to this scalar product is given by Sym(n) ⊕ Skew(n). Here,
-Skew(n) := {X ∈ Rn×n | X = −X}
-(95)
-denotes the skew-symmetric n×n matrices. As a result, Df (X) · V is equal to zero if and
-only if the matrix
-X is skew-symmetric. This means that all critical points
-are given by the set
-−I 0
+This is obviously fulfilled for V = 0. 
+
+In order to find other critical points, recall that
+tr(A B) is a scalar product on Rn×n and that the orthogonal decomposition of $R^{n \times n}$ with respect to this scalar product is given by Sym(n) ⊕ Skew(n).
+
+140609111210
+[ $\operatorname{tr}(X^T Y) =0 \;  \forall \, X \in \mathcal{sym}(n), \; Y \in \mathcal{skew}(n)$ ]
+
+Here, Skew(n) := {X ∈ Rn×n | X = −X}
+(95) denotes the skew-symmetric  \times  matrices. As a result, Df (X) · V is equal to zero if and
+only if the matrix X is skew-symmetric.
+
+
+This means that all critical points are given by the set −I 0
 X11 X12
 X12 X22
 (96)

@@ -1,174 +1,45 @@
-¨
 Lehrstuhl fur
 Datenverarbeitung
 
-¨
-¨
 Technische Universitat Munchen
-
 Data Analysis for Computer Engineering
 Introduction to Reinforcement Learning
-
 Hao Shen
 Institute for Data Processing
-¨
-¨
-Technische Universitat Munchen
-
 08.04.2014
-
 Slide 1/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 What is reinforcement?
 [Oxford Dictionaries]
 The action or process of reinforcing or strengthening.
-
 [Wikipedia]
 A consequence that will strengthen an organism’s future
 behavior whenever that behavior is preceded by a speciﬁc
 antecedent stimulus.
-
 Slide 2/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Reinforcement used in daily life
-
 The big bang theory (S.3, E.3)
-
 Slide 3/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Many faces of RL
-
 Slide 4/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Reinforcement in other disciplines
-
 Computational Neurosciences (artiﬁcial neural networks):
 - Reinforcement of synaptic weights in neuronal
 transmissions
 - Reinforcement = correlations in neuronal activity
-
 Experimental Psychology:
 - animal conditioning is reinforcement of behaviors that lead
 to a satisfaction
 - Reinforcement = satisfaction or discomfort
-
 Etc.
-
 Slide 5/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Connection to control theory
-
 R. Sutton
 “Sampling based methods to solve optimal control problems”
-
 Slide 6/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Shaker: the bartender
-
 Best educational video from the 21st international joint conference on artiﬁcial intelligence, 2009
-
 Slide 7/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 About Shaker
-
 1. Functionalities: recognize faces/places, pick up bottles,
 transfer virtual money to Mr. Babbage’s account, etc
 2. Problem: Shaker is a general purpose robot, knows
@@ -176,24 +47,7 @@ nothing about any speciﬁc tasks initially, does not know
 when to use which skill
 3. Difﬁculty: pre-programming Shaker is expensive
 4. Solution: reinforcement learning is inexpensive, ready to
-use
-
 Slide 8/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 About Shaker’s RL module
 1. Goal: implicitly speciﬁed by numerical reward signals,
 wisely choose its actions to maximize the overall sum of
@@ -204,50 +58,16 @@ maximize
 actions Shaker takes
 4. Output: randomly select from the limited set of actions
 5. Algorithm: Q learning
-
 Slide 9/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Characteristics of reinforcement learning
-
 1. There is no supervisor, only reward signals
 2. Feedback/reward can be delayed, not instantaneous
 3. Trial-and-error approach
 4. Exploration and exploitation
 5. Time really matters (sequential, non i.i.d data)
 6. Agent’s actions affect the subsequent data it receives
-
 Slide 10/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Major components of RL
-
 1. An agent and the environment (states and actions)
 2. Reward function: how good is each state and/or action
 immediately
@@ -256,48 +76,14 @@ long run, used to select actions
 4. Policy: agent’s behavior function
 5. Model of the environment: what to expect if one action is
 taken at a given state
-
 Slide 11/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 RL: agent-environment interface
 A class of learning problems in which an agent interacts
 with a complex, stochastic, and incompletely known
 environment in order to achieve a goal
-
 http://www.incompleteideas.net/rlai609/
-
 Slide 12/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Applications of reinforcement learning
-
 Robotics & Control: gait control, acrobats, helicopter
 control
 Operations research: pricing, marketing
@@ -306,44 +92,11 @@ Human computer interface: spoken dialogue systems
 Economics: trading
 Cognitive dynamic systems: cognitive radio, cognitive radar
 http://umichrl.pbworks.com/w/page/7597597/Successes%20of%20Reinforcement%20Learning
-
 Slide 13/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 A demonstration
 Tic-toc learning of helicopter control, Andrew Ng, Stanford
-
 Slide 14/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
-¨
-¨
-Technische Universitat Munchen
-
 Outline of the lectures
-
 1. Bandits problem and Markov decision processes
 2. Return, discount, values and Bellmann equation
 3. Dynamic programming
@@ -351,29 +104,5 @@ Outline of the lectures
 5. Temporal difference learning
 6. SARSA and Q-learning
 7. Function approximation
-
 Slide 15/16
-
-Data Analysis for Computer Engineering
-
-Hao Shen
-
-08.04.2014
-
-¨
-Lehrstuhl fur
-Datenverarbeitung
-
 Slide 16/16
-
-Data Analysis for Computer Engineering
-
-¨
-¨
-Technische Universitat Munchen
-
-Hao Shen
-
-08.04.2014
-
-
