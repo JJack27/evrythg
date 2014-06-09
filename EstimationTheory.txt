@@ -126,12 +126,11 @@ p(y ) =
 p(x, y )dx
 Conditional PDF : p(x|y ) is deﬁned as the PDF of X conditioned on
 knowing the value of Y .
-Bayes’ Formula : Consider two RVs deﬁned on the same probability space
-then we have :
-p(x, y )
-p(x|y ) =
-p(x, y ) = p(x|y )p(y ) = p(y |x)p(x)
-p(y )
+
+>###Bayes’ Formula:
+Consider two RVs deﬁned on the same probability space then we have:
+![()](140609084052.png)
+
 Independent Random Variables
 Two RVs X and Y are independent if and only if :
 p(x, y ) = p(x)p(y )
@@ -203,21 +202,23 @@ X is given by
 = E (X 2 ) − µ2
 The variance is the mean of the square minus the square of the mean.
 
-[ _to('140502183413') ]
-Independence, Uncorrelatedness and Orthogonality
-If $\sigma_{xy} = 0$, then X and Y are uncorrelated and
-$E(X Y) = E(X) E(Y)$
-X and Y called orthogonal if E {XY} = 0. 
-[ Expectation of the product of independent random variables ]
-If X and Y are independent then they are uncorrelated.
-Uncorrelatedness does not imply the independence. For example, if X is a normal RV with zero mean and Y = X 2 we have p(y |x) = p(y ) The correlation only shows the linear dependence between two RV so [ it is ] is weaker than independence.
+###Independence, Uncorrelatedness and Orthogonality
+140502183413
+If $\sigma_{xy} = 0$, then $X$ and $Y$ are uncorrelated and
+$$E(X Y) = E(X) E(Y)$$
+$X$ and $Y$ called orthogonal if $E{X Y} = 0$. 
+If $X$ and $Y$ are independent then they are uncorrelated.
 For Jointly Gaussian RVs, independence is equivalent to being uncorrelated.
+Uncorrelatedness does not imply the independence.
+
+[ Expectation of the product of independent random variables ]
+ For example, if X is a normal RV with zero mean and Y = X 2 we have p(y |x) = p(y ) The correlation only shows the linear dependence between two RV so [ it is ] is weaker than independence.
 
 Random Vectors
 Random Vector : is a vector of random variables 1 :
 Expectation Vector : µx = E (x) = [E (x1 ), E (x2 ), . . . , E (xn )]T
 Covariance Matrix : $C_x$ = E [(x − µx )(x − µx )T ]
-Cx is an n × n symmetric matrix which is assumed to be positive
+Cx is an n  \times  n symmetric matrix which is assumed to be positive
 deﬁnite and so invertible.
 The elements of this matrix are : [Cx ]ij = E {[xi − E (xi )][xj − E (xj )]}.
 If the random variables are uncorrelated then $C_x$ is a diagonal matrix.
@@ -837,7 +838,7 @@ available. If we get a new data x[N], we want to compute θ[N] as a
 Consider LS estimate of DC level :
 x[n]. We have :
 (x[N] − A[N − 1])
-new estimate = old estimate + gain × prediction error
+new estimate = old estimate + gain  \times  prediction error
 Example (DC level in uncorrelated noise)
 x[n] = A + w [n] and var(w [n]) = σn . The WLS estimate (or BLUE) is :
 Similar to the previous example we can obtain :
@@ -1027,16 +1028,14 @@ var(A) = σA|x = σA −
 cov2 (A, x[0])
 = σA (1 − 2 A 2 )
 
-[ _to('140528142647') ]
 Theorem (Conditional PDF of Multivariate Gaussian)
-If x (with dimension k × 1) and y (with dimension l × 1) are jointly
-Gaussian with PDF:
-then the conditional PDF p(y|x) is also Gaussian and :
-E (y|x) = E (y) + Cyx C−1 [x − E (x)]
+If $x$ (with dimension $k  \times  1$) and $y$ (with dimension $l\times 1$) are jointly Gaussian with PDF:
+then the conditional PDF $p(y|x)$ is also Gaussian and:
+![()](140609085751.png)
 
 Bayesian Linear Model
 Let the data be modeled as
-where θ is a p × 1 random vector with prior PDF N (µθ , Cθ ) and w is a
+where θ is a p  \times  1 random vector with prior PDF N (µθ , Cθ ) and w is a
 noise vector with PDF N (0, Cw ).
 Since θ and w are independent and Gaussian, they are jointly Gaussian
 then the posterior PDF is also Gaussian. In order to ﬁnd the MMSE
@@ -1349,7 +1348,7 @@ and similarly
 Bmse(θi ) = [M ˆ]ii
 Theorem (Bayesian Gauss–Markov Theorem)
 If the data are described by the Bayesian linear model form
-where θ is a p × 1 random vector with mean E (θ) and covariance Cθθ , w
+where θ is a p  \times  1 random vector with mean E (θ) and covariance Cθθ , w
 is a noise vector with zero mean and covariance Cw and is uncorrelated
 with θ (the joint PDF of p(θ, w) is arbitrary), then the LMMSE estimator
 θ = E (θ) + Cθθ HT (HCθθ HT + Cw )−1 x − HE (θ)
@@ -1481,10 +1480,10 @@ s[m] − E (s[m]) s[n] − E (s[n])
 = am+n+2 σs + σu am−n
 and Cs [m, n] = Cs [n, m] for m < n.
 Theorem (Vector Gauss-Markov Model)
-The Gauss-Markov model for a p × 1 vector signal s[n] is :
-A is p × p and B p × r and all eigenvalues of A are less than 1 in
-magnitude. The r × 1 vector u[n] ∼ N (0, Q) and the initial condition is a
-p × 1 random vector with s[n] ∼ N (µs , Cs ) and is independent of u[n]’s.
+The Gauss-Markov model for a p  \times  1 vector signal s[n] is :
+A is p  \times  p and B p  \times  r and all eigenvalues of A are less than 1 in
+magnitude. The r  \times  1 vector u[n] ∼ N (0, Q) and the initial condition is a
+p  \times  1 random vector with s[n] ∼ N (µs , Cs ) and is independent of u[n]’s.
 Then, the signal process is Gaussian with mean E (s[n]) = An+1 µs and
 covariance :
 for m ≥ n and Cs [m, n] = Cs [n, m] for m < n. The covariance matrix
@@ -1560,14 +1559,14 @@ become constant).
 Vector State – Scalar Observation Kalman Filter
 s[n] = As[n − 1] + Bu[n] with u[n] ∼ N (0, Q)
 x[n] = hT [n]s[n] + w [n] with s[−1] ∼ N (µs , Cs )
-Minimum Prediction MSE (p × p) :
-Kalman Gain (p × 1) :
+Minimum Prediction MSE (p  \times  p) :
+Kalman Gain (p  \times  1) :
 ˆ[n|n] = ˆ[n|n − 1] + K[n](x[n] − hT [n]ˆ[n|n − 1])
-Minimum MSE Matrix (p × p) :
+Minimum MSE Matrix (p  \times  p) :
 M[n|n] = (I − K[n]hT [n])M[n|n − 1]
 Vector State – Vector Observation Kalman Filter
 x[n] = H[n]s[n] + w[n] with w[n] ∼ N (0, C[n])
-Kalman Gain Matrix (p × M) : (Need matrix inversion !)
+Kalman Gain Matrix (p  \times  M) : (Need matrix inversion !)
 ˆ[n|n] = ˆ[n|n − 1] + K[n](x[n] − H[n]ˆ[n|n − 1])
 M[n|n] = (I − K[n]H[n])M[n|n − 1]
 Extended Kalman Filter

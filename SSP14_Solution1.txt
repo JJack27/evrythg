@@ -10,7 +10,7 @@ and the covariance matrix Cy of y is given as
 Cy = E (y − µy )(y − µy )T = E yy T
 = E (Bx)(Bx)T = BCx BT = BBT
 
-[ _v('140502184703') ]
+![()](140502184703.png) 
 [ inverse of a $2 \times 2$ matrix ]
 [ inverse of a 2x2 matrix ]
 
@@ -88,10 +88,12 @@ fy (y) is constructed by multiplying fx (y) by two in the ﬁrst and third quadr
 marginal distributions of y1 and y2 are Gaussian as, for example,
 due to the symmetry of fx (y).
 
-[ _to('140518111204') ]
+140609091802
+Any affine transformation
+$$y = Ax + b$$
+of a jointly Gaussian random vector $x$ where $A$ and $b$ are deterministic is jointly Gaussian. It follows that 
+$$y \sim \mathcal{N}(A \mu_x + b, A C_x A^T)$$
 
 • Any non-empty subset J of a jointly Gaussian random vector x is jointly Gaussian (choose appropriate selection matrix A and b = 0).
-
-[ _to('140518111033') ]
 
 Finally, we have that the conditional random variable xa |xb = b is distributed according to

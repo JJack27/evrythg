@@ -17,8 +17,10 @@ optimal with respect to the assumed prior PDF fθ (θ) and not an UMVUE. If the 
 differs significantly from the true PDF of θ, this may have an impact on the performance of the
 estimator.
 
-[ _to('140518090941') ]
+Bayes’ rule for the posterior PDF 
+![()](140518091016.png)
 
+where we denote the posterior PDF by $\pi^{(N)}(\theta)$ for notational convenience.
 c) As fx1 ,...,xN |θ (x1 , . . . , xN ) is a Gaussian PDF, fθ (θ) is the PDF of a Gamma distribution, and the
 denominator is for normalization, we have that
 1 α−1
