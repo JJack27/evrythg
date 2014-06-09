@@ -1,4 +1,4 @@
-function [s, x] = nl(M, terminal, source, lambda)
+ function [s, x] = nl(M, terminal, source, lambda)
 % function [s x] = nl(M,terminal,source,lambda)
 % solve the network layer optimization problem, also verify the solution
 % Input

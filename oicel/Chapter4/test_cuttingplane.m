@@ -7,13 +7,16 @@ source{1} = 1;
 
 terminal{2} = [4,3];
 source{2} = [1,5];
+ok = true;
 
 for t = 1:length(terminal)
     
     if t == 1
         fprintf('\n\n*******Testing single flow*******\n\n')
-    elseif t == 2
-        fprintf('\n\n*******Testing multi flow*******\n\n')
+     elseif t == 2
+        fprintf('Multiflow not yet implemented\n')
+        break; 
+        fprintf('\n\n*******Testing multi flow*******\n\n') %#ok<UNRCH>
     end
     
     [x,u,lambda,util] = networkflow_cuttingplane(M,terminal{t},source{t});
@@ -41,5 +44,5 @@ for t = 1:length(terminal)
 end
 
 if ok
-    disp('OK')
+    fprintf('--- All tests passed ---\n\n')
 end
