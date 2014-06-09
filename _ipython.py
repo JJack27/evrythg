@@ -29,6 +29,7 @@ def _c(t):
         system('scrot -s %s.png &' %(fn(t)))
     else:
         Popen('MiniCap -captureregselect -save "%s.png" -exit' %(fn(t)))
+
 def _m(fn):
     """
     Compile latex using pythontex
@@ -82,3 +83,14 @@ def wrapper(func, *args, **kwargs):
     def wrapped():
         return func(*args, **kwargs)
     return wrapped
+
+def _p(fn):
+    """
+    Put text into clipboard
+    """
+    if isfile(fn):
+        system('clip < %s' %(fn))
+    else:
+        system('echo ' + fn.strip() + '| clip')
+
+

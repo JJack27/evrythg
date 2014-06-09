@@ -21,6 +21,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'godlygeek/tabular'
 Plugin 'gmarik/vundle'
 
 
@@ -78,7 +79,7 @@ function! Filter(pattern)
 endfunction
 
 " Abbreviations
-iab <expr> _to strftime("[ _to('%y%m%d%H%M%S') ]")
+iab <expr> TG strftime("%y%m%d%H%M%S")
 iab opn \operatorname{ }<Left><Left> 
 iab cal \mathcal{}<Left><Left> 
 ab  grp call GitGrep('-e ')<Left><Left>

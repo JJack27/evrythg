@@ -122,11 +122,6 @@ def _l(fn):
     """
     ip.set_next_input('%%%%latex \n%s' %_input(fn))
 
-def _p(fn):
-    """
-    Put text into clipboard
-    """
-    system('clip < %s' %(fn))
 
 def _f(s):
     """
