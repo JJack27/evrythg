@@ -127,21 +127,21 @@ over n parallel Gaussian channels. Each of these channels i  \in  {1, . . . , n}
 and an output yi  \in  C. The output of the i-th channel can be expressed as
 yi = hi xi + ηi ,
 (1.1)
-where hi  \in  C denotes the complex-valued channel coefficient and ηi ∼ NC (0, σi ) the circularly symmetric additive white Gaussian noise. Note that the channels are orthogonal, i.e.,
+where hi  \in  C denotes the complex-valued channel coefficient and ηi ∼ NC ( \geq , σi ) the circularly symmetric additive white Gaussian noise. Note that the channels are orthogonal, i.e.,
 there is no interference between the channels.
 From information theory, it is known that the capacity of the i-th channel is equal to
 ci = log2 1 +
 |hi |2 pi
 (1.2)
 if pi is the power available at the input xi [1, Chapter 9]. Furthermore, the rate ci can then
-be achieved on the i-th channel by choosing xi ∼ NC (0, pi ). Let us now assume that the
+be achieved on the i-th channel by choosing xi ∼ NC ( \geq , pi ). Let us now assume that the
 information rate on the i-th channel is actually given by its capacity, i.e.,
 ri (pi ) = log2 (1 + γi pi ) ,
 (1.3)
-where γi = |hi |2 /σi > 0 specifies the quality of the channel. Given these conditions, we want
+where γi = |hi |2 /σi >  \geq  specifies the quality of the channel. Given these conditions, we want
 to determine the maximum rate n ri (pi ) that can be reliably transmitted over the n parallel
 channels if the sum of the powers pi is limited. In other words, we want to solve the following
-optimization problem, where P > 0 is the available power budget for all channels:
+optimization problem, where P >  \geq  is the available power budget for all channels:
 [ Change of basis in logarithm ]
 [ log(3)/log(2) - log2(3) ]
 PROGRAMMING TASK 1.3
@@ -156,43 +156,43 @@ function [R,p,mu] = waterfilling_cvx(h,s,P)
 • s: vector of noise variances σ1 , . . . , σn
 • P: available sum transmit power P
 3 Output Specification:
-• R: value of the maximal sum rate R⋆
-• p: vector of optimal transmit powers p⋆ , . . . , p⋆
-• mu: value of the optimal Lagrangian multiplier µ⋆
+• R: value of the maximal sum rate R^*
+• p: vector of optimal transmit powers p^* , . . . , p^*
+• mu: value of the optimal Lagrangian multiplier  \mu ^*
 4 Verification:
 • Most of the functions that have to be implemented can be tested for correctness with
 the provided test scripts test_Xxxx.m
 For example, use the call test_waterfilling_cvx.
 The optimal solution to problem (1.4) can also be obtained from the Karush-Kuhn-Tucker
-(KKT) conditions in analytical form. If µ denotes the Lagrangian multiplier corresponding
+(KKT) conditions in analytical form. If  \mu  denotes the Lagrangian multiplier corresponding
 to the inequality constraint n pi ≤ P , the optimal transmit powers are given by
-ln(2)µ⋆
-if γi > ln(2)µ⋆ ,
+ln(2) \mu ^*
+if γi > ln(2) \mu ^* ,
 otherwise
-− ,0 ,
-ln(2)µ
+− , \geq  ,
+ln(2) \mu 
 pi = max
 (1.5)
-where µ⋆ can be determined from the equation
-− ,0
+where  \mu ^* can be determined from the equation
+− , \geq 
 (1.6)
 While the optimal solution is completely specified by (1.5) and (1.6), the actual values of the
-pi ’s need to be computed iteratively. For ease of notation we substitute w⋆ = ln(2)µ⋆ and
+pi ’s need to be computed iteratively. For ease of notation we substitute w^* = ln(2) \mu ^* and
 ci = γi . Without loss of generality, suppose that c1 ≤ . . . ≤ cn , which obviously results in
-p⋆ ≥ . . . ≥ p⋆ . Now we define k ⋆ as the index given by
-k ⋆ = k  \in  {1, . . . , N } : w⋆ > ck and w⋆ ≤ ck+1 .
+p^* ≥ . . . ≥ p^* . Now we define k ^* as the index given by
+k ^* = k  \in  {1, . . . , N } : w^* > ck and w^* ≤ ck+1 .
 (1.7)
-If k ⋆ is known, the optimal power allocations are given by
-w ⋆ − ci
-for i  \in  {1, . . . , k ⋆ },
-for i  \in  {k ⋆ + 1, . . . , n},
+If k ^* is known, the optimal power allocations are given by
+w ^* − ci
+for i  \in  {1, . . . , k ^* },
+for i  \in  {k ^* + 1, . . . , n},
 where w =
 i=1 ci
 (1.8)
-The integer k ⋆ is simply found by successively checking the hypotheses k ⋆ = 1, . . . , n. That
-is, start with the assumtion k ⋆ = 1, calculate the corresponding w⋆ given by (1.8) and then
+The integer k ^* is simply found by successively checking the hypotheses k ^* = 1, . . . , n. That
+is, start with the assumtion k ^* = 1, calculate the corresponding w^* given by (1.8) and then
 check the conditions in (1.7). If the conditions do not hold, check the next hypothesis. The
-solution to the considered problem is referred to as waterfilling with w⋆ as the water level. It
+solution to the considered problem is referred to as waterfilling with w^* as the water level. It
 is illustrated in Figure 1.1, which explains where the term waterfilling originates from.
 PROGRAMMING TASK 1.4
 σ1 , . . . , σn , and the available sum transmit power P as inputs and that computes the optimal
@@ -201,7 +201,7 @@ waterfilling solution to problem (1.4) using the waterfilling algorithm.
 function [R,p,mu] = waterfilling(h,s,P)
 • P: available sum transmit power
 4 Hint(s):
-• First, reorder γ1 , . . . , γn such that γ1 ≤ . . . ≤ γn and determine k ⋆  \in  {1, . . . , n}.
+• First, reorder γ1 , . . . , γn such that γ1 ≤ . . . ≤ γn and determine k ^*  \in  {1, . . . , n}.
 \todo{TASK 1.5}
 Measure and compare the execution times of your two functions waterfilling_cvx.m
 and waterfilling.m for different input parameters. Which of the two solutions is more
@@ -213,30 +213,30 @@ T that is subject to additive and circular symmetric complex Gaussian noise. The
 signal y  \in  Cm at the destination is given by
 (1.9)
 where x  \in  Cn comprises the n scalar channel inputs, H  \in  Cm×n is the complex channel gain
-matrix, and the additive noise is η ∼ NC (0, Cη ) which is zero-mean and whose covariance
+matrix, and the additive noise is η ∼ NC ( \geq , Cη ) which is zero-mean and whose covariance
 matrix is Cη = E[ηη H ].
 The achievable rate of this system is given by the mutual information I(y; x) and reads as
 −1
 R = log2 det Im + Cη HQH H
 (1.10)
-if we assume Gaussian inputs x ∼ NC (0, Q) with zero-mean and covariance matrix Q =
+if we assume Gaussian inputs x ∼ NC ( \geq , Q) with zero-mean and covariance matrix Q =
 E[xxH ]. In what follows, we assume Q to be fixed and Cη to vary over time.
 Even though Cη is assumed to vary, the total noise power shall be limited, which can be expressed as the constraint
 E[ η 2 ] = tr Cη ≤ N.  (1.11)
 [ The trace of a matrix is equal to the sum of the eigenvalues ]
 Based on these assumptions, the worst case achievable sum rate is
 Rworst-case = min log2 det Im + Cη HQH H
-Cη 0
+Cη  \geq 
 (1.12)
 where Cη
-0 expresses that Cη must be positive semidefinite. Note that this optimization
+ \geq  expresses that Cη must be positive semidefinite. Note that this optimization
 problem is convex, i.e., the KKT conditions are sufficient.
 For solving (1.12), it is advantageous to introduce the eigenvalue decomposition (EVD) of the
 noise covariance matrix as
 (1.13)
 with the unitary modal matrix V  \in  Cm×m and the diagonal matrix Σ containing the eigenvalues σi along the diagonal. With the EVD of Cη , the constraint of (1.12) can be rewritten
 σi ≤ N
-σi ≥ 0
+σi ≥  \geq 
 (1.14)
 ∀ i  \in  {1, . . . , m}.
 We see that they are independent of the eigenvectors of Cη , i.e., the columns of V , contrary to
@@ -254,7 +254,7 @@ if the matrix is diagonal (e.g., see [4]). Moreover, since the inverse A−1 is 
 is diagonal, the matrix Im + Σ −1/2 V H XV Σ −1/2 must be diagonal. To reach this, we must
 choose V such that it diagonalizes V H XV . That is, V has to be the unitary modal matrix of
 the EVD of the positive semidefinite matrix X, i.e.,
-with the diagonal matrix Ψ = diag(ψ1 , . . . , ψm ) of eigenvalues ψi ≥ 0 for all i  \in  {1, . . . , m}.
+with the diagonal matrix Ψ = diag(ψ1 , . . . , ψm ) of eigenvalues ψi ≥  \geq  for all i  \in  {1, . . . , m}.
 With this optimal choice of the modal matrix V of Cη , the achievable rate R can be expressed
 R = log2 det Im + Σ −1 Ψ
 log2 1 +
@@ -262,7 +262,7 @@ log2 1 +
 From this result and (1.14), we can conclude that the remaining optimization only depends on
 the eigenvalues σi , i  \in  {1, . . . , m}, of Cη . In other words, we must solve
 Rworst-case = min
-σi ≥0
+σi ≥ \geq 
 (1.17)
 to find the worst-case achievable rate Rworst-case .
 TASK 1.6
@@ -273,28 +273,28 @@ minimization of a convex objective function over a convex (polyhedral) constrain
 If you try using CVX to solve problem (1.17), it will not work. Think about the reason why
 CVX is not applicable in this case.
 The optimal solution to the convex optimization problem in (1.17) can be obtained from its
-KKT conditions. If µ ≥ 0 denotes the Lagrangian multiplier corresponding to the inequality
-constraint m σi ≤ N , and λi ≥ 0 denote the Lagrangian multipliers corresponding to the
-inequality constraints σi ≥ 0, i  \in  {1, . . . , m}.
+KKT conditions. If  \mu  ≥  \geq  denotes the Lagrangian multiplier corresponding to the inequality
+constraint m σi ≤ N , and λi ≥  \geq  denote the Lagrangian multipliers corresponding to the
+inequality constraints σi ≥  \geq , i  \in  {1, . . . , m}.
 From the KKT conditions, one can verify the following solution structure:
 0
-ψi = 0,
+ψi =  \geq ,
 σi =
-2 + 4ψ µ′ ψ > 0,
-where µ′ =
-µ ln(2)
+2 + 4ψ  \mu ′ ψ >  \geq ,
+where  \mu ′ =
+ \mu  ln(2)
 (1.18)
 is given via the implicit equation
 2N +
-ψi + 4ψi µ′ .
+ψi + 4ψi  \mu ′ .
 ψi =
 (1.19)
 REFERENCES
-Since the right hand side of (1.19) is continuous and increasing in µ′ , its optimum solution may
+Since the right hand side of (1.19) is continuous and increasing in  \mu ′ , its optimum solution may
 be found via a simple fixed point search, e.g., a bisection search or a Newton method. A lower
 2N + m ψi − m ψ 2
-bound for µ′ is µ′
-lower = 0 and an upper bound is given by µupper =
+bound for  \mu ′ is  \mu ′
+lower =  \geq  and an upper bound is given by µupper =
 PROGRAMMING TASK 1.8
 Implement an algorithm that takes the eigenvalues ψ1 , . . . , ψm of X and the maximal sum
 noise power N as inputs and that computes the optimal solution to problem (1.17) given
@@ -305,7 +305,7 @@ function [R,s,mu] = worstcaseRate(p,N)
 • p: vector of the effective transmit powers ψ1 , . . . , ψn
 • R: value of the worst-case sum rate Rworst-case
 • s: vector of minimizing noise variances σ1 , . . . , σm
-• You can use the Matlab function fzero.m to obtain the optimal value for µ′ .
+• You can use the Matlab function fzero.m to obtain the optimal value for  \mu ′ .
 References
 [1] T. M. Cover and J. A. Thomas, Elements of Information Theory, John Wiley & Sons,
 2nd ed., 2006.
@@ -363,7 +363,7 @@ The received signal vector is given by K k=1
 where $H_k \in \mathbb{C}^{m \times n}$ denotes the k-th transmitter’s channel matrix, 
 [ $W_k \in \mathbb C^{n \times n}$ ]
 denotes the precoder matrix of the input signal,
-xk ∼ NC (0, In ) comprises the n scalar channel inputs of the k-th transmitter and η ∼ NC (0, Cη ) denotes an additive noise distortion.In the following we assume Cη = In.  
+xk ∼ NC ( \geq , In ) comprises the n scalar channel inputs of the k-th transmitter and η ∼ NC ( \geq , Cη ) denotes an additive noise distortion.In the following we assume Cη = In.  
 With the covariances [-matrices] of the precoded input signals
 $Q_k = \operatorname{E}[W_k x_k x_k^H W_k^H ] = Wk Wk$ , the achievable data rate in the MAC (using dirty paper coding techniques [3]) is given by
 (2.4)
@@ -374,8 +374,8 @@ PROGRAMMING TASK 2.2
 Implement a function to compute R(W1 , . . . , WK ).
 1 Deliverables (Matlab code file): rateW.m
 • Function definition: function R = rateW(W,H)
-• H: m × n × K set of channel matrices H1 , . . . , HK
-• W: n × n × K set of precoders W1 , . . . , WK
+• H: m  \times  n  \times  K set of channel matrices H1 , . . . , HK
+• W: n  \times  n  \times  K set of precoders W1 , . . . , WK
 • R: achievable sum rate R
 4 Hints:
 • Make sure the return value is a real number.
@@ -383,17 +383,17 @@ PROGRAMMING TASK 2.3
 Implement a function to compute R(Q1 , . . . , QK ).
 1 Deliverables (Matlab code file): rateQ.m
 • Function definition: function R = rateQ(Q,H)
-• Q: n × n × K set of covariance matrices Q1 , . . . , QK
+• Q: n  \times  n  \times  K set of covariance matrices Q1 , . . . , QK
 Imposing a sum power constraint leads to a convex optimization problem with either the set of
 precoder matrices {W1 , . . . , WK } = {Wk }K , or the set of covariance matrices {Qk }K
 as optimization variables.
 The respective optimization problems are given by
 _v('140502130621')
 Although (2.6) and (2.7) yield the same result, 2 the gradient-based optimization approaches for solving (2.6) and (2.7) show significant differences in terms of formulation of the projection PC , computational complexity, and the convergence speed of the resulting algorithms.  
-This is true only, if {Wk }K have full row/column rank. Note that the number of subchannels ℓ per transmitter
-can be preselected by choosing a reduced size precoder matrix W  \in  Cn×ℓ with ℓ < n. In this case, the optimization
+This is true only, if {Wk }K have full row/column rank. Note that the number of subchannels l per transmitter
+can be preselected by choosing a reduced size precoder matrix W  \in  Cn×l with l < n. In this case, the optimization
 is non-convex and the retrieved precoder W yields a suboptimal sumrate. In this tutorial, we restrict ourselves to
-the computation of full rank n × n precoder matrices to preserve convexity.
+the computation of full rank n  \times  n precoder matrices to preserve convexity.
 _15_
 2.3 Precoder Optimization
 2.3.1 Gradient Step
@@ -415,7 +415,7 @@ precoder matrices as
 δR(W1 , . . . , WK )
 δ[Wk ]i,j
 log2 det Im +
-ℓ=1
+l=1
 ln det Im +
 ln 2 δ[Wk i,j
 tr  Im +
@@ -449,15 +449,15 @@ PROGRAMMING TASK 2.4
 Implement a function to compute the gradient ∇R(W1 , . . . , WK ).
 1 Deliverables (Matlab code file): gradW.m
 • Function definition: function grad = gradW(H,W)
-• grad: n × n × K set of derivatives V1 , . . . , VK
+• grad: n  \times  n  \times  K set of derivatives V1 , . . . , VK
 2.3.2 Projection Step
 To complete the update (2.11), the projection PC ({W1 , . . . , WK }) onto the constraint set C
 must be performed. In our problem setup, C is the manifold of sets of K non-negative definite
 matrices Wk Wk that fullfil the sum power constraint in (2.5). The (orthogonal) projection
 can be written as
-PC ({Wk }K ) = {Wk + Ek ⋆ }K ,
+PC ({Wk }K ) = {Wk + Ek ^* }K ,
 (2.12)
-where E ⋆ is the solution to the minimization problem
+where E ^* is the solution to the minimization problem
 {Ek }K = arg min
 E1 ,...,EK k=1
 ||Ek ||2
@@ -466,24 +466,24 @@ E1 ,...,EK k=1
 The constraint set of this minimization problem corresponds to a Kn2 dimensional ball, and
 the projection to a mapping onto the surface of this ball. An illustration is given in Fig. 2.1.
 The Lagrangian function (c.f., [1][2]) corresponding to (2.13) is given by
-tr(Ek Ek ) + µ
+tr(Ek Ek ) +  \mu 
 L(E1 , . . . , EK , \lambda) =
 tr (Wk + Ek )(Wk + Ek )H − P
 (2.14)
 {Ek }K
 PC ({Wk }K )
 Figure 2.1: Projection onto the constraint set
-where µ is the Lagrangian multiplier. From the solution of setting the Wirtinger derivative of
-(2.14) with respect to {E ∗ }K to zero, we find that at the optimality point µ⋆ the condition
+where  \mu  is the Lagrangian multiplier. From the solution of setting the Wirtinger derivative of
+(2.14) with respect to {E ∗ }K to zero, we find that at the optimality point  \mu ^* the condition
 Ek = −
-1 + µ⋆
+1 +  \mu ^*
 (2.15)
 must hold. The trivial case, when {Wk } already fulfills the sum power constraint, corresponds
-to µ⋆ = 0 and, thus, Ek = 0 =⇒ PC ({Wk }) = {Wk }. Otherwise we have µ⋆ > 0 and we
+to  \mu ^* =  \geq  and, thus, Ek =  \geq  =⇒ PC ({Wk }) = {Wk }. Otherwise we have  \mu ^* >  \geq  and we
 use (2.15) and the sum power constraint which leads to the projection
 Ek }K
 ′ ||2
-ℓ=1 ||Wℓ F
+l=1 ||Wl F
 (2.16)
 The obvious result of the Lagrangian optimization is that the projection onto the constraint set
 can be performed by a scaling (2.16) of the precoder matrices. The simplicity of the projection
@@ -493,7 +493,7 @@ Implement the projection for the set of precoder matrices {Wk }K .
 1 Deliverables (Matlab code file): projW.m
 • Function definition: function WP = projW(W,P)
 (a+1)
-• WP: n × n × K set of projected precoders W1
+• WP: n  \times  n  \times  K set of projected precoders W1
 2.4 Covariance Optimization
 2.4.1 Gradient Step
 To perform a gradient step on the set of covariance matrices {Qk }K , the Wirtinger derivative
@@ -519,17 +519,17 @@ cf. 140502101553
 In this section we highlight the main results only. The projection
 PC ({Q′ , . . . , QK }) to the manifold of K non-negative definite matrices Qk with the sum
 power constraint (2.4) can be written as
-PC ({Q′ }k=1 ) = {Q⋆ }K = arg min
+PC ({Q′ }k=1 ) = {Q^* }K = arg min
 Q1 ,...,QK k=1
-0∀k
+ \geq ∀k
 (2.18)
 tr(Qk ) ≤ P.
 Through analysis of the KKT conditions it can be shown that the optimal covariance matrices [ $Q_k^*$ ] must have the same eigenbasis [ $U_k$ ] as the respective unconstraint matrices [ $Q_k^'$ ] 
 optimization problem in (2.18) can thus be reformulated to
 (2.19)
-where \lambda′ and λk,i are the ith eigenvalues of Q′ and Q⋆ respectively. That is, we want to
+where \lambda′ and λk,i are the ith eigenvalues of Q′ and Q^* respectively. That is, we want to
 project an Kn-dimensional vector onto the scaled standard (Kn − 1)-simplex.
-Let µ⋆ > 0 denote the optimal Lagrangian multiplier to the transmit power constraint in the
+Let  \mu ^* >  \geq  denote the optimal Lagrangian multiplier to the transmit power constraint in the
 non-trivial case. The optimal eigenvalues are given by
 (2.20)
 and the sum power constraint can be formulated as
@@ -545,7 +545,7 @@ PROGRAMMING TASK 2.8
 Implement the projection for the set of covariance matrices {Qk }K .
 1 Deliverables (Matlab code file): projQ.m
 • Function definition: function QP = projQ(Q,P)
-• QP: n × n × K set of projected covariance matrices Q1
+• QP: n  \times  n  \times  K set of projected covariance matrices Q1
 2.5 Complete Algorithm
 In this section we put together an algorithm for solving the sum rate maximization problems
 in (2.7) and (2.6). As a first simple approach we implement a projected gradient algorithm with
@@ -564,7 +564,7 @@ function [xOpt fOpt] = projGrad(fun,grad,proj,x,nIter)
 • fun: objective function f (X)
 • grad: gradient of the objective function ∇f (X)
 • proj: projection PC (X) onto the constraint set C
-• x: initial value X (0)
+• x: initial value X ( \geq )
 • nIter: maximum number of iterations
 • xOpt: resulting optimization variables
 • fOpt: corresponding value of the objective function
@@ -605,7 +605,7 @@ size control algorithms have become known in literature that assure convergence 
 solution and balance convergence speed with the required computational cost.
 2.6.1 Open Loop Step-Size Rule
 For any step size control that satisfies the two conditions
-lim s(a) = 0 and
+lim s(a) =  \geq  and
 a→∞
 s(a) = ∞,
 (2.23)
@@ -658,12 +658,12 @@ The computational effort to compute the exact line search is very high and makes
 projected-gradient method [2]. 
 The generalized Armijo rule ensures convergence to the optimum solution even for the constrained case, if the step size is parametrized as
 (2.26)
-with $0 < \beta < 1$ as an iteration-independent constant, and $s_0^{(a)}$ as an iteration-dependent that itself must be bounded above and below by two iteration independent positive real numbers
-$0 < s^{\min} ≤ s_0^{a} ≤ s^{\max}< \infty$.
+with $ \geq  < \beta < 1$ as an iteration-independent constant, and $s_0^{(a)}$ as an iteration-dependent that itself must be bounded above and below by two iteration independent positive real numbers
+$ \geq  < s^{\min} ≤ s_0^{a} ≤ s^{\max}< \infty$.
 The iteration-dependent parameter $b(a) \in \mathbb{N}_0$ is used for an exponential scaling of s0 via the basis β.
 Since N0 ⊂ R, the optimal step-size w.r.t. (2.25)
 is obtained via (2.26) with probability zero. The Armijo solution however is guaranteed to lie
-in a ǫ interval that encloses the optimum solution and ensures that ǫ → 0 as a → ∞. The
+in a ǫ interval that encloses the optimum solution and ensures that ǫ →  \geq  as a → ∞. The
 parameter b(a) must be obtained dynamically for each gradient step according to the Armijo
 rule.
 The Armijo rule [1] is known from the lecture to this course. The general idea behind the
@@ -672,7 +672,7 @@ cost function in order to qualify for application.
 This relation is measured by the slope of the gradient and a scaling constant $\sigma$ from that the intersection of the cost function and the σ-scaled first order linear approximation of the cost function is derived. The parameter b  \in  N0 is then obtained by finding the pair of adjacent stepsize parameters b↑ and b↓ that inclose the intersection
 _25_
 point for a defined value of σ. For sake of simplicity we only search in the increasing direction.
-That is, if the initial step size $s_0^{(a)}$ leads to a point below the intersection point with the cost function we choose b = 0. 
+That is, if the initial step size $s_0^{(a)}$ leads to a point below the intersection point with the cost function we choose b =  \geq . 
 Otherwise, the Armijo step size is found by successively increasing
 b(a) by 1, until the evaluation of the σ-scaled linear approximation undertakes the cost function
 f . That process is described mathematically in terms of the combinatorial optimization
@@ -689,7 +689,7 @@ f (PC (X (a) + s0 β b↓ V (a) )) − f (X (a) ) ≤ σ PTC (X (a) ) (V (a) )
 s0 β b ↓
 where $P_{T_C}(X^{(a)})$ performs a projection of the gradient onto the tangent cone at $X^{(a)}$.
 \todo{Understand that}
-The actual choice is then b(a) = max(˜(a) , 0). A visualization of the Armijo rule is depicted in Figure 2.2.
+The actual choice is then b(a) = max(˜(a) ,  \geq ). A visualization of the Armijo rule is depicted in Figure 2.2.
 In general, PTC (X (a) ) must be derived analytically, similarly to the way the projection on the constraint set PC has been derived for the precoder and the covariance approach earlier in this
 chapter. Furthermore, the additional projection operation must be performed which increases
 the computational costs of the step-size control. In order to overcome this burden, the tangent
@@ -699,7 +699,7 @@ given as
 The resulting approximated relations (2.28) and (2.29) then read as
 . (2.31)
 PROGRAMMING TASK 2.13
-Implement the Armijo step size control of s(a) for the projected gradient algorithm (method='armijo'. Use the Armijo parameter set β = 1/2 and σ = 0.2. As a heuristic (a) (0) for the initial step size, we choose s0 = 2s(a−1) . Choose s0 = 100 for the initial step size in the first iteration.
+Implement the Armijo step size control of s(a) for the projected gradient algorithm (method='armijo'. Use the Armijo parameter set β = 1/2 and σ =  \geq .2. As a heuristic (a) ( \geq ) for the initial step size, we choose s0 = 2s(a−1) . Choose s0 = 100 for the initial step size in the first iteration.
 PROGRAMMING TASK 2.14
 Update the plot function, to plot the results for the different step size control methods.
 TASK 2.15
@@ -744,10 +744,10 @@ Chapter 3. Linear Programming and Interior-Point Methods
 3.2.1 Standard Formulation for Linear Programming
 All linear programs can be transformed into the following standard formulation
 min cT x
-Ax = b, x ≥ 0,
+Ax = b, x ≥  \geq ,
 (3.1)
-where x, c  \in  Rn , b  \in  Rm and A is a m × n matrix. To transform a problem that is not in standard form it is sometimes necessary to include additional variables.
-A feasible point x satisfies the constraints Ax = b and x ≥ 0. All feasible points form the feasible set. A point is strictly feasible if it is feasible and x > 0.
+where x, c  \in  Rn , b  \in  Rm and A is a m  \times  n matrix. To transform a problem that is not in standard form it is sometimes necessary to include additional variables.
+A feasible point x satisfies the constraints Ax = b and x ≥  \geq . All feasible points form the feasible set. A point is strictly feasible if it is feasible and x >  \geq .
 
 TASK 3.1
 Before you read on write down the KKT conditions for the standard LP and find the formulation of the dual problem.
@@ -766,24 +766,24 @@ function [x,y,s] = linprog_cvx(c,A,b)
 Historically the first interior point algorithms that appeared were operating in the primal domain. The basic idea is to solve the approximate problem
 min cT x − τ
 log(xj )
-Ax = b, x > 0.
+Ax = b, x >  \geq .
 (3.2)
 The approximate problem is well defined on the domain of the logarithmic objective function,
-i.e., the interior {x : x > 0} of the inequality constraint set {x : x ≥ 0}.
-For τ → 0 the solution x⋆ to (3.2) approaches the solution to the primal problem (3.1). The
-central path C is the set of all x⋆ , which form a path leading to the optimal solution x⋆ . The
+i.e., the interior {x : x >  \geq } of the inequality constraint set {x : x ≥  \geq }.
+For τ →  \geq  the solution x^* to (3.2) approaches the solution to the primal problem (3.1). The
+central path C is the set of all x^* , which form a path leading to the optimal solution x^* . The
 primal IP algorithm follows the central path by solving (3.2) repeatedly and reducing τ by a
 constant factor in each step, where the result from the previous optimization is used as a starting
 point for the next one.
-The KKT conditions for a solution x = x⋆ of (3.2) are given by
-AT y + τ X −1 1 − c = 0,
-Ax − b = 0,
+The KKT conditions for a solution x = x^* of (3.2) are given by
+AT y + τ X −1 1 − c =  \geq ,
+Ax − b =  \geq ,
 (3.3)
-x > 0,
+x >  \geq ,
 where X is a diagonal matrix with the elements of x as entries along the diagonal and 1 is a
 vector of all ones. This can also be restated as a mapping FP from Rn+m to Rn+m
-FP (x, y) = 0,
-x > 0.
+FP (x, y) =  \geq ,
+x >  \geq .
 (3.4)
 To find the solution to (3.4), we use the iterative Newton method. For an estimate (x, y) of the
 optimal solution, the search direction (∆x, ∆y) is given by the solution of
@@ -798,18 +798,18 @@ b − Ax
 The new estimate is
 (x, y) + α(∆x, ∆y).
 (3.7)
-The step size alpha α  \in  (0, 1] has to be chosen such that the condition x > 0 is always satisfied,
+The step size alpha α  \in  ( \geq , 1] has to be chosen such that the condition x >  \geq  is always satisfied,
 e.g.
 ,1 .
 (3.8)
-α = 0.99995 min
-j:∆xj <0 −∆xj
+α =  \geq .99995 min
+j:∆xj < \geq  −∆xj
 There are more sophisticated dynamic choices for the step size []. For simplicity we stick to
 the one in (3.8) throughout this chapter.
 Note that the solution does not have to be calculated exactly for each iteration of the Newton
 algorithm. In fact, it is also possible to do one iteration of the Newton algorithm for one iteration
 of the IP algorithm.
-After each iteration of the IP algorithm τ is multiplied with a constant β  \in  (0, 1).
+After each iteration of the IP algorithm τ is multiplied with a constant β  \in  ( \geq , 1).
 TASK 3.3
 Think about the following questions:
 • Why can we not choose a very small initial τ to directly calculate close to optimal
@@ -819,14 +819,14 @@ PROGRAMMING TASK 3.4
 Write an IP algorithm based on the description in this section. Use (3.6) to calculate the
 search directions and (3.8) to calculate the step size α. Choose an appropriate β for the
 update of τ and an appropriate termination criterion based on the parameter τ (terminate
-when τ < ζ ). For initial estimates of the variables use x = 1 and y = 0.
+when τ < ζ ). For initial estimates of the variables use x = 1 and y =  \geq .
 1 Deliverables (matlab code file): IPPrimal.m
 function [x,y] = IPPrimal(c,A,b,beta,tau,zeta)
 • beta: optional parameter that controls the progression of the algorithm (default:
-β = 0.5)
+β =  \geq .5)
 • tau: optional parameter defining a starting value for τ (default: τ = 1)
 • zeta: optional parameter controlling the termination of the algorithm (default: ζ =
-0.0001)
+ \geq .0001)
 • x,y: resulting estimates of the optimal primal and dual variables
 3.2.3 Primal-Dual Interior Point Algorithm
 In this section, we develop an approach for a primal-dual IP algorithm. Let us recap some
@@ -834,9 +834,9 @@ results from duality theory.
 
 The dual problem to (3.1) is given by
 max bT y
-AT y + s = c, s ≥ 0
+AT y + s = c, s ≥  \geq 
 (3.9)
-The KKT conditions for a primal-dual optimal solution (x, y, s) = (x⋆ , y ⋆ , s⋆ ) of both (3.1)
+The KKT conditions for a primal-dual optimal solution (x, y, s) = (x^* , y ^* , s^* ) of both (3.1)
 and (3.9) are given by
 [ _v('140525141239') ](3.10)
 X and S are diagonal matrices with the elements of x and s, respectively, as entries along the
@@ -846,7 +846,7 @@ Ax = b,
 A y + s = c,
 (3.11)
 For any feasible point (x, y, s), the duality gap is given by
-d = cT x − bT y ≥ 0.
+d = cT x − bT y ≥  \geq .
 (3.12)
 The duality gap d vanishes at optimal points.
 
@@ -856,7 +856,7 @@ Find a formulation for the duality gap d(x, s) depending only on x and s. Use th
 
 [ _to('140525220122') ]
 Analogously to (3.4), we restate the (3.10) as a mapping
-F (x, y, s) = 0,
+F (x, y, s) =  \geq ,
 (3.13)
 We can calculate the search direction (∆xaff , ∆y aff , ∆z aff ) as the solution to
 [ _v('140525141041') ] (3.14)
@@ -875,18 +875,18 @@ of a parameter τ . Note that the equation system (3.15) is equivalent to (3.3),
 (3.15) lie on the central path.
 For the primal-dual IP algorithm we take Newton steps towards a point on the central path,
 which results in a faster progress compared to pure Newton steps. To describe this biased
-search direction, we introduce a centering parameter σ  \in  (0, 1) and a duality measure based
+search direction, we introduce a centering parameter σ  \in  ( \geq , 1) and a duality measure based
 on the duality gap1
 d(x, s)
 (3.16)
 With τ = σµ, we calculate the search direction as a Newton step based on the equation system
 (3.17)
-0  ∆y  =  −rb  .
+ \geq   ∆y  =  −rb  .
 σµ1 − rs
 Note that the search direction can be decomposed into
 (∆x, ∆y, ∆z) = (∆xaff , ∆y aff , ∆z aff ) + (∆xc , ∆y c , ∆z c ),
 where (∆xc , ∆y c , ∆z c ) is the centering direction which solves
-0  ∆y c  =  0  .
+ \geq   ∆y c  =   \geq   .
 σµ1
 (3.18)
 (3.19)
@@ -895,7 +895,7 @@ where (∆xc , ∆y c , ∆z c ) is the centering direction which solves
 The new estimates for the primal and dual variables are given by
 (3.20)
 (x, y, s) + α(∆x, ∆y, ∆s),
-where the step size α has to be chosen in a way such that (x, s) > 0. A possible choice is
+where the step size α has to be chosen in a way such that (x, s) >  \geq . A possible choice is
 (3.21)
 
 TASK 3.6
@@ -906,8 +906,8 @@ substitution of ∆s and ∆x, where D is a positive definite matrix.
 [ _cf('140522120705') ]
 
 PROGRAMMING TASK 3.7
-For our primal-dual IP algorithm we choose a constant centering parameter σ  \in  (0, 1). In
-each step calculate the duality measure µ, the search direction according to (3.17), with your
+For our primal-dual IP algorithm we choose a constant centering parameter σ  \in  ( \geq , 1). In
+each step calculate the duality measure  \mu , the search direction according to (3.17), with your
 results from Task 3.6, and update the current estimates of the optimal variables, considering
 the step size α. The algorithm is terminated if the duality measure drops below a predefined
 accuracy threshold ζ.
@@ -916,46 +916,46 @@ estimate remains a good choice for the adaption of the parameter τ .
 1 Deliverables (matlab code file): IPPrimalDual.m
 function [x,y,s] =
 IPPrimalDual(c,A,b,sigma,zeta)
-• sigma: optional parameter defining the centering parameter σ (default: σ = 0.5 )
+• sigma: optional parameter defining the centering parameter σ (default: σ =  \geq .5 )
 3.2.4 Predictor-Corrector Method
 Another approach is the predictor-corrector method, which is also based on the equation system
 for the primal dual method in (3.15). There are two differences to the primal-dual approach in
 the previous section. First we choose the centering parameter σ dynamically and second we use
 second order information to calculate an additional correcting direction to make faster progress
 towards the optimal points on the central path. If we have estimates (x, y, s) of the primal
-and dual variables, the optimal search directions (∆x⋆ , ∆y ⋆ , ∆s⋆ ) for a certain centering
+and dual variables, the optimal search directions (∆x^* , ∆y ^* , ∆s^* ) for a certain centering
 parameter σ are the solutions to the following nonlinear system of equations
-F (x + ∆x⋆ , y + ∆y ⋆ , s + ∆s⋆ ) =  0  ,
+F (x + ∆x^* , y + ∆y ^* , s + ∆s^* ) =   \geq   ,
 (3.22)
 which can be reformulated to
-0  ∆y ⋆  = 
+ \geq   ∆y ^*  = 
 σµ1 − rs − ∆X ∆S 1
 (3.23)
-We can see that there is a nonlinear term ∆X ⋆ ∆S ⋆ 1 on the right hand side, which does not appear when using the Newton method to calculate the search direction. [ cf. (3.17) ]
+We can see that there is a nonlinear term ∆X ^* ∆S ^* 1 on the right hand side, which does not appear when using the Newton method to calculate the search direction. [ cf. (3.17) ]
 The idea is now to calculate the actual search direction in two steps. First we calculate the affine
 scaling direction (∆xaff , ∆y aff , ∆z aff ) by solving (3.14). We use it to calculate a corrector
 component of the search direction by solving the system of equations
 (3.24)
-0  ∆y cor  = 
+ \geq   ∆y cor  = 
 −∆X aff ∆S aff 1
 Additionally, we compute the centering parameter
 (3.25)
 with
 (3.26)
-µaff is the hypothetical value of µ that would result from a step in the affine scaling direction and αaff is the step size given by (3.21) calculated for the affine scaling direction. The intuition behind this choice of σ is that, if we can do a large step in the affine scaling direction before hitting any constraint, we can choose a small centering parameter. On the other hand, if there is only a small improvement going in the affine direction before hitting a constraint, we need a larger centering parameter.
+µaff is the hypothetical value of  \mu  that would result from a step in the affine scaling direction and αaff is the step size given by (3.21) calculated for the affine scaling direction. The intuition behind this choice of σ is that, if we can do a large step in the affine scaling direction before hitting any constraint, we can choose a small centering parameter. On the other hand, if there is only a small improvement going in the affine direction before hitting a constraint, we need a larger centering parameter.
 
 With the new centering parameter σ, we can calculate the centering component of the search
 direction by solving (3.19). Actually, the combined centering-corrector component can be
 calculated by solving
 (3.27)
-0  ∆y cc  = 
+ \geq   ∆y cc  = 
 aff
 σµ1 − ∆X ∆S 1
 This gives us our search direction as
 (∆x, ∆y, ∆z) = (∆xaff , ∆y aff , ∆z aff ) + (∆xcc , ∆y cc , ∆z cc ).
 (3.28)
 As with the other IP algorithms, we update the estimates by moving along the search direction
-with a step size α according to (3.21) such that (x, s) > 0.
+with a step size α according to (3.21) such that (x, s) >  \geq .
 PROGRAMMING TASK 3.8
 Write a predictor corrector IP algorithm for a linear program. In each iteration first solve
 (3.14) for the affine scaling direction and then use it to calculate σ given by (3.25). With both
@@ -1003,16 +1003,16 @@ Figure 3.1: Example of a directed graph with nodes N = {1, . . . , 5} and arcs A
 The triple m/um /wm denotes the index, capacity, and cost coefficient of each arc.
 respectively. The incidence matrix M  \in  R5×14 of the example graph in Fig. 3.1 is given by
 +1 +1 −1
-0 −1
+ \geq  −1
  −1
-0 +1 +1 +1 +1
-0 
-M =  0 −1
-0 +1 +1 +1 +1 −1
- 0
-0 +1 +1
-0 −1 
-0 −1 +1 +1
+ \geq  +1 +1 +1 +1
+ \geq  
+M =   \geq  −1
+ \geq  +1 +1 +1 +1 −1
+  \geq 
+ \geq  +1 +1
+ \geq  −1 
+ \geq  −1 +1 +1
 (3.30)
 Note that for any connected graph the rank of the incidence matrix is |N | − 1. That is, it has
 exactly |N | − 1 linearly independent rows and columns.
@@ -1024,9 +1024,9 @@ through a capacitated network. In communication networks, the commodity is usual
 For this project, we consider the scenario with infinitely divisible commodities, which serves well as
 an approximation for most data stream and packet networks.4
 
-The following definitions are the ingredients to define a simple network flow problem: A supply and demand vector is a vector $d \in \mathbb{R}^N$  that defines for each node i the available supply of the commodity (di > 0) or the demand of the commodity (di < 0). If di = 0, then node i neither has nor need any amount of the commodity.
+The following definitions are the ingredients to define a simple network flow problem: A supply and demand vector is a vector $d \in \mathbb{R}^N$  that defines for each node i the available supply of the commodity (di >  \geq ) or the demand of the commodity (di <  \geq ). If di =  \geq , then node i neither has nor need any amount of the commodity.
 
-A flow on a graph G = (N, A) is a vector x  \in  R|A| with nonnegative entries. xm quantifies the amount of the commodity that is transported on
+A flow on a graph G = (N, A) is a vector $x  \in  R^{|A|}$ with nonnegative entries. $x_m$ quantifies the amount of the commodity that is transported on
 arc m from its tail to its head. The flow conservation law (Kirchhoff current law) states that the difference between the total outgoing flow and the total incoming flow must meet the net supply or demand at each node. It can be stated as follows:
 (3.31)
 In vector-matrix notation the flow conservation law can be equivalently stated as
@@ -1057,7 +1057,7 @@ see Sec. 3.2.1. Introduce slack variables as necessary.
 We also define the maximum flow problem as the problem of finding a (nonnegative) flow x
 that carries the maximum amount of the commodity from a source node s  \in  N to a destination
 node t  \in  N while satisfying the flow conservation law at all other nodes i  \in  N \ {s, t} with
-di = 0 and fulfilling the capacity constraint.
+di =  \geq  and fulfilling the capacity constraint.
 TASK 3.12
 Formulate the maximum flow problem with the minimum number of inequality (2|A|) and
 equality (|N | − 2 + |A|) constraints in linear programming primal standard form, see
@@ -1153,10 +1153,10 @@ There is an abstract approach to the dual formulation via the KKT-conditions and
 However, here we will give another exposition that is taken from the book of Boyd and Vandenberghe [3], where the Lagrange function is understood to penalize constraint violations and
 rewards points that fulfill constraints.
 The general convex optimization problem is
-p⋆ = min f (x)
+p^* = min f (x)
 (4.1)
-g i (x) ≤ 0,
-h (x) = 0,
+g i (x) ≤  \geq ,
+h (x) =  \geq ,
 i  \in  {1, . . . , I}
 j  \in  {1, . . . , J} .
 (4.2)
@@ -1165,55 +1165,56 @@ hj : Rd → R, j  \in  {1, . . . , J} linear. The abstract constraint set S ⊂ 
 Usually, we have S = Rd . However, for situations where we do partial dualization it is useful
 to retain the set S in the formulation, because it can serve as a container for constraints that are
 not dualized. For ease of notation, we will also use the vector notations
-g(x) ≤ 0,
-h(x) = 0
+g(x) ≤  \geq ,
+h(x) =  \geq 
 (4.3)
 Chapter 4. Lagrangian Duality and Solution Methods for Dual Problems
 which are to be understood as component-wise (in-)equalities. We introduce the equivalent
 optimization problem
 I0 (hj (x))
 I− (g i (x)) +
-p⋆ = min f (x) +
+p^* = min f (x) +
 (4.4)
 I− (z) =
-if z ≤ 0,
+if z ≤  \geq ,
 + ∞, else
 I0 (z) =
-if z = 0,
+if z =  \geq ,
 + ∞, else.
 (4.5)
 We replace I− and I0 by linear underestimators
 λz ≤ I− (z),
-∀ z  \in  R, \lambda ≥ 0
+∀ z  \in  R, \lambda ≥  \geq 
 µz ≤ I0 (z),
 (4.6)
-The severity of the penalty terms depends on the magnitude of \lambda and µ. We define the dual
-function as the solution of the relaxed minimization problem for given penalty parameters µ
-and \lambda ≥ 0,
-µj hj (x).
-λi g i (x) +
-ϕ(\lambda, µ) = inf f (x) +
-(4.7)
-The augmented objective function is known as the Lagrange function,
-L(x, \lambda, µ) = f (x) + λT g(x) + µT h(x),
-(4.8)
-where we introduced vector notation to get rid of the cumbersome sum-notation. With these
-definitions, the dual problem is defined as
-\lambda \in RI , µ \in RJ
-ϕ(\lambda, µ)
+The severity of the penalty terms depends on the magnitude of \lambda and  \mu . 
 
-s. t. \lambda ≥ 0.
-(4.9)
+
+###The dual function
+We define the dual function as the solution of the relaxed minimization problem for given penalty parameters  $\mu$ and $\lambda \geq 0$,
+![(4.7)](140603221634.png)
+
+
+###The Lagrange function
+>The augmented objective function is known as the Lagrange function,
+![()](140603221853.png)
+
+where we introduced vector notation to get rid of the cumbersome sum-notation. 
+
+###The dual problem
+With these definitions, the dual problem is defined as
+![(4.9)](140603221314.png)
+
 The term duality refers to the fact that a convex minimization problem is replaced by an equivalent concave maximization problem. That both problems are equivalent is the important result
 from duality theory:
-Theorem 4.0.1: Strong Duality Theorem
+Theorem 4. \geq .1: Strong Duality Theorem
 If the convex optimization problem (4.1) satisfies certain regularity conditions (for example,
 Slater’s condition, see [3]), then the dual function as defined in (4.7) is concave and the primal
 and dual optimization problems are equivalent in the sense that
 (4.10)
 Furthermore, we have
-ϕ(\lambda, µ) ≤ f (x)
-∀ x  \in  S ∩ X and µ  \in  RJ , \lambda  \in  RI , \lambda ≥ 0.
+ϕ(\lambda,  \mu ) ≤ f (x)
+∀ x  \in  S ∩ X and  \mu   \in  RJ , \lambda  \in  RI , \lambda ≥  \geq .
 (4.11)
 From a conceptual viewpoint, duality theory has been succesfully used in communications
 engineering to analyze layered network protocols [4]. It has been shown that, for example, the
@@ -1245,79 +1246,74 @@ transmission rate and where the achievable rate in the network is given as the s
 problem.
 In our examples, the layering is achieved by dualizing the capacity constraints x ≤ u, which
 allows us to decompose the overall problem into simpler problems as we shall see presently.
-The network utility maximization with variable arc capacities is given by
-[ _v('140531160014') ] (4.12)
-For the optimization problem to be convex we need a concave utility function U (s). The scalar s
-is usually the information rate, i. e., c selects the rate injected by the source node. The capacity
-region C is assumed to be convex, which can in practice be justified by using time-sharing
-arguments: for two points u1 , u2  \in  C a point λu1 + (1 − \lambda)u2 can be achieved by using
-the resource allocation u1 for \lambda percent of the total time and using u2 the remaining (1 − \lambda)
-percent of the time. Finally, the matrix M ′  \in  {−1, 0, +1}(N −2)×|A| , N the number of nodes
-and |A| the number of arcs, is the reduced node-arc-incidence matrix that has an entry −1 at
-position (i, j) if arc j enters node i, +1 if arc j leaves node i and 0 if arc j neither enters nor
-leaves node i.
+
+###Example problem
+>The network utility maximization with variable arc capacities is given by
+![(4.12)](140531160014.png)
+For the optimization problem to be convex we need a concave utility function $U(s)$. The scalar $s$ is usually the information rate, i. e., $c$ selects the rate injected by the source node.
+
+The capacity region C is assumed to be convex, which can in practice be justified by using time-sharing arguments: for two points u1 , u2  \in  C a point λu1 + (1 − \lambda)u2 can be achieved by using the resource allocation u1 for \lambda percent of the total time and using u2 the remaining (1 − \lambda)
+percent of the time. Finally, the matrix $M'$  \in  \{−1,  \geq , +1}(N −2)  \times |A| , N the number of nodes and |A| the number of arcs, is the reduced node-arc-incidence matrix that has an entry −1 at position (i, j) if arc j enters node i, +1 if arc j leaves node i and  \geq  if arc j neither enters nor leaves node i.
+
 TASK 4.1
 What is the difference between (4.12) and the network flow problems in Chapter 3.
 4.2 Dual Decomposition
 We will use a partial dual decomposition technique for the capacity constraints only. To this
 end, we define a container for the remaining constraints such that the optimization problem
 becomes
-(s,x) \in  S,u \in C
-(4.13)
-(s, x)  \in  R × R≥0 :
-s = cT x, M ′ x = 0
-(4.14)
+
+###Reformulation
+>![(4.13)](140606085643.png)
+with
+![(4.14)](140606085415.png)
+
 The Lagrangian of this optimization problem reads
 L(s, x, u, \lambda) = U (s) + λT (u − x),
 (4.15)
 where we took into account the fact that instead of a convex minimization problem we have a concave maximization problem.
-\todo{Does that mean we have $g(x) \geq 0$?}
+\todo{Does that mean we have $g(x) \geq  \geq $?}
 
 The dual function D(\lambda) is the supremum of the Lagrangian
-with respect to the primal variables (s, x, u) for given dual variables \lambda ≥ 0, i. e.,
+with respect to the primal variables (s, x, u) for given dual variables \lambda ≥  \geq , i. e.,
 D(\lambda) =
 (s,x)  \in S,u \in C
 U (s) + λT (u − x).
 (4.16)
-The supremum of this sum can be written as the sum of suprema, because the constraints for
-u and (s, x) are no longer coupled after we removed x ≤ u from the constraint set, hence
-[ _v('140531160015') ] (4.17)
-The dual function is decomposed into two parts that can be evaluated independently. Simple
-evaluation of the dual function requires the solution of two optimization subproblems that are
-easier to solve than the original (primal) optimization problem. The first term in (4.17) is
-known as the network layer subproblem and is generally easy to solve, for example with the
-methods developed in Chapter 3 to solve the minimum arc-cost single-commodity flow problem adjusted for the concave utility function U . The terminology refers to the OSI model for
-network protocols and the flow parameters x and s are usually situated in the network layer of
-the OSI model.
-The second term in (4.17) is commonly referred to as the physical layer subproblem, because
-the optimal arc capacities u correspond to physical layer parameters as for example transmit
-power covariance matrices or scheduling coefficients.
-The dual variables \lambda can be interpreted as link costs. From duality theory we know that λa > 0
-if the capacity constraint for link a is active. In this case, we say that there is demand of size
-λa for link a. The physical layer subproblem will allocate resources with a preference for links
-with high demand, because the demands are positive weights of the objective function. On the
-other hand, in the network layer subproblem allocation of flows to links a with high demands
-is penalized by the same amount λa and flow solutions that attribute large flows to links with
-small demands are preferred. The dual problem
-min D(\lambda)
-\lambda≥0
-(4.18)
+
+
+##The dual function
+The supremum of this sum can be written as the sum of suprema, because the constraints for $u$ and $(s, x)$ are no longer coupled after we removed $x \leq u$ from the constraint set, hence
+![(4.17)](140531160015.png)
+
+The dual function is decomposed into two parts that can be evaluated independently. Simple evaluation of the dual function requires the solution of two optimization subproblems that are easier to solve than the original (primal) optimization problem. The first term in (4.17) is known as the network layer subproblem and is generally easy to solve, for example with the
+methods developed in Chapter 3 to solve the minimum arc-cost single-commodity flow problem adjusted for the concave utility function U.
+
+The terminology refers to the OSI model for network protocols and the flow parameters x and s are usually situated in the network layer of the OSI model.
+
+The second term in (4.17) is commonly referred to as the physical layer subproblem, because the optimal arc capacities u correspond to physical layer parameters as for example transmit power covariance matrices or scheduling coefficients.
+
+jThe dual variables \lambda can be interpreted as link costs. From duality theory we know that λa >  \geq  if the capacity constraint for link a is active. In this case, we say that there is demand of size λa for link a. The physical layer subproblem will allocate resources with a preference for links with high demand, because the demands are positive weights of the objective function. On the other hand, in the network layer subproblem allocation of flows to links a with high demands is penalized by the same amount λa and flow solutions that attribute large flows to links with small demands are preferred. 
+
+###The dual problem
+![(4.18)](140605113410.png)
+
 can be understood as finding an equilibrium demand vector \lambda.
+
 The concept of any dual algorithm is to iteratively evaluate the dual function and update the
-dual variables until a solution \lambda⋆ of the dual problem is found. A primal feasible configuration
-s⋆ , x⋆ , u⋆ can be found by methods for primal recovery as will be explained in Section 4.6. Algorithm 1 illustrates the general concept of an algorithm. The dual variable update rules along
+dual variables until a solution \lambda^* of the dual problem is found. A primal feasible configuration
+s^* , x^* , u^* can be found by methods for primal recovery as will be explained in Section 4.6. Algorithm 1 illustrates the general concept of an algorithm. The dual variable update rules along
 with convergence criteria are discussed in Sections 4.3 and 4.4. Primal recovery is covered in
 Section 4.6.
-Initialize ǫ > 0, λ1 , ℓ = 1
+Initialize ǫ >  \geq , λ1 , l = 1
 while not converged do
-s⋆ , x⋆ ← arg max U (s) − λT x : s = cT x, M ′ x = 0, x ≥ 0
+s^* , x^* ← arg max U (s) − λT x : s = cT x, M ′ x =  \geq , x ≥  \geq 
 s \in R,x \in R|A|
 ← arg max λT u : u  \in  C
 u \in R|A|
-d+ ← U (s⋆ ) − λT (xℓ − u⋆ )
-sℓ , xℓ , uℓ ← primal recovery
-\lambdaℓ+1 ← dual variable update
-ℓ=ℓ+1
+d+ ← U (s^* ) − λT (xl − u^* )
+sl , xl , ul ← primal recovery
+\lambdal+1 ← dual variable update
+l=l+1
 check convergence
 Algorithm 1: Dual Algorithm
 4.3 Subgradient Method
@@ -1331,23 +1327,24 @@ Despite all these apparent drawbacks, the subgradient method enjoys the same pop
 dual optimization problems as does the gradient descent algorithm for differentiable problems.
 A strong argument for subgradient methods is that they often allow for a semi-distributed solution, where the dual problem is solved distributed but dual variables need to be exchanged in
 every iteration, see for example [5].
-We denote by s⋆ , x⋆ and u⋆ the maximizing arguments in (4.17) for given dual variables \lambdaℓ .
-They are obtained from algorithms used to solve the inner optimization problems. The dual
-function value then reads
-D(\lambdaℓ ) = U (s⋆ ) − \lambdaℓ x⋆ + \lambdaℓ u⋆
-(4.19)
-and a subgradient of D at \lambdaℓ is given by [8]
+We denote by s^* , x^* and u^* the maximizing arguments in (4.17) for given dual variables \lambdal .
+They are obtained from algorithms used to solve the inner optimization problems. 
+
+The dual function value then reads
+![(4.19)](140606092718.png)
+
+and a subgradient of D at \lambdal is given by [8]
 [ _to('140531164618') ]
 By choosing $\alpha$ by means of a stepsize rule that guarantees convergence, the subgradient
 method for the dual variable update is
-$\lambda_{l+1} = \max(\lambda_l - \alpha_l(u_l^* - x_l*), 0)$ (4.20)
+$\lambda_{l+1} = \max(\lambda_l - \alpha_l(u_l^* - x_l*),  \geq )$ (4.20)
 where the maximum is taken component-wise and implements an orthogonal projection onto
-the set \lambda  \in  R|A| : \lambda ≥ 0 . It is relatively easy to show, that all stepsize rules with
-and αl → 0 lead to convergent algorithms. It is common to use
+the set \lambda  \in  R|A| : \lambda ≥  \geq  . It is relatively easy to show, that all stepsize rules with
+and αl →  \geq  lead to convergent algorithms. It is common to use
 (4.21)
-a + bℓ
+a + bl
 where a and b are used to exert some control on the initial steps. Most of the time one simply
-puts a = 0, b = 1. Consequently, subgradient algorithms are oftentimes prohibitively slow to
+puts a =  \geq , b = 1. Consequently, subgradient algorithms are oftentimes prohibitively slow to
 converge.
 PROGRAMMING TASK 4.2
 We will implement the subgradient algorithm described above for the utility function
@@ -1358,21 +1355,24 @@ C = u  \in  R|A| : u ≤ 1 .
 and a generic physical layer
 In order to focus on the subgradient algorithm, we provide a function pl(lambda) in the
 file pl.m that returns
-(4.24)
-u⋆ = arg max λT u : u  \in  C
+
+###Solution of the physical layer subproblem
+![(4.24)](140605114818.png)
+
 and a function nl(M,terminal,source,lambda) in the file nl.m that returns
-(s⋆ , x⋆ ) = arg max
-U (s) − λT x : s = cT x, M ′ x = 0, x ≥ 0
-(4.25)
+
+###Solution of the networklayer subproblem
+![(4.25)](140605114704.png)
+
 for given dual variables \lambda and a given (full) node-arc incidence matrix M , source node
 source and terminal node terminal. The vector c used is a vector of all zeros with a
 one at the index corresponding to the source node.
 The file networkflow_subgradient.m provides a template for the subgradient implementation. Complete the subgradient algorithm. The final primal solution found by the
-subgradient algorithm (s⋆ , xℓ , u⋆ ) does not, in general, correspond to the primal optimal
+subgradient algorithm (s^* , xl , u^* ) does not, in general, correspond to the primal optimal
 solution. However, because the physical layer subproblem is strictly convex, one can show
-that the iterates u⋆ converge to the primal optimal solution u⋆ .
-Use the final iterate u⋆ to compute an optimal utility function value and flow of the maxℓ
-flow problem with fixed physical layer u⋆ . Use the provided cvx template at the bottom of
+that the iterates u^* converge to the primal optimal solution u^* .
+Use the final iterate u^* to compute an optimal utility function value and flow of the maxl
+flow problem with fixed physical layer u^* . Use the provided cvx template at the bottom of
 the file. Note that this is the problem you solved in Chapter 3 with the linear utility replaced
 by a log-utility function. Use a plot of the value of the dual function over the iterations to
 check convergence. Is there a better way to check for convergence?
@@ -1403,7 +1403,7 @@ D(\lambda) ≥ D(λk ) + ξk (\lambda − λk )
 (4.26)
 holds for all pairs (λk , ξk ), ξk  \in  ∂D(λk ) and, as a consequence, one can even take the maximum over a finite number of such equations,
 D(\lambda) ≥ max
-1≤k≤ℓ
+1≤k≤l
 D(λi ) + ξk (\lambda − λk )
 ∀ \lambda  \in  R|A| .
 (4.27)
@@ -1411,64 +1411,67 @@ The cutting plane method uses such a piecewise linear outer approximation of the
 and minimizes the approximation instead of the original dual function. In the context of the
 cutting plane algorithm, the subgradients ξk are called (hyper-)planes or simply cuts, because
 the subgradients can be visualized as hyperplanes that are tangent to the epigraph of D.
-The replacement problem of (4.9) is called the cutting plane Master Problem: at iteration ℓ
+
+###Master problem
+>The replacement problem of (4.9) is called the cutting plane Master Problem: at iteration $l$
 solve
-d⋆ = min Dℓ (\lambda),
-(4.28)
-Dℓ (\lambda) = max
-D(λk ) + ξk (\lambda − λk )
-(4.29)
-is the ℓ-th cutting plane outer approximation of the dual function. Let \lambdaℓ be the solution of
+![(4.28)](140603215950.png)
+where
+![(4.29)](140603220012.png)
+is the l-th cutting plane outer approximation of the dual function.
+
+Let \lambdal be the solution of
 (4.28). From (4.27) it follows that
-d⋆ = min Dℓ (\lambda) ≤ min D(\lambda) = p⋆ ,
+d^* = min Dl (\lambda) ≤ min D(\lambda) = p^* ,
 (4.30)
-which yields a lower bound for the optimal value p⋆ . Furthermore, it follows from the strong
-duality theorem 4.0.1 adjusted for concave maximization that
-D(\lambda) ≥ p⋆
-∀ \lambda  \in  R|A| , \lambda ≥ 0.
+\todo{Should it not be $d^*$ instead of $p^*$?}
+which yields a lower bound for the optimal value p^* . Furthermore, it follows from the strong
+duality theorem 4. \geq .1 adjusted for concave maximization that
+D(\lambda) ≥ p^*
+∀ \lambda  \in  R|A| , \lambda ≥  \geq .
 (4.31)
-As a consequence, d+ := D(\lambda⋆ ) yields an upper bound for the optimal value p⋆ . Combining
+As a consequence, d+ := D(\lambda^* ) yields an upper bound for the optimal value p^* . Combining
 both bounds and information from previous iterations we get
-dℓ ≤ p⋆ ≤ min d+ .
+dl ≤ p^* ≤ min d+ .
 (4.32)
 This “sandwiching” of the optimal value gives rise to a formidable stopping criterion for the
 algorithm: for a given relative tolerance ε the cutting plane algorithm terminates at iteration L
 with a solution that is at least within ε percent of the optimum if
-min1≤k≤L d+ − d⋆
+min1≤k≤L d+ − d^*
 (4.33)
 Note that a relative convergence criterion may not be suited for problems with solutions close
 to zero.
-As long as the convergence criterion is not met, the cutting plane model Dℓ needs to be refined.
-The usual variable update rule uses \lambdaℓ+1 = \lambda⋆ , which is rather intuitive. The subgradient
-ξℓ+1  \in  ∂D(\lambdaℓ+1 ) is added to the model and the iterations continue.
+As long as the convergence criterion is not met, the cutting plane model Dl needs to be refined.
+The usual variable update rule uses \lambdal+1 = \lambda^* , which is rather intuitive. The subgradient
+ξl+1  \in  ∂D(\lambdal+1 ) is added to the model and the iterations continue.
 Replacing the original dual optimization problem by a sequence of cutting plane master problems works well, because the master problem (4.28) is cheap to solve. By using standard
 techniques from linear programming, the master problem (4.28) can be reformulated as an LP.
 We introduce the dummy variable r and obtain
-d⋆ = min
-\lambda≥0,r \in R
+d^* = min
+\lambda≥ \geq ,r \in R
 (4.34)
 r ≥ D(λk ) + ξk (\lambda − λk ),
-∀ 1 ≤ k ≤ ℓ.
+∀ 1 ≤ k ≤ l.
 (4.35)
 One can see from this formulation that in each new iteration of the cutting plane, one constraint
 is added to the master problem. We will see in Section 4.6 that the dual of the master problem
 can be used for primal recovery, i. e., generating a set of primal variables that is close to optimal
 for the primal problem.
-As in the subgradient method, let sℓ , x⋆ and u⋆ denote the maximizing arguments in (4.17) for
-given dual variables \lambdaℓ and ξℓ = u⋆ − x⋆ a subgradient. If we plug in the dual function value
+As in the subgradient method, let sl , x^* and u^* denote the maximizing arguments in (4.17) for
+given dual variables \lambdal and ξl = u^* − x^* a subgradient. If we plug in the dual function value
 and the subgradient, we can write the constraints in (4.34) as [2]
-r ≥ U (sk ) + λT (u⋆ − x⋆ ) ,
+r ≥ U (sk ) + λT (u^* − x^* ) ,
 (4.36)
 PROGRAMMING TASK 4.3
 We will develop a cutting plane algorithm for the optimization problem described in Programming Task 4.2.
 Use the functions pl(lambda) and
 nl(M,terminal,source,lambda) as before. The node-arc incidence matrix
 can be read from incidence.mat. Use node 1 as source and node 4 as terminal. For
-the cutting plane algorithm, you can use a relative convergence criterion of ε = 0.01 (use
+the cutting plane algorithm, you can use a relative convergence criterion of ε =  \geq .01 (use
 (4.32) and (4.33)).
 The file networkflow_cuttingplane.m provides a template for the cutting plane
 algorithm. Complete the cutting algorithm and calculate a primal utility and flow solution as
-you did for the subgradient algorithm. Use the u⋆ , 1 ≤ k ≤ ℓ that correspond to the lowest
+you did for the subgradient algorithm. Use the u^* , 1 ≤ k ≤ l that correspond to the lowest
 dual function value. Note that the cutting plane algorithm does not generate a sequence of
 monotonically decreasing dual function values.
 networkflow_cvx.m. Plot the value of the dual function over iterations. Add plots with
@@ -1488,7 +1491,7 @@ with m commodities decomposes into m independent single commodity flow problems.
 multi-commodity flow problem is given by
 maximize U (s)
 subject to sc = cT xc ,
-0≤
+ \geq ≤
 c  \in  {1, . . . , m}
 (4.37)
 which looks similar to (4.13) except that s now has multiple components and there is a separate
@@ -1502,7 +1505,7 @@ U (s) =
 in order to achieve the separation of the network layer hinted to above. One example would be
 to choose a weighted sum rate utility function
 (4.39)
-with positive weights wc > 0. Another possibility is the proportional fairness utility function
+with positive weights wc >  \geq . Another possibility is the proportional fairness utility function
 wc log(sc ).
 (4.40)
 One can show that the dual function associated with the multi-commodity flow problem (4.37)
@@ -1510,15 +1513,15 @@ and dualized capacity constraints is given by
 U (s) −
 (4.41)
 m·|A|
-(s, x)  \in  Rm × R≥0
+(s, x)  \in  Rm  \times  R≥ \geq 
 : ∀ c  \in  {1, . . . , m}
-sc = cT xc , Mc xc = 0
+sc = cT xc , Mc xc =  \geq 
 (4.42)
 The network layer subproblem can be separated into m single-commodity subproblems as
 (s,x) \in  Sc
 Uc (sc ) − λT xc
 (4.43)
-(sc , xc )  \in  R × R≥0 :
+(sc , xc )  \in  R  \times  R≥ \geq  :
 (4.44)
 PROGRAMMING TASK 4.4
 We will modify both algorithms such that they can handle multi-commodity flow problems.
@@ -1540,21 +1543,21 @@ one with node 1 as source and node 4 as terminal and one with node 5 as source a
 We recall the convex primal optimization problem
 min f (x)
 (4.46)
-hj (x) = 0,
+hj (x) =  \geq ,
 j  \in  {1, . . . , J}
 (4.47)
 and the dual optimization problem
-\lambda \in RI ,µ \in RJ
-s. t. λi ≥ 0,
+\lambda \in RI , \mu  \in RJ
+s. t. λi ≥  \geq ,
 i  \in  {1, . . . , I} ,
 (4.48)
 where ϕ was given by
-ϕ(\lambda, µ) = inf f (x) + λT g(x) + µT h(x).
+ϕ(\lambda,  \mu ) = inf f (x) + λT g(x) + µT h(x).
 (4.49)
 Convergence of the dual optimization algorithm means
-ϕ(\lambdaℓ , µℓ ) → ϕ∗ = f ∗ ,
+ϕ(\lambdal , µl ) → ϕ∗ = f ∗ ,
 (4.50)
-where the equality is due to strong duality and the sequence (\lambdaℓ , µℓ ) may have to be replaced
+where the equality is due to strong duality and the sequence (\lambdal , µl ) may have to be replaced
 by a subsequence. This means that we can infer the optimal function value from the iterates
 of dual function values. However, the dual variables do not contain information about the
 primal variables that achieve optimality. This would be a serious drawback if there were no
@@ -1563,64 +1566,64 @@ interest to know how optimality can be achieved and not what the optimal value i
 in power minimization with respect to quality of service constraints, one would like to know
 how to allocate powers. In rate-optimal scheduling one is primarily interested in knowing the
 optimal schedule and the optimal rate only has informative value.
-Either by evaluating the dual function (4.7) or its subgradient will any dual optimization algorithm generate a sequence (xℓ )ℓ \in N of primal variables and most of the time it is not computationally expensive to evaluate f (xℓ ), g(xℓ ), and h(xℓ ): these are usually linear combinations
-of subgradients and dual function values. Thus, we assume that at iteration ℓ the available
+Either by evaluating the dual function (4.7) or its subgradient will any dual optimization algorithm generate a sequence (xl )l \in N of primal variables and most of the time it is not computationally expensive to evaluate f (xl ), g(xl ), and h(xl ): these are usually linear combinations
+of subgradients and dual function values. Thus, we assume that at iteration l the available
 information produced by the dual algorithm is
-Iℓ = (xk , λk , µk , fk , gk , hk , ϕk )1≤k≤ℓ
+Il = (xk , λk , µk , fk , gk , hk , ϕk )1≤k≤l
 (4.51)
 where fk = f (xk ) etc. Primal recovery is concerned with the calculation of a feasible set
 of primal variables that yields a good (near optimal) function value. As the primal variables
-(xℓ )ℓ \in N produced by the dual algorithm need not be feasible, we augment the information with
-an interior (Slater) point x0 with g i (x0 ) < 0, hj (x0 ) = 0 and arbitrary λ0 , µ0 , ϕ0 . In many
-cases 0  \in  X and f (0) = 0 and the augmentation is trivial. In other cases, augmentation can
+(xl )l \in N produced by the dual algorithm need not be feasible, we augment the information with
+an interior (Slater) point x0 with g i (x0 ) <  \geq , hj (x0 ) =  \geq  and arbitrary λ0 , µ0 , ϕ0 . In many
+cases  \geq   \in  X and f ( \geq ) =  \geq  and the augmentation is trivial. In other cases, augmentation can
 be performed by means of a feasibility test as described in xx.
 4.6.1 General Primal Recovery
-There is a canonical way to obtain a feasible point xn from the available information Iℓ , which
+There is a canonical way to obtain a feasible point xn from the available information Il , which
 we will describe in the following. See also the book of Bazaraa [1] for an in-depth account. Let
-use define the ℓ-dimensional unit simplex
-α  \in  Rℓ+1 :
-αk = 1, αk ≥ 0, k  \in  {0, . . . , ℓ}
+use define the l-dimensional unit simplex
+α  \in  Rl+1 :
+αk = 1, αk ≥  \geq , k  \in  { \geq , . . . , l}
 (4.52)
 By convexity of f we know that
 (4.53)
 The same is true for the convex constraints g i . Note also that by linearity of hj we have
 (4.54)
-We also know that the intersection of the convex hull of the primal variables (xk )0≤k≤ℓ with
+We also know that the intersection of the convex hull of the primal variables (xk ) \geq ≤k≤l with
 the feasible set is non-empty,
-conv {xk : k = 0, . . . , ℓ} ∩ X = ∅,
+conv {xk : k =  \geq , . . . , l} ∩ X = ∅,
 (4.55)
 because x0  \in  X. In fact, this is the only reason for augmenting the information with x0 .
 The following linear program gives a reasonable approximation of the primal solution.
-αk gk ≤ 0,
+αk gk ≤  \geq ,
 (4.56)
-αk hk = 0,
+αk hk =  \geq ,
 (4.57)
 Intuitively, a primal feasible solution can be obtained by setting α0 = 1, because x0 was chosen
 feasible. However, f (x0 ) will be far from the optimal value, in general. One would now select
 another point xk , which is probably infeasible, but has a better (smaller) function value f (xk ).
-If, in addition, h(xk ) = 0 and if the g i (xk ) are small, one can choose αk just so large that
+If, in addition, h(xk ) =  \geq  and if the g i (xk ) are small, one can choose αk just so large that
 (1 − αk )x0 + αk xk hits the boundary of X, i. e., as soon as some (1 − αk )g i (x0 ) + αk g i (xk )
 becomes zero. The function value f ((1 − αk )x0 + αk xk ) will be an improvement over the
 “safe” value f (x0 ), because of (4.53).
 4.6.1.1 Implementation for Multi-Commodity Flow Problem
 Any of the two algorithms developed above generate a sequence of primal optimal variables
-x⋆ , u⋆ , s⋆ that may, however, be infeasible with respect to the capacity constraints. The multiℓ ℓ
-commodity utility maximization problem (4.37) always has x = 0 as a feasible point and it is
+x^* , u^* , s^* that may, however, be infeasible with respect to the capacity constraints. The multil l
+commodity utility maximization problem (4.37) always has x =  \geq  as a feasible point and it is
 interior with respect to the capacity constraints (we assume that there is a set of physical layer
 parameters that achieve non-zero capacity on all links simultaneously). The primal objective
-function values are Uℓ = U (s⋆ ) and the values of the inequality constraint functions are
+function values are Ul = U (s^* ) and the values of the inequality constraint functions are
 i  \in  {1, . . . , |A|} .
 (4.58)
 With the adaptions necessary to proceed from convex minimization to concave maximization,
 the general primal recovery problem can be stated as
-αk gk ≥ 0,
+αk gk ≥  \geq ,
 i  \in  {1, . . . , |A|}
 (4.59)
-with U0 = 0, x0 = 0 and g0 = 0
+with U0 =  \geq , x0 =  \geq  and g0 =  \geq 
 PROGRAMMING TASK 4.5
 We will develop a general primal recovery routine that takes a set of (infeasible) primal
 variables with associated utility function and constraint values as input and computes feasible primal variables as described above for the multi-commodity flow problem. Use
-the file primal_recovery.m with function definition [alpha,x,u,util] = primal_recovery(X,U,S). Use x0 = 0, s0 = 0, u0 = 0, U (x0 ) = 0 to augment the set
+the file primal_recovery.m with function definition [alpha,x,u,util] = primal_recovery(X,U,S). Use x0 =  \geq , s0 =  \geq , u0 =  \geq , U (x0 ) =  \geq  to augment the set
 of primal variables with a “safe” feasible point.
 Use (4.59) and (4.58) to find the optimal primal recovery for the given input variables. Remember that the result of the general primal recovery LP gives a lower bound on the utility
 function value and not the actual utility function value (cf. 4.53). Use the LP solver developed in Chapter 3 for the primal recovery LP. (You can use cvx for comparison.)
@@ -1645,76 +1648,76 @@ primal_recovery(X,U,S)
 If the cutting plane algorithm is used to solve (4.48), the primal recovery solution from (4.56)
 is computed automatically! We will see why this is so in the following.
 The Lagrangian is:
-L(x, \lambda, µ) = f (x) + λT g(x) + µT h(x)
+L(x, \lambda,  \mu ) = f (x) + λT g(x) + µT h(x)
 (4.60)
-ϕ(\lambda, µ) = inf L(x, \lambda, µ)
+ϕ(\lambda,  \mu ) = inf L(x, \lambda,  \mu )
 (4.61)
 and the dual function is
-The cutting plane model after ℓ iterations is
-ϕℓ (\lambda, µ) = min ϕ(λk , µk ) + ξk (\lambda − λk ) + ζk (µ − µk )
+The cutting plane model after l iterations is
+ϕl (\lambda,  \mu ) = min ϕ(λk , µk ) + ξk (\lambda − λk ) + ζk ( \mu  − µk )
 (4.62)
-where ξk  \in  ∂\lambda ϕ(λk , µk ) and ζk  \in  ∂µ ϕ(λk , µk ) are partial subgradients. We choose ξk =
+where ξk  \in  ∂\lambda ϕ(λk , µk ) and ζk  \in  ∂ \mu  ϕ(λk , µk ) are partial subgradients. We choose ξk =
 g(xk ) and ζk = h(xk ) as partial subgradients where xk are the primal variables obtained when
 evaluating the dual function (4.49), i. e., the infimum in (4.49) at (λm , µm ) is attained for xm .
-The cutting plane master problem, which is solved at the ℓ-th iteration, is
-max ϕℓ (\lambda, µ)
-s. t. \lambda ≥ 0
+The cutting plane master problem, which is solved at the l-th iteration, is
+max ϕl (\lambda,  \mu )
+s. t. \lambda ≥  \geq 
 (4.63)
 and this can be rewritten as LP,
 − min −r
-s. t. \lambda ≥ 0,
+s. t. \lambda ≥  \geq ,
 (4.64)
-r ≤ ϕ(λm , µm ) + ξk (\lambda − λk ) + ζk (µ − µk )
+r ≤ ϕ(λm , µm ) + ξk (\lambda − λk ) + ζk ( \mu  − µk )
 (4.65)
 We will now show that the dual problem of this cutting plane problem is exactly the general
 primal recovery problem (4.56). First, we write the Lagrangian of this LP as
-Γ (r, \lambda, µ, α) = −r +
-αk r − ϕ(λk , µk ) − ξk (\lambda − λk ) − ζk (µ − µk )
+Γ (r, \lambda,  \mu , α) = −r +
+αk r − ϕ(λk , µk ) − ξk (\lambda − λk ) − ζk ( \mu  − µk )
 = r −1 +
 (4.67)
 αk −ϕ(λk , µk ) + ξk λk + ζk µk
 (4.66)
 (4.68)
-ψ(α) = inf Γ (r, µ, \lambda, α)
+ψ(α) = inf Γ (r,  \mu , \lambda, α)
 (4.69)
-By inspecting the first term in (4.66) we see that ψ(α) = −∞ if ℓ αk = 1. From the
-second term we conclude that ψ(α) = −∞ if k=1 αk ξk > 0 (componentwise and because
-\lambda ≥ 0) and from the third term we deduce that ψ(α) = −∞ if ℓ αk ξk = 0. Hence, we
+By inspecting the first term in (4.66) we see that ψ(α) = −∞ if l αk = 1. From the
+second term we conclude that ψ(α) = −∞ if k=1 αk ξk >  \geq  (componentwise and because
+\lambda ≥  \geq ) and from the third term we deduce that ψ(α) = −∞ if l αk ξk =  \geq . Hence, we
 do not change the dual problem if we impose constraints on the dual variables α such that the
 dual problem of the cutting plane master problem becomes
-α≥0 r,µ,\lambda
+α≥ \geq  r, \mu ,\lambda
 αk = 1,
 (4.70)
-αk ξk ≤ 0,
+αk ξk ≤  \geq ,
 (4.71)
-αk ζk = 0.
-max inf Γ (r, µ, \lambda, α)
+αk ζk =  \geq .
+max inf Γ (r,  \mu , \lambda, α)
 (4.72)
 On this constraint set the Lagrange function Γ can be simplified as
 Γ (r, \lambda, α) = −
 αk −ϕ(λk , µk ) + ξk λk + ζk µk .
 (4.73)
-The terms involving r and µ have vanished because of the constraints. The infimum for the
-≥ 0.
-term involving \lambda is trivially assumed for \lambda = 0, because \lambda ≥ 0 and −
+The terms involving r and  \mu  have vanished because of the constraints. The infimum for the
+≥  \geq .
+term involving \lambda is trivially assumed for \lambda =  \geq , because \lambda ≥  \geq  and −
 k=1 αk ξk
 Hence, the simplified (but equivalent) dual problem reads
 (4.74)
 (4.75)
 (4.76)
-α≥0
+α≥ \geq 
 (4.77)
 We now recall that the subgradients are ξk = g(xk ) and ζk = h(xk ) and the dual function ϕ is
 ϕ(λk , µk ) = f (xk ) + λT ξk + µT ζk , so that (4.74) can be rewritten as
 αk f (xk )
 (4.79)
-αk g(xk ) ≤ 0,
+αk g(xk ) ≤  \geq ,
 (4.80)
-αk h(xk ) = 0.
+αk h(xk ) =  \geq .
 (4.78)
 (4.81)
 which we recognize as the primal recovery problem (4.56). In summary, the primal recovery
-for the cutting plane method at iteration ℓ is
+for the cutting plane method at iteration l is
 (4.82)
 where the coefficients αk are the dual variables of the cutting plane master problem at iteration
 PROGRAMMING TASK 4.6
@@ -1731,7 +1734,7 @@ Theorem 4.6.1: Subgradient Ergodic Primal Recovery
 Let xk be the primal variables generated by the subgradient algorithm. Then
 x = lim
 (4.83)
-exists, is feasible, and f (x⋆ ) = minx \in S f (x) s. t. x  \in  X.
+exists, is feasible, and f (x^* ) = minx \in S f (x) s. t. x  \in  X.
 PROGRAMMING TASK 4.7
 Complete the function primal_recovery_subgradient(X,U,S) in the file
 primal_recovery_subgradient.m with the infeasible primal recovery described above. Add the infeasible primal recovery to the subgradient algorithm in
@@ -1812,20 +1815,20 @@ Here, c, x denotes the inner product between the constant c and the optimization
 x. Note that if c, x  \in  Rn , then c, x = cT x. To analyze problem (5.1), the constraint set X
 usually has to be described with convex inequality constraints and affine equality constraints.
 The traditional way is to provide a list of inequalities and affine equations of the form
-gi (x) ≤ 0, ∀i  \in  {1, . . . , ℓ},
-aj , x − bj = 0, ∀j  \in  {1, . . . , m},
-where each of the ℓ functions gi : Rn → R is convex. This guarantees the convexity of X as
+gi (x) ≤  \geq , ∀i  \in  {1, . . . , l},
+aj , x − bj =  \geq , ∀j  \in  {1, . . . , m},
+where each of the l functions gi : Rn → R is convex. This guarantees the convexity of X as
 the intersection of convex level sets is convex again. For conic optimization problems, a more
 elegant way to describe the feasible region consists of defining X as the intersection of an affine
 subspace and a proper cone. In fact, this is the basis for conic optimization.
 Definition. A set K ⊂ Rn is a cone if it is closed under positive scalar multiplication, i.e., if
-αx  \in  K, ∀α > 0.
+αx  \in  K, ∀α >  \geq .
 (5.2)
 We say that a cone K ⊂ Rn is a proper cone if it satisfies the following properties:
 • K is convex, i.e., it is closed under addition (x1 + x2  \in  K for all x1 , x2  \in  K),
 • K is closed, i.e., it contains its boundary,
 • K is solid, i.e., it has nonempty interior,
-• K is pointed, i.e., it contains no lines (if x  \in  K and −x  \in  K, then x = 0).
+• K is pointed, i.e., it contains no lines (if x  \in  K and −x  \in  K, then x =  \geq ).
 Every proper cone K ⊂ Rn defines a partial ordering on Rn . Associated with this partial
 ordering is the idea of generalized inequalities.
 Definition. Let K ⊂ Rn be a proper cone. The generalized inequality x K y denotes that
@@ -1838,7 +1841,7 @@ is preserved under addition, i.e., if x
 is transitive, i.e., if x
 z then x
 is preserved under nonnegative scaling, i.e., if x
-y and α ≥ 0, then αx
+y and α ≥  \geq , then αx
 is antisymmetric, i.e., if x
 y and y
 y and x
@@ -1856,12 +1859,12 @@ generalized inequalities K (≺K ) are the ordinary inequalities ≤ (<) on R. O
 proper cones and their associated generalized inequalities are
 • the nonnegative orthant Rn and the componentwise inequality:
 xi ≥ yi , ∀i  \in  {1, . . . , n};
-• the second-order cone Ln+1 = [t, xT ]T  \in  Rn+1 : x 2 ≤ t, t ≥ 0 , which is also
+• the second-order cone Ln+1 = [t, xT ]T  \in  Rn+1 : x 2 ≤ t, t ≥  \geq  , which is also
 called the Lorentz cone or the quadratic cone, and the corresponding norm inequality:
-• the semidefinite cone S+ = Q  \in  Rn×n : Q = QT , xT Qx ≥ 0, ∀x  \in  Rn , which consists of all symmetric n × n matrices that are positive semidefinite, and the associated
+• the semidefinite cone S+ = Q  \in  Rn×n : Q = QT , xT Qx ≥  \geq , ∀x  \in  Rn , which consists of all symmetric n  \times  n matrices that are positive semidefinite, and the associated
 linear matrix inequality:
 Note that this cone “lives” in the space S n = Q  \in  Rn×n : Q = QT of symmetric
-n × n matrices and that the inner product between Q and R is defined as Q, R =
+n  \times  n matrices and that the inner product between Q and R is defined as Q, R =
 tr(QR) for Q, R  \in  S n .
 5.2.2 Standard Conic Form and Related Problems
 Having defined the notions of proper cones and generalized inequalities, we are now in the
@@ -1879,7 +1882,7 @@ is an optimization problem with a linear objective function that is minimized (o
 over a polyhedral constraint set. In standard form, the polyhedral constraint set of the linear
 program is given as the intersection of the proper cone Rn and and affine subspace specified
 by a system of linear equalities:
-x ≥ 0,
+x ≥  \geq ,
 (5.4)
 where c  \in  Rn , b  \in  Rm , and A  \in  Rm×n such that rank(A) = m < n. Here, the generalized
 inequality is equivalent to the ordinary componentwise vector-inequality.
@@ -1891,7 +1894,7 @@ where c  \in  Rn , b  \in  Rm , and A  \in  Rm×n such that rank(A) = m < n. The
 includes LPs and convex quadratic programs as special cases [6].
 A class of conic optimization problems that is even more general than that of SOCPs is the
 class of semidefinite programs (SDPs). These are conic form problems that involve the proper
-cone S+ , i.e., the cone of symmetric n × n matrices that are positive semidefinite. In standard
+cone S+ , i.e., the cone of symmetric n  \times  n matrices that are positive semidefinite. In standard
 form, an SDP is expressed as
 (5.6)
 Aj , X = bj , ∀j  \in  {1, . . . , m},
@@ -1906,10 +1909,10 @@ It can be shown that the KKT conditions and the theory of Lagrangian duality can
 to conic optimization problems [2]. Assuming that a conic problem and its corresponding
 dual problem satisfy the conditions for strong duality, generalized versions of interior-point
 methods can be applied to numerically determine an optimal solution. To this end, logarithmic
-barrier functions for the constraints x ≥ 0, x L 0 and X 0 need to be introduced. These
+barrier functions for the constraints x ≥  \geq , x L  \geq  and X  \geq  need to be introduced. These
 logarithmic barriers are defined by means of generalized logarithms ψ(x).
 • For K = R+ , the generalized algorithm is of course the ordinary logarithm. Since the
-componentwise inequality x ≥ 0 can be represented by n scalar inequalities xi ≥ 0, ∀i  \in 
+componentwise inequality x ≥  \geq  can be represented by n scalar inequalities xi ≥  \geq , ∀i  \in 
 {1, . . . , n}, the generalized logarithm for the nonnegative orthant R+ can be defined as
 the sum of the logarithms of the elements of x, i.e.,
 log xi .
@@ -1918,13 +1921,13 @@ log xi .
 ized logarithm can be defined as
 [t, xT ]T  \in  Rn+1 : x
 ψ [t, xT ]T = log t2 − x
-≤ t, t ≥ 0 , the general-
+≤ t, t ≥  \geq  , the general-
 • Finally, the generalized logarithm for the semidefinite cone S+ can be defined as
 ψ(Q) = log det(Q).
 The generalized logarithm ψ for the proper cone K behaves like the ordinary logarithm along
 any ray in K. It has to satisfy several other properties like being concave and twice continuously
 differentiable which we do not elaborate on here. However, if ψ is a generalized logarithm for
-K, then φ(x) = −ψ(x) is the logarithmic barrier function for the constraint x K 0.
+K, then φ(x) = −ψ(x) is the logarithmic barrier function for the constraint x K  \geq .
 5.3 SDPT3
 SDPT3 is a software that is designed to solve semidefinite-quadratic-linear conic programming
 problems (SQLPs) whose constraint sets are given as the Cartesian products of semidefinite
@@ -1937,22 +1940,22 @@ tr(Cj Xj )
 cq,T xq − νi log ψ(xq )
 tr(As Xj ), . . . , tr(As Xj )
  \in  {1, . . . , ns },
-Aq xq + Aℓ xℓ + Au xu = b  \in  Rm ,
+Aq xq + Al xl + Au xu = b  \in  Rm ,
  \in  L , ∀i  \in  {1, . . . , nq },
 (5.8)
 Optimization problems of this kind are termed standard SQLPs in [9] and have the properties
 listed below:
 • S+j is the semidefinite cone of order sj so that Xj , j  \in  {1, . . . , ns }, denote the ns
 positive semidefinite variables; the matrices Cj , As , . . . , As must be real symmetric
-matrices of dimension sj × sj , i.e., Cj , Aj,1 , . . . , As  \in  S sj , for all j  \in  {1, . . . , ns }.
+matrices of dimension sj  \times  sj , i.e., Cj , Aj,1 , . . . , As  \in  S sj , for all j  \in  {1, . . . , ns }.
 • Lqi is the Lorentz (or second-order/quadratic) cone of order qi so that xq , i  \in  {1, . . . , nq },
 denote the nq quadratic variables; cq is a vector in Rqi and Aq  \in  Rm×qi is a constraint
 matrix associated with the i-th quadratic variable, i  \in  {1, . . . , nq }.
-• Rnℓ is the nonnegative orthant of dimension nℓ , which means that xℓ denotes the vector
-of nonnegative real (or linear) variables; cℓ is a nonnegative real vector of dimension nℓ
-and Aℓ is a real m × nℓ constraint matrix associated with xℓ .
+• Rnl is the nonnegative orthant of dimension nl , which means that xl denotes the vector
+of nonnegative real (or linear) variables; cl is a nonnegative real vector of dimension nl
+and Al is a real m  \times  nl constraint matrix associated with xl .
 • Rnu is the Euclidean space of dimension nu so that xu denotes the vector of unrestricted
-variables; cu is a real vector of dimension nu and Au is a real m × nu constraint matrix
+variables; cu is a real vector of dimension nu and Au is a real m  \times  nu constraint matrix
 associated with the vector of unrestricted variables.
 • ψ(xi ) denotes the generalized logarithm for second-order cones so that −ψ(xq ) is the
 corresponding barrier function.
@@ -1964,7 +1967,7 @@ In some cases, it is easier to set up SQLPs in SDPT3 with the dual form of (5.8)
 yk A s + Z j = C j ,
 Aq,T y + zi = cq ,
 zi  \in  L qi ,
-Aℓ,T y + z ℓ = cℓ ,
+Al,T y + z l = cl ,
 [νk log zk + νk (1 − log νk )]
 ∀j  \in  {1, . . . , ns },
 (5.9)
@@ -1982,8 +1985,8 @@ http://www.math.nus.edu.sg/~mattohkc/sdpt3.html
 and unpack the file in your simulations folder, e.g., home/user/simulations for
 a Linux system or D:/user/simulations if you are on Windows.
 • Start Matlab and change to the location of SDPT3, e.g., by typing either
-cd home/user/simulations/SDPT3−4.0 (Linux) or
-cd D:/user/simulations/SDPT3−4.0 (Windows).
+cd home/user/simulations/SDPT3−4. \geq  (Linux) or
+cd D:/user/simulations/SDPT3−4. \geq  (Windows).
 • In the Matlab command window, type
 >> Installmex
 This step may be skipped if you do not have to generate the mex files.
@@ -1992,7 +1995,7 @@ This step may be skipped if you do not have to generate the mex files.
 >> sqlpdemo
 • To save the path for subsequent Matlab sessions, you can either type savepath or
 add the corresponding SDPT3 paths to your startup file.
-Now, SDPT3 should be ready for you to use. Note that SDPT3-4.0 is built for Matlab version
+Now, SDPT3 should be ready for you to use. Note that SDPT3-4. \geq  is built for Matlab version
 7.4 or later releases, it may not work for earlier versions.
 A typical application of conic optimization in communications is the linear precoder design in
 the vector broadcast scenario, where one centralized multi-antenna transmitter serves several
@@ -2006,7 +2009,7 @@ The detailed block diagram of the considered communication system with a central
 T = [t1 , . . . , tK ]  \in  CN ×K
 (5.10)
 and transmitted over the channels h1 , . . . , hK  \in  CN to K receivers. The received signal yk
-(of receiver k) is distorted by the superimposed complex Gaussian noise ηk ∼ NC (0, σk ). That
+(of receiver k) is distorted by the superimposed complex Gaussian noise ηk ∼ NC ( \geq , σk ). That
 ti si + ηk ,
 (5.11)
 where tk and sk denote the beamformer and the data signal intended for receiver k and the
@@ -2027,7 +2030,7 @@ SINRk =
 |[HT ]k,k |2
 i=k |[HT ]k,i | + σk
 (5.14)
-where σk = E[|ηk |2 ] > 0 and [A]k,i denotes the element in the k-th row and the i-th column
+where σk = E[|ηk |2 ] >  \geq  and [A]k,i denotes the element in the k-th row and the i-th column
 of matrix A. The metric that specifies the use of system resources is the average transmitted
 power and is defined as
 (5.15)
@@ -2045,7 +2048,7 @@ power minimization with SINR lower bounds γk = 2ρk − 1, k  \in  {1, . . . , 
 Note that this problem might be infeasible. For K > N and sufficiently large ρk , it might be
 impossible to satisfy all constraints simultaneously, even though infinite transmit power can be
 used. A simple test to check whether the positive rate targets are achievable is given in [5]: if
-0 < 2−ρk ≤ 1 for all k  \in  {1, . . . , K} and additionally
+ \geq  < 2−ρk ≤ 1 for all k  \in  {1, . . . , K} and additionally
 2−ρk > K − rank{H},
 (5.18)
 then there exists a T  \in  CN ×K with finite power satisfying all rate constraints simultaneously.
@@ -2061,8 +2064,8 @@ The variable P can be understood as an upper bound on the transmit power. Minimi
 upper bound is equivalent to minimizing the average transmit power itself.
 Before reformulating (5.19) as an SOCP, note that due to the structure of the problem formulation, the argument T is not defined uniquely. The terms |[HT ]k,i |2 and tr{T H T } are
 independent with respect to a diagonal phase scaling of T from the right. That is, if T is optimal, then so is T diag(ej φ1 , . . . , ej φK ). For this reason, in the sequel it is restricted (without
-loss of generality) to terms T which have the following properties: Re{[HT ]k,k } ≥ 0 and
-Im{[HT ]k,k } = 0 for all k  \in  {1, . . . , K}. Taking this into account, the constraints of (5.19)
+loss of generality) to terms T which have the following properties: Re{[HT ]k,k } ≥  \geq  and
+Im{[HT ]k,k } =  \geq  for all k  \in  {1, . . . , K}. Taking this into account, the constraints of (5.19)
 can be recast as SOC constraints.
 The power constraint in (5.19) can be reformulated using tr{X H X} = i Xei 2 = vec(X) 2 ,
 where vec(·) is the column-stacking operator and ei denotes the i-th canonical unit vector, as
@@ -2070,13 +2073,13 @@ vec(T )
 (5.20)
 Taking the square root of both sides, this inequality is equivalent to the SOC constraint
 (5.21)
-L 0.
+L  \geq .
 The SINR constraints can also be recast as SOC constraints. For this purpose, we use the fact
 that i=k |[HT ]k,i |2 = eT HT 2 − |[HT ]k,k |2 to obtain
 |[HT ]k,k |2 ≥ T H H H ek
 k  \in  {1, . . . , K}.
 (5.22)
-Since Re{[HT ]k,k } ≥ 0 and Im{[HT ]k,k } = 0 for k  \in  {1, . . . , K} and the right-hand side
+Since Re{[HT ]k,k } ≥  \geq  and Im{[HT ]k,k } =  \geq  for k  \in  {1, . . . , K} and the right-hand side
 of (5.22) is equal to eT HT , σk 2 , one can take the square root of both sides, resulting in
 T H H H ek
 Re{[HT ]k,k } ≥
@@ -2089,7 +2092,7 @@ given by
 P , problem (5.19) is reformulated as a SOCP,
  \in  LN K+1 ,
 1 + γ1k Re{[HT ]k,k }
-Im{[HT ]k,k } = 0
+Im{[HT ]k,k } =  \geq 
 (5.24)
 (5.25)
 Thus, the problem is convex and moreover, it can efficiently be solved by either using CVX or
@@ -2103,8 +2106,8 @@ function [P,T,status] = PMinVectorBC_cvx(H,rho,sigma2)
 • H: channel gain matrix H
 • rho: minimum rate target vector ρ
 • sigma: vector of noise variances σ
-• P: minimum transmit power P ⋆
-• T: optimal transmit precoder T ⋆
+• P: minimum transmit power P ^*
+• T: optimal transmit precoder T ^*
 • status: the status information of the optimization with CVX
 • First, determine the number of transmit antennas and users in the system with the
 dimensions of H. Then, test the target vector on feasibility using (5.18). If feasible,
@@ -2144,7 +2147,7 @@ signal at the terminal, and let Hi  \in  Rm×ni denote the real-valued channel g
 user i  \in  {1, 2} to the terminal T . Then,
 Hi xi + η,
 (5.26)
-where η ∼ N (0, Im ) is the additive white Gaussian noise received at the terminal. Note that,
+where η ∼ N ( \geq , Im ) is the additive white Gaussian noise received at the terminal. Note that,
 without loss of generality, we have assumed here that the channels are real-valued in order to
 obtain real-valued optimization problems afterwards.
 From information theory, it is known that the capacity region of this Gaussian MAC channel
@@ -2157,7 +2160,7 @@ Q1  \in  S+1 , Q2  \in  S+2 , tr(Q1 ) ≤ P1 , tr(Q2 ) ≤ P2
 (5.27)
 if the available transmit powers at the two users are given by P1 and P2 [3, Chapter 9]. Moreover,
 all rate vectors r  \in  CMAC can be achieved by having user 1 and user 2 choose Gaussian inputs
-x1 ∼ N (0, Q1 ) and x2 ∼ N (0, Q2 ) with appropriate transmit covariance matrices Q1 and
+x1 ∼ N ( \geq , Q1 ) and x2 ∼ N ( \geq , Q2 ) with appropriate transmit covariance matrices Q1 and
 Q2 that satisfy the power constraints, respectively.
 A standard problem in communications engineering is the weighted sum rate (WSR) maximization problem over some rate region R  \in  RK , which in general reads as
 max wT r
@@ -2187,7 +2190,7 @@ function [Q1,Q2] = wsr_mimo_mac_cvx(H1,H2,P1,P2,w)
 • P2: available transmit power at user 2
 • w: weight vector w
 • Q1: optimal transmit covariance matrix Q1 of user 1
-• Q2: optimal transmit covariance matrix Q⋆ of user 2
+• Q2: optimal transmit covariance matrix Q^* of user 2
 • First, determine whether w1 > w2 , w1 < w2 , or w1 = w2 . If w1 < w2 , the roles of
 users 1 and 2 must be switched in (5.29). If w1 = w2 = w, the objective function
 reduces to the sum rate r1 +r2 =
@@ -2199,7 +2202,7 @@ problem:
 min −α1 log2 det Im + H1 Q1 H1 − α2 log2 det Im + H1 Q1 H1 + H2 Q2 H2
 tr(Q2 ) = P2 ,
 (5.30)
-where α1 = w1 −w2 ≥ 0 and α2 = w2 ≥ 0 for w1 ≥ w2 . In a next step, we introduce two
+where α1 = w1 −w2 ≥  \geq  and α2 = w2 ≥  \geq  for w1 ≥ w2 . In a next step, we introduce two
 auxiliary variables X1 = Im + H1 Q1 H1  \in  S+ and X2 = Im + H1 Q1 H1 + H2 Q2  \in  S+
 to obtain
 min −α1 log2 det (X1 ) − α2 log2 det (X2 )
@@ -2259,26 +2262,26 @@ boundary of CMAC can be determined with arbitrary precision by varying the ratio
 w2 from zero to infinity.
 PROGRAMMING TASK 5.9
 P1 , P2 , and a collection of weight vectors w1 , . . . , wL  \in  R2 as inputs, and that determines
-L rate vectors r1 , . . . , rL that belong to the boundary of CMAC . To this end, use your func⋆
-tion wsr_mimo_mac to obtain rℓ as the optimizer of the WSR maximization problem with
-weight vector wℓ , ℓ  \in  {1, . . . , L}.
+L rate vectors r1 , . . . , rL that belong to the boundary of CMAC . To this end, use your func^*
+tion wsr_mimo_mac to obtain rl as the optimizer of the WSR maximization problem with
+weight vector wl , l  \in  {1, . . . , L}.
 1 Deliverables (Matlab code file): c_mimo_mac.m
 function R = c_mimo_mac(H1,H2,P1,P2,W)
 2×L
 • W: matrix of weight vectors W = [w1 , . . . , wL ]  \in  R+
 • R: matrix of rate vectors R = [r1 , . . . , rL ]  \in  R+
-• The function wsr_mimo_mac only determines the optimal covariance matrices Q⋆
-and Q⋆ . The optimal rate vector r ⋆ is then obtained as
+• The function wsr_mimo_mac only determines the optimal covariance matrices Q^*
+and Q^* . The optimal rate vector r ^* is then obtained as
 2 log2 det Im + H1 Q1 H1
-H1 Q⋆ H1 + H2 Q2 H2 − 2 log2 det
-Im + H 1 Q ⋆ H 1
+H1 Q^* H1 + H2 Q2 H2 − 2 log2 det
+Im + H 1 Q ^* H 1
 if w1 > w2 , or
-log2 det Im + H1 Q⋆ H1 + H2 Q2 H2 − 2 log2 det Im + H2 Q⋆ H2
+log2 det Im + H1 Q^* H1 + H2 Q2 H2 − 2 log2 det Im + H2 Q^* H2
 2 log2 det Im + H2 Q2 2
 if w1 < w2 . If w1 = w2 , both options yield an optimal rate vector, which hence is
 not unique in general.
 TASK 5.10
-Let rk,max = maxℓ=1,...,L eT rℓ , k  \in  {1, 2}. Plot the capacity region CMAC of the twok
+Let rk,max = maxl=1,...,L eT rl , k  \in  {1, 2}. Plot the capacity region CMAC of the twok
 user MIMO MAC as the convex hull of the rate vectors r1 , . . . , rL ,
 for different input parameters.
 r1,max
@@ -2318,7 +2321,7 @@ R(Q1 , . . . , QK ) =
 where we have used the same notations as in Chapter 2. Unfortunately, this sum rate expression
 is no longer a concave function of the covariance matrices Qk , so that the sum rate optimization
 problem1
-Q1 0,...,QK 0
+Q1  \geq ,...,QK  \geq 
 R(Q1 , . . . , QK )
 (6.2)
 is no longer a convex problem. Consequently, linear transceivers simplify the implementation
@@ -2327,30 +2330,30 @@ strategy more involved.
 In this chapter, we study various approaches to find optimal and suboptimal solutions of the sum
 rate optimization (6.2) with linear transceivers in the special case of n = 1 transmit antenna at
 We use
-0 to denote that a matrix is positive semidefinite.
+ \geq  to denote that a matrix is positive semidefinite.
 Chapter 6. Nonconvex Optimization
 each user terminal. In this case, the transmit covariance matrices Qk are reduced to scalars qk ,
 and the channel matrices Hk become vectors hH . Thus, the sum rate optimization reads as
-q1 ≥0,...,qK ≥0
+q1 ≥ \geq ,...,qK ≥ \geq 
 log2 1 + qk hH Im +
 qk ≤ P. (6.3)
 6.1 Monotonic Optimization: Branch, Reduce, and Bound
 Even though problem (6.3) is a nonconvex problem, it is possible to find its globally optimal
 solution by means of monotonic optimization. To this end, we introduce a new function defined
 −1 
-hℓ yℓ hH  hk  . (6.4)
+hl yl hH  hk  . (6.4)
 log2 1 + xk hH Im +
 R(x1 , . . . , xK , y1 , . . . , yK ) =
 Note that this function satisfies R(q1 , . . . , qK , q1 , . . . , qK ) = R(q1 , . . . , qK ).
 TASK 6.1
-Show that R(x1 , . . . , xK , y1 , . . . , yK ) with xk ≥ 0 and yk ≥ 0 is non-decreasing in all xk
+Show that R(x1 , . . . , xK , y1 , . . . , yK ) with xk ≥  \geq  and yk ≥  \geq  is non-decreasing in all xk
 and non-increasing in all yk . Hint: ∂(A(y) ) = −A(y)−1 ∂A(y) A(y)−1 .
 PROGRAMMING TASK 6.2
 Implement a function to compute R(x1 , . . . , xK ) or R(x1 , . . . , xK , y1 , . . . , yK ) for a power
 vector x or for a pair of vectors (x, y), respectively.
 1 Deliverables (Matlab code file): sumrate_SIMO.m
 • Function definition: function R = sumrate_SIMO(H,x,y)
-• H: m × 1 × K set of channel vectors h1 , . . . , hK
+• H: m  \times  1  \times  K set of channel vectors h1 , . . . , hK
 • x: column vector [x1 , . . . , xK ]T
 • y (optional): column vector [y1 , . . . , yK ]T
 • R: R(x1 , . . . , xK , y1 , . . . , yK ) if y is provided, R(x1 , . . . , xK ) otherwise
@@ -2367,15 +2370,15 @@ B = {B0 , B1 , . . . } be a set of boxes.
 The branch step in the BRB algorithm then consists in cutting a box [a, b]  \in  B along its
 longest edge into two subboxes (bisectional rectangular subdivision). To this end, we first find
 the direction of the longest edge
-k ⋆ = arg max
+k ^* = arg max
 k \in {1,...,K}
 (6.5)
 bk − ak .
 and then replace the box by the two new boxes:
 a, b −
-bk ⋆ − a k ⋆
-ek ⋆ , a +
-ek ⋆ , b
+bk ^* − a k ^*
+ek ^* , a +
+ek ^* , b
 \ {[a, b]}
 (6.6)
 where ek is the kth canonical unit vector, which has a one in the kth element and zeros elsewhere.
@@ -2387,7 +2390,7 @@ B = q  \in  B 1T q ≤ P ∪ q  \in  B 1T q > P
 where 1 is the all-ones vector. The smallest box B ′ ⊆ B which still contains all feasible vectors
 q  \in  B, i.e., q  \in  B 1T q ≤ P ⊆ B ′ , is called the reduction of B.
 For the problem under consideration a rule to compute the reduction can be obtained from
-geometrical considerations. For a box B = [a, b] with a ≥ 0 that contains at least one feasible
+geometrical considerations. For a box B = [a, b] with a ≥  \geq  that contains at least one feasible
 power vector, the reduced box B ′ is given by B ′ = [a, b′ ] with
 b′ = min a + (P − 1T a)1, b
 (6.8)
@@ -2411,7 +2414,7 @@ R(q1 , . . . , qK ) = R(q1 , . . . , qK , q1 , . . . , qK ) ≤ R(b1 , . . . , b
 (6.9)
 holds for all q  \in  [a, b]. Therefore, U ([a, b]) = R(b1 , . . . , bK , a1 , . . . , aK ) is an upper bound
 to R(q1 , . . . , qK ), q  \in  [a, b]. Even though this bound is an utopian bound, i.e., there is usually
-no q  \in  [a, b] fulfilling (6.9) with equality, the bound becomes tight as b − a → 0. This
+no q  \in  [a, b] fulfilling (6.9) with equality, the bound becomes tight as b − a →  \geq . This
 property is called consistency [3].
 On the other hand, it is obvious that evaluating R(q1 , . . . , qK ) for any feasible q ′  \in  [a, b]
 delivers a lower bound to the optimal rate in the box [a, b], i.e.,
@@ -2430,7 +2433,7 @@ is a lower bound to the rate R(qopt,1 , . . . , qopt,K ) at the optimal power ve
 6.1.4 The Algorithm
 We initialize the branch-reduce-and-bound algorithm with a set B = {B0 }, where B0 is the
 reduction of RK , i.e., the minimal box containing all feasible power vectors. This initial box is
-given by B0 = [0, P 1] (cf. Fig. 6.1).
+given by B0 = [ \geq , P 1] (cf. Fig. 6.1).
 Then, the following steps are repeated until convergence:
 1. Find the box with the highest upper bound, i.e.,
 [a, b] = arg max U (B)
@@ -2450,7 +2453,7 @@ global optimum Ropt , i.e.,
 R(qsolution,1 , . . . , qsolution,K )  \in  [Ropt − ǫ, Ropt ].
 (6.15)
 Convergence of the method can be shown based on the observation that the bounds become
-tight for b − a → 0 [3].
+tight for b − a →  \geq  [3].
 PROGRAMMING TASK 6.4
 Implement the branch-reduce-and-bound algorithm described above.
 1 Deliverables (Matlab code file): brb.m
@@ -2498,10 +2501,10 @@ at position q = x.
 1 Deliverables (Matlab code file): gradient_SIMO.m
 • Function definition: function grad = gradient_SIMO(H,x)
 • grad: the value of
-Note that the powers qk can be considered as 1 × 1 covariance matrices Q and the constraint
+Note that the powers qk can be considered as 1  \times  1 covariance matrices Q and the constraint
 set of problem (6.3) is the same as the one in Section 2.4. Therefore, the projection to the
 constraint set implemented in Section 2.4 can be reused.2
-The eigenvalue decomposition used in Section 2.4 could be skipped since it is trivial for 1 × 1 matrices, but
+The eigenvalue decomposition used in Section 2.4 could be skipped since it is trivial for 1  \times  1 matrices, but
 reusing the implementation with eigenvalue decomposition should work properly, too.
 PROGRAMMING TASK 6.7
 Implement a gradient-projection algorithm to find a locally optimal solution of problem (6.3).
@@ -2526,8 +2529,8 @@ interference between streams of different users is present after the filtering o
 transmission can then be described by
 (6.18)
 where vk is the receive filter for the data stream of user k. To cancel out interference for any
-data symbols xℓ and any trasmit powers qℓ , we need that vk hℓ = 0 for all k and all ℓ = k. For
-ℓ = k, we can choose vk hk = 1 without loss of generality since scaling the receive filter vk
+data symbols xl and any trasmit powers ql , we need that vk hl =  \geq  for all k and all l = k. For
+l = k, we can choose vk hk = 1 without loss of generality since scaling the receive filter vk
 does not change the signal-to-noise ratio and, thus, has no influence on the achievable rate.
 In matrix notation, the zero-forcing constraints can be written as
 V H =  .  h1 . . . hK = IK .
@@ -2535,7 +2538,7 @@ V H =  .  h1 . . . hK = IK .
 This equation can only be fulfilled for K ≤ m, and the solution is given by V = H H H
 i.e., V has to be the Moore-Penrose pseudo-inverse3 of the joint channel matrix H.
 To be able to also handle the case K > m, we have to introduce a set of active users K ⊂
-{1, . . . , K} with cardinality |K| ≤ m, where qk = 0 has to hold for all k  \in  K. Let k(i) denote
+{1, . . . , K} with cardinality |K| ≤ m, where qk =  \geq  has to hold for all k  \in  K. Let k(i) denote
 4 in the set K. The zero-forcing constraints can then be written as
 the ith user
 vk(1)
@@ -2553,7 +2556,7 @@ Consequently, for a given set of users K, the sum rate optimization problem beco
 qk(1) ,...,qk(|K|)
 −2
 σk(i) qk(i)
-qk(i) ≤ P, qk(i) ≥ 0, ∀i  \in  {1, . . . , |K|}
+qk(i) ≤ P, qk(i) ≥  \geq , ∀i  \in  {1, . . . , |K|}
 (6.23)
 which is equivalent to the waterfilling problem (1.4) from Chapter 1.
 PROGRAMMING TASK 6.8
@@ -2565,12 +2568,12 @@ optimal solution with respect to the sum rate optimization since it is the minim
 the lowest possible noise amplification (cf., e.g., [4]).
 The order of the users within the set can be chosen arbitrary.
 • Function definition: function [R q] = sumrate_zf(H,P,a)
-• a: column vector [a1 , . . . , aK ]T where ak = 1 if k  \in  K and ak = 0 otherwise
+• a: column vector [a1 , . . . , aK ]T where ak = 1 if k  \in  K and ak =  \geq  otherwise
 • R: sum rate achieved at the waterfilling solution
 • q: column vector [q1 , . . . , qK ]T containing the powers at the waterfilling solution
 • Use waterfilling(h,s,P) from Programming Task 1.4 in Chapter 1 to compute
 the waterfilling solution.
-• Return qk = 0 for all k  \in  K.
+• Return qk =  \geq  for all k  \in  K.
 Knowing a method to compute the optimal rate for a given set of active users K, we still have
 to find the optimal K. This problem is treated in the following subsections.
 6.3.1 Optimal Zero-Forcing Solution: Exhaustive Search
@@ -2594,7 +2597,7 @@ on a so-called greedy allocation [1]. The algorithm performs a successive alloca
 user after another is added to the set of active users.
 The algorithm is initialized with an empty set K = ∅. Then, a series of allocation steps is
 performed where each step works as follows. Given a set K of active users with |K| < m, we
-k ⋆ = arg max R({k} ∪ K)
+k ^* = arg max R({k} ∪ K)
 (6.25)
 k \in {1,...,K}\K
 which can be solved by a linear search, i.e., by testing all possible k. If R({k} ∪ K) ≥ R(K),

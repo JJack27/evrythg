@@ -10,55 +10,73 @@ from numpy.random import randint
 from numpy import sum
 from numpy import ravel_multi_index
 from numpy import unravel_index
+
 # constants
 FREE  =  0.
-GOAL  =  1.
-WALL  = -1.
+GOAL  =  4.
+WALL  =  1.
+
+# action space $\mathcal{A}$
 A_ = dict()
-A_['UP']    = array([[-1], [ 0]])
-A_['DOWN']  = array([[ 1], [ 0]])
-A_['LEFT']  = array([[ 0], [-1]])
+A_['UP']     = array([[-1], [ 0]])
+A_['DOWN']   = array([[ 1], [ 0]])
+A_['LEFT']   = array([[ 0], [-1]])
 A_['RIGHT']  = array([[ 0], [ 1]])
 A = [A_[k] for k in A_.keys()]
+
 # utility functions
 idx = lambda i: (i[0, :], i[1, :])
-# setup
-W = FREE * ones((6, 6)) # gridworld
+
+# initialize a small gridworld
+W = FREE * ones((6, 6)) 
 W[1, 1] = GOAL
 W[4, 4] = GOAL
-for w in [0, -1]:
-    W[:, w] = WALL
-    W[w, :] = WALL
 
-#all reachable non terminal states
-S = [array([[m], [n]]) for m in range(W.shape[0]) for n in range (W.shape[1]) if W[idx(array([[m], [n]]))] == FREE]
+def set_border(W, w = WALL):
+    for i in [0, -1]:
+        W[:, i] = w
+        W[i, :] = w
+    return W
+W = set_border(W)
 
-
-def P(s, a, S):
+def states(M = W):
     """
-    Probability of state transition
+    Set up state space $\mathcal{S}$ consisting of all reachable non terminal states
+    M: maze
+    """
+    return [array([[m], [n]]) for m in range(M.shape[0]) for n in range (M.shape[1]) if M[idx(array([[m], [n]]))] == FREE]
+
+S = states()
+
+def P(s, a, S, M = W):
+    """
+    State transition probability 
     s: state
     a: action
     S: successor state
+    M: maze
     """
-    return (W[idx(S)] != WALL) * 1.
+    return (M[idx(S)] != WALL) * 1.
 
-def R(s, a, S):
+def R(s, a, S, M = W):
     """
     Reward for transition
     s: state
     a: action
     S: successor state
     """
-    return -1
+    if M[idx(S)] == GOAL: return  0
+    if M[idx(S)] == WALL: return -2
+    if M[idx(S)] == FREE: return -1
 
-def s_0():
+def s_0(M = W):
     """
     Random start postion
+    M: maze
     """
     while True:
-        s_0 = randint(0, W.shape[0], size=(2,1))
-        if (W[idx(s_0)] != WALL) & (W[idx(s_0)] != GOAL):
+        s_0 = randint(0, M.shape[0], size=(2,1))
+        if (M[idx(s_0)] != WALL) & (M[idx(s_0)] != GOAL):
             return s_0
 
 def sd(pi):
@@ -91,7 +109,6 @@ def pi(s):
     if P(s, A_['RIGHT'], s + A_['RIGHT']) > 0: return A_['RIGHT']
     else: return(random_action(s))
 
-get_ipython().magic(u'matplotlib')
 close('all')
 figure()
 title('Random policy')

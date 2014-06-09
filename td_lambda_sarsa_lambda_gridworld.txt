@@ -1,0 +1,36 @@
+TECHNISCHE UNIVERSITAT MUNCHEN
+Fakult¨t f¨r Elektrotechnik und Informationstechnik
+Lehrstuhl f¨r Datenverarbeitung
+Prof. Dr.-Ing. K. Diepold
+Introduction to Reinforcement Learning
+Lab Course: SARSA(λ)
+08.05.2014
+Introduction
+In this practical, we will implement the TD(λ) and SARSA(λ) algorithm. The ﬁrst one will be used
+for prediction (policy evaluation), namely we will calculate the value function. 
+\todo{Is $\lambda$ actually only $\gamma$?}    
+
+The second one will be used for control, deriving the optimal policy. We will implement the experiments on a modiﬁed
+version of our gridworld.
+Prerequisites
+Read the chapter on TD(λ) and SARSA(λ).
+Tasks
+• Now it pays oﬀ, you implemented the gridworld in the most general way possible. We will
+extend the gridwold, to support walls within and construct a nice maze like this:
+This can be done by deﬁning an array with contains the information, where the walls are.
+import numpy as np
+# maze (0 = f r e e , 1 = w a l l )
+• Implement the functionality to take a step in the environment and receive the next state and
+reward. This function should work like the transition probability function P , but only take
+the current state and action as parameters and return the next state and reward upon that
+transition.
+• Implement SARSA(0).
+• Run and evaluate SARSA(0). Note how many steps in each episode were needed to reach the
+goal. Plot those steps, they should decrease over time.
+• Implement a visualization of the action-value function, where you color each cell according to
+the value of the best action.
+• Implement SARSA(λ) and do the same evaluation as before. You should note some diﬀerences
+in convergence speed. You also should see diﬀerences in the updating of the action- values,
+especially on the ﬁrst few runs and transitions in to the terminal state.
+References
+[1] R. Sutton and A. Barto. Introduction to Reinforcement Learning. MIT Press. 1998.

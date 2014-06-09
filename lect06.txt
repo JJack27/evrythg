@@ -1,0 +1,182 @@
+Lehrstuhl fur Datenverarbeitung
+
+Technische Universitat Munchen
+Data Analysis for Computer Engineering
+Temporal Difference Learning
+Johannes Gunther
+Institute for Data Processing
+20.05.2014
+Slide 1/28
+Part I
+Slide 2/28
+Little reminder - Dynamic Programming
+Backup diagram for Dynamic programming
+V(St ) ← Eπ {Rt+1 + γV(St+1 )}
+Slide 3/28
+Little reminder - Monte Carlo
+Backup diagram for Monte Carlo
+V(St ) ← V(St ) + α[Gt − V(St )]
+Slide 4/28
+Temporal Difference
+Backup diagram for Temporal Difference learning
+Slide 5/28
+Revisit to the value function
+Motivation
+vπ (s)
+= Eπ {Gt |St = s}
+= Eπ { ∞ γk Rt+k +1 |St = s}
+k =0
+= Eπ {Rt+1 + γ ∞ γk Rt+k +2 |St = s}
+= Eπ {Rt+1 + γvπ (St+1 )|St = s}
+Approximation the return (TD target)
+[ defintion target _cf('140529111819') ]
+Gt ≈ Rt+1 + γV(St+1 )
+
+Slide 6/28
+TD-Prediction
+Policy evaluation (the prediction problem):
+For a given policy π compute the state-value function vπ
+Recall for simple Monte-Carlo methods:
+target: The actual return after time t
+
+The simplest temporal-difference method TD(0):
+[ _v('140529112338') ]
+V(St) ← V (Stl) + α[Rt+1 + γV(St+1 ) − V(St )]
+target: An estimation of the return
+
+Slide 7/28
+TD methods bootstrap and sample
+Bootstrapping: update involves an estimate
+MC does not bootstrap
+DP bootstraps
+TD bootstraps
+Sampling: update involves an expected value
+MC samples
+DP does not sample
+TD samples
+Slide 8/28
+Tabular TD(0)
+Input: the policy π to be evaluated
+Initialize V(s) arbitrarily (e.g., V(s) = 0, ∀s ∈ S+ )
+Repeat (for each episode):
+Initialize S
+Repeat (for each step of episode):
+A ← action given by π for S
+Take action A ; observe reward, R, next state, S
+V(S) ← V (S) + α[R + γV (S ) − V(S)]
+S←S
+until S is terminal
+Slide 9/28
+Example: Driving home
+Imagine you want to predict the time, you need to drive home
+from your ofﬁce.
+You start with 30 minutes
+As you reach the car, it starts to rain → increase estimation
+to 40 minutes
+After rushing at the highway you enter the secondary road
+→ decrease estimation to 35 minutes
+you get stuck behind a truck → increase estimation to 40
+minutes
+you enter your home road → increase estimation to 43
+Slide 10/28
+Example: Driving Home
+Slide 11/28
+Driving Home with Monte Carlo
+Learn after the episode is complete
+Update Rule: V(St ) ← V(St ) + α[Gt − V(St )]
+Slide 12/28
+Driving Home with TD
+Learn after each tuple {St , At , Rt+1 , St+1 }
+Update Rule: V(St ) ← V(St ) + α[Rt+1 + γV(St+1 ) − V (St )]
+Slide 13/28
+Advantages of TD Learning
+TD methods do not require a model, only experience
+TD, but not MC, methods can be fully incremental
+You can learn before knowing the ﬁnal outcome
+Less memory
+Less peak computation
+You can learn without the ﬁnal outcome
+Learn from incomplete sequences
+Both MC and TD converge (under certain assumptions)
+Slide 14/28
+Random Walk Example
+Slide 15/28
+TD and MC on the Random Walk
+Data averaged over 100 sequences of episodes
+Slide 16/28
+Batch Updating in TD and MC Methods
+Batch Updating: train completely on a ﬁnite amount of
+data, e.g. train repeatedly on 10 episodes until
+convergence.
+Compute updates according to TD, but only update
+estimates after each complete pass through the data
+For any ﬁnite Markov prediction task, under batch
+updating, TD converges for sufﬁciently small α.
+Constant-α MC also converges under these conditions, but
+to a different answer
+Slide 17/28
+Random Walk under Batch Updating
+After each new episode, all episodes so far were treated as a
+batch, and algorithms were trained until convergence. This was
+repeated 100 times.
+Slide 18/28
+MC converges to sample averages of the actual returns,
+experienced after visiting each state s
+MC minimizes the MSE
+so why is TD better???
+Slide 19/28
+You are the Predictor
+Suppose you observe the following episodes:
+A, 0, B, 0
+B, 1
+B, 0
+What is V(B)?
+What is V(A )?
+Slide 20/28
+What is V(B)? 0.75
+What is V(A )? 0?
+Here is the TD solution
+TD models the Markov Decision Process
+V(A ) = 0.75
+Slide 21/28
+MC vs. TD
+The prediction that best matches the training data is
+V(A ) = 0
+This minimizes the mean-square-error on the training set
+This is what batch MC method gets
+If we consider the sequentiality of the problem, then we
+would get V(A ) = 0.75
+This is correct for the maximum likelihood estimate of a
+Markov model generating the data
+Means: We do a best Markov ﬁt, assume it is correct and
+compute the values
+This is called the certainty-equivalence estimate
+This is what TD gets
+Slide 22/28
+Summary ... so far
+Introduces one-step tabular model-free TD methods
+Those bootstrap and sample
+If the world is Markov, then TD methods will learn faster
+than MC
+MC methods have lower error on past data, but higher on
+future data
+Slide 23/28
+Uniﬁed View
+Slide 24/28
+Part II
+Temporal Difference Learning in
+Nature
+Slide 25/28
+Brain reward systems
+A single neuron represents the value system in the olfactory
+learning in the honeybee brain.
+Menzel 2001
+Slide 26/28
+Dopamine Signal and prediction errors
+Schultz 1997
+Slide 27/28
+The theory that Dopamine = TD error is one of the most
+important interactions ever between artiﬁcial intelligence and
+neuroscience.
+You could see it as a “prove of concept” by nature.
+Slide 28/28

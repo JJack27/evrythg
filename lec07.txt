@@ -1,0 +1,212 @@
+Institute for Data Processing
+Technische Universität München
+May 27, 2014
+1 / 32
+Part I
+Recap
+2 / 32
+Policy evaluation in DP
+Update rule
+V (st ) ← Eπ [rt+1 + γV (st+1 )]
+33 
+at t3
+st+1 h
+3 / 32
+Policy evaluation in MC
+V (st ) ← V (st ) + α Rt − V (st )
+st+1
+4 / 32
+Policy Evaluation in TD
+V (st ) ← V (st ) + α rt+1 + γV (st+1 ) − V (st )
+5 / 32
+TD Does Bootstrapping & Sampling
+Bootstrapping: update involves an estimate of V
+MC does not bootstrap
+DP bootstraps
+TD bootstraps
+Sampling: update is based on one path through the state
+space
+MC samples
+DP does not sample
+TD samples
+6 / 32
+Advantages of TD Learning
+TD methods do not require a model of the environment,
+only experience
+TD, but not MC, methods can be fully incremental
+You can learn before knowing the ﬁnal outcome, i.e. less
+memory, less computation
+You can learn without the ﬁnal outcome, i.e. from
+incomplete sequences
+TD converges to V π (α decreases as learning continues)
+7 / 32
+Generalized Policy Iteration (GPI):
+any interaction of policy evaluation an
+Naïve TD Control
+independent of their granularity.!
+A ge
+Policy evaluation: TD prediction
+Policy improvement: greedify with respect to approximate
+value function
+8 / 32
+Part II
+The Q Function
+9 / 32
+Recall: the state-value function
+Deﬁnition
+State-value function for policy π is deﬁned as
+V π (s) := Eπ [R(st )|st = s]
+= Eπ 
+γk rt+k +1 |st = s 
+k =0
+Motivation
+It is hard to compute the expectation under policy, i.e. to
+acquire a model of the environment.
+10 / 32
+The action-value function
+The action-value function for policy π is deﬁned as
+Q π (s, a) := Eπ [R(st )|st = s, at = a]
+γ rt+k +1 |st = s, at = a  .
+Connection to the state-value function
+V π (s) =
+π(s, a)Q π (s, a)
+a∈A(s)
+11 / 32
+Optimal Q function
+The optimal action-value function Q ∗ (s, a) is the maximum
+action-value function over all policies, i.e.
+Q ∗ (s, a) := max Q π (s, a).
+Connection to the optimal state-value function
+V ∗ (s) = max Q ∗ (s, a)
+12 / 32
+Bellman equations
+Bellman expectation equation
+Q π (s, a) := Eπ
+γk rt+k +1 |st = s, at = a
+γk rt+k +2 |st = s
+= E [rt+1 ] + Eπ
+k =1
++ γV π (s )
+Bellman optimality equation
+pss rss + γ max Q ∗ (s , a )
+Q ∗ (s, a) =
+a ∈A(s )
+13 / 32
+A simple Q learning algorithm
+A deterministic policy
+Q ∗ (s, a) = r + γ max Q ∗ (s , a )
+Key steps
+Pick state st = s to start
+Repeat for each step in episode
+(i) Take action at , to observe rt+1 and st+1
+(ii) Set Q(st , at ) = rt+1 + γ max Q(st+1 , a)
+a∈A(st+1 )
+(iii) Set t = t + 1
+14 / 32
+Convergence of the simple Q
+Theorem
+Given a deterministic MDP model M. Let Qn (s, a) denote the
+estimate of the Q(s, a) function before the n-th update. If each
+state-action pair is visited inﬁnitely often, then for all (s, a)
+lim Qn (s, a) = Q(s, a)
+Question
+Is the simple Q on-policy or off-policy?
+15 / 32
+Part III
+On- and Off-policy TD Control
+16 / 32
+Revisit to the action-value function
+Q π (s, a) = Eπ Rt st = s, at = a
+γk rt+k +1 st = s, at = a
+= Eπ
+= Eπ rt+1 + γQ π (st+1 , π(st+1 )) st = s
+TD target
+Rt ≈ rt+1 + γQ π (st+1 , at+1 )
+17 / 32
+Learning An Action-Value Function
+Learning the Q function
+Estimate Q for the current behavior policy π.
+Goal
+After every transition from a nonterminal state st , do this :
+Estimate Q for the current behavior policy π
+Q(st , at ) ← Q( st , at ) + α [rt +1 + γ Q(st +1,at +1) − Q(st ,at )]
+If st rule
+Update+1 is terminal, then Q(st +1, at +1 ) = 0.
+After each transition from a nonterminal state st , do
+Q(st , at ) ← Q(st , at ) + α rt+1 + γQ(st+1 , at+1 ) − Q(st , at )
+if st+1 is terminal, then Q(st+1 , at+1 ) = 0
+18 / 32
+TD control: SARSA
+One sweep
+. . . , st , at , rt+1 , st+1 , at+1 , . . .
+Pick a start state st = s
+(ii)
+(iii)
+(iv)
+Take action at , to observe rt+1 and st+1
+Choose at+1 from st+1 using policy π derived from Q
+Set Q(st , at ) ← Q(st , at )+α(rt+1 +γQ(st+1 , at+1 )−Q(st , at ))
+Set t = t + 1
+19 / 32
+Properties of SARSA
+Convergence
+When -greedy policy is used,
+SARSA converges with probability one to an optimal policy
+and action-value function, as long as all state-action pairs
+are visited an inﬁnite number of times
+The policy converges in the limit to the greedy policy
+Is SARSA on-policy or off-policy? Why?
+20 / 32
+TD Control: Q-Learning
+Optimal TD target
+Rt ≈ rt+1 + γ max Q(st+1 , a)
+(ii) Choose at+1 from st+1 using policy π derived from Q
+(iii) Set
+Q(st , at ) ← Q(st , at )+α(rt+1 +γ max Q(st+1 , a)−Q(st , at ))
+(iv) Set t = t + 1
+21 / 32
+Properties of the Q learning
+Q learning converges with probability one to an optimal policy
+and action-value function, as long as all state-action pairs are
+visited enough
+Is Q-learning on-policy or off-policy? Why?
+22 / 32
+SARSA vs Q learning (I)
+Episodic, undiscounted
+23 / 32
+SARSA vs Q learning (II)
+Episodic, undiscounted, -greedy ( = 0.1)
+24 / 32
+SARSA vs Q learning (III)
+25 / 32
+Part IV
+A Short Summary
+26 / 32
+Take-Home Messages
+One-step model-free methods, i.e. the Q function
+Extend prediction to control
+On-policy control: Sarsa
+Off-policy control: Q-learning
+TD methods bootstrap and sample, i.e. combining aspects
+of DP and MC methods
+27 / 32
+A pictorial summary of elementary RL algorithms
+Chapter 7: Eligibility Traces
+R. S. Sutton and A. G. Barto: Reinforcement Learning: An Introduction
+28 / 32
+Part V
+Tutorial
+29 / 32
+On- or off-policy
+Szepesvári: If the algorithm estimates the value function of
+the policy generating the data, the method is called
+on-policy
+30 / 32
+Expected SARSA
+Q(st , at ) ← Q(st , at )+α rt+1 +γ
+π(st+1 , a)Q(st+1 , a)−Q(st , at )
+Is expected SARSA on-policy or off-policy?
+31 / 32
+Backup diagram
+  d avg
+32 / 32

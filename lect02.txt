@@ -5,21 +5,10 @@ Data Analysis for Computer Engineering
 Bandits and Markov Decision Processes
 Johannes Gunther
 Institute for Data Processing
-Technische Universitat Munchen
 Slide 1/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Part I
 N-armed Bandits
 Slide 2/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Bandits? Never heard, don’t care!?!
 Paper from the 2013 NIPS about Bandits:
 N. Cesa-Bianchi, C. Gentile, and G. Zappella, “A gang of bandits.”
@@ -34,21 +23,9 @@ M. Xu, T. Qin, and T.-Y. Liu, “Estimation bias in multi-armed bandit algorithm
 S. Zhang and A. J. Yu, “Forgetful bayes and myopic planning: Human learning and decision-making in a
 bandit setting.”
 V. Gabillon, B. Kveton, Z. Wen, B. Eriksson, and S. Muthukrishnan, “Adaptive submodular maximization in
-bandit setting.”
 Slide 3/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
-N-armed Bandits
 Multi Armed Bandit, http://www.research.microsoft.com/
 Slide 4/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 N-Armed Bandits
 Choose repeatedly from a set of N actions, each choice is
 denoted a play
@@ -60,18 +37,8 @@ Non-associative and evaluative feedback problem
 Objective: maximize reward in the long term
 Way: explore the actions and exploit the best
 Slide 5/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Bandit Game
 Slide 6/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Action-Value Methods
 Method for estimating the values of actions
 Estimation: Qt (a) ≈ q∗ (a)
@@ -79,11 +46,6 @@ Playing k times
 Simple average: Qt (a) =
 lim Qt (a) = q∗ (a)
 Slide 7/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Incremental Implementation
 Disadvantage of simple averaging: all data needs to be
 stored
@@ -95,58 +57,29 @@ A general update rule can be formulated as:
 NewEstimate = OldEstimate + StepSize[Target - OldEstimate]
 [ StepSize \alpha ]
 Slide 8/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Exploration/Exploitation Dilemma
 Best action: At∗ = argmax Qt (a)
-a
 Exploration: At
 Exploitation: At = At∗
 You can’t exploit all the time, you can’t explore all the time
 But maybe you want to reduce exploring over the time
 Slide 9/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 -Greedy Action Selection
 Greedy action selection:
 At = At∗ = argmax Qt (a)
-a
-- Greedy:
-[ Greedy: \epsilon = 0 ]
-a random action
-with probability 1 −
-with probability
+
+[ _to('140603081235') ]
+***
+###$\epsilon$- Greedy:
+[ Greedy: $\epsilon$ = 0 ]
+![()](140603081507.png)
 simplest way to balance exploration and exploitation
+
 Slide 10/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 So -greedy it is?
 Is it reasonable to try each arm with equal probability?
 Suppose you see the following samples:
 Slide 11/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
-So -greedy it is?
-Is it reasonable to try each arm with equal probability?
-Suppose you see the following samples:
-Slide 11/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Softmax Action Selection
 Converts values into action probabilities
 A way to order the actions you want to explore
@@ -160,11 +93,6 @@ where τ is the “computational temperature”
 If τ is high, all actions are (nearly) equiprobable
 If τ is low, the policy is shifted to greedy action-selection
 Slide 12/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 10-Armed Testbed
 n = 10 possible actions
 each q∗ (a) is chosen randomly from a normal distr.: N(0, 1)
@@ -172,41 +100,19 @@ each Rt is also normal: N(q∗ (At ), 1)
 one run is 1000 plays
 average over 2000 runs
 Slide 13/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 -Greedy Methods on the 10-Armed Testbed
 Slide 14/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
--Greedy Methods on the 10-Armed Testbed
 Which will result in the best
 long term performance?
 = 0(greedy)
 D: will all perform equally
 E: not possible to tell
-Slide 14/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Optimistic Initial Values
 So far, all methods depend on Q0 (a), i.e. they are biased
 Suppose we initialize the values optimistically,
 e.g. Q0 (a) = 5 for all a and \alpha = 0.1
 [ step size parameter ]
 Slide 15/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 What you have learned so far
 -greedy Policy
 The difference between a sample, an estimate and a true
@@ -218,19 +124,9 @@ a complete example of a goal-seeking problem, including
 solutions
 your ﬁrst AI problem and solution
 Slide 16/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Part II
 Markov Decision Processes
 Slide 17/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 The Agent-Environment Interface
 Agent and environment interact at discrete time steps:
 Agent observes state at step t: St ∈ S
@@ -238,11 +134,6 @@ produces action at step t: At ∈ A(St )
 gets resulting reward: Rt+1 ∈ R
 and resulting in next state: St+1 ∈ S+
 Slide 18/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Learning a Policy
 ('140513162146')
 Policy π_t at step t =
@@ -253,12 +144,6 @@ changes its policy as a result of experience
 Rougly, the agent’s goal is to get as much reward, as it can
 over the long run
 Slide 19/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
-Markov Decision Processes
 If a reinforcement learning task has the Markov Property, it
 is basically a Markov Decision Process (MDP)
 If state and action sets are ﬁnite, it is a ﬁnite MDP
@@ -267,11 +152,6 @@ state and action sets
 one-step “dynamics”
 p(s , r|s, a) = Pr{St+1 = s , Rt+1 = r|St = s, At = a}
 Slide 20/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 The Markov Property I
 The state at time t denotes whatever information is
 available to the agent at step t about its environment
@@ -281,21 +161,10 @@ Ideally, a state should summarize all past events and
 inherent all essential information, i.e. it should have the
 Markov Property
 Slide 21/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 The Markov Property II
-Markov Property
 p(s , r|s, a) = Pr{Rt+1 = r, St+1 = s |St , At }
 for all s ∈ S+ , r ∈ R, and all histories
 Slide 22/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 An Example Finite MDP
 Recycling Robot
 At each step, robot has to decide whether it should (1)
@@ -305,14 +174,8 @@ Searching is better but runs down the battery; if it runs out
 of power while searching, it has to be rescued (which is
 bad)
 Decisions are made on basis of current energy level: high,
-low
 Reward = number of cans collected
 Slide 23/25
-Data Analysis for Computer Engineering
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 Recycling Robot MDP
 S = {high, low}
 rsearch = expected no. of cans
@@ -322,12 +185,7 @@ rwait = expected no. of cans
 while waiting
 A(low) = {search, wait, recharge}
 Slide 24/25
-Data Analysis for Computer Engineering
 rsearch > rwait
-Johannes Gunther
-Lehrstuhl fur
-Datenverarbeitung
-Technische Universitat Munchen
 What you have learned
 (stochastic) Policy: (stochastic) rule for selecting actions
 Markov Properties
@@ -335,5 +193,3 @@ Markov Decision Process
 Transition probabilities
 Expected rewards
 Slide 25/25
-Data Analysis for Computer Engineering
-Johannes Gunther

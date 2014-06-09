@@ -1,8 +1,8 @@
-
 # coding: utf-8
 
-
 execfile('gridworld.py')
+close('all')
+
 from numpy import set_printoptions
 from numpy.linalg import norm
 from numpy import sum
@@ -16,11 +16,11 @@ converged = lambda V, _V:  norm(V - _V) < 1e-1
 # Update value function
 _v = lambda s, a, S, V: P(s, a, S) * (R(s, a, S) + 1. * V[idx(S)])
 
-def S_(s, a):
+def S_(s, a, M = W):
 	"""
 	Next state
 	"""
-	if P(s, a, s + a) > 0:
+	if P(s, a, s + a, M) > 0:
 		return s + a
 	else:
 		return s
@@ -92,12 +92,11 @@ def vp(PI):
         P[x, y] = i+10
     imshow(P, interpolation='nearest')
 
-
-get_ipython().magic(u'matplotlib')
 set_printoptions(precision = 3)
 print 'Policy iteration takes %s [sec]' %timeit(SPI, number=1)
 set_printoptions(precision = 3)
 print 'Value iteration takes %s [sec]' %timeit(SVI, number=1)
 PI = SPI()[1]
+figure()
 vp(PI)
 

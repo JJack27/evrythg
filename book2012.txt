@@ -70,15 +70,15 @@ Games, Afterstates, and Other Special Cases . . . . . . . . . .
 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 Bibliographical and Historical Remarks . . . . . . . . . . . . .
 7 Eligibility Traces
-The Forward View of TD(λ) . . . . . . . . . . . . . . . . . . .
-The Backward View of TD(λ) . . . . . . . . . . . . . . . . . .
+The Forward View of TD(\lambda) . . . . . . . . . . . . . . . . . . .
+The Backward View of TD(\lambda) . . . . . . . . . . . . . . . . . .
 Equivalence of Forward and Backward Views . . . . . . . . . .
-Sarsa(λ) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-Q(λ) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Sarsa(\lambda) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Q(\lambda) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 Replacing Traces . . . . . . . . . . . . . . . . . . . . . . . . .
 n-Step TD Prediction . . . . . . . . . . . . . . . . . . . . . . .
 Implementation Issues . . . . . . . . . . . . . . . . . . . . . .
-Variable λ . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Variable \lambda . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 7.11 Bibliographical and Historical Remarks . . . . . . . . . . . . .
 8 Planning and Learning with Tabular Methods
 Models and Planning . . . . . . . . . . . . . . . . . . . . . . .
@@ -245,7 +245,7 @@ action at t
 reward at t, dependent, like St , on At−1 and St−1
 return (cumulative discounted reward) following t
 n-step return (Section 7.1)
-λ-return (Section 7.2)
+\lambda-return (Section 7.2)
 π(s)
 p(s |s, a)
 policy, decision-making rule
@@ -278,7 +278,7 @@ eligibility trace for state s at t
 eligibility trace for a state–action pair
 eligibility trace vector at t
 discount-rate parameter
-probability of random action in ε-greedy policy
+probability of random action in \epsilon-greedy policy
 step-size parameters
 decay-rate parameter for eligibility traces
 gPart I
@@ -956,7 +956,7 @@ Ph.D. dissertation and extended to use backpropagation neural networks in
 Anderson’s (1986) Ph.D. dissertation. Around this time, Holland (1986) incor-
 porated temporal-diﬀerence ideas explicitly into his classiﬁer systems. A key
 step was taken by Sutton in 1988 by separating temporal-diﬀerence learning
-from control, treating it as a general prediction method. That paper also introduced the TD(λ) algorithm and proved some of its convergence properties.
+from control, treating it as a general prediction method. That paper also introduced the TD(\lambda) algorithm and proved some of its convergence properties.
 As we were ﬁnalizing our work on the actor–critic architecture in 1981, we
 discovered a paper by Ian Witten (1977) that contains the earliest known publication of a temporal-diﬀerence learning rule. He proposed the method that
 we now call tabular TD(0) for use as part of an adaptive controller for solving
@@ -1095,16 +1095,16 @@ of the greedy actions, A∗ , for which Qt (A∗ ) = maxa Qt (a). This method
 always exploits current knowledge to maximize immediate reward; it spends
 no time at all sampling apparently inferior actions to see if they might really be
 better. A simple alternative is to behave greedily most of the time, but every
-once in a while, say with small probability ε, instead to select randomly from
+once in a while, say with small probability \epsilon, instead to select randomly from
 amongst all the actions with equal probability independently of the actionvalue estimates. We call methods using this near-greedy action selection rule
-ε-greedy methods. An advantage of these methods is that, in the limit as the
+\epsilon-greedy methods. An advantage of these methods is that, in the limit as the
 number of plays increases, every action will be sampled an inﬁnite number
 of times, guaranteeing that Ka → ∞ for all a, and thus ensuring that all
 the Qt (a) converge to q∗ (a). This of course implies that the probability of
-selecting the optimal action converges to greater than 1 − ε, that is, to near
+selecting the optimal action converges to greater than 1 − \epsilon, that is, to near
 certainty. These are just asymptotic guarantees, however, and say little about
 the practical eﬀectiveness of the methods.
-To roughly assess the relative eﬀectiveness of the greedy and ε-greedy methods, we compared them numerically on a suite of test problems. This was a
+To roughly assess the relative eﬀectiveness of the greedy and \epsilon-greedy methods, we compared them numerically on a suite of test problems. This was a
 set of 2000 randomly generated n-armed bandit tasks with n = 10. For each
 bandit, the action values, q∗ (a), a = 1, . . . , 10, were selected according to a
 normal (Gaussian) distribution with mean 0 and variance 1. On tth time step
@@ -1113,8 +1113,8 @@ At was the action selected) plus a normally distributed noise term that was
 mean 0 and variance 1. Averaging over bandits, we can plot the performance
 and behavior of various methods as they improve with experience over 1000
 steps, as in Figure 2.1. We call this suite of test tasks the 10-armed testbed.
-Figure 2.1 compares a greedy method with two ε-greedy methods (ε = 0.01
-and ε = 0.1), as described above, on the 10-armed testbed. Both methods
+Figure 2.1 compares a greedy method with two \epsilon-greedy methods (\epsilon = 0.01
+and \epsilon = 0.1), as described above, on the 10-armed testbed. Both methods
 formed their action-value estimates using the sample-average technique. The
 upper graph shows the increase in expected reward with experience. The
 greedy method improved slightly faster than the other methods at the very
@@ -1129,7 +1129,7 @@ Optimal
 action
 𝜀 = 0 (greedy)
 Steps
-Figure 2.1: Average performance of ε-greedy action-value methods on the
+Figure 2.1: Average performance of \epsilon-greedy action-value methods on the
 10-armed testbed. These data are averages over 2000 tasks. All methods
 used sample averages as their action-value estimates. The detailed structure
 at the beginning of these curves depends on how actions are selected when
@@ -1140,18 +1140,18 @@ eﬀectively never happen.
 often gets stuck performing suboptimal actions. The lower graph shows that
 the greedy method found the optimal action in only approximately one-third of
 the tasks. In the other two-thirds, its initial samples of the optimal action were
-disappointing, and it never returned to it. The ε-greedy methods eventually
+disappointing, and it never returned to it. The \epsilon-greedy methods eventually
 perform better because they continue to explore, and to improve their chances
-of recognizing the optimal action. The ε = 0.1 method explores more, and
+of recognizing the optimal action. The \epsilon = 0.1 method explores more, and
 usually ﬁnds the optimal action earlier, but never selects it more than 91%
-of the time. The ε = 0.01 method improves more slowly, but eventually
-performs better than the ε = 0.1 method on both performance measures. It
-is also possible to reduce ε over time to try to get the best of both high and
+of the time. The \epsilon = 0.01 method improves more slowly, but eventually
+performs better than the \epsilon = 0.1 method on both performance measures. It
+is also possible to reduce \epsilon over time to try to get the best of both high and
 low values.
-The advantage of ε-greedy over greedy methods depends on the task. For
+The advantage of \epsilon-greedy over greedy methods depends on the task. For
 example, suppose the reward variance had been larger, say 10 instead of 1.
 With noisier rewards it takes more exploration to ﬁnd the optimal action, and
-ε-greedy methods should fare even better relative to the greedy method. On
+\epsilon-greedy methods should fare even better relative to the greedy method. On
 the other hand, if the reward variances were zero, then the greedy method
 would know the true value of each action after trying it once. In this case the
 greedy method might actually perform best because it would soon ﬁnd the
@@ -1169,7 +1169,7 @@ perform best in the long run in terms of cumulative reward and cumulative
 probability of selecting the best action? How much better will it be? Express
 your answer quantitatively.
 Softmax Action Selection
-Although ε-greedy action selection is an eﬀective and popular means of balancing exploration and exploitation in reinforcement learning, one drawback
+Although \epsilon-greedy action selection is an eﬀective and popular means of balancing exploration and exploitation in reinforcement learning, one drawback
 is that when it explores it chooses equally among all actions. This means
 that it is as likely to choose the worst-appearing action as it is to choose the
 next-to-best action. In tasks where the worst actions are very bad, this may
@@ -1192,10 +1192,10 @@ action selection. Of course, the softmax eﬀect can be produced in a large
 number of ways other than by a Gibbs distribution. For example, one could
 simply add a random number from a long-tailed distribution to each Qt (a)
 and then pick the action whose sum was largest.
-Whether softmax action selection or ε-greedy action selection is better is
+Whether softmax action selection or \epsilon-greedy action selection is better is
 unclear and may depend on the task and on human factors. Both methods
 have only one parameter that must be set. Most people ﬁnd it easier to set the
-ε parameter with conﬁdence; setting τ requires knowledge of the likely action
+\epsilon parameter with conﬁdence; setting τ requires knowledge of the likely action
 values and of powers of e. We know of no careful comparative studies of these
 two simple action-selection rules.
 In recent years, the use of softmax action selection as described here has
@@ -1210,44 +1210,26 @@ methods for reinforcement learning.
 Exercise 2.2 (programming) How does the softmax action selection method
 using the Gibbs distribution fare on the 10-armed testbed? Implement the
 method and run it at several temperatures to produce graphs similar to those
-in Figure 2.1. To verify your code, ﬁrst implement the ε-greedy methods and
+in Figure 2.1. To verify your code, ﬁrst implement the \epsilon-greedy methods and
 reproduce some speciﬁc aspect of the results in Figure 2.1.
 Exercise 2.3 Show that in the case of two actions, the softmax operation
 using the Gibbs distribution becomes the logistic, or sigmoid, function commonly used in artiﬁcial neural networks. What eﬀect does the temperature
 parameter have on the function?
-Incremental Implementation
-The action-value methods we have discussed so far all estimate action values
-as sample averages of observed rewards. The obvious implementation is to
-maintain, for each action a, a record of all the rewards that have followed the
-selection of that action. Then, when the estimate of the value of action a is
-needed at time t, it can be computed according to (2.1), which we repeat here:
-Qt (a) =
-R1 + R2 + · · · + RKa
-where here R1 , . . . , RKa are all the rewards received following all selections of
-action a prior to play t. A problem with this straightforward implementation
-is that its memory and computational requirements grow over time without
-bound. That is, each additional reward following a selection of action a requires more memory to store it and results in more computation being required
-to determine Qt (a).
-As you might suspect, this is not really necessary. It is easy to devise incremental update formulas for computing averages with small, constant computation required to process each new reward. For some action, let Qk denote
-the estimate for its kth reward, that is, the average of its ﬁrst k − 1 rewards.
-Given this average and a kth reward for the action, Rk , then the average of
-all k rewards can be computed by
-Rk + (k − 1)Qk + Qk − Qk
-(2.3)
-which holds even for k = 1, obtaining Q2 = R1 for arbitrary Q1 . This implementation requires memory only for Qk and k, and only the small computation
-(2.3) for each new reward.
+
+[ _to('140529111839') ]
+Incremental Implementation [ of the mean ]
+The action-value methods we have discussed so far all estimate action values as sample averages of observed rewards. The obvious implementation is to maintain, for each action a, a record of all the rewards that have followed the selection of that action. Then, when the estimate of the value of action a is needed at time t, it can be computed according to (2.1), which we repeat here:
+where here R1 , . . . , RKa are all the rewards received following all selections of action a prior to play t. A problem with this straightforward implementation is that its memory and computational requirements grow over time without bound. That is, each additional reward following a selection of action a requires more memory to store it and results in more computation being required to determine Qt (a).
+As you might suspect, this is not really necessary. It is easy to devise incremental update formulas for computing averages with small, constant computation required to process each new reward. For some action, let Qk denote the estimate for its kth reward, that is, the average of its ﬁrst k − 1 rewards.  Given this average and a kth reward for the action, Rk , then the average of all k rewards can be computed by
+Rk + (k − 1)Qk + Qk − Qk (2.3)
+which holds even for k = 1, obtaining Q2 = R1 for arbitrary Q1 . This implementation requires memory only for Qk and k, and only the small computation (2.3) for each new reward.
 The update rule (2.3) is of a form that occurs frequently throughout this
 book. The general form is
 NewEstimate ← OldEstimate + StepSize Target − OldEstimate .(2.4)
-The expression [Target−OldEstimate] is an error in the estimate. It is reduced
-by taking a step toward the “Target.” The target is presumed to indicate a
-desirable direction in which to move, though it may be noisy. In the case
-above, for example, the target is the kth reward.
-Note that the step-size parameter (StepSize) used in the incremental
-method described above changes from time step to time step. In processing the kth reward for action a, that method uses a step-size parameter of
-. In this book we denote the step-size parameter by the symbol α or, more
-generally, by αt (a). We sometimes use the informal shorthand α = k to refer
-to this case, leaving the dependence of k on the action implicit.
+
+[ _to('140529111819') ]
+The expression [Target−OldEstimate] is an error in the estimate. It is reduced by taking a step toward the “Target.” The target is presumed to indicate a desirable direction in which to move, though it may be noisy. In the case above, for example, the target is the kth reward.  Note that the step-size parameter (StepSize) used in the incremental method described above changes from time step to time step. In processing the kth reward for action a, that method uses a step-size parameter of . In this book we denote the step-size parameter by the symbol α or, more generally, by αt (a). We sometimes use the informal shorthand α = k to refer to this case, leaving the dependence of k on the action implicit.
+
 Exercise 2.4 Give pseudocode for a complete algorithm for the n-armed
 bandit problem. Use greedy action selection and incremental computation of
 action values with α = k step-size parameter. Assume a function bandit(a)
@@ -1311,7 +1293,7 @@ problems. Use a modiﬁed version of the 10-armed testbed in which all the
 q∗ (a) start out equal and then take independent random walks. Prepare plots
 like Figure 2.1 for an action-value method using sample averages, incremen1
 tally computed by α = k , and another action-value method using a constant
-step-size parameter, α = 0.1. Use ε = 0.1 and, if necessary, runs longer than
+step-size parameter, α = 0.1. Use \epsilon = 0.1 and, if necessary, runs longer than
 1000 plays.
 Optimistic Initial Values
 All the methods we have discussed so far are dependent to some extent on
@@ -1342,7 +1324,7 @@ result is that all actions are tried several times before the value estimates co
 selected all the time.
 Figure 2.2 shows the performance on the 10-armed bandit testbed of a
 greedy method using Q1 (a) = +5, for all a. For comparison, also shown is
-an ε-greedy method with Q1 (a) = 0. Both methods used a constant step-size
+an \epsilon-greedy method with Q1 (a) = 0. Both methods used a constant step-size
 parameter, α = 0.1. Initially, the optimistic method performs worse because
 it explores more, but eventually it performs better because its exploration
 decreases with time. We call this technique for encouraging exploration optimistic initial values. We regard it as a simple trick that can be quite eﬀective
@@ -1408,7 +1390,7 @@ don’t know the true action values). This is an associative search task. What
 is the best expectation of success you can achieve in this task, and how should
 you behave to achieve it?
 We have presented in this chapter some simple ways of balancing exploration
-and exploitation. The ε-greedy methods choose randomly a small fraction of
+and exploitation. The \epsilon-greedy methods choose randomly a small fraction of
 the time, and the softmax methods grade their action probabilities according
 to the current action-value estimates. Are these simple methods really the
 best we can do in terms of practically useful algorithms? So far, the answer
@@ -1490,7 +1472,7 @@ Holland (1975) emphasized the importance of this conﬂict, referring to
 it as the conﬂict between the need to exploit and the need for new
 information.
 Action-value methods for our n-armed bandit problem were ﬁrst proposed by Thathachar and Sastry (1985). These are often called estimator algorithms in the learning automata literature. The term action
-value is due to Watkins (1989). The ﬁrst to use ε-greedy methods may
+value is due to Watkins (1989). The ﬁrst to use \epsilon-greedy methods may
 also have been Watkins (1989, p. 187), but the idea is so simple that
 some earlier use seems likely.
 The term softmax for the action selection rule (2.2) is due to Bridle
@@ -3169,7 +3151,7 @@ are returned. To help ensure that cars are available where they are needed,
 Jack can move them between the two locations overnight, at a cost of $2 per
 car moved. We assume that the number of cars requested and returned at
 each location are Poisson random variables, meaning that the probability that
-the number is n is λ e−λ , where λ is the expected number. Suppose λ is 3
+the number is n is \lambda e−\lambda , where \lambda is the expected number. Suppose \lambda is 3
 and 4 for rental requests at the ﬁrst and second locations and 3 and 2 for
 returns. To simplify the problem slightly, we assume that there can be no
 more than 20 cars at each location (any additional cars are returned to the
@@ -3209,8 +3191,8 @@ of cars to be moved from the ﬁrst location to the second (negative numbers
 indicate transfers from the second location to the ﬁrst). Each successive policy
 is a strict improvement over the previous policy, and the last policy is optimal.
 Exercise 4.7 Suppose you are restricted to considering only policies that are
-ε-soft, meaning that the probability of selecting each action in each state, s,
-is at least ε/|A(s)|. Describe qualitatively the changes that would be required
+\epsilon-soft, meaning that the probability of selecting each action in each state, s,
+is at least \epsilon/|A(s)|. Describe qualitatively the changes that would be required
 in each of the steps 3, 2, and 1, in that order, of the policy iteration algorithm
 for v∗ (Figure 4.3).
 
@@ -3907,13 +3889,13 @@ In on-policy control methods the policy is generally soft, meaning that
 on on-policy methods. One possibility is to gradually shift the policy toward
 a deterministic optimal policy. Many of the methods discussed in Chapter 2
 provide mechanisms for this. The on-policy method we present in this section
-uses ε-greedy policies, meaning that most of the time they choose an action that
-has maximal estimated action value, but with probability ε they instead select
+uses \epsilon-greedy policies, meaning that most of the time they choose an action that
+has maximal estimated action value, but with probability \epsilon they instead select
 an action at random. That is, all nongreedy actions are given the minimal
 probability of selection, |A(s)| , and the remaining bulk of the probability, 1 −
-ε + |A(s)| , is given to the greedy action. The ε-greedy policies are examples of
-ε-soft policies, deﬁned as policies for which π(a|s) ≥ |A(s)| for all states and
-actions, for some ε > 0. Among ε-soft policies, ε-greedy policies are in some
+\epsilon + |A(s)| , is given to the greedy action. The \epsilon-greedy policies are examples of
+\epsilon-soft policies, deﬁned as policies for which π(a|s) ≥ |A(s)| for all states and
+actions, for some \epsilon > 0. Among \epsilon-soft policies, \epsilon-greedy policies are in some
 sense those that are closest to greedy.
 The overall idea of on-policy Monte Carlo control is still that of GPI. As in
 Monte Carlo ES, we use ﬁrst-visit MC methods to estimate the action-value
@@ -3922,19 +3904,19 @@ however, we cannot simply improve the policy by making it greedy with respect
 to the current value function, because that would prevent further exploration
 of nongreedy actions. Fortunately, GPI does not require that the policy be
 taken all the way to a greedy policy, only that it be moved toward a greedy
-policy. In our on-policy method we will move it only to an ε-greedy policy.
-For any ε-soft policy, π, any ε-greedy policy with respect to qπ is guaranteed
+policy. In our on-policy method we will move it only to an \epsilon-greedy policy.
+For any \epsilon-soft policy, π, any \epsilon-greedy policy with respect to qπ is guaranteed
 to be better than or equal to π.
-That any ε-greedy policy with respect to qπ is an improvement over any
-ε-soft policy π is assured by the policy improvement theorem. Let π be the
-ε-greedy policy. The conditions of the policy improvement theorem apply
+That any \epsilon-greedy policy with respect to qπ is an improvement over any
+\epsilon-soft policy π is assured by the policy improvement theorem. Let π be the
+\epsilon-greedy policy. The conditions of the policy improvement theorem apply
 because for any s ∈ S:
 qπ (s, π (s)) =
 π (a|s)qπ (s, a)
 |A(s)|
 |A(s)|
-qπ (s, a) + (1 − ε) max qπ (s, a)
-qπ (s, a) + (1 − ε)
+qπ (s, a) + (1 − \epsilon) max qπ (s, a)
+qπ (s, a) + (1 − \epsilon)
 (5.2)
 π(a|s) −
 |A(s)|
@@ -3949,29 +3931,29 @@ qπ (s, a) +
 = vπ (s).
 Thus, by the policy improvement theorem, π ≥ π (i.e., vπ (s) ≥ vπ (s), for all
 s ∈ S). We now prove that equality can hold only when both π and π are
-optimal among the ε-soft policies, that is, when they are better than or equal
-to all other ε-soft policies.
-Consider a new environment that is just like the original environment, except with the requirement that policies be ε-soft “moved inside” the environment. The new environment has the same action and state set as the original
+optimal among the \epsilon-soft policies, that is, when they are better than or equal
+to all other \epsilon-soft policies.
+Consider a new environment that is just like the original environment, except with the requirement that policies be \epsilon-soft “moved inside” the environment. The new environment has the same action and state set as the original
 and behaves as follows. If in state s and taking action a, then with probability
-1 − ε the new environment behaves exactly like the old environment. With
-probability ε it repicks the action at random, with equal probabilities, and
+1 − \epsilon the new environment behaves exactly like the old environment. With
+probability \epsilon it repicks the action at random, with equal probabilities, and
 then behaves like the old environment with the new, random action. The best
 one can do in this new environment with general policies is the same as the
-best one could do in the original environment with ε-soft policies. Let v∗ and
+best one could do in the original environment with \epsilon-soft policies. Let v∗ and
 q∗ denote the optimal value functions for the new environment. Then a policy
-π is optimal among ε-soft policies if and only if vπ = v∗ . From the deﬁnition
+π is optimal among \epsilon-soft policies if and only if vπ = v∗ . From the deﬁnition
 of v∗ we know that it is the unique solution to
-v∗ (s) = (1 − ε) max q∗ (s, a) +
-= (1 − ε) max
+v∗ (s) = (1 − \epsilon) max q∗ (s, a) +
+= (1 − \epsilon) max
 |A(s)|
 |A(s)|
 q∗ (s, a)
 p(s |s, a) r(s, a, s ) + γv∗ (s )
 p(s |s, a) r(s, a, s ) + γv∗ (s ) .
-When equality holds and the ε-soft policy π is no longer improved, then we
+When equality holds and the \epsilon-soft policy π is no longer improved, then we
 also know, from (5.2), that
-vπ (s) = (1 − ε) max qπ (s, a) +
-= (1 − ε) max
+vπ (s) = (1 − \epsilon) max qπ (s, a) +
+= (1 − \epsilon) max
 |A(s)|
 qπ (s, a)
 p(s |s, a) r(s, a, s ) + γvπ (s )
@@ -3979,18 +3961,18 @@ p(s |s, a) r(s, a, s ) + γvπ (s )
 p(s |s, a) r(s, a, s ) + γvπ (s ) .
 However, this equation is the same as the previous one, except for the substitution of vπ for v∗ . Since v∗ is the unique solution, it must be that vπ = v∗ .
 In essence, we have shown in the last few pages that policy iteration works
-for ε-soft policies. Using the natural notion of greedy policy for ε-soft policies,
+for \epsilon-soft policies. Using the natural notion of greedy policy for \epsilon-soft policies,
 one is assured of improvement on every step, except when the best policy has
-been found among the ε-soft policies. This analysis is independent of how
+been found among the \epsilon-soft policies. This analysis is independent of how
 the action-value functions are determined at each stage, but it does assume
 that they are computed exactly. This brings us to roughly the same point
 as in the previous section. Now we only achieve the best policy among the
-ε-soft policies, but on the other hand, we have eliminated the assumption of
+\epsilon-soft policies, but on the other hand, we have eliminated the assumption of
 exploring starts. The complete algorithm is given in Figure 5.6.
 Initialize, for all s ∈ S, a ∈ A(s):
 Q(s, a) ← arbitrary
 Returns(s, a) ← empty list
-π ← an arbitrary ε-soft policy
+π ← an arbitrary \epsilon-soft policy
 Repeat forever:
 (a) Generate an episode using π
 (b) For each pair s, a appearing in the episode:
@@ -4000,11 +3982,11 @@ Q(s, a) ← average(Returns(s, a))
 (c) For each s in the episode:
 a∗ ← arg maxa Q(s, a)
 For all a ∈ A(s):
-1 − ε + ε/|A(s)| if a = a∗
+1 − \epsilon + \epsilon/|A(s)| if a = a∗
 π(a|s) ←
-ε/|A(s)|
+\epsilon/|A(s)|
 if a = a∗
-Figure 5.6: An ε-soft on-policy Monte Carlo control algorithm.
+Figure 5.6: An \epsilon-soft on-policy Monte Carlo control algorithm.
 5.5. EVALUATING ONE POLICY WHILE FOLLOWING ANOTHER (OFF-POLICY POLICY E
 5.5 Evaluating One Policy While Following Another (Oﬀ-policy Policy Evaluation)
 So far we have considered methods for estimating the value functions for a
@@ -4023,7 +4005,7 @@ be stochastic. The target policy π, on the other hand, may be deterministic,
 and in fact, this is the case of greatest interest to us. Typically the target
 policy is be the deterministic greedy policy with respect to the current actionvalue function estimate. This policy we hope becomes a deterministic optimal
 policy while the behavior policy remains stochastic and more exploratory, for
-example, an ε-greedy policy.
+example, an \epsilon-greedy policy.
 Consider the ith episode (following µ) in which state s is visited and, in that
 episode, the complete sequence of states and actions following the ﬁrst visit
 to s. Let pi (s) and pi (s) denote the probabilities of that complete sequence
@@ -4104,7 +4086,7 @@ The estimation policy π is the greedy policy with respect to Q, an estimate of
 qπ . The behavior policy chosen in (a) can be anything, but in order to assure
 convergence of π to the optimal policy, an inﬁnite number of returns suitable
 for use in (c) must be obtained for each pair of state and action. This can
-be assured by careful choice of the behavior policy. For example, any ε-soft
+be assured by careful choice of the behavior policy. For example, any \epsilon-soft
 behavior policy will suﬃce.
 A potential problem is that this method learns only from the tails of
 episodes, after the last nongreedy action. If nongreedy actions are frequent,
@@ -4140,8 +4122,8 @@ Exercise 5.5 The algorithm in Figure 5.7 is only valid if the environment
 is such that all policies are proper, meaning that they produce episodes that
 always eventually terminate (this assumption was made on the ﬁrst page of
 this chapter). This restriction can be lifted if the algorithm is modiﬁed to use
-ε-soft policies, which are proper for all environments. What modiﬁcations are
-needed to the algorithm to restrict it to ε-soft policies?
+\epsilon-soft policies, which are proper for all environments. What modiﬁcations are
+needed to the algorithm to restrict it to \epsilon-soft policies?
 Incremental Implementation
 Monte Carlo methods can be implemented incrementally, on an episode-byepisode basis, using extensions of techniques described in Chapter 2. They
 use averages of returns just as some of the methods for solving n-armed bandit tasks described in Chapter 2 use averages of rewards. The techniques in
@@ -4253,7 +4235,7 @@ outcome (they bootstrap). The relationship between TD, DP, and Monte
 Carlo methods is a recurring theme in the theory of reinforcement learning.
 This chapter is the beginning of our exploration of it. Before we are done,
 we will see that these ideas and methods blend into each other and can be
-combined in many ways. In particular, in Chapter 7 we introduce the TD(λ)
+combined in many ways. In particular, in Chapter 7 we introduce the TD(\lambda)
 algorithm, which seamlessly integrates TD and Monte Carlo methods.
 As usual, we start by focusing on the policy evaluation or prediction problem, that of estimating the value function vπ for a given policy π. For the
 control problem (ﬁnding an optimal policy), DP, TD, and Monte Carlo methods all use some variation of generalized policy iteration (GPI). The diﬀerences
@@ -4306,7 +4288,13 @@ A ← action given by π for S
 Take action A; observe reward, R, and next state, S
 V (S) ← V (S) + α[R + γV (S ) − V (S)]
 until S is terminal
-Figure 6.1: Tabular TD(0) for estimating vπ .
+Figure 6.1: 
+
+[ _to('140602214702') ]
+***
+###Tabular TD(0) for estimating $v_{\pi}$
+![()](140602214726.png)
+
 Figure 6.2: The backup diagram for TD(0).
 Figure 6.1 speciﬁes TD(0) completely in procedural form, and Figure 6.2
 shows its backup diagram. The value estimate for the state node at the top of
@@ -4647,21 +4635,19 @@ qπ for the behavior policy π, and at the same time change π toward greediness
 with respect to qπ . The general form of the Sarsa control algorithm is given
 in Figure 6.9.
 The convergence properties of the Sarsa algorithm depend on the nature
-of the policy’s dependence on q. For example, one could use ε-greedy or εsoft policies. According to Satinder Singh (personal communication), Sarsa
+of the policy’s dependence on q. For example, one could use \epsilon-greedy or εsoft policies. According to Satinder Singh (personal communication), Sarsa
 converges with probability 1 to an optimal policy and action-value function as
-Initialize Q(s, a), ∀s ∈ S, a ∈ A(s), arbitrarily, and Q(terminal-state, ·) = 0
-Repeat (for each episode):
-Initialize S
-Choose A from S using policy derived from Q (e.g., ε-greedy)
-Repeat (for each step of episode):
-Take action A, observe R, S
-Choose A from S using policy derived from Q (e.g., ε-greedy)
-Q(S, A) ← Q(S, A) + α[R + γQ(S , A ) − Q(S, A)]
-until S is terminal
-Figure 6.9: Sarsa: An on-policy TD control algorithm.
+
+Figure 6.9:
+
+[ _to('140602214446') ]
+***
+###Sarsa: An on-policy TD control algorithm.
+![6.9](140602214311.png)
+
 long as all state–action pairs are visited an inﬁnite number of times and the
 policy converges in the limit to the greedy policy (which can be arranged, for
-example, with ε-greedy policies by setting ε = 1/t), but this result has not yet
+example, with \epsilon-greedy policies by setting \epsilon = 1/t), but this result has not yet
 been published in the literature.
 Example 6.5: Windy Gridworld Figure 6.10 shows a standard gridworld,
 with start and goal states, but with one diﬀerence: there is a crosswind upward
@@ -4672,11 +4658,11 @@ strength of the wind is given below each column, in number of cells shifted
 upward. For example, if you are one cell to the right of the goal, then the
 action left takes you to the cell just above the goal. Let us treat this as an
 undiscounted episodic task, with constant rewards of −1 until the goal state
-is reached. Figure 6.11 shows the result of applying ε-greedy Sarsa to this
-task, with ε = 0.1, α = 0.5, and the initial values Q(s, a) = 0 for all s, a. The
+is reached. Figure 6.11 shows the result of applying \epsilon-greedy Sarsa to this
+task, with \epsilon = 0.1, α = 0.5, and the initial values Q(s, a) = 0 for all s, a. The
 increasing slope of the graph shows that the goal is reached more and more
 quickly over time. By 8000 time steps, the greedy policy (shown inset) was
-long since optimal; continued ε-greedy exploration kept the average episode
+long since optimal; continued \epsilon-greedy exploration kept the average episode
 length at about 17 steps, two more than the minimum of 15. Note that Monte
 Carlo methods cannot easily be used on this task because termination is not
 guaranteed for all policies. If a policy was ever found that caused the agent to
@@ -4733,7 +4719,7 @@ Initialize Q(s, a), ∀s ∈ S, a ∈ A(s), arbitrarily, and Q(terminal-state, �
 Repeat (for each episode):
 Initialize S
 Repeat (for each step of episode):
-Choose A from S using policy derived from Q (e.g., ε-greedy)
+Choose A from S using policy derived from Q (e.g., \epsilon-greedy)
 Take action A, observe R, S
 Q(S, A) ← Q(S, A) + α[R + γ maxa Q(S , a) − Q(S, A)]
 until S is terminal
@@ -4758,14 +4744,14 @@ Figure 6.14: The backup diagram for Q-learning.
 Reward is −1 on all transitions except those into the the region marked “The
 Cliﬀ.” Stepping into this region incurs a reward of −100 and sends the agent
 instantly back to the start. The lower part of the ﬁgure shows the performance
-of the Sarsa and Q-learning methods with ε-greedy action selection, ε = 0.1.
+of the Sarsa and Q-learning methods with \epsilon-greedy action selection, \epsilon = 0.1.
 After an initial transient, Q-learning learns values for the optimal policy, that
 which travels right along the edge of the cliﬀ. Unfortunately, this results in
-its occasionally falling oﬀ the cliﬀ because of the ε-greedy action selection.
+its occasionally falling oﬀ the cliﬀ because of the \epsilon-greedy action selection.
 Sarsa, on the other hand, takes the action selection into account and learns
 the longer but safer path through the upper part of the grid. Although Qlearning actually learns the values of the optimal policy, its on-line performance
 is worse than that of Sarsa, which learns the roundabout policy. Of course, if
-ε were gradually reduced, then both methods would asymptotically converge
+\epsilon were gradually reduced, then both methods would asymptotically converge
 to the optimal policy.
 Exercise 6.9 Why is Q-learning considered an oﬀ-policy control method?
 Exercise 6.10 Consider the learning algorithm that is just like Q-learning
@@ -4835,7 +4821,7 @@ we abstracted from dynamic programming. This is the idea that approximate
 policy and value functions should interact in such a way that they both move
 toward their optimal values.
 One of the two processes making up GPI drives the value function to accurately predict returns for the current policy; this is the prediction problem. The
-other process drives the policy to improve locally (e.g., to be ε-greedy) with
+other process drives the policy to improve locally (e.g., to be \epsilon-greedy) with
 respect to the current value function. When the ﬁrst process is based on experience, a complication arises concerning maintaining suﬃcient exploration. We
 have grouped the TD control methods according to whether they deal with
 this complication by using an on-policy or oﬀ-policy approach. Sarsa and
@@ -4915,7 +4901,7 @@ the work of Carlstr¨m and Nordstr¨m (1997).
 gChapter 7
 Eligibility Traces
 Eligibility traces are one of the basic mechanisms of reinforcement learning.
-For example, in the popular TD(λ) algorithm, the λ refers to the use of an
+For example, in the popular TD(\lambda) algorithm, the \lambda refers to the use of an
 eligibility trace. Almost any temporal-diﬀerence (TD) method, such as Qlearning or Sarsa, can be combined with eligibility traces to obtain a more
 general method that may learn more eﬃciently.
 There are two ways to view eligibility traces. The more theoretical view,
@@ -5080,14 +5066,14 @@ values of n, on a 19-state random walk task. The performance measure shown
 is the root mean-squared (RMS) error between the true values of states and
 the values found by the learning methods, averaged over the 19 states, the
 ﬁrst 10 trials, and 100 diﬀerent sequences of walks.
-g7.2. THE FORWARD VIEW OF TD(λ)
+g7.2. THE FORWARD VIEW OF TD(\lambda)
 Exercise 7.3 In the lower part of Figure 7.2, notice that the plot for n = 3 is
 diﬀerent from the others, dropping to low performance at a much lower value of
 α than similar methods. In fact, the same was observed for n = 5, n = 7, and
 n = 9. Can you explain why this might have been so? In fact, we are not sure
 ourselves. See http://www.cs.utexas.edu/~ikarpov/Classes/RL/RandomWalk/
 for an attempt at a thorough answer by Igor Karpov.
-The Forward View of TD(λ)
+The Forward View of TD(\lambda)
 Backups can be done not just toward any n-step return, but toward any average
 of n-step returns. For example, a backup can be done toward a return that
 1 (2)
@@ -5110,28 +5096,28 @@ backup mentioned above, mixing half of a two-step backup and half of a fourstep 
 TD("), "-return
 (1!") "
 (1!") "
-Figure 7.3: The backup digram for TD(λ). If λ = 0, then the overall backup
-reduces to its ﬁrst component, the one-step TD backup, whereas if λ = 1, then
+Figure 7.3: The backup digram for TD(\lambda). If \lambda = 0, then the overall backup
+reduces to its ﬁrst component, the one-step TD backup, whereas if \lambda = 1, then
 the overall backup reduces to its last component, the Monte Carlo backup.
-The TD(λ) algorithm can be understood as one particular way of averaging
+The TD(\lambda) algorithm can be understood as one particular way of averaging
 n-step backups. This average contains all the n-step backups, each weighted
-proportional to λn−1 , where 0 ≤ λ ≤ 1 (Figure 7.3). A normalization factor
-of 1 − λ ensures that the weights sum to 1. The resulting backup is toward a
-return, called the λ-return, deﬁned by
-= (1 − λ)
+proportional to λn−1 , where 0 ≤ \lambda ≤ 1 (Figure 7.3). A normalization factor
+of 1 − \lambda ensures that the weights sum to 1. The resulting backup is toward a
+return, called the \lambda-return, deﬁned by
+= (1 − \lambda)
 Figure 7.4 illustrates this weighting sequence. The one-step return is given
-the largest weight, 1 − λ; the two-step return is given the next largest weight,
-(1 − λ)λ; the three-step return is given the weight (1 − λ)λ2 ; and so on. The
-weight fades by λ with each additional step. After a terminal state has been
+the largest weight, 1 − \lambda; the two-step return is given the next largest weight,
+(1 − \lambda)\lambda; the three-step return is given the weight (1 − \lambda)λ2 ; and so on. The
+weight fades by \lambda with each additional step. After a terminal state has been
 reached, all subsequent n-step returns are equal to Gt . If we want, we can
 separate these terms from the main sum, yielding
-= (1 − λ)
+= (1 − \lambda)
 (7.3)
-This equation makes it clearer what happens when λ = 1. In this case the
+This equation makes it clearer what happens when \lambda = 1. In this case the
 main sum goes to zero, and the remaining term reduces to the conventional
-return, Gt . Thus, for λ = 1, backing up according to the λ-return is the
+return, Gt . Thus, for \lambda = 1, backing up according to the \lambda-return is the
 same as the Monte Carlo algorithm that we called constant-α MC (6.1) in
-g7.2. THE FORWARD VIEW OF TD(λ)
+g7.2. THE FORWARD VIEW OF TD(\lambda)
 weight given to
 the 3-step return
 total area = 1
@@ -5140,12 +5126,12 @@ Weight
 weight given to
 actual, final return
 Time
-Figure 7.4: Weighting given in the λ-return to each of the n-step returns.
-the previous chapter. On the other hand, if λ = 0, then the λ-return reduces
-to Gt , the one-step return. Thus, for λ = 0, backing up according to the
-λ-return is the same as the one-step TD method, TD(0).
-We deﬁne the λ-return algorithm as the algorithm that performs backups
-using the λ-return. On each step, t, it computes an increment, ∆Vt (St ), to the
+Figure 7.4: Weighting given in the \lambda-return to each of the n-step returns.
+the previous chapter. On the other hand, if \lambda = 0, then the \lambda-return reduces
+to Gt , the one-step return. Thus, for \lambda = 0, backing up according to the
+\lambda-return is the same as the one-step TD method, TD(0).
+We deﬁne the \lambda-return algorithm as the algorithm that performs backups
+using the \lambda-return. On each step, t, it computes an increment, ∆Vt (St ), to the
 value of the state occurring on that step:
 ∆Vt (St ) = α Gλ − Vt (St ) .
 (7.4)
@@ -5159,46 +5145,46 @@ forward from and updating one state, we move on to the next and never have
 to work with the preceding state again. Future states, on the other hand,
 are viewed and processed repeatedly, once from each vantage point preceding
 them.
-The λ-return algorithm is the basis for the forward view of eligibility traces
-as used in the TD(λ) method. In fact, we show in a later section that, in the
-oﬀ-line case, the λ-return algorithm is the TD(λ) algorithm. The λ-return
-and TD(λ) methods use the λ parameter to shift from one-step TD methods
+The \lambda-return algorithm is the basis for the forward view of eligibility traces
+as used in the TD(\lambda) method. In fact, we show in a later section that, in the
+oﬀ-line case, the \lambda-return algorithm is the TD(\lambda) algorithm. The \lambda-return
+and TD(\lambda) methods use the \lambda parameter to shift from one-step TD methods
 to Monte Carlo methods. The speciﬁc way this shift is done is interesting,
 but not obviously better or worse than the way it is done with simple n-step
-methods by varying n. Ultimately, the most compelling motivation for the λ
+methods by varying n. Ultimately, the most compelling motivation for the \lambda
 T ime
 Figure 7.5: The forward or theoretical view. We decide how to update each
 state by looking forward to future rewards and states.
 RMS error,
 averaged over
 first 10 episodes
-Figure 7.6: Performance of the oﬀ-line λ-return algorithm on a 19-state random
+Figure 7.6: Performance of the oﬀ-line \lambda-return algorithm on a 19-state random
 walk task.
-way of mixing n-step backups is that there is a simple algorithm—TD(λ)—for
+way of mixing n-step backups is that there is a simple algorithm—TD(\lambda)—for
 achieving it. This is a mechanism issue rather than a theoretical one. In the
 next few sections we develop the mechanistic, or backward, view of eligibility
-traces as used in TD(λ).
-Example 7.2: λ-return on the Random Walk Task Figure 7.6 shows
-the performance of the oﬀ-line λ-return algorithm on the 19-state random walk
+traces as used in TD(\lambda).
+Example 7.2: \lambda-return on the Random Walk Task Figure 7.6 shows
+the performance of the oﬀ-line \lambda-return algorithm on the 19-state random walk
 task used with the n-step methods in Example 7.1. The experiment was just
-as in the n-step case except that here we varied λ instead of n. Note that we
-get best performance with an intermediate value of λ.
-Exercise 7.4 The parameter λ characterizes how fast the exponential weighting in Figure 7.4 falls oﬀ, and thus how far into the future the λ-return algorithm looks in determining its backup. But a rate factor such as λ is sometimes
+as in the n-step case except that here we varied \lambda instead of n. Note that we
+get best performance with an intermediate value of \lambda.
+Exercise 7.4 The parameter \lambda characterizes how fast the exponential weighting in Figure 7.4 falls oﬀ, and thus how far into the future the \lambda-return algorithm looks in determining its backup. But a rate factor such as \lambda is sometimes
 an awkward way of characterizing the speed of the decay. For some purposes it
-g7.3. THE BACKWARD VIEW OF TD(λ)
+g7.3. THE BACKWARD VIEW OF TD(\lambda)
 is better to specify a time constant, or half-life. What is the equation relating
-λ and the half-life, τλ , the time by which the weighting sequence will have
+\lambda and the half-life, τλ , the time by which the weighting sequence will have
 fallen to half of its initial value?
-The Backward View of TD(λ)
-In the previous section we presented the forward or theoretical view of the tabular TD(λ) algorithm as a way of mixing backups that parametrically shifts
+The Backward View of TD(\lambda)
+In the previous section we presented the forward or theoretical view of the tabular TD(\lambda) algorithm as a way of mixing backups that parametrically shifts
 from a TD method to a Monte Carlo method. In this section we instead deﬁne
-TD(λ) mechanistically, and in the next section we show that this mechanism
+TD(\lambda) mechanistically, and in the next section we show that this mechanism
 correctly implements the forward view. The mechanistic, or backward , view
-of TD(λ) is useful because it is simple conceptually and computationally. In
+of TD(\lambda) is useful because it is simple conceptually and computationally. In
 particular, the forward view itself is not directly implementable because it is
 acausal, using at each step knowledge of what will happen many steps later.
 The backward view provides a causal, incremental mechanism for approximating the forward view and, in the oﬀ-line case, for achieving it exactly.
-In the backward view of TD(λ), there is an additional memory variable
+In the backward view of TD(\lambda), there is an additional memory variable
 associated with each state, its eligibility trace. The eligibility trace for state
 s at time t is a random variable denoted Zt (s) ∈ R+ . On each step, the
 eligibility traces for all states decay by γλ, and the eligibility trace for the one
@@ -5207,8 +5193,8 @@ Zt (s) =
 γλZt−1 (s)
 γλZt−1 (s) + 1 if s = St ,
 (7.5)
-for all nonterminal states s, where γ is the discount rate and λ is the parameter
-introduced in the previous section. Henceforth we refer to λ as the trace-decay
+for all nonterminal states s, where γ is the discount rate and \lambda is the parameter
+introduced in the previous section. Henceforth we refer to \lambda as the trace-decay
 parameter. This kind of eligibility trace is called an accumulating trace because
 it accumulates each time the state is visited, then fades away gradually when
 the state is not visited, as illustrated below:
@@ -5232,44 +5218,44 @@ For all s ∈ S:
 V (s) ← V (s) + αδ Z(s)
 Z(s) ← γ λZ(s)
 until S is terminal
-Figure 7.7: On-line tabular TD(λ).
+Figure 7.7: On-line tabular TD(\lambda).
 state-value prediction is
 δt = Rt+1 + γVt (St+1 ) − Vt (St ).
 (7.6)
-In the backward view of TD(λ), the global TD error signal triggers proportional updates to all recently visited states, as signaled by their nonzero traces:
+In the backward view of TD(\lambda), the global TD error signal triggers proportional updates to all recently visited states, as signaled by their nonzero traces:
 ∆Vt (s) = αδt Zt (s),
 for all s ∈ S.
 (7.7)
 As always, these increments could be done on each step to form an on-line
 algorithm, or saved until the end of the episode to produce an oﬀ-line algorithm. In either case, equations (7.5–7.7) provide the mechanistic deﬁnition
-of the TD(λ) algorithm. A complete algorithm for on-line TD(λ) is given in
+of the TD(\lambda) algorithm. A complete algorithm for on-line TD(\lambda) is given in
 Figure 7.7.
-The backward view of TD(λ) is oriented backward in time. At each moment we look at the current TD error and assign it backward to each prior
+The backward view of TD(\lambda) is oriented backward in time. At each moment we look at the current TD error and assign it backward to each prior
 state according to the state’s eligibility trace at that time. We might imagine
 ourselves riding along the stream of states, computing TD errors, and shouting
 them back to the previously visited states, as suggested by Figure 7.8. Where
 the TD error and traces come together, we get the update given by (7.7).
 To better understand the backward view, consider what happens at various
-values of λ. If λ = 0, then by (7.5) all traces are zero at t except for the trace
-corresponding to St . Thus the TD(λ) update (7.7) reduces to the simple TD
+values of \lambda. If \lambda = 0, then by (7.5) all traces are zero at t except for the trace
+corresponding to St . Thus the TD(\lambda) update (7.7) reduces to the simple TD
 rule (6.2), which we henceforth call TD(0). In terms of Figure 7.8, TD(0) is
 the case in which only the one state preceding the current one is changed by
-g7.3. THE BACKWARD VIEW OF TD(λ)
+g7.3. THE BACKWARD VIEW OF TD(\lambda)
 T ime
 Figure 7.8: The backward or mechanistic view. Each update depends on the
 current TD error combined with traces of past events.
-the TD error. For larger values of λ, but still λ < 1, more of the preceding
+the TD error. For larger values of \lambda, but still \lambda < 1, more of the preceding
 states are changed, but each more temporally distant state is changed less
 because its eligibility trace is smaller, as suggested in the ﬁgure. We say that
 the earlier states are given less credit for the TD error.
-If λ = 1, then the credit given to earlier states falls only by γ per step. This
+If \lambda = 1, then the credit given to earlier states falls only by γ per step. This
 turns out to be just the right thing to do to achieve Monte Carlo behavior.
 For example, remember that the TD error, δt , includes an undiscounted term
 of Rt+1 . In passing this back k steps it needs to be discounted, like any reward
 in a return, by γ k , which is just what the falling eligibility trace achieves. If
-λ = 1 and γ = 1, then the eligibility traces do not decay at all with time. In
+\lambda = 1 and γ = 1, then the eligibility traces do not decay at all with time. In
 this case the method behaves like a Monte Carlo method for an undiscounted,
-episodic task. If λ = 1, the algorithm is also known as TD(1).
+episodic task. If \lambda = 1, the algorithm is also known as TD(1).
 TD(1) is a way of implementing Monte Carlo algorithms that is more general than those presented earlier and that signiﬁcantly increases their range
 of applicability. Whereas the earlier Monte Carlo methods were limited to
 episodic tasks, TD(1) can be applied to discounted continuing tasks as well.
@@ -5282,12 +5268,12 @@ episode, where the n steps are all the way up to the current step. If something
 unusually good or bad happens during an episode, control methods based on
 TD(1) can learn immediately and alter their behavior on that same episode.
 Equivalence of Forward and Backward Views
-In this section we show that oﬀ-line TD(λ), as deﬁned mechanistically above,
-achieves the same weight updates as the oﬀ-line λ-return algorithm. In this
+In this section we show that oﬀ-line TD(\lambda), as deﬁned mechanistically above,
+achieves the same weight updates as the oﬀ-line \lambda-return algorithm. In this
 sense we align the forward (theoretical) and backward (mechanistic) views of
-TD(λ). Let ∆Vtλ (St ) denote the update at time t of V (St ) according to the
-λ-return algorithm (7.4), and let ∆VtT D (s) denote the update at time t of state
-s according to the mechanistic deﬁnition of TD(λ) as given by (7.7). Then our
+TD(\lambda). Let ∆Vtλ (St ) denote the update at time t of V (St ) according to the
+\lambda-return algorithm (7.4), and let ∆VtT D (s) denote the update at time t of state
+s according to the mechanistic deﬁnition of TD(\lambda) as given by (7.7). Then our
 goal is to show that the sum of all the updates over an episode is the same for
 the two algorithms:
 ∆VtT D (s)
@@ -5308,16 +5294,16 @@ Thus, the left-hand side of (7.8) can be written
 (γλ)k−t δk .
 (7.9)
 Now we turn to the right-hand side of (7.8). Consider an individual update
-of the λ-return algorithm:
-∆V λ (St ) = Gλ − Vt (St )
-= −Vt (St ) + (1 − λ)λ0 [Rt+1 + γVt (St+1 )]
-+ (1 − λ)λ1 [Rt+1 + γRt+2 + γ 2 Vt (St+2 )]
-+ (1 − λ)λ2 [Rt+1 + γRt+2 + γ 2 Rt+3 + γ 3 Vt (St+3 )]
-Examine the ﬁrst column inside the brackets—all the Rt+1 ’s with their weighting factors of 1−λ times powers of λ. It turns out that all the weighting factors
+of the \lambda-return algorithm:
+∆V \lambda (St ) = Gλ − Vt (St )
+= −Vt (St ) + (1 − \lambda)λ0 [Rt+1 + γVt (St+1 )]
++ (1 − \lambda)λ1 [Rt+1 + γRt+2 + γ 2 Vt (St+2 )]
++ (1 − \lambda)λ2 [Rt+1 + γRt+2 + γ 2 Rt+3 + γ 3 Vt (St+3 )]
+Examine the ﬁrst column inside the brackets—all the Rt+1 ’s with their weighting factors of 1−\lambda times powers of \lambda. It turns out that all the weighting factors
 sum to 1. Thus we can pull out the ﬁrst column and get an unweighted term
 of Rt+1 . A similar trick pulls out the second column in brackets, starting from
 the second row, which sums to γλRt+2 . Repeating this for each column, we
-∆V λ (St ) = −Vt (St )
+∆V \lambda (St ) = −Vt (St )
 + (γλ)0 [Rt+1 + γVt (St+1 ) − γλVt (St+1 )]
 + (γλ)1 [Rt+2 + γVt (St+2 ) − γλVt (St+2 )]
 + (γλ)2 [Rt+3 + γVt (St+3 ) − γλVt (St+3 )]
@@ -5341,50 +5327,50 @@ over First
 Episodes
 Online TD(")
 on Random Walk
-Figure 7.9: Performance of on-line TD(λ) on the 19-state random walk task.
+Figure 7.9: Performance of on-line TD(\lambda) on the 19-state random walk task.
 In the case of on-line updating, the approximation made above will be close
 as long as α is small and thus V changes little during an episode. Even in the
-on-line case we can expect the updates of TD(λ) and of the λ-return algorithm
+on-line case we can expect the updates of TD(\lambda) and of the \lambda-return algorithm
 to be similar.
 For the moment let us assume that the increments are small enough during
-an episode that on-line TD(λ) gives essentially the same update over the course
-of an episode as does the λ-return algorithm. There still remain interesting
+an episode that on-line TD(\lambda) gives essentially the same update over the course
+of an episode as does the \lambda-return algorithm. There still remain interesting
 questions about what happens during an episode. Consider the updating of
-the value of state St in midepisode, at time t + k. Under on-line TD(λ), the
-eﬀect at t + k is just as if we had done a λ-return update treating the last
+the value of state St in midepisode, at time t + k. Under on-line TD(\lambda), the
+eﬀect at t + k is just as if we had done a \lambda-return update treating the last
 observed state as the terminal state of the episode with a nonzero terminal
 value equal to its current estimated value. This relationship is maintained
 from step to step as each new state is observed.
-Example 7.3: Random Walk with TD(λ) Because oﬀ-line TD(λ) is
-equivalent to the λ-return algorithm, we already have the results for oﬀ-line
-TD(λ) on the 19-state random walk task; they are shown in Figure 7.6. The
-comparable results for on-line TD(λ) are shown in Figure 7.9. Note that the
+Example 7.3: Random Walk with TD(\lambda) Because oﬀ-line TD(\lambda) is
+equivalent to the \lambda-return algorithm, we already have the results for oﬀ-line
+TD(\lambda) on the 19-state random walk task; they are shown in Figure 7.6. The
+comparable results for on-line TD(\lambda) are shown in Figure 7.9. Note that the
 on-line algorithm works better over a broader range of parameters. This is
 often found to be the case for on-line methods.
-Exercise 7.5 Although TD(λ) only approximates the λ-return algorithm
+Exercise 7.5 Although TD(\lambda) only approximates the \lambda-return algorithm
 when done online, perhaps there’s a slightly diﬀerent TD method that would
 maintain the equivalence even in the on-line case. One idea is to deﬁne the
 TD error instead as δt = Rt+1 + γVt (St+1 ) − Vt−1 (St ) and the n-step return as
-g7.5. SARSA(λ)
+g7.5. SARSA(\lambda)
 Rt = Rt+1 + · · · + γ n−1 Rt+n + γ n Vt+n−1 (St+n ). Show that in this case the
-modiﬁed TD(λ) algorithm would then achieve exactly
+modiﬁed TD(\lambda) algorithm would then achieve exactly
 ∆Vt (St ) = α Gλ − Vt−1 (St ) ,
 even in the case of on-line updating with large α. In what ways might this
-modiﬁed TD(λ) be better or worse than the conventional one described in
+modiﬁed TD(\lambda) be better or worse than the conventional one described in
 the text? Describe an experiment to assess the relative merits of the two
 algorithms.
-Sarsa(λ)
-How can eligibility traces be used not just for prediction, as in TD(λ), but for
+Sarsa(\lambda)
+How can eligibility traces be used not just for prediction, as in TD(\lambda), but for
 control? As usual, the main idea of one popular approach is simply to learn
 action values, qt (s, a), rather than state values, Vt (s). In this section we show
 how eligibility traces can be combined with Sarsa in a straightforward way to
 produce an on-policy TD control method. The eligibility trace version of Sarsa
-we call Sarsa(λ), and the original version presented in the previous chapter
+we call Sarsa(\lambda), and the original version presented in the previous chapter
 we henceforth call one-step Sarsa.
-The idea in Sarsa(λ) is to apply the TD(λ) prediction method to state–
+The idea in Sarsa(\lambda) is to apply the TD(\lambda) prediction method to state–
 action pairs rather than to states. Obviously, then, we need a trace not just
 for each state, but for each state–action pair. Let Zt (s, a) denote the trace for
-state–action pair s, a. Otherwise the method is just like TD(λ), substituting
+state–action pair s, a. Otherwise the method is just like TD(\lambda), substituting
 state–action variables for state variables—Qt (s, a) for Vt (s) and Zt (s, a) for
 Zt (s):
 Qt+1 (s, a) = Qt (s, a) + αδt Zt (s, a),
@@ -5396,21 +5382,21 @@ Zt (s, a) =
 γλZt−1 (s, a)
 otherwise.
 for all s, a (7.10)
-Figure 7.10 shows the backup diagram for Sarsa(λ). Notice the similarity to
-the diagram of the TD(λ) algorithm (Figure 7.3). The ﬁrst backup looks ahead
+Figure 7.10 shows the backup diagram for Sarsa(\lambda). Notice the similarity to
+the diagram of the TD(\lambda) algorithm (Figure 7.3). The ﬁrst backup looks ahead
 one full step, to the next state–action pair, the second looks ahead two steps,
-Sarsa(λ)
-(1−λ) λ
-(1−λ) λ2
-Figure 7.10: Sarsa(λ)’s backup diagram.
+Sarsa(\lambda)
+(1−\lambda) \lambda
+(1−\lambda) λ2
+Figure 7.10: Sarsa(\lambda)’s backup diagram.
 and so on. A ﬁnal backup is based on the complete return. The weighting of
-each backup is just as in TD(λ) and the λ-return algorithm.
-One-step Sarsa and Sarsa(λ) are on-policy algorithms, meaning that they
+each backup is just as in TD(\lambda) and the \lambda-return algorithm.
+One-step Sarsa and Sarsa(\lambda) are on-policy algorithms, meaning that they
 approximate qπ (s, a), the action values for the current policy, π, then improve
 the policy gradually based on the approximate values for the current policy.
 The policy improvement can be done in many diﬀerent ways, as we have seen
 throughout this book. For example, the simplest approach is to use the εgreedy policy with respect to the current action-value estimates. Figure 7.11
-shows the complete Sarsa(λ) algorithm for this case.
+shows the complete Sarsa(\lambda) algorithm for this case.
 Example 7.4: Traces in Gridworld The use of eligibility traces can
 substantially increase the eﬃciency of control algorithms. The reason for this
 is illustrated by the gridworld example in Figure 7.12. The ﬁrst panel shows the
@@ -5418,26 +5404,26 @@ path taken by an agent in a single episode, ending at a location of high reward,
 marked by the *. In this example the values were all initially 0, and all rewards
 were zero except for a positive reward at the * location. The arrows in the other
 two panels show which action values were strengthened as a result of this path
-by one-step Sarsa and Sarsa(λ) methods. The one-step method strengthens
+by one-step Sarsa and Sarsa(\lambda) methods. The one-step method strengthens
 only the last action of the sequence of actions that led to the high reward,
 whereas the trace method strengthens many actions of the sequence. The
 degree of strengthening (indicated by the size of the arrows) falls oﬀ (according
-to γλ) with steps from the reward. In this example, γ = 1 and λ = 0.9.
-g7.5. SARSA(λ)
+to γλ) with steps from the reward. In this example, γ = 1 and \lambda = 0.9.
+g7.5. SARSA(\lambda)
 Initialize Q(s, a) arbitrarily, for all s ∈ S, a ∈ A(s)
 Repeat (for each episode):
 Z(s, a) = 0, for all s ∈ S, a ∈ A(s)
 Initialize S, A
 Repeat (for each step of episode):
 Take action A, observe R, S
-Choose A from S using policy derived from Q (e.g., ε-greedy)
+Choose A from S using policy derived from Q (e.g., \epsilon-greedy)
 δ ← R + γQ(S , A ) − Q(S, A)
 Z(S, A) ← Z(S, A) + 1
 For all s ∈ S, a ∈ A(s):
 Q(s, a) ← Q(s, a) + αδ Z(s, a)
 Z(s, a) ← γ λZ(s, a)
 until S is terminal
-Figure 7.11: Tabular Sarsa(λ).
+Figure 7.11: Tabular Sarsa(\lambda).
 Path taken
 Action values increased
 by one-step Sarsa
@@ -5445,10 +5431,10 @@ Action values increased
 by Sarsa(!) with !=0.9
 Figure 7.12: Gridworld example of the speedup of policy learning due to the
 use of eligibility traces.
-Q(λ)
+Q(\lambda)
 Two diﬀerent methods have been proposed that combine eligibility traces
-and Q-learning; we call them Watkins’s Q(λ) and Peng’s Q(λ), after the
-researchers who ﬁrst proposed them. First we describe Watkins’s Q(λ).
+and Q-learning; we call them Watkins’s Q(\lambda) and Peng’s Q(\lambda), after the
+researchers who ﬁrst proposed them. First we describe Watkins’s Q(\lambda).
 Recall that Q-learning is an oﬀ-policy method, meaning that the policy
 learned about need not be the same as the one used to select actions. In
 particular, Q-learning learns about the greedy policy while it typically follows
@@ -5463,31 +5449,31 @@ experience only as long as the greedy policy is being followed. Thus, we can use
 the one-step and two-step returns, but not, in this case, the three-step return.
 The n-step returns for all n ≥ 3 no longer have any necessary relationship to
 the greedy policy.
-Thus, unlike TD(λ) or Sarsa(λ), Watkins’s Q(λ) does not look ahead all
+Thus, unlike TD(\lambda) or Sarsa(\lambda), Watkins’s Q(\lambda) does not look ahead all
 the way to the end of the episode in its backup. It only looks ahead as far
 as the next exploratory action. Aside from this diﬀerence, however, Watkins’s
-Q(λ) is much like TD(λ) and Sarsa(λ). Their lookahead stops at episode’s end,
-whereas Q(λ)’s lookahead stops at the ﬁrst exploratory action, or at episode’s
+Q(\lambda) is much like TD(\lambda) and Sarsa(\lambda). Their lookahead stops at episode’s end,
+whereas Q(\lambda)’s lookahead stops at the ﬁrst exploratory action, or at episode’s
 end if there are no exploratory actions before that. Actually, to be more
-precise, one-step Q-learning and Watkins’s Q(λ) both look one action past the
+precise, one-step Q-learning and Watkins’s Q(\lambda) both look one action past the
 ﬁrst exploration, using their knowledge of the action values. For example,
-suppose the ﬁrst action, At+1 , is exploratory. Watkins’s Q(λ) would still do
+suppose the ﬁrst action, At+1 , is exploratory. Watkins’s Q(\lambda) would still do
 the one-step update of Qt (St , At ) toward Rt+1 +γ maxa Qt (St+1 , a). In general,
 if At+n is the ﬁrst exploratory action, then the longest backup is toward
 Rt+1 + γRt+2 + · · · + γ n−1 Rt+n + γ n max Qt (St+n , a),
-where we assume oﬀ-line updating. The backup diagram in Figure 7.13 illustrates the forward view of Watkins’s Q(λ), showing all the component backups.
-The mechanistic or backward view of Watkins’s Q(λ) is also very simple.
-Eligibility traces are used just as in Sarsa(λ), except that they are set to zero
+where we assume oﬀ-line updating. The backup diagram in Figure 7.13 illustrates the forward view of Watkins’s Q(\lambda), showing all the component backups.
+The mechanistic or backward view of Watkins’s Q(\lambda) is also very simple.
+Eligibility traces are used just as in Sarsa(\lambda), except that they are set to zero
 whenever an exploratory (nongreedy) action is taken. The trace update is
 best thought of as occurring in two steps. First, the traces for all state–action
 pairs are either decayed by γλ or, if an exploratory action was taken, set to 0.
-g7.6. Q(λ)
+g7.6. Q(\lambda)
 Watkins's Q(")
 (1!") "
 (1!") "
 non-greedy
 action
-Figure 7.13: The backup diagram for Watkins’s Q(λ). The series of component
+Figure 7.13: The backup diagram for Watkins’s Q(\lambda). The series of component
 backups ends either with the end of the episode or with the ﬁrst nongreedy
 action, whichever comes ﬁrst.
 Second, the trace corresponding to the current state and action is incremented
@@ -5512,7 +5498,7 @@ Z(s, a) = 0, for all s ∈ S, a ∈ A(s)
 Initialize S, A
 Repeat (for each step of episode):
 Take action A, observe R, S
-Choose A from S using policy derived from Q (e.g., ε-greedy)
+Choose A from S using policy derived from Q (e.g., \epsilon-greedy)
 A∗ ← arg maxa Q(S , a) (if A ties for the max, then A∗ ← A )
 δ ← R + γQ(S , A∗ ) − Q(S, A)
 Z(S, A) ← Z(S, A) + 1
@@ -5521,29 +5507,29 @@ Q(s, a) ← Q(s, a) + αδ Z(s, a)
 If A = A∗ , then Z(s, a) ← γ λZ(s, a)
 else Z(s, a) ← 0
 until S is terminal
-Figure 7.14: Tabular version of Watkins’s Q(λ) algorithm.
-one-step Q-learning. Peng’s Q(λ) is an alternate version of Q(λ) meant to
-remedy this. Peng’s Q(λ) can be thought of as a hybrid of Sarsa(λ) and
-Watkins’s Q(λ).
-Conceptually, Peng’s Q(λ) uses the mixture of backups shown in Figure 7.15. Unlike Q-learning, there is no distinction between exploratory and
+Figure 7.14: Tabular version of Watkins’s Q(\lambda) algorithm.
+one-step Q-learning. Peng’s Q(\lambda) is an alternate version of Q(\lambda) meant to
+remedy this. Peng’s Q(\lambda) can be thought of as a hybrid of Sarsa(\lambda) and
+Watkins’s Q(\lambda).
+Conceptually, Peng’s Q(\lambda) uses the mixture of backups shown in Figure 7.15. Unlike Q-learning, there is no distinction between exploratory and
 greedy actions. Each component backup is over many steps of actual experiences, and all but the last are capped by a ﬁnal maximization over actions.
 The component backups, then, are neither on-policy nor oﬀ-policy. The earlier
 transitions of each are on-policy, whereas the last (ﬁctitious) transition uses
 the greedy policy. As a consequence, for a ﬁxed nongreedy policy, Qt converges
-to neither qπ nor q∗ under Peng’s Q(λ), but to some hybrid of the two. However, if the policy is gradually made more greedy, then the method may still
+to neither qπ nor q∗ under Peng’s Q(\lambda), but to some hybrid of the two. However, if the policy is gradually made more greedy, then the method may still
 converge to q∗ . As of this writing this has not yet been proved. Nevertheless,
 the method performs well empirically. Most studies have shown it performing
-signiﬁcantly better than Watkins’s Q(λ) and almost as well as Sarsa(λ).
-On the other hand, Peng’s Q(λ) cannot be implemented as simply as
-Watkins’s Q(λ). For a complete description of the needed implementation,
+signiﬁcantly better than Watkins’s Q(\lambda) and almost as well as Sarsa(\lambda).
+On the other hand, Peng’s Q(\lambda) cannot be implemented as simply as
+Watkins’s Q(\lambda). For a complete description of the needed implementation,
 see Peng and Williams (1994, 1996). One could imagine yet a third version of
-Q(λ), let us call it naive Q(λ), that is just like Watkins’s Q(λ) except that the
+Q(\lambda), let us call it naive Q(\lambda), that is just like Watkins’s Q(\lambda) except that the
 traces are not set to zero on exploratory actions. This method might have some
-of the advantages of Peng’s Q(λ), but without the complex implementation.
+of the advantages of Peng’s Q(\lambda), but without the complex implementation.
 Peng's Q(")
 (1!"! "
 (1!"! "
-Figure 7.15: The backup diagram for Peng’s Q(λ).
+Figure 7.15: The backup diagram for Peng’s Q(\lambda).
 Replacing Traces
 In some cases signiﬁcantly better performance can be obtained by using a
 slightly modiﬁed kind of trace known as a replacing trace. Suppose a state is
@@ -5565,12 +5551,12 @@ RMS error
 at best "
 replacing
 traces
-Figure 7.17: Error as a function of λ on a 19-state random walk task. These
-data are using the best value of α for each value of λ. The error is averaged
+Figure 7.17: Error as a function of \lambda on a 19-state random walk task. These
+data are using the best value of α for each value of \lambda. The error is averaged
 over all 19 states and the ﬁrst 20 trials of 100 diﬀerent runs.
 Prediction or control algorithms using replacing traces are often called
 replace-trace methods. Although replacing traces are only slightly diﬀerent
-from accumulating traces, they can produce a signiﬁcant improvement in learning rate. Figure 7.17 compares the performance of conventional and replacetrace versions of TD(λ) on the 19-state random walk prediction task. Other
+from accumulating traces, they can produce a signiﬁcant improvement in learning rate. Figure 7.17 compares the performance of conventional and replacetrace versions of TD(\lambda) on the 19-state random walk prediction task. Other
 examples for a slightly more general case are given in Figure 9.10.
 Example 7.5 Figure 7.18 shows an example of the kind of task that is diﬃcult
 for control methods using accumulating eligibility traces. All rewards are zero
@@ -5618,12 +5604,12 @@ selected, the wrong action is left with no trace at all. The results shown in
 Figure 9.10 were obtained using this kind of replacing trace.
 Exercise 7.6 In Example 7.5, suppose from state s the wrong action is taken
 twice before the right action is taken. If accumulating traces are used, then
-how big must the trace parameter λ be in order for the wrong action to end
+how big must the trace parameter \lambda be in order for the wrong action to end
 up with a larger eligibility trace than the right action?
-Exercise 7.7 (programming) Program Example 7.5 and compare accumulatetrace and replace-trace versions of Sarsa(λ) on it, for λ = 0.9 and a range of α
+Exercise 7.7 (programming) Program Example 7.5 and compare accumulatetrace and replace-trace versions of Sarsa(\lambda) on it, for \lambda = 0.9 and a range of α
 values. Can you empirically demonstrate the claimed advantage of replacing
 traces on this example?
-Exercise 7.8 Draw a backup diagram for Sarsa(λ) with replacing traces.
+Exercise 7.8 Draw a backup diagram for Sarsa(\lambda) with replacing traces.
 Implementation Issues
 It might at ﬁrst appear that methods using eligibility traces are much more
 complex than one-step methods. A naive implementation would require every
@@ -5631,53 +5617,53 @@ state (or state–action pair) to update both its value estimate and its eligibi
 trace on every time step. This would not be a problem for implementations
 on single-instruction, multiple-data parallel computers or in plausible neural
 implementations, but it is a problem for implementations on conventional serial
-computers. Fortunately, for typical values of λ and γ the eligibility traces of
+computers. Fortunately, for typical values of \lambda and γ the eligibility traces of
 almost all states are almost always nearly zero; only those that have recently
 been visited will have traces signiﬁcantly greater than zero. Only these few
 states really need to be updated because the updates at the others will have
 essentially no eﬀect.
 In practice, then, implementations on conventional computers keep track
 of and update only the few states with nonzero traces. Using this trick, the
-computational expense of using traces is typically a few times that of a onestep method. The exact multiple of course depends on λ and γ and on the
+computational expense of using traces is typically a few times that of a onestep method. The exact multiple of course depends on \lambda and γ and on the
 expense of the other computations. Cichosz (1995) has demonstrated a further implementation technique that further reduces complexity to a constant
-independent of λ and γ. Finally, it should be noted that the tabular case is
+independent of \lambda and γ. Finally, it should be noted that the tabular case is
 in some sense a worst case for the computational complexity of traces. When
 function approximation is used (Chapter 9), the computational advantages of
 not using traces generally decrease. For example, if artiﬁcial neural networks
 and backpropagation are used, then traces generally cause only a doubling of
 the required memory and computation per step.
-Exercise 7.9 Write pseudocode for an implementation of TD(λ) that updates only value estimates for states whose traces are greater than some small
+Exercise 7.9 Write pseudocode for an implementation of TD(\lambda) that updates only value estimates for states whose traces are greater than some small
 positive constant.
-Variable λ
-The λ-return can be signiﬁcantly generalized beyond what we have described
-so far by allowing λ to vary from step to step, that is, by redeﬁning the trace
+Variable \lambda
+The \lambda-return can be signiﬁcantly generalized beyond what we have described
+so far by allowing \lambda to vary from step to step, that is, by redeﬁning the trace
 update as
 Zt (s) =
 γ λt Zt−1 (s)
 γ λt Zt−1 (s) + 1 if s = St ,
-where λt denotes the value of λ at time t. This is an advanced topic because
+where λt denotes the value of \lambda at time t. This is an advanced topic because
 the added generality has never been used in practical applications, but it is
 interesting theoretically and may yet prove useful. For example, one idea is to
-vary λ as a function of state: λt = λ(St ). If a state’s value estimate is believed
+vary \lambda as a function of state: λt = \lambda(St ). If a state’s value estimate is believed
 to be known with high certainty, then it makes sense to use that estimate fully,
 ignoring whatever states and rewards are received after it. This corresponds to
 cutting oﬀ all the traces once this state has been reached, that is, to choosing
-the λ for the certain state to be zero or very small. Similarly, states whose
+the \lambda for the certain state to be zero or very small. Similarly, states whose
 value estimates are highly uncertain, perhaps because even the state estimate
 is unreliable, can be given λs near 1. This causes their estimated values to
 have little eﬀect on any updates. They are “skipped over” until a state that is
 known better is encountered. Some of these ideas were explored formally by
 Sutton and Singh (1994).
 The eligibility trace equation above is the backward view of variable λs.
-The corresponding forward view is a more general deﬁnition of the λ-return:
+The corresponding forward view is a more general deﬁnition of the \lambda-return:
 Gt (1 − λt+n )
 (k−t)
-Exercise 7.10 Prove that the forward and backward views of oﬀ-line TD(λ)
-remain equivalent under their new deﬁnitions with variable λ given in this
+Exercise 7.10 Prove that the forward and backward views of oﬀ-line TD(\lambda)
+remain equivalent under their new deﬁnitions with variable \lambda given in this
 section. Follow the example of the proof in Section 7.4.
 Eligibility traces in conjunction with TD errors provide an eﬃcient, incremental way of shifting and choosing between Monte Carlo and TD methods. Traces
 can be used without TD errors to achieve a similar eﬀect, but only awkwardly.
-A method such as TD(λ) enables this to be done from partial experiences and
+A method such as TD(\lambda) enables this to be done from partial experiences and
 with little memory and little nonmeaningful variation in predictions.
 As we mentioned in Chapter 5, Monte Carlo methods may have advantages in non-Markov tasks because they do not bootstrap. Because eligibility
 traces make TD methods more like Monte Carlo methods, they also can have
@@ -5685,7 +5671,7 @@ advantages in these cases. If one wants to use TD methods because of their
 other advantages, but the task is at least partially non-Markov, then the use
 of an eligibility trace method is indicated. Eligibility traces are the ﬁrst line
 of defense against both long-delayed rewards and non-Markov tasks.
-By adjusting λ, we can place eligibility trace methods anywhere along
+By adjusting \lambda, we can place eligibility trace methods anywhere along
 a continuum from Monte Carlo to one-step TD methods. Where shall we
 place them? We do not yet have a good theoretical answer to this question,
 but a clear empirical answer appears to be emerging. On tasks with many
@@ -5696,7 +5682,7 @@ method, or nearly so, then performance degrades sharply. An intermediate
 mixture appears to be the best choice. Eligibility traces should be used to
 bring us toward Monte Carlo methods, but not all the way there. In the
 future it may be possible to vary the trade-oﬀ between TD and Monte Carlo
-methods more ﬁnely by using variable λ, but at present it is not clear how this
+methods more ﬁnely by using variable \lambda, but at present it is not clear how this
 can be done reliably and usefully.
 Methods using eligibility traces require more computation than one-step
 methods, but in return they oﬀer signiﬁcantly faster learning, particularly
@@ -5710,17 +5696,17 @@ speedup per datum due to traces is typically not worth their computational
 cost, and one-step methods are favored.
 Bibliographical and Historical Remarks
 7.1–2 The forward view of eligibility traces in terms of n-step returns and the
-λ-return is due to Watkins (1989), who also ﬁrst discussed the error
+\lambda-return is due to Watkins (1989), who also ﬁrst discussed the error
 reduction property of n-step returns. Our presentation is based on
 the slightly modiﬁed treatment by Jaakkola, Jordan, and Singh (1994).
 The results in the random walk examples were made for this text based
 on work of Sutton (1988) and Singh and Sutton (1996). The use of
 backup diagrams to describe these and other algorithms in this chapter
 is new, as are the terms “forward view” and “backward view.”
-TD(λ) was proved to converge in the mean by Dayan (1992), and with
+TD(\lambda) was proved to converge in the mean by Dayan (1992), and with
 probability 1 by many researchers, including Peng (1993), Dayan and
 Sejnowski (1994), and Tsitsiklis (1994). Jaakkola, Jordan, and Singh
-(1994), in addition, ﬁrst proved convergence of TD(λ) under on-line
+(1994), in addition, ﬁrst proved convergence of TD(\lambda) under on-line
 updating. Gurvits, Lin, and Hanson (1994) proved convergence of a
 more general class of eligibility trace methods.
 The idea that stimuli produce aftereﬀects in the nervous system that
@@ -5735,16 +5721,16 @@ neuron’s synapses would become “eligible” for subsequent modiﬁcation
 should reinforcement later arrive at the neuron. Our use of eligibility
 traces was based on Klopf’s work (Sutton, 1978a, 1978b, 1978c; Barto
 and Sutton, 1981a, 1981b; Sutton and Barto, 1981a; Barto, Sutton,
-and Anderson, 1983; Sutton, 1984). The TD(λ) algorithm is due to
+and Anderson, 1983; Sutton, 1984). The TD(\lambda) algorithm is due to
 Sutton (1988).
 The equivalence of forward and backward views, and the relationships
 to Monte Carlo methods, were proved by Sutton (1988) for undiscounted episodic tasks, then extended by Watkins (1989) to the general
 case. The idea in exercise 7.5 is new.
-Sarsa(λ) was ﬁrst explored as a control method by Rummery and Niranjan (1994) and Rummery (1995).
-Watkins’s Q(λ) is due to Watkins (1989). Peng’s Q(λ) is due to Peng
+Sarsa(\lambda) was ﬁrst explored as a control method by Rummery and Niranjan (1994) and Rummery (1995).
+Watkins’s Q(\lambda) is due to Watkins (1989). Peng’s Q(\lambda) is due to Peng
 and Williams (Peng, 1993; Peng and Williams, 1994, 1996). Rummery
 (1995) made extensive comparative studies of these algorithms.
-Convergence has not been proved for any control method for 0 < λ < 1.
+Convergence has not been proved for any control method for 0 < \lambda < 1.
 Replacing traces are due to Singh and Sutton (1996). The results in
 Figure 7.17 are from their paper. The task in Figure 7.18 was used
 to show the weakness of accumulating traces by Sutton (1984). The
@@ -5753,10 +5739,10 @@ was developed by Singh and Sutton (1996).
 7.8-9 The ideas in these two sections were generally known for many years,
 but beyond what is in the sources cited in the sections themselves, this
 text may be the ﬁrst place they have been described. Perhaps the ﬁrst
-published discussion of variable λ was by Watkins (1989), who pointed
+published discussion of variable \lambda was by Watkins (1989), who pointed
 out that the cutting oﬀ of the backup sequence (Figure 7.13) in his
-Q(λ) when a nongreedy action was selected could be implemented by
-temporarily setting λ to 0.
+Q(\lambda) when a nongreedy action was selected could be implemented by
+temporarily setting \lambda to 0.
 gChapter 8
 Planning and Learning with
 Tabular Methods
@@ -5769,7 +5755,7 @@ of both kinds of methods is the computation of value functions. Moreover, all
 the methods are based on looking ahead to future events, computing a backedup value, and then using it to update an approximate value function. Earlier
 in this book we presented Monte Carlo and temporal-diﬀerence methods as
 distinct alternatives, then showed how they can be seamlessly integrated by
-using eligibility traces such as in TD(λ). Our goal in this chapter is a similar
+using eligibility traces such as in TD(\lambda). Our goal in this chapter is a similar
 integration of planning and learning methods. Having established these as
 distinct in earlier chapters, we now explore the extent to which they can be
 intermixed.
@@ -5950,7 +5936,7 @@ complete algorithm for Dyna-Q.
 Initialize Q(s, a) and M odel(s, a) for all s ∈ S and a ∈ A(s)
 Do forever:
 (a) S ← current (nonterminal) state
-(b) A ← ε-greedy(S, Q)
+(b) A ← \epsilon-greedy(S, Q)
 (c) Execute action A; observe resultant reward, R, and state, S
 (d) Q(S, A) ← Q(S, A) + α[R + γ maxa Q(S , a) − Q(S, A)]
 (e) M odel(S, A) ← R, S (assuming deterministic environment)
@@ -5972,7 +5958,7 @@ transitions, except those into the goal state, on which it is +1. After reaching
 the goal state (G), the agent returns to the start state (S) to begin a new
 episode. This is a discounted, episodic task with γ = 0.95.
 The main part of Figure 8.5 shows average learning curves from an experiment in which Dyna-Q agents were applied to the maze task. The initial
-action values were zero, the step-size parameter was α = 0.1, and the exploration parameter was ε = 0.1. When selecting greedily among actions, ties
+action values were zero, the step-size parameter was α = 0.1, and the exploration parameter was \epsilon = 0.1. When selecting greedily among actions, ties
 were broken randomly. The agents varied in the number of planning steps,
 n, they performed per real step. For each n, the curves show the number of
 steps taken by the agent in each episode, averaged over 30 repetitions of the
@@ -5981,7 +5967,7 @@ was exactly the same (about 1700 steps) for all values of n, and its data are
 not shown in the ﬁgure. After the ﬁrst episode, performance improved for all
 values of n, but much more rapidly for larger values. Recall that the n = 0
 agent is a nonplanning agent, utilizing only direct reinforcement learning (onestep tabular Q-learning). This was by far the slowest agent on this problem,
-despite the fact that the parameter values (α and ε) were optimized for it. The
+despite the fact that the parameter values (α and \epsilon) were optimized for it. The
 actions
 Steps
 episode
@@ -5993,7 +5979,7 @@ Episodes
 Figure 8.5: A simple maze (inset) and the average learning curves for Dyna-Q
 agents varying in their number of planning steps (n) per real step. The task
 is to travel from S to G as quickly as possible.
-nonplanning agent took about 25 episodes to reach (ε-)optimal performance,
+nonplanning agent took about 25 episodes to reach (\epsilon-)optimal performance,
 whereas the n = 5 agent took about ﬁve episodes, and the n = 50 agent took
 only three episodes.
 Figure 8.6 shows why the planning agents found the solution so much faster
@@ -6081,7 +6067,7 @@ left). After 3000 steps, however, a shorter path is opened up along the right
 side, without disturbing the longer path (upper right). The graph shows that
 two of the three Dyna agents never switched to the shortcut. In fact, they
 never realized that it existed. Their models said that there was no shortcut, so the more they planned, the less likely they were to step to the right
-and discover it. Even with an ε-greedy policy, it is very unlikely that an
+and discover it. Even with an \epsilon-greedy policy, it is very unlikely that an
 agent will take so many exploratory actions as to discover the shortcut.
 The general problem here is another version of the conﬂict between exploration and exploitation. In a planning context, exploration means trying
 actions that improve the model, whereas exploitation means behaving in the
@@ -6396,7 +6382,7 @@ isolate the eﬀect of the backup distribution, we used entirely one-step full
 tabular backups, as deﬁned by (8.1). In the uniform case, we cycled through
 all state–action pairs, backing up each in place, and in the on-policy case we
 simulated episodes, backing up each state–action pair that occurred under
-the current ε-greedy policy (ε = 0.1). The tasks were undiscounted episodic
+the current \epsilon-greedy policy (\epsilon = 0.1). The tasks were undiscounted episodic
 tasks, generated randomly as follows. From each of the |S| states, two actions
 were possible, each of which resulted in one of b next states, all equally likely,
 with a diﬀerent random selection of b states for each state–action pair. The
@@ -6474,7 +6460,7 @@ values by changing the approximate value function. In fact, the value function i
 However, it is natural to consider allowing the value function to be improved
 over time, using either the backed-up values computed during heuristic search
 or any of the other methods presented throughout this book. In a sense we
-have taken this approach all along. Our greedy and ε-greedy action-selection
+have taken this approach all along. Our greedy and \epsilon-greedy action-selection
 methods are not unlike heuristic search, albeit on a smaller scale. For example, to compute the greedy action given a model and a state-value function, we
 must look ahead from each possible action to each possible next state, backup
 the rewards and estimated values, and then pick the best action. Just as in
@@ -6491,7 +6477,7 @@ optimal. If the search is of suﬃcient depth k such that γ k is very small, th
 actions will be correspondingly near optimal. On the other hand, the deeper
 the search, the more computation is required, usually resulting in a slower
 response time. A good example is provided by Tesauro’s grandmaster-level
-backgammon player, TD-Gammon (Section 15.1). This system used TD(λ)
+backgammon player, TD-Gammon (Section 15.1). This system used TD(\lambda)
 to learn an afterstate value function through many games of self-play, using a
 form of heuristic search to make its moves. As a model, TD-Gammon used a
 There are interesting exceptions to this. See, e.g., Pearl (1984).
@@ -6651,7 +6637,7 @@ value at particular states toward a “backed-up value” for that state. Let us
 refer to an individual backup by the notation s → v, where s is the state
 backed up and v is the backed-up value, or target, that s’s estimated value
 is shifted toward. For example, the Monte Carlo backup for value prediction is St → Gt , the TD(0) backup is St → Rt+1 + γˆ(St+1 , wt ), and the
-general TD(λ) backup is St → Gt . In the DP policy evaluation backup
+general TD(\lambda) backup is St → Gt . In the DP policy evaluation backup
 s → Eπ[Rt+1 + γˆ(St+1 , wt ) | St = s], an arbitrary state s is backed up, whereas
 in the the other cases the state, St , encountered in (possibly simulated) experience is backed up.
 It is natural to interpret each backup as specifying an example of the
@@ -6811,12 +6797,12 @@ target Vt = Gt is by deﬁnition an unbiased estimate of vπ (St ). With this
 choice, the general gradient-descent method (9.3) converges to a locally optimal approximation to vπ (St ). Thus, the gradient-descent version of Monte
 Carlo state-value prediction is guaranteed to ﬁnd a locally optimal solution.
 Similarly, we can use n-step TD returns and their averages for Vt . For
-example, the gradient-descent form of TD(λ) uses the λ-return, Vt = Gλ , as
+example, the gradient-descent form of TD(\lambda) uses the \lambda-return, Vt = Gλ , as
 its approximation to vπ (St ), yielding the forward-view update:
 wt+1 = wt + α Gλ − v (St , wt )
 wt v (St , wt ).
 (9.4)
-Unfortunately, for λ < 1, Gλ is not an unbiased estimate of vπ (St ), and thus
+Unfortunately, for \lambda < 1, Gλ is not an unbiased estimate of vπ (St ), and thus
 this method does not converge to a local optimum. The situation is the same
 when DP targets are used such as Vt = Eπ[Rt+1 + γˆ(St+1 , wt ) | St ]. Neverv
 theless, such bootstrapping methods can be quite eﬀective, and other performance guarantees are available for important special cases, as we discuss later
@@ -6824,7 +6810,7 @@ in this chapter. For now we emphasize the relationship of these methods to
 the general gradient-descent form (9.3). Although increments as in (9.4) are
 not themselves gradients, it is useful to view this method as a gradient-descent
 method (9.3) with a bootstrapping approximation in place of the desired output, vπ (St ).
-As (9.4) provides the forward view of gradient-descent TD(λ), so the backward view is provided by
+As (9.4) provides the forward view of gradient-descent TD(\lambda), so the backward view is provided by
 (9.5)
 where δt is the usual TD error, now using v ,
 δt = Rt+1 + γˆ(St+1 , wt ) − v (St , wt ),
@@ -6833,7 +6819,7 @@ and zt = (zt,1 , zt,2 , . . . , zt,n ) is a column vector of eligibility traces,
 each component of wt , updated by
 wt v (St , wt ),
 (9.7)
-with z0 = 0. A complete algorithm for on-line gradient-descent TD(λ) is given
+with z0 = 0. A complete algorithm for on-line gradient-descent TD(\lambda) is given
 in Figure 9.1.
 Initialize w as appropriate for the problem, e.g., w = 0
 Repeat (for each episode):
@@ -6844,24 +6830,24 @@ Take action A, observe reward, R, and next state, S
 δ ← R + γˆ(S , w) − v (S, w)
 z ← γλz + w v (S, w)
 until S is terminal
-Figure 9.1: On-line gradient-descent TD(λ) for estimating vπ .
+Figure 9.1: On-line gradient-descent TD(\lambda) for estimating vπ .
 Two methods for gradient-based function approximation have been used
 widely in reinforcement learning. One is multilayer artiﬁcial neural networks
 using the error backpropagation algorithm. This maps immediately onto the
 equations and algorithms just given, where the backpropagation process is the
 way of computing the gradients. The second popular form is the linear form,
 which we discuss extensively in the next section.
-Exercise 9.1 Show that table-lookup TD(λ) is a special case of general TD(λ)
+Exercise 9.1 Show that table-lookup TD(\lambda) is a special case of general TD(\lambda)
 as given by equations (9.5–9.7).
 Exercise 9.2 State aggregation is a simple form of generalizing function approximation in which states are grouped together, with one table entry (value
 estimate) used for each group. Whenever a state in a group is encountered, the
 group’s entry is used to determine the state’s value, and when the state is updated, the group’s entry is updated. Show that this kind of state aggregation
 is a special case of a gradient method such as (9.4).
 Exercise 9.3 The equations given in this section are for the on-line version
-of gradient-descent TD(λ). What are the equations for the oﬀ-line version?
+of gradient-descent TD(\lambda). What are the equations for the oﬀ-line version?
 Give a complete description specifying the new weight vector at the end of an
 episode, w , in terms of the weight vector used during the episode, w. Start
-by modifying a forward-view equation for TD(λ), such as (9.4).
+by modifying a forward-view equation for TD(\lambda), such as (9.4).
 Exercise 9.4 For oﬀ-line updating, show that equations (9.5–9.7) produce
 updates identical to (9.4).
 Linear Methods
@@ -6884,7 +6870,7 @@ any method guaranteed to converge to or near a local optimum is automatically gu
 simple in these ways, the linear, gradient-descent case is one of the most favorable for mathematical analysis. Almost all useful convergence results for
 learning systems of all kinds are for linear (or simpler) function approximation
 methods.
-In particular, the gradient-descent TD(λ) algorithm discussed in the previous section (Figure 9.1) has been proved to converge in the linear case if
+In particular, the gradient-descent TD(\lambda) algorithm discussed in the previous section (Figure 9.1) has been proved to converge in the linear case if
 the step-size parameter is reduced over time according to the usual conditions
 (2.7). Convergence is not to the minimum-error parameter vector, w∗ , but to
 a nearby parameter vector, w∞ , whose error is bounded according to
@@ -6892,7 +6878,7 @@ RM SE(w∞ ) ≤
 RM SE(w∗ ).
 (9.9)
 That is, the asymptotic error is no more than 1−γλ times the smallest possible
-error. As λ approaches 1, the bound approaches the minimum error. An analogous bound applies to other on-policy bootstrapping methods. For example,
+error. As \lambda approaches 1, the bound approaches the minimum error. An analogous bound applies to other on-policy bootstrapping methods. For example,
 linear gradient-descent DP backups (9.3), with the on-policy distribution, will
 converge to the same result as TD(0). Technically, this bound applies only to
 discounted continuing tasks, but a related result presumably holds for episodic
@@ -7161,13 +7147,13 @@ The general gradient-descent update for action-value prediction is
 wt+1 = wt + α Qt − q (St , At , wt )
 wt q (St , At , wt ).
 For example, the backward view of the action-value method analogous to
-TD(λ) is
+TD(\lambda) is
 where
 δt = Rt+1 + γ q (St+1 , At+1 , wt ) − q (St , At , wt ),
 wt q (St , At , wt ),
-with z0 = 0. We call this method gradient-descent Sarsa(λ), particularly
+with z0 = 0. We call this method gradient-descent Sarsa(\lambda), particularly
 when it is elaborated to form a full control method. For a constant policy,
-this method converges in the same way that TD(λ) does, with the same kind
+this method converges in the same way that TD(\lambda) does, with the same kind
 of error bound (9.9).
 To form control methods, we need to couple such action-value prediction
 methods with techniques for policy improvement and action selection. Suitable
@@ -7178,12 +7164,12 @@ techniques already developed in previous chapters. That is, for each possible
 action, a, available in the current state, St , we can compute q (St , a, wt ) and
 then ﬁnd the greedy action at = arg maxa q (St , a, wt ). Policy improvement
 is done by changing the estimation policy to the greedy policy (in oﬀ-policy
-methods) or to a soft approximation of the greedy policy such as the ε-greedy
+methods) or to a soft approximation of the greedy policy such as the \epsilon-greedy
 policy (in on-policy methods). Actions are selected according to this same
 policy in on-policy methods, or by an arbitrary policy in oﬀ-policy methods.
-Figures 9.8 and 9.9 show examples of on-policy (Sarsa(λ)) and oﬀ-policy
-(Watkins’s Q(λ)) control methods using function approximation. Both methods use linear, gradient-descent function approximation with binary features,
-such as in tile coding and Kanerva coding. Both methods use an ε-greedy
+Figures 9.8 and 9.9 show examples of on-policy (Sarsa(\lambda)) and oﬀ-policy
+(Watkins’s Q(\lambda)) control methods using function approximation. Both methods use linear, gradient-descent function approximation with binary features,
+such as in tile coding and Kanerva coding. Both methods use an \epsilon-greedy
 policy for action selection, and the Sarsa method uses it for GPI as well. Both
 compute the sets of present features, Fa , corresponding to the current state
 and all possible actions, a. If the value function for each action is a separate linear function of the same features (a common case), then the indices of
@@ -7200,7 +7186,7 @@ For all i ∈ FA :
 Take action A, observe reward, R, and next state, S
 (Note that from here and below, S and A denote the new state and action)
 If S is not terminal, then:
-With probability 1 − ε:
+With probability 1 − \epsilon:
 For all a ∈ A(S):
 Fa ← set of features present in S, a
 qa ← i∈Fa wi
@@ -7208,7 +7194,7 @@ A ← arg maxa∈A(S) qa
 else
 A ← a random action ∈ A(S)
 FA ← set of features present in S, A
-Figure 9.8: Linear, gradient-descent Sarsa(λ) with binary features and εgreedy policy. Updates for both accumulating and replacing traces are speciﬁed, including the option (when using replacing traces) of clearing the traces
+Figure 9.8: Linear, gradient-descent Sarsa(\lambda) with binary features and εgreedy policy. Updates for both accumulating and replacing traces are speciﬁed, including the option (when using replacing traces) of clearing the traces
 of nonselected actions.
 Let w and z be vectors with one component for each possible feature
 Let Fa , for every possible action a, be a set of feature indices, initially empty
@@ -7219,7 +7205,7 @@ Repeat (for each step of episode):
 For all a ∈ A(s):
 Fa ← set of features present in s, a
 qa ← i∈Fa wi
-A ← arg maxa qa with prob. 1 − ε, else a random action ∈ A(s)
+A ← arg maxa qa with prob. 1 − \epsilon, else a random action ∈ A(s)
 Take action A, observe reward, R, and next state, S
 For all i ∈ Fa : zi = 1
 If S is terminal, then w ← w + αδ z; go to next episode
@@ -7227,8 +7213,8 @@ For all a ∈ A(s):
 Fa ← set of features present in s, a
 qa ← i∈Fa wi
 δ ← δ + γ maxa∈A(s) qa
-Figure 9.9: A linear, gradient-descent version of Watkins’s Q(λ) with binary
-features, ε-greedy policy, and accumulating traces.
+Figure 9.9: A linear, gradient-descent version of Watkins’s Q(\lambda) with binary
+features, \epsilon-greedy policy, and accumulating traces.
 the Fa for each action are essentially the same, simplifying the computation
 signiﬁcantly.
 All the methods we have discussed above have used accumulating eligibility
@@ -7283,17 +7269,17 @@ features, we used gridtilings as in Figure 9.5. We used ten 9 × 9 tilings, each
 oﬀset by a random fraction of a tile width.
 The Sarsa algorithm in Figure 9.8 (using replace traces and the optional
 clearing) readily solved this task, learning a near optimal policy within 100
-episodes. Figure 9.10 shows the negative of the value function (the cost-togo function) learned on one run, using the parameters λ = 0.9, ε = 0, and
+episodes. Figure 9.10 shows the negative of the value function (the cost-togo function) learned on one run, using the parameters \lambda = 0.9, \epsilon = 0, and
 α = 0.05 (e.g., 0.5 ). The initial action values were all zero, which was optimistic
 (all true values are negative in this task), causing extensive exploration to
-occur even though the exploration parameter, ε, was 0. This can be seen in
+occur even though the exploration parameter, \epsilon, was 0. This can be seen in
 the middle-top panel of the ﬁgure, labeled “Step 428.” At this time not even
 Steps per episode
 averaged over
 first episodes
 ﬁrst 2020 trials
 and 30 runs
-Figure 9.11: The eﬀect of α, λ, and the kind of traces on early performance
+Figure 9.11: The eﬀect of α, \lambda, and the kind of traces on early performance
 on the mountain–car task. This study used ﬁve 9 × 9 tilings.
 one episode had been completed, but the car has oscillated back and forth in
 the valley, following circular trajectories in state space. All the states visited
@@ -7301,17 +7287,17 @@ frequently are valued worse than unexplored states, because the actual rewards
 have been worse than what was (unrealistically) expected. This continually
 drives the agent away from wherever it has been, to explore new states, until
 a solution is found. Figure 9.11 shows the results of a detailed study of the
-eﬀect of the parameters α and λ, and of the kind of traces, on the rate of
+eﬀect of the parameters α and \lambda, and of the kind of traces, on the rate of
 learning on this task.
 Should We Bootstrap?
 At this point you may be wondering why we bother with bootstrapping methods at all. Nonbootstrapping methods can be used with function approximation more reliably and over a broader range of conditions than bootstrapping
 methods. Nonbootstrapping methods achieve a lower asymptotic error than
-bootstrapping methods, even when backups are done according to the onpolicy distribution. By using eligibility traces and λ = 1, it is even possible to
+bootstrapping methods, even when backups are done according to the onpolicy distribution. By using eligibility traces and \lambda = 1, it is even possible to
 implement nonbootstrapping methods on-line, in a step-by-step incremental
 manner. Despite all this, in practice bootstrapping methods are usually the
 methods of choice.
 In empirical comparisons, bootstrapping methods usually perform much
-better than nonbootstrapping methods. A convenient way to make such comparisons is to use a TD method with eligibility traces and vary λ from 0 (pure
+better than nonbootstrapping methods. A convenient way to make such comparisons is to use a TD method with eligibility traces and vary \lambda from 0 (pure
 bootstrapping) to 1 (pure nonbootstrapping). Figure 9.12 summarizes a col-
 accumulating
 traces
@@ -7332,17 +7318,17 @@ accumulating
 traces
 Failures per
 100,000 steps
-Figure 9.12: The eﬀect of λ on reinforcement learning performance. In all
+Figure 9.12: The eﬀect of \lambda on reinforcement learning performance. In all
 cases, the better the performance, the lower the curve. The two left panels
-are applications to simple continuous-state control tasks using the Sarsa(λ) algorithm and tile coding, with either replacing or accumulating traces (Sutton,
+are applications to simple continuous-state control tasks using the Sarsa(\lambda) algorithm and tile coding, with either replacing or accumulating traces (Sutton,
 1996). The upper-right panel is for policy evaluation on a random walk task
-using TD(λ) (Singh and Sutton, 1996). The lower right panel is unpublished
+using TD(\lambda) (Singh and Sutton, 1996). The lower right panel is unpublished
 data for the pole-balancing task (Example 3.4) from an earlier study (Sutton,
-lection of such results. In all cases, performance became much worse as λ
+lection of such results. In all cases, performance became much worse as \lambda
 approached 1, the nonbootstrapping case. The example in the upper right of
 the ﬁgure is particularly signiﬁcant in this regard. This is a policy evaluation
 (prediction) task and the performance measure used is RMSE (at the end of
-each episode, averaged over the ﬁrst 20 episodes). Asymptotically, the λ = 1
+each episode, averaged over the ﬁrst 20 episodes). Asymptotically, the \lambda = 1
 case must be best according to this measure, but here, short of the asymptote,
 we see it performing much worse.
 At this time it is unclear why methods that involve some bootstrapping
@@ -7395,19 +7381,19 @@ The earliest use of state aggregation in reinforcement learning may
 have been Michie and Chambers’s BOXES system (1968). The theory
 of state aggregation in reinforcement learning has been developed by
 Singh, Jaakkola, and Jordan (1995) and Tsitsiklis and Van Roy (1996).
-TD(λ) with linear gradient-descent function approximation was ﬁrst explored by Sutton (1984, 1988), who proved convergence of TD(0) in the
+TD(\lambda) with linear gradient-descent function approximation was ﬁrst explored by Sutton (1984, 1988), who proved convergence of TD(0) in the
 mean to the minimal RMSE solution for the case in which the feature
 vectors, {x(s) : s ∈ S}, are linearly independent. Convergence with
-probability 1 for general λ was proved by several researchers at about
+probability 1 for general \lambda was proved by several researchers at about
 the same time (Peng, 1993; Dayan and Sejnowski, 1994; Tsitsiklis, 1994;
 Gurvits, Lin, and Hanson, 1994). In addition, Jaakkola, Jordan, and
 Singh (1994) proved convergence under on-line updating. All of these
 results assumed linearly independent feature vectors, which implies at
-least as many components to wt as there are states. Convergence of linear TD(λ) for the more interesting case of general (dependent) feature
+least as many components to wt as there are states. Convergence of linear TD(\lambda) for the more interesting case of general (dependent) feature
 vectors was ﬁrst shown by Dayan (1992). A signiﬁcant generalization
 and strengthening of Dayan’s result was proved by Tsitsiklis and Van
 Roy (1997). They proved the main result presented in Section 8.2,
-the bound on the asymptotic error of TD(λ) and other bootstrapping
+the bound on the asymptotic error of TD(\lambda) and other bootstrapping
 methods. Recently they extended their analysis to the undiscounted
 continuing case (Tsitsiklis and Van Roy, 1999).
 Our presentation of the range of possibilities for linear function approximation is based on that by Barto (1990). The term coarse coding is
@@ -7432,8 +7418,8 @@ What we call “Kanerva coding” was introduced by Kanerva (1988) as
 part of his more general idea of sparse distributed memory. A good review of this and related memory models is provided by Kanerva (1993).
 This approach has been pursued by Gallant (1993) and by Sutton and
 Whitehead (1993), among others.
-Q(λ) with function approximation was ﬁrst explored by Watkins (1989).
-Sarsa(λ) with function approximation was ﬁrst explored by Rummery
+Q(\lambda) with function approximation was ﬁrst explored by Watkins (1989).
+Sarsa(\lambda) with function approximation was ﬁrst explored by Rummery
 and Niranjan (1994). The mountain–car example is based on a similar
 task studied by Moore (1990). The results on it presented here are from
 Sutton (1996) and Singh and Sutton (1996).
@@ -7507,7 +7493,7 @@ Policy Approximation
 All of the methods we have considered so far in this book have learned the
 values of states or state–action pairs. To use them for control, we learned
 the values of state–action pairs, and then used those action values directly to
-implement the policy (e.g., ε-greedy) and select actions. All methods of this
+implement the policy (e.g., \epsilon-greedy) and select actions. All methods of this
 form can be called action-value methods.
 In this chapter we explore methods that are not action-value methods.
 They may still compute action (or state) values, but they do not use them
@@ -7615,7 +7601,7 @@ their average reward per time step, in other words, according to their r(π).
 Initialize R and Q(s, a), for all s, a, arbitrarily
 Repeat forever:
 S ← current state
-Choose action A in S using behavior policy (e.g., ε-greedy)
+Choose action A in S using behavior policy (e.g., \epsilon-greedy)
 Take action A, observe R, S
 δ ← R − R + maxa Q(S , a) − Q(S, A)
 Q(S, A) ← Q(S, A) + αδ
@@ -7627,7 +7613,7 @@ be optimal.
 Other than its use of relative values, R-learning is a standard TD control
 method based on oﬀ-policy GPI, much like Q-learning. It maintains two policies, a behavior policy and an estimation policy, plus an action-value function
 and an estimated average reward. The behavior policy is used to generate
-experience; it might be the ε-greedy policy with respect to the action-value
+experience; it might be the \epsilon-greedy policy with respect to the action-value
 function. The estimation policy is the one involved in GPI. It is typically the
 greedy policy with respect to the action-value function. If π is the estimation
 policy, then the action-value function, Q, is an approximation of qπ and the
@@ -7656,7 +7642,7 @@ Number of free servers
 Figure 11.3: The policy and value function found by R-learning on the accesscontrol queuing task after 2 million steps. The drop on the right of the graph is
 probably due to insuﬃcient data; many of these states were never experienced.
 The value learned for R was about 2.73.
-The R-learning parameters were α = 0.01, β = 0.01, and ε = 0.1. The initial
+The R-learning parameters were α = 0.01, β = 0.01, and \epsilon = 0.1. The initial
 action values and R were zero.
 Exercise 11.1 Design an on-policy method for undiscounted, continuing
 tasks.
@@ -7685,7 +7671,7 @@ One of the most impressive applications of reinforcement learning to date is
 that by Gerry Tesauro to the game of backgammon (Tesauro, 1992, 1994,
 1995). Tesauro’s program, TD-Gammon, required little backgammon knowledge, yet learned to play extremely well, near the level of the world’s strongest
 grandmasters. The learning algorithm in TD-Gammon was a straightforward
-combination of the TD(λ) algorithm and nonlinear function approximation
+combination of the TD(\lambda) algorithm and nonlinear function approximation
 using a multilayer neural network trained by backpropagating TD errors.
 Backgammon is a major game in the sense that it is played throughout the
 world, with numerous tournaments and regular world championship matches.
@@ -7738,7 +7724,7 @@ reward to be predicted. On the other hand, the theoretical results we have
 described so far cannot be usefully applied to this task. The number of states
 is so large that a lookup table cannot be used, and the opponent is a source
 of uncertainty and time variation.
-TD-Gammon used a nonlinear form of TD(λ). The estimated value, v (s), of
+TD-Gammon used a nonlinear form of TD(\lambda). The estimated value, v (s), of
 any state (board position) s was meant to estimate the probability of winning
 starting from state s. To achieve this, rewards were deﬁned as zero for all
 time steps except those on which the game is won. To implement the value
@@ -7788,7 +7774,7 @@ evidence. The computation from hidden units to the output unit was entirely
 analogous. Each connection from a hidden unit to the output unit had a
 separate weight. The output unit formed the weighted sum and then passed
 it through the same sigmoid nonlinearity.
-TD-Gammon used the gradient-descent form of the TD(λ) algorithm de-
+TD-Gammon used the gradient-descent form of the TD(\lambda) algorithm de-
 scribed in Section 8.2, with the gradients computed by the error backpropagation algorithm (Rumelhart, Hinton, and Williams, 1986). Recall that the
 general update rule for this case is
 wt+1 = wt + α Rt+1 + γˆ(St+1 ) − v (St ) zt ,
@@ -8028,7 +8014,7 @@ both links of the acrobot hanging straight down and at rest. Torques were
 applied by the reinforcement learning agent until the goal was reached, which
 always happened eventually. Then the acrobot was restored to its initial rest
 position and a new episode was begun.
-The learning algorithm used was Sarsa(λ) with linear function approximation, tile coding, and replacing traces as in Figure 9.8. With a small, discrete
+The learning algorithm used was Sarsa(\lambda) with linear function approximation, tile coding, and replacing traces as in Figure 9.8. With a small, discrete
 action set, it is natural to use a separate set of tilings for each action. The
 next choice is of the continuous variables with which to represent the state.
 A clever designer would probably represent the state in terms of the angular
@@ -8066,14 +8052,14 @@ Steps per episode
 smoothed
 average of
 Episodes
-Figure 15.6: Learning curves for Sarsa(λ) on the acrobot task.
+Figure 15.6: Learning curves for Sarsa(\lambda) on the acrobot task.
 each of the 6 sets of two dimensions. Finally, a set of 12 tilings depended each
 on only one dimension (3 tilings for each of the 4 dimensions). This resulted
 in a total of approximately 25, 000 tiles for each action. This number is small
 enough that hashing was not necessary. All tilings were oﬀset by a random
 fraction of an interval in all relevant dimensions.
 The remaining parameters of the learning algorithm were α = 0.2/48,
-λ = 0.9, ε = 0, and q1 = 0. The use of a greedy policy (ε = 0) seemed
+\lambda = 0.9, \epsilon = 0, and q1 = 0. The use of a greedy policy (\epsilon = 0) seemed
 preferable on this task because long sequences of correct actions are needed to
 do well. One exploratory action could spoil a whole sequence of good actions.
 Exploration was ensured instead by starting the action values optimistically, at
@@ -8496,14 +8482,14 @@ being worth 0.001 units of RDF. So, for example, if from some schedule it is
 possible to produce a conﬂict-free schedule with one repair or with two, an
 optimal policy will take extra repair only if it promises a reduction in ﬁnal
 RDF of more than 0.001.
-Zhang and Dietterich used TD(λ) to learn the value function. Function
+Zhang and Dietterich used TD(\lambda) to learn the value function. Function
 approximation was by a multilayer neural network trained by backpropagating
-TD errors. Actions were selected by an ε-greedy policy, with ε decreasing
+TD errors. Actions were selected by an \epsilon-greedy policy, with \epsilon decreasing
 during learning. One-step lookahead search was used to ﬁnd the greedy action.
 Their knowledge of the problem made it easy to predict the schedules that
 would result from each repair operation. They experimented with a number of
 modiﬁcations to this basic procedure to improve its performance. One was to
-use the TD(λ) algorithm backward after each episode, with the eligibility trace
+use the TD(\lambda) algorithm backward after each episode, with the eligibility trace
 extending to future rather than to past states. Their results suggested that this
 was more accurate and eﬃcient than forward learning. In updating the weights
 of the network, they also sometimes performed multiple weight updates when
@@ -8555,7 +8541,7 @@ subsets used for training, determining when to stop training (a validation set),
 and ﬁnal testing. During training they tested the system on the validation
 set after every 100 episodes and stopped training when performance on the
 validation set stopped changing, which generally took about 10,000 episodes.
-They trained networks with diﬀerent values of λ (0.2 and 0.7), with three
+They trained networks with diﬀerent values of \lambda (0.2 and 0.7), with three
 diﬀerent training sets, and they saved both the ﬁnal set of weights and the
 set of weights producing the best performance on the validation set. Counting
 each set of weights as a diﬀerent network, this produced 12 networks, each of
@@ -8642,7 +8628,7 @@ the four corners of the space are the three primary methods for estimating
 values: DP, TD, and Monte Carlo. Along the lower edge of the space are
 the sample-backup methods, ranging from one-step TD backups to full-return
 Monte Carlo backups. Between these is a spectrum including methods based
-on n-step backups and mixtures of n-step backups such as the λ-backups
+on n-step backups and mixtures of n-step backups such as the \lambda-backups
 implemented by eligibility traces.
 DP methods are shown in the extreme upper-left corner of the space because they involve one-step full backups. The upper-right corner is the extreme
 case of full backups so deep that they run all the way to terminal states (or, in
@@ -8679,7 +8665,7 @@ a model or a separate policy (as in actor–critic methods) is required for
 action selection.
 Action selection/exploration How are actions selected to ensure a suitable
 trade-oﬀ between exploration and exploitation? We have considered only
-the simplest ways to do this: ε-greedy and softmax action selection, and
+the simplest ways to do this: \epsilon-greedy and softmax action selection, and
 optimistic initialization of values.
 Synchronous vs. asynchronous Are the backups for all states performed
 simultaneously or one by one in some order?
@@ -8945,7 +8931,7 @@ Conference on Artiﬁcial Intelligence, pp. 183–188. AAAI/MIT Press, Menlo
 Park, CA.
 Christensen, J., Korf, R. E. (1986). A uniﬁed theory of heuristic evaluation functions and its application to learning. In Proceedings of the Fifth
 National Conference on Artiﬁcial Intelligence, pp. 148–152. Morgan Kaufmann, San Mateo, CA.
-Cichosz, P. (1995). Truncating temporal diﬀerences: On the eﬃcient implementation of TD(λ) for reinforcement learning. Journal of Artiﬁcial
+Cichosz, P. (1995). Truncating temporal diﬀerences: On the eﬃcient implementation of TD(\lambda) for reinforcement learning. Journal of Artiﬁcial
 Intelligence Research, 2:287–318.
 Clark, W. A., Farley, B. G. (1955). Generalization of pattern recognition in a
 self-organizing system. In Proceedings of the 1955 Western Joint Computer
@@ -8981,10 +8967,10 @@ Daniel, J. W. (1976). Splines and eﬃciency in dynamic programming. Journal
 of Mathematical Analysis and Applications, 54:402–407.
 Dayan, P. (1991). Reinforcement comparison. In D. S. Touretzky, J. L. Elman, T. J. Sejnowski, and G. E. Hinton (eds.), Connectionist Models: Proceedings of the 1990 Summer School, pp. 45–51. Morgan Kaufmann, San
 Mateo, CA.
-Dayan, P. (1992). The convergence of TD(λ) for general λ. Machine Learning,
+Dayan, P. (1992). The convergence of TD(\lambda) for general \lambda. Machine Learning,
 Dayan, P., Hinton, G. E. (1993). Feudal reinforcement learning. In S. J. Hanson, J. D. Cohen, and C. L. Giles (eds.), Advances in Neural Information Processing Systems: Proceedings of the 1992 Conference, pp. 271–278.
 Morgan Kaufmann, San Mateo, CA.
-Dayan, P., Sejnowski, T. (1994). TD(λ) converges with probability 1. Machine
+Dayan, P., Sejnowski, T. (1994). TD(\lambda) converges with probability 1. Machine
 Learning, 14:295–301.
 Dean, T., Lin, S.-H. (1995). Decomposition techniques for planning in stochastic domains. In Proceedings of the Fourteenth International Joint Conference on Artiﬁcial Intelligence, pp. 1121–1127. Morgan Kaufmann. See
 also Technical Report CS-95-10, Brown University, Department of Computer Science, 1995.
@@ -9502,7 +9488,7 @@ Zhang, W., Dietterich, T. G. (1995). A reinforcement learning approach to
 job-shop scheduling. In Proceedings of the Fourteenth International Joint
 Conference on Artiﬁcial Intelligence, pp. 1114–1120. Morgan Kaufmann.
 Zhang, W., Dietterich, T. G. (1996). High-performance job-shop scheduling
-with a time–delay TD(λ) network. In D. S. Touretzky, M. C. Mozer,
+with a time–delay TD(\lambda) network. In D. S. Touretzky, M. C. Mozer,
 M. E. Hasselmo (eds.), Advances in Neural Information Processing Systems: Proceedings of the 1995 Conference, pp. 1024–1030. MIT Press,
 Cambridge, MA.
 Zweben, M., Daun, B., Deale, M. (1994). Scheduling and rescheduling with
